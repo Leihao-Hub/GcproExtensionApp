@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZexIfYtxaPhLup9+mzM3NV1863afwIpDhHLclzv+gXoosPPxk9SiHe+7mJ3f3HRdkd2OeAIfUANjxP1X6bguBA==",
+  "success": true,
+  "projectFilePath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Operator\\.nuget\\packages\\epplus\\7.1.3\\epplus.7.1.3.nupkg.sha512",
+    "C:\\Users\\Operator\\.nuget\\packages\\epplus.interfaces\\6.1.1\\epplus.interfaces.6.1.1.nupkg.sha512",
+    "C:\\Users\\Operator\\.nuget\\packages\\epplus.system.drawing\\6.1.1\\epplus.system.drawing.6.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

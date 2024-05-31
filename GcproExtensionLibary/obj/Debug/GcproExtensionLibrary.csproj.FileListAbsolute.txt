@@ -1,0 +1,10 @@
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.AssemblyReference.cache
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.CoreCompileInputs.cache
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibary.dll
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibary.pdb
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug\EPPlus.dll
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug\EPPlus.Interfaces.dll
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug\EPPlus.System.Drawing.dll
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExt.CCE0ECD5.Up2Date
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.dll
+Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.pdb
