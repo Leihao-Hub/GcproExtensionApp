@@ -335,11 +335,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
+      "projectUniqueName": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
       "projectName": "GcproExtensionLibary",
-      "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
+      "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
       "packagesPath": "C:\\Users\\Operator\\.nuget\\packages\\",
-      "outputPath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\obj\\",
+      "outputPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

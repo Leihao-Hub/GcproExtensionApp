@@ -773,6 +773,7 @@ namespace GcproExtensionApp
             this.TxtOutpRunFwd.Name = "TxtOutpRunFwd";
             this.TxtOutpRunFwd.Size = new System.Drawing.Size(136, 13);
             this.TxtOutpRunFwd.TabIndex = 7;
+            this.TxtOutpRunFwd.MouseEnter += new System.EventHandler(this.TxtOutpRunFwd_MouseEnter);
             // 
             // ChKPower
             // 

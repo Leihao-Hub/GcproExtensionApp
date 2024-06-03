@@ -36,7 +36,7 @@ namespace GcproExtensionApp
 
         public const string NULL = "null";
         public const string DEFAULT_GCPRO_TEMP_PATH = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH;
-        public const string OBJECT_FIELD = "数据库字段:";
+        public const string OBJECT_FIELD = "数据库字段: ";
 
         public const string MSG_INVALID_IO_SYMBOL = "无效的IO名称！";
         public const char IO_SYMBOL_SUFFIX_SPLIT = ':';
@@ -93,7 +93,7 @@ namespace GcproExtensionApp
             return isInt || isLong || isFloat;
         }
 
-        public static string GetObjectSymbol(string source )
+        public static string GetObjectSymbolFromIO(string source )
         {
             string ret=string.Empty;
             if (source.Length >= MIN_IO_SYMBOL_LENGTH)
@@ -102,6 +102,7 @@ namespace GcproExtensionApp
             { ret = MSG_INVALID_IO_SYMBOL; }
             return ret;
         }
+   
 
         #region Operate bit 
         public static void SetBit(ref long sourceValue, byte position)

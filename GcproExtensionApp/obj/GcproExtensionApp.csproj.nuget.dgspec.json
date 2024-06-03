@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj": {}
+    "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj": {}
   },
   "projects": {
-    "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj": {
+    "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj",
+        "projectUniqueName": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj",
         "projectName": "GcproExtensionApp",
-        "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj",
+        "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\GcproExtensionApp.csproj",
         "packagesPath": "C:\\Users\\Operator\\.nuget\\packages\\",
-        "outputPath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionApp\\obj\\",
+        "outputPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
@@ -32,8 +32,8 @@
         "frameworks": {
           "net46": {
             "projectReferences": {
-              "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj": {
-                "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj"
+              "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj": {
+                "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj"
               }
             }
           }
@@ -69,14 +69,14 @@
         }
       }
     },
-    "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj": {
+    "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
+        "projectUniqueName": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
         "projectName": "GcproExtensionLibary",
-        "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
+        "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
         "packagesPath": "C:\\Users\\Operator\\.nuget\\packages\\",
-        "outputPath": "Z:\\D\\Leihao\\Data\\Programming\\C#\\GcproExtensionApp\\GcproExtensionLibary\\obj\\",
+        "outputPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [

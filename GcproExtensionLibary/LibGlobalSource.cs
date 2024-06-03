@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GcproExtensionLibrary.Gcpro;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace GcproExtensionLibrary
         public const string EX_IO_ERROR = "发生I/O错误";
         public const string EX_UNKNOW = "未知错误";
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
-        public const string EX_SPECIFIED_COLUMN= "未指定读取列。";
+        public const string EX_SPECIFIED_COLUMN = "未指定读取列。";
         #endregion
         public static string[] SplitStringWithRule(string source, string rule)
         {
@@ -45,12 +46,35 @@ namespace GcproExtensionLibrary
             return result;
         }
 
-    
-
+        public static RuleSubPos RuleSubPos(string source, string rule)
+        {
+            bool startsWithRule = source.StartsWith(rule);
+            bool endsWithRule = source.EndsWith(rule);
+            RuleSubPos ruleSubPos = new RuleSubPos
+            {
+                StartPos = startsWithRule,
+                EndPos = endsWithRule,
+                MidPos = startsWithRule && !endsWithRule,
+                PosInString = startsWithRule ? 0 : source.IndexOf(rule),
+                Len = rule.Length
+            };
+            return ruleSubPos;
+        }
+        public static string GenerateObjectName(string[] source, RuleSubPos ruleSubPos, string rule)
+        {
+            string result = string.Empty;
+            if (ruleSubPos.StartPos)
+            { result = rule + source[0]; }
+            else if (ruleSubPos.EndPos)
+            { result = source[0] + rule; }
+            else if (ruleSubPos.PosInString > 0)
+            { result = source[0] + rule + source[2]; }
+            return result;
+        }
     }
     public interface IGcpro
     {
-     
+
         void CreateObject();
 
     }

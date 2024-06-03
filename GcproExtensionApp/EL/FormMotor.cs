@@ -32,7 +32,6 @@ namespace GcproExtensionApp
         public FormMotor()
         {
             InitializeComponent();
-
         }
         #region Public object in this class
         GcMotor myMotor = new GcMotor(AppGlobalSource.GcproDBInfo.GcproTempPath);
@@ -618,122 +617,125 @@ namespace GcproExtensionApp
         #region <------Field in database display
         private void TxtSymbol_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text0";
         }
 
         private void TxtDescription_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text1";
         }
 
         private void TxtInpRunFwd_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value11";
         }
-
+        private void TxtOutpRunFwd_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value12";
+        }
         private void TxtInHWStop_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value47";
         }
 
         private void TxtVFCAdapter_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value34";
         }
 
         private void TxtAO_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value33";
         }
 
         private void ComboUnit_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value40";
         }
 
         private void ComboEquipmentInfoType_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value5";
         }
 
         private void ComboHornCode_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value2";
         }
 
         private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "DPNode1";
         }
 
         private void ComboDPNode2_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "DPNode2";
         }
 
         private void TxtMonTime_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value21";
         }
 
         private void TxtStartDelayTime_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value26";
         }
 
         private void TxtStartingTime_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value22";
         }
 
         private void TxtStoppingTime_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value23";
         }
 
         private void TxtIdlingTime_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value24";
         }
 
         private void TxtFaultDelayTime_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value25";
         }
 
         private void TxtKW_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value49";
         }
 
         private void ChkParManual_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit1";
         }
 
         private void ChkRestartDelay_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit2";
         }
 
         private void ChkRevNotAllowed_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit7";
         }
 
         private void ChKPower_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit8";
         }
 
         private void ChkRunInterlock_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value9.Bit1";
         }
 
         private void ChkStartingInterlock_MouseEnter(object sender, EventArgs e)
         {
-
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value9.Bit0";
         }
         #endregion
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -930,6 +932,6 @@ namespace GcproExtensionApp
             btnReadBML_Click(sender,e);
         }
 
-      
+     
     }
 }

@@ -119,12 +119,13 @@ namespace GcproExtensionLibrary.Gcpro
         public bool StartPos;
         public bool EndPos;
         public bool MidPos;
+        public int Len;
         public int PosInString;
     }
     public struct RuleSubDataSet
     { 
         public string Name;
-        public int Len;
+
         public int Inc;
         public string[] Sub;
         public RuleSubPos PosInfo ;

@@ -63,6 +63,12 @@
     <Compile Include="EL\FormMotor.Designer.cs">
       <DependentUpon>FormMotor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ObjectBroswer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObjectBroswer.Designer.cs">
+      <DependentUpon>ObjectBroswer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AppStart.resx">
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EL\FormMotor.resx">
       <DependentUpon>FormMotor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObjectBroswer.resx">
+      <DependentUpon>ObjectBroswer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
