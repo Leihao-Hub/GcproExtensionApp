@@ -17,45 +17,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
     public class GcMotor : BaseMotor, IGcpro
     {
-        #region Public struct
-        public struct MotorAppFieldCollection
-        {
-            public string InpFwd;
-            public string OutpFwd;
-            public string InpRev;
-            public string OutpRev;
-            public string InpContactor;
-            public string Adapter;
-            public string ParMonTime;
-            public string ParStartDelay;
-            public string ParStartingTime;
-            public string ParStoppingTime;
-            public string ParIdlingTime;
-            public string ParFaultDelayTime;
-            public string ParPowerNominal;
-            public string ParSpeedService;
-            public string Unit;
-
-            //public MotorAppFieldCollection(bool s)
-            //{
-            //    InpFwd = LibGlobalSource.NOCHILD;
-            //    OutpFwd = LibGlobalSource.NOCHILD;
-            //    InpRev = LibGlobalSource.NOCHILD;
-            //    OutpRev = LibGlobalSource.NOCHILD;
-            //    InpContactor = LibGlobalSource.NOCHILD;
-            //    Adapter = LibGlobalSource.NOCHILD;
-            //    ParMonTime = "50";
-            //    ParStartDelay = "0";
-            //    ParStartingTime = "10";
-            //    ParStoppingTime = "10";
-            //    ParIdlingTime = "10";
-            //    ParFaultDelayTime = "10";
-            //    ParPowerNominal = "0";
-            //    ParSpeedService = "20";
-            //    Unit = "2";
-            //}
-        }
-        #endregion
         public struct MotorRule
         {
             public GcBaseRule Common;
@@ -66,133 +27,215 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         private string filePath;
         private static string MotorFileName = $@"\{OTypeCollection.EL_Motor}.Txt";
-        private CommonObjectFields comObjectFields;
         private string hornCode;
         private string pType;
         private string value9;
         private string value10;
         private string dpNode1;
         private string dpNode2;
-        private MotorAppFieldCollection motorAppFields;
         private string isNew;
         public static MotorRule Rule;
+        private string name;
+        private string description;
+        private string subType;
+        private string processFct;
+        private string building;
+        private string elevation;
+        private string fieldBusNode;
+        private string panel_ID;
+        private string diagram;
+
+        private string page;
+        private string inpFwd;
+        private string outpFwd;
+        private string inpRev;
+        private string outpRev;
+        private string inpContactor;
+        private string adapter;
+        private string parMonTime;
+        private string parStartDelay;
+        private string parStartingTime;
+        private string parStoppingTime;
+        private string parIdlingTime;
+        private string parFaultDelayTime;
+        private string parPowerNominal;
+        private string parSpeedService;
+        private string unit;
 
         #region Property:Gcpro motor data fields
-        public override CommonObjectFields ComObjectFields
+        public override string Name
         {
-            get
-            {
-                return comObjectFields;
-            }
-            set
-            {
-                comObjectFields = value;
-            }
+            get { return name; }
+            set { name = value; }
+        }
+        public override string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+        public override string SubType
+        {
+            get { return subType; }
+            set { subType = value; }
+        }
+
+        public override string ProcessFct
+        {
+            get { return processFct; }
+            set { processFct = value; }
+        }
+        public override string Building
+        {
+            get { return building; }
+            set { building = value; }
+        }
+        public override string Elevation
+        {
+            get { return elevation; }
+            set { elevation = value; }
+        }
+        public override string FieldBusNode
+        {
+            get { return fieldBusNode; }
+            set { fieldBusNode = value; }
+        }
+        public override string Panel_ID
+        {
+            get { return panel_ID; }
+            set { panel_ID = value; }
+        }
+        public override string Diagram
+        {
+            get { return diagram; }
+            set { diagram = value; }
+        }
+        public override string Page
+        {
+            get { return page; }
+            set { page = value; }
         }
         public override string PType
         {
-            get
-            {
-                return pType;
-            }
-            set
-            {
-                pType = value;
-            }
+            get { return pType; }
+            set { pType = value; }
+
         }
         public override string HornCode
         {
-            get
-            {
-                return hornCode;
-            }
-            set
-            {
-                hornCode = value;
-            }
+            get { return hornCode; }
+            set { hornCode = value; }
         }
         public override string DPNode1
         {
-            get
-            {
-                return dpNode1;
-            }
-            set
-            {
-                dpNode1 = value;
-            }
+            get { return dpNode1; }
+            set { dpNode1 = value; }
         }
         public override string DPNode2
         {
-            get
-            {
-                return dpNode2;
-            }
-            set
-            {
-                dpNode2 = value;
-            }
+            get { return dpNode2; }
+            set { dpNode2 = value; }
+
         }
         public override string Value9
         {
-            get
-            {
-                return value9;
-            }
-            set
-            {
-                value9 = value;
-            }
+            get { return value9; }
+            set { value9 = value; }
         }
         public override string Value10
         {
-            get
-            {
-                return value10;
-            }
-            set
-            {
-                value10 = value;
-            }
+            get { return value10; }
+            set { value10 = value; }
         }
-        public MotorAppFieldCollection MotorAppFields
+    
+        public string InpFwd
         {
-            get
-            {
-                return motorAppFields;
-            }
-            set
+            get { return inpFwd; }
+            set { inpFwd = value; }
+        }
+        public string OutpFwd
+        {
+            get { return outpFwd; }
+            set { outpFwd = value; }
+        }
+        public string InpRev
+        {
+            get { return inpRev; }
+            set { inpRev = value; }
+        }
+        public string OutpRev
+        {
+            get { return outpRev; }
+            set { outpRev = value; }
+        }
+        public string InpContactor
+        {
+            get { return inpContactor; }
+            set { inpContactor = value; }
+        }
 
-            {
-                motorAppFields = value;
-            }
+        public string Adapter
+        {
+            get { return adapter; }
+            set { adapter = value; }
+        }
+        public string ParMonTime
+        {
+            get { return parMonTime; }
+            set { parMonTime = value; }
+        }
+        public string ParStartDelay
+        {
+            get { return parStartDelay; }
+            set { parStartDelay = value; }
+        }
+        public string ParStartingTime
+        {
+            get { return parStartingTime; }
+            set { parStartingTime = value; }
+        }
+        public string ParStoppingTime
+        {
+            get { return parStoppingTime; }
+            set { parStoppingTime = value; }
+        }
+        public string ParIdlingTime
+        {
+            get { return parIdlingTime; }
+            set { parIdlingTime = value; }
+        }
+        public string ParFaultDelayTime
+        {
+            get { return parFaultDelayTime; }
+            set { parFaultDelayTime = value; }
+        }
+
+        public string ParPowerNominal
+        {
+            get { return parPowerNominal; }
+            set { parPowerNominal = value; }
+        }
+        public string ParSpeedService
+        {
+            get { return parSpeedService; }
+            set { parSpeedService = value; }
+        }
+        public string Unit
+        {
+            get { return unit; }
+            set { unit = value; }
         }
         public override string IsNew
         {
-            get
-            {
-                return isNew;
-            }
-            set
-            {
-                isNew = value;
-            }
+            get { return isNew; }
+            set { isNew = value; }
         }
         #endregion
         public override string FilePath
         {
-            get
-            {
-                return filePath;
-            }
-            set
-            {
-                filePath = value;
-            }
-
+            get { return filePath; }
+            set { filePath = value; }
         }
-
-        #region Readonly property
+        #region Readonly subtype property
         public static string M11 { get; } = "M11";
         public static string M12 { get; } = "M12";
         public static string M21 { get; } = "M21";
@@ -203,6 +246,37 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string M11ELV { get; } = "M11ELV";
         public static string ImpExpRuleName { get; } = "ImpExpMotor";
         public static int OTypeValue { get; } = (int)OTypeCollection.EL_Motor;
+        #endregion
+
+        #region Readonly ptype property
+        public static string P7031 { get; } = "7031";
+        public static string P7032 { get; } = "7032";
+        public static string P7033 { get; } = "7033";
+        public static string P7034 { get; } = "7034";
+        public static string P7035 { get; } = "7035";
+        public static string P7036 { get; } = "7036";
+        public static string P7041 { get; } = "7041";
+        public static string P7042 { get; } = "7042";
+        public static string P7043 { get; } = "7043";
+        public static string P7044 { get; } = "7044";
+        public static string P7045 { get; } = "7045";
+        public static string P7046 { get; } = "7046";
+        public static string P7051 { get; } = "7051";
+        public static string P7052 { get; } = "7052";
+        public static string P7053 { get; } = "7053";
+        public static string P7054 { get; } = "7054";
+        public static string P7055 { get; } = "7055";
+        public static string P7056 { get; } = "7056";
+        public static string P7056_1 { get; } = "7056.1";
+        public static string P7056_2 { get; } = "7056.2";
+        public static string P7057 { get; } = "7057";
+        public static string P7058 { get; } = "7058";
+        public static string P7059 { get; } = "7059";
+        public static string P7060 { get; } = "7060";
+        public static string P9051 { get; } = "9051";
+        public static string P9052 { get; } = "9053";
+        public static string P9053 { get; } = "9053";
+        public static string P9056 { get; } = "9056";
         #endregion
         public GcMotor()
         {
@@ -218,17 +292,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             /// string Diagram;
             /// string Page;
             /// </ StandardFileds >
-            comObjectFields.Name = "-MXZ01";
-            comObjectFields.Description = "Motor";
-            comObjectFields.SubType = M11;
-            comObjectFields.ProcessFct = string.Empty;
-            comObjectFields.Page = string.Empty;
-            comObjectFields.Building = "--";
-            comObjectFields.Elevation = "--";
-            comObjectFields.FieldBusNode = string.Empty;
-            comObjectFields.Panel_ID = string.Empty;
-            comObjectFields.Diagram = string.Empty;
-            comObjectFields.Page = string.Empty;
+            name = "-MXZ01";
+            description = "Motor";
+            subType = M11;
+            processFct = string.Empty;
+            page = string.Empty;
+            building = "--";
+            elevation = "--";
+            fieldBusNode = string.Empty;
+            panel_ID = string.Empty;
+            diagram = string.Empty;
+            page = string.Empty;
 
             pType = "7053";
             hornCode = LibGlobalSource.NOCHILD;
@@ -236,45 +310,45 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             dpNode2 = LibGlobalSource.NOCHILD;
             value9 = "2";
             value10 = "130";
-            motorAppFields.InpFwd = LibGlobalSource.NOCHILD;
-            motorAppFields.OutpFwd = LibGlobalSource.NOCHILD;
-            motorAppFields.InpRev = LibGlobalSource.NOCHILD;
-            motorAppFields.OutpRev = LibGlobalSource.NOCHILD;
-            motorAppFields.InpContactor = LibGlobalSource.NOCHILD;
-            motorAppFields.Adapter = LibGlobalSource.NOCHILD;
-            motorAppFields.ParMonTime = "50";
-            motorAppFields.ParStartDelay = "0";
-            motorAppFields.ParStartingTime = "10";
-            motorAppFields.ParStoppingTime = "10";
-            motorAppFields.ParIdlingTime = "10";
-            motorAppFields.ParFaultDelayTime = "10";
-            motorAppFields.ParPowerNominal = "0";
-            motorAppFields.ParSpeedService = "20";
-            motorAppFields.Unit = "2";
+            inpFwd = LibGlobalSource.NOCHILD;
+            outpFwd = LibGlobalSource.NOCHILD;
+            inpRev = LibGlobalSource.NOCHILD;
+            outpRev = LibGlobalSource.NOCHILD;
+            inpContactor = LibGlobalSource.NOCHILD;
+            adapter = LibGlobalSource.NOCHILD;
+            parMonTime = "50";
+            parStartDelay = "0";
+            parStartingTime = "10";
+            parStoppingTime = "10";
+            parIdlingTime = "10";
+            parFaultDelayTime = "10";
+            parPowerNominal = "0";
+            parSpeedService = "20";
+            unit = "2";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + MotorFileName;
         }
         public GcMotor(string filePath = null) : this()
         {
-            this.filePath = (string.IsNullOrWhiteSpace(filePath) ? 
+            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + MotorFileName : filePath + MotorFileName);
         }
-        public void CreateObject()
+        public void CreateObject(Encoding encoding)
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
-            isNew = "No";
+            isNew = "false";
             string stdString, appString;
             stdString = (int)OType + LibGlobalSource.TAB +
-                comObjectFields.Name + LibGlobalSource.TAB +
-                comObjectFields.Description + LibGlobalSource.TAB +
-                comObjectFields.SubType + LibGlobalSource.TAB +
-                comObjectFields.ProcessFct + LibGlobalSource.TAB +
-                comObjectFields.Building + LibGlobalSource.TAB +
-                comObjectFields.Elevation + LibGlobalSource.TAB +
-                comObjectFields.FieldBusNode + LibGlobalSource.TAB +
-                comObjectFields.Panel_ID + LibGlobalSource.TAB +
-                comObjectFields.Diagram + LibGlobalSource.TAB +
-                comObjectFields.Page + LibGlobalSource.TAB +
+                name + LibGlobalSource.TAB +
+                description + LibGlobalSource.TAB +
+                subType + LibGlobalSource.TAB +
+                processFct + LibGlobalSource.TAB +
+                building + LibGlobalSource.TAB +
+                elevation + LibGlobalSource.TAB +
+                fieldBusNode + LibGlobalSource.TAB +
+                panel_ID + LibGlobalSource.TAB +
+                diagram + LibGlobalSource.TAB +
+                page + LibGlobalSource.TAB +
                 pType + LibGlobalSource.TAB +
                 hornCode + LibGlobalSource.TAB;
 
@@ -282,22 +356,23 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 dpNode2 + LibGlobalSource.TAB +
                 value9 + LibGlobalSource.TAB +
                 value10 + LibGlobalSource.TAB +
-                motorAppFields.InpFwd + LibGlobalSource.TAB +
-                motorAppFields.OutpFwd + LibGlobalSource.TAB +
-                motorAppFields.InpRev + LibGlobalSource.TAB +
-                motorAppFields.OutpRev + LibGlobalSource.TAB +
-                motorAppFields.InpContactor + LibGlobalSource.TAB +
-                motorAppFields.Adapter + LibGlobalSource.TAB +
-                motorAppFields.ParMonTime + LibGlobalSource.TAB +
-                motorAppFields.ParStartDelay + LibGlobalSource.TAB +
-                motorAppFields.ParStartingTime + LibGlobalSource.TAB +
-                motorAppFields.ParIdlingTime + LibGlobalSource.TAB +
-                motorAppFields.ParFaultDelayTime + LibGlobalSource.TAB +
-                motorAppFields.ParPowerNominal + LibGlobalSource.TAB +
-                motorAppFields.ParSpeedService + LibGlobalSource.TAB +
-                motorAppFields.Unit + LibGlobalSource.TAB +
+                inpFwd + LibGlobalSource.TAB +
+                outpFwd + LibGlobalSource.TAB +
+                inpRev + LibGlobalSource.TAB +
+                outpRev + LibGlobalSource.TAB +
+                inpContactor + LibGlobalSource.TAB +
+                adapter + LibGlobalSource.TAB +
+                parMonTime + LibGlobalSource.TAB +
+                parStartDelay + LibGlobalSource.TAB +
+                parStartingTime + LibGlobalSource.TAB +
+                parStoppingTime + LibGlobalSource.TAB +
+                parIdlingTime + LibGlobalSource.TAB +
+                parFaultDelayTime + LibGlobalSource.TAB +
+                parPowerNominal + LibGlobalSource.TAB +
+                parSpeedService + LibGlobalSource.TAB +
+                unit + LibGlobalSource.TAB +
                 isNew;
-            textFileHandle.WriteToTextFile(stdString + appString);
+            textFileHandle.WriteToTextFile(stdString + appString, encoding);
 
         }
         public void Clear()
@@ -309,13 +384,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public bool SaveFileAs()
         {
 
-        TextFileHandle textFileHandle = new TextFileHandle();
+            TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
             return textFileHandle.SaveFileAs();
 
-       
-        }   
-}
+
+        }
+    }
     public abstract class BaseMotor : Element
     {
         public override OTypeCollection OType { get; set; }

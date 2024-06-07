@@ -13,7 +13,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public override string Value9 { get; set; }
         public override string Value10 { get; set; }
         public override OTypeCollection OType { get; set; }
-        public override CommonObjectFields ComObjectFields { get; set; }
         public override string FilePath
         {
             get

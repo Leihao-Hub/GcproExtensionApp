@@ -137,20 +137,20 @@ namespace GcproExtensionLibary
             #endregion
             static ObjData()
             {
-                key = new DbParameter { Name = "Key", Value = (int)0 };
-                idold = new DbParameter { Name = "IDOld", Value = (int)0 };
-                idaepro = new DbParameter { Name = "IDAepro", Value = (int)0 };
-                otype= new DbParameter { Name = "OType", Value = (int)0 };
-                owner = new DbParameter { Name = "Owner", Value = (int)0 };
+                key = new DbParameter { Name = "Key", Value = (long)0 };
+                idold = new DbParameter { Name = "IDOld", Value = (double)0.0 };
+                idaepro = new DbParameter { Name = "IDAepro", Value = (double)0.0 };
+                otype= new DbParameter { Name = "OType", Value = (double)0.0 };
+                owner = new DbParameter { Name = "Owner", Value = (long)0 };
                 subtype= new DbParameter { Name = "SubType", Value = string.Empty };
-                oindex= new DbParameter { Name = "OIndex", Value = (int)0 };
+                oindex= new DbParameter { Name = "OIndex", Value = (double)0.0 };
                 valide = new DbParameter { Name = "Valide", Value = (int)0 };
                 multipleUsed = new DbParameter { Name = "MultipleUsed", Value = string.Empty };
                 building= new DbParameter { Name = "Building", Value = string.Empty };
                 elevation = new DbParameter { Name = "Elevation", Value = string.Empty };
-                alarm_area = new DbParameter { Name = "Alarm_Area", Value = (int)0};
+                alarm_area = new DbParameter { Name = "Alarm_Area", Value = (long)0};
                 panel_id = new DbParameter { Name = "Panel_ID", Value = string.Empty };
-                revision = new DbParameter { Name = "Revision", Value = (int)0 };
+                revision = new DbParameter { Name = "Revision", Value = (long)0 };
                 text0 = new DbParameter { Name = "Text0", Value = string.Empty };
                 text1 = new DbParameter { Name = "Text1", Value = string.Empty };
                 text2 = new DbParameter { Name = "Text2", Value = string.Empty };
@@ -160,97 +160,97 @@ namespace GcproExtensionLibary
                 text7 = new DbParameter { Name = "Text7", Value = string.Empty };
                 text8 = new DbParameter { Name = "Text8", Value = string.Empty };
                 text9 = new DbParameter { Name = "Text9", Value = string.Empty };
-                value0 = new DbParameter { Name = "Value0", Value = (int)0 };
-                value1 = new DbParameter { Name = "Value1", Value = (int)0 };
-                value2 = new DbParameter { Name = "Value2", Value = (int)0 };
-                value3 = new DbParameter { Name = "Value3", Value = (int)0 };
-                value4 = new DbParameter { Name = "Value4", Value = (int)0 };
-                value5 = new DbParameter { Name = "Value5", Value = (int)0 };
-                value6 = new DbParameter { Name = "Value6", Value = (int)0 };
-                value7 = new DbParameter { Name = "Value7", Value = (int)0 };
-                value8 = new DbParameter { Name = "Value8", Value = (int)0 };
-                value9 = new DbParameter { Name = "Value9", Value = (int)0 };
-                value10 = new DbParameter { Name = "Value10", Value = (int)0 };
-                value11 = new DbParameter { Name = "Value11", Value = (int)0 };
-                value12 = new DbParameter { Name = "Value12", Value = (int)0 };
-                value13 = new DbParameter { Name = "Value13", Value = (int)0 };
-                value14 = new DbParameter { Name = "Value14", Value = (int)0 };
-                value15 = new DbParameter { Name = "Value15", Value = (int)0 };
-                value16 = new DbParameter { Name = "Value16", Value = (int)0 };
-                value17 = new DbParameter { Name = "Value17", Value = (int)0 };
-                value18 = new DbParameter { Name = "Value18", Value = (int)0 };
-                value19 = new DbParameter { Name = "Value19", Value = (int)0 };
-                value20 = new DbParameter { Name = "Value20", Value = (int)0 };
-                value21 = new DbParameter { Name = "Value21", Value = (int)0 };
-                value22 = new DbParameter { Name = "Value22", Value = (int)0 };
-                value23 = new DbParameter { Name = "Value23", Value = (int)0 };
-                value24 = new DbParameter { Name = "Value24", Value = (int)0 };
-                value25 = new DbParameter { Name = "Value25", Value = (int)0 };
-                value26 = new DbParameter { Name = "Value26", Value = (int)0 };
-                value27 = new DbParameter { Name = "Value27", Value = (int)0 };
-                value28 = new DbParameter { Name = "Value28", Value = (int)0 };
-                value29 = new DbParameter { Name = "Value29", Value = (int)0 };
-                value30 = new DbParameter { Name = "Value30", Value = (int)0 };
-                value31 = new DbParameter { Name = "Value31", Value = (int)0 };
-                value32 = new DbParameter { Name = "Value32", Value = (int)0 };
-                value33 = new DbParameter { Name = "Value33", Value = (int)0 };
-                value34 = new DbParameter { Name = "Value34", Value = (int)0 };
-                value35 = new DbParameter { Name = "Value35", Value = (int)0 };
-                value36 = new DbParameter { Name = "Value36", Value = (int)0 };
-                value37 = new DbParameter { Name = "Value37", Value = (int)0 };
-                value38 = new DbParameter { Name = "Value38", Value = (int)0 };
-                value39 = new DbParameter { Name = "Value39", Value = (int)0 };
-                value40 = new DbParameter { Name = "Value40", Value = (int)0 };
-                value41 = new DbParameter { Name = "Value41", Value = (int)0 };
-                value42 = new DbParameter { Name = "Value42", Value = (int)0 };
-                value43 = new DbParameter { Name = "Value43", Value = (int)0 };
-                value44 = new DbParameter { Name = "Value44", Value = (int)0 };
-                value45 = new DbParameter { Name = "Value45", Value = (int)0 };
-                value46 = new DbParameter { Name = "Value46", Value = (int)0 };
-                value47 = new DbParameter { Name = "Value47", Value = (int)0 };
-                value48 = new DbParameter { Name = "Value48", Value = (int)0 };
-                value49 = new DbParameter { Name = "Value49", Value = (int)0 };
-                value50 = new DbParameter { Name = "Value50", Value = (int)0 };
+                value0 = new DbParameter { Name = "Value0", Value = (double)0.0 };
+                value1 = new DbParameter { Name = "Value1", Value = (double)0.0 };
+                value2 = new DbParameter { Name = "Value2", Value = (double)0.0 };
+                value3 = new DbParameter { Name = "Value3", Value = (double)0.0 };
+                value4 = new DbParameter { Name = "Value4", Value = (double)0.0 };
+                value5 = new DbParameter { Name = "Value5", Value = (double)0.0 };
+                value6 = new DbParameter { Name = "Value6", Value = (double)0.0 };
+                value7 = new DbParameter { Name = "Value7", Value = (double)0.0 };
+                value8 = new DbParameter { Name = "Value8", Value = (double)0.0 };
+                value9 = new DbParameter { Name = "Value9", Value = (double)0.0 };
+                value10 = new DbParameter { Name = "Value10", Value = (double)0.0  };
+                value11 = new DbParameter { Name = "Value11", Value = (double)0.0  };
+                value12 = new DbParameter { Name = "Value12", Value = (double)0.0  };
+                value13 = new DbParameter { Name = "Value13", Value = (double)0.0  };
+                value14 = new DbParameter { Name = "Value14", Value = (double)0.0  };
+                value15 = new DbParameter { Name = "Value15", Value = (double)0.0  };
+                value16 = new DbParameter { Name = "Value16", Value = (double)0.0  };
+                value17 = new DbParameter { Name = "Value17", Value = (double)0.0  };
+                value18 = new DbParameter { Name = "Value18", Value = (double)0.0  };
+                value19 = new DbParameter { Name = "Value19", Value = (double)0.0  };
+                value20 = new DbParameter { Name = "Value20", Value = (double)0.0  };
+                value21 = new DbParameter { Name = "Value21", Value = (double)0.0  };
+                value22 = new DbParameter { Name = "Value22", Value = (double)0.0  };
+                value23 = new DbParameter { Name = "Value23", Value = (double)0.0  };
+                value24 = new DbParameter { Name = "Value24", Value = (double)0.0  };
+                value25 = new DbParameter { Name = "Value25", Value = (double)0.0  };
+                value26 = new DbParameter { Name = "Value26", Value = (double)0.0  };
+                value27 = new DbParameter { Name = "Value27", Value = (double)0.0  };
+                value28 = new DbParameter { Name = "Value28", Value = (double)0.0  };
+                value29 = new DbParameter { Name = "Value29", Value = (double)0.0  };
+                value30 = new DbParameter { Name = "Value30", Value = (double)0.0  };
+                value31 = new DbParameter { Name = "Value31", Value = (double)0.0  };
+                value32 = new DbParameter { Name = "Value32", Value = (double)0.0  };
+                value33 = new DbParameter { Name = "Value33", Value = (double)0.0  };
+                value34 = new DbParameter { Name = "Value34", Value = (double)0.0  };
+                value35 = new DbParameter { Name = "Value35", Value = (double)0.0  };
+                value36 = new DbParameter { Name = "Value36", Value = (double)0.0  };
+                value37 = new DbParameter { Name = "Value37", Value = (double)0.0  };
+                value38 = new DbParameter { Name = "Value38", Value = (double)0.0  };
+                value39 = new DbParameter { Name = "Value39", Value = (double)0.0  };
+                value40 = new DbParameter { Name = "Value40", Value = (double)0.0  };
+                value41 = new DbParameter { Name = "Value41", Value = (double)0.0  };
+                value42 = new DbParameter { Name = "Value42", Value = (double)0.0  };
+                value43 = new DbParameter { Name = "Value43", Value = (double)0.0  };
+                value44 = new DbParameter { Name = "Value44", Value = (double)0.0  };
+                value45 = new DbParameter { Name = "Value45", Value = (double)0.0  };
+                value46 = new DbParameter { Name = "Value46", Value = (double)0.0  };
+                value47 = new DbParameter { Name = "Value47", Value = (double)0.0  };
+                value48 = new DbParameter { Name = "Value48", Value = (double)0.0  };
+                value49 = new DbParameter { Name = "Value49", Value = (double)0.0  };
+                value50 = new DbParameter { Name = "Value50", Value = (double)0.0  };
                 objCnt = new DbParameter { Name = "ObjCnt", Value = (int)0 };
                 nameS7 = new DbParameter { Name = "NameS7", Value=string.Empty };
-                isNew = new DbParameter { Name = "IsNew", Value = string.Empty };
+                isNew = new DbParameter { Name = "IsNew", Value = (bool)false };
                 dpnode1= new DbParameter { Name = "DPNode1", Value = (int)0 };
                 dpnode2 = new DbParameter { Name = "DPNode2", Value = (int)0 };
                 processFct = new DbParameter { Name = "ProcessFct", Value = string.Empty };
-                s5Otype= new DbParameter { Name = "S5OType", Value = (int)0 };
+                s5Otype= new DbParameter { Name = "S5OType", Value = (long)0 };
                 text3 = new DbParameter { Name = "Text3", Value = string.Empty };
-                subProject = new DbParameter { Name = "SubProject", Value = (int)0 };
+                subProject = new DbParameter { Name = "SubProject", Value = (long)0 };
                 pageName = new DbParameter { Name = "PageName", Value = string.Empty };
-                diagramNo = new DbParameter { Name = "DiagramNo", Value = (int)0 };
-                aeproNo = new DbParameter { Name = "DiagramNo", Value = (int)0 };
+                diagramNo = new DbParameter { Name = "DiagramNo", Value = (long)0 };
+                aeproNo = new DbParameter { Name = "DiagramNo", Value = (long)0 };
                 masterCopy = new DbParameter { Name = "MasterCopy", Value = string.Empty };
                 masterCopyName = new DbParameter { Name = "MasterCopyName", Value = string.Empty };
-                value51 = new DbParameter { Name = "Value51", Value = (int)0 };
-                value52 = new DbParameter { Name = "Value52", Value = (int)0 };
-                value53 = new DbParameter { Name = "Value53", Value = (int)0 };
-                value54 = new DbParameter { Name = "Value54", Value = (int)0 };
-                value55 = new DbParameter { Name = "Value55", Value = (int)0 };
-                value56 = new DbParameter { Name = "Value56", Value = (int)0 };
-                value57 = new DbParameter { Name = "Value57", Value = (int)0 };
-                value58 = new DbParameter { Name = "Value58", Value = (int)0 };
-                value59 = new DbParameter { Name = "Value59", Value = (int)0 };
-                value60 = new DbParameter { Name = "Value60", Value = (int)0 };
-                value61 = new DbParameter { Name = "Value61", Value = (int)0 };
-                value62 = new DbParameter { Name = "Value62", Value = (int)0 };
-                value63 = new DbParameter { Name = "Value63", Value = (int)0 };
-                value64 = new DbParameter { Name = "Value64", Value = (int)0 };
-                value65 = new DbParameter { Name = "Value65", Value = (int)0 };
-                value66 = new DbParameter { Name = "Value66", Value = (int)0 };
-                value67 = new DbParameter { Name = "Value67", Value = (int)0 };
-                value68 = new DbParameter { Name = "Value68", Value = (int)0 };
-                value69 = new DbParameter { Name = "Value69", Value = (int)0 };
-                value70 = new DbParameter { Name = "Value70", Value = (int)0 };
+                value51 = new DbParameter { Name = "Value51", Value = (double)0.0  };
+                value52 = new DbParameter { Name = "Value52", Value = (double)0.0  };
+                value53 = new DbParameter { Name = "Value53", Value = (double)0.0  };
+                value54 = new DbParameter { Name = "Value54", Value = (double)0.0  };
+                value55 = new DbParameter { Name = "Value55", Value = (double)0.0  };
+                value56 = new DbParameter { Name = "Value56", Value = (double)0.0  };
+                value57 = new DbParameter { Name = "Value57", Value = (double)0.0  };
+                value58 = new DbParameter { Name = "Value58", Value = (double)0.0  };
+                value59 = new DbParameter { Name = "Value59", Value = (double)0.0  };
+                value60 = new DbParameter { Name = "Value60", Value = (double)0.0  };
+                value61 = new DbParameter { Name = "Value61", Value = (double)0.0  };
+                value62 = new DbParameter { Name = "Value62", Value = (double)0.0  };
+                value63 = new DbParameter { Name = "Value63", Value = (double)0.0  };
+                value64 = new DbParameter { Name = "Value64", Value = (double)0.0  };
+                value65 = new DbParameter { Name = "Value65", Value = (double)0.0  };
+                value66 = new DbParameter { Name = "Value66", Value = (double)0.0  };
+                value67 = new DbParameter { Name = "Value67", Value = (double)0.0  };
+                value68 = new DbParameter { Name = "Value68", Value = (double)0.0  };
+                value69 = new DbParameter { Name = "Value69", Value = (double)0.0  };
+                value70 = new DbParameter { Name = "Value70", Value = (double)0.0  };
                 singleInstanceDB = new DbParameter { Name = "SingleInstanceDB", Value = string.Empty };
                 status = new DbParameter { Name = "Status", Value = (int)0 };
                 memo1 = new DbParameter { Name = "Memo1", Value = string.Empty };
                 memo2 = new DbParameter { Name = "Memo2", Value = string.Empty };
                 isVirtual = new DbParameter { Name = "IsVirtual", Value = string.Empty };
-                communication = new DbParameter { Name = "Communication", Value = (int)0 };
+                communication = new DbParameter { Name = "Communication", Value = (long)0 };
                 notUsed = new DbParameter { Name = "NotUsed", Value = string.Empty };
                 fieldbusNode = new DbParameter { Name = "FieldbusNode", Value = (int)0 };
             }
@@ -277,8 +277,8 @@ namespace GcproExtensionLibary
             }
             public static DbParameter Owner
             {
-                get { return idold; }
-                set { idold.Value = value.Value; }
+                get { return owner; }
+                set { owner.Value = value.Value; }
             }
             public static DbParameter SubType
             {
@@ -639,7 +639,7 @@ namespace GcproExtensionLibary
             public static DbParameter IsNew
             {
                 get { return isNew; }
-                set { IsNew.Value = value.Value; }
+                set { isNew.Value = value.Value; }
             }
             public static DbParameter DPNode1
             {
@@ -851,7 +851,7 @@ namespace GcproExtensionLibary
             #endregion
             static ImpExpDef()
             {
-                id = new DbParameter { Name = "ID", Value = (int)0 };
+                id = new DbParameter { Name = "ID", Value = (double)0.0  };
                 type = new DbParameter { Name = "Type", Value = string.Empty };
                 description = new DbParameter { Name = "Description", Value = string.Empty };
                 fieldName = new DbParameter { Name = "FieldName", Value = string.Empty };
@@ -1000,7 +1000,7 @@ namespace GcproExtensionLibary
             static TranslationCbo()
             {
                 fieldClass = new DbParameter { Name = "Class", Value = string.Empty };
-                fieldValue = new DbParameter { Name = "Value", Value = (int)0 };
+                fieldValue = new DbParameter { Name = "Value", Value = (double)0.0 };
                 text = new DbParameter { Name = "Text", Value = string.Empty };
                 description = new DbParameter { Name = "Description", Value = string.Empty };
             }

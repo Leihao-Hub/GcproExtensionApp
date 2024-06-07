@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+
 namespace GcproExtensionLibrary
 {
 
@@ -28,6 +29,7 @@ namespace GcproExtensionLibrary
         public const string EX_UNKNOW = "未知错误";
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
         public const string EX_SPECIFIED_COLUMN = "未指定读取列。";
+        public const int NO_OWNER = 1;
         #endregion
         public static string[] SplitStringWithRule(string source, string rule)
         {
@@ -54,7 +56,7 @@ namespace GcproExtensionLibrary
             {
                 StartPos = startsWithRule,
                 EndPos = endsWithRule,
-                MidPos = startsWithRule && !endsWithRule,
+                MidPos = !startsWithRule && !endsWithRule,
                 PosInString = startsWithRule ? 0 : source.IndexOf(rule),
                 Len = rule.Length
             };
@@ -68,14 +70,14 @@ namespace GcproExtensionLibrary
             else if (ruleSubPos.EndPos)
             { result = source[0] + rule; }
             else if (ruleSubPos.PosInString > 0)
-            { result = source[0] + rule + source[2]; }
+            { result = source[0] + rule + source[1]; }
             return result;
         }
     }
     public interface IGcpro
     {
 
-        void CreateObject();
+        void CreateObject(Encoding encoding);
 
     }
 }

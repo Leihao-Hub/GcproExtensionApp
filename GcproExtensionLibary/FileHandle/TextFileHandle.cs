@@ -19,7 +19,7 @@ namespace GcproExtensionLibrary.FileHandle
         {
             
         }
-        public void WriteToTextFile(string textLine)
+        public void WriteToTextFile(string textLine,Encoding encoder)
         {
             /// <使用技巧>
             /// 首选使用 using 语句：
@@ -27,9 +27,10 @@ namespace GcproExtensionLibrary.FileHandle
             /// 在这个作用域最后，不管有没有异常抛出，资源都会被自动释放（Dispose方法将被调用）
             /// Append方法中文件名称所包含的文件夹必须存在，文件名称如果不存在方法会自动创建
             /// </使用技巧>
-           using (StreamWriter writer = File.AppendText(filePath))
+           using (StreamWriter writer = new StreamWriter(filePath, true, encoder))
             {
-               
+               // StreamWriter writer = File.AppendText(filePath))
+                
                 writer.WriteLine(textLine);
             }
 

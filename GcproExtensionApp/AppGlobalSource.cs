@@ -11,15 +11,17 @@ using GcproExtensionLibrary.Gcpro.GCObject;
 using GcproExtensionLibrary.FileHandle;
 using System.Drawing.Text;
 using System.IO;
+using System.Reflection;
+using GcproExtensionLibary;
+using System.Data;
+using static GcproExtensionApp.BML;
+using System.Drawing;
 #endregion
 namespace GcproExtensionApp
 {
     public static class AppGlobalSource
     {
         #region Const
-       
-      
-
         public const string ERROR_ENTER_TYPE = "输入类型错误";
         public const string ENTER_NUMERIC = "请输入一个数字类型";
         public const string FIELDS_SEPARATOR = "   |";
@@ -33,7 +35,8 @@ namespace GcproExtensionApp
         public const string FILE_NOT_EXITS = "示例描述：";
         public const string KEY_WORD_AUTOSEARCH = "搜寻关键字";
         public const string FILE_SAVE_AS_FAILURE = "文件保存失败";
-
+        public const string MOTOR_WITHOUT_VFC= "非变频控制";
+        public const string NAME = "名称";
         public const string NULL = "null";
         public const string DEFAULT_GCPRO_TEMP_PATH = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH;
         public const string OBJECT_FIELD = "数据库字段: ";
@@ -41,6 +44,9 @@ namespace GcproExtensionApp
         public const string MSG_INVALID_IO_SYMBOL = "无效的IO名称！";
         public const char IO_SYMBOL_SUFFIX_SPLIT = ':';
         public const string INFO = "信息提示";
+        public const string MSG_CLEAR_FILE = "确定要清除文件类容？";
+        public const string MSG_RULE_NOT_CORRECT = "规则不正确或者未设置:";
+        public const string MSG_CREATE_WILL_TERMINATE = "新建进程将终止";
         public const string MSG_RULE_CREATE_SUCESSFULL = "规则创建成功";
         public const string MSG_RULE_ALREADY_EXITS = "规则已经存在，需要重新创建吗";
         public const string EX_FILE_NOT_FOUND = "文件未找到，请确保文件路径正确并且文件存在。";
@@ -49,7 +55,13 @@ namespace GcproExtensionApp
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
         public const int MIN_IO_SYMBOL_LENGTH = 3;
         #endregion
-    
+        public static class AppInfo
+        {
+            public static string  Title{get;set;}
+            public static string Version { get; set; }
+            public static string Author { get;set;}
+        }
+
         public static bool NewOLEDBDriver;
         public static GcproDataBase GcproDBInfo;
 
@@ -84,6 +96,19 @@ namespace GcproExtensionApp
         {
             MessageBox.Show(ENTER_NUMERIC, ENTER_NUMERIC, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+        public static void MessageNotNumeric(string addition)
+        {
+            MessageBox.Show(ENTER_NUMERIC+ addition, ENTER_NUMERIC, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public static void RuleNotSetCorrect()
+        {
+            MessageBox.Show(AppGlobalSource.MSG_RULE_NOT_CORRECT, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        public static void RuleNotSetCorrect(string addition)
+        {
+            MessageBox.Show(AppGlobalSource.MSG_RULE_NOT_CORRECT + addition, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         public static bool CheckNumericString(string sourceString)
         {
             // 直接尝试解析字符串，如果有异常在调用处抛出 out _表示不必关注参数
@@ -92,6 +117,67 @@ namespace GcproExtensionApp
             bool isFloat = float.TryParse(sourceString, out _);
             return isInt || isLong || isFloat;
         }
+        public static bool ParseInt (string sourceString,out int outValue)
+        {
+            int tempInt;
+            bool isInt=int.TryParse(sourceString, out tempInt);
+            outValue = tempInt;
+            return isInt;
+        }
+    
+        public static bool ParseLong(string sourceString, out long outValue)
+        {
+            long tempLong ;
+            bool isLong = long.TryParse(sourceString, out tempLong);
+            outValue = tempLong;
+            return isLong;
+        }
+  
+        public static bool ParseFloat(string sourceString, out float outValue)
+        {
+            float tempFloat;
+            bool isFloat = float.TryParse(sourceString, out tempFloat);
+            outValue = tempFloat;
+            return isFloat;
+        }
+        #region Find info form database when create object
+        public static string FindIOKey(OleDb dataSource, string objIOName)
+        {
+            string key = string.Empty;
+            DataTable data;
+            data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Text0.Name}='{objIOName}'", null, null,
+                           GcproTable.ObjData.Key.Name);
+            if (data.Rows.Count != 0)
+            { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
+            else
+            { key = string.Empty; }
+            return key;
+        }
+        public static string FindDPNodeNo(OleDb dataSource, string nodeName)
+        {
+            string key = string.Empty;
+            DataTable data;
+            data = dataSource.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldText.Name}='{nodeName}' AND {GcproTable.TranslationCbo.FieldClass.Name}='{GcproTable.TranslationCbo.Class_ASWInDPFault}'",
+                          null, null, GcproTable.TranslationCbo.FieldValue.Name);
+            if (data.Rows.Count != 0)
+            { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name).ToString(); }
+            else
+            { key = string.Empty; }
+            return key;          
+        }
+        public static string FindFieldbusNodeKey(OleDb dataSource, int nodeNo)
+        {
+            string key= string.Empty;
+            DataTable data;
+            data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}",
+                         null, null, GcproTable.ObjData.Key.Name);
+            if (data.Rows.Count != 0)
+            { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
+            else
+            { key = string.Empty; }
+            return key;
+        }
+        #endregion
 
         public static string GetObjectSymbolFromIO(string source )
         {

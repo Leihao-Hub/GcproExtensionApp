@@ -68,8 +68,8 @@ namespace GcproExtensionApp
             {
                 Environment.SetEnvironmentVariable("GcproTempPath", txtGcproTempPath.Text, EnvironmentVariableTarget.User);
             }
-        }
-        private void GetAppInfo(out string appTitle, out string appVersion)
+        }  
+        private void GetAppInfo()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             AssemblyTitleAttribute titleAttribute = assembly.GetCustomAttribute<AssemblyTitleAttribute>();
@@ -78,21 +78,9 @@ namespace GcproExtensionApp
             string assemblyTitle = titleAttribute != null ? titleAttribute.Title : "N/A";
             string assemblyVersion = versionAttribute != null ? versionAttribute.Version : "N/A";
 
-            appTitle = $"Title: {assemblyTitle}";
-            appVersion = $"Version: {assemblyVersion}";
-        }
-        private void GetAppInfo(out string appTitle, out string appVersion, out string author)
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            AssemblyTitleAttribute titleAttribute = assembly.GetCustomAttribute<AssemblyTitleAttribute>();
-            AssemblyFileVersionAttribute versionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
-
-            string assemblyTitle = titleAttribute != null ? titleAttribute.Title : "N/A";
-            string assemblyVersion = versionAttribute != null ? versionAttribute.Version : "N/A";
-
-            appTitle = $"Title: {assemblyTitle}";
-            appVersion = $"Version: {assemblyVersion}";
-            author = $"Author: {assemblyVersion}";
+            AppGlobalSource.AppInfo.Title = $"Title: {assemblyTitle}";
+            AppGlobalSource.AppInfo.Version = $"Version: {assemblyVersion}";
+            AppGlobalSource.AppInfo.Author= $"Author: {assemblyVersion}";
         }
 
 

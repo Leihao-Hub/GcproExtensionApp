@@ -31,15 +31,15 @@ namespace GcproExtensionApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMotor));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.LblProcess = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ProcessBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.tabCreateMode = new System.Windows.Forms.TabControl();
             this.contextMenuStripBML = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuClearList = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,7 +80,7 @@ namespace GcproExtensionApp
             this.TxtSymbolIncRule = new System.Windows.Forms.TextBox();
             this.LblSymbolIncRule = new System.Windows.Forms.Label();
             this.TxtInpRunFwd = new System.Windows.Forms.TextBox();
-            this.GrDescriptionRule = new System.Windows.Forms.GroupBox();
+            this.GrpDescriptionRule = new System.Windows.Forms.GroupBox();
             this.LblDescriptionRule = new System.Windows.Forms.Label();
             this.TxtDescriptionIncRule = new System.Windows.Forms.TextBox();
             this.Lbl = new System.Windows.Forms.Label();
@@ -178,7 +178,7 @@ namespace GcproExtensionApp
             this.GrUnit.SuspendLayout();
             this.GrVFCAndAO.SuspendLayout();
             this.GrpSymbolRule.SuspendLayout();
-            this.GrDescriptionRule.SuspendLayout();
+            this.GrpDescriptionRule.SuspendLayout();
             this.GroupBoxGroupTree.SuspendLayout();
             this.tabBML.SuspendLayout();
             this.grpBoxExcelData.SuspendLayout();
@@ -197,7 +197,7 @@ namespace GcproExtensionApp
             this.LblField,
             this.toolStripSplitButton1,
             this.LblProcess,
-            this.ProcessBar});
+            this.ProgressBar});
             this.statusStrip.Location = new System.Drawing.Point(0, 778);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(726, 22);
@@ -239,12 +239,12 @@ namespace GcproExtensionApp
             this.LblProcess.Size = new System.Drawing.Size(32, 17);
             this.LblProcess.Text = "进度";
             // 
-            // ProcessBar
+            // ProgressBar
             // 
-            this.ProcessBar.Margin = new System.Windows.Forms.Padding(1, 3, 10, 3);
-            this.ProcessBar.Name = "ProcessBar";
-            this.ProcessBar.Size = new System.Drawing.Size(366, 16);
-            this.ProcessBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.ProgressBar.Margin = new System.Windows.Forms.Padding(1, 3, 10, 3);
+            this.ProgressBar.Name = "ProgressBar";
+            this.ProgressBar.Size = new System.Drawing.Size(366, 16);
+            this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             // 
             // tabCreateMode
             // 
@@ -301,7 +301,7 @@ namespace GcproExtensionApp
             this.tabRule.Padding = new System.Windows.Forms.Padding(3);
             this.tabRule.Size = new System.Drawing.Size(718, 553);
             this.tabRule.TabIndex = 0;
-            this.tabRule.Text = "设定规则创建";
+            this.tabRule.Text = "设定规则创建";
             // 
             // PalGcObject
             // 
@@ -323,7 +323,7 @@ namespace GcproExtensionApp
             this.PalGcObject.Controls.Add(this.LblOutpRunFwd);
             this.PalGcObject.Controls.Add(this.GrpSymbolRule);
             this.PalGcObject.Controls.Add(this.TxtInpRunFwd);
-            this.PalGcObject.Controls.Add(this.GrDescriptionRule);
+            this.PalGcObject.Controls.Add(this.GrpDescriptionRule);
             this.PalGcObject.Controls.Add(this.TxtOutpRunFwd);
             this.PalGcObject.Controls.Add(this.ChKPower);
             this.PalGcObject.Controls.Add(this.LblEquipmentInfoType);
@@ -365,7 +365,7 @@ namespace GcproExtensionApp
             // BtnSetParentAndChild
             // 
             this.BtnSetParentAndChild.BackColor = System.Drawing.SystemColors.Control;
-            this.BtnSetParentAndChild.BackgroundImage = global::GcproExtensionApp.Properties.Resources.window_fullscreen_off;
+            this.BtnSetParentAndChild.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnSetParentAndChild.BackgroundImage")));
             this.BtnSetParentAndChild.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnSetParentAndChild.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSetParentAndChild.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -379,7 +379,7 @@ namespace GcproExtensionApp
             // BtnRegenerateDPNode
             // 
             this.BtnRegenerateDPNode.BackColor = System.Drawing.SystemColors.Control;
-            this.BtnRegenerateDPNode.BackgroundImage = global::GcproExtensionApp.Properties.Resources.stateinfo_dp_fault;
+            this.BtnRegenerateDPNode.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnRegenerateDPNode.BackgroundImage")));
             this.BtnRegenerateDPNode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnRegenerateDPNode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRegenerateDPNode.Location = new System.Drawing.Point(69, 223);
@@ -387,6 +387,7 @@ namespace GcproExtensionApp
             this.BtnRegenerateDPNode.Size = new System.Drawing.Size(53, 30);
             this.BtnRegenerateDPNode.TabIndex = 88;
             this.BtnRegenerateDPNode.UseVisualStyleBackColor = false;
+            this.BtnRegenerateDPNode.Click += new System.EventHandler(this.BtnRegenerateDPNode_Click);
             // 
             // LblSymbol
             // 
@@ -438,7 +439,7 @@ namespace GcproExtensionApp
             // 
             // BtnNewImpExpDef
             // 
-            this.BtnNewImpExpDef.BackgroundImage = global::GcproExtensionApp.Properties.Resources.cmd_modify_job;
+            this.BtnNewImpExpDef.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnNewImpExpDef.BackgroundImage")));
             this.BtnNewImpExpDef.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnNewImpExpDef.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnNewImpExpDef.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -458,12 +459,13 @@ namespace GcproExtensionApp
             this.TxtSymbol.Name = "TxtSymbol";
             this.TxtSymbol.Size = new System.Drawing.Size(137, 13);
             this.TxtSymbol.TabIndex = 2;
+            this.TxtSymbol.TextChanged += new System.EventHandler(this.TxtSymbol_TextChanged);
             this.TxtSymbol.MouseEnter += new System.EventHandler(this.TxtSymbol_MouseEnter);
             // 
             // BtnConnectIO
             // 
             this.BtnConnectIO.BackColor = System.Drawing.SystemColors.Control;
-            this.BtnConnectIO.BackgroundImage = global::GcproExtensionApp.Properties.Resources.parameter_horizontal;
+            this.BtnConnectIO.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnConnectIO.BackgroundImage")));
             this.BtnConnectIO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnConnectIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnConnectIO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -586,7 +588,7 @@ namespace GcproExtensionApp
             // BtnConnectVFC
             // 
             this.BtnConnectVFC.BackColor = System.Drawing.SystemColors.Control;
-            this.BtnConnectVFC.BackgroundImage = global::GcproExtensionApp.Properties.Resources.parameter_horizontal;
+            this.BtnConnectVFC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnConnectVFC.BackgroundImage")));
             this.BtnConnectVFC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnConnectVFC.Enabled = false;
             this.BtnConnectVFC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -715,18 +717,18 @@ namespace GcproExtensionApp
             this.TxtInpRunFwd.TabIndex = 6;
             this.TxtInpRunFwd.MouseEnter += new System.EventHandler(this.TxtInpRunFwd_MouseEnter);
             // 
-            // GrDescriptionRule
+            // GrpDescriptionRule
             // 
-            this.GrDescriptionRule.Controls.Add(this.LblDescriptionRule);
-            this.GrDescriptionRule.Controls.Add(this.TxtDescriptionIncRule);
-            this.GrDescriptionRule.Controls.Add(this.Lbl);
-            this.GrDescriptionRule.Controls.Add(this.TxtDescriptionRule);
-            this.GrDescriptionRule.Location = new System.Drawing.Point(600, 7);
-            this.GrDescriptionRule.Name = "GrDescriptionRule";
-            this.GrDescriptionRule.Size = new System.Drawing.Size(78, 88);
-            this.GrDescriptionRule.TabIndex = 74;
-            this.GrDescriptionRule.TabStop = false;
-            this.GrDescriptionRule.Text = "描述规则";
+            this.GrpDescriptionRule.Controls.Add(this.LblDescriptionRule);
+            this.GrpDescriptionRule.Controls.Add(this.TxtDescriptionIncRule);
+            this.GrpDescriptionRule.Controls.Add(this.Lbl);
+            this.GrpDescriptionRule.Controls.Add(this.TxtDescriptionRule);
+            this.GrpDescriptionRule.Location = new System.Drawing.Point(600, 7);
+            this.GrpDescriptionRule.Name = "GrpDescriptionRule";
+            this.GrpDescriptionRule.Size = new System.Drawing.Size(78, 88);
+            this.GrpDescriptionRule.TabIndex = 74;
+            this.GrpDescriptionRule.TabStop = false;
+            this.GrpDescriptionRule.Text = "描述规则";
             // 
             // LblDescriptionRule
             // 
@@ -784,6 +786,7 @@ namespace GcproExtensionApp
             this.ChKPower.TabIndex = 68;
             this.ChKPower.Text = "功率消耗";
             this.ChKPower.UseVisualStyleBackColor = true;
+            this.ChKPower.CheckedChanged += new System.EventHandler(this.ChKPower_CheckedChanged);
             this.ChKPower.MouseEnter += new System.EventHandler(this.ChKPower_MouseEnter);
             // 
             // LblEquipmentInfoType
@@ -864,6 +867,7 @@ namespace GcproExtensionApp
             // TxtValue10
             // 
             this.TxtValue10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtValue10.Enabled = false;
             this.TxtValue10.Location = new System.Drawing.Point(340, 316);
             this.TxtValue10.Name = "TxtValue10";
             this.TxtValue10.Size = new System.Drawing.Size(36, 13);
@@ -1056,11 +1060,13 @@ namespace GcproExtensionApp
             this.ChkStartingInterlock.TabIndex = 42;
             this.ChkStartingInterlock.Text = "启动";
             this.ChkStartingInterlock.UseVisualStyleBackColor = true;
+            this.ChkStartingInterlock.CheckedChanged += new System.EventHandler(this.ChkStartingInterlock_CheckedChanged);
             this.ChkStartingInterlock.MouseEnter += new System.EventHandler(this.ChkStartingInterlock_MouseEnter);
             // 
             // TxtValue9
             // 
             this.TxtValue9.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TxtValue9.Enabled = false;
             this.TxtValue9.Location = new System.Drawing.Point(79, 31);
             this.TxtValue9.Name = "TxtValue9";
             this.TxtValue9.Size = new System.Drawing.Size(36, 13);
@@ -1077,6 +1083,7 @@ namespace GcproExtensionApp
             this.ChkRunInterlock.TabIndex = 41;
             this.ChkRunInterlock.Text = "运行";
             this.ChkRunInterlock.UseVisualStyleBackColor = true;
+            this.ChkRunInterlock.CheckedChanged += new System.EventHandler(this.ChkRunInterlock_CheckedChanged);
             this.ChkRunInterlock.MouseEnter += new System.EventHandler(this.ChkRunInterlock_MouseEnter);
             // 
             // TxtKW
@@ -1097,6 +1104,7 @@ namespace GcproExtensionApp
             this.ChkRevNotAllowed.TabIndex = 39;
             this.ChkRevNotAllowed.Text = "禁止反转";
             this.ChkRevNotAllowed.UseVisualStyleBackColor = true;
+            this.ChkRevNotAllowed.CheckedChanged += new System.EventHandler(this.ChkRevNotAllowed_CheckedChanged);
             this.ChkRevNotAllowed.MouseEnter += new System.EventHandler(this.ChkRevNotAllowed_MouseEnter);
             // 
             // ChkParManual
@@ -1110,6 +1118,7 @@ namespace GcproExtensionApp
             this.ChkParManual.TabIndex = 37;
             this.ChkParManual.Text = "允许手动";
             this.ChkParManual.UseVisualStyleBackColor = true;
+            this.ChkParManual.CheckedChanged += new System.EventHandler(this.ChkParManual_CheckedChanged);
             this.ChkParManual.MouseEnter += new System.EventHandler(this.ChkParManual_MouseEnter);
             // 
             // ChkRestartDelay
@@ -1121,6 +1130,7 @@ namespace GcproExtensionApp
             this.ChkRestartDelay.TabIndex = 38;
             this.ChkRestartDelay.Text = "启动延迟";
             this.ChkRestartDelay.UseVisualStyleBackColor = true;
+            this.ChkRestartDelay.CheckedChanged += new System.EventHandler(this.ChkRestartDelay_CheckedChanged);
             this.ChkRestartDelay.MouseEnter += new System.EventHandler(this.ChkRestartDelay_MouseEnter);
             // 
             // tabBML
@@ -1178,7 +1188,7 @@ namespace GcproExtensionApp
             this.btnReadBML.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuText;
             this.btnReadBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReadBML.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnReadBML.Image = global::GcproExtensionApp.Properties.Resources.Excel2;
+            this.btnReadBML.Image = ((System.Drawing.Image)(resources.GetObject("btnReadBML.Image")));
             this.btnReadBML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReadBML.Location = new System.Drawing.Point(612, 20);
             this.btnReadBML.Name = "btnReadBML";
@@ -1191,8 +1201,8 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1221,7 +1231,7 @@ namespace GcproExtensionApp
             this.comboWorkSheetsBML.Size = new System.Drawing.Size(357, 21);
             this.comboWorkSheetsBML.TabIndex = 15;
             this.comboWorkSheetsBML.SelectedIndexChanged += new System.EventHandler(this.comboWorkSheetsBML_SelectedIndexChanged);
-            this.comboWorkSheetsBML.MouseEnter += new System.EventHandler(this.comboWorkSheetsBML_MouseEnter);
+            this.comboWorkSheetsBML.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboWorkSheetsBML_MouseDown);
             // 
             // grpBoxExcelColumn
             // 
@@ -1408,7 +1418,7 @@ namespace GcproExtensionApp
             this.BtnOpenProjectDB.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuText;
             this.BtnOpenProjectDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnOpenProjectDB.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnOpenProjectDB.Image = global::GcproExtensionApp.Properties.Resources.Find;
+            this.BtnOpenProjectDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenProjectDB.Image")));
             this.BtnOpenProjectDB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnOpenProjectDB.Location = new System.Drawing.Point(609, 11);
             this.BtnOpenProjectDB.Name = "BtnOpenProjectDB";
@@ -1421,7 +1431,7 @@ namespace GcproExtensionApp
             // 
             // LblGcproProjectPath
             // 
-            this.LblGcproProjectPath.Image = global::GcproExtensionApp.Properties.Resources.Excel2;
+            this.LblGcproProjectPath.Image = ((System.Drawing.Image)(resources.GetObject("LblGcproProjectPath.Image")));
             this.LblGcproProjectPath.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.LblGcproProjectPath.Location = new System.Drawing.Point(6, 16);
             this.LblGcproProjectPath.Name = "LblGcproProjectPath";
@@ -1537,7 +1547,7 @@ namespace GcproExtensionApp
             // 
             this.BtnSaveAs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BtnSaveAs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSaveAs.Image = global::GcproExtensionApp.Properties.Resources.Save;
+            this.BtnSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("BtnSaveAs.Image")));
             this.BtnSaveAs.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnSaveAs.Location = new System.Drawing.Point(8, 147);
             this.BtnSaveAs.Name = "BtnSaveAs";
@@ -1556,12 +1566,14 @@ namespace GcproExtensionApp
             this.TxtQuantity.Size = new System.Drawing.Size(79, 13);
             this.TxtQuantity.TabIndex = 55;
             this.TxtQuantity.Text = "1";
+            this.TxtQuantity.TextChanged += new System.EventHandler(this.TxtQuantity_TextChanged);
+            this.TxtQuantity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtQuantity_KeyDown);
             // 
             // BtnConfirm
             // 
             this.BtnConfirm.BackColor = System.Drawing.SystemColors.Control;
             this.BtnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnConfirm.Image = global::GcproExtensionApp.Properties.Resources.NewTextFile;
+            this.BtnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("BtnConfirm.Image")));
             this.BtnConfirm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnConfirm.Location = new System.Drawing.Point(8, 82);
             this.BtnConfirm.Name = "BtnConfirm";
@@ -1585,7 +1597,7 @@ namespace GcproExtensionApp
             // 
             this.BtnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnClear.Image = global::GcproExtensionApp.Properties.Resources.RecycleBox;
+            this.BtnClear.Image = ((System.Drawing.Image)(resources.GetObject("BtnClear.Image")));
             this.BtnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnClear.Location = new System.Drawing.Point(8, 115);
             this.BtnClear.Name = "BtnClear";
@@ -1614,6 +1626,7 @@ namespace GcproExtensionApp
             this.ComboEquipmentSubType.Name = "ComboEquipmentSubType";
             this.ComboEquipmentSubType.Size = new System.Drawing.Size(182, 21);
             this.ComboEquipmentSubType.TabIndex = 42;
+            this.ComboEquipmentSubType.SelectedIndexChanged += new System.EventHandler(this.ComboEquipmentSubType_SelectedIndexChanged);
             // 
             // LblEquipmentSubType
             // 
@@ -1683,6 +1696,8 @@ namespace GcproExtensionApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(726, 800);
             this.Controls.Add(this.PalCommon);
             this.Controls.Add(this.statusStrip);
@@ -1705,8 +1720,8 @@ namespace GcproExtensionApp
             this.GrVFCAndAO.PerformLayout();
             this.GrpSymbolRule.ResumeLayout(false);
             this.GrpSymbolRule.PerformLayout();
-            this.GrDescriptionRule.ResumeLayout(false);
-            this.GrDescriptionRule.PerformLayout();
+            this.GrpDescriptionRule.ResumeLayout(false);
+            this.GrpDescriptionRule.PerformLayout();
             this.GroupBoxGroupTree.ResumeLayout(false);
             this.GroupBoxGroupTree.PerformLayout();
             this.tabBML.ResumeLayout(false);
@@ -1730,7 +1745,7 @@ namespace GcproExtensionApp
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel LblFieldInDatabase;
         private System.Windows.Forms.ToolStripStatusLabel LblField;
-        private System.Windows.Forms.ToolStripProgressBar ProcessBar;
+        private System.Windows.Forms.ToolStripProgressBar ProgressBar;
         private System.Windows.Forms.ToolStripStatusLabel LblProcess;
         private System.Windows.Forms.TabControl tabCreateMode;
         private System.Windows.Forms.TabPage tabBML;
@@ -1789,7 +1804,7 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.TextBox TxtSymbolIncRule;
         internal System.Windows.Forms.Label LblSymbolIncRule;
         internal System.Windows.Forms.TextBox TxtInpRunFwd;
-        internal System.Windows.Forms.GroupBox GrDescriptionRule;
+        internal System.Windows.Forms.GroupBox GrpDescriptionRule;
         internal System.Windows.Forms.Label LblDescriptionRule;
         internal System.Windows.Forms.TextBox TxtDescriptionIncRule;
         internal System.Windows.Forms.Label Lbl;

@@ -11,6 +11,33 @@ namespace GcproExtensionLibrary.Gcpro
     public enum OTypeCollection
     {
         /// <summary>
+        /// HW
+        /// </summary>
+        HW = 891,
+
+        /// <summary>
+        /// DIC
+        /// </summary>
+         DIC = 900,
+
+        /// <summary>
+        /// DOC
+        /// </summary>
+        DOC = 901,
+
+     
+
+       /// <summary>
+       /// AIC
+       /// </summary>
+        AIC = 910,
+
+        /// <summary>
+        /// AOC
+        /// </summary> 
+        AOC = 911,
+
+        /// <summary>
         /// DP Slave
         /// </summary>
         DP_Slave = 590,
@@ -99,20 +126,6 @@ namespace GcproExtensionLibrary.Gcpro
     /// <summary>
     /// Stand data fields for GCObjects
     /// </summary>
-    public struct CommonObjectFields
-    { 
-        public string Name;
-        public string Description;
-        public string SubType;
-        public string ProcessFct;
-        public string Building;
-        public string Elevation;
-        public string FieldBusNode;
-        public string Panel_ID;
-        public string Diagram;
-        public string Page;
-
-    }
 
     public struct RuleSubPos
     {
@@ -125,11 +138,9 @@ namespace GcproExtensionLibrary.Gcpro
     public struct RuleSubDataSet
     { 
         public string Name;
-
         public int Inc;
         public string[] Sub;
         public RuleSubPos PosInfo ;
-
     }
     public struct GcBaseRule
     {
