@@ -23,7 +23,6 @@ using System.Windows.Controls;
 using System.Diagnostics;
 using static System.Net.WebRequestMethods;
 using static GcproExtensionLibary.GcproTable;
-using static GcproExtensionApp.BML;
 using GcproExtensionLibrary.Gcpro;
 using System.Windows.Shapes;
 #endregion
@@ -38,7 +37,7 @@ namespace GcproExtensionApp
             InitializeComponent();
         }
         #region Public object in this class
-        GcMotor myMotor = new GcMotor(AppGlobalSource.GcproDBInfo.GcproTempPath);
+        Motor myMotor = new Motor(AppGlobalSource.GcproDBInfo.GcproTempPath);
         ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         OleDb oledb = new OleDb();
         DataTable dataTable = new DataTable();
@@ -69,7 +68,7 @@ namespace GcproExtensionApp
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
             ///<SubType> Read [SubType] </SubType>
-            dataTable = oledb.QueryDataTable(GcproTable.SubType.TableName, $"{GcproTable.SubType.FieldOType.Name}={GcMotor.OTypeValue}",
+            dataTable = oledb.QueryDataTable(GcproTable.SubType.TableName, $"{GcproTable.SubType.FieldOType.Name}={Motor.OTypeValue}",
                 null, $"{GcproTable.SubType.FieldSub_Type_Desc.Name} ASC",
                 GcproTable.SubType.FieldSubType.Name, GcproTable.SubType.FieldSub_Type_Desc.Name);
             // List<string> list = OleDb.GetColumnData<string>(dataTable, "SubType");
@@ -81,9 +80,9 @@ namespace GcproExtensionApp
                 ComboEquipmentSubType.Items.Add(itemInfo);
 
             }
-            ComboEquipmentSubType.SelectedIndex = 0;
+            ComboEquipmentSubType.SelectedIndex = 1;
             ///<ProcessFct> Read [ProcessFct] </ProcessFct>
-            dataTable = oledb.QueryDataTable(GcproTable.ProcessFct.TableName, $"{GcproTable.ProcessFct.FieldOType.Name} = {GcMotor.OTypeValue}",
+            dataTable = oledb.QueryDataTable(GcproTable.ProcessFct.TableName, $"{GcproTable.ProcessFct.FieldOType.Name} = {Motor.OTypeValue}",
                 null, $"{GcproTable.ProcessFct.FieldFct_Desc.Name} ASC",
                  GcproTable.ProcessFct.FieldProcessFct.Name, GcproTable.ProcessFct.FieldFct_Desc.Name);
             //list = OleDb.GetColumnData<string>(dataTable, "Fct_Desc");
@@ -112,7 +111,7 @@ namespace GcproExtensionApp
             ///</ReadInfoFromProjectDB>
             oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
             ///<PType> Read [PType] </PType>
-            dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_ASWMsgType + GcMotor.OTypeValue}'",
+            dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_ASWMsgType + Motor.OTypeValue}'",
                 null, "Text ASC", "Text");
             list = OleDb.GetColumnData<string>(dataTable, GcproTable.TranslationCbo.FieldText.Name);
             foreach (var column in list)
@@ -180,19 +179,20 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
-            TxtSymbolRule.Text = GcMotor.Rule.Common.NameRule;
-            TxtSymbolIncRule.Text = GcMotor.Rule.Common.NameRuleInc;
-            TxtDescriptionRule.Text = GcMotor.Rule.Common.DescriptionRule;
-            TxtDescriptionIncRule.Text = GcMotor.Rule.Common.DescriptionRuleInc;
-            TxtVFCRule.Text = GcMotor.Rule.VFCRule;
-            TxtVFCIncRule.Text = GcMotor.Rule.VFCRuleInc;
-            TxtAORule.Text = GcMotor.Rule.AORule;
-            TxtAOIncRule.Text = GcMotor.Rule.AORuleInc;
+            TxtSymbolRule.Text = Motor.Rule.Common.NameRule;
+            TxtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
+            TxtDescriptionRule.Text = Motor.Rule.Common.DescriptionRule;
+            TxtDescriptionIncRule.Text = Motor.Rule.Common.DescriptionRuleInc;
+            TxtVFCRule.Text = Motor.Rule.VFCRule;
+            TxtVFCIncRule.Text = Motor.Rule.VFCRuleInc;
+            TxtAORule.Text = Motor.Rule.AORule;
+            TxtAOIncRule.Text = Motor.Rule.AORuleInc;
         }
         public void CreateTips()
         {
             toolTip.SetToolTip(BtnNewImpExpDef, AppGlobalSource.CREATE_IMPORT_RULE + myMotor.OType);
             toolTip.SetToolTip(BtnConnectIO, AppGlobalSource.CONNECT_IO);
+            toolTip.SetToolTip(BtnSetParentAndChild, AppGlobalSource.SET_RELATION);
             toolTip.SetToolTip(BtnConnectVFC, AppGlobalSource.SET_RELATION);
             toolTip.SetToolTip(TxtSymbol, AppGlobalSource.DEMO_NAME + DEMO_NAME_MOTOR);
             toolTip.SetToolTip(TxtSymbolRule, AppGlobalSource.DEMO_NAME_RULE + DEMO_NAME_RULE_MOTOR);
@@ -203,14 +203,14 @@ namespace GcproExtensionApp
         {
             oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{GcMotor.ImpExpRuleName}'",
+            oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Motor.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
             {
                 if (MessageBox.Show(AppGlobalSource.MSG_RULE_ALREADY_EXITS, AppGlobalSource.INFO,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{GcMotor.ImpExpRuleName}'", null);
+                    oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Motor.ImpExpRuleName}'", null);
                     CreateMotorImpExp();
                 }
                 else
@@ -233,7 +233,7 @@ namespace GcproExtensionApp
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             TxtValue9.Text = "2";
             myMotor.Value9 = "2";
-            ComboEquipmentSubType.SelectedIndex = 1;
+     
             var alphabetList = AppGlobalSource.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
             foreach (var item in alphabetList)
             {
@@ -272,231 +272,231 @@ namespace GcproExtensionApp
                     {
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value =GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value =Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Type" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.OType.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Name" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Text0.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Description" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.Text1.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "SubType" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.SubType.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ProcessFct" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.ProcessFct.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Building" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Building.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Elevation" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Elevation.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "FieldBusNode" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.FieldbusNode.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Panel ID"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Panel_ID.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Diagram"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DiagramNo.Name}
 
                     },
                         new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Page"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.PageName.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "PType"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value5.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Horn Code"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value2.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "DP node1"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DPNode1.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "DP node2"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DPNode2.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Gcpro parameters"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value9.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Object parameters"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value10.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpFwd"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "OutpFwd"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value12.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpRev"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value13.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "OutpRev"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpContactor" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value38.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Adapter"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParMonTime"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParStartDelay"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value26.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParStartingTime"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value22.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParStoppingTime"},
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value23.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParIdlingTime" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParFaultDelayTime" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParPowerNominal" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value49.Name }
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParSpeedService" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value52.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Unit" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value40.Name}
 
                     },
                     new List<GcproExtensionLibary.DbParameter>
                     {
-                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = GcMotor.ImpExpRuleName },
+                        new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Is new" },
                         new GcproExtensionLibary.DbParameter { Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.IsNew.Name }
 
@@ -508,8 +508,6 @@ namespace GcproExtensionApp
             }
         }
 
-
-
         private void FormMotor_Load(object sender, EventArgs e)
         {
             isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobalSource.GcproDBInfo.ProjectDBPath);
@@ -520,7 +518,10 @@ namespace GcproExtensionApp
             CreateTips();
             Default();
         }
-
+        private void FormMotor_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
+        }
         #region <---Rule and autosearch part--->
 
         #region <------Check and store rule event------>
@@ -528,7 +529,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobalSource.CheckNumericString(TxtSymbolRule.Text))
             {
-                GcMotor.Rule.Common.NameRule = TxtSymbolRule.Text;
+                Motor.Rule.Common.NameRule = TxtSymbolRule.Text;
             }
             else
             {
@@ -543,7 +544,7 @@ namespace GcproExtensionApp
                 
                 if (AppGlobalSource.CheckNumericString(TxtSymbolIncRule.Text))
                 {
-                    GcMotor.Rule.Common.NameRuleInc = TxtSymbolIncRule.Text;
+                    Motor.Rule.Common.NameRuleInc = TxtSymbolIncRule.Text;
                 }
                 else
                 {
@@ -557,7 +558,7 @@ namespace GcproExtensionApp
 
             if (AppGlobalSource.CheckNumericString(TxtDescriptionRule.Text))
             {
-                GcMotor.Rule.Common.DescriptionRule = TxtDescriptionRule.Text;
+                Motor.Rule.Common.DescriptionRule = TxtDescriptionRule.Text;
             }
             else
             {
@@ -571,7 +572,7 @@ namespace GcproExtensionApp
             {
                 if (AppGlobalSource.CheckNumericString(TxtDescriptionIncRule.Text))
                 {
-                    GcMotor.Rule.Common.DescriptionRuleInc = TxtDescriptionIncRule.Text;
+                    Motor.Rule.Common.DescriptionRuleInc = TxtDescriptionIncRule.Text;
                 }
                 else
                 {
@@ -585,7 +586,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobalSource.CheckNumericString(TxtVFCRule.Text))
             {
-                GcMotor.Rule.VFCRule = TxtVFCRule.Text;
+                Motor.Rule.VFCRule = TxtVFCRule.Text;
             }
             else
             {
@@ -598,7 +599,7 @@ namespace GcproExtensionApp
             {
                 if (AppGlobalSource.CheckNumericString(TxtVFCIncRule.Text))
                 {
-                    GcMotor.Rule.VFCRuleInc = TxtVFCIncRule.Text;
+                    Motor.Rule.VFCRuleInc = TxtVFCIncRule.Text;
                 }
                 else
                 {
@@ -610,7 +611,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobalSource.CheckNumericString(TxtAORule.Text))
             {
-                GcMotor.Rule.AORule = TxtAORule.Text;
+                Motor.Rule.AORule = TxtAORule.Text;
             }
             else
             {
@@ -624,7 +625,7 @@ namespace GcproExtensionApp
             {
                 if (AppGlobalSource.CheckNumericString(TxtAOIncRule.Text))
                 {
-                    GcMotor.Rule.AORuleInc = TxtAOIncRule.Text;
+                    Motor.Rule.AORuleInc = TxtAOIncRule.Text;
                 }
                 else
                 {
@@ -851,8 +852,8 @@ namespace GcproExtensionApp
 
         private void TxtSymbol_TextChanged(object sender, EventArgs e)
         {
-            if (myMotor.SubType == GcMotor.M1VFC ||
-                myMotor.SubType == GcMotor.M1VFC)
+            if (myMotor.SubType == Motor.M1VFC ||
+                myMotor.SubType == Motor.M1VFC)
             { TxtVFCAdapter.Text = TxtSymbol.Text + "-VFC"; }
             else
             { TxtVFCAdapter.Text = AppGlobalSource.MOTOR_WITHOUT_VFC; }
@@ -866,7 +867,7 @@ namespace GcproExtensionApp
             string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
             if (!String.IsNullOrEmpty(selectedItem))
             { myMotor.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR)); }
-            if (myMotor.SubType == GcMotor.M1VFC || myMotor.SubType == GcMotor.M2VFC)
+            if (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)
             {
                 TxtVFCAdapter.Text = TxtSymbol.Text + "-VFC";
                 TxtVFCAdapter.BackColor = Color.White;
@@ -880,55 +881,55 @@ namespace GcproExtensionApp
             }
             try
             {
-                if (myMotor.SubType == GcMotor.M1VFC)
+                if (myMotor.SubType == Motor.M1VFC)
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
-                        if (item.ToString().StartsWith(GcMotor.P7042))
+                        if (item.ToString().StartsWith(Motor.P7042))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
                             return;
                         }
                     }
-                else if (myMotor.SubType == GcMotor.M2VFC)
+                else if (myMotor.SubType == Motor.M2VFC)
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
-                        if (item.ToString().StartsWith(GcMotor.P7041))
+                        if (item.ToString().StartsWith(Motor.P7041))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
                             return;
                         }
                     }
-                else if (myMotor.SubType == GcMotor.M11)
+                else if (myMotor.SubType == Motor.M11)
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
-                        if (item.ToString().StartsWith(GcMotor.P7053))
+                        if (item.ToString().StartsWith(Motor.P7053))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
                             return;
                         }
                     }
-                else if (myMotor.SubType == GcMotor.M12)
+                else if (myMotor.SubType == Motor.M12)
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
-                        if (item.ToString().StartsWith(GcMotor.P7056))
+                        if (item.ToString().StartsWith(Motor.P7056))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
                             return;
                         }
                     }
-                else if (myMotor.SubType == GcMotor.M21)
+                else if (myMotor.SubType == Motor.M21)
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
-                        if (item.ToString().StartsWith(GcMotor.P7052))
+                        if (item.ToString().StartsWith(Motor.P7052))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
                             return;
                         }
                     }
-                else if (myMotor.SubType == GcMotor.M22)
+                else if (myMotor.SubType == Motor.M22)
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
-                        if (item.ToString().StartsWith(GcMotor.P7051))
+                        if (item.ToString().StartsWith(Motor.P7051))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
                             return;
@@ -1001,11 +1002,11 @@ namespace GcproExtensionApp
                 {
                     selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
                     myMotor.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
-                    if (myMotor.SubType == GcMotor.M1VFC || myMotor.SubType == GcMotor.M2VFC)
+                    if (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)
                     { motorWithVFC = true; }
                 }
                 else
-                { myMotor.SubType = GcMotor.M11; }
+                { myMotor.SubType = Motor.M11; }
                 ///<PType></PType>
                 string selectedPTypeItem;
                 if (ComboEquipmentInfoType.SelectedItem != null)
@@ -1014,7 +1015,7 @@ namespace GcproExtensionApp
                     myMotor.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
                 }
                 else
-                { myMotor.PType = GcMotor.P7053; }
+                { myMotor.PType = Motor.P7053; }
                 ///<ParMonTime></ParMonTime>
                 myMotor.ParMonTime = AppGlobalSource.ParseFloat(TxtMonTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
                 ///<ParStartDelay></ParStartDelay>
@@ -1116,9 +1117,7 @@ namespace GcproExtensionApp
                 myMotor.InpContactor = "0";
                 ///<Adapter></Adapter>
                 myMotor.Adapter = "0";
-                #endregion 
-
-            
+                #endregion           
                 if (createMode.BML)
                 {
 
@@ -1165,7 +1164,6 @@ namespace GcproExtensionApp
                         objCreated = i;
                         myMotor.CreateObject(Encoding.Unicode);
                         ProgressBar.Value = objCreated;
-
                     }
                 }
                 else if (createMode.Rule)
@@ -1410,19 +1408,11 @@ namespace GcproExtensionApp
 
         private void btnReadBML_Click(object sender, EventArgs e)
         {
-            List<List<object>> allData = new List<List<object>>();
+           // List<List<object>> allData = new List<List<object>>();
             string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text};           
-            allData = excelFileHandle.ReadFileAsList(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
-         
-            foreach (var list in allData)
-            {
-               // dataGridBML.DataSource = allData;
-             
-                //for (var i = 0; i < list.Count; i++)
-                //{ dataGridBML.DataMember = list; }
-            }
-           
+          //  allData = excelFileHandle.ReadFileAsList(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
+                  
             dataTable.Rows.Clear();   
             dataTable= excelFileHandle.ReadFileAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
             dataGridBML.DataSource= dataTable;
@@ -1434,7 +1424,9 @@ namespace GcproExtensionApp
             dataGridBML.Columns[nameof(BML.Motor.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
             dataGridBML.Columns[nameof(BML.Motor.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
             dataGridBML.Columns[nameof(BML.Motor.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
-           
+             dataTable.Clear();
+
+
         }
         #endregion
 
@@ -1446,8 +1438,8 @@ namespace GcproExtensionApp
                 createMode.Rule = true;
                 createMode.BML = false;
                 createMode.AutoSearch = false;
-                TxtSymbolRule.Text = GcMotor.Rule.Common.NameRule;
-                TxtSymbolIncRule.Text = GcMotor.Rule.Common.NameRuleInc;
+                TxtSymbolRule.Text = Motor.Rule.Common.NameRule;
+                TxtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
                 LblQuantity.Visible = true;
                 TxtQuantity.Visible = true;
                 GrpSymbolRule.Visible = true;
@@ -1461,8 +1453,8 @@ namespace GcproExtensionApp
                 createMode.Rule = false;
                 createMode.BML = false;
                 createMode.AutoSearch = true;
-                TxtSymbolRule.Text = GcMotor.Rule.Common.NameRule;
-                TxtSymbolIncRule.Text = GcMotor.Rule.Common.NameRuleInc;
+                TxtSymbolRule.Text = Motor.Rule.Common.NameRule;
+                TxtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
                 LblQuantity.Visible = false;
                 TxtQuantity.Visible = false;
                 GrpSymbolRule.Visible = false;
@@ -1517,9 +1509,10 @@ namespace GcproExtensionApp
 
 
         private void CreateObjCommonProperties()
-        { 
-
+        {
+           // Motor.GetStartingTime();
         }
+
       
     }
 }

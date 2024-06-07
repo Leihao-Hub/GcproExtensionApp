@@ -27,6 +27,7 @@ namespace GcproExtensionApp
         public const string FIELDS_SEPARATOR = "   |";
         public const string CREATE_IMPORT_RULE = "创建导入规则";
         public const string CONNECT_IO = "关联IO";
+        public const string CONNECT_CONNECTOR = "关联对象";
         public const string SET_RELATION = "设置从属关系";
         public const string DEMO_NAME = "示例名称：";
         public const string DEMO_NAME_RULE = "示例规则：";
@@ -249,6 +250,9 @@ namespace GcproExtensionApp
         #endregion
     }
 
+
+
+
     public static class BML
     {
         public static class Motor
@@ -259,6 +263,15 @@ namespace GcproExtensionApp
             public static string ColumnPower { get; } = "功率";
             public static string ColumnFloor { get; } = "楼层";
             public static string ColumnCabinet{ get; } = "电柜号";
+            public static string ColumnCabinetGroup { get; } = "电柜组";
+        }
+        public static class Valve
+        {
+            public static string TypeValue{ get; } = "Motor";
+            public static string ColumnName { get; } = "闸门名称";
+            public static string ColumnDesc { get; } = "闸门描述";
+            public static string ColumnFloor { get; } = "楼层";
+            public static string ColumnCabinet { get; } = "电柜号";
             public static string ColumnCabinetGroup { get; } = "电柜组";
         }
     }
