@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Text;
 using System.IO;
-using System.Windows.Forms;
+using System.Text;
 namespace GcproExtensionLibrary.FileHandle
 {
     public class TextFileHandle
     {
         public static string FileFilter = @"Text File   (*.txt)|*.txt|All Files (*.*)|*.*";
-        private static string fileType="Text 文本文件";
+        private static string fileType = "Text 文本文件";
         private string filePath;
         public string FilePath
         {
@@ -17,9 +16,9 @@ namespace GcproExtensionLibrary.FileHandle
 
         public TextFileHandle()
         {
-            
+
         }
-        public void WriteToTextFile(string textLine,Encoding encoder)
+        public void WriteToTextFile(string textLine, Encoding encoder)
         {
             /// <使用技巧>
             /// 首选使用 using 语句：
@@ -27,10 +26,10 @@ namespace GcproExtensionLibrary.FileHandle
             /// 在这个作用域最后，不管有没有异常抛出，资源都会被自动释放（Dispose方法将被调用）
             /// Append方法中文件名称所包含的文件夹必须存在，文件名称如果不存在方法会自动创建
             /// </使用技巧>
-           using (StreamWriter writer = new StreamWriter(filePath, true, encoder))
+            using (StreamWriter writer = new StreamWriter(filePath, true, encoder))
             {
-               // StreamWriter writer = File.AppendText(filePath))
-                
+                // StreamWriter writer = File.AppendText(filePath))
+
                 writer.WriteLine(textLine);
             }
 
@@ -53,17 +52,17 @@ namespace GcproExtensionLibrary.FileHandle
             catch (UnauthorizedAccessException ex)
             {
                 throw new Exception("没有写入文件的权限", ex);
-            }     
+            }
         }
 
         public static string BrowseFile()
         {
-            return BaseFileHandle.Browse(FileFilter, 1, false, true, "请选择一个" + fileType+"文件");          
+            return BaseFileHandle.Browse(FileFilter, 1, false, true, "请选择一个" + fileType + "文件");
         }
         public bool SaveFileAs()
         {
             return BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, LibGlobalSource.FILE_SAVE_AS);
         }
     }
-  
+
 }

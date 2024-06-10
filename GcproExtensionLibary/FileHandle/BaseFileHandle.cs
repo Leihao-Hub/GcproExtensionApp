@@ -31,7 +31,7 @@ namespace GcproExtensionLibrary.FileHandle
                     }
                 }
             }
-            return false; 
+            return false;
         }
 
         public static string Browse(string filter, int filterIndex, bool multiselect, bool readOnlyChecked, string title)

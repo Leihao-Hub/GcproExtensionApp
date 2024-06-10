@@ -53,7 +53,7 @@
     <Compile Include="FileHandle\BaseFileHandle.cs" />
     <Compile Include="FileHandle\AccessFileHandle.cs" />
     <Compile Include="Gcpro\GCObject\Elements\Element.cs" />
-    <Compile Include="Gcpro\GCObject\Elements\EL.Motor.cs" />
+    <Compile Include="Gcpro\GCObject\Elements\Motor.cs" />
     <Compile Include="Gcpro\GcproTable.cs" />
     <Compile Include="Gcpro\EnumsAndStruct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

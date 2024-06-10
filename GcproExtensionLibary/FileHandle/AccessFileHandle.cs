@@ -1,15 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data.OleDb;
-using OfficeOpenXml;
-
-
+﻿using System.IO;
 namespace GcproExtensionLibrary.FileHandle
 {
-    public class AccessFileHandle:OleDb
+    public class AccessFileHandle : OleDb
 
     {
         public static string FileFilter = @"Access Database (*.mdb)|*.mdb|Access Database (*.accdb)|*.accdb|All Files (*.*)|*.*";
@@ -22,7 +14,7 @@ namespace GcproExtensionLibrary.FileHandle
         }
         public AccessFileHandle()
         {
-                  
+
         }
         public static string BrowseFile()
         {
@@ -35,11 +27,11 @@ namespace GcproExtensionLibrary.FileHandle
             switch (extension)
             {
                 case ".mdb":
-                    return false;                 
+                    return false;
                 case ".accdb":
-                    return true;                
+                    return true;
                 default:
-                    return false;                  
+                    return false;
             }
         }
         public bool SaveFileAs()

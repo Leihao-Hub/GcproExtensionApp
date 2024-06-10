@@ -1,19 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Reflection;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 #region GcproExtensionLibary
-using GcproExtensionLibrary;
-using GcproExtensionLibrary.Gcpro.GCObject;
 using GcproExtensionLibrary.FileHandle;
-using System.Threading;
 #endregion
 
 namespace GcproExtensionApp
@@ -32,7 +22,7 @@ namespace GcproExtensionApp
             AppGlobalSource.GcproDBInfo.ProjectDBPath = AccessFileHandle.BrowseFile();
             TxtProjectPath.Text = AppGlobalSource.GcproDBInfo.ProjectDBPath;
             Environment.SetEnvironmentVariable("GcsProjectDBPath", TxtProjectPath.Text, EnvironmentVariableTarget.User);
-        
+
         }
         private void BtnOpenGcsLibraryDB_Click(object sender, EventArgs e)
         {
@@ -68,7 +58,7 @@ namespace GcproExtensionApp
             {
                 Environment.SetEnvironmentVariable("GcproTempPath", txtGcproTempPath.Text, EnvironmentVariableTarget.User);
             }
-        }  
+        }
         private void GetAppInfo()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -80,7 +70,7 @@ namespace GcproExtensionApp
 
             AppGlobalSource.AppInfo.Title = $"Title: {assemblyTitle}";
             AppGlobalSource.AppInfo.Version = $"Version: {assemblyVersion}";
-            AppGlobalSource.AppInfo.Author= $"Author: {assemblyVersion}";
+            AppGlobalSource.AppInfo.Author = $"Author: {assemblyVersion}";
         }
 
 
@@ -105,7 +95,7 @@ namespace GcproExtensionApp
 
         }
 
-   
+
         private void TxtProjectPath_DoubleClick(object sender, EventArgs e)
         {
             BtnOpenProjectDB_Click(sender, e);

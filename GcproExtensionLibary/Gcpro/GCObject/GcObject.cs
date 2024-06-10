@@ -1,9 +1,8 @@
-﻿using System;
-namespace GcproExtensionLibrary.Gcpro.GCObject
+﻿namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     public abstract class GcObject
     {
-        public abstract OTypeCollection OType { get; set; }
+        public static OTypeCollection OType { get; protected set; }
         public abstract string Name { get; set; }
         public abstract string Description { get; set; }
         public abstract string SubType { get; set; }
@@ -16,6 +15,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public abstract string Page { get; set; }
         public abstract string IsNew { get; set; }
         public abstract string FilePath { get; set; }
-
+        protected static void SetOTypeProperty(OTypeCollection value)
+        {
+            OType = value;
+        }
     }
 }

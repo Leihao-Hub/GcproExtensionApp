@@ -1,14 +1,9 @@
-﻿using System;
+﻿using GcproExtensionLibary;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows.Forms;
-using System.Security.Cryptography;
-using GcproExtensionLibary;
+using System.Linq;
 namespace GcproExtensionLibrary
 {
     public class OleDb
@@ -108,7 +103,7 @@ namespace GcproExtensionLibrary
             return columnData;
         }
 
-        public bool InsertRecord(string tableName, List<DbParameter> parameters)
+        public bool InsertRecord(string tableName, List<Gcpro.DbParameter> parameters)
         {
             if (string.IsNullOrWhiteSpace(tableName))
             {
@@ -137,7 +132,7 @@ namespace GcproExtensionLibrary
                 }
             }
         }
-        public bool InsertMultipleRecords(string tableName, List<List<DbParameter>> parametersList)
+        public bool InsertMultipleRecords(string tableName, List<List<Gcpro.DbParameter>> parametersList)
         {
             connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
                            $"Data Source={dataSource}";
@@ -181,7 +176,7 @@ namespace GcproExtensionLibrary
                 }
             }
         }
-        public bool DeleteRecord(string tableName, string whereClause, List<DbParameter> whereParameters)
+        public bool DeleteRecord(string tableName, string whereClause, List<Gcpro.DbParameter> whereParameters)
         {
             string deleteQuery = $"DELETE FROM {tableName} WHERE {whereClause}";
             connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +

@@ -1,16 +1,9 @@
-﻿using System;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GcproExtensionLibrary;
-using GcproExtensionLibrary.FileHandle;
-using OfficeOpenXml;
-namespace GcproExtensionLibary.FileHandle
+namespace GcproExtensionLibrary.FileHandle
 {
     public class ExcelFileHandle
     {
@@ -41,7 +34,7 @@ namespace GcproExtensionLibary.FileHandle
             return BaseFileHandle.Browse(FileFilter, 1, false, true, "请选择一个" + fileType);
         }
 
-  
+
         internal static int ConvertColumnNameToNumber(string columnName)
         {
             int columnNumber = 0;
@@ -74,7 +67,7 @@ namespace GcproExtensionLibary.FileHandle
                 return listWorkSheetNames;
             }
         }
-        public List<List<object>> ReadFileAsList(int startRow, string[] columnsToRead,string filterTypeValue, string filterTypeColumnLetter, string filePath = null, string workSheetName = null)
+        public List<List<object>> ReadFileAsList(int startRow, string[] columnsToRead, string filterTypeValue, string filterTypeColumnLetter, string filePath = null, string workSheetName = null)
         {
             string effectiveWorksheetName = string.IsNullOrEmpty(workSheetName) ? this.workSheet : workSheetName;
             string effectiveFilePath = string.IsNullOrEmpty(filePath) ? this.filePath : filePath;
@@ -82,7 +75,7 @@ namespace GcproExtensionLibary.FileHandle
             FileInfo fileInfo = new FileInfo(effectiveFilePath);
             List<List<object>> allData = new List<List<object>>();
             if (columnsToRead == null || columnsToRead.Length == 0)
-                { throw new ArgumentException(LibGlobalSource.EX_SPECIFIED_COLUMN, nameof(columnsToRead)); }           
+            { throw new ArgumentException(LibGlobalSource.EX_SPECIFIED_COLUMN, nameof(columnsToRead)); }
             try
             {
                 using (ExcelPackage package = new ExcelPackage(fileInfo))
@@ -98,7 +91,7 @@ namespace GcproExtensionLibary.FileHandle
                         object filterCell = worksheet.Cells[row, filterColumnIndex].Value;
                         if (filterCell == null || filterCell.ToString() != filterTypeValue)
                         {
-                            continue; 
+                            continue;
                         }
                         List<object> rowData = new List<object>(columnsToRead.Length);
                         foreach (string columnLetter in columnsToRead)
@@ -106,15 +99,15 @@ namespace GcproExtensionLibary.FileHandle
                             int colIndex = ConvertColumnNameToNumber(columnLetter);
                             rowData.Add(worksheet.Cells[row, colIndex].Value);
                         }
-                        allData.Add(rowData);                  
+                        allData.Add(rowData);
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new ArgumentException(LibGlobalSource.EX_READING_FILE+ $"： {ex.Message}");
+                throw new ArgumentException(LibGlobalSource.EX_READING_FILE + $"： {ex.Message}");
             }
-            return allData;          
+            return allData;
         }
         public DataTable ReadFileAsDataTable(int startRow, string[] columnsToRead, string filterTypeValue, string filterTypeColumnLetter, string filePath = null, string workSheetName = null)
         {
@@ -166,16 +159,16 @@ namespace GcproExtensionLibary.FileHandle
             return dataTable;
         }
         public DataTable LoadDataIntoDataGridView(DataTable dataTable, string[] columnsToCombined)
-        {               
+        {
             DataTable combinedDataTable = new DataTable();
-            string combinedColums=string.Empty;
+            string combinedColums = string.Empty;
             for (int i = 0; i < columnsToCombined.Length; i++)
-            { combinedColums += columnsToCombined[i].ToString()+"-"; }  
-    
-             combinedDataTable.Columns.Add(combinedColums); 
+            { combinedColums += columnsToCombined[i].ToString() + "-"; }
+
+            combinedDataTable.Columns.Add(combinedColums);
             for (int i = 2; i < dataTable.Columns.Count; i++)
             {
-                combinedDataTable.Columns.Add(dataTable.Columns[i].ColumnName); 
+                combinedDataTable.Columns.Add(dataTable.Columns[i].ColumnName);
             }
 
             foreach (DataRow row in dataTable.Rows)
@@ -188,7 +181,7 @@ namespace GcproExtensionLibary.FileHandle
                 }
                 combinedDataTable.Rows.Add(newRow);
             }
-           return combinedDataTable;
+            return combinedDataTable;
         }
         public bool SaveFileAs()
         {

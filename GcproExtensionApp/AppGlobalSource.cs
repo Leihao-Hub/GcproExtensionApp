@@ -1,21 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
 #region GcproExtensionLibrary
 using GcproExtensionLibrary;
 using GcproExtensionLibrary.Gcpro;
-using GcproExtensionLibrary.Gcpro.GCObject;
-using GcproExtensionLibrary.FileHandle;
-using System.Drawing.Text;
-using System.IO;
-using System.Reflection;
-using GcproExtensionLibary;
-using System.Data;
-using static GcproExtensionApp.BML;
-using System.Drawing;
 #endregion
 namespace GcproExtensionApp
 {
@@ -30,13 +19,13 @@ namespace GcproExtensionApp
         public const string CONNECT_CONNECTOR = "关联对象";
         public const string SET_RELATION = "设置从属关系";
         public const string DEMO_NAME = "示例名称：";
-        public const string DEMO_NAME_RULE = "示例规则：";
+        public const string DEMO_NAME_RULE = "示例名称规则：";
         public const string DEMO_DESCRIPTION = "示例描述：";
-        public const string DEMO_DESCRIPTION_RULE = "示例描述：";
+        public const string DEMO_DESCRIPTION_RULE = "示例描述规则：";
         public const string FILE_NOT_EXITS = "示例描述：";
         public const string KEY_WORD_AUTOSEARCH = "搜寻关键字";
         public const string FILE_SAVE_AS_FAILURE = "文件保存失败";
-        public const string MOTOR_WITHOUT_VFC= "非变频控制";
+        public const string MOTOR_WITHOUT_VFC = "非变频控制";
         public const string NAME = "名称";
         public const string NULL = "null";
         public const string DEFAULT_GCPRO_TEMP_PATH = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH;
@@ -58,9 +47,9 @@ namespace GcproExtensionApp
         #endregion
         public static class AppInfo
         {
-            public static string  Title{get;set;}
+            public static string Title { get; set; }
             public static string Version { get; set; }
-            public static string Author { get;set;}
+            public static string Author { get; set; }
         }
 
         public static bool NewOLEDBDriver;
@@ -68,7 +57,7 @@ namespace GcproExtensionApp
 
         static AppGlobalSource()
         {
-            
+
         }
         /// <summary>
         /// Func<char, T> converter 使用泛型委托，传入一个函数，可以灵活将字符返回个指定类型的数据到列表中
@@ -99,7 +88,7 @@ namespace GcproExtensionApp
         }
         public static void MessageNotNumeric(string addition)
         {
-            MessageBox.Show(ENTER_NUMERIC+ addition, ENTER_NUMERIC, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(ENTER_NUMERIC + addition, ENTER_NUMERIC, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
         public static void RuleNotSetCorrect()
         {
@@ -118,22 +107,22 @@ namespace GcproExtensionApp
             bool isFloat = float.TryParse(sourceString, out _);
             return isInt || isLong || isFloat;
         }
-        public static bool ParseInt (string sourceString,out int outValue)
+        public static bool ParseInt(string sourceString, out int outValue)
         {
             int tempInt;
-            bool isInt=int.TryParse(sourceString, out tempInt);
+            bool isInt = int.TryParse(sourceString, out tempInt);
             outValue = tempInt;
             return isInt;
         }
-    
+
         public static bool ParseLong(string sourceString, out long outValue)
         {
-            long tempLong ;
+            long tempLong;
             bool isLong = long.TryParse(sourceString, out tempLong);
             outValue = tempLong;
             return isLong;
         }
-  
+
         public static bool ParseFloat(string sourceString, out float outValue)
         {
             float tempFloat;
@@ -164,11 +153,11 @@ namespace GcproExtensionApp
             { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name).ToString(); }
             else
             { key = string.Empty; }
-            return key;          
+            return key;
         }
         public static string FindFieldbusNodeKey(OleDb dataSource, int nodeNo)
         {
-            string key= string.Empty;
+            string key = string.Empty;
             DataTable data;
             data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}",
                          null, null, GcproTable.ObjData.Key.Name);
@@ -180,21 +169,21 @@ namespace GcproExtensionApp
         }
         #endregion
 
-        public static string GetObjectSymbolFromIO(string source )
+        public static string GetObjectSymbolFromIO(string source)
         {
-            string ret=string.Empty;
+            string ret = string.Empty;
             if (source.Length >= MIN_IO_SYMBOL_LENGTH)
             { ret = source.Substring(0, source.IndexOf(IO_SYMBOL_SUFFIX_SPLIT)); }
             else
             { ret = MSG_INVALID_IO_SYMBOL; }
             return ret;
         }
-   
+
 
         #region Operate bit 
         public static void SetBit(ref long sourceValue, byte position)
         {
-            long mask = 1L << position;    
+            long mask = 1L << position;
             sourceValue = sourceValue | mask;
 
         }
@@ -262,12 +251,12 @@ namespace GcproExtensionApp
             public static string ColumnDesc { get; } = "电机描述";
             public static string ColumnPower { get; } = "功率";
             public static string ColumnFloor { get; } = "楼层";
-            public static string ColumnCabinet{ get; } = "电柜号";
+            public static string ColumnCabinet { get; } = "电柜号";
             public static string ColumnCabinetGroup { get; } = "电柜组";
         }
         public static class Valve
         {
-            public static string TypeValue{ get; } = "Motor";
+            public static string TypeValue { get; } = "Motor";
             public static string ColumnName { get; } = "闸门名称";
             public static string ColumnDesc { get; } = "闸门描述";
             public static string ColumnFloor { get; } = "楼层";
@@ -289,12 +278,12 @@ namespace GcproExtensionApp
         {
             get { return objectCreateMode; }
         }
-        public bool Rule { get; set;}
+        public bool Rule { get; set; }
         public bool BML { get; set; }
         public bool AutoSearch { get; set; }
 
-      public CreateMode()
-        { 
+        public CreateMode()
+        {
             Rule = true;
             BML = false;
             AutoSearch = false;
@@ -311,7 +300,7 @@ namespace GcproExtensionApp
         void CreateTips();
         void CreateImpExp();
         void Default();
-       
+
     }
 
 }

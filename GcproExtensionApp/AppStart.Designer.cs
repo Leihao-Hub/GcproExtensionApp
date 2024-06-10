@@ -131,7 +131,7 @@
             this.BtnOpenGcproTempPath.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnOpenGcproTempPath.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
             this.BtnOpenGcproTempPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnOpenGcproTempPath.Image = global::GcproExtensionApp.Properties.Resources.Find;
+            this.BtnOpenGcproTempPath.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenGcproTempPath.Image")));
             this.BtnOpenGcproTempPath.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnOpenGcproTempPath.Location = new System.Drawing.Point(550, 119);
             this.BtnOpenGcproTempPath.Name = "BtnOpenGcproTempPath";
@@ -191,7 +191,7 @@
             this.BtnOpenGcsLibraryDB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnOpenGcsLibraryDB.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
             this.BtnOpenGcsLibraryDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnOpenGcsLibraryDB.Image = global::GcproExtensionApp.Properties.Resources.Find;
+            this.BtnOpenGcsLibraryDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenGcsLibraryDB.Image")));
             this.BtnOpenGcsLibraryDB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnOpenGcsLibraryDB.Location = new System.Drawing.Point(550, 63);
             this.BtnOpenGcsLibraryDB.Name = "BtnOpenGcsLibraryDB";
@@ -207,7 +207,7 @@
             this.BtnOpenProjectDB.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuText;
             this.BtnOpenProjectDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnOpenProjectDB.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnOpenProjectDB.Image = global::GcproExtensionApp.Properties.Resources.Find;
+            this.BtnOpenProjectDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenProjectDB.Image")));
             this.BtnOpenProjectDB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BtnOpenProjectDB.Location = new System.Drawing.Point(550, 24);
             this.BtnOpenProjectDB.Name = "BtnOpenProjectDB";
@@ -269,7 +269,7 @@
             this.LblGcproProjectPath.Name = "LblGcproProjectPath";
             this.LblGcproProjectPath.Size = new System.Drawing.Size(90, 22);
             this.LblGcproProjectPath.TabIndex = 0;
-            this.LblGcproProjectPath.Text = "项目数据库";
+            this.LblGcproProjectPath.Text = "项目库";
             this.LblGcproProjectPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabPage2

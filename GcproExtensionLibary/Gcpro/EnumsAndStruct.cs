@@ -1,9 +1,4 @@
-﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Collections.Generic;
-using System;
-using Microsoft.Win32;
-
-namespace GcproExtensionLibrary.Gcpro
+﻿namespace GcproExtensionLibrary.Gcpro
 {
     /// <summary>
     /// Types of Gcpro supported by the library
@@ -18,18 +13,18 @@ namespace GcproExtensionLibrary.Gcpro
         /// <summary>
         /// DIC
         /// </summary>
-         DIC = 900,
+        DIC = 900,
 
         /// <summary>
         /// DOC
         /// </summary>
         DOC = 901,
 
-     
 
-       /// <summary>
-       /// AIC
-       /// </summary>
+
+        /// <summary>
+        /// AIC
+        /// </summary>
         AIC = 910,
 
         /// <summary>
@@ -136,19 +131,19 @@ namespace GcproExtensionLibrary.Gcpro
         public int PosInString;
     }
     public struct RuleSubDataSet
-    { 
+    {
         public string Name;
         public int Inc;
         public string[] Sub;
-        public RuleSubPos PosInfo ;
+        public RuleSubPos PosInfo;
     }
     public struct GcBaseRule
     {
-        public string Name,Description;
+        public string Name, Description;
         public string NameRule, DescriptionRule;
         public string NameRuleInc, DescriptionRuleInc;
     }
-    
+
     /// <summary>
     /// Colums in Gcpro Database
     /// </summary>
@@ -165,5 +160,5 @@ namespace GcproExtensionLibrary.Gcpro
         public string GcproProjectDBConnectionString;
         public string GcproTempPath;
     }
-  
+
 }
