@@ -1,5 +1,7 @@
 ﻿using GcproExtensionLibrary.FileHandle;
+using System.Data.SqlTypes;
 using System.Text;
+using System.Xml.Linq;
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     ///  <summary>
@@ -17,7 +19,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             public string VFCRuleInc;
         }
         private string filePath;
-        private static string MotorFileName = $@"\{OTypeCollection.EL_Motor}.Txt";
+        private string fileRelationPath;
+        private static string motorFileName = $@"\{OTypeCollection.EL_Motor}";
         private string hornCode;
         private string pType;
         private string value9;
@@ -226,6 +229,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return filePath; }
             set { filePath = value; }
         }
+        public string FileRelationPath
+        {
+            get { return fileRelationPath; }           
+        }
         #region Readonly subtype property
         public static string M11 { get; } = "M11";
         public static string M12 { get; } = "M12";
@@ -316,12 +323,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             parPowerNominal = "0";
             parSpeedService = "20";
             unit = "2";
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + MotorFileName;
+            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+".Txt";
+            this.fileRelationPath= LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+ "_Relation.Txt";
         }
         public Motor(string filePath = null) : this()
         {
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + MotorFileName : filePath + MotorFileName);
+                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+ ".Txt" : filePath + motorFileName+ ".Txt");
+
+            this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
+                          LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+ "_Relation.Txt" : filePath + motorFileName+ "_Relation.Txt");
         }
         public void CreateObject(Encoding encoding)
         {
@@ -364,22 +375,54 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 unit + LibGlobalSource.TAB +
                 isNew;
             textFileHandle.WriteToTextFile(stdString + appString, encoding);
-
+            textFileHandle.FilePath = this.fileRelationPath;
+            if (subType == M11)
+            {
+                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, encoding);
+                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, encoding);
+                if (!string.IsNullOrEmpty(inpContactor))
+                {
+                    CreateRelation(name, inpContactor, GcproTable.ObjData.Value38.Name, encoding);
+                }
+            }
+            else if (subType == M12)
+            {
+                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, encoding);
+                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, encoding);
+                CreateRelation(name, inpRev, GcproTable.ObjData.Value13.Name, encoding);
+                CreateRelation(name, outpRev, GcproTable.ObjData.Value14.Name, encoding);
+            }
+            else if (subType == M1VFC || subType == M2VFC)
+            {
+                CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, encoding);             
+            }
+        }
+        public void CreateRelation(string parent,string child,string filed,Encoding encoding)
+        {
+            TextFileHandle textFileHandle = new TextFileHandle();
+            textFileHandle.FilePath = this.fileRelationPath;
+            string output = parent+LibGlobalSource.TAB+child+ LibGlobalSource.TAB+filed;
+            textFileHandle.WriteToTextFile(output, encoding);
         }
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
             textFileHandle.ClearContents();
+            textFileHandle.FilePath = this.fileRelationPath;
+            textFileHandle.ClearContents();
         }
         public bool SaveFileAs()
         {
-
+            bool result1, result2;
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
-            return textFileHandle.SaveFileAs();
+            result1=textFileHandle.SaveFileAs(LibGlobalSource.CREATE_OBJECT);
+     
+            textFileHandle.FilePath = this.fileRelationPath;
+            result2=textFileHandle.SaveFileAs(LibGlobalSource.CREATE_RELATION);
 
-
+            return result1&& result2;
         }
     }
     public abstract class BaseMotor : Element

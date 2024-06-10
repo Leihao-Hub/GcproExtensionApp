@@ -15,6 +15,8 @@ namespace GcproExtensionLibrary
         public const string MOTOR_FILE_NAME = @"\Motor.Txt";
         public const string SELECT_A_FOLDER = "选择一个文件夹";
         public const string FILE_SAVE_AS = "文件另存为";
+        public const string CREATE_OBJECT = "创建对象:";
+        public const string CREATE_RELATION = "对象关系:";
         public const string OLEDB_PROVIDER_MDB = "Provider=Microsoft.Jet.OLEDB.4.0;";
         public const string OLEDB_PROVIDER_ACCDB = "Provider=Microsoft.ACE.OLEDB.12.0;";
         public const string EMPTY_TABLENAME_OR_FIELDNAME = "查询表名称和字段名称不能为空";

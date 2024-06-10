@@ -24,8 +24,8 @@ namespace GcproExtensionApp
         #region Public object in this class
         Motor myMotor = new Motor(AppGlobalSource.GcproDBInfo.GcproTempPath);
         ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        OleDb oledb = new GcproExtensionLibrary.OleDb();
-        DataTable dataTable = new DataTable();
+        //OleDb oledb = new OleDb();
+       // DataTable dataTable = new DataTable();
         System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
@@ -47,6 +47,8 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
+            OleDb oledb = new OleDb();
+            DataTable dataTable = new DataTable();
             oledb.DataSource = AppGlobalSource.GcproDBInfo.GcsLibaryPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             ///<ReadInfoFromGcsLibrary> 
@@ -165,53 +167,60 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
-            TxtSymbolRule.Text = Motor.Rule.Common.NameRule;
-            TxtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
-            TxtDescriptionRule.Text = Motor.Rule.Common.DescriptionRule;
-            TxtDescriptionIncRule.Text = Motor.Rule.Common.DescriptionRuleInc;
-            TxtVFCRule.Text = Motor.Rule.VFCRule;
-            TxtVFCIncRule.Text = Motor.Rule.VFCRuleInc;
-            TxtAORule.Text = Motor.Rule.AORule;
-            TxtAOIncRule.Text = Motor.Rule.AORuleInc;
+            txtSymbolRule.Text = Motor.Rule.Common.NameRule;
+            txtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
+            txtDescriptionRule.Text = Motor.Rule.Common.DescriptionRule;
+            txtDescriptionIncRule.Text = Motor.Rule.Common.DescriptionRuleInc;
+            txtVFCSuffix.Text = Motor.Rule.VFCRule;     
+            txtAOSuffix.Text = Motor.Rule.AORule;
+
         }
         public void CreateTips()
         {
             toolTip.SetToolTip(BtnNewImpExpDef, AppGlobalSource.CREATE_IMPORT_RULE + Motor.OType);
             toolTip.SetToolTip(BtnConnectIO, AppGlobalSource.CONNECT_IO);
-            toolTip.SetToolTip(BtnSetParentAndChild, AppGlobalSource.SET_RELATION);
             toolTip.SetToolTip(BtnConnectVFC, AppGlobalSource.SET_RELATION);
-            toolTip.SetToolTip(TxtSymbol, AppGlobalSource.DEMO_NAME + DEMO_NAME_MOTOR);
-            toolTip.SetToolTip(TxtSymbolRule, AppGlobalSource.DEMO_NAME_RULE + DEMO_NAME_RULE_MOTOR);
-            toolTip.SetToolTip(TxtDescription, AppGlobalSource.DEMO_DESCRIPTION + DEMO_DESCRIPTION_MOTOR);
-            toolTip.SetToolTip(TxtDescriptionRule, AppGlobalSource.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_MOTOR);
+            toolTip.SetToolTip(txtSymbol, AppGlobalSource.DEMO_NAME + DEMO_NAME_MOTOR);
+            toolTip.SetToolTip(txtSymbolRule, AppGlobalSource.DEMO_NAME_RULE + DEMO_NAME_RULE_MOTOR);
+            toolTip.SetToolTip(txtDescription, AppGlobalSource.DEMO_DESCRIPTION + DEMO_DESCRIPTION_MOTOR);
+            toolTip.SetToolTip(txtDescriptionRule, AppGlobalSource.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_MOTOR);
         }
         public void CreateImpExp()
         {
+            OleDb oledb = new OleDb();
+            DataTable dataTable = new DataTable();
             oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Motor.ImpExpRuleName}'",
-            null, null, GcproTable.ImpExpDef.FieldType.Name);
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;          
+            dataTable=oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Motor.ImpExpRuleName}'",
+            null, null, GcproTable.ImpExpDef.FieldType.Name);         
             if (dataTable.Rows.Count > 0)
             {
                 if (MessageBox.Show(AppGlobalSource.MSG_RULE_ALREADY_EXITS, AppGlobalSource.INFO,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Motor.ImpExpRuleName}'", null);
-                    CreateMotorImpExp();
+                    CreateMotorImpExp(oledb);
                 }
                 else
-                { return; }
+                { 
+                    return; 
+                }
             }
             else
-            { CreateMotorImpExp(); }
+            { 
+                CreateMotorImpExp(oledb); 
+            }
+
         }
 
         public void Default()
         {
 
-            TxtSymbol.Focus();
-            TxtInpRunFwd.Text = TxtSymbol.Text + ":I";
-            TxtOutpRunFwd.Text = TxtSymbol.Text + ":O";
+            txtSymbol.Focus();
+            txtInpFwdSuffix.Text = ":I";
+            txtOutpFwdSuffix.Text = ":O";
+            txtInpRunFwd.Text = txtSymbol.Text + txtInpFwdSuffix.Text;
+            txtOutpRunFwd.Text = txtSymbol.Text + txtOutpFwdSuffix.Text;
             LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
@@ -251,7 +260,7 @@ namespace GcproExtensionApp
 
         #endregion
 
-        private void CreateMotorImpExp()
+        private void CreateMotorImpExp(OleDb oledb)
         {
 
             List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
@@ -513,9 +522,9 @@ namespace GcproExtensionApp
         #region <------Check and store rule event------>
         private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
         {
-            if (AppGlobalSource.CheckNumericString(TxtSymbolRule.Text))
+            if (AppGlobalSource.CheckNumericString(txtSymbolRule.Text))
             {
-                Motor.Rule.Common.NameRule = TxtSymbolRule.Text;
+                Motor.Rule.Common.NameRule = txtSymbolRule.Text;
             }
             else
             {
@@ -528,9 +537,9 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
 
-                if (AppGlobalSource.CheckNumericString(TxtSymbolIncRule.Text))
+                if (AppGlobalSource.CheckNumericString(txtSymbolIncRule.Text))
                 {
-                    Motor.Rule.Common.NameRuleInc = TxtSymbolIncRule.Text;
+                    Motor.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
                 }
                 else
                 {
@@ -542,9 +551,9 @@ namespace GcproExtensionApp
         private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
 
-            if (AppGlobalSource.CheckNumericString(TxtDescriptionRule.Text))
+            if (AppGlobalSource.CheckNumericString(txtDescriptionRule.Text))
             {
-                Motor.Rule.Common.DescriptionRule = TxtDescriptionRule.Text;
+                Motor.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
             }
             else
             {
@@ -556,9 +565,9 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (AppGlobalSource.CheckNumericString(TxtDescriptionIncRule.Text))
+                if (AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text))
                 {
-                    Motor.Rule.Common.DescriptionRuleInc = TxtDescriptionIncRule.Text;
+                    Motor.Rule.Common.DescriptionRuleInc = txtDescriptionIncRule.Text;
                 }
                 else
                 {
@@ -570,56 +579,27 @@ namespace GcproExtensionApp
 
         private void TxtVFCRule_TextChanged(object sender, EventArgs e)
         {
-            if (AppGlobalSource.CheckNumericString(TxtVFCRule.Text))
+            if (AppGlobalSource.CheckNumericString(txtVFCSuffix.Text))
             {
-                Motor.Rule.VFCRule = TxtVFCRule.Text;
+                Motor.Rule.VFCRule = txtVFCSuffix.Text;
             }
             else
             {
                 AppGlobalSource.MessageNotNumeric();
             }
         }
-        private void TxtVFCIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (AppGlobalSource.CheckNumericString(TxtVFCIncRule.Text))
-                {
-                    Motor.Rule.VFCRuleInc = TxtVFCIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-        }
+    
         private void TxtAORule_TextChanged(object sender, EventArgs e)
         {
-            if (AppGlobalSource.CheckNumericString(TxtAORule.Text))
+            if (AppGlobalSource.CheckNumericString(txtAOSuffix.Text))
             {
-                Motor.Rule.AORule = TxtAORule.Text;
+                Motor.Rule.AORule = txtAOSuffix.Text;
             }
             else
             {
                 AppGlobalSource.MessageNotNumeric();
             }
         }
-
-        private void TxtAOIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (AppGlobalSource.CheckNumericString(TxtAOIncRule.Text))
-                {
-                    Motor.Rule.AORuleInc = TxtAOIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-        }
-
         private void TxtMonTime_TextChanged(object sender, EventArgs e)
         {
             if (!(AppGlobalSource.CheckNumericString(TxtMonTime.Text)))
@@ -840,29 +820,43 @@ namespace GcproExtensionApp
         {
             if (myMotor.SubType == Motor.M1VFC ||
                 myMotor.SubType == Motor.M1VFC)
-            { TxtVFCAdapter.Text = TxtSymbol.Text + "-VFC"; }
+            { 
+                txtVFCAdapter.Text = txtSymbol.Text + txtVFCSuffix.Text;
+            }
+            else if (myMotor.SubType == Motor.M12)
+            {
+                txtInpRunRev.Text = txtSymbol.Text + txtInpRevSuffix.Text;
+                txtOutpRunRev.Text = txtSymbol.Text + txtOutpRevSuffix.Text;
+            }
             else
-            { TxtVFCAdapter.Text = AppGlobalSource.MOTOR_WITHOUT_VFC; }
-
-            TxtInpRunFwd.Text = TxtSymbol.Text + ":I";
-            TxtOutpRunFwd.Text = TxtSymbol.Text + ":O";
-            myMotor.Name = TxtSymbol.Text;
+            { 
+                txtVFCAdapter.Text = AppGlobalSource.MOTOR_WITHOUT_VFC;
+                txtInpRunFwd.Text = txtSymbol.Text + txtInpFwdSuffix.Text;
+                txtOutpRunFwd.Text = txtSymbol.Text + txtOutpFwdSuffix.Text;
+            }         
+            myMotor.Name = txtSymbol.Text;
         }
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
             if (!String.IsNullOrEmpty(selectedItem))
-            { myMotor.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR)); }
+            { 
+                myMotor.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR)); 
+            }
             if (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)
             {
-                TxtVFCAdapter.Text = TxtSymbol.Text + "-VFC";
-                TxtVFCAdapter.BackColor = Color.White;
+                txtVFCAdapter.Text = txtSymbol.Text + txtVFCSuffix;
+                txtInpRunFwd.Text = txtOutpRunFwd.Text = String.Empty;
+                txtInpRunRev.Text = txtOutpRunRev.Text = String.Empty;
+                txtInpRunFwd.BackColor = txtOutpRunFwd.BackColor = Color.LightGray;
+                txtInpRunRev.BackColor = txtOutpRunRev.BackColor = Color.LightGray;
+                txtVFCAdapter.BackColor = Color.White;
                 BtnConnectVFC.Enabled = true;
             }
             else
             {
-                TxtVFCAdapter.Text = "非变频控制";
-                TxtVFCAdapter.BackColor = Color.LightGray;
+                txtVFCAdapter.Text = AppGlobalSource.MOTOR_WITHOUT_VFC;
+                txtVFCAdapter.BackColor = Color.LightGray;
                 BtnConnectVFC.Enabled = false;
             }
             try
@@ -873,7 +867,7 @@ namespace GcproExtensionApp
                         if (item.ToString().StartsWith(Motor.P7042))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
-                            return;
+                            break;
                         }
                     }
                 else if (myMotor.SubType == Motor.M2VFC)
@@ -882,51 +876,73 @@ namespace GcproExtensionApp
                         if (item.ToString().StartsWith(Motor.P7041))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
-                            return;
+                            break;
                         }
                     }
                 else if (myMotor.SubType == Motor.M11)
+                {
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
                         if (item.ToString().StartsWith(Motor.P7053))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
-                            return;
+                            break;
                         }
                     }
+                    txtInpFwdSuffix.Text = ":I";
+                    txtOutpFwdSuffix.Text = ":O";
+                    txtInpRevSuffix.Text = txtOutpRevSuffix.Text= String.Empty;
+                    txtInpRunRev.Text = txtOutpRunRev.Text = String.Empty;
+                    txtInpRunFwd.BackColor=txtOutpRunFwd.BackColor=Color.White;
+                    txtInpRunRev.BackColor = txtOutpRunRev.BackColor = Color.LightGray;
+                }
                 else if (myMotor.SubType == Motor.M12)
+                {
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
                         if (item.ToString().StartsWith(Motor.P7056))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
-                            return;
+                            break;
                         }
                     }
+                    txtInpFwdSuffix.Text = ":I1";
+                    txtOutpFwdSuffix.Text = ":O1";
+                    txtInpRevSuffix.Text = ":I2";
+                    txtOutpRevSuffix.Text = ":O2";
+                    txtInpRunFwd.BackColor = txtOutpRunFwd.BackColor = Color.White;
+                    txtInpRunRev.BackColor = txtOutpRunRev.BackColor = Color.White;
+                }
                 else if (myMotor.SubType == Motor.M21)
+                {
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
                         if (item.ToString().StartsWith(Motor.P7052))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
-                            return;
+                            break;
                         }
                     }
+                }
                 else if (myMotor.SubType == Motor.M22)
+                {
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
                         if (item.ToString().StartsWith(Motor.P7051))
                         {
                             ComboEquipmentInfoType.SelectedItem = item;
-                            return;
+                            break;
                         }
                     }
+                }
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message, AppGlobalSource.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
+            OleDb oledb = new OleDb();
+            DataTable dataTable = new DataTable();
             try
             {
                 #region common used variables declaration
@@ -1020,7 +1036,7 @@ namespace GcproExtensionApp
                 ///<Value10>Value is set when corresponding check box's check state changed</Value10>
                 ///<Name>Value is set in TxtSymbol text changed event</Name>
                 ///<Description></Description>
-                myMotor.Description = TxtDescription.Text;
+                myMotor.Description = txtDescription.Text;
                 ///<ProcessFct></ProcessFct>
                 string selectedProcessFct = string.Empty;
                 if (ComboProcessFct.SelectedItem != null)
@@ -1113,7 +1129,7 @@ namespace GcproExtensionApp
                     List<string> objList = new List<string>();
                     List<int> objOutpKeyList = new List<int>();
                     List<int> objInpKeyList = new List<int>();
-                    string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND {GcproTable.ObjData.Text0.Name} LIKE '%{TxtSymbol.Text}%'";
+                    string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
                     oledb.IsNewOLEDBDriver = isNewOledbDriver;
                     oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name);
@@ -1128,9 +1144,9 @@ namespace GcproExtensionApp
                     ProgressBar.Maximum = quantityNeedToBeCreate - 1;
                     ProgressBar.Value = 0;
                     ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(TxtDescriptionRule.Text))
+                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
                     {
-                        description.PosInfo = LibGlobalSource.RuleSubPos(TxtDescription.Text, TxtDescriptionRule.Text);
+                        description.PosInfo = LibGlobalSource.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
                         if (description.PosInfo.Len == -1)
                         {
                             if (moreThanOne)
@@ -1140,7 +1156,7 @@ namespace GcproExtensionApp
                             }
                         }
                         else
-                        { description.Sub = LibGlobalSource.SplitStringWithRule(TxtDescription.Text, TxtDescriptionRule.Text); }
+                        { description.Sub = LibGlobalSource.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
                     }
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
@@ -1156,7 +1172,7 @@ namespace GcproExtensionApp
                 {
                     #region Parse rules
                     ///<ParseRule> </ParseRule>
-                    if (!AppGlobalSource.ParseInt(TxtSymbolIncRule.Text, out tempInt))
+                    if (!AppGlobalSource.ParseInt(txtSymbolIncRule.Text, out tempInt))
                     {
                         if (moreThanOne)
                         {
@@ -1165,7 +1181,7 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<NameRule>生成名称规则</NameRule>
-                    name.PosInfo = LibGlobalSource.RuleSubPos(TxtSymbol.Text, TxtSymbolRule.Text);
+                    name.PosInfo = LibGlobalSource.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
                     if (name.PosInfo.Len == -1)
                     {
                         if (moreThanOne)
@@ -1176,7 +1192,7 @@ namespace GcproExtensionApp
                     }
                     else
                     {
-                        name.Sub = LibGlobalSource.SplitStringWithRule(TxtSymbol.Text, TxtSymbolRule.Text);
+                        name.Sub = LibGlobalSource.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
                     }
 
                     string selectedDPNode1Item = string.Empty;
@@ -1191,7 +1207,7 @@ namespace GcproExtensionApp
                     }
                     if (needDPNodeChanged)
                     {
-                        dpNode1.PosInfo = LibGlobalSource.RuleSubPos(selectedDPNode1Item, TxtSymbolRule.Text);
+                        dpNode1.PosInfo = LibGlobalSource.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
                         if (dpNode1.PosInfo.Len == -1)
                         {
                             AppGlobalSource.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobalSource.MSG_CREATE_WILL_TERMINATE}");
@@ -1200,7 +1216,7 @@ namespace GcproExtensionApp
                         else
                         {
                             dpNode1.Name = selectedDPNode1Item;
-                            dpNode1.Sub = LibGlobalSource.SplitStringWithRule(dpNode1.Name, TxtSymbolRule.Text);
+                            dpNode1.Sub = LibGlobalSource.SplitStringWithRule(dpNode1.Name, txtSymbolRule.Text);
                         }
                     }
                     else
@@ -1208,9 +1224,9 @@ namespace GcproExtensionApp
                         dpNode1.Name = string.Empty;
                     }
                     ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(TxtDescriptionRule.Text))
+                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
                     {
-                        description.PosInfo = LibGlobalSource.RuleSubPos(TxtDescription.Text, TxtDescriptionRule.Text);
+                        description.PosInfo = LibGlobalSource.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
                         if (description.PosInfo.Len == -1)
                         {
                             if (moreThanOne)
@@ -1220,7 +1236,7 @@ namespace GcproExtensionApp
                             }
                         }
                         else
-                        { description.Sub = LibGlobalSource.SplitStringWithRule(TxtDescription.Text, TxtDescriptionRule.Text); }
+                        { description.Sub = LibGlobalSource.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
                     }
                     #endregion
 
@@ -1231,16 +1247,18 @@ namespace GcproExtensionApp
                     ///</CreateObj>
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
-                        int symbolInc = int.Parse(TxtSymbolIncRule.Text);
-                        int symbolRule = int.Parse(TxtSymbolRule.Text);
+                        int symbolInc = int.Parse(txtSymbolIncRule.Text);
+                        int symbolRule = int.Parse(txtSymbolRule.Text);
                         int descriptionInc;
-                        tempBool = AppGlobalSource.ParseInt(TxtDescriptionIncRule.Text, out descriptionInc);
+                        tempBool = AppGlobalSource.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
                         name.Inc = i * symbolInc;
                         name.Name = LibGlobalSource.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                         if (!motorWithVFC)
                         {
-                            myMotor.InpFwd = AppGlobalSource.FindIOKey(oledb, $"{name.Name}:I");
-                            myMotor.OutpFwd = AppGlobalSource.FindIOKey(oledb, $"{name.Name}:O");
+                            // myMotor.InpFwd = AppGlobalSource.FindIOKey(oledb, $"{name.Name}:I");
+                            // myMotor.OutpFwd = AppGlobalSource.FindIOKey(oledb, $"{name.Name}:O");
+                            myMotor.InpFwd = $"{name.Name}:I";
+                            myMotor.OutpFwd = $"{name.Name}:O";
                         }
                         else if (needDPNodeChanged && moreThanOne)
                         {
@@ -1252,18 +1270,18 @@ namespace GcproExtensionApp
                             myMotor.FieldBusNode = AppGlobalSource.FindFieldbusNodeKey(oledb, dpnode1);
                         }
 
-                        if (!String.IsNullOrEmpty(TxtDescription.Text))
+                        if (!String.IsNullOrEmpty(txtDescription.Text))
                         {
-                            if (!String.IsNullOrEmpty(TxtDescriptionIncRule.Text) && !String.IsNullOrEmpty(TxtDescriptionRule.Text)
-                                && AppGlobalSource.CheckNumericString(TxtDescriptionIncRule.Text) && AppGlobalSource.CheckNumericString(TxtDescriptionIncRule.Text)
+                            if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                                && AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text)
                                 && (description.PosInfo.Len != -1))
                             {
                                 description.Inc = i * descriptionInc;
-                                description.Name = LibGlobalSource.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(TxtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
+                                description.Name = LibGlobalSource.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
                             }
                             else
                             {
-                                description.Name = TxtDescription.Text;
+                                description.Name = txtDescription.Text;
                             }
 
                         }
@@ -1402,9 +1420,7 @@ namespace GcproExtensionApp
             // List<List<object>> allData = new List<List<object>>();
             string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text};
-            //  allData = excelFileHandle.ReadFileAsList(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
-
-            dataTable.Rows.Clear();
+            DataTable dataTable = new DataTable();
             dataTable = excelFileHandle.ReadFileAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
@@ -1427,15 +1443,15 @@ namespace GcproExtensionApp
                 createMode.Rule = true;
                 createMode.BML = false;
                 createMode.AutoSearch = false;
-                TxtSymbolRule.Text = Motor.Rule.Common.NameRule;
-                TxtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
+                txtSymbolRule.Text = Motor.Rule.Common.NameRule;
+                txtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
                 LblQuantity.Visible = true;
                 TxtQuantity.Visible = true;
                 GrpSymbolRule.Visible = true;
                 LblSymbol.Text = AppGlobalSource.NAME;
-                TxtSymbol.Text = DEMO_NAME_MOTOR;
+                txtSymbol.Text = DEMO_NAME_MOTOR;
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
-                dataTable.Clear();
+               
             }
             else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.AutoSearch)
             {
@@ -1443,15 +1459,15 @@ namespace GcproExtensionApp
                 createMode.Rule = false;
                 createMode.BML = false;
                 createMode.AutoSearch = true;
-                TxtSymbolRule.Text = Motor.Rule.Common.NameRule;
-                TxtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
+                txtSymbolRule.Text = Motor.Rule.Common.NameRule;
+                txtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
                 LblQuantity.Visible = false;
                 TxtQuantity.Visible = false;
                 GrpSymbolRule.Visible = false;
                 LblSymbol.Text = AppGlobalSource.KEY_WORD_AUTOSEARCH;
-                TxtSymbol.Text = "-MXZ";
+                txtSymbol.Text = "-MXZ";
                 tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
-                dataTable.Clear();
+                
             }
 
             else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.BML)
@@ -1459,9 +1475,7 @@ namespace GcproExtensionApp
                 createMode.Rule = false;
                 createMode.BML = true;
                 createMode.AutoSearch = false;
-                tabCreateMode.SelectedTab = tabBML;
-          
-
+                tabCreateMode.SelectedTab = tabBML;         
             }
 
         }
@@ -1469,15 +1483,22 @@ namespace GcproExtensionApp
         {
             if (tabCreateMode.SelectedTab == tabRule)
 
-            { ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule; }
+            { 
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule; 
+            }
             else
-            { ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML; }
+            { 
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
+            }
 
         }
 
         private void toolStripMenuClearList_Click(object sender, EventArgs e)
         {
-            dataTable.Clear();
+            //dataTable.Clear();
+            DataTable dataTable=null;
+            dataGridBML.DataSource = dataTable;
+            
         }
         private void toolStripMenuReload_Click(object sender, EventArgs e)
         {
@@ -1489,14 +1510,18 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
-                { AppGlobalSource.MessageNotNumeric(); }
+                { 
+                    AppGlobalSource.MessageNotNumeric();
+                }
             }
         }
 
         private void TxtQuantity_TextChanged(object sender, EventArgs e)
         {
             if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
-            { AppGlobalSource.MessageNotNumeric(); }
+            { 
+                AppGlobalSource.MessageNotNumeric(); 
+            }
         }
 
 
@@ -1505,6 +1530,40 @@ namespace GcproExtensionApp
             // Motor.GetStartingTime();
         }
 
+        private void BtnConnectIO_Click(object sender, EventArgs e)
+        {
+            int InputFwdID, InputRevID, OutputFwdID, OutputRevID;
+            string selectedMotor = "";
+            string selectedMotorID = "0";
+            string selectedMotorSubType = "";
+            List <string> objListText0 = new List<string>();
+            List <string> objIDList= new List<string>();
+            List <string> objListSubType = new List<string>();
+        }
 
+        private void txtInpFwdSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtInpRunFwd.Text = txtSymbol.Text+ txtInpFwdSuffix.Text;
+        }
+
+        private void txtOutpFwdSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtOutpRunFwd.Text = txtSymbol.Text + txtOutpFwdSuffix.Text;
+        }
+
+        private void txtInpRevSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtInpRunRev.Text = txtSymbol.Text + txtInpRevSuffix.Text;
+        }
+
+        private void txtOutRevSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtOutpRunRev.Text = txtSymbol.Text + txtOutpRevSuffix.Text;
+        }
+
+        private void BtnConnectVFC_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

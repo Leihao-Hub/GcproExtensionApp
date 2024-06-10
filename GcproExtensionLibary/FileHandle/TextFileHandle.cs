@@ -59,9 +59,11 @@ namespace GcproExtensionLibrary.FileHandle
         {
             return BaseFileHandle.Browse(FileFilter, 1, false, true, "请选择一个" + fileType + "文件");
         }
-        public bool SaveFileAs()
+        public bool SaveFileAs(string title)
         {
-            return BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, LibGlobalSource.FILE_SAVE_AS);
+            bool result = false;
+            result= BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, title+LibGlobalSource.FILE_SAVE_AS);
+            return result;
         }
     }
 
