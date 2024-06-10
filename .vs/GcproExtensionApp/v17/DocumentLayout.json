@@ -11,7 +11,7 @@
       "RelativeMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|solutionrelative:gcproextensionapp\\el\\formmotor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|z:\\d\\leihao\\data\\programming\\repos\\gcproextensionapp\\gcproextensionapp\\el\\formmotor.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionapp\\el\\formmotor.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|solutionrelative:gcproextensionapp\\el\\formmotor.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -66,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
@@ -79,16 +79,11 @@
               "ViewState": "AQIAAFIBAAAAAAAAAAAwwKkBAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-07T07:51:22.127Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Document",
@@ -100,8 +95,7 @@
               "RelativeToolTip": "GcproExtensionApp\\EL\\FormMotor.Designer.cs",
               "ViewState": "AQIAAPMGAAAAAAAAAIAxwPMGAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T12:32:26.124Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T12:32:26.124Z"
             },
             {
               "$type": "Document",
@@ -123,7 +117,7 @@
               "RelativeDocumentMoniker": "GcproExtensionApp\\EL\\FormMotor.cs",
               "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\EL\\FormMotor.cs",
               "RelativeToolTip": "GcproExtensionApp\\EL\\FormMotor.cs",
-              "ViewState": "AQIAAKIAAAAAAAAAAAAWwLQAAABJAAAA",
+              "ViewState": "AQIAALUAAAAAAAAAAAAAALQAAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-31T05:01:02.314Z",
               "EditorCaption": ""
@@ -138,8 +132,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\FileHandle\\ExcelFileHandle.cs",
               "ViewState": "AQIAAHEAAAAAAAAAAAAIwAUAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-07T07:59:48.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T07:59:48.285Z"
             },
             {
               "$type": "Document",
@@ -151,8 +144,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\LibGlobalSource.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-07T07:58:09.454Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T07:58:09.454Z"
             },
             {
               "$type": "Document",
@@ -164,8 +156,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\DatabaseAccess\\OleDb.cs",
               "ViewState": "AQIAAGcAAAAAAAAAAAAQwK4AAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T01:03:25.678Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-03T01:03:25.678Z"
             },
             {
               "$type": "Document",
@@ -177,8 +168,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\FileHandle\\BaseFileHandle.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-07T07:52:05.374Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T07:52:05.374Z"
             },
             {
               "$type": "Document",
@@ -190,8 +180,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\GcObject.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T02:40:30.346Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-10T02:40:30.346Z"
             },
             {
               "$type": "Document",
@@ -203,8 +192,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\FileHandle\\TextFileHandle.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAUwDwAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-07T08:02:17.925Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T08:02:17.925Z"
             },
             {
               "$type": "Document",
@@ -216,8 +204,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\FileHandle\\AccessFileHandle.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-07T07:52:01.177Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T07:52:01.177Z"
             },
             {
               "$type": "Document",
@@ -229,8 +216,7 @@
               "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GcproTable.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-07T07:56:02.26Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T07:56:02.26Z"
             },
             {
               "$type": "Document",
@@ -241,8 +227,7 @@
               "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\ObjectBroswer.cs [Design]",
               "RelativeToolTip": "GcproExtensionApp\\ObjectBroswer.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T06:01:24.765Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-05-31T06:01:24.765Z"
             },
             {
               "$type": "Document",
@@ -253,8 +238,7 @@
               "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\ObjectBroswer.resx",
               "RelativeToolTip": "GcproExtensionApp\\ObjectBroswer.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2024-05-31T06:13:27.079Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-31T06:13:27.079Z"
             }
           ]
         }
