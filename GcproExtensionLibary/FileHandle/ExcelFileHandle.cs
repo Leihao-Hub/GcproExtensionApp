@@ -61,25 +61,28 @@ namespace GcproExtensionLibrary.FileHandle
 
 
 
-        public List<List<object>> ReadFileAsList(int startRow, string[] columnsToRead, string filter, string filterColumn, string filePath = null, string workSheetName = null)
+        public List<Dictionary<string, object>> ReadAsList(int startRow, string[] columnsToRead, string filter, string filterColumn, string filePath = null, string workSheetName = null)
         {
-            string effectiveWorksheetName = string.IsNullOrEmpty(workSheetName) ? this.workSheet : workSheetName;
-            string effectiveFilePath = string.IsNullOrEmpty(filePath) ? this.filePath : filePath;
-
-            FileInfo fileInfo = new FileInfo(effectiveFilePath);
-            List<List<object>> allData = new List<List<object>>();
-            if (columnsToRead == null || columnsToRead.Length == 0)
-            { throw new ArgumentException(LibGlobalSource.EX_SPECIFIED_COLUMN, nameof(columnsToRead)); }
             try
             {
+                string effectiveWorksheetName = string.IsNullOrEmpty(workSheetName) ? this.workSheet : workSheetName;
+                string effectiveFilePath = string.IsNullOrEmpty(filePath) ? this.filePath : filePath;
+
+                FileInfo fileInfo = new FileInfo(effectiveFilePath);
+                List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
+
                 using (ExcelPackage package = new ExcelPackage(fileInfo))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[effectiveWorksheetName];
                     if (worksheet == null)
-                    { throw new ArgumentException(LibGlobalSource.EX_FILE_NOT_FOUND + $"'{effectiveWorksheetName}'", nameof(workSheetName)); }
+                    {
+                        throw new ArgumentException("Worksheet not found: " + effectiveWorksheetName, nameof(workSheetName));
+                    }
+
                     int rowCount = worksheet.Dimension?.Rows ?? 0;
                     int filterColumnIndex = ConvertColumnNameToNumber(filterColumn);
 
+                    // 遍历所有数据行，筛选符合条件的行
                     for (int row = startRow; row <= rowCount; row++)
                     {
                         object filterCell = worksheet.Cells[row, filterColumnIndex].Value;
@@ -87,21 +90,69 @@ namespace GcproExtensionLibrary.FileHandle
                         {
                             continue;
                         }
-                        List<object> rowData = new List<object>(columnsToRead.Length);
-                        foreach (string columnLetter in columnsToRead)
+
+                        // 将符合条件的行数据填充到Dictionary并添加到List
+                        Dictionary<string, object> rowData = new Dictionary<string, object>();
+                        for (int i = 0; i < columnsToRead.Length; i++)
                         {
-                            int colIndex = ConvertColumnNameToNumber(columnLetter);
-                            rowData.Add(worksheet.Cells[row, colIndex].Value);
+                            int colIndex = ConvertColumnNameToNumber(columnsToRead[i]);
+                            rowData[$"Column {i + 1}"] = worksheet.Cells[row, colIndex].Value;
                         }
-                        allData.Add(rowData);
+                        result.Add(rowData);
                     }
                 }
+
+                return result;
             }
             catch (Exception ex)
             {
-                throw new ArgumentException(LibGlobalSource.EX_READING_FILE + $"： {ex.Message}");
+                throw new ArgumentException("Error reading file: " + ex.Message);
             }
-            return allData;
+        }
+        public List<Dictionary<string, object>> ReadAsList(int startRow, string[] columnsToRead, string[] filter, string[] filterColumn, string filePath = null, string workSheetName = null)
+        {
+            try
+            {
+                string effectiveWorksheetName = string.IsNullOrEmpty(workSheetName) ? this.workSheet : workSheetName;
+                string effectiveFilePath = string.IsNullOrEmpty(filePath) ? this.filePath : filePath;
+
+                FileInfo fileInfo = new FileInfo(effectiveFilePath);
+                List<Dictionary<string, object>> result = new List<Dictionary<string, object>>();
+
+                using (ExcelPackage package = new ExcelPackage(fileInfo))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[effectiveWorksheetName];
+                    if (worksheet == null)
+                    {
+                        throw new ArgumentException("Worksheet not found: " + effectiveWorksheetName, nameof(workSheetName));
+                    }
+
+                    int rowCount = worksheet.Dimension?.Rows ?? 0;
+                    int[] filterColumnIndexes = filterColumn.Select(ConvertColumnNameToNumber).ToArray();
+
+                    // 用 LINQ 筛选符合条件的行
+                    var filteredRows = Enumerable.Range(startRow, rowCount - startRow + 1)
+                        .Select(row => new { RowIndex = row, FilterCells = filterColumnIndexes.Select(idx => worksheet.Cells[row, idx].Value).ToArray() })
+                        .Where(x => FilterExpressions(x.FilterCells, filter));
+
+                    // 遍历筛选后的行并填充结果
+                    foreach (var row in filteredRows)
+                    {
+                        Dictionary<string, object> rowData = new Dictionary<string, object>();
+                        for (int i = 0; i < columnsToRead.Length; i++)
+                        {
+                            int colIndex = ConvertColumnNameToNumber(columnsToRead[i]);
+                            rowData[$"Column {i + 1}"] = worksheet.Cells[row.RowIndex, colIndex].Value;
+                        }
+                        result.Add(rowData);
+                    }
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Error reading file: " + ex.Message);
+            }
         }
         public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string filter, string filterColumn, string filePath = null, string workSheetName = null)
         {
