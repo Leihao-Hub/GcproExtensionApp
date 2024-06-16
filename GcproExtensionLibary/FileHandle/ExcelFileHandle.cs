@@ -257,7 +257,7 @@ namespace GcproExtensionLibrary.FileHandle
             }
         }
 
-        #region SubFunctions for  ReadAsDataTable
+        #region SubFunctions for ReadAsDataTable
         //private bool FilterExpression(object cellValue, string filter)
         //{
         //    string cellText = cellValue?.ToString() ?? string.Empty;
