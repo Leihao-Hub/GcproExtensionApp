@@ -206,7 +206,7 @@ namespace GcproExtensionLibrary.FileHandle
             }
         }
 
-        #region Parse filter and column
+        #region SubFunctions for  ReadAsDataTable
         //private bool FilterExpression(object cellValue, string filter)
         //{
         //    string cellText = cellValue?.ToString() ?? string.Empty;
@@ -355,7 +355,6 @@ namespace GcproExtensionLibrary.FileHandle
                     throw new ArgumentException("Unsupported operator in filter expression: " + op);
             }
         }
-        #endregion
         internal static int ConvertColumnNameToNumber(string columnName)
         {
             int columnNumber = 0;
@@ -370,6 +369,8 @@ namespace GcproExtensionLibrary.FileHandle
 
             return columnNumber;
         }
+
+        #endregion
 
         public DataTable LoadDataIntoDataGridView(DataTable dataTable, string[] columnsToCombined)
         {
