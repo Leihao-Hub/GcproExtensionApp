@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.OleDb;
+using System.Data.Common;
 #region GcproExtensionLibary
 using GcproExtensionLibrary.Gcpro.GCObject;
 using GcproExtensionLibrary.FileHandle;
@@ -178,7 +180,7 @@ namespace GcproExtensionApp
         public void CreateTips()
         {
             toolTip.SetToolTip(BtnNewImpExpDef, AppGlobalSource.CREATE_IMPORT_RULE + Motor.OType);
-            toolTip.SetToolTip(BtnConnectIO, AppGlobalSource.CONNECT_IO);
+            toolTip.SetToolTip(BtnConnectIO, AppGlobalSource.CONNECT_CONNECTOR);
             toolTip.SetToolTip(BtnConnectVFC, AppGlobalSource.SET_RELATION);
             toolTip.SetToolTip(txtSymbol, AppGlobalSource.DEMO_NAME + DEMO_NAME_MOTOR);
             toolTip.SetToolTip(txtSymbolRule, AppGlobalSource.DEMO_NAME_RULE + DEMO_NAME_RULE_MOTOR);
@@ -219,8 +221,17 @@ namespace GcproExtensionApp
             txtSymbol.Focus();
             txtInpFwdSuffix.Text = ":I";
             txtOutpFwdSuffix.Text = ":O";
+            txtInpRevSuffix.Text = ":I2";
+            txtOutpRevSuffix.Text = ":O2";
+            txtVFCSuffix.Text = "-VFC";
+            txtPowerAppSuffix.Text = "-AI";
+            txtAOSuffix.Text = "-AO";
+            txtAO.Text=String.Empty;    
             txtInpRunFwd.Text = txtSymbol.Text + txtInpFwdSuffix.Text;
             txtOutpRunFwd.Text = txtSymbol.Text + txtOutpFwdSuffix.Text;
+            
+            txtSymbolIncRule.Text = "1";
+            txtDescriptionIncRule.Text = "1";
             LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
@@ -228,7 +239,8 @@ namespace GcproExtensionApp
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             TxtValue9.Text = "2";
             myMotor.Value9 = "2";
-
+            btnReadBML.Enabled = false;
+            txtVFCPrefixBML.Text = "FCC_";
             var alphabetList = AppGlobalSource.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
             foreach (var item in alphabetList)
             {
@@ -239,6 +251,7 @@ namespace GcproExtensionApp
                 comboPowerBML.Items.Add(item);
                 comboSectionBML.Items.Add(item);
                 comboCabinetBML.Items.Add(item);
+                comboControlBML.Items.Add(item);
                 comboNameBML.SelectedItem = "B";
                 comboDescBML.SelectedItem = "N";
                 comboTypeBML.SelectedItem = "C";
@@ -246,15 +259,19 @@ namespace GcproExtensionApp
                 comboPowerBML.SelectedItem = "E";
                 comboCabinetBML.SelectedItem = "P";
                 comboSectionBML.SelectedItem = "Q";
+                comboControlBML.SelectedItem = "H";
 
             }
             for (int i = 1; i <= 20; i++)
-            { comboStartRow.Items.Add(i); }
+            { 
+                comboStartRow.Items.Add(i); 
+            }
             comboStartRow.SelectedItem = 2;
             ComboEquipmentSubType.SelectedIndex = 1;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
             toolStripMenuReload.Click += new EventHandler(toolStripMenuReload_Click);
+            toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
             this.Text = "电机导入文件 " + " " + myMotor.FilePath;
         }
 
@@ -422,8 +439,29 @@ namespace GcproExtensionApp
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InHWStop" },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value47.Name }
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Adapter"},
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name}
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "PowerApp"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value50.Name}
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Motor.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "VFC Analog"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name}
 
                     },
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
@@ -575,30 +613,6 @@ namespace GcproExtensionApp
                 }
             }
 
-        }
-
-        private void TxtVFCRule_TextChanged(object sender, EventArgs e)
-        {
-            if (AppGlobalSource.CheckNumericString(txtVFCSuffix.Text))
-            {
-                Motor.Rule.VFCRule = txtVFCSuffix.Text;
-            }
-            else
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
-        }
-    
-        private void TxtAORule_TextChanged(object sender, EventArgs e)
-        {
-            if (AppGlobalSource.CheckNumericString(txtAOSuffix.Text))
-            {
-                Motor.Rule.AORule = txtAOSuffix.Text;
-            }
-            else
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
         }
         private void TxtMonTime_TextChanged(object sender, EventArgs e)
         {
@@ -784,7 +798,15 @@ namespace GcproExtensionApp
         {
             LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value49";
         }
+        private void txtPowerApp_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value50";
+        }
 
+        private void txtDosingBin_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value32";
+        }
         private void ChkParManual_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit1";
@@ -845,7 +867,7 @@ namespace GcproExtensionApp
             }
             if (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)
             {
-                txtVFCAdapter.Text = txtSymbol.Text + txtVFCSuffix;
+                txtVFCAdapter.Text = txtSymbol.Text + txtVFCSuffix.Text;
                 txtInpRunFwd.Text = txtOutpRunFwd.Text = String.Empty;
                 txtInpRunRev.Text = txtOutpRunRev.Text = String.Empty;
                 txtInpRunFwd.BackColor = txtOutpRunFwd.BackColor = Color.LightGray;
@@ -857,7 +879,8 @@ namespace GcproExtensionApp
             {
                 txtVFCAdapter.Text = AppGlobalSource.MOTOR_WITHOUT_VFC;
                 txtVFCAdapter.BackColor = Color.LightGray;
-                BtnConnectVFC.Enabled = false;
+
+              //  BtnConnectVFC.Enabled = false;
             }
             try
             {
@@ -890,9 +913,8 @@ namespace GcproExtensionApp
                         }
                     }
                     txtInpFwdSuffix.Text = ":I";
-                    txtOutpFwdSuffix.Text = ":O";
-                    txtInpRevSuffix.Text = txtOutpRevSuffix.Text= String.Empty;
-                    txtInpRunRev.Text = txtOutpRunRev.Text = String.Empty;
+                    txtOutpFwdSuffix.Text = ":O";                
+                    txtInpRunRev.Text =txtOutpRunRev.Text= String.Empty;
                     txtInpRunFwd.BackColor=txtOutpRunFwd.BackColor=Color.White;
                     txtInpRunRev.BackColor = txtOutpRunRev.BackColor = Color.LightGray;
                 }
@@ -939,12 +961,499 @@ namespace GcproExtensionApp
             catch (Exception ex)
             { MessageBox.Show(ex.Message, AppGlobalSource.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
-        private void BtnConfirm_Click(object sender, EventArgs e)
+        private void txtInpFwdSuffix_TextChanged(object sender, EventArgs e)
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
+            txtInpRunFwd.Text = txtSymbol.Text + txtInpFwdSuffix.Text;
+        }
+
+        private void txtOutpFwdSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtOutpRunFwd.Text = txtSymbol.Text + txtOutpFwdSuffix.Text;
+        }
+
+        private void txtInpRevSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtInpRunRev.Text = txtSymbol.Text + txtInpRevSuffix.Text;
+        }
+
+        private void txtOutRevSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtOutpRunRev.Text = txtSymbol.Text + txtOutpRevSuffix.Text;
+        }
+
+        private void BtnConnectVFC_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtVFCSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtVFCAdapter.Text = txtSymbol.Text + txtVFCSuffix.Text;
+        }
+
+        private void txtAOSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtAO.Text = txtSymbol.Text + txtAOSuffix.Text;
+        }
+   
+        #endregion
+
+        #region <---BML part--->
+        private void AddWorkSheets()
+        {
+            comboWorkSheetsBML.Items.Clear();
             try
             {
+                List<string> workSheets = new List<string>();
+                workSheets = excelFileHandle.GetWorkSheets();
+                foreach (string sheet in workSheets)
+                {
+                    comboWorkSheetsBML.Items.Add(sheet);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(AppGlobalSource.EX_FILE_NOT_FOUND, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show(AppGlobalSource.EX_UNAUTHORIZED_ACCESS, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(AppGlobalSource.EX_IO_ERROR + $"{ex.Message}", AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(AppGlobalSource.EX_UNKNOW + $"{ex.Message}", AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void BtnOpenProjectDB_Click(object sender, EventArgs e)
+        {
+            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
+            excelFileHandle.FilePath = TxtExcelPath.Text;
+            AddWorkSheets();
+           
+        }
+        private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
+        {
+            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
+            AddWorkSheets();
+        }
+        private void TxtExcelPath_TextChanged(object sender, EventArgs e)
+        {
+            excelFileHandle.FilePath = TxtExcelPath.Text;
+        }
+        private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
+        {
+            AddWorkSheets();
+        }
+        private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
+            if (! String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            {
+                btnReadBML.Enabled= true;   
+            }
+        }
+        private void CreateBMLDefault()
+        {
+            dataGridBML.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
+            nameColumn.HeaderText = BML.Motor.ColumnName; // 列头的名称
+            nameColumn.Name = nameof(BML.Motor.ColumnName); // 列的唯一名称，方便查找                                                 
+            dataGridBML.Columns.Add(nameColumn);
+
+            DataGridViewCheckBoxColumn isVFC = new DataGridViewCheckBoxColumn();
+            isVFC.HeaderText = BML.Motor.ColumnIsVFC; 
+            isVFC.Name = nameof(BML.Motor.ColumnIsVFC);                                               
+            dataGridBML.Columns.Add(isVFC);
+
+            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
+            descColumn.HeaderText = BML.Motor.ColumnDesc;
+            descColumn.Name = nameof(BML.Motor.ColumnDesc);
+            dataGridBML.Columns.Add(descColumn);
+
+            DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
+            powerColumn.HeaderText = BML.Motor.ColumnPower;
+            powerColumn.Name = nameof(BML.Motor.ColumnPower);
+            dataGridBML.Columns.Add(powerColumn);
+
+            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
+            floorColumn.HeaderText = BML.Motor.ColumnFloor;
+            floorColumn.Name = nameof(BML.Motor.ColumnFloor);
+            dataGridBML.Columns.Add(floorColumn);
+
+            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
+            cabinetColumn.HeaderText = BML.Motor.ColumnCabinet;
+            cabinetColumn.Name = nameof(BML.Motor.ColumnCabinet);
+            dataGridBML.Columns.Add(cabinetColumn);
+            DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
+            cabinetColumnGroup.HeaderText = BML.Motor.ColumnCabinetGroup;
+            cabinetColumnGroup.Name = nameof(BML.Motor.ColumnCabinetGroup);
+            dataGridBML.Columns.Add(cabinetColumnGroup);
+        }
+
+        private void btnReadBML_Click(object sender, EventArgs e)
+        {
+            // List<List<object>> allData = new List<List<object>>();
+            string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboControlBML.Text,comboPowerBML.Text,comboFloorBML.Text,
+                comboCabinetBML.Text ,comboSectionBML.Text};
+            DataTable dataTable = new DataTable();
+            dataTable = excelFileHandle.ReadFileAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
+            dataGridBML.DataSource = dataTable;
+            dataGridBML.AutoGenerateColumns = false;
+
+            dataGridBML.Columns[nameof(BML.Motor.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
+            dataGridBML.Columns[nameof(BML.Motor.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.Motor.ColumnPower)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.Motor.ColumnFloor)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.Motor.ColumnCabinet)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.Motor.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[6].ColumnName;
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                bool startsWithCondition = row[2].ToString().StartsWith(!String.IsNullOrEmpty(txtVFCPrefixBML.Text)?txtVFCPrefixBML.Text:BML.Motor.PrefixVFC);
+                int rowIndex = dataTable.Rows.IndexOf(row);
+                DataGridViewRow dataGridViewRow = dataGridBML.Rows[rowIndex];
+                dataGridViewRow.Cells[nameof(BML.Motor.ColumnIsVFC)].Value = startsWithCondition;
+            }
+        }
+        #endregion
+        #region Common used
+        private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.Rule)
+            {
+                tabCreateMode.SelectedTab = tabRule;
+                createMode.Rule = true;
+                createMode.BML = false;
+                createMode.AutoSearch = false;
+                txtSymbolRule.Text = Motor.Rule.Common.NameRule;
+                txtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
+                LblQuantity.Visible = true;
+                TxtQuantity.Visible = true;
+                GrpSymbolRule.Visible = true;
+                LblSymbol.Text = AppGlobalSource.NAME;
+                txtSymbol.Text = DEMO_NAME_MOTOR;
+                tabRule.Text = CreateMode.ObjectCreateMode.Rule;
+               
+            }
+            else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.AutoSearch)
+            {
+                tabCreateMode.SelectedTab = tabRule;
+                createMode.Rule = false;
+                createMode.BML = false;
+                createMode.AutoSearch = true;
+                txtSymbolRule.Text = Motor.Rule.Common.NameRule;
+                txtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
+                LblQuantity.Visible = false;
+                TxtQuantity.Visible = false;
+                GrpSymbolRule.Visible = false;
+                LblSymbol.Text = AppGlobalSource.KEY_WORD_AUTOSEARCH;
+                txtSymbol.Text = "-MXZ";
+                tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
+                
+            }
+
+            else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.BML)
+            {
+                createMode.Rule = false;
+                createMode.BML = true;
+                createMode.AutoSearch = false;
+                tabCreateMode.SelectedTab = tabBML;         
+            }
+
+        }
+        private void tabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabCreateMode.SelectedTab == tabRule)
+
+            { 
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule; 
+            }
+            else
+            { 
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
+            }
+
+        }
+
+        private void toolStripMenuClearList_Click(object sender, EventArgs e)
+        {
+            //dataTable.Clear();
+            DataTable dataTable=null;
+            dataGridBML.DataSource = dataTable;
+            
+        }
+        private void toolStripMenuReload_Click(object sender, EventArgs e)
+        {
+            btnReadBML_Click(sender, e);
+        }
+
+        private void toolStripMenuDelete_Click(object sender, EventArgs e)
+        {
+            foreach(DataGridViewRow row in dataGridBML.SelectedRows)
+            {             
+                dataGridBML.Rows.RemoveAt(row.Index);
+            }
+            dataGridBML.ClearSelection();
+        }
+        private void TxtQuantity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
+                { 
+                    AppGlobalSource.MessageNotNumeric();
+                }
+            }
+        }
+
+        private void TxtQuantity_TextChanged(object sender, EventArgs e)
+        {
+            if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
+            { 
+                AppGlobalSource.MessageNotNumeric(); 
+            }
+        }
+
+        private void BtnConnectIO_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(AppGlobalSource.CONNECT_IO, AppGlobalSource.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                == DialogResult.OK)
+            {
+                try
+                {
+                    bool all=!chkOnlyFree.Checked;
+                    string objName = String.Empty;
+                    string objSubType = String.Empty;
+                    OleDb oledb= new OleDb();
+                    DataTable dataTable = new DataTable();
+                    oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
+                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Motor.OTypeValue}", null,
+                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.SubType.Name, 
+                        GcproTable.ObjData.Value11.Name, GcproTable.ObjData.Value12.Name, GcproTable.ObjData.Value13.Name,
+                        GcproTable.ObjData.Value14.Name, GcproTable.ObjData.Value38.Name, GcproTable.ObjData.Value47.Name,
+                         GcproTable.ObjData.Value34.Name, GcproTable.ObjData.Value50.Name);
+                    ProgressBar.Maximum = dataTable.Rows.Count - 1;
+                    ProgressBar.Value = 0;
+                    for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
+                    {
+                        objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
+                        objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
+                        if (objSubType == Motor.M11)
+                        {
+                            string inpFwd, outpFwd;
+                            inpFwd = objName + txtInpFwdSuffix.Text;
+                            outpFwd = objName + txtOutpFwdSuffix.Text;
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name)==0 || all)
+                            {
+                                myMotor.CreateRelation(objName, inpFwd, GcproTable.ObjData.Value11.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
+                            {
+                                myMotor.CreateRelation(objName, outpFwd, GcproTable.ObjData.Value12.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }                           
+                        }
+                        else if (objSubType == Motor.M12)
+                        {
+                            string inpFwd, outpFwd, inpRev, outpRev;
+                            inpFwd = objName + txtInpFwdSuffix.Text;
+                            outpFwd = objName + txtOutpFwdSuffix.Text;
+                            inpRev = objName + txtInpRevSuffix.Text;
+                            outpRev = objName + txtOutpRevSuffix.Text;
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
+                            {
+                                myMotor.CreateRelation(objName, inpFwd, GcproTable.ObjData.Value11.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
+                            {
+                                myMotor.CreateRelation(objName, outpFwd, GcproTable.ObjData.Value12.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                            if (dataTable.Rows[count].Field< double>(GcproTable.ObjData.Value13.Name) == 0 || all)
+                            {
+                                myMotor.CreateRelation(objName, inpRev, GcproTable.ObjData.Value13.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
+                            {
+                                myMotor.CreateRelation(objName, outpRev, GcproTable.ObjData.Value14.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        else if (objSubType == Motor.M1VFC || objSubType == Motor.M2VFC)
+                        {
+                            if (all)
+                            {
+                                string vfc=objName +txtVFCSuffix.Text; 
+                                myMotor.CreateRelation(objName, vfc, GcproTable.ObjData.Value34.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                            else
+                            {
+                                double connectorKey = dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value34.Name);
+                                if (connectorKey != 0)
+                                {
+
+                                    DataTable connectorTable = new DataTable();
+                                    connectorTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={connectorKey}", null,
+                                    null, GcproTable.ObjData.Value11.Name);
+                                    if (connectorTable != null)
+                                    {
+                                        double connector = connectorTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name);
+                                        if (connector == LibGlobalSource.NO_PARENT)
+                                        {
+                                            string vfc = objName + txtVFCSuffix.Text;
+                                            myMotor.CreateRelation(objName, vfc, GcproTable.ObjData.Value34.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                        }
+                                    }
+                                    connectorTable.Rows.Clear();
+                                }
+                            }   
+                            
+                        }
+                        else
+                        {
+                            string inpFwd, outPFwd;
+                            inpFwd = objName + txtInpFwdSuffix.Text;
+                            outPFwd = objName + txtOutpFwdSuffix.Text;
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
+                            {
+                                myMotor.CreateRelation(objName, inpFwd, GcproTable.ObjData.Value11.Name, myMotor.FileConnectorPath,Encoding.Unicode);
+                            }
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
+                            {
+                                myMotor.CreateRelation(objName, outPFwd, GcproTable.ObjData.Value12.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        if (!String.IsNullOrEmpty(txtInpContactor.Text))
+                        {
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value38.Name) == 0 || all)
+                            {
+                                string inpContactor=objName +txtInpContactor.Text;
+                                myMotor.CreateRelation(objName, inpContactor, GcproTable.ObjData.Value38.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        if (!String.IsNullOrEmpty(txtInHWStop.Text))
+                        {
+                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
+                            {
+                                string InHWStop= objName + txtInHWStop.Text; ;
+                                myMotor.CreateRelation(objName, InHWStop, GcproTable.ObjData.Value47.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        if (!String.IsNullOrEmpty(txtPowerApp.Text))
+                        {
+                            if (all)
+                            {
+                                string powerApp= objName + txtPowerAppSuffix.Text; ;
+                                myMotor.CreateRelation(objName, powerApp, GcproTable.ObjData.Value50.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                            else
+                            {
+                                double connectorKey = dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value50.Name);
+                                if (connectorKey != 0)
+                                {
+                                    DataTable connectorTable = new DataTable();
+                                    connectorTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={connectorKey}", null,
+                                    null, GcproTable.ObjData.Value11.Name);
+                                    if (connectorTable != null)
+                                    {
+                                        double connector = connectorTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name);
+                                        if (connector == LibGlobalSource.NO_PARENT)
+                                        {
+                                            string powerApp = objName + txtPowerAppSuffix.Text;
+                                            myMotor.CreateRelation(objName, powerApp, GcproTable.ObjData.Value50.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                        }
+                                    }
+                                    connectorTable.Rows.Clear();
+                                }                                  
+                            }                           
+                        }
+                        if (!String.IsNullOrEmpty(txtAO.Text))
+                        {
+                            if (all)
+                            {
+                                string ao= objName + txtAOSuffix.Text; 
+                                myMotor.CreateRelation(objName, ao, GcproTable.ObjData.Value33.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                            }
+                            else
+                            {
+                                double connectorKey = dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value33.Name);
+                                if (connectorKey != 0)
+                                {
+                                    DataTable connectorTable = new DataTable();
+                                    connectorTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={connectorKey}", null,
+                                    null, GcproTable.ObjData.Value11.Name);
+                                    if (connectorTable != null)
+                                    {
+                                        double connector = connectorTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name);
+                                        if (connector == LibGlobalSource.NO_PARENT)
+                                        {
+                                            string ao = objName + txtAOSuffix.Text;
+                                            myMotor.CreateRelation(objName, ao, GcproTable.ObjData.Value33.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                        }
+                                    }
+                                    connectorTable.Rows.Clear();
+                                }
+                            }
+
+                        }
+                        ProgressBar.Value=count;
+                    }
+                    myMotor.SaveFileAs(myMotor.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
+                    dataTable.Clear();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("寻找IO与关联过程出错:"+ex, AppGlobalSource.INFO+":"+AppGlobalSource.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
+                }
+            }
+        }
+     
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(AppGlobalSource.MSG_CLEAR_FILE, AppGlobalSource.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                == DialogResult.OK)
+
+            {
+                myMotor.Clear();
+                ProgressBar.Value = 0;  
+            }
+        }
+
+        private void BtnSaveAs_Click(object sender, EventArgs e)
+        {
+
+            myMotor.SaveFileAs(myMotor.FilePath, LibGlobalSource.CREATE_OBJECT);
+            myMotor.SaveFileAs(myMotor.FileRelationPath, LibGlobalSource.CREATE_RELATION);
+        }
+
+        private void BtnNewImpExpDef_Click(object sender, EventArgs e)
+        {
+            CreateImpExp();
+        }
+        private void BtnRegenerateDPNode_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(AppGlobalSource.MSG_REGENERATE_DPNODE, AppGlobalSource.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                == DialogResult.OK)
+            {
+                OleDb oledb = new OleDb();
+                oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
+                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                AppGlobalSource.ReGenerateDPNode(oledb);
+            }
+        }
+        private void BtnConfirm_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                OleDb oledb = new OleDb();
+                DataTable dataTable = new DataTable();
                 #region common used variables declaration
                 bool motorWithVFC = false;
                 bool needDPNodeChanged = false;
@@ -1004,11 +1513,12 @@ namespace GcproExtensionApp
                 {
                     selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
                     myMotor.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
-                    if (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)
-                    { motorWithVFC = true; }
+                    motorWithVFC= (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)? true : false;
                 }
                 else
-                { myMotor.SubType = Motor.M11; }
+                {
+                    myMotor.SubType = Motor.M11;
+                }
                 ///<PType></PType>
                 string selectedPTypeItem;
                 if (ComboEquipmentInfoType.SelectedItem != null)
@@ -1017,7 +1527,9 @@ namespace GcproExtensionApp
                     myMotor.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
                 }
                 else
-                { myMotor.PType = Motor.P7053; }
+                {
+                    myMotor.PType = Motor.P7053;
+                }
                 ///<ParMonTime></ParMonTime>
                 myMotor.ParMonTime = AppGlobalSource.ParseFloat(TxtMonTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
                 ///<ParStartDelay></ParStartDelay>
@@ -1083,7 +1595,7 @@ namespace GcproExtensionApp
                 }
                 ///<IsNew>is set when object generated,Default value is "No"</IsNew>
                 ///<FieldBusNode></FieldBusNode>
-                myMotor.FieldBusNode = "0";
+                myMotor.FieldBusNode = LibGlobalSource.NOCHILD; ;
                 ///<DPNode1></DPNode1>
                 string selectDPNode1 = String.Empty;
                 if (ComboDPNode1.SelectedItem != null)
@@ -1108,21 +1620,62 @@ namespace GcproExtensionApp
                     myMotor.HornCode = hornCode.Substring(0, 2);
                 }
                 ///<InpFwd></InpFwd>
-                myMotor.InpFwd = "0";
+                myMotor.InpFwd = LibGlobalSource.NOCHILD;
                 ///<OutpFwd></OutFwd>
-                myMotor.OutpFwd = "0";
+                myMotor.OutpFwd = LibGlobalSource.NOCHILD;
                 ///<InpRev></InpRev>
-                myMotor.InpRev = "0";
+                myMotor.InpRev = LibGlobalSource.NOCHILD;
                 ///<OutpRev></OutpRev>
-                myMotor.OutpRev = "0";
+                myMotor.OutpRev = LibGlobalSource.NOCHILD;
                 ///<InpContactor></InpContactor>
-                myMotor.InpContactor = "0";
+                myMotor.InpContactor = txtInpContactor.Text;
+                ///<InHWStop></InHWStop>
+               
                 ///<Adapter></Adapter>
-                myMotor.Adapter = "0";
-                #endregion           
+                myMotor.Adapter = LibGlobalSource.NOCHILD;
+                ///<PowerApp></PowerApp>
+
+                ///<AO></AO>
+                #endregion
                 if (createMode.BML)
                 {
+                    ProgressBar.Maximum = dataGridBML.Rows.Count - 1;
+                    ProgressBar.Value = 0;
+              
+                    for (int i = 0; i < dataGridBML.Rows.Count; i++)
+                    {
+                        DataGridViewCell cell;
+                        cell = dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnName)];
+                        if (cell.Value==null || cell.Value ==DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                            continue;
+                        myMotor.InpFwd =LibGlobalSource.NOCHILD;
+                        myMotor.OutpFwd = LibGlobalSource.NOCHILD;
+                        myMotor.Name = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnName)].Value);
+                        motorWithVFC = Convert.ToBoolean(dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnIsVFC)].Value);
+                        myMotor.SubType = motorWithVFC ? Motor.M1VFC : Motor.M11;
+                        myMotor.PType = motorWithVFC ? Motor.P7042 : Motor.P7053;
+                        bool numeric;
+                        float power;
+                        int monTime;
+                        numeric = AppGlobalSource.ParseFloat(Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnPower)].Value),out power);
+                        monTime = Motor.GetStartingTime(power);
+                        myMotor.ParMonTime = numeric ? (monTime * 10.0).ToString("F1") : "100.0";
+                        myMotor.ParStartingTime = numeric ? (monTime * 10.0 - 10.0).ToString("F1") : "30.0";
+                        myMotor.ParPowerNominal = power.ToString();
+                        myMotor.Description = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnDesc)].Value)+$"({myMotor.ParPowerNominal} KW)";
+                        myMotor.Adapter=motorWithVFC ? $"{myMotor.Name}{txtVFCSuffix.Text}":LibGlobalSource.NOCHILD;
+                        if (myMotor.SubType==Motor.M11)
+                        {
+                            myMotor.InpFwd= $"{myMotor.Name}{txtInpFwdSuffix.Text}";
+                            myMotor.OutpFwd = $"{myMotor.Name}{txtOutpFwdSuffix.Text}";
+                        }    
+                        myMotor.Panel_ID= Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnCabinetGroup)].Value)+
+                            Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnCabinet)].Value);
+                        myMotor.Elevation= Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.Motor.ColumnFloor)].Value);
 
+                        myMotor.CreateObject(Encoding.Unicode);
+                        ProgressBar.Value = i;
+                    }
                 }
                 else if (createMode.AutoSearch)
                 {
@@ -1236,7 +1789,9 @@ namespace GcproExtensionApp
                             }
                         }
                         else
-                        { description.Sub = LibGlobalSource.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
+                        {
+                            description.Sub = LibGlobalSource.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
+                        }
                     }
                     #endregion
 
@@ -1245,22 +1800,40 @@ namespace GcproExtensionApp
                     ///<CreateObj>
                     ///Search IO key,DPNode
                     ///</CreateObj>
+                    int symbolInc, symbolRule, descriptionInc;
+                    tempBool = AppGlobalSource.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+                    tempBool = AppGlobalSource.ParseInt(txtSymbolRule.Text, out symbolRule);
+                    tempBool = AppGlobalSource.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
-                        int symbolInc = int.Parse(txtSymbolIncRule.Text);
-                        int symbolRule = int.Parse(txtSymbolRule.Text);
-                        int descriptionInc;
-                        tempBool = AppGlobalSource.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
                         name.Inc = i * symbolInc;
                         name.Name = LibGlobalSource.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                         if (!motorWithVFC)
                         {
                             // myMotor.InpFwd = AppGlobalSource.FindIOKey(oledb, $"{name.Name}:I");
                             // myMotor.OutpFwd = AppGlobalSource.FindIOKey(oledb, $"{name.Name}:O");
-                            myMotor.InpFwd = $"{name.Name}:I";
-                            myMotor.OutpFwd = $"{name.Name}:O";
+                            if (myMotor.SubType == Motor.M11)
+                            {
+                                myMotor.InpFwd = $"{name.Name}:{txtInpFwdSuffix}";
+                                myMotor.OutpFwd = $"{name.Name}:{txtOutpFwdSuffix}";
+                            }
+                            else if (myMotor.SubType == Motor.M12)
+                            {
+                                myMotor.InpFwd = $"{name.Name}{txtInpFwdSuffix.Text}";
+                                myMotor.OutpFwd = $"{name.Name}{txtOutpFwdSuffix.Text}";
+                                myMotor.InpRev = $"{name.Name}{txtInpRevSuffix.Text}";
+                                myMotor.OutpRev = $"{name.Name}{txtOutpRevSuffix.Text}";
+                            }
                         }
-                        else if (needDPNodeChanged && moreThanOne)
+                        else 
+                        {
+                            myMotor.Adapter = $"{name.Name}{txtVFCSuffix.Text}";
+                        }                     
+                        myMotor.PowerApp = String.IsNullOrEmpty(txtPowerApp.Text)? string.Empty:$"{name.Name}{txtPowerAppSuffix.Text}";
+                        myMotor.AO = String.IsNullOrEmpty(txtAO.Text)? string.Empty : $"{name.Name}{txtAOSuffix.Text}";   
+                        myMotor.HWStop = String.IsNullOrEmpty(txtInHWStop.Text)?string.Empty:txtInHWStop.Text;
+
+                        if (needDPNodeChanged && moreThanOne)
                         {
                             dpNode1.Inc = i * symbolInc;
                             dpNode1.Name = LibGlobalSource.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
@@ -1299,271 +1872,10 @@ namespace GcproExtensionApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("创建对象过程出错:" + ex, AppGlobalSource.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("创建对象过程出错:" + ex, AppGlobalSource.AppInfo.Title + ":" + AppGlobalSource.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(AppGlobalSource.MSG_CLEAR_FILE, AppGlobalSource.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
-                == DialogResult.OK)
-
-            { myMotor.Clear(); }
-        }
-
-        private void BtnSaveAs_Click(object sender, EventArgs e)
-        {
-
-            myMotor.SaveFileAs();
-        }
-
-        private void BtnNewImpExpDef_Click(object sender, EventArgs e)
-        {
-            CreateImpExp();
-        }
-        private void BtnRegenerateDPNode_Click(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
-
-        #region <---BML part--->
-        private void AddWorkSheets()
-        {
-            comboWorkSheetsBML.Items.Clear();
-            try
-            {
-                List<string> workSheets = new List<string>();
-                workSheets = excelFileHandle.GetWorkSheets();
-                foreach (string sheet in workSheets)
-                {
-                    comboWorkSheetsBML.Items.Add(sheet);
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show(AppGlobalSource.EX_FILE_NOT_FOUND, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show(AppGlobalSource.EX_UNAUTHORIZED_ACCESS, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show(AppGlobalSource.EX_IO_ERROR + $"{ex.Message}", AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(AppGlobalSource.EX_UNKNOW + $"{ex.Message}", AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void BtnOpenProjectDB_Click(object sender, EventArgs e)
-        {
-            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
-            excelFileHandle.FilePath = TxtExcelPath.Text;
-            AddWorkSheets();
-        }
-        private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
-        {
-            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
-            AddWorkSheets();
-        }
-        private void TxtExcelPath_TextChanged(object sender, EventArgs e)
-        {
-            excelFileHandle.FilePath = TxtExcelPath.Text;
-        }
-        private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
-        {
-            AddWorkSheets();
-        }
-        private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-        }
-        private void CreateBMLDefault()
-        {
-            dataGridBML.AutoGenerateColumns = false;
-
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.Motor.ColumnName; // 列头的名称
-            nameColumn.Name = nameof(BML.Motor.ColumnName); // 列的唯一名称，方便查找                                                 
-            dataGridBML.Columns.Add(nameColumn);
-
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.Motor.ColumnDesc;
-            descColumn.Name = nameof(BML.Motor.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
-
-            DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
-            powerColumn.HeaderText = BML.Motor.ColumnPower;
-            powerColumn.Name = nameof(BML.Motor.ColumnPower);
-            dataGridBML.Columns.Add(powerColumn);
-
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.Motor.ColumnFloor;
-            floorColumn.Name = nameof(BML.Motor.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
-
-            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.Motor.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.Motor.ColumnCabinet);
-            dataGridBML.Columns.Add(cabinetColumn);
-            DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.Motor.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.Motor.ColumnCabinetGroup);
-            dataGridBML.Columns.Add(cabinetColumnGroup);
-        }
-
-        private void btnReadBML_Click(object sender, EventArgs e)
-        {
-            // List<List<object>> allData = new List<List<object>>();
-            string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboPowerBML.Text,comboFloorBML.Text,
-                comboCabinetBML.Text ,comboSectionBML.Text};
-            DataTable dataTable = new DataTable();
-            dataTable = excelFileHandle.ReadFileAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
-            dataGridBML.DataSource = dataTable;
-            dataGridBML.AutoGenerateColumns = false;
-
-            dataGridBML.Columns[nameof(BML.Motor.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.Motor.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.Motor.ColumnPower)].DataPropertyName = dataTable.Columns[2].ColumnName;
-            dataGridBML.Columns[nameof(BML.Motor.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.Motor.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.Motor.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            
-        }
-        #endregion
-
-        private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.Rule)
-            {
-                tabCreateMode.SelectedTab = tabRule;
-                createMode.Rule = true;
-                createMode.BML = false;
-                createMode.AutoSearch = false;
-                txtSymbolRule.Text = Motor.Rule.Common.NameRule;
-                txtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
-                LblQuantity.Visible = true;
-                TxtQuantity.Visible = true;
-                GrpSymbolRule.Visible = true;
-                LblSymbol.Text = AppGlobalSource.NAME;
-                txtSymbol.Text = DEMO_NAME_MOTOR;
-                tabRule.Text = CreateMode.ObjectCreateMode.Rule;
-               
-            }
-            else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.AutoSearch)
-            {
-                tabCreateMode.SelectedTab = tabRule;
-                createMode.Rule = false;
-                createMode.BML = false;
-                createMode.AutoSearch = true;
-                txtSymbolRule.Text = Motor.Rule.Common.NameRule;
-                txtSymbolIncRule.Text = Motor.Rule.Common.NameRuleInc;
-                LblQuantity.Visible = false;
-                TxtQuantity.Visible = false;
-                GrpSymbolRule.Visible = false;
-                LblSymbol.Text = AppGlobalSource.KEY_WORD_AUTOSEARCH;
-                txtSymbol.Text = "-MXZ";
-                tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
-                
-            }
-
-            else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.BML)
-            {
-                createMode.Rule = false;
-                createMode.BML = true;
-                createMode.AutoSearch = false;
-                tabCreateMode.SelectedTab = tabBML;         
-            }
-
-        }
-        private void tabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabCreateMode.SelectedTab == tabRule)
-
-            { 
-                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule; 
-            }
-            else
-            { 
-                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
-            }
-
-        }
-
-        private void toolStripMenuClearList_Click(object sender, EventArgs e)
-        {
-            //dataTable.Clear();
-            DataTable dataTable=null;
-            dataGridBML.DataSource = dataTable;
-            
-        }
-        private void toolStripMenuReload_Click(object sender, EventArgs e)
-        {
-            btnReadBML_Click(sender, e);
-        }
-
-        private void TxtQuantity_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
-                { 
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-        }
-
-        private void TxtQuantity_TextChanged(object sender, EventArgs e)
-        {
-            if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
-            { 
-                AppGlobalSource.MessageNotNumeric(); 
-            }
-        }
-
-
-        private void CreateObjCommonProperties()
-        {
-            // Motor.GetStartingTime();
-        }
-
-        private void BtnConnectIO_Click(object sender, EventArgs e)
-        {
-            int InputFwdID, InputRevID, OutputFwdID, OutputRevID;
-            string selectedMotor = "";
-            string selectedMotorID = "0";
-            string selectedMotorSubType = "";
-            List <string> objListText0 = new List<string>();
-            List <string> objIDList= new List<string>();
-            List <string> objListSubType = new List<string>();
-        }
-
-        private void txtInpFwdSuffix_TextChanged(object sender, EventArgs e)
-        {
-            txtInpRunFwd.Text = txtSymbol.Text+ txtInpFwdSuffix.Text;
-        }
-
-        private void txtOutpFwdSuffix_TextChanged(object sender, EventArgs e)
-        {
-            txtOutpRunFwd.Text = txtSymbol.Text + txtOutpFwdSuffix.Text;
-        }
-
-        private void txtInpRevSuffix_TextChanged(object sender, EventArgs e)
-        {
-            txtInpRunRev.Text = txtSymbol.Text + txtInpRevSuffix.Text;
-        }
-
-        private void txtOutRevSuffix_TextChanged(object sender, EventArgs e)
-        {
-            txtOutpRunRev.Text = txtSymbol.Text + txtOutpRevSuffix.Text;
-        }
-
-        private void BtnConnectVFC_Click(object sender, EventArgs e)
-        {
-
-        }
-    }
+        #endregion   
+    }  
 }

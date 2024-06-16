@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GcproExtensionApp")]
-[assembly: AssemblyDescription("A develop tool for Gcpro that developed by Hao Lei")]
+[assembly: AssemblyTitle("Gcpro Extension Application")]
+[assembly: AssemblyDescription("A assiant tool to fast create GC objects accroding with rule or import from BML file")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bühler (Wuxi) Commercial Co., Ltd.")]
-[assembly: AssemblyProduct("Gcpro plantform application product")]
+[assembly: AssemblyProduct("Gcpro plantform extension product")]
 [assembly: AssemblyCopyright("Copyright ©  2024 .Buhler (Wuxi) Commercial co., Ltd.All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

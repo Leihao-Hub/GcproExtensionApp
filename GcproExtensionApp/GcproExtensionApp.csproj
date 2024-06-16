@@ -63,6 +63,12 @@
     <Compile Include="EL\FormMotor.Designer.cs">
       <DependentUpon>FormMotor.cs</DependentUpon>
     </Compile>
+    <Compile Include="EL\FormVFCAdapter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EL\FormVFCAdapter.Designer.cs">
+      <DependentUpon>FormVFCAdapter.cs</DependentUpon>
+    </Compile>
     <Compile Include="ObjectBroswer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EL\FormMotor.resx">
       <DependentUpon>FormMotor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EL\FormVFCAdapter.resx">
+      <DependentUpon>FormVFCAdapter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectBroswer.resx">
       <DependentUpon>ObjectBroswer.cs</DependentUpon>

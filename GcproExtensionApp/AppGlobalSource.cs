@@ -5,6 +5,8 @@ using System.Data;
 #region GcproExtensionLibrary
 using GcproExtensionLibrary;
 using GcproExtensionLibrary.Gcpro;
+using GcproExtensionLibary.Gcpro.GCObject;
+using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
@@ -34,6 +36,7 @@ namespace GcproExtensionApp
         public const string MSG_INVALID_IO_SYMBOL = "无效的IO名称！";
         public const char IO_SYMBOL_SUFFIX_SPLIT = ':';
         public const string INFO = "信息提示";
+        public const string MSG_REGENERATE_DPNODE = "确定要重新生成DPNode？";
         public const string MSG_CLEAR_FILE = "确定要清除文件类容？";
         public const string MSG_RULE_NOT_CORRECT = "规则不正确或者未设置:";
         public const string MSG_CREATE_WILL_TERMINATE = "新建进程将终止";
@@ -49,7 +52,8 @@ namespace GcproExtensionApp
         {
             public static string Title { get; set; }
             public static string Version { get; set; }
-            public static string Author { get; set; }
+            public static string Description { get; set; }
+            public static string CopyRight { get; set; }
         }
 
         public static bool NewOLEDBDriver;
@@ -135,7 +139,7 @@ namespace GcproExtensionApp
         {
             string key = string.Empty;
             DataTable data;
-            data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Text0.Name}='{objIOName}'", null, null,
+            data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Text0.Name} LIKE'{objIOName}%'", null, null,
                            GcproTable.ObjData.Key.Name);
             if (data.Rows.Count != 0)
             { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
@@ -166,6 +170,38 @@ namespace GcproExtensionApp
             else
             { key = string.Empty; }
             return key;
+        }
+        public static void ReGenerateDPNode(OleDb dataSource)
+        {           
+            dataSource.DeleteRecord(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name}='{GcproTable.TranslationCbo.Class_ASWInDPFault}'", null);
+            DataTable data=new DataTable();
+            data =dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={DPSlave.OTypeValue}",null,null,
+                GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.DPNode1.Name);
+            string description = string.Empty;
+            string symbol= string.Empty;    
+            double dpNode1 = 0;
+            List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>();
+            for (int i = 0; i < data.Rows.Count; i++)
+            {
+                if (i <= data.Rows.Count - 1)
+                {
+                    symbol = data.Rows[i].Field<string>(GcproTable.ObjData.Text0.Name);
+                    description = data.Rows[i].Field<string>(GcproTable.ObjData.Text1.Name);
+                    dpNode1 = data.Rows[i].Field<double>(GcproTable.ObjData.DPNode1.Name);
+                }
+                List<GcproExtensionLibrary.Gcpro.DbParameter> recordParameters = new List<GcproExtensionLibrary.Gcpro.DbParameter>();          
+                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter 
+                {Name = GcproTable.TranslationCbo.FieldClass.Name, Value = GcproTable.TranslationCbo.Class_ASWInDPFault});
+                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
+                {Name = GcproTable.TranslationCbo.FieldValue.Name, Value = dpNode1});
+                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
+                {Name=GcproTable.TranslationCbo.FieldText.Name, Value = symbol});
+                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
+                {Name =GcproTable.TranslationCbo.FieldDescription.Name, Value =description});
+                recordList.Add(recordParameters);     
+            }
+            dataSource.InsertMultipleRecords(GcproTable.TranslationCbo.TableName, recordList);
+
         }
         #endregion
 
@@ -247,12 +283,15 @@ namespace GcproExtensionApp
         public static class Motor
         {
             public static string TypeMotor { get; } = "Motor";
+            public static string ColumnIsVFC { get; } = "是否变频";
             public static string ColumnName { get; } = "电机名称";
             public static string ColumnDesc { get; } = "电机描述";
             public static string ColumnPower { get; } = "功率";
             public static string ColumnFloor { get; } = "楼层";
             public static string ColumnCabinet { get; } = "电柜号";
             public static string ColumnCabinetGroup { get; } = "电柜组";
+
+            public  const string PrefixVFC = "FCC";
         }
         public static class Valve
         {
@@ -262,6 +301,20 @@ namespace GcproExtensionApp
             public static string ColumnFloor { get; } = "楼层";
             public static string ColumnCabinet { get; } = "电柜号";
             public static string ColumnCabinetGroup { get; } = "电柜组";
+        }
+        public static class VFCAdapter
+        {
+            public static string TypeMotor { get; } = "Motor";
+            public static string ColumnName { get; } = "变频名称";
+            public static string ColumnDesc { get; } = "变频描述";
+            public static string ColumnCurrent { get; } = "电流";
+            public static string ColumnTorque { get; } = "扭矩";
+            public static string ColumnPower { get; } = "功率";
+            public static string ColumnFloor { get; } = "楼层";
+            public static string ColumnCabinet { get; } = "电柜号";
+            public static string ColumnCabinetGroup { get; } = "电柜组";
+
+            public const string PrefixVFC = "FCC";
         }
     }
 

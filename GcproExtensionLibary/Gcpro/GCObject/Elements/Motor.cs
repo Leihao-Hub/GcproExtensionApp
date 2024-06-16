@@ -1,4 +1,5 @@
 ﻿using GcproExtensionLibrary.FileHandle;
+using System.Data;
 using System.Data.SqlTypes;
 using System.Text;
 using System.Xml.Linq;
@@ -7,7 +8,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
     ///  <summary>
     ///  Motor
     ///  </summary>
-
     public class Motor : BaseMotor, IGcpro
     {
         public struct MotorRule
@@ -17,9 +17,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             public string AORuleInc;
             public string VFCRule;
             public string VFCRuleInc;
+            public string PowerAppRule;
+            public string PowerAppRuleInc;
         }
         private string filePath;
         private string fileRelationPath;
+        private string fileConnectorPath;
         private static string motorFileName = $@"\{OTypeCollection.EL_Motor}";
         private string hornCode;
         private string pType;
@@ -45,7 +48,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string inpRev;
         private string outpRev;
         private string inpContactor;
+        private string hwStop;
         private string adapter;
+        private string powerApp;
+        private string ao;
         private string parMonTime;
         private string parStartDelay;
         private string parStartingTime;
@@ -166,11 +172,27 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return inpContactor; }
             set { inpContactor = value; }
         }
-
+        public string HWStop
+        {
+            get { return hwStop; }
+            set { hwStop = value; }
+        }
         public string Adapter
         {
             get { return adapter; }
             set { adapter = value; }
+        }
+
+        public string PowerApp
+        {
+            get { return powerApp; }
+            set { powerApp = value; }
+        }
+
+        public string AO
+        {
+            get { return ao; }
+            set { ao = value; }
         }
         public string ParMonTime
         {
@@ -233,6 +255,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             get { return fileRelationPath; }           
         }
+        public string FileConnectorPath
+        {
+            get { return fileConnectorPath; }
+        }
         #region Readonly subtype property
         public static string M11 { get; } = "M11";
         public static string M12 { get; } = "M12";
@@ -290,6 +316,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             /// string Diagram;
             /// string Page;
             /// </ StandardFileds >
+            Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             name = "-MXZ01";
             description = "Motor";
             subType = M11;
@@ -302,7 +329,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             diagram = string.Empty;
             page = string.Empty;
 
-            pType = "7053";
+            pType = P7053;
             hornCode = LibGlobalSource.NOCHILD;
             dpNode1 = LibGlobalSource.NOCHILD;
             dpNode2 = LibGlobalSource.NOCHILD;
@@ -313,7 +340,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             inpRev = LibGlobalSource.NOCHILD;
             outpRev = LibGlobalSource.NOCHILD;
             inpContactor = LibGlobalSource.NOCHILD;
+            hwStop = LibGlobalSource.NOCHILD;
             adapter = LibGlobalSource.NOCHILD;
+            powerApp = LibGlobalSource.NOCHILD;
+            ao=LibGlobalSource.NOCHILD; 
             parMonTime = "50";
             parStartDelay = "0";
             parStartingTime = "10";
@@ -324,7 +354,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             parSpeedService = "20";
             unit = "2";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+".Txt";
-            this.fileRelationPath= LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+ "_Relation.Txt";
+            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_Relation.Txt";
+            this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_FindConnector.Txt";
         }
         public Motor(string filePath = null) : this()
         {
@@ -333,6 +364,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
                           LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+ "_Relation.Txt" : filePath + motorFileName+ "_Relation.Txt");
+            this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
+                     LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_FindConnector.Txt" : filePath + motorFileName + "_FindConnector.Txt");
         }
         public void CreateObject(Encoding encoding)
         {
@@ -363,7 +396,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 inpRev + LibGlobalSource.TAB +
                 outpRev + LibGlobalSource.TAB +
                 inpContactor + LibGlobalSource.TAB +
+                hwStop + LibGlobalSource.TAB +
                 adapter + LibGlobalSource.TAB +
+                powerApp+ LibGlobalSource.TAB +
+                ao+LibGlobalSource.TAB +    
                 parMonTime + LibGlobalSource.TAB +
                 parStartDelay + LibGlobalSource.TAB +
                 parStartingTime + LibGlobalSource.TAB +
@@ -375,32 +411,31 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 unit + LibGlobalSource.TAB +
                 isNew;
             textFileHandle.WriteToTextFile(stdString + appString, encoding);
-            textFileHandle.FilePath = this.fileRelationPath;
             if (subType == M11)
             {
-                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, encoding);
-                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, encoding);
+                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath,encoding);
+                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
                 if (!string.IsNullOrEmpty(inpContactor))
                 {
-                    CreateRelation(name, inpContactor, GcproTable.ObjData.Value38.Name, encoding);
+                    CreateRelation(name, inpContactor, GcproTable.ObjData.Value38.Name, this.fileRelationPath, encoding);
                 }
             }
             else if (subType == M12)
             {
-                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, encoding);
-                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, encoding);
-                CreateRelation(name, inpRev, GcproTable.ObjData.Value13.Name, encoding);
-                CreateRelation(name, outpRev, GcproTable.ObjData.Value14.Name, encoding);
+                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
+                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
+                CreateRelation(name, inpRev, GcproTable.ObjData.Value13.Name, this.fileRelationPath,encoding);
+                CreateRelation(name, outpRev, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
             }
             else if (subType == M1VFC || subType == M2VFC)
             {
-                CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, encoding);             
+                CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);             
             }
         }
-        public void CreateRelation(string parent,string child,string filed,Encoding encoding)
+        public void CreateRelation(string parent,string child,string filed,string filePath,Encoding encoding)
         {
             TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.fileRelationPath;
+            textFileHandle.FilePath = filePath;
             string output = parent+LibGlobalSource.TAB+child+ LibGlobalSource.TAB+filed;
             textFileHandle.WriteToTextFile(output, encoding);
         }
@@ -411,18 +446,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.ClearContents();
             textFileHandle.FilePath = this.fileRelationPath;
             textFileHandle.ClearContents();
+            textFileHandle.FilePath = this.fileConnectorPath;
+            textFileHandle.ClearContents();
         }
-        public bool SaveFileAs()
+        public bool SaveFileAs(string sourceFilePath,string title)
         {
-            bool result1, result2;
+            bool result;
             TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
-            result1=textFileHandle.SaveFileAs(LibGlobalSource.CREATE_OBJECT);
-     
-            textFileHandle.FilePath = this.fileRelationPath;
-            result2=textFileHandle.SaveFileAs(LibGlobalSource.CREATE_RELATION);
-
-            return result1&& result2;
+            textFileHandle.FilePath = sourceFilePath;
+            result=textFileHandle.SaveFileAs(title);  
+            return result;
         }
     }
     public abstract class BaseMotor : Element
@@ -484,11 +517,59 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             return time;
         }
 
+        public static int GetStartingTime(double power)
+        {
+            int time = 0;
+            if (power < 3.0)
+            {
+                time = 3;
+            }
+            else if (3.0 <= power && power < 7.5)
+            {
+                time = 5;
+            }
+            else if (7.5 <= power && power < 15.0)
+            {
+                time = 8;
+            }
+            else if (15.0 <= power && power < 18.5)
+            {
+                time = 12;
+            }
+            else if (18.5 <= power && power < 22.0)
+            {
+                time = 15;
+            }
+            else if (22.0 <= power && power < 37.0)
+            {
+                time = 20;
+            }
+            else if (37.0 <= power && power < 45.0)
+            {
+                time = 25;
+            }
+            else if (45.0 <= power && power < 55.0)
+            {
+                time = 30;
+            }
+            else if (55.0 <= power && power < 75.0)
+            {
+                time = 35;
+            }
+            else if (75.0 <= power)
+            {
+                time = 40;
+            }
+            else
+            {
+                time = 20;
+            }
+            return time;
+        }
     }
-    public class MotorPower
-    {
-        public float Power { get; set; }
-        public int StartingTime { get; set; }
-    }
-
+    //public class MotorPower
+    //{
+    //    public float Power { get; set; }
+    //    public int StartingTime { get; set; }
+    //}
 }

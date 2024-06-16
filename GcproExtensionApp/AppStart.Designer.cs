@@ -80,7 +80,12 @@
             this.btnAddMotor = new System.Windows.Forms.Button();
             this.lblMotor = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.grpAppInfo = new System.Windows.Forms.GroupBox();
+            this.ApplicationTitle = new System.Windows.Forms.Label();
             this.pictureBoxBuhler2 = new System.Windows.Forms.PictureBox();
+            this.PictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Version = new System.Windows.Forms.Label();
+            this.lblDescription = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grpBoxTempPath.SuspendLayout();
@@ -91,7 +96,9 @@
             this.grpMachine.SuspendLayout();
             this.grpBoxElement.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.grpAppInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuhler2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabMain
@@ -105,7 +112,7 @@
             this.tabMain.Location = new System.Drawing.Point(0, 0);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(830, 189);
+            this.tabMain.Size = new System.Drawing.Size(830, 185);
             this.tabMain.TabIndex = 112;
             this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
             // 
@@ -122,7 +129,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(822, 160);
+            this.tabPage1.Size = new System.Drawing.Size(822, 156);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "项目信息";
             // 
@@ -282,7 +289,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(822, 160);
+            this.tabPage2.Size = new System.Drawing.Size(822, 156);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "新建对象";
             // 
@@ -569,6 +576,7 @@
             this.btnAddVFC.Size = new System.Drawing.Size(30, 21);
             this.btnAddVFC.TabIndex = 3;
             this.btnAddVFC.UseVisualStyleBackColor = true;
+            this.btnAddVFC.Click += new System.EventHandler(this.btnAddVFC_Click);
             // 
             // lblVFCAdapter
             // 
@@ -689,31 +697,92 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.pictureBoxBuhler2);
+            this.tabPage3.Controls.Add(this.grpAppInfo);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(822, 160);
+            this.tabPage3.Size = new System.Drawing.Size(822, 156);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "软件信息";
+            // 
+            // grpAppInfo
+            // 
+            this.grpAppInfo.Controls.Add(this.ApplicationTitle);
+            this.grpAppInfo.Controls.Add(this.pictureBoxBuhler2);
+            this.grpAppInfo.Controls.Add(this.PictureBox1);
+            this.grpAppInfo.Controls.Add(this.Version);
+            this.grpAppInfo.Controls.Add(this.lblDescription);
+            this.grpAppInfo.Location = new System.Drawing.Point(8, 6);
+            this.grpAppInfo.Name = "grpAppInfo";
+            this.grpAppInfo.Size = new System.Drawing.Size(806, 145);
+            this.grpAppInfo.TabIndex = 24;
+            this.grpAppInfo.TabStop = false;
+            // 
+            // ApplicationTitle
+            // 
+            this.ApplicationTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ApplicationTitle.BackColor = System.Drawing.Color.Transparent;
+            this.ApplicationTitle.Font = new System.Drawing.Font("Microsoft YaHei UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplicationTitle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ApplicationTitle.Location = new System.Drawing.Point(9, 51);
+            this.ApplicationTitle.Name = "ApplicationTitle";
+            this.ApplicationTitle.Size = new System.Drawing.Size(364, 29);
+            this.ApplicationTitle.TabIndex = 21;
+            this.ApplicationTitle.Text = "Gcpro Extension application";
+            this.ApplicationTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // pictureBoxBuhler2
             // 
             this.pictureBoxBuhler2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBoxBuhler2.Image = global::GcproExtensionApp.Properties.Resources.buhlerCode;
-            this.pictureBoxBuhler2.Location = new System.Drawing.Point(708, 15);
+            this.pictureBoxBuhler2.Location = new System.Drawing.Point(701, 19);
             this.pictureBoxBuhler2.Name = "pictureBoxBuhler2";
             this.pictureBoxBuhler2.Size = new System.Drawing.Size(86, 87);
             this.pictureBoxBuhler2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxBuhler2.TabIndex = 18;
             this.pictureBoxBuhler2.TabStop = false;
             // 
+            // PictureBox1
+            // 
+            this.PictureBox1.ErrorImage = null;
+            this.PictureBox1.Image = global::GcproExtensionApp.Properties.Resources.buehler_logo;
+            this.PictureBox1.Location = new System.Drawing.Point(15, 10);
+            this.PictureBox1.Name = "PictureBox1";
+            this.PictureBox1.Size = new System.Drawing.Size(196, 36);
+            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PictureBox1.TabIndex = 23;
+            this.PictureBox1.TabStop = false;
+            // 
+            // Version
+            // 
+            this.Version.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.Version.BackColor = System.Drawing.Color.Transparent;
+            this.Version.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Version.Location = new System.Drawing.Point(12, 80);
+            this.Version.Name = "Version";
+            this.Version.Size = new System.Drawing.Size(337, 20);
+            this.Version.TabIndex = 19;
+            this.Version.Text = "Version {0}.{1}.{2}.{3}";
+            // 
+            // lblDescription
+            // 
+            this.lblDescription.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblDescription.AutoEllipsis = true;
+            this.lblDescription.BackColor = System.Drawing.Color.Transparent;
+            this.lblDescription.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescription.Location = new System.Drawing.Point(11, 100);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(442, 50);
+            this.lblDescription.TabIndex = 22;
+            this.lblDescription.Text = "A assiant tool for fast create GcObjects accroding with rule or import objects fr" +
+    "om BML file";
+            // 
             // AppStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(830, 189);
+            this.ClientSize = new System.Drawing.Size(830, 185);
             this.Controls.Add(this.tabMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
@@ -735,7 +804,9 @@
             this.grpBoxElement.ResumeLayout(false);
             this.grpBoxElement.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.grpAppInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuhler2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -793,6 +864,11 @@
         internal System.Windows.Forms.GroupBox grpBoxTempPath;
         internal System.Windows.Forms.TextBox txtGcproTempPath;
         internal System.Windows.Forms.Label lblGcproTempPath;
+        internal System.Windows.Forms.Label Version;
+        internal System.Windows.Forms.Label ApplicationTitle;
+        internal System.Windows.Forms.Label lblDescription;
+        internal System.Windows.Forms.PictureBox PictureBox1;
+        private System.Windows.Forms.GroupBox grpAppInfo;
     }
 }
 

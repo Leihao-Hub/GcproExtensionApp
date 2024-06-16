@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
+using System.Runtime.CompilerServices;
 namespace GcproExtensionLibrary
 {
     public class OleDb
     {
-
-        private string dataSource;
         private string connectionString;
+        private string dataSource;
         private bool isNewOLEDBDriver;
 
         public string DataSource
@@ -45,10 +45,9 @@ namespace GcproExtensionLibrary
             this.dataSource = dataSource;
             this.isNewOLEDBDriver = newOledbDriver;
         }
-
+        #region Query method
         public DataTable QueryDataTable(string tableName, string whereClause, IDictionary<string, object> parameters, string sortBy, params string[] fields)
-        {
-
+        {              
             if (string.IsNullOrWhiteSpace(tableName) || fields.Length == 0)
             {
                 throw new ArgumentException(LibGlobalSource.EMPTY_TABLENAME_OR_FIELDNAME);
@@ -68,7 +67,6 @@ namespace GcproExtensionLibrary
             {
                 using (OleDbCommand command = new OleDbCommand(query, connection))
                 {
-                    // Add parameters to the command if provided
                     if (parameters != null)
                     {
                         foreach (var param in parameters)
@@ -102,7 +100,8 @@ namespace GcproExtensionLibrary
                                       .ToList();
             return columnData;
         }
-
+        #endregion
+        #region Insert method
         public bool InsertRecord(string tableName, List<Gcpro.DbParameter> parameters)
         {
             if (string.IsNullOrWhiteSpace(tableName))
@@ -112,23 +111,43 @@ namespace GcproExtensionLibrary
             connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
                               $"Data Source={dataSource}";
 
-            string columnNames = string.Join(", ", parameters.Select(p => p.Name));
-            string paramsList = string.Join(", ", parameters.Select(p => "?"));
+            string columnNames = string.Join(", ", parameters.Select(p => $"[{p.Name}]"));
+            string valueParameters = string.Join(", ", parameters.Select(p => "?"));
 
-            string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({paramsList})";
+            string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({valueParameters})";
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
-                using (OleDbCommand command = new OleDbCommand(insertQuery, connection))
-                {
-                    foreach (var param in parameters)
-                    {
-                        command.Parameters.AddWithValue(param.Name, param.Value ?? DBNull.Value);
-                    }
+                connection.Open();
 
-                    connection.Open();
-                    int result = command.ExecuteNonQuery();
-                    return result > 0;
+                using (OleDbTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        using (OleDbCommand command = new OleDbCommand(insertQuery, connection, transaction))
+                        {
+                            foreach (var param in parameters)
+                            {
+                                command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                            }
+                            command.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        try
+                        {
+                            transaction.Rollback(); // 如有错误则回滚事务
+                        }
+                        catch
+                        {
+                            throw;
+                        }
+
+                        return false;
+                    }
                 }
             }
         }
@@ -139,43 +158,47 @@ namespace GcproExtensionLibrary
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 connection.Open();
-                OleDbTransaction transaction = connection.BeginTransaction();
-
-                foreach (var parameters in parametersList)
-                {
-                    string columnNames = string.Join(", ", parameters.Select(p => p.Name));
-                    string valueParameters = string.Join(", ", parameters.Select(p => "?"));
-                    string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({valueParameters})";
-
-                    using (OleDbCommand command = new OleDbCommand(insertQuery, connection, transaction))
-                    {
-                        foreach (var param in parameters)
-                        {
-                            command.Parameters.AddWithValue("?", param.Value); // Access使用?作为参数占位符
-                        }
-                        command.ExecuteNonQuery();
-                    }
-                }
-
-                try
-                {
-                    transaction.Commit();
-                    return true;
-                }
-                catch (Exception ex)
+                using (OleDbTransaction transaction = connection.BeginTransaction())
                 {
                     try
                     {
-                        transaction.Rollback(); // 如有错误则回滚事务
-                    }
-                    catch
-                    {
-                    }
+                        foreach (var parameters in parametersList)
+                        {
+                            string columnNames = string.Join(", ", parameters.Select(p => $"[{p.Name}]"));
+                            string valueParameters = string.Join(", ", parameters.Select(p => "?"));
+                            string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({valueParameters})";
 
-                    return false;
+                            using (OleDbCommand command = new OleDbCommand(insertQuery, connection, transaction))
+                            {
+                                foreach (var param in parameters)
+                                {
+                                    command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                                }
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        try
+                        {
+                            Console.WriteLine(ex.Message);
+                            transaction.Rollback(); 
+                        }
+                        catch
+                        {
+                            throw;
+                        }
+
+                        return false;
+                    }
                 }
             }
         }
+        #endregion
+        #region Delete method
         public bool DeleteRecord(string tableName, string whereClause, List<Gcpro.DbParameter> whereParameters)
         {
             string deleteQuery = $"DELETE FROM {tableName} WHERE {whereClause}";
@@ -194,7 +217,6 @@ namespace GcproExtensionLibrary
                                 command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
                             }
                         }
-
                         connection.Open();
                         int result = command.ExecuteNonQuery();
                         return result > 0;
@@ -202,10 +224,130 @@ namespace GcproExtensionLibrary
                 }
                 catch (Exception ex)
                 {
-                    // Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message);
                     return false;
                 }
             }
         }
+        public bool DeleteRecords(string tableName, List<string> whereClauses)
+        {
+            connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
+                    $"Data Source={dataSource}";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+                using (OleDbTransaction transaction = connection.BeginTransaction())
+                {
+                    OleDbCommand command = connection.CreateCommand();
+                    command.Transaction = transaction;
+
+                    try
+                    {
+                        foreach (string whereClause in whereClauses)
+                        {
+                            string deleteQuery = $"DELETE FROM [{tableName}] WHERE {whereClause}";
+                            command.CommandText = deleteQuery;
+                            command.ExecuteNonQuery(); 
+                        }
+
+                        transaction.Commit(); 
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        try
+                        {
+                            transaction.Rollback(); 
+                        }
+                        catch (Exception rollbackEx)
+                        {
+                            Console.WriteLine(rollbackEx.Message);
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+            #endregion
+        #region Update method
+            public bool UpdateRecord(string tableName, List<Gcpro.DbParameter> parameters, string whereClause)
+        {
+            connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
+                        $"Data Source={dataSource}";
+            var setClauseParts = new List<string>();
+            foreach (var param in parameters)
+            {
+                setClauseParts.Add($"[{param.Name}] = ?");  
+            }
+            var setClause = string.Join(", ", setClauseParts);
+            string updateQuery = $"UPDATE [{tableName}] SET {setClause} WHERE {whereClause}";
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    OleDbCommand command = new OleDbCommand(updateQuery, connection);
+                    foreach (Gcpro.DbParameter param in parameters)
+                    {
+                        command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                    }
+                    int affectedRows = command.ExecuteNonQuery();  
+                    return affectedRows > 0;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
+        }
+        public bool UpdateMultipleRecords(string tableName, List<List<Gcpro.DbParameter>> listOfParameterList, string whereClause)
+        {
+            connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
+                      $"Data Source={dataSource}";
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+
+                using (OleDbTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var parameters in listOfParameterList)
+                        {
+                            var setClauseParts = new List<string>();
+                            foreach (var param in parameters)
+                            {
+                                setClauseParts.Add($"[{param.Name}] = ?"); 
+                            }
+                            var setClause = string.Join(", ", setClauseParts);
+
+                            string updateQuery = $"UPDATE [{tableName}] SET {setClause} WHERE {whereClause}";
+
+                            using (OleDbCommand command = new OleDbCommand(updateQuery, connection, transaction))
+                            {
+                                foreach (var param in parameters)
+                                {
+                                    command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                                }
+
+                                command.ExecuteNonQuery(); 
+                            }
+                        }
+                        transaction.Commit(); 
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback(); 
+                        Console.WriteLine(ex.Message); 
+                        return false;
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

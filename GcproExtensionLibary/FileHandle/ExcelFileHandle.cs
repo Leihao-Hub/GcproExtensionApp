@@ -111,13 +111,14 @@ namespace GcproExtensionLibrary.FileHandle
         }
         public DataTable ReadFileAsDataTable(int startRow, string[] columnsToRead, string filterTypeValue, string filterTypeColumnLetter, string filePath = null, string workSheetName = null)
         {
-            string effectiveWorksheetName = string.IsNullOrEmpty(workSheetName) ? this.workSheet : workSheetName;
-            string effectiveFilePath = string.IsNullOrEmpty(filePath) ? this.filePath : filePath;
-
-            FileInfo fileInfo = new FileInfo(effectiveFilePath);
-            DataTable dataTable = new DataTable();
             try
             {
+                string effectiveWorksheetName = string.IsNullOrEmpty(workSheetName) ? this.workSheet : workSheetName;
+                string effectiveFilePath = string.IsNullOrEmpty(filePath) ? this.filePath : filePath;
+
+                FileInfo fileInfo = new FileInfo(effectiveFilePath);
+                 DataTable dataTable = new DataTable();
+          
                 using (ExcelPackage package = new ExcelPackage(fileInfo))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[effectiveWorksheetName];
@@ -151,12 +152,13 @@ namespace GcproExtensionLibrary.FileHandle
                         dataTable.Rows.Add(dataRow);
                     }
                 }
+                return dataTable;
             }
             catch (Exception ex)
             {
-                throw new ArgumentException(LibGlobalSource.EX_READING_FILE + $"： {ex.Message}");
+                throw new ArgumentException(LibGlobalSource.EX_READING_FILE + $"： {ex.Message}");   
             }
-            return dataTable;
+            
         }
         public DataTable LoadDataIntoDataGridView(DataTable dataTable, string[] columnsToCombined)
         {

@@ -27,6 +27,7 @@ namespace GcproExtensionLibrary
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
         public const string EX_SPECIFIED_COLUMN = "未指定读取列。";
         public const int NO_OWNER = 1;
+        public const int NO_PARENT = 0;
         #endregion
         public static string[] SplitStringWithRule(string source, string rule)
         {

@@ -64,13 +64,12 @@ namespace GcproExtensionApp
             Assembly assembly = Assembly.GetExecutingAssembly();
             AssemblyTitleAttribute titleAttribute = assembly.GetCustomAttribute<AssemblyTitleAttribute>();
             AssemblyFileVersionAttribute versionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
-
-            string assemblyTitle = titleAttribute != null ? titleAttribute.Title : "N/A";
-            string assemblyVersion = versionAttribute != null ? versionAttribute.Version : "N/A";
-
-            AppGlobalSource.AppInfo.Title = $"Title: {assemblyTitle}";
-            AppGlobalSource.AppInfo.Version = $"Version: {assemblyVersion}";
-            AppGlobalSource.AppInfo.Author = $"Author: {assemblyVersion}";
+            AssemblyCopyrightAttribute copyright= assembly.GetCustomAttribute<AssemblyCopyrightAttribute>();
+            AssemblyDescriptionAttribute description =assembly.GetCustomAttribute<AssemblyDescriptionAttribute>();   
+            AppGlobalSource.AppInfo.Title = titleAttribute.Title;
+            AppGlobalSource.AppInfo.Version = $"Version: {versionAttribute.Version}";
+            AppGlobalSource.AppInfo.Description = $"{description.Description}";
+            AppGlobalSource.AppInfo.CopyRight= $"{copyright.Copyright}";
         }
 
 
@@ -81,12 +80,25 @@ namespace GcproExtensionApp
             formMotor.Show();
 
         }
+        private void btnAddVFC_Click(object sender, EventArgs e)
+        {
+            FormVFCAdapter formVFCAdapter = new FormVFCAdapter();
+            formVFCAdapter.Show();
+        }
 
         private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabMain.SelectedTab == tabPage2)
             {
                 this.Size = new Size(846, 333);
+            }
+            else if (tabMain.SelectedTab == tabPage3)
+            {
+                this.Size = new Size(846, 228);
+                GetAppInfo();
+                ApplicationTitle.Text= AppGlobalSource.AppInfo.Title;
+                Version.Text = $"<{AppGlobalSource.AppInfo.Version}>";
+                lblDescription.Text = AppGlobalSource.AppInfo.Description;
             }
             else
             {
@@ -110,5 +122,7 @@ namespace GcproExtensionApp
         {
             BtnOpenGcproTempPath_Click(sender, e);
         }
+
+     
     }
 }

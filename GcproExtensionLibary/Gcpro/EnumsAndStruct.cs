@@ -143,11 +143,12 @@
         public string NameRule, DescriptionRule;
         public string NameRuleInc, DescriptionRuleInc;
     }
-
-    /// <summary>
-    /// Colums in Gcpro Database
-    /// </summary>
-
+    public struct VFCT
+    {
+        public string Name, Description;
+        public string NameRule, DescriptionRule;
+        public string NameRuleInc, DescriptionRuleInc;
+    }
 
     /// <summary>
     /// Colums in Gcpro Database
