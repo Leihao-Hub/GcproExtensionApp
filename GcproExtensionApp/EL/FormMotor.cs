@@ -1102,7 +1102,11 @@ namespace GcproExtensionApp
             string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboControlBML.Text,comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text};
             DataTable dataTable = new DataTable();
-            dataTable = excelFileHandle.ReadFileAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
+            dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.TypeMotor, comboTypeBML.Text);
+            //string[] filter = new string[] { $"Value=={BML.Motor.TypeMotor}"};
+            //string[] filterColum = new string[] { comboTypeBML.Text};
+          //  dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filter, filterColum);
+
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
 

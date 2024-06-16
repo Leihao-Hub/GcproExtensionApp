@@ -538,303 +538,7 @@ namespace GcproExtensionApp
             this.Dispose();
         }
         #region <---Rule and autosearch part---> 
-        #region <------Check and store rule event------>
-        private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
-        {
-            if (AppGlobalSource.CheckNumericString(txtSymbolRule.Text))
-            {
-                VFCAdapter.Rule.Common.NameRule = txtSymbolRule.Text;
-            }
-            else
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
-        }
 
-        private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-
-                if (AppGlobalSource.CheckNumericString(txtSymbolIncRule.Text))
-                {
-                    VFCAdapter.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-        }
-
-        private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
-        {
-
-            if (AppGlobalSource.CheckNumericString(txtDescriptionRule.Text))
-            {
-                VFCAdapter.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
-            }
-            else
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
-
-        }
-        private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text))
-                {
-                    VFCAdapter.Rule.Common.DescriptionRuleInc = txtDescriptionIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-
-        }
-        private void txtParIOByte_TextChanged(object sender, EventArgs e)
-        {
-            if (!AppGlobalSource.CheckNumericString(txtParIOByte.Text))
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
-        }
-        private void txtIOByteIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (AppGlobalSource.CheckNumericString(txtIOByteIncRule.Text))
-                {
-                    VFCAdapter.Rule.ioByteInc = txtIOByteIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-        }
-        #endregion
-        #region <------ Check and unchek "Value9" and "Value10------>"
-
-        private void chkParPZDConsistent_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkParPZDConsistent.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)0); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)0); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        private void chkParProfinet_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkParProfinet.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)1); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)1); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        private void chkParWithActivePower_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkParWithActivePower.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)2); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)2); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        private void chkWithMultiMotorCfg_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkWithMultiMotorCfg.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)16); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)16); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        #endregion
-        #region <------Field in database display
-        private void TxtSymbol_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text0";
-        }
-
-        private void TxtDescription_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text1";
-        }
-
-        private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "DPNode1";
-        }
-
-        private void txtParSpeedLimitMin_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value18";
-        }
-
-        private void txtParSpeedLimitMax_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value19";
-        }
-
-        private void txtMEAGGateway_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value11";
-        }
-
-        private void txtParSalveIndex_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value12";
-        }
-
-        private void txtOutpHardwareStop_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value13";
-        }
-
-        private void txtParSpeedMaxDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value15";
-        }
-
-        private void txtParSpeedUnitsByZeroDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value16";
-        }
-
-        private void txtParSpeedUnitsByMaxDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value17";
-        }
-
-        private void txtParUnitsPerDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value14";
-        }
-
-        private void txtParLenPKW_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value23";
-        }
-
-        private void txtParLenPZD_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value24";
-        }
-
-        private void txtParLenPZDInp_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value44";
-        }
-
-        private void txtParIOByte_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value21";
-        }
-
-        private void chkParPZDConsistent_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit0";
-        }
-
-        private void chkParProfinet_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit1";
-        }
-
-        private void chkParWithActivePower_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit2";
-        }
-
-        private void txtParPNO_T1_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value25";
-        }
-
-        private void txtParUnitsPerDigit_T1_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value35";
-        }
-
-        private void txtParPNO_T2_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value26";
-        }
-
-        private void txtParUnitsPerDigit_T2_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value36";
-        }
-
-        private void txtParPNO_T3_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value27";
-        }
-
-        private void txtParUnitsPerDigit_T3_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value37";
-        }
-
-        private void txtParPNO_T4_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value28";
-        }
-        private void txtParUnitsPerDigit_T4_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value38";
-        }
-        private void txtParPNO_T5_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value29";
-        }
-
-        private void txtParUnitsPerDigit_T5_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value39";
-        }
-
-        private void chkWithMultiMotorCfg_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit16";
-        }
-        private void txtParRefCurrent_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value40";
-        }
-
-        private void txtParRefTorque_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value41";
-        }
-
-        private void txtParRefPower_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value42";
-        }
-        #endregion
         private void TxtSymbol_TextChanged(object sender, EventArgs e)
         {
             myVFCAdapter.Name = txtSymbol.Text;
@@ -1241,7 +945,305 @@ namespace GcproExtensionApp
             }
             ///</<SoftStarter3RW44>
         }
+        #region <------Check and store rule event------>
+        private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
+        {
+            if (AppGlobalSource.CheckNumericString(txtSymbolRule.Text))
+            {
+                VFCAdapter.Rule.Common.NameRule = txtSymbolRule.Text;
+            }
+            else
+            {
+                AppGlobalSource.MessageNotNumeric();
+            }
+        }
+
+        private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                if (AppGlobalSource.CheckNumericString(txtSymbolIncRule.Text))
+                {
+                    VFCAdapter.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
+                }
+                else
+                {
+                    AppGlobalSource.MessageNotNumeric();
+                }
+            }
+        }
+
+        private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
+        {
+
+            if (AppGlobalSource.CheckNumericString(txtDescriptionRule.Text))
+            {
+                VFCAdapter.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+            }
+            else
+            {
+                AppGlobalSource.MessageNotNumeric();
+            }
+
+        }
+        private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text))
+                {
+                    VFCAdapter.Rule.Common.DescriptionRuleInc = txtDescriptionIncRule.Text;
+                }
+                else
+                {
+                    AppGlobalSource.MessageNotNumeric();
+                }
+            }
+
+        }
+        private void txtParIOByte_TextChanged(object sender, EventArgs e)
+        {
+            if (!AppGlobalSource.CheckNumericString(txtParIOByte.Text))
+            {
+                AppGlobalSource.MessageNotNumeric();
+            }
+        }
+        private void txtIOByteIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (AppGlobalSource.CheckNumericString(txtIOByteIncRule.Text))
+                {
+                    VFCAdapter.Rule.ioByteInc = txtIOByteIncRule.Text;
+                }
+                else
+                {
+                    AppGlobalSource.MessageNotNumeric();
+                }
+            }
+        }
         #endregion
+        #region <------ Check and unchek "Value9" and "Value10------>"
+
+        private void chkParPZDConsistent_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParPZDConsistent.Checked)
+            { AppGlobalSource.SetBit(ref value10, (byte)0); }
+
+            else
+            { AppGlobalSource.ClearBit(ref value10, (byte)0); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        private void chkParProfinet_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParProfinet.Checked)
+            { AppGlobalSource.SetBit(ref value10, (byte)1); }
+
+            else
+            { AppGlobalSource.ClearBit(ref value10, (byte)1); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        private void chkParWithActivePower_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithActivePower.Checked)
+            { AppGlobalSource.SetBit(ref value10, (byte)2); }
+
+            else
+            { AppGlobalSource.ClearBit(ref value10, (byte)2); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        private void chkWithMultiMotorCfg_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkWithMultiMotorCfg.Checked)
+            { AppGlobalSource.SetBit(ref value10, (byte)16); }
+
+            else
+            { AppGlobalSource.ClearBit(ref value10, (byte)16); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        #endregion
+        #region <------Field in database display
+        private void TxtSymbol_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text0";
+        }
+
+        private void TxtDescription_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text1";
+        }
+
+        private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "DPNode1";
+        }
+
+        private void txtParSpeedLimitMin_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value18";
+        }
+
+        private void txtParSpeedLimitMax_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value19";
+        }
+
+        private void txtMEAGGateway_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value11";
+        }
+
+        private void txtParSalveIndex_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value12";
+        }
+
+        private void txtOutpHardwareStop_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value13";
+        }
+
+        private void txtParSpeedMaxDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value15";
+        }
+
+        private void txtParSpeedUnitsByZeroDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value16";
+        }
+
+        private void txtParSpeedUnitsByMaxDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value17";
+        }
+
+        private void txtParUnitsPerDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value14";
+        }
+
+        private void txtParLenPKW_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value23";
+        }
+
+        private void txtParLenPZD_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value24";
+        }
+
+        private void txtParLenPZDInp_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value44";
+        }
+
+        private void txtParIOByte_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value21";
+        }
+
+        private void chkParPZDConsistent_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit0";
+        }
+
+        private void chkParProfinet_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit1";
+        }
+
+        private void chkParWithActivePower_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit2";
+        }
+
+        private void txtParPNO_T1_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value25";
+        }
+
+        private void txtParUnitsPerDigit_T1_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value35";
+        }
+
+        private void txtParPNO_T2_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value26";
+        }
+
+        private void txtParUnitsPerDigit_T2_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value36";
+        }
+
+        private void txtParPNO_T3_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value27";
+        }
+
+        private void txtParUnitsPerDigit_T3_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value37";
+        }
+
+        private void txtParPNO_T4_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value28";
+        }
+        private void txtParUnitsPerDigit_T4_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value38";
+        }
+        private void txtParPNO_T5_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value29";
+        }
+
+        private void txtParUnitsPerDigit_T5_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value39";
+        }
+
+        private void chkWithMultiMotorCfg_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit16";
+        }
+        private void txtParRefCurrent_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value40";
+        }
+
+        private void txtParRefTorque_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value41";
+        }
+
+        private void txtParRefPower_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value42";
+        }
+        #endregion
+        #endregion
+      
         #region <---BML part--->
         private void AddWorkSheets()
         {
@@ -1341,7 +1343,7 @@ namespace GcproExtensionApp
             string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboControlBML.Text,comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text};
             DataTable dataTable = new DataTable();
-            dataTable = excelFileHandle.ReadFileAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.VFCAdapter.TypeMotor, comboTypeBML.Text);
+            dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.VFCAdapter.TypeMotor, comboTypeBML.Text);
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
 

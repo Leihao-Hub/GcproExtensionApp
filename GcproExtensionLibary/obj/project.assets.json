@@ -50,6 +50,206 @@
           "lib/net35/EPPlus.System.Drawing.dll": {}
         }
       }
+    },
+    ".NETFramework,Version=v4.6/win": {
+      "EPPlus/7.1.3": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.System.Drawing": "6.1.1"
+        },
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Security",
+          "System.Xml",
+          "System.configuration",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "EPPlus.Interfaces/6.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        }
+      },
+      "EPPlus.System.Drawing/6.1.1": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.Interfaces": "6.1.1"
+        },
+        "compile": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6/win-arm64": {
+      "EPPlus/7.1.3": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.System.Drawing": "6.1.1"
+        },
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Security",
+          "System.Xml",
+          "System.configuration",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "EPPlus.Interfaces/6.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        }
+      },
+      "EPPlus.System.Drawing/6.1.1": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.Interfaces": "6.1.1"
+        },
+        "compile": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6/win-x64": {
+      "EPPlus/7.1.3": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.System.Drawing": "6.1.1"
+        },
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Security",
+          "System.Xml",
+          "System.configuration",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "EPPlus.Interfaces/6.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        }
+      },
+      "EPPlus.System.Drawing/6.1.1": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.Interfaces": "6.1.1"
+        },
+        "compile": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6/win-x86": {
+      "EPPlus/7.1.3": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.System.Drawing": "6.1.1"
+        },
+        "frameworkAssemblies": [
+          "PresentationCore",
+          "PresentationFramework",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Security",
+          "System.Xml",
+          "System.configuration",
+          "WindowsBase"
+        ],
+        "compile": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net35/EPPlus.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "EPPlus.Interfaces/6.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.Interfaces.dll": {}
+        }
+      },
+      "EPPlus.System.Drawing/6.1.1": {
+        "type": "package",
+        "dependencies": {
+          "EPPlus.Interfaces": "6.1.1"
+        },
+        "compile": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        },
+        "runtime": {
+          "lib/net35/EPPlus.System.Drawing.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -176,6 +376,20 @@
             "version": "[7.1.3, )"
           }
         }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-arm64": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
       }
     }
   }
