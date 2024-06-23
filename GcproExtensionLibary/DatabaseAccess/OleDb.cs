@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using static GcproExtensionLibrary.Gcpro.GcproTable;
 namespace GcproExtensionLibrary
 {
     public class OleDb
@@ -89,7 +90,60 @@ namespace GcproExtensionLibrary
                     }
                 }
             }
+            return results;
+        }
+        public DataTable NestQueryDataTable(string tableName, string whereClause, IDictionary<string, object> parameters, string sortBy, string subQuery = null, params string[] fields)
+        {
+            if (string.IsNullOrWhiteSpace(tableName) || fields.Length == 0)
+            {
+                throw new ArgumentException(LibGlobalSource.EMPTY_TABLENAME_OR_FIELDNAME);
+            }
 
+            connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
+                         $"Data Source={dataSource}";
+
+    
+
+            if (!string.IsNullOrWhiteSpace(subQuery))
+            {
+                whereClause= $"{whereClause} ({subQuery})";
+            }
+        
+            string fieldList = string.Join(", ", fields);
+            string query = $"SELECT {fieldList} " +
+                           $"FROM {tableName} " +
+                           $"{(string.IsNullOrWhiteSpace(whereClause) ? string.Empty : $"WHERE {whereClause}")} " +
+                           $"{(string.IsNullOrWhiteSpace(sortBy) ? string.Empty : $"ORDER BY {sortBy}")};";
+
+            DataTable results = new DataTable();
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                using (OleDbCommand command = new OleDbCommand(query, connection))
+                {
+                    if (parameters != null)
+                    {
+                        foreach (var param in parameters)
+                        {
+                            command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                        }
+                    }
+
+                    try
+                    {
+                        connection.Open();
+
+                        using (OleDbDataAdapter adapter = new OleDbDataAdapter(command))
+                        {
+                            adapter.Fill(results);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("Error executing query: " + ex.Message);
+                    }
+                }
+            }
 
             return results;
         }

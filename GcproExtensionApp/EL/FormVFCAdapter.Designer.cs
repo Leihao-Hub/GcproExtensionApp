@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVFCAdapter));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -82,6 +82,8 @@ namespace GcproExtensionApp
             this.txtParPNO_T1 = new System.Windows.Forms.TextBox();
             this.lblParPNO_T1 = new System.Windows.Forms.Label();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
+            this.txtParSlaveIndexIncRule = new System.Windows.Forms.TextBox();
+            this.lblParSlaveIndexIncRule = new System.Windows.Forms.Label();
             this.txtParUnitsPerDigits = new System.Windows.Forms.TextBox();
             this.lblUnitsPerDigits = new System.Windows.Forms.Label();
             this.txtOutpHardwareStop = new System.Windows.Forms.TextBox();
@@ -137,10 +139,10 @@ namespace GcproExtensionApp
             this.lblParLenPZD = new System.Windows.Forms.Label();
             this.tabBML = new System.Windows.Forms.TabPage();
             this.grpBoxExcelData = new System.Windows.Forms.GroupBox();
+            this.txtVFCSufffixBML = new System.Windows.Forms.TextBox();
+            this.lblVFCSufffixBML = new System.Windows.Forms.Label();
             this.txtVFCPrefixBML = new System.Windows.Forms.TextBox();
             this.lblVFCPrefixBML = new System.Windows.Forms.Label();
-            this.comboStartRow = new System.Windows.Forms.ComboBox();
-            this.lblStartRow = new System.Windows.Forms.Label();
             this.btnReadBML = new System.Windows.Forms.Button();
             this.dataGridBML = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
@@ -149,7 +151,9 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum = new System.Windows.Forms.GroupBox();
             this.comboControlBML = new System.Windows.Forms.ComboBox();
             this.lblControlBML = new System.Windows.Forms.Label();
+            this.comboStartRow = new System.Windows.Forms.ComboBox();
             this.comboSectionBML = new System.Windows.Forms.ComboBox();
+            this.lblStartRow = new System.Windows.Forms.Label();
             this.comboPowerBML = new System.Windows.Forms.ComboBox();
             this.comboDescBML = new System.Windows.Forms.ComboBox();
             this.comboCabinetBML = new System.Windows.Forms.ComboBox();
@@ -164,7 +168,7 @@ namespace GcproExtensionApp
             this.lblBMLDescription = new System.Windows.Forms.Label();
             this.lblBMLSymbol = new System.Windows.Forms.Label();
             this.TxtExcelPath = new System.Windows.Forms.TextBox();
-            this.BtnOpenProjectDB = new System.Windows.Forms.Button();
+            this.BtnOpenProjectBML = new System.Windows.Forms.Button();
             this.LblGcproProjectPath = new System.Windows.Forms.Label();
             this.LblPanel = new System.Windows.Forms.Label();
             this.ComboPanel = new System.Windows.Forms.ComboBox();
@@ -188,8 +192,6 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
-            this.txtParSlaveIndexIncRule = new System.Windows.Forms.TextBox();
-            this.lblParSlaveIndexIncRule = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
@@ -747,6 +749,24 @@ namespace GcproExtensionApp
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "常规";
             // 
+            // txtParSlaveIndexIncRule
+            // 
+            this.txtParSlaveIndexIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParSlaveIndexIncRule.Enabled = false;
+            this.txtParSlaveIndexIncRule.Location = new System.Drawing.Point(286, 163);
+            this.txtParSlaveIndexIncRule.Name = "txtParSlaveIndexIncRule";
+            this.txtParSlaveIndexIncRule.Size = new System.Drawing.Size(66, 13);
+            this.txtParSlaveIndexIncRule.TabIndex = 75;
+            // 
+            // lblParSlaveIndexIncRule
+            // 
+            this.lblParSlaveIndexIncRule.AutoSize = true;
+            this.lblParSlaveIndexIncRule.Location = new System.Drawing.Point(230, 163);
+            this.lblParSlaveIndexIncRule.Name = "lblParSlaveIndexIncRule";
+            this.lblParSlaveIndexIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblParSlaveIndexIncRule.TabIndex = 74;
+            this.lblParSlaveIndexIncRule.Text = "递增规则";
+            // 
             // txtParUnitsPerDigits
             // 
             this.txtParUnitsPerDigits.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -1054,7 +1074,7 @@ namespace GcproExtensionApp
             this.BtnConnectIO.Size = new System.Drawing.Size(36, 30);
             this.BtnConnectIO.TabIndex = 98;
             this.BtnConnectIO.UseVisualStyleBackColor = false;
-            this.BtnConnectIO.Click += new System.EventHandler(this.BtnConnectIO_Click);
+            this.BtnConnectIO.Visible = false;
             // 
             // ComboDPNode1
             // 
@@ -1303,10 +1323,10 @@ namespace GcproExtensionApp
             // 
             // grpBoxExcelData
             // 
+            this.grpBoxExcelData.Controls.Add(this.txtVFCSufffixBML);
+            this.grpBoxExcelData.Controls.Add(this.lblVFCSufffixBML);
             this.grpBoxExcelData.Controls.Add(this.txtVFCPrefixBML);
             this.grpBoxExcelData.Controls.Add(this.lblVFCPrefixBML);
-            this.grpBoxExcelData.Controls.Add(this.comboStartRow);
-            this.grpBoxExcelData.Controls.Add(this.lblStartRow);
             this.grpBoxExcelData.Controls.Add(this.btnReadBML);
             this.grpBoxExcelData.Controls.Add(this.dataGridBML);
             this.grpBoxExcelData.Controls.Add(this.label3);
@@ -1319,10 +1339,29 @@ namespace GcproExtensionApp
             this.grpBoxExcelData.TabStop = false;
             this.grpBoxExcelData.Text = "BML数据";
             // 
+            // txtVFCSufffixBML
+            // 
+            this.txtVFCSufffixBML.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtVFCSufffixBML.Location = new System.Drawing.Point(550, 27);
+            this.txtVFCSufffixBML.Name = "txtVFCSufffixBML";
+            this.txtVFCSufffixBML.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.txtVFCSufffixBML.Size = new System.Drawing.Size(56, 13);
+            this.txtVFCSufffixBML.TabIndex = 30;
+            this.txtVFCSufffixBML.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblVFCSufffixBML
+            // 
+            this.lblVFCSufffixBML.AutoSize = true;
+            this.lblVFCSufffixBML.Location = new System.Drawing.Point(489, 27);
+            this.lblVFCSufffixBML.Name = "lblVFCSufffixBML";
+            this.lblVFCSufffixBML.Size = new System.Drawing.Size(55, 13);
+            this.lblVFCSufffixBML.TabIndex = 31;
+            this.lblVFCSufffixBML.Text = "变频后缀";
+            // 
             // txtVFCPrefixBML
             // 
             this.txtVFCPrefixBML.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtVFCPrefixBML.Location = new System.Drawing.Point(535, 27);
+            this.txtVFCPrefixBML.Location = new System.Drawing.Point(421, 27);
             this.txtVFCPrefixBML.Name = "txtVFCPrefixBML";
             this.txtVFCPrefixBML.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.txtVFCPrefixBML.Size = new System.Drawing.Size(56, 13);
@@ -1332,30 +1371,11 @@ namespace GcproExtensionApp
             // lblVFCPrefixBML
             // 
             this.lblVFCPrefixBML.AutoSize = true;
-            this.lblVFCPrefixBML.Location = new System.Drawing.Point(481, 27);
+            this.lblVFCPrefixBML.Location = new System.Drawing.Point(367, 27);
             this.lblVFCPrefixBML.Name = "lblVFCPrefixBML";
-            this.lblVFCPrefixBML.Size = new System.Drawing.Size(55, 13);
+            this.lblVFCPrefixBML.Size = new System.Drawing.Size(53, 13);
             this.lblVFCPrefixBML.TabIndex = 29;
-            this.lblVFCPrefixBML.Text = "变频前缀";
-            // 
-            // comboStartRow
-            // 
-            this.comboStartRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboStartRow.FormattingEnabled = true;
-            this.comboStartRow.IntegralHeight = false;
-            this.comboStartRow.Location = new System.Drawing.Point(405, 24);
-            this.comboStartRow.Name = "comboStartRow";
-            this.comboStartRow.Size = new System.Drawing.Size(66, 21);
-            this.comboStartRow.TabIndex = 28;
-            // 
-            // lblStartRow
-            // 
-            this.lblStartRow.AutoSize = true;
-            this.lblStartRow.Location = new System.Drawing.Point(364, 27);
-            this.lblStartRow.Name = "lblStartRow";
-            this.lblStartRow.Size = new System.Drawing.Size(43, 13);
-            this.lblStartRow.TabIndex = 28;
-            this.lblStartRow.Text = "起始行";
+            this.lblVFCPrefixBML.Text = "BML前缀";
             // 
             // btnReadBML
             // 
@@ -1375,8 +1395,8 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1412,7 +1432,7 @@ namespace GcproExtensionApp
             this.grpBoxExcelColumn.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTabList;
             this.grpBoxExcelColumn.Controls.Add(this.grpBoxBMLColum);
             this.grpBoxExcelColumn.Controls.Add(this.TxtExcelPath);
-            this.grpBoxExcelColumn.Controls.Add(this.BtnOpenProjectDB);
+            this.grpBoxExcelColumn.Controls.Add(this.BtnOpenProjectBML);
             this.grpBoxExcelColumn.Controls.Add(this.LblGcproProjectPath);
             this.grpBoxExcelColumn.Location = new System.Drawing.Point(6, 6);
             this.grpBoxExcelColumn.Name = "grpBoxExcelColumn";
@@ -1425,7 +1445,9 @@ namespace GcproExtensionApp
             // 
             this.grpBoxBMLColum.Controls.Add(this.comboControlBML);
             this.grpBoxBMLColum.Controls.Add(this.lblControlBML);
+            this.grpBoxBMLColum.Controls.Add(this.comboStartRow);
             this.grpBoxBMLColum.Controls.Add(this.comboSectionBML);
+            this.grpBoxBMLColum.Controls.Add(this.lblStartRow);
             this.grpBoxBMLColum.Controls.Add(this.comboPowerBML);
             this.grpBoxBMLColum.Controls.Add(this.comboDescBML);
             this.grpBoxBMLColum.Controls.Add(this.comboCabinetBML);
@@ -1441,7 +1463,7 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.Controls.Add(this.lblBMLSymbol);
             this.grpBoxBMLColum.Location = new System.Drawing.Point(6, 40);
             this.grpBoxBMLColum.Name = "grpBoxBMLColum";
-            this.grpBoxBMLColum.Size = new System.Drawing.Size(582, 68);
+            this.grpBoxBMLColum.Size = new System.Drawing.Size(692, 68);
             this.grpBoxBMLColum.TabIndex = 16;
             this.grpBoxBMLColum.TabStop = false;
             this.grpBoxBMLColum.Text = "信息列";
@@ -1463,7 +1485,17 @@ namespace GcproExtensionApp
             this.lblControlBML.Name = "lblControlBML";
             this.lblControlBML.Size = new System.Drawing.Size(67, 13);
             this.lblControlBML.TabIndex = 28;
-            this.lblControlBML.Text = "控制类型：";
+            this.lblControlBML.Text = "控制方法：";
+            // 
+            // comboStartRow
+            // 
+            this.comboStartRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboStartRow.FormattingEnabled = true;
+            this.comboStartRow.IntegralHeight = false;
+            this.comboStartRow.Location = new System.Drawing.Point(622, 16);
+            this.comboStartRow.Name = "comboStartRow";
+            this.comboStartRow.Size = new System.Drawing.Size(66, 21);
+            this.comboStartRow.TabIndex = 28;
             // 
             // comboSectionBML
             // 
@@ -1474,6 +1506,15 @@ namespace GcproExtensionApp
             this.comboSectionBML.Name = "comboSectionBML";
             this.comboSectionBML.Size = new System.Drawing.Size(66, 21);
             this.comboSectionBML.TabIndex = 27;
+            // 
+            // lblStartRow
+            // 
+            this.lblStartRow.AutoSize = true;
+            this.lblStartRow.Location = new System.Drawing.Point(581, 19);
+            this.lblStartRow.Name = "lblStartRow";
+            this.lblStartRow.Size = new System.Drawing.Size(43, 13);
+            this.lblStartRow.TabIndex = 28;
+            this.lblStartRow.Text = "起始行";
             // 
             // comboPowerBML
             // 
@@ -1608,21 +1649,21 @@ namespace GcproExtensionApp
             this.TxtExcelPath.TextChanged += new System.EventHandler(this.TxtExcelPath_TextChanged);
             this.TxtExcelPath.DoubleClick += new System.EventHandler(this.TxtExcelPath_DoubleClick);
             // 
-            // BtnOpenProjectDB
+            // BtnOpenProjectBML
             // 
-            this.BtnOpenProjectDB.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuText;
-            this.BtnOpenProjectDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnOpenProjectDB.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnOpenProjectDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenProjectDB.Image")));
-            this.BtnOpenProjectDB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnOpenProjectDB.Location = new System.Drawing.Point(609, 11);
-            this.BtnOpenProjectDB.Name = "BtnOpenProjectDB";
-            this.BtnOpenProjectDB.Size = new System.Drawing.Size(89, 27);
-            this.BtnOpenProjectDB.TabIndex = 17;
-            this.BtnOpenProjectDB.Text = "    浏 览";
-            this.BtnOpenProjectDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnOpenProjectDB.UseVisualStyleBackColor = true;
-            this.BtnOpenProjectDB.Click += new System.EventHandler(this.BtnOpenProjectDB_Click);
+            this.BtnOpenProjectBML.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuText;
+            this.BtnOpenProjectBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnOpenProjectBML.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BtnOpenProjectBML.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenProjectBML.Image")));
+            this.BtnOpenProjectBML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnOpenProjectBML.Location = new System.Drawing.Point(609, 11);
+            this.BtnOpenProjectBML.Name = "BtnOpenProjectBML";
+            this.BtnOpenProjectBML.Size = new System.Drawing.Size(89, 27);
+            this.BtnOpenProjectBML.TabIndex = 17;
+            this.BtnOpenProjectBML.Text = "    浏 览";
+            this.BtnOpenProjectBML.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnOpenProjectBML.UseVisualStyleBackColor = true;
+            this.BtnOpenProjectBML.Click += new System.EventHandler(this.BtnOpenProjectBML_Click);
             // 
             // LblGcproProjectPath
             // 
@@ -1640,9 +1681,9 @@ namespace GcproExtensionApp
             this.LblPanel.AutoSize = true;
             this.LblPanel.Location = new System.Drawing.Point(298, 96);
             this.LblPanel.Name = "LblPanel";
-            this.LblPanel.Size = new System.Drawing.Size(31, 13);
+            this.LblPanel.Size = new System.Drawing.Size(37, 13);
             this.LblPanel.TabIndex = 49;
-            this.LblPanel.Text = "电柜";
+            this.LblPanel.Text = "Panel:";
             // 
             // ComboPanel
             // 
@@ -1669,18 +1710,18 @@ namespace GcproExtensionApp
             this.LblDiagram.AutoSize = true;
             this.LblDiagram.Location = new System.Drawing.Point(298, 121);
             this.LblDiagram.Name = "LblDiagram";
-            this.LblDiagram.Size = new System.Drawing.Size(31, 13);
+            this.LblDiagram.Size = new System.Drawing.Size(46, 13);
             this.LblDiagram.TabIndex = 51;
-            this.LblDiagram.Text = "图纸";
+            this.LblDiagram.Text = "Diagram";
             // 
             // LblElevation
             // 
             this.LblElevation.AutoSize = true;
             this.LblElevation.Location = new System.Drawing.Point(3, 148);
             this.LblElevation.Name = "LblElevation";
-            this.LblElevation.Size = new System.Drawing.Size(31, 13);
+            this.LblElevation.Size = new System.Drawing.Size(33, 13);
             this.LblElevation.TabIndex = 47;
-            this.LblElevation.Text = "楼层";
+            this.LblElevation.Text = "Floor:";
             // 
             // ComboDiagram
             // 
@@ -1697,9 +1738,9 @@ namespace GcproExtensionApp
             this.LblBuilding.AutoSize = true;
             this.LblBuilding.Location = new System.Drawing.Point(3, 121);
             this.LblBuilding.Name = "LblBuilding";
-            this.LblBuilding.Size = new System.Drawing.Size(31, 13);
+            this.LblBuilding.Size = new System.Drawing.Size(49, 13);
             this.LblBuilding.TabIndex = 45;
-            this.LblBuilding.Text = "车间";
+            this.LblBuilding.Text = "Buildling:";
             // 
             // ComboProcessFct
             // 
@@ -1808,9 +1849,9 @@ namespace GcproExtensionApp
             this.LblProcessFct.AutoSize = true;
             this.LblProcessFct.Location = new System.Drawing.Point(3, 96);
             this.LblProcessFct.Name = "LblProcessFct";
-            this.LblProcessFct.Size = new System.Drawing.Size(55, 13);
+            this.LblProcessFct.Size = new System.Drawing.Size(66, 13);
             this.LblProcessFct.TabIndex = 43;
-            this.LblProcessFct.Text = "过程控制";
+            this.LblProcessFct.Text = "Process Fct:";
             // 
             // ComboEquipmentSubType
             // 
@@ -1828,9 +1869,9 @@ namespace GcproExtensionApp
             this.LblEquipmentSubType.AutoSize = true;
             this.LblEquipmentSubType.Location = new System.Drawing.Point(3, 71);
             this.LblEquipmentSubType.Name = "LblEquipmentSubType";
-            this.LblEquipmentSubType.Size = new System.Drawing.Size(79, 13);
+            this.LblEquipmentSubType.Size = new System.Drawing.Size(49, 13);
             this.LblEquipmentSubType.TabIndex = 41;
-            this.LblEquipmentSubType.Text = "设备控制类型";
+            this.LblEquipmentSubType.Text = "Subtype:";
             // 
             // ComboBuilding
             // 
@@ -1883,27 +1924,9 @@ namespace GcproExtensionApp
             this.lblPage.AutoSize = true;
             this.lblPage.Location = new System.Drawing.Point(298, 148);
             this.lblPage.Name = "lblPage";
-            this.lblPage.Size = new System.Drawing.Size(31, 13);
+            this.lblPage.Size = new System.Drawing.Size(35, 13);
             this.lblPage.TabIndex = 58;
-            this.lblPage.Text = "页码";
-            // 
-            // txtParSlaveIndexIncRule
-            // 
-            this.txtParSlaveIndexIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParSlaveIndexIncRule.Enabled = false;
-            this.txtParSlaveIndexIncRule.Location = new System.Drawing.Point(286, 163);
-            this.txtParSlaveIndexIncRule.Name = "txtParSlaveIndexIncRule";
-            this.txtParSlaveIndexIncRule.Size = new System.Drawing.Size(66, 13);
-            this.txtParSlaveIndexIncRule.TabIndex = 75;
-            // 
-            // lblParSlaveIndexIncRule
-            // 
-            this.lblParSlaveIndexIncRule.AutoSize = true;
-            this.lblParSlaveIndexIncRule.Location = new System.Drawing.Point(230, 163);
-            this.lblParSlaveIndexIncRule.Name = "lblParSlaveIndexIncRule";
-            this.lblParSlaveIndexIncRule.Size = new System.Drawing.Size(55, 13);
-            this.lblParSlaveIndexIncRule.TabIndex = 74;
-            this.lblParSlaveIndexIncRule.Text = "递增规则";
+            this.lblPage.Text = "Page:";
             // 
             // FormVFCAdapter
             // 
@@ -2007,7 +2030,7 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Label lblPage;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        internal System.Windows.Forms.Button BtnOpenProjectDB;
+        internal System.Windows.Forms.Button BtnOpenProjectBML;
         internal System.Windows.Forms.Label LblGcproProjectPath;
         internal System.Windows.Forms.TextBox TxtExcelPath;
         private System.Windows.Forms.GroupBox grpBoxBMLColum;
@@ -2123,6 +2146,8 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Label lblParRefPower;
         internal System.Windows.Forms.TextBox txtParSlaveIndexIncRule;
         internal System.Windows.Forms.Label lblParSlaveIndexIncRule;
+        internal System.Windows.Forms.TextBox txtVFCSufffixBML;
+        private System.Windows.Forms.Label lblVFCSufffixBML;
     }
 }
 

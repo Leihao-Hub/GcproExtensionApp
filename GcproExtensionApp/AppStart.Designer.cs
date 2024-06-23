@@ -37,29 +37,31 @@
             this.lblGcproTempPath = new System.Windows.Forms.Label();
             this.pictureBoxBuhlerCode = new System.Windows.Forms.PictureBox();
             this.BtnOpenGcsLibraryDB = new System.Windows.Forms.Button();
-            this.BtnOpenProjectDB = new System.Windows.Forms.Button();
             this.GcproDB = new System.Windows.Forms.GroupBox();
+            this.BtnOpenProjectDB = new System.Windows.Forms.Button();
+            this.comboProjectType = new System.Windows.Forms.ComboBox();
+            this.lblProjectType = new System.Windows.Forms.Label();
             this.TxtGcsLibraryPath = new System.Windows.Forms.TextBox();
             this.TxtProjectPath = new System.Windows.Forms.TextBox();
             this.LblGcproLibaryPath = new System.Windows.Forms.Label();
             this.LblGcproProjectPath = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.grpBoxOther = new System.Windows.Forms.GroupBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAddDPSlave = new System.Windows.Forms.Button();
+            this.lblDPSlave = new System.Windows.Forms.Label();
+            this.btnAddDischargerVertex = new System.Windows.Forms.Button();
+            this.lblDischargerVertex = new System.Windows.Forms.Label();
+            this.btnAddBin = new System.Windows.Forms.Button();
             this.lblBin = new System.Windows.Forms.Label();
             this.grpMachine = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnAddRoll8Stand = new System.Windows.Forms.Button();
-            this.lblRoll8Stand = new System.Windows.Forms.Label();
+            this.btnAddMA_MDDY = new System.Windows.Forms.Button();
+            this.lblMA_MDDY = new System.Windows.Forms.Label();
+            this.btnAddMA_Roll8Stand = new System.Windows.Forms.Button();
+            this.lblMA_Roll8Stand = new System.Windows.Forms.Label();
             this.btnAddMADischarger = new System.Windows.Forms.Button();
-            this.lblMADischarger = new System.Windows.Forms.Label();
+            this.lblMA_Discharger = new System.Windows.Forms.Label();
             this.btnAddMotorWithBypass = new System.Windows.Forms.Button();
-            this.lblMotorWithPass = new System.Windows.Forms.Label();
+            this.lblMA_MotorWithPass = new System.Windows.Forms.Label();
             this.grpBoxElement = new System.Windows.Forms.GroupBox();
             this.btnAddRollStandPhoenix = new System.Windows.Forms.Button();
             this.lblRollStandPhoenix = new System.Windows.Forms.Label();
@@ -72,7 +74,7 @@
             this.btnAddMDDx = new System.Windows.Forms.Button();
             this.lblMDDx = new System.Windows.Forms.Label();
             this.btnAddValve = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblValve = new System.Windows.Forms.Label();
             this.btnAddDI = new System.Windows.Forms.Button();
             this.lblDI = new System.Windows.Forms.Label();
             this.btnAddAI = new System.Windows.Forms.Button();
@@ -83,7 +85,7 @@
             this.grpAppInfo = new System.Windows.Forms.GroupBox();
             this.ApplicationTitle = new System.Windows.Forms.Label();
             this.pictureBoxBuhler2 = new System.Windows.Forms.PictureBox();
-            this.PictureBox1 = new System.Windows.Forms.PictureBox();
+            this.PictureBuhler = new System.Windows.Forms.PictureBox();
             this.Version = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
@@ -98,7 +100,7 @@
             this.tabPage3.SuspendLayout();
             this.grpAppInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuhler2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBuhler)).BeginInit();
             this.SuspendLayout();
             // 
             // tabMain
@@ -112,7 +114,7 @@
             this.tabMain.Location = new System.Drawing.Point(0, 0);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(830, 185);
+            this.tabMain.Size = new System.Drawing.Size(830, 221);
             this.tabMain.TabIndex = 112;
             this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
             // 
@@ -124,12 +126,11 @@
             this.tabPage1.Controls.Add(this.grpBoxTempPath);
             this.tabPage1.Controls.Add(this.pictureBoxBuhlerCode);
             this.tabPage1.Controls.Add(this.BtnOpenGcsLibraryDB);
-            this.tabPage1.Controls.Add(this.BtnOpenProjectDB);
             this.tabPage1.Controls.Add(this.GcproDB);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(822, 156);
+            this.tabPage1.Size = new System.Drawing.Size(822, 192);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "项目信息";
             // 
@@ -140,7 +141,7 @@
             this.BtnOpenGcproTempPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnOpenGcproTempPath.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenGcproTempPath.Image")));
             this.BtnOpenGcproTempPath.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnOpenGcproTempPath.Location = new System.Drawing.Point(550, 119);
+            this.BtnOpenGcproTempPath.Location = new System.Drawing.Point(550, 151);
             this.BtnOpenGcproTempPath.Name = "BtnOpenGcproTempPath";
             this.BtnOpenGcproTempPath.Size = new System.Drawing.Size(89, 27);
             this.BtnOpenGcproTempPath.TabIndex = 18;
@@ -154,9 +155,9 @@
             this.grpBoxTempPath.Controls.Add(this.txtGcproTempPath);
             this.grpBoxTempPath.Controls.Add(this.lblGcproTempPath);
             this.grpBoxTempPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.grpBoxTempPath.Location = new System.Drawing.Point(6, 101);
+            this.grpBoxTempPath.Location = new System.Drawing.Point(6, 135);
             this.grpBoxTempPath.Name = "grpBoxTempPath";
-            this.grpBoxTempPath.Size = new System.Drawing.Size(538, 49);
+            this.grpBoxTempPath.Size = new System.Drawing.Size(643, 49);
             this.grpBoxTempPath.TabIndex = 13;
             this.grpBoxTempPath.TabStop = false;
             this.grpBoxTempPath.Text = "临时导入文件存放区";
@@ -200,7 +201,7 @@
             this.BtnOpenGcsLibraryDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnOpenGcsLibraryDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenGcsLibraryDB.Image")));
             this.BtnOpenGcsLibraryDB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnOpenGcsLibraryDB.Location = new System.Drawing.Point(550, 63);
+            this.BtnOpenGcsLibraryDB.Location = new System.Drawing.Point(550, 59);
             this.BtnOpenGcsLibraryDB.Name = "BtnOpenGcsLibraryDB";
             this.BtnOpenGcsLibraryDB.Size = new System.Drawing.Size(89, 27);
             this.BtnOpenGcsLibraryDB.TabIndex = 15;
@@ -209,35 +210,60 @@
             this.BtnOpenGcsLibraryDB.UseVisualStyleBackColor = true;
             this.BtnOpenGcsLibraryDB.Click += new System.EventHandler(this.BtnOpenGcsLibraryDB_Click);
             // 
-            // BtnOpenProjectDB
-            // 
-            this.BtnOpenProjectDB.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuText;
-            this.BtnOpenProjectDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnOpenProjectDB.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BtnOpenProjectDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenProjectDB.Image")));
-            this.BtnOpenProjectDB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnOpenProjectDB.Location = new System.Drawing.Point(550, 24);
-            this.BtnOpenProjectDB.Name = "BtnOpenProjectDB";
-            this.BtnOpenProjectDB.Size = new System.Drawing.Size(89, 27);
-            this.BtnOpenProjectDB.TabIndex = 14;
-            this.BtnOpenProjectDB.Text = "    浏 览";
-            this.BtnOpenProjectDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnOpenProjectDB.UseVisualStyleBackColor = true;
-            this.BtnOpenProjectDB.Click += new System.EventHandler(this.BtnOpenProjectDB_Click);
-            // 
             // GcproDB
             // 
+            this.GcproDB.Controls.Add(this.BtnOpenProjectDB);
+            this.GcproDB.Controls.Add(this.comboProjectType);
+            this.GcproDB.Controls.Add(this.lblProjectType);
             this.GcproDB.Controls.Add(this.TxtGcsLibraryPath);
             this.GcproDB.Controls.Add(this.TxtProjectPath);
             this.GcproDB.Controls.Add(this.LblGcproLibaryPath);
             this.GcproDB.Controls.Add(this.LblGcproProjectPath);
             this.GcproDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.GcproDB.Location = new System.Drawing.Point(6, 15);
+            this.GcproDB.Location = new System.Drawing.Point(6, 8);
             this.GcproDB.Name = "GcproDB";
-            this.GcproDB.Size = new System.Drawing.Size(538, 80);
+            this.GcproDB.Size = new System.Drawing.Size(643, 119);
             this.GcproDB.TabIndex = 12;
             this.GcproDB.TabStop = false;
             this.GcproDB.Text = "GCRPO项目信息";
+            // 
+            // BtnOpenProjectDB
+            // 
+            this.BtnOpenProjectDB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BtnOpenProjectDB.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
+            this.BtnOpenProjectDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnOpenProjectDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenProjectDB.Image")));
+            this.BtnOpenProjectDB.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnOpenProjectDB.Location = new System.Drawing.Point(544, 16);
+            this.BtnOpenProjectDB.Name = "BtnOpenProjectDB";
+            this.BtnOpenProjectDB.Size = new System.Drawing.Size(89, 27);
+            this.BtnOpenProjectDB.TabIndex = 19;
+            this.BtnOpenProjectDB.Text = "    浏 览";
+            this.BtnOpenProjectDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnOpenProjectDB.UseVisualStyleBackColor = true;
+            this.BtnOpenProjectDB.Click += new System.EventHandler(this.BtnOpenProjectDB_Click);
+            // 
+            // comboProjectType
+            // 
+            this.comboProjectType.Enabled = false;
+            this.comboProjectType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboProjectType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboProjectType.FormattingEnabled = true;
+            this.comboProjectType.Location = new System.Drawing.Point(108, 86);
+            this.comboProjectType.Name = "comboProjectType";
+            this.comboProjectType.Size = new System.Drawing.Size(216, 21);
+            this.comboProjectType.TabIndex = 5;
+            // 
+            // lblProjectType
+            // 
+            this.lblProjectType.Image = global::GcproExtensionApp.Properties.Resources.AccessSmall;
+            this.lblProjectType.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblProjectType.Location = new System.Drawing.Point(6, 85);
+            this.lblProjectType.Name = "lblProjectType";
+            this.lblProjectType.Size = new System.Drawing.Size(90, 22);
+            this.lblProjectType.TabIndex = 1;
+            this.lblProjectType.Text = "项目类型";
+            this.lblProjectType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TxtGcsLibraryPath
             // 
@@ -263,7 +289,7 @@
             this.LblGcproLibaryPath.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblGcproLibaryPath.Location = new System.Drawing.Point(6, 50);
             this.LblGcproLibaryPath.Name = "LblGcproLibaryPath";
-            this.LblGcproLibaryPath.Size = new System.Drawing.Size(94, 22);
+            this.LblGcproLibaryPath.Size = new System.Drawing.Size(90, 22);
             this.LblGcproLibaryPath.TabIndex = 1;
             this.LblGcproLibaryPath.Text = "GCPRO库";
             this.LblGcproLibaryPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -289,17 +315,17 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(822, 156);
+            this.tabPage2.Size = new System.Drawing.Size(822, 192);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "新建对象";
             // 
             // grpBoxOther
             // 
-            this.grpBoxOther.Controls.Add(this.button4);
-            this.grpBoxOther.Controls.Add(this.label3);
-            this.grpBoxOther.Controls.Add(this.button1);
-            this.grpBoxOther.Controls.Add(this.label1);
-            this.grpBoxOther.Controls.Add(this.button2);
+            this.grpBoxOther.Controls.Add(this.btnAddDPSlave);
+            this.grpBoxOther.Controls.Add(this.lblDPSlave);
+            this.grpBoxOther.Controls.Add(this.btnAddDischargerVertex);
+            this.grpBoxOther.Controls.Add(this.lblDischargerVertex);
+            this.grpBoxOther.Controls.Add(this.btnAddBin);
             this.grpBoxOther.Controls.Add(this.lblBin);
             this.grpBoxOther.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpBoxOther.Location = new System.Drawing.Point(8, 180);
@@ -309,59 +335,59 @@
             this.grpBoxOther.TabStop = false;
             this.grpBoxOther.Text = "OtherObjects";
             // 
-            // button4
+            // btnAddDPSlave
             // 
-            this.button4.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(316, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(30, 21);
-            this.button4.TabIndex = 5;
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnAddDPSlave.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
+            this.btnAddDPSlave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddDPSlave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddDPSlave.Location = new System.Drawing.Point(316, 16);
+            this.btnAddDPSlave.Name = "btnAddDPSlave";
+            this.btnAddDPSlave.Size = new System.Drawing.Size(30, 21);
+            this.btnAddDPSlave.TabIndex = 5;
+            this.btnAddDPSlave.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // lblDPSlave
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(184, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 16);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "DP_Slave_Diag:";
+            this.lblDPSlave.AutoSize = true;
+            this.lblDPSlave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDPSlave.Location = new System.Drawing.Point(184, 16);
+            this.lblDPSlave.Name = "lblDPSlave";
+            this.lblDPSlave.Size = new System.Drawing.Size(107, 16);
+            this.lblDPSlave.TabIndex = 4;
+            this.lblDPSlave.Text = "DP_Slave_Diag:";
             // 
-            // button1
+            // btnAddDischargerVertex
             // 
-            this.button1.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(129, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 21);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAddDischargerVertex.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
+            this.btnAddDischargerVertex.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddDischargerVertex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddDischargerVertex.Location = new System.Drawing.Point(129, 51);
+            this.btnAddDischargerVertex.Name = "btnAddDischargerVertex";
+            this.btnAddDischargerVertex.Size = new System.Drawing.Size(30, 21);
+            this.btnAddDischargerVertex.TabIndex = 3;
+            this.btnAddDischargerVertex.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // lblDischargerVertex
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "DischargerVertex:";
+            this.lblDischargerVertex.AutoSize = true;
+            this.lblDischargerVertex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDischargerVertex.Location = new System.Drawing.Point(6, 51);
+            this.lblDischargerVertex.Name = "lblDischargerVertex";
+            this.lblDischargerVertex.Size = new System.Drawing.Size(114, 16);
+            this.lblDischargerVertex.TabIndex = 2;
+            this.lblDischargerVertex.Text = "DischargerVertex:";
             // 
-            // button2
+            // btnAddBin
             // 
-            this.button2.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(129, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 21);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "/";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnAddBin.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
+            this.btnAddBin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddBin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddBin.Location = new System.Drawing.Point(129, 16);
+            this.btnAddBin.Name = "btnAddBin";
+            this.btnAddBin.Size = new System.Drawing.Size(30, 21);
+            this.btnAddBin.TabIndex = 1;
+            this.btnAddBin.Text = "/";
+            this.btnAddBin.UseVisualStyleBackColor = true;
             // 
             // lblBin
             // 
@@ -375,14 +401,14 @@
             // 
             // grpMachine
             // 
-            this.grpMachine.Controls.Add(this.button3);
-            this.grpMachine.Controls.Add(this.label4);
-            this.grpMachine.Controls.Add(this.btnAddRoll8Stand);
-            this.grpMachine.Controls.Add(this.lblRoll8Stand);
+            this.grpMachine.Controls.Add(this.btnAddMA_MDDY);
+            this.grpMachine.Controls.Add(this.lblMA_MDDY);
+            this.grpMachine.Controls.Add(this.btnAddMA_Roll8Stand);
+            this.grpMachine.Controls.Add(this.lblMA_Roll8Stand);
             this.grpMachine.Controls.Add(this.btnAddMADischarger);
-            this.grpMachine.Controls.Add(this.lblMADischarger);
+            this.grpMachine.Controls.Add(this.lblMA_Discharger);
             this.grpMachine.Controls.Add(this.btnAddMotorWithBypass);
-            this.grpMachine.Controls.Add(this.lblMotorWithPass);
+            this.grpMachine.Controls.Add(this.lblMA_MotorWithPass);
             this.grpMachine.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpMachine.Location = new System.Drawing.Point(6, 93);
             this.grpMachine.Name = "grpMachine";
@@ -391,47 +417,47 @@
             this.grpMachine.TabStop = false;
             this.grpMachine.Text = "Machines";
             // 
-            // button3
+            // btnAddMA_MDDY
             // 
-            this.button3.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(318, 53);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(30, 21);
-            this.button3.TabIndex = 7;
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnAddMA_MDDY.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
+            this.btnAddMA_MDDY.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddMA_MDDY.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddMA_MDDY.Location = new System.Drawing.Point(318, 53);
+            this.btnAddMA_MDDY.Name = "btnAddMA_MDDY";
+            this.btnAddMA_MDDY.Size = new System.Drawing.Size(30, 21);
+            this.btnAddMA_MDDY.TabIndex = 7;
+            this.btnAddMA_MDDY.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // lblMA_MDDY
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(185, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 16);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "MA_MDDYZPhoenix:";
+            this.lblMA_MDDY.AutoSize = true;
+            this.lblMA_MDDY.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMA_MDDY.Location = new System.Drawing.Point(185, 53);
+            this.lblMA_MDDY.Name = "lblMA_MDDY";
+            this.lblMA_MDDY.Size = new System.Drawing.Size(133, 16);
+            this.lblMA_MDDY.TabIndex = 6;
+            this.lblMA_MDDY.Text = "MA_MDDYZPhoenix:";
             // 
-            // btnAddRoll8Stand
+            // btnAddMA_Roll8Stand
             // 
-            this.btnAddRoll8Stand.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
-            this.btnAddRoll8Stand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnAddRoll8Stand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddRoll8Stand.Location = new System.Drawing.Point(318, 22);
-            this.btnAddRoll8Stand.Name = "btnAddRoll8Stand";
-            this.btnAddRoll8Stand.Size = new System.Drawing.Size(30, 21);
-            this.btnAddRoll8Stand.TabIndex = 5;
-            this.btnAddRoll8Stand.UseVisualStyleBackColor = true;
+            this.btnAddMA_Roll8Stand.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
+            this.btnAddMA_Roll8Stand.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddMA_Roll8Stand.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddMA_Roll8Stand.Location = new System.Drawing.Point(318, 22);
+            this.btnAddMA_Roll8Stand.Name = "btnAddMA_Roll8Stand";
+            this.btnAddMA_Roll8Stand.Size = new System.Drawing.Size(30, 21);
+            this.btnAddMA_Roll8Stand.TabIndex = 5;
+            this.btnAddMA_Roll8Stand.UseVisualStyleBackColor = true;
             // 
-            // lblRoll8Stand
+            // lblMA_Roll8Stand
             // 
-            this.lblRoll8Stand.AutoSize = true;
-            this.lblRoll8Stand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRoll8Stand.Location = new System.Drawing.Point(185, 22);
-            this.lblRoll8Stand.Name = "lblRoll8Stand";
-            this.lblRoll8Stand.Size = new System.Drawing.Size(103, 16);
-            this.lblRoll8Stand.TabIndex = 4;
-            this.lblRoll8Stand.Text = "MA_Roll8Stand:";
+            this.lblMA_Roll8Stand.AutoSize = true;
+            this.lblMA_Roll8Stand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMA_Roll8Stand.Location = new System.Drawing.Point(185, 22);
+            this.lblMA_Roll8Stand.Name = "lblMA_Roll8Stand";
+            this.lblMA_Roll8Stand.Size = new System.Drawing.Size(103, 16);
+            this.lblMA_Roll8Stand.TabIndex = 4;
+            this.lblMA_Roll8Stand.Text = "MA_Roll8Stand:";
             // 
             // btnAddMADischarger
             // 
@@ -444,15 +470,15 @@
             this.btnAddMADischarger.TabIndex = 3;
             this.btnAddMADischarger.UseVisualStyleBackColor = true;
             // 
-            // lblMADischarger
+            // lblMA_Discharger
             // 
-            this.lblMADischarger.AutoSize = true;
-            this.lblMADischarger.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMADischarger.Location = new System.Drawing.Point(6, 51);
-            this.lblMADischarger.Name = "lblMADischarger";
-            this.lblMADischarger.Size = new System.Drawing.Size(103, 16);
-            this.lblMADischarger.TabIndex = 2;
-            this.lblMADischarger.Text = "MA_Discharger:";
+            this.lblMA_Discharger.AutoSize = true;
+            this.lblMA_Discharger.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMA_Discharger.Location = new System.Drawing.Point(6, 51);
+            this.lblMA_Discharger.Name = "lblMA_Discharger";
+            this.lblMA_Discharger.Size = new System.Drawing.Size(103, 16);
+            this.lblMA_Discharger.TabIndex = 2;
+            this.lblMA_Discharger.Text = "MA_Discharger:";
             // 
             // btnAddMotorWithBypass
             // 
@@ -465,15 +491,15 @@
             this.btnAddMotorWithBypass.TabIndex = 1;
             this.btnAddMotorWithBypass.UseVisualStyleBackColor = true;
             // 
-            // lblMotorWithPass
+            // lblMA_MotorWithPass
             // 
-            this.lblMotorWithPass.AutoSize = true;
-            this.lblMotorWithPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMotorWithPass.Location = new System.Drawing.Point(6, 20);
-            this.lblMotorWithPass.Name = "lblMotorWithPass";
-            this.lblMotorWithPass.Size = new System.Drawing.Size(117, 16);
-            this.lblMotorWithPass.TabIndex = 0;
-            this.lblMotorWithPass.Text = "MA_MotorBypass:";
+            this.lblMA_MotorWithPass.AutoSize = true;
+            this.lblMA_MotorWithPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMA_MotorWithPass.Location = new System.Drawing.Point(6, 20);
+            this.lblMA_MotorWithPass.Name = "lblMA_MotorWithPass";
+            this.lblMA_MotorWithPass.Size = new System.Drawing.Size(117, 16);
+            this.lblMA_MotorWithPass.TabIndex = 0;
+            this.lblMA_MotorWithPass.Text = "MA_MotorBypass:";
             // 
             // grpBoxElement
             // 
@@ -488,7 +514,7 @@
             this.grpBoxElement.Controls.Add(this.btnAddMDDx);
             this.grpBoxElement.Controls.Add(this.lblMDDx);
             this.grpBoxElement.Controls.Add(this.btnAddValve);
-            this.grpBoxElement.Controls.Add(this.label2);
+            this.grpBoxElement.Controls.Add(this.lblValve);
             this.grpBoxElement.Controls.Add(this.btnAddDI);
             this.grpBoxElement.Controls.Add(this.lblDI);
             this.grpBoxElement.Controls.Add(this.btnAddAI);
@@ -619,16 +645,17 @@
             this.btnAddValve.Size = new System.Drawing.Size(30, 21);
             this.btnAddValve.TabIndex = 9;
             this.btnAddValve.UseVisualStyleBackColor = true;
+            this.btnAddValve.Click += new System.EventHandler(this.btnAddValve_Click);
             // 
-            // label2
+            // lblValve
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 16);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "EL_Valve:";
+            this.lblValve.AutoSize = true;
+            this.lblValve.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValve.Location = new System.Drawing.Point(6, 50);
+            this.lblValve.Name = "lblValve";
+            this.lblValve.Size = new System.Drawing.Size(68, 16);
+            this.lblValve.TabIndex = 8;
+            this.lblValve.Text = "EL_Valve:";
             // 
             // btnAddDI
             // 
@@ -701,7 +728,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(822, 156);
+            this.tabPage3.Size = new System.Drawing.Size(822, 192);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "软件信息";
             // 
@@ -709,7 +736,7 @@
             // 
             this.grpAppInfo.Controls.Add(this.ApplicationTitle);
             this.grpAppInfo.Controls.Add(this.pictureBoxBuhler2);
-            this.grpAppInfo.Controls.Add(this.PictureBox1);
+            this.grpAppInfo.Controls.Add(this.PictureBuhler);
             this.grpAppInfo.Controls.Add(this.Version);
             this.grpAppInfo.Controls.Add(this.lblDescription);
             this.grpAppInfo.Location = new System.Drawing.Point(8, 6);
@@ -742,16 +769,16 @@
             this.pictureBoxBuhler2.TabIndex = 18;
             this.pictureBoxBuhler2.TabStop = false;
             // 
-            // PictureBox1
+            // PictureBuhler
             // 
-            this.PictureBox1.ErrorImage = null;
-            this.PictureBox1.Image = global::GcproExtensionApp.Properties.Resources.buehler_logo;
-            this.PictureBox1.Location = new System.Drawing.Point(15, 10);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(196, 36);
-            this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PictureBox1.TabIndex = 23;
-            this.PictureBox1.TabStop = false;
+            this.PictureBuhler.ErrorImage = null;
+            this.PictureBuhler.Image = global::GcproExtensionApp.Properties.Resources.buehler_logo;
+            this.PictureBuhler.Location = new System.Drawing.Point(15, 10);
+            this.PictureBuhler.Name = "PictureBuhler";
+            this.PictureBuhler.Size = new System.Drawing.Size(196, 36);
+            this.PictureBuhler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PictureBuhler.TabIndex = 23;
+            this.PictureBuhler.TabStop = false;
             // 
             // Version
             // 
@@ -782,13 +809,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(830, 185);
+            this.ClientSize = new System.Drawing.Size(830, 221);
             this.Controls.Add(this.tabMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "AppStart";
             this.Text = "GCPRO Extension Application";
-            this.Load += new System.EventHandler(this.Main_Load);
+            this.Load += new System.EventHandler(this.AppStart_Load);
             this.tabMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.grpBoxTempPath.ResumeLayout(false);
@@ -806,7 +833,7 @@
             this.tabPage3.ResumeLayout(false);
             this.grpAppInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuhler2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBuhler)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -816,7 +843,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         internal System.Windows.Forms.Button BtnOpenGcsLibraryDB;
-        internal System.Windows.Forms.Button BtnOpenProjectDB;
         internal System.Windows.Forms.GroupBox GcproDB;
         internal System.Windows.Forms.TextBox TxtGcsLibraryPath;
         internal System.Windows.Forms.TextBox TxtProjectPath;
@@ -829,13 +855,13 @@
         private System.Windows.Forms.Label lblMotor;
         private System.Windows.Forms.GroupBox grpMachine;
         private System.Windows.Forms.Button btnAddMotorWithBypass;
-        private System.Windows.Forms.Label lblMotorWithPass;
+        private System.Windows.Forms.Label lblMA_MotorWithPass;
         private System.Windows.Forms.Button btnAddVFC;
         private System.Windows.Forms.Label lblVFCAdapter;
         private System.Windows.Forms.Button btnAddMDDx;
         private System.Windows.Forms.Label lblMDDx;
         private System.Windows.Forms.Button btnAddValve;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblValve;
         private System.Windows.Forms.Button btnAddDI;
         private System.Windows.Forms.Label lblDI;
         private System.Windows.Forms.Button btnAddAI;
@@ -845,21 +871,21 @@
         private System.Windows.Forms.Button btnAddFBAL;
         private System.Windows.Forms.Label lblFBAL;
         private System.Windows.Forms.Button btnAddMADischarger;
-        private System.Windows.Forms.Label lblMADischarger;
+        private System.Windows.Forms.Label lblMA_Discharger;
         private System.Windows.Forms.PictureBox pictureBoxBuhler2;
         private System.Windows.Forms.GroupBox grpBoxOther;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAddDischargerVertex;
+        private System.Windows.Forms.Label lblDischargerVertex;
+        private System.Windows.Forms.Button btnAddBin;
         private System.Windows.Forms.Label lblBin;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnAddRoll8Stand;
-        private System.Windows.Forms.Label lblRoll8Stand;
+        private System.Windows.Forms.Button btnAddMA_MDDY;
+        private System.Windows.Forms.Label lblMA_MDDY;
+        private System.Windows.Forms.Button btnAddMA_Roll8Stand;
+        private System.Windows.Forms.Label lblMA_Roll8Stand;
         private System.Windows.Forms.Button btnAddRollStandPhoenix;
         private System.Windows.Forms.Label lblRollStandPhoenix;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnAddDPSlave;
+        private System.Windows.Forms.Label lblDPSlave;
         internal System.Windows.Forms.Button BtnOpenGcproTempPath;
         internal System.Windows.Forms.GroupBox grpBoxTempPath;
         internal System.Windows.Forms.TextBox txtGcproTempPath;
@@ -867,8 +893,10 @@
         internal System.Windows.Forms.Label Version;
         internal System.Windows.Forms.Label ApplicationTitle;
         internal System.Windows.Forms.Label lblDescription;
-        internal System.Windows.Forms.PictureBox PictureBox1;
+        internal System.Windows.Forms.PictureBox PictureBuhler;
         private System.Windows.Forms.GroupBox grpAppInfo;
+        private System.Windows.Forms.ComboBox comboProjectType;
+        internal System.Windows.Forms.Label lblProjectType;
+        internal System.Windows.Forms.Button BtnOpenProjectDB;
     }
 }
-

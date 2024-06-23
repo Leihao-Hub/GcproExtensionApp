@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Drawing;
+using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
-#region GcproExtensionLibary
+#region GcproExtensionLirbary
 using GcproExtensionLibrary.FileHandle;
+using GcproExtensionLibrary;
+using GcproExtensionLibrary.Gcpro;
+using static GcproExtensionLibrary.Gcpro.GcproTable;
+using GcproExtensionLibrary.Gcpro.GCObject;
+using System.Xml.Linq;
 #endregion
 
 namespace GcproExtensionApp
@@ -13,42 +19,97 @@ namespace GcproExtensionApp
         public AppStart()
         {
             InitializeComponent();
-            this.Size = new Size(846, 228);
+            this.Size = new Size(846, 265);
 
         }
 
         private void BtnOpenProjectDB_Click(object sender, EventArgs e)
         {
-            AppGlobalSource.GcproDBInfo.ProjectDBPath = AccessFileHandle.BrowseFile();
-            TxtProjectPath.Text = AppGlobalSource.GcproDBInfo.ProjectDBPath;
+            AppGlobal.GcproDBInfo.ProjectDBPath = AccessFileHandle.BrowseFile();
+            TxtProjectPath.Text = AppGlobal.GcproDBInfo.ProjectDBPath;
             Environment.SetEnvironmentVariable("GcsProjectDBPath", TxtProjectPath.Text, EnvironmentVariableTarget.User);
+            if (!string.IsNullOrEmpty(TxtProjectPath.Text))
+            {
+                try
+                {
 
+                    OleDb oledb = new OleDb();
+                    DataTable dataTable = new DataTable();
+                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                    oledb.IsNewOLEDBDriver = false;
+                    string subQuery = $"SELECT {ObjData.SubType.Name} FROM [{ObjData.TableName}] WHERE {ObjData.OType.Name} = {Project.OTypeValue}";
+                    string whereClause = $"{SubType.FieldSubType.Name} IN";
+                    dataTable = oledb.NestQueryDataTable(SubType.TableName, whereClause, null, null, subQuery, SubType.FieldSubType.Name, SubType.FieldSub_Type_Desc.Name);
+                    comboProjectType.Items.Clear();
+                    for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
+                    {
+                        string itemInfo = dataTable.Rows[count].Field<string>(SubType.FieldSubType.Name) + AppGlobal.FIELDS_SEPARATOR +
+                            dataTable.Rows[count].Field<string>(SubType.FieldSub_Type_Desc.Name);
+                        comboProjectType.Items.Add(itemInfo);
+                    }
+                    comboProjectType.SelectedIndex = 0;
+                    string selectedProjectType = comboProjectType.Text;
+                    AppGlobal.GcproDBInfo.ProjectType = selectedProjectType.Substring(0, selectedProjectType.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("查询错误: " + ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
         private void BtnOpenGcsLibraryDB_Click(object sender, EventArgs e)
         {
 
-            AppGlobalSource.GcproDBInfo.GcsLibaryPath = AccessFileHandle.BrowseFile();
-            TxtGcsLibraryPath.Text = AppGlobalSource.GcproDBInfo.GcsLibaryPath;
-            Environment.SetEnvironmentVariable("GcsLibraryPath", TxtGcsLibraryPath.Text, EnvironmentVariableTarget.User);
+            AppGlobal.GcproDBInfo.GcsLibaryPath = AccessFileHandle.BrowseFile();
+            TxtGcsLibraryPath.Text = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            Environment.SetEnvironmentVariable("GcsLibraryPath", TxtGcsLibraryPath.Text, EnvironmentVariableTarget.User);         
         }
         private void BtnOpenGcproTempPath_Click(object sender, EventArgs e)
         {
             string returnFilePath = BaseFileHandle.BrowseFolder();
-            AppGlobalSource.GcproDBInfo.GcproTempPath = (string.IsNullOrWhiteSpace(returnFilePath) ? AppGlobalSource.DEFAULT_GCPRO_TEMP_PATH : returnFilePath);
-            txtGcproTempPath.Text = AppGlobalSource.GcproDBInfo.GcproTempPath;
+            AppGlobal.GcproDBInfo.GcproTempPath = (string.IsNullOrWhiteSpace(returnFilePath) ? AppGlobal.DEFAULT_GCPRO_TEMP_PATH : returnFilePath);
+            txtGcproTempPath.Text = AppGlobal.GcproDBInfo.GcproTempPath;
             Environment.SetEnvironmentVariable("GcproTempPath", txtGcproTempPath.Text, EnvironmentVariableTarget.User);
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void AppStart_Load(object sender, EventArgs e)
         {
+            AppGlobal.GcproDBInfo.ProjectDBPath = Environment.GetEnvironmentVariable("GcsProjectDBPath", EnvironmentVariableTarget.User);
+            AppGlobal.GcproDBInfo.GcsLibaryPath = Environment.GetEnvironmentVariable("GcsLibraryPath", EnvironmentVariableTarget.User);
+            AppGlobal.GcproDBInfo.GcproTempPath = (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GcproTempPath", EnvironmentVariableTarget.User)) ?
+                                                       AppGlobal.DEFAULT_GCPRO_TEMP_PATH : Environment.GetEnvironmentVariable("GcproTempPath", EnvironmentVariableTarget.User));
+            TxtProjectPath.Text = AppGlobal.GcproDBInfo.ProjectDBPath;
+            TxtGcsLibraryPath.Text = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            txtGcproTempPath.Text = AppGlobal.GcproDBInfo.GcproTempPath;
 
-            AppGlobalSource.GcproDBInfo.ProjectDBPath = Environment.GetEnvironmentVariable("GcsProjectDBPath", EnvironmentVariableTarget.User);
-            AppGlobalSource.GcproDBInfo.GcsLibaryPath = Environment.GetEnvironmentVariable("GcsLibraryPath", EnvironmentVariableTarget.User);
-            AppGlobalSource.GcproDBInfo.GcproTempPath = (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GcproTempPath", EnvironmentVariableTarget.User)) ?
-                                                       AppGlobalSource.DEFAULT_GCPRO_TEMP_PATH : Environment.GetEnvironmentVariable("GcproTempPath", EnvironmentVariableTarget.User));
-            TxtProjectPath.Text = AppGlobalSource.GcproDBInfo.ProjectDBPath;
-            TxtGcsLibraryPath.Text = AppGlobalSource.GcproDBInfo.GcsLibaryPath;
-            txtGcproTempPath.Text = AppGlobalSource.GcproDBInfo.GcproTempPath;
+            if (!string.IsNullOrEmpty(TxtProjectPath.Text))
+            {
+                try
+                {
+
+                    OleDb oledb = new OleDb();
+                    DataTable dataTable = new DataTable();
+                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                    oledb.IsNewOLEDBDriver = false;
+                    string subQuery = $"SELECT {ObjData.SubType.Name} FROM [{ObjData.TableName}] WHERE {ObjData.OType.Name} = {(int)(OTypeCollection.Project)}";
+                    string whereClause = $"{SubType.FieldSubType.Name} IN";
+                    dataTable = oledb.NestQueryDataTable(SubType.TableName, whereClause, null, null, subQuery, SubType.FieldSubType.Name,SubType.FieldSub_Type_Desc.Name);
+                    comboProjectType.Items.Clear();
+                    for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
+                    {
+                        string itemInfo = dataTable.Rows[count].Field<string>(SubType.FieldSubType.Name) + AppGlobal.FIELDS_SEPARATOR +
+                             dataTable.Rows[count].Field<string>(SubType.FieldSub_Type_Desc.Name);
+                        comboProjectType.Items.Add(itemInfo);
+                    }
+                    comboProjectType.SelectedIndex = 0;
+                   string selectedProjectType= comboProjectType.Text;
+                    AppGlobal.GcproDBInfo.ProjectType = selectedProjectType.Substring(0, selectedProjectType.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                }
+                catch(Exception ex) 
+                {                           
+                    MessageBox.Show("查询错误: " + ex.Message,AppGlobal.AppInfo.Title,MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+            }
         }
 
 
@@ -66,26 +127,28 @@ namespace GcproExtensionApp
             AssemblyFileVersionAttribute versionAttribute = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
             AssemblyCopyrightAttribute copyright= assembly.GetCustomAttribute<AssemblyCopyrightAttribute>();
             AssemblyDescriptionAttribute description =assembly.GetCustomAttribute<AssemblyDescriptionAttribute>();   
-            AppGlobalSource.AppInfo.Title = titleAttribute.Title;
-            AppGlobalSource.AppInfo.Version = $"Version: {versionAttribute.Version}";
-            AppGlobalSource.AppInfo.Description = $"{description.Description}";
-            AppGlobalSource.AppInfo.CopyRight= $"{copyright.Copyright}";
+            AppGlobal.AppInfo.Title = titleAttribute.Title;
+            AppGlobal.AppInfo.Version = $"Version: {versionAttribute.Version}";
+            AppGlobal.AppInfo.Description = $"{description.Description}";
+            AppGlobal.AppInfo.CopyRight= $"{copyright.Copyright}";
         }
-
-
-
+        #region Open form
         private void btnAddMotor_Click(object sender, EventArgs e)
         {
             FormMotor formMotor = new FormMotor();
             formMotor.Show();
-
         }
         private void btnAddVFC_Click(object sender, EventArgs e)
         {
             FormVFCAdapter formVFCAdapter = new FormVFCAdapter();
             formVFCAdapter.Show();
         }
-
+        private void btnAddValve_Click(object sender, EventArgs e)
+        {
+            FormVLS formVLS = new FormVLS();
+            formVLS.Show();
+        }
+        #endregion
         private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabMain.SelectedTab == tabPage2)
@@ -96,13 +159,13 @@ namespace GcproExtensionApp
             {
                 this.Size = new Size(846, 228);
                 GetAppInfo();
-                ApplicationTitle.Text= AppGlobalSource.AppInfo.Title;
-                Version.Text = $"<{AppGlobalSource.AppInfo.Version}>";
-                lblDescription.Text = AppGlobalSource.AppInfo.Description;
+                ApplicationTitle.Text= AppGlobal.AppInfo.Title;
+                Version.Text = $"<{AppGlobal.AppInfo.Version}>";
+                lblDescription.Text = AppGlobal.AppInfo.Description;
             }
             else
             {
-                this.Size = new Size(846, 228);
+                this.Size = new Size(846, 265);
             }
 
         }
@@ -122,7 +185,5 @@ namespace GcproExtensionApp
         {
             BtnOpenGcproTempPath_Click(sender, e);
         }
-
-     
     }
 }

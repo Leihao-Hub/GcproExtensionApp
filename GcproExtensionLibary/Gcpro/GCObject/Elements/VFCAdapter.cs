@@ -17,6 +17,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string fileRelationPath;
         private string fileConnectorPath;
         private static string vfcFileName = $@"\{OTypeCollection.EL_VFCAdapter}";
+        private string name;
+        private string description;
+        private string subType;
+        private string processFct;
+        private string building;
+        private string elevation;
+        private string fieldBusNode;
+        private string panel_ID;
+        private string diagram;
+        private string page;
+        private string isNew;
         private string hornCode;
         private string pType;
         private string value9;
@@ -43,17 +54,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private VFCTelegram telegram3;
         private VFCTelegram telegram4;
         private VFCTelegram telegram5;
-        private string name;
-        private string description;
-        private string subType;
-        private string processFct;
-        private string building;
-        private string elevation;
-        private string fieldBusNode;
-        private string panel_ID;
-        private string diagram;
-        private string page;
-        private string isNew;
+   
         public override string FilePath
         {
             get { return filePath; }
@@ -67,6 +68,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             get { return fileConnectorPath; }
         }
+        #region Standard properties  
         public override string Name
         {
             get { return name; }
@@ -149,6 +151,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
+        #endregion
+        #region Application properties
         public string MeagGateway
         {
             get { return meagGateway; }
@@ -166,8 +170,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return outpHardwareStop; }
             set { outpHardwareStop = value; }
         }
-
-     
+   
         public string SpeedMaxDigits
         {
             get { return speedMaxDigits; }
@@ -270,6 +273,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return telegram5; }
             set { telegram5 = value; }
         }
+        #endregion
         #region Readonly subtype property
         public static string ATVASYNCDP { get; } = "ATVASYNCDP";
         public static string ATVDP { get; } = "ATVDP";
@@ -307,6 +311,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             hornCode= LibGlobalSource.NOCHILD;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             Rule.slaveIndexInc = "1";
+            Rule.ioByteInc= "12";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + ".Txt";
             //this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + "_Relation.Txt";
             //this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + "_FindConnector.Txt";
@@ -327,7 +332,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.FilePath = this.filePath;
             isNew = "false";
             string stdString, appString;
-            stdString = (int)OType + LibGlobalSource.TAB +
+            stdString = OTypeValue + LibGlobalSource.TAB +
                 name + LibGlobalSource.TAB +
                 description + LibGlobalSource.TAB +
                 subType + LibGlobalSource.TAB +
@@ -376,10 +381,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
             textFileHandle.ClearContents();
-            textFileHandle.FilePath = this.fileRelationPath;
-            textFileHandle.ClearContents();
-            textFileHandle.FilePath = this.fileConnectorPath;
-            textFileHandle.ClearContents();
+            //textFileHandle.FilePath = this.fileRelationPath;
+            //textFileHandle.ClearContents();
+            //textFileHandle.FilePath = this.fileConnectorPath;
+            //textFileHandle.ClearContents();
         }
         public bool SaveFileAs(string sourceFilePath, string title)
         {

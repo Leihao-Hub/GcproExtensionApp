@@ -121,7 +121,7 @@
   <data name="BtnOpenGcproTempPath.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAABIdJREFUWEftV1lMnFUURq0bjbFv1Wo0VWt9bU180CdjYlxijE2fNPFBE9NE28YH
+        vAAADrwBlbxySQAABIdJREFUWEftV1lMnFUURq0bjbFv1Wo0VWt9bU180CdjYlxijE2fNPFBE9NE28YH
         k6aGfV8FJOwmgoBhCRUCA0lhYEggRTBsgQFBkHXYmRlgmBlm5vh91zumGjr+oPRFv+TLHe49y3/POffc
         S9j/OAyqq6v1r98hIveBD3DUU0eLvr4+Oj0FXgTTwBrQpMcU8AJ4Uov/O6BTAoZP2Gy2y36/f2BlZcUz
         MDAgZrNZWlpa1Dg4OCirq6turP8E2UvgIzMzM0r3HwFG6fwM+MPy8rKvoaFB0tPTJSoqSjEmJuaP3xkZ
@@ -143,10 +143,13 @@
         Jh4Q4+hyTryEl/D30eX8ToBDVvEr4Dnw7uz8P4ywsN8AnLHHKKNCp5EAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="pictureBoxBuhlerCode.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="BtnOpenGcsLibraryDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAABIdJREFUWEftV1lMnFUURq0bjbFv1Wo0VWt9bU180CdjYlxijE2fNPFBE9NE28YH
+        vAAADrwBlbxySQAABIdJREFUWEftV1lMnFUURq0bjbFv1Wo0VWt9bU180CdjYlxijE2fNPFBE9NE28YH
         k6aGfV8FJOwmgoBhCRUCA0lhYEggRTBsgQFBkHXYmRlgmBlm5vh91zumGjr+oPRFv+TLHe49y3/POffc
         S9j/OAyqq6v1r98hIveBD3DUU0eLvr4+Oj0FXgTTwBrQpMcU8AJ4Uov/O6BTAoZP2Gy2y36/f2BlZcUz
         MDAgZrNZWlpa1Dg4OCirq6turP8E2UvgIzMzM0r3HwFG6fwM+MPy8rKvoaFB0tPTJSoqSjEmJuaP3xkZ
@@ -171,7 +174,7 @@
   <data name="BtnOpenProjectDB.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vgAADr4B6kKxwAAABIdJREFUWEftV1lMnFUURq0bjbFv1Wo0VWt9bU180CdjYlxijE2fNPFBE9NE28YH
+        vAAADrwBlbxySQAABIdJREFUWEftV1lMnFUURq0bjbFv1Wo0VWt9bU180CdjYlxijE2fNPFBE9NE28YH
         k6aGfV8FJOwmgoBhCRUCA0lhYEggRTBsgQFBkHXYmRlgmBlm5vh91zumGjr+oPRFv+TLHe49y3/POffc
         S9j/OAyqq6v1r98hIveBD3DUU0eLvr4+Oj0FXgTTwBrQpMcU8AJ4Uov/O6BTAoZP2Gy2y36/f2BlZcUz
         MDAgZrNZWlpa1Dg4OCirq6turP8E2UvgIzMzM0r3HwFG6fwM+MPy8rKvoaFB0tPTJSoqSjEmJuaP3xkZ

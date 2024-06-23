@@ -18,32 +18,30 @@ namespace GcproExtensionApp
 
     public partial class FormVFCAdapter : Form, IGcForm
     {
-
         public FormVFCAdapter()
         {
             InitializeComponent();
         }
         #region Public object in this class
-        VFCAdapter myVFCAdapter = new VFCAdapter(AppGlobalSource.GcproDBInfo.GcproTempPath);
+        VFCAdapter myVFCAdapter = new VFCAdapter(AppGlobal.GcproDBInfo.GcproTempPath);
         ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
         //private string CONNECT_VFC = "关联VFC";
         //private string CONNECT_AO = "关联AO";
-        private string DEMO_NAME_MOTOR = "=A-1001-MXZ01-VFC";
-        private string DEMO_NAME_RULE_MOTOR = "1001";
-        private string DEMO_DESCRIPTION_MOTOR = "100号基粉仓活化器变频器/或者空白";
-        private string DEMO_DESCRIPTION_RULE_MOTOR = "100/或者空白";
-        #endregion
-
+        private string DEMO_NAME_VFC = "=A-1001-MXZ01-VFC";
+        private string DEMO_NAME_VFC_SUFFIX = "-VFC";
+        private string DEMO_NAME_RULE_VFC = "1001";
+        private string DEMO_DESCRIPTION_VFC = "100号基粉仓活化器变频器/或者空白";
+        private string DEMO_DESCRIPTION_RULE_VFC = "100/或者空白";
         private int value9 = 0;
         private int value10 = 1;
         private int tempInt = 0;
         private long tempLong = 0;
         private float tempFloat = (float)0.0;
         private bool tempBool = false;
-
+        #endregion
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
@@ -51,7 +49,7 @@ namespace GcproExtensionApp
             List<string> list;
             OleDb oledb = new OleDb();
             DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobalSource.GcproDBInfo.GcsLibaryPath;
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
@@ -64,7 +62,7 @@ namespace GcproExtensionApp
 
             for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
             {
-                itemInfo = dataTable.Rows[count].Field<string>(GcproTable.SubType.TableName) + AppGlobalSource.FIELDS_SEPARATOR +
+                itemInfo = dataTable.Rows[count].Field<string>(GcproTable.SubType.TableName) + AppGlobal.FIELDS_SEPARATOR +
                        dataTable.Rows[count].Field<string>($"{GcproTable.SubType.FieldSub_Type_Desc.Name}");
                 ComboEquipmentSubType.Items.Add(itemInfo);
 
@@ -78,7 +76,7 @@ namespace GcproExtensionApp
             //list = OleDb.GetColumnData<string>(dataTable, "Fct_Desc");
             for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
             {
-                itemInfo = dataTable.Rows[count].Field<string>(GcproTable.ProcessFct.FieldProcessFct.Name) + AppGlobalSource.FIELDS_SEPARATOR +
+                itemInfo = dataTable.Rows[count].Field<string>(GcproTable.ProcessFct.FieldProcessFct.Name) + AppGlobal.FIELDS_SEPARATOR +
                        dataTable.Rows[count].Field<string>(GcproTable.ProcessFct.FieldFct_Desc.Name);
                 ComboProcessFct.Items.Add(itemInfo);
             }
@@ -88,7 +86,7 @@ namespace GcproExtensionApp
             ///Read [Building],[Elevation],[Panel]
             ///Read [DPNode1]
             ///</ReadInfoFromProjectDB>
-            oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             ///<DPNode> Read [DPNode1]</DPNode>
             dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_ASWInDPFault}'",
             null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name);
@@ -130,7 +128,7 @@ namespace GcproExtensionApp
             null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name, GcproTable.TranslationCbo.FieldValue.Name);
             for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
             {
-                itemInfo = dataTable.Rows[count].Field<double>(GcproTable.TranslationCbo.FieldValue.Name) + AppGlobalSource.FIELDS_SEPARATOR +
+                itemInfo = dataTable.Rows[count].Field<double>(GcproTable.TranslationCbo.FieldValue.Name) + AppGlobal.FIELDS_SEPARATOR +
                        dataTable.Rows[count].Field<string>(GcproTable.TranslationCbo.FieldText.Name);
                 ComboDiagram.Items.Add(itemInfo);
             }
@@ -147,24 +145,24 @@ namespace GcproExtensionApp
         }
         public void CreateTips()
         {
-            toolTip.SetToolTip(BtnNewImpExpDef, AppGlobalSource.CREATE_IMPORT_RULE + VFCAdapter.OType);
-            toolTip.SetToolTip(BtnConnectIO, AppGlobalSource.CONNECT_CONNECTOR);
-            toolTip.SetToolTip(txtSymbol, AppGlobalSource.DEMO_NAME + DEMO_NAME_MOTOR);
-            toolTip.SetToolTip(txtSymbolRule, AppGlobalSource.DEMO_NAME_RULE + DEMO_NAME_RULE_MOTOR);
-            toolTip.SetToolTip(txtDescription, AppGlobalSource.DEMO_DESCRIPTION + DEMO_DESCRIPTION_MOTOR);
-            toolTip.SetToolTip(txtDescriptionRule, AppGlobalSource.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_MOTOR);
+            toolTip.SetToolTip(BtnNewImpExpDef, AppGlobal.CREATE_IMPORT_RULE + VFCAdapter.OType);
+            toolTip.SetToolTip(BtnConnectIO, AppGlobal.CONNECT_CONNECTOR);
+            toolTip.SetToolTip(txtSymbol, AppGlobal.DEMO_NAME + DEMO_NAME_VFC);
+            toolTip.SetToolTip(txtSymbolRule, AppGlobal.DEMO_NAME_RULE + DEMO_NAME_RULE_VFC);
+            toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_VFC);
+            toolTip.SetToolTip(txtDescriptionRule, AppGlobal.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_VFC);
         }
         public void CreateImpExp()
         {
             OleDb oledb = new OleDb();
             DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{VFCAdapter.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
             {
-                if (MessageBox.Show(AppGlobalSource.MSG_RULE_ALREADY_EXITS, AppGlobalSource.INFO,
+                if (MessageBox.Show(AppGlobal.MSG_RULE_ALREADY_EXITS, AppGlobal.INFO,
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{VFCAdapter.ImpExpRuleName}'", null);
@@ -189,14 +187,15 @@ namespace GcproExtensionApp
             txtDescriptionIncRule.Text = "1";
             chkParPZDConsistent.Checked = true;
             txtValue10.Text = "1";
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
           //  ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             btnReadBML.Enabled = false;
             txtVFCPrefixBML.Text = "FCC_";
-            var alphabetList = AppGlobalSource.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
+            txtVFCSufffixBML.Text = "-VFC";
+            var alphabetList = AppGlobal.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
             foreach (var item in alphabetList)
             {
                 comboNameBML.Items.Add(item);
@@ -215,13 +214,12 @@ namespace GcproExtensionApp
                 comboCabinetBML.SelectedItem = "P";
                 comboSectionBML.SelectedItem = "Q";
                 comboControlBML.SelectedItem = "H";
-
             }
             for (int i = 1; i <= 20; i++)
             {
                 comboStartRow.Items.Add(i);
             }
-            comboStartRow.SelectedItem = 2;
+            comboStartRow.SelectedItem = BML.StartRow;
             ComboEquipmentSubType.SelectedIndex = 2;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
@@ -229,8 +227,723 @@ namespace GcproExtensionApp
             toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
             this.Text = "变频导入文件 " + " " + myVFCAdapter.FilePath;
         }
-        #endregion
+        #endregion 
+        #region <---Rule and autosearch part---> 
+        private void TxtSymbol_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.Name = txtSymbol.Text;
+        }
+        private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BML.VFCAdapter.VFC vfc=new BML.VFCAdapter.VFC();
+            string selectedItem = Convert.ToString(ComboEquipmentSubType.SelectedItem);
+            myVFCAdapter.SubType = String.IsNullOrEmpty(selectedItem) ? VFCAdapter.ATVDP :
+                selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
 
+            ///<ATV>  
+            if (myVFCAdapter.SubType.StartsWith("ATV"))
+            {
+
+                vfc.Name =BML.VFCAdapter.TypeEnmu.ATV930;
+                txtParLenPZDInp.Enabled = false;             
+                txtParPNO_T1.Text = txtParUnitsPerDigit_T1.Text = "0";
+                txtParPNO_T2.Text = txtParUnitsPerDigit_T2.Text = "0";
+                txtParPNO_T3.Text = txtParUnitsPerDigit_T3.Text = "0";
+                txtParPNO_T4.Text = txtParUnitsPerDigit_T4.Text = "0";
+                txtParPNO_T5.Text = txtParUnitsPerDigit_T5.Text = "0";
+                if (myVFCAdapter.SubType == VFCAdapter.ATVDP)
+                {
+                    txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
+                    txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
+                    txtParPNO_T3.BackColor = txtParUnitsPerDigit_T3.BackColor = Color.LightGreen;
+                    txtParPNO_T4.BackColor = txtParUnitsPerDigit_T4.BackColor = Color.LightGreen;
+                    txtParPNO_T5.BackColor = txtParUnitsPerDigit_T5.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.White;
+                    txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.White;
+                    txtParPNO_T3.BackColor = txtParUnitsPerDigit_T3.BackColor = Color.White;
+                    txtParPNO_T4.BackColor = txtParUnitsPerDigit_T4.BackColor = Color.White;
+                    txtParPNO_T5.BackColor = txtParUnitsPerDigit_T5.BackColor = Color.White;
+                }
+            }
+            ///</ATV>  
+
+            ///<ABB>  
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA7)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.ABB;
+                txtParLenPZDInp.Enabled = false;
+              
+            }
+            ///</ABB>
+
+            ///<ATVMEAGGateWay>
+            if (myVFCAdapter.SubType == VFCAdapter.ATVM)
+            {
+                txtParIOByte.Text = "0";
+                txtParLenPKW.Text = "0";
+                txtParLenPZD.Text = "16";
+                txtParLenPZDInp.Text = "0";
+                txtParUnitsPerDigits.Text = "0.1";
+                txtParSpeedMaxDigits.Text = "1000";
+                txtParSpeedUnitsByMaxDigits.Text = "100";
+                txtParSpeedUnitsByZeroDigits.Text = "0";
+                //TxtParSpeedLimitMax.Text = "100";
+                //TxtParSpeedLimitMax.Text = "0";
+                txtParLenPZDInp.Enabled = false;
+                txtMEAGGateway.Enabled = true;
+                txtParSalveIndex.Enabled = true;
+                txtParSlaveIndexIncRule.Enabled = true;
+                txtOutpHardwareStop.Enabled = true;
+                chkParPZDConsistent.Checked = true;
+            }
+            else
+            {
+                txtMEAGGateway.Enabled = false;
+                txtParSalveIndex.Enabled = false;
+                txtParSlaveIndexIncRule.Enabled = false;
+                txtOutpHardwareStop.Enabled = false;
+
+            }
+            ///</ATVMEAGGateWay>
+
+            ///<VFCPNGateWay>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCPNG)
+            {
+                txtParIOByte.Text = "0";
+                txtParLenPKW.Text = "0";
+                txtParLenPZD.Text = "16";
+                txtParLenPZDInp.Text = "0";
+                txtParUnitsPerDigits.Text = "0.1";
+                txtParSpeedMaxDigits.Text = "1000";
+                txtParSpeedUnitsByMaxDigits.Text = "100";
+                txtParSpeedUnitsByZeroDigits.Text = "0";
+                //TxtParSpeedLimitMax.Text = "100";
+                //TxtParSpeedLimitMax.Text = "0";
+                txtParLenPZDInp.Enabled = false;
+                //txtMEAGGateway.Enabled = true;
+                //txtParSalveIndex.Enabled = true;
+                //txtOutpHardwareStop.Enabled = true;
+                //chkParPZDConsistent.Checked = true;
+            }
+            ///</VFCPNGateWay>
+            ///
+            ///<DanfossFC>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA4)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.DanfossFC;          
+                txtParLenPZDInp.Enabled = false;
+                txtParPNO_T1.Text = "414";
+                txtParUnitsPerDigit_T1.Text = "0.1";
+                txtParPNO_T2.Text = "120";
+                txtParUnitsPerDigit_T2.Text = "0.01";
+            }
+            ///</DanfossFC>
+            ///
+            ///<DanfossProfidrive>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA5)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.DanfossProfidrive;
+                txtParLenPZDInp.Enabled = false;
+                txtParPNO_T1.Text = "414";
+                txtParUnitsPerDigit_T1.Text = "0.1";
+                txtParPNO_T2.Text = "120";
+                txtParUnitsPerDigit_T2.Text = "0.01";
+                txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
+                txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
+            }
+            ///</DanfossProfidrive>
+            ///
+            ///<ET200SMotorStarter>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCMS3RK)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.SSET200S;
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+            }
+            ///</ET200SMotorStarter>
+            ///
+            ///<Lenze>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA11)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.Lenze;
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+            }
+            ///</Lenze>
+            ///
+            ///<LenzePos>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA12)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.Lenze;
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+
+            }
+            ///</LenzePos>
+            ///
+            ///<Leroy>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCLS)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.Leroy;          
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+
+            }
+            ///</<Leroy>
+            ///
+            ///<MOVIDRIVEIpos>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA10)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+
+            }
+            ///</MOVIDRIVEIpos>
+            ///
+            ///<MOVIDRIVESpeed>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA0)
+            {
+
+                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+
+            }
+            ///</MOVIDRIVESpeed>
+            ///
+            ///<MOVIKIT>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA13)
+            {
+
+                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+                txtParPNO_T1.Text = "8326";
+                txtParUnitsPerDigit_T1.Text = "0.001";
+                txtParPNO_T2.Text = "8323";
+                txtParUnitsPerDigit_T2.Text = "0.001";
+                txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
+                txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
+            }
+            ///</MOVIKIT>
+            ///
+            ///<MOVITRAC>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA6)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;              
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+            }
+            ///</MOVITRAC>
+            ///
+            ///<MicroMaster>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA1)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.MicroMaster;            
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+            }
+            ///</MicroMaster>
+            ///
+            ///<Nord>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA3)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.NORD;       
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+            }
+            ///</Nord>
+            ///
+            ///<Sinamics>
+            if (myVFCAdapter.SubType == VFCAdapter.VFCA2)
+            {
+                vfc.Name = BML.VFCAdapter.TypeEnmu.Sinamics;
+               
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = true;
+                txtParRefPower.Enabled = true;
+                txtParRefTorque.Enabled = true;
+                txtParRefCurrent.Enabled = true;
+            }
+            else
+            {
+                chkParWithActivePower.Enabled = false;
+                txtParRefPower.Enabled = false;
+                txtParRefTorque.Enabled = false;
+                txtParRefCurrent.Enabled = false;
+            }
+            ///</Sinamics>
+            ///
+            ///<SoftStarter3RW44>
+            if (myVFCAdapter.SubType == VFCAdapter.SST01DP)
+            {
+
+                vfc.Name = BML.VFCAdapter.TypeEnmu.SS3RW44;
+                txtParLenPZDInp.Enabled = false;
+                chkParWithActivePower.Enabled = false;
+            }
+            ///</<SoftStarter3RW44>
+            ///
+            ///   ///<SoftStarter3RW44>
+            if (myVFCAdapter.SubType == VFCAdapter.SST02DP)
+            {
+
+                vfc.Name = BML.VFCAdapter.TypeEnmu.SS3RW5x;
+                txtParLenPZDInp.Enabled = true;
+                chkParWithActivePower.Enabled = false;
+            }
+            ///<CommonUsedPar></CommonUsedPar>
+
+            txtParLenPKW.Text = vfc.Par.LenPKW;
+            txtParLenPZD.Text = vfc.Par.LenPZD;
+            txtParLenPZDInp.Text = vfc.Par.LenPZDInp;
+            txtParUnitsPerDigits.Text = vfc.Par.UnitsPerDigits;
+            txtParSpeedMaxDigits.Text = vfc.Par.SpeedMaxDigits;
+            txtParSpeedUnitsByMaxDigits.Text = vfc.par.SpeedUnitsByMaxDigits;
+            txtParSpeedUnitsByZeroDigits.Text = vfc.par.SpeedUnitsByZeroDigits;
+            txtParSpeedLimitMax.Text = vfc.par.SpeedLimitMax;
+            txtParSpeedLimitMin.Text = vfc.par.SpeedLimitMin;
+            chkParPZDConsistent.Checked = vfc.par.ParPZDConsistent;
+        }
+        #region <------Check and store rule event------>
+        private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
+        {
+            if (AppGlobal.CheckNumericString(txtSymbolRule.Text))
+            {
+                VFCAdapter.Rule.Common.NameRule = txtSymbolRule.Text;
+            }
+            else
+            {
+                AppGlobal.MessageNotNumeric();
+            }
+        }
+
+        private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                if (AppGlobal.CheckNumericString(txtSymbolIncRule.Text))
+                {
+                    VFCAdapter.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
+                }
+                else
+                {
+                    AppGlobal.MessageNotNumeric();
+                }
+            }
+        }
+
+        private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
+            {
+                if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
+                {
+                    VFCAdapter.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                }
+                else
+                {
+                    AppGlobal.MessageNotNumeric();
+                }
+            }
+        }
+        private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && e.KeyCode == Keys.Enter)
+            {
+                if (AppGlobal.CheckNumericString(txtDescriptionIncRule.Text))
+                {
+                    VFCAdapter.Rule.Common.DescriptionRuleInc = txtDescriptionIncRule.Text;
+                }
+                else
+                {
+                    AppGlobal.MessageNotNumeric();
+                }
+            }
+
+        }
+        private void txtParIOByte_TextChanged(object sender, EventArgs e)
+        {
+            if (!AppGlobal.CheckNumericString(txtParIOByte.Text))
+            {
+                AppGlobal.MessageNotNumeric();
+            }
+        }
+        private void txtIOByteIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (AppGlobal.CheckNumericString(txtIOByteIncRule.Text))
+                {
+                    VFCAdapter.Rule.ioByteInc = txtIOByteIncRule.Text;
+                }
+                else
+                {
+                    AppGlobal.MessageNotNumeric();
+                }
+            }
+        }
+        #endregion
+        #region <------ Check and unchek "Value9" and "Value10------>"
+
+        private void chkParPZDConsistent_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParPZDConsistent.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)0); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)0); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        private void chkParProfinet_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParProfinet.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)1); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)1); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        private void chkParWithActivePower_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithActivePower.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)2); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)2); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        private void chkWithMultiMotorCfg_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkWithMultiMotorCfg.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)16); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)16); }
+
+            myVFCAdapter.Value10 = value10.ToString();
+            txtValue10.Text = myVFCAdapter.Value10;
+        }
+
+        #endregion
+        #region <------Field in database display
+        private void TxtSymbol_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text0";
+        }
+
+        private void TxtDescription_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text1";
+        }
+
+        private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "DPNode1";
+        }
+
+        private void txtParSpeedLimitMin_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value18";
+        }
+
+        private void txtParSpeedLimitMax_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value19";
+        }
+
+        private void txtMEAGGateway_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value11";
+        }
+
+        private void txtParSalveIndex_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value12";
+        }
+
+        private void txtOutpHardwareStop_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value13";
+        }
+
+        private void txtParSpeedMaxDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value15";
+        }
+
+        private void txtParSpeedUnitsByZeroDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value16";
+        }
+
+        private void txtParSpeedUnitsByMaxDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value17";
+        }
+
+        private void txtParUnitsPerDigits_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value14";
+        }
+
+        private void txtParLenPKW_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value23";
+        }
+
+        private void txtParLenPZD_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value24";
+        }
+
+        private void txtParLenPZDInp_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value44";
+        }
+
+        private void txtParIOByte_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value21";
+        }
+
+        private void chkParPZDConsistent_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit0";
+        }
+
+        private void chkParProfinet_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit1";
+        }
+
+        private void chkParWithActivePower_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit2";
+        }
+
+        private void txtParPNO_T1_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value25";
+        }
+
+        private void txtParUnitsPerDigit_T1_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value35";
+        }
+
+        private void txtParPNO_T2_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value26";
+        }
+
+        private void txtParUnitsPerDigit_T2_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value36";
+        }
+
+        private void txtParPNO_T3_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value27";
+        }
+
+        private void txtParUnitsPerDigit_T3_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value37";
+        }
+
+        private void txtParPNO_T4_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value28";
+        }
+        private void txtParUnitsPerDigit_T4_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value38";
+        }
+        private void txtParPNO_T5_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value29";
+        }
+
+        private void txtParUnitsPerDigit_T5_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value39";
+        }
+
+        private void chkWithMultiMotorCfg_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit16";
+        }
+        private void txtParRefCurrent_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value40";
+        }
+
+        private void txtParRefTorque_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value41";
+        }
+
+        private void txtParRefPower_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value42";
+        }
+        #endregion        
+        #endregion
+        #region <---BML part--->
+        private void AddWorkSheets()
+        {
+            comboWorkSheetsBML.Items.Clear();
+            try
+            {
+                List<string> workSheets = new List<string>();
+                workSheets = excelFileHandle.GetWorkSheets();
+                foreach (string sheet in workSheets)
+                {
+                    comboWorkSheetsBML.Items.Add(sheet);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(AppGlobal.EX_FILE_NOT_FOUND, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show(AppGlobal.EX_UNAUTHORIZED_ACCESS, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(AppGlobal.EX_IO_ERROR + $"{ex.Message}", AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(AppGlobal.EX_UNKNOW + $"{ex.Message}", AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void BtnOpenProjectBML_Click(object sender, EventArgs e)
+        {
+            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
+            excelFileHandle.FilePath = TxtExcelPath.Text;
+         
+            AddWorkSheets();
+           
+        }
+        private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
+        {
+            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
+            AddWorkSheets();
+        }
+        private void TxtExcelPath_TextChanged(object sender, EventArgs e)
+        {
+            excelFileHandle.FilePath = TxtExcelPath.Text;
+            BML.VFCAdapter.BMLPath = excelFileHandle.FilePath;
+        }
+        private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
+        {
+            AddWorkSheets();
+        }
+        private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
+            if (! String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            {
+                btnReadBML.Enabled= true;   
+            }
+        }
+        private void CreateBMLDefault()
+        {
+            dataGridBML.AutoGenerateColumns = false;
+            TxtExcelPath.Text = BML.VFCAdapter.BMLPath;
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
+            nameColumn.HeaderText = BML.VFCAdapter.ColumnName; 
+            nameColumn.Name = nameof(BML.VFCAdapter.ColumnName);                                              
+            dataGridBML.Columns.Add(nameColumn);
+         
+           DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
+            descColumn.HeaderText = BML.VFCAdapter.ColumnDesc;
+            descColumn.Name = nameof(BML.VFCAdapter.ColumnDesc);
+            dataGridBML.Columns.Add(descColumn);
+
+            DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
+            powerColumn.HeaderText = BML.VFCAdapter.ColumnPower;
+            powerColumn.Name = nameof(BML.VFCAdapter.ColumnPower);
+            dataGridBML.Columns.Add(powerColumn);
+ 
+
+            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
+            floorColumn.HeaderText = BML.VFCAdapter.ColumnFloor;
+            floorColumn.Name = nameof(BML.VFCAdapter.ColumnFloor);
+            dataGridBML.Columns.Add(floorColumn);
+
+            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
+            cabinetColumn.HeaderText = BML.VFCAdapter.ColumnCabinet;
+            cabinetColumn.Name = nameof(BML.VFCAdapter.ColumnCabinet);
+            dataGridBML.Columns.Add(cabinetColumn);
+            
+
+            DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
+            cabinetColumnGroup.HeaderText = BML.VFCAdapter.ColumnCabinetGroup;
+            cabinetColumnGroup.Name = nameof(BML.VFCAdapter.ColumnCabinetGroup);
+            dataGridBML.Columns.Add(cabinetColumnGroup);
+          
+
+            DataGridViewTextBoxColumn controlMethod = new DataGridViewTextBoxColumn();
+            controlMethod.HeaderText = BML.VFCAdapter.ColumnControlMethod;
+            controlMethod.Name = nameof(BML.VFCAdapter.ColumnControlMethod);
+            dataGridBML.Columns.Add(controlMethod);
+
+            dataGridBML.Columns[descColumn.Name].Width = 126;
+            dataGridBML.Columns[powerColumn.Name].Width = 56;
+            dataGridBML.Columns[floorColumn.Name].Width = 56;
+            dataGridBML.Columns[cabinetColumnGroup.Name].Width = 66;
+            dataGridBML.Columns[cabinetColumn.Name].Width = 66;
+            dataGridBML.Columns[controlMethod.Name].Width = 188;
+
+        }
+
+        private void btnReadBML_Click(object sender, EventArgs e)
+        {
+            // List<List<object>> allData = new List<List<object>>();
+            string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboPowerBML.Text,comboFloorBML.Text,
+                comboCabinetBML.Text ,comboSectionBML.Text,comboControlBML.Text};
+            DataTable dataTable = new DataTable();
+            string[] filters = { $"Value=={BML.VFCAdapter.Type}", $@"Value LIKE ""{txtVFCPrefixBML.Text}%""" };
+            string[] filterColumns = { comboTypeBML.Text, comboControlBML.Text };
+            dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns,comboNameBML.Text, true);
+            dataGridBML.DataSource = dataTable;
+            dataGridBML.AutoGenerateColumns = false;
+
+            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;   
+            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnPower)].DataPropertyName = dataTable.Columns[2].ColumnName;
+            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnControlMethod)].DataPropertyName = dataTable.Columns[6].ColumnName;
+
+            TxtQuantity.Text = dataTable.Rows.Count.ToString();
+        }
+        #endregion
+        #region Common used
         private void CreateVFCAdapterImpExp(OleDb oledb)
         {
 
@@ -373,8 +1086,8 @@ namespace GcproExtensionApp
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = VFCAdapter.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ByteNo"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value20.Name }
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "IOByteNo"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name }
 
                     },
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
@@ -520,12 +1233,12 @@ namespace GcproExtensionApp
                 };
             if (oledb.InsertMultipleRecords(GcproTable.ImpExpDef.TableName, recordList))
             {
-                MessageBox.Show(AppGlobalSource.MSG_RULE_CREATE_SUCESSFULL, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private void FormVFCAdapter_Load(object sender, EventArgs e)
         {
-            isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobalSource.GcproDBInfo.ProjectDBPath);
+            isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
 
             ///<ImplementIGcForm>   </ImplementIGcForm>
             GetLastObjRule();
@@ -537,834 +1250,6 @@ namespace GcproExtensionApp
         {
             this.Dispose();
         }
-        #region <---Rule and autosearch part---> 
-
-        private void TxtSymbol_TextChanged(object sender, EventArgs e)
-        {
-            myVFCAdapter.Name = txtSymbol.Text;
-        }
-        private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selectedItem = Convert.ToString(ComboEquipmentSubType.SelectedItem);
-            myVFCAdapter.SubType = String.IsNullOrEmpty(selectedItem) ? VFCAdapter.ATVDP :
-                selectedItem.Substring(0, selectedItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
-
-            ///<ATV>  
-            if (myVFCAdapter.SubType.StartsWith("ATV"))
-            {
-                txtParLenPKW.Text = "8";
-                txtParLenPZD.Text = "16";
-                txtParLenPZDInp.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                txtParUnitsPerDigits.Text = "0.1";
-                txtParSpeedMaxDigits.Text = "1000";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMin.Text = "0";
-                txtParPNO_T1.Text = txtParUnitsPerDigit_T1.Text = "0";
-                txtParPNO_T2.Text = txtParUnitsPerDigit_T2.Text = "0";
-                txtParPNO_T3.Text = txtParUnitsPerDigit_T3.Text = "0";
-                txtParPNO_T4.Text = txtParUnitsPerDigit_T4.Text = "0";
-                txtParPNO_T5.Text = txtParUnitsPerDigit_T5.Text = "0";
-                if (myVFCAdapter.SubType == VFCAdapter.ATVDP)
-                {
-                    txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
-                    txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
-                    txtParPNO_T3.BackColor = txtParUnitsPerDigit_T3.BackColor = Color.LightGreen;
-                    txtParPNO_T4.BackColor = txtParUnitsPerDigit_T4.BackColor = Color.LightGreen;
-                    txtParPNO_T5.BackColor = txtParUnitsPerDigit_T5.BackColor = Color.LightGreen;
-                }
-                else
-                {
-                    txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.White;
-                    txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.White;
-                    txtParPNO_T3.BackColor = txtParUnitsPerDigit_T3.BackColor = Color.White;
-                    txtParPNO_T4.BackColor = txtParUnitsPerDigit_T4.BackColor = Color.White;
-                    txtParPNO_T5.BackColor = txtParUnitsPerDigit_T5.BackColor = Color.White;
-                }
-            }
-            ///</ATV>  
-
-            ///<ABB>  
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA7)
-            {
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "12";
-                txtParLenPZDInp.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "2000";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMin.Text = "-100";
-                chkParPZDConsistent.Checked = false;
-            }
-            ///</ABB>
-
-            ///<ATVMEAGGateWay>
-            if (myVFCAdapter.SubType == VFCAdapter.ATVM)
-            {
-                txtParIOByte.Text = "0";
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "16";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0.1";
-                txtParSpeedMaxDigits.Text = "1000";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                //TxtParSpeedLimitMax.Text = "100";
-                //TxtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                txtMEAGGateway.Enabled = true;
-                txtParSalveIndex.Enabled = true;
-                txtParSlaveIndexIncRule.Enabled = true;
-                txtOutpHardwareStop.Enabled = true;
-                chkParPZDConsistent.Checked = true;
-            }
-            else
-            {
-                txtMEAGGateway.Enabled = false;
-                txtParSalveIndex.Enabled = false;
-                txtParSlaveIndexIncRule.Enabled = false;
-                txtOutpHardwareStop.Enabled = false;
-
-            }
-            ///</ATVMEAGGateWay>
-
-            ///<VFCPNGateWay>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCPNG)
-            {
-                txtParIOByte.Text = "0";
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "16";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0.1";
-                txtParSpeedMaxDigits.Text = "1000";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                //TxtParSpeedLimitMax.Text = "100";
-                //TxtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                //txtMEAGGateway.Enabled = true;
-                //txtParSalveIndex.Enabled = true;
-                //txtOutpHardwareStop.Enabled = true;
-                //chkParPZDConsistent.Checked = true;
-            }
-
-            ///</VFCPNGateWay>
-            ///
-            ///<DanfossFC>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA4)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "12";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                chkParPZDConsistent.Checked = false;
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                txtParPNO_T1.Text = "414";
-                txtParUnitsPerDigit_T1.Text = "0.1";
-                txtParPNO_T2.Text = "120";
-                txtParUnitsPerDigit_T2.Text = "0.01";
-            }
-            ///</DanfossFC>
-            ///
-            ///<DanfossProfidrive>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA4)
-            {
-
-                txtParLenPKW.Text = "8";
-                txtParLenPZD.Text = "20";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                chkParPZDConsistent.Checked = true;
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                txtParPNO_T1.Text = "414";
-                txtParUnitsPerDigit_T1.Text = "0.1";
-                txtParPNO_T2.Text = "120";
-                txtParUnitsPerDigit_T2.Text = "0.01";
-                txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
-                txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
-
-            }
-            ///</DanfossProfidrive>
-            ///
-            ///<ET200SMotorStarter>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCMS3RK)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "4";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "27648";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                chkParWithActivePower.Enabled = false;
-
-            }
-            ///</ET200SMotorStarter>
-            ///
-            ///<Lenze>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA11)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "6";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                chkParWithActivePower.Enabled = false;
-
-            }
-            ///</Lenze>
-            ///
-            ///<LenzePos>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA12)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "6";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                chkParWithActivePower.Enabled = false;
-
-            }
-            ///</LenzePos>
-            ///
-            ///<Leroy>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCLS)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "12";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "1000";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                chkParWithActivePower.Enabled = false;
-
-            }
-            ///</<Leroy>
-            ///
-            ///<MOVIDRIVEIpos>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA10)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "6";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                chkParWithActivePower.Enabled = false;
-
-            }
-            ///</MOVIDRIVEIpos>
-            ///
-            ///<MOVIDRIVESpeed>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA0)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "6";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                chkParWithActivePower.Enabled = false;
-
-            }
-            ///</MOVIDRIVESpeed>
-            ///
-            ///<MOVIKIT>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA13)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "6";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                chkParWithActivePower.Enabled = false;
-                txtParPNO_T1.Text = "8326";
-                txtParUnitsPerDigit_T1.Text = "0.001";
-                txtParPNO_T2.Text = "8323";
-                txtParUnitsPerDigit_T2.Text = "0.001";
-                txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
-                txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
-            }
-            ///</MOVIKIT>
-            ///
-            ///<MOVITRAC>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA6)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "6";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-                chkParPZDConsistent.Checked = true;
-                chkParWithActivePower.Enabled = false;
-            }
-            ///</MOVITRAC>
-            ///
-            ///<MicroMaster>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA1)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "12";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                chkParPZDConsistent.Checked = false;
-                chkParWithActivePower.Enabled = false;
-            }
-            ///</MicroMaster>
-            ///
-            ///<Nord>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA3)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "12";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                chkParPZDConsistent.Checked = false;
-                chkParWithActivePower.Enabled = false;
-            }
-            ///</Nord>
-            ///
-            ///<Sinamics>
-            if (myVFCAdapter.SubType == VFCAdapter.VFCA2)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "12";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "16384";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "100";
-                txtParSpeedLimitMax.Text = "-100";
-                txtParLenPZDInp.Enabled = false;
-                chkParPZDConsistent.Checked = true;
-                chkParWithActivePower.Enabled = true;
-                txtParRefPower.Enabled = true;
-                txtParRefTorque.Enabled = true;
-                txtParRefCurrent.Enabled = true;
-            }
-            else
-            {
-                chkParWithActivePower.Enabled = false;
-                txtParRefPower.Enabled = false;
-                txtParRefTorque.Enabled = false;
-                txtParRefCurrent.Enabled = false;
-            }
-            ///</Sinamics>
-            ///
-            ///<SoftStarter3RW44>
-            if (myVFCAdapter.SubType == VFCAdapter.SST01DP)
-            {
-
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "4";
-                txtParLenPZDInp.Text = "16";
-                txtParUnitsPerDigits.Text = "0";
-                txtParSpeedMaxDigits.Text = "0";
-                txtParSpeedUnitsByMaxDigits.Text = "0";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParSpeedLimitMax.Text = "0";
-                txtParSpeedLimitMax.Text = "0";
-                txtParLenPZDInp.Enabled = true;
-                chkParPZDConsistent.Checked = false;
-                chkParWithActivePower.Enabled = false;
-            }
-            ///</<SoftStarter3RW44>
-        }
-        #region <------Check and store rule event------>
-        private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
-        {
-            if (AppGlobalSource.CheckNumericString(txtSymbolRule.Text))
-            {
-                VFCAdapter.Rule.Common.NameRule = txtSymbolRule.Text;
-            }
-            else
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
-        }
-
-        private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-
-                if (AppGlobalSource.CheckNumericString(txtSymbolIncRule.Text))
-                {
-                    VFCAdapter.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-        }
-
-        private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
-        {
-
-            if (AppGlobalSource.CheckNumericString(txtDescriptionRule.Text))
-            {
-                VFCAdapter.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
-            }
-            else
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
-
-        }
-        private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text))
-                {
-                    VFCAdapter.Rule.Common.DescriptionRuleInc = txtDescriptionIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-
-        }
-        private void txtParIOByte_TextChanged(object sender, EventArgs e)
-        {
-            if (!AppGlobalSource.CheckNumericString(txtParIOByte.Text))
-            {
-                AppGlobalSource.MessageNotNumeric();
-            }
-        }
-        private void txtIOByteIncRule_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (AppGlobalSource.CheckNumericString(txtIOByteIncRule.Text))
-                {
-                    VFCAdapter.Rule.ioByteInc = txtIOByteIncRule.Text;
-                }
-                else
-                {
-                    AppGlobalSource.MessageNotNumeric();
-                }
-            }
-        }
-        #endregion
-        #region <------ Check and unchek "Value9" and "Value10------>"
-
-        private void chkParPZDConsistent_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkParPZDConsistent.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)0); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)0); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        private void chkParProfinet_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkParProfinet.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)1); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)1); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        private void chkParWithActivePower_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkParWithActivePower.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)2); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)2); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        private void chkWithMultiMotorCfg_CheckedChanged(object sender, EventArgs e)
-        {
-            value10 = int.Parse(txtValue10.Text);
-            if (chkWithMultiMotorCfg.Checked)
-            { AppGlobalSource.SetBit(ref value10, (byte)16); }
-
-            else
-            { AppGlobalSource.ClearBit(ref value10, (byte)16); }
-
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
-        }
-
-        #endregion
-        #region <------Field in database display
-        private void TxtSymbol_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text0";
-        }
-
-        private void TxtDescription_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Text1";
-        }
-
-        private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "DPNode1";
-        }
-
-        private void txtParSpeedLimitMin_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value18";
-        }
-
-        private void txtParSpeedLimitMax_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value19";
-        }
-
-        private void txtMEAGGateway_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value11";
-        }
-
-        private void txtParSalveIndex_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value12";
-        }
-
-        private void txtOutpHardwareStop_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value13";
-        }
-
-        private void txtParSpeedMaxDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value15";
-        }
-
-        private void txtParSpeedUnitsByZeroDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value16";
-        }
-
-        private void txtParSpeedUnitsByMaxDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value17";
-        }
-
-        private void txtParUnitsPerDigits_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value14";
-        }
-
-        private void txtParLenPKW_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value23";
-        }
-
-        private void txtParLenPZD_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value24";
-        }
-
-        private void txtParLenPZDInp_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value44";
-        }
-
-        private void txtParIOByte_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value21";
-        }
-
-        private void chkParPZDConsistent_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit0";
-        }
-
-        private void chkParProfinet_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit1";
-        }
-
-        private void chkParWithActivePower_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit2";
-        }
-
-        private void txtParPNO_T1_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value25";
-        }
-
-        private void txtParUnitsPerDigit_T1_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value35";
-        }
-
-        private void txtParPNO_T2_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value26";
-        }
-
-        private void txtParUnitsPerDigit_T2_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value36";
-        }
-
-        private void txtParPNO_T3_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value27";
-        }
-
-        private void txtParUnitsPerDigit_T3_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value37";
-        }
-
-        private void txtParPNO_T4_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value28";
-        }
-        private void txtParUnitsPerDigit_T4_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value38";
-        }
-        private void txtParPNO_T5_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value29";
-        }
-
-        private void txtParUnitsPerDigit_T5_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value39";
-        }
-
-        private void chkWithMultiMotorCfg_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value10.Bit16";
-        }
-        private void txtParRefCurrent_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value40";
-        }
-
-        private void txtParRefTorque_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value41";
-        }
-
-        private void txtParRefPower_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobalSource.OBJECT_FIELD + "Value42";
-        }
-        #endregion
-        #endregion
-      
-        #region <---BML part--->
-        private void AddWorkSheets()
-        {
-            comboWorkSheetsBML.Items.Clear();
-            try
-            {
-                List<string> workSheets = new List<string>();
-                workSheets = excelFileHandle.GetWorkSheets();
-                foreach (string sheet in workSheets)
-                {
-                    comboWorkSheetsBML.Items.Add(sheet);
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show(AppGlobalSource.EX_FILE_NOT_FOUND, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show(AppGlobalSource.EX_UNAUTHORIZED_ACCESS, AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show(AppGlobalSource.EX_IO_ERROR + $"{ex.Message}", AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(AppGlobalSource.EX_UNKNOW + $"{ex.Message}", AppGlobalSource.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void BtnOpenProjectDB_Click(object sender, EventArgs e)
-        {
-            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
-            excelFileHandle.FilePath = TxtExcelPath.Text;
-            AddWorkSheets();
-           
-        }
-        private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
-        {
-            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
-            AddWorkSheets();
-        }
-        private void TxtExcelPath_TextChanged(object sender, EventArgs e)
-        {
-            excelFileHandle.FilePath = TxtExcelPath.Text;
-        }
-        private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
-        {
-            AddWorkSheets();
-        }
-        private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (! String.IsNullOrEmpty(excelFileHandle.WorkSheet))
-            {
-                btnReadBML.Enabled= true;   
-            }
-        }
-        private void CreateBMLDefault()
-        {
-            dataGridBML.AutoGenerateColumns = false;
-
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.VFCAdapter.ColumnName; 
-            nameColumn.Name = nameof(BML.VFCAdapter.ColumnName);                                              
-            dataGridBML.Columns.Add(nameColumn);
-
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.VFCAdapter.ColumnDesc;
-            descColumn.Name = nameof(BML.VFCAdapter.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
-
-            DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
-            powerColumn.HeaderText = BML.VFCAdapter.ColumnPower;
-            powerColumn.Name = nameof(BML.VFCAdapter.ColumnPower);
-            dataGridBML.Columns.Add(powerColumn);
-
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.VFCAdapter.ColumnFloor;
-            floorColumn.Name = nameof(BML.VFCAdapter.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
-
-            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.VFCAdapter.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.VFCAdapter.ColumnCabinet);
-            dataGridBML.Columns.Add(cabinetColumn);
-            DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.VFCAdapter.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.VFCAdapter.ColumnCabinetGroup);
-            dataGridBML.Columns.Add(cabinetColumnGroup);
-        }
-
-        private void btnReadBML_Click(object sender, EventArgs e)
-        {
-            // List<List<object>> allData = new List<List<object>>();
-            string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboControlBML.Text,comboPowerBML.Text,comboFloorBML.Text,
-                comboCabinetBML.Text ,comboSectionBML.Text};
-            DataTable dataTable = new DataTable();
-            dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.VFCAdapter.TypeMotor, comboTypeBML.Text);
-            dataGridBML.DataSource = dataTable;
-            dataGridBML.AutoGenerateColumns = false;
-
-            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnPower)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnFloor)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnCabinet)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[6].ColumnName;
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                bool startsWithCondition = row[2].ToString().StartsWith(!String.IsNullOrEmpty(txtVFCPrefixBML.Text)?txtVFCPrefixBML.Text:BML.VFCAdapter.PrefixVFC);
-                int rowIndex = dataTable.Rows.IndexOf(row);
-                DataGridViewRow dataGridViewRow = dataGridBML.Rows[rowIndex];
-            
-            }
-        }
-        #endregion
-
-        #region Common used
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.Rule)
@@ -1378,8 +1263,8 @@ namespace GcproExtensionApp
                 LblQuantity.Visible = true;
                 TxtQuantity.Visible = true;
                 GrpSymbolRule.Visible = true;
-                LblSymbol.Text = AppGlobalSource.NAME;
-                txtSymbol.Text = DEMO_NAME_MOTOR;
+                LblSymbol.Text = AppGlobal.NAME;
+                txtSymbol.Text = DEMO_NAME_VFC;
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
                
             }
@@ -1405,7 +1290,8 @@ namespace GcproExtensionApp
                 createMode.Rule = false;
                 createMode.BML = true;
                 createMode.AutoSearch = false;
-                tabCreateMode.SelectedTab = tabBML;         
+                tabCreateMode.SelectedTab = tabBML;
+                txtSymbol.Text = DEMO_NAME_VFC_SUFFIX;
             }
 
         }
@@ -1447,81 +1333,24 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
+                if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
                 { 
-                    AppGlobalSource.MessageNotNumeric();
+                    AppGlobal.MessageNotNumeric();
                 }
             }
         }
 
         private void TxtQuantity_TextChanged(object sender, EventArgs e)
         {
-            if (!AppGlobalSource.CheckNumericString(TxtQuantity.Text))
+            if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
             { 
-                AppGlobalSource.MessageNotNumeric(); 
+                AppGlobal.MessageNotNumeric(); 
             }
         }
-
-        private void BtnConnectIO_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(AppGlobalSource.CONNECT_IO, AppGlobalSource.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
-                == DialogResult.OK)
-            {
-                try
-                {
-                    bool all=false;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
-                    OleDb oledb= new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Motor.OTypeValue}", null,
-                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.SubType.Name, 
-                        GcproTable.ObjData.Value11.Name, GcproTable.ObjData.Value12.Name, GcproTable.ObjData.Value13.Name,
-                        GcproTable.ObjData.Value14.Name, GcproTable.ObjData.Value38.Name, GcproTable.ObjData.Value47.Name,
-                         GcproTable.ObjData.Value34.Name, GcproTable.ObjData.Value50.Name);
-                    ProgressBar.Maximum = dataTable.Rows.Count - 1;
-                    ProgressBar.Value = 0;
-                    for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
-                    {
-                        objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
-                        objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
-                        if (objSubType == Motor.M11)
-                        {
-                            string inpFwd, outpFwd;
-                            
-                                              
-                        }
-                        else if (objSubType == Motor.M12)
-                        {
-                            string inpFwd, outpFwd, inpRev, outpRev;
-                         
-                        }
-                        else if (objSubType == Motor.M1VFC || objSubType == Motor.M2VFC)
-                        {
-                            
-                            
-                        }
-                       
-                      
-                        
-                        ProgressBar.Value=count;
-                    }
-                    myVFCAdapter.SaveFileAs(myVFCAdapter.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
-                    dataTable.Clear();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("寻找IO与关联过程出错:"+ex, AppGlobalSource.INFO+":"+AppGlobalSource.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
-                }
-            }
-        }
-     
+   
         private void BtnClear_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(AppGlobalSource.MSG_CLEAR_FILE, AppGlobalSource.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+            if (MessageBox.Show(AppGlobal.MSG_CLEAR_FILE, AppGlobal.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
 
             {
@@ -1541,27 +1370,28 @@ namespace GcproExtensionApp
         }
         private void BtnRegenerateDPNode_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(AppGlobalSource.MSG_REGENERATE_DPNODE, AppGlobalSource.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+            if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
                 OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
+                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                AppGlobalSource.ReGenerateDPNode(oledb);
+                AppGlobal.ReGenerateDPNode(oledb);
             }
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            int quantityNeedToBeCreate = AppGlobalSource.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-            int slaveIndexInc= AppGlobalSource.ParseInt(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
-            int ioByteInc= AppGlobalSource.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
-            int ioByte = AppGlobalSource.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int slaveIndexInc= AppGlobal.ParseInt(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
+            int ioByteInc= AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
+            int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+           
             if (myVFCAdapter.SubType == VFCAdapter.ATVM)
             {
                 TxtQuantity.Text = quantityNeedToBeCreate >= 63 ? "63" : Convert.ToString(quantityNeedToBeCreate);
                 if (slaveIndexInc >= 1)
                 {
-                    DialogResult result = MessageBox.Show("站地址最大为63，确定要将规则设为大于1的数？", $"{AppGlobalSource.AppInfo.Title}:{AppGlobalSource.INFO}"
+                    DialogResult result = MessageBox.Show("站地址最大为63，确定要将规则设为大于1的数？", $"{AppGlobal.AppInfo.Title}:{AppGlobal.INFO}"
                          , MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                     if (result == DialogResult.Cancel)
@@ -1575,6 +1405,7 @@ namespace GcproExtensionApp
             {
                 OleDb oledb = new OleDb();
                 DataTable dataTable = new DataTable();
+                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 #region common used variables declaration
                 bool needDPNodeChanged = false;
              
@@ -1635,7 +1466,7 @@ namespace GcproExtensionApp
                 if (ComboEquipmentSubType.SelectedItem != null)
                 {
                     selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                    myVFCAdapter.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
+                    myVFCAdapter.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                    
                 }
                 else
@@ -1647,7 +1478,7 @@ namespace GcproExtensionApp
                 if (ComboProcessFct.SelectedItem != null)
                 {
                     selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                    myVFCAdapter.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
+                    myVFCAdapter.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
                 ///<Building></Building>
                 string selectedBudling = "--";
@@ -1677,7 +1508,7 @@ namespace GcproExtensionApp
                 if (ComboDiagram.SelectedItem != null)
                 {
                     selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                    myVFCAdapter.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobalSource.FIELDS_SEPARATOR));
+                    myVFCAdapter.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
                 ///<Page></Page>
                 myVFCAdapter.Page = txtPage.Text;
@@ -1687,150 +1518,176 @@ namespace GcproExtensionApp
                 {
                     selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
                     oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobalSource.GcproDBInfo.ProjectDBPath;
-                    myVFCAdapter.DPNode1 = AppGlobalSource.FindDPNodeNo(oledb, selectDPNode1);
+                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                    myVFCAdapter.DPNode1 = AppGlobal.FindDPNodeNo(oledb, selectDPNode1);
                     int dpnode1 = int.Parse(myVFCAdapter.DPNode1);
-                    myVFCAdapter.FieldBusNode = AppGlobalSource.FindFieldbusNodeKey(oledb, dpnode1);
+                    myVFCAdapter.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
                 }
                 ///<Value9>Value9 is not used here</Value9>
                 ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-                ///<ParSpeedLimitMin></ParSpeedLimitMin>
-                myVFCAdapter.SpeedLimitMin = AppGlobalSource.ParseInt(txtParSpeedLimitMin.Text, out tempInt) ? (tempInt).ToString() : "0";
-                ///<ParSpeedLimitMax></ParSpeedLimitMax>
-                myVFCAdapter.SpeedLimitMax = AppGlobalSource.ParseInt(txtParSpeedLimitMax.Text, out tempInt) ? (tempInt).ToString() : "100";
-                ///<ParSpeedMaxDigits></ParSpeedMaxDigits>
-                myVFCAdapter.SpeedMaxDigits = AppGlobalSource.ParseInt(txtParSpeedMaxDigits.Text, out tempInt) ? (tempInt).ToString() : "500";
-                ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-                myVFCAdapter.SpeedUnitsByZeroDigits = AppGlobalSource.ParseInt(txtParSpeedUnitsByZeroDigits.Text, out tempInt) ? (tempInt).ToString() : "0";
-                ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-                myVFCAdapter.SpeedUnitsByMaxDigits = AppGlobalSource.ParseInt(txtParSpeedUnitsByMaxDigits.Text, out tempInt) ? (tempInt).ToString() : "100";
-                ///<ParUnitsPerDigits</ParUnitsPerDigits>
-                myVFCAdapter.UnitsPerDigits = AppGlobalSource.ParseFloat(txtParUnitsPerDigits.Text, out tempFloat) ? (tempFloat).ToString() : "0.1";
+                if (createMode.Rule)
+                {
+                    ///<ParSpeedLimitMin></ParSpeedLimitMin>
+                    myVFCAdapter.SpeedLimitMin = AppGlobal.ParseInt(txtParSpeedLimitMin.Text, out tempInt) ? (tempInt).ToString() : "0";
+                    ///<ParSpeedLimitMax></ParSpeedLimitMax>
+                    myVFCAdapter.SpeedLimitMax = AppGlobal.ParseInt(txtParSpeedLimitMax.Text, out tempInt) ? (tempInt).ToString() : "100";
+                    ///<ParSpeedMaxDigits></ParSpeedMaxDigits>
+                    myVFCAdapter.SpeedMaxDigits = AppGlobal.ParseInt(txtParSpeedMaxDigits.Text, out tempInt) ? (tempInt).ToString() : "500";
+                    ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
+                    myVFCAdapter.SpeedUnitsByZeroDigits = AppGlobal.ParseInt(txtParSpeedUnitsByZeroDigits.Text, out tempInt) ? (tempInt).ToString() : "0";
+                    ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
+                    myVFCAdapter.SpeedUnitsByMaxDigits = AppGlobal.ParseInt(txtParSpeedUnitsByMaxDigits.Text, out tempInt) ? (tempInt).ToString() : "100";
+                    ///<ParUnitsPerDigits</ParUnitsPerDigits>
+                    myVFCAdapter.UnitsPerDigits = AppGlobal.ParseFloat(txtParUnitsPerDigits.Text, out tempFloat) ? (tempFloat).ToString("F1") : "0.1";
+                    ///<ParLenPKW</ParLenPKW>
+                    myVFCAdapter.LenPKW = AppGlobal.ParseInt(txtParLenPKW.Text, out tempInt) ? (tempInt).ToString() : "0";
+                    ///<ParLenPZD</ParLenPZD>
+                    myVFCAdapter.LenPZD = AppGlobal.ParseInt(txtParLenPZD.Text, out tempInt) ? (tempInt).ToString() : "6";
+                    ///<ParLenPZDInp</ParLenPZDInp>
+                    myVFCAdapter.LenPZDInp = AppGlobal.ParseInt(txtParLenPZDInp.Text, out tempInt) ? (tempInt).ToString() : "0";
+                    
+                }
                 ///<ParIOByteNo</ParIOByteNo>
-                myVFCAdapter.IoByteNo= AppGlobalSource.ParseInt(txtParIOByte.Text, out tempInt) ? (tempInt).ToString() : "20000";
-                ///<ParLenPKW</ParLenPKW>
-                myVFCAdapter.LenPKW = AppGlobalSource.ParseInt(txtParLenPKW.Text, out tempInt) ? (tempInt).ToString() : "0";
-                ///<ParLenPZD</ParLenPZD>
-                myVFCAdapter.LenPKW = AppGlobalSource.ParseInt(txtParLenPZD.Text, out tempInt) ? (tempInt).ToString() : "6";
-                ///<ParLenPZDInp</ParLenPZDInp>
-                myVFCAdapter.LenPZDInp = AppGlobalSource.ParseInt(txtParLenPZDInp.Text, out tempInt) ? (tempInt).ToString() : "0";
+                myVFCAdapter.IoByteNo = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? (tempInt).ToString() : "20000";
                 ///<MEAGGateway</MEAGGateway<>
                 myVFCAdapter.MeagGateway = myVFCAdapter.SubType == VFCAdapter.ATVM ? txtMEAGGateway.Text : "0";
                 ///<SlaveIndex</SlaveIndex>      
                 myVFCAdapter.SlaveIndex = myVFCAdapter.SubType == VFCAdapter.ATVM ? 
-                    (AppGlobalSource.ParseInt(txtParSalveIndex.Text, out tempInt) ? (tempInt).ToString() : "0") : "0";
+                    (AppGlobal.ParseInt(txtParSalveIndex.Text, out tempInt) ? (tempInt).ToString() : "0") : "0";
                 ///<OutpHardwareStop</OutpHardwareStop>
                 myVFCAdapter.OutpHardwareStop = myVFCAdapter.SubType == VFCAdapter.ATVM ? txtOutpHardwareStop.Text : "0";
 
                 ///<Telegram1</Telegram1>
                 myVFCAdapter.Telegram1.ParPNO = String.IsNullOrEmpty(txtParPNO_T1.Text) ? "0.0" :
-                                    (AppGlobalSource.ParseFloat(txtParPNO_T1.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                                    (AppGlobal.ParseFloat(txtParPNO_T1.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 myVFCAdapter.Telegram1.ParUnitsPerDigit= String.IsNullOrEmpty(txtParUnitsPerDigit_T1.Text) ? "0.0" :
-                        (AppGlobalSource.ParseFloat(txtParUnitsPerDigit_T1.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                        (AppGlobal.ParseFloat(txtParUnitsPerDigit_T1.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 ///<Telegram2</Telegram2>
                 myVFCAdapter.Telegram2.ParPNO = String.IsNullOrEmpty(txtParPNO_T2.Text) ? "0.0" :
-                                    (AppGlobalSource.ParseFloat(txtParPNO_T2.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                                    (AppGlobal.ParseFloat(txtParPNO_T2.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 myVFCAdapter.Telegram2.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T2.Text) ? "0.0" :
-                        (AppGlobalSource.ParseFloat(txtParUnitsPerDigit_T2.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                        (AppGlobal.ParseFloat(txtParUnitsPerDigit_T2.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 ///<Telegram3</Telegram3>
                 myVFCAdapter.Telegram3.ParPNO = String.IsNullOrEmpty(txtParPNO_T3.Text) ? "0.0" :
-                                    (AppGlobalSource.ParseFloat(txtParPNO_T3.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                                    (AppGlobal.ParseFloat(txtParPNO_T3.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 myVFCAdapter.Telegram3.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T3.Text) ? "0.0" :
-                        (AppGlobalSource.ParseFloat(txtParUnitsPerDigit_T3.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                        (AppGlobal.ParseFloat(txtParUnitsPerDigit_T3.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 ///<Telegram4</Telegram4>
                 myVFCAdapter.Telegram4.ParPNO = String.IsNullOrEmpty(txtParPNO_T4.Text) ? "0.0" :
-                                    (AppGlobalSource.ParseFloat(txtParPNO_T4.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                                    (AppGlobal.ParseFloat(txtParPNO_T4.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 myVFCAdapter.Telegram4.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T4.Text) ? "0.0" :
-                        (AppGlobalSource.ParseFloat(txtParUnitsPerDigit_T4.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                        (AppGlobal.ParseFloat(txtParUnitsPerDigit_T4.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 ///<Telegram5</Telegram5>
                 myVFCAdapter.Telegram5.ParPNO = String.IsNullOrEmpty(txtParPNO_T5.Text) ? "0.0" :
-                                    (AppGlobalSource.ParseFloat(txtParPNO_T5.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                                    (AppGlobal.ParseFloat(txtParPNO_T5.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 myVFCAdapter.Telegram5.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T5.Text) ? "0.0" :
-                        (AppGlobalSource.ParseFloat(txtParUnitsPerDigit_T5.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+                        (AppGlobal.ParseFloat(txtParUnitsPerDigit_T5.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
                 ///<Sinamics>
                 ///[RefCurrent],[RefTorque],[RefPower]
-                ///don't need ,they will read from VFC
-                ///</Sinamics>
-                ///if (myVFCAdapter.SubType==VFCAdapter.VFCA1)
-                ///{
-                ///    myVFCAdapter.RefCurrent = String.IsNullOrEmpty(txtParRefCurrent.Text) ? "0.0" : txtParRefCurrent.Text;
-                ///    myVFCAdapter.RefTorque= String.IsNullOrEmpty(txtParRefTorque.Text) ? "0.0" : txtParRefTorque.Text;
-                ///    myVFCAdapter.RefPower= String.IsNullOrEmpty(txtParRefPower.Text) ? "0.0" : txtParRefPower.Text;
-                ///}
-                ///else
-                ///{
-                ///    myVFCAdapter.RefCurrent = myVFCAdapter.RefPower = myVFCAdapter.RefTorque = "0.0";
-                ///}
-
+                ///don't need ,they will read from VFC            
                 ///<IsNew>is set when object generated,Default value is "No"</IsNew>
                 #endregion
                 if (createMode.BML)
                 {
                     ProgressBar.Maximum = dataGridBML.Rows.Count - 1;
                     ProgressBar.Value = 0;
-              
+                    BML.VFCAdapter.VFC vfc = new BML.VFCAdapter.VFC();
+                    int nextIOByte = ioByte;
                     for (int i = 0; i < dataGridBML.Rows.Count; i++)
                     {
+                        
                         DataGridViewCell cell;
                         cell = dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnName)];
                         if (cell.Value==null || cell.Value ==DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                             continue;
-
-                        myVFCAdapter.Name = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnName)].Value);
-                       
-                        bool numeric;
-                        float power;
-                        int monTime;
-                        numeric = AppGlobalSource.ParseFloat(Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnPower)].Value),out power);
-                        monTime = Motor.GetStartingTime(power);
-
-             
+                        ///<Name>   </Name>
+                        myVFCAdapter.Name = Convert.ToString(cell.Value)+txtVFCSufffixBML.Text;
+                        ///<Description>   </Description>           
                         myVFCAdapter.Description = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnDesc)].Value);
+
                       
-                        if (myVFCAdapter.SubType==Motor.M11)
-                        {
-                            
-                        }    
+                        ///<Panel_ID>   </Panel_ID>  
                         myVFCAdapter.Panel_ID= Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnCabinetGroup)].Value)+
                             Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnCabinet)].Value);
+                        ///<Elevation>   </Elevation>  
                         myVFCAdapter.Elevation= Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnFloor)].Value);
+                        ///<IOByteNo>   </IOByteNo> 
+                        string controlMethod = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnControlMethod)].Value);
+                     
+                        if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV320))
+                        {
+                            vfc.Name = BML.VFCAdapter.TypeEnmu.ATV320;                           
+                        }
+                        else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV930))
+                        {
+                            vfc.Name = BML.VFCAdapter.TypeEnmu.ATV930;
+                               
+                        }
+                        ///<ParSpeedLimitMin></ParSpeedLimitMin>
+                        myVFCAdapter.SpeedLimitMin = vfc.Par.SpeedLimitMin;
+                        ///<ParSpeedLimitMax></ParSpeedLimitMax>
+                        myVFCAdapter.SpeedLimitMax = vfc.Par.SpeedLimitMax;
+                        ///<ParSpeedMaxDigits></ParSpeedMaxDigits>
+                        myVFCAdapter.SpeedMaxDigits = myVFCAdapter.Description.Contains("磨粉机")?"1000":vfc.Par.SpeedMaxDigits;
+                        ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
+                        myVFCAdapter.SpeedUnitsByZeroDigits = vfc.Par.SpeedUnitsByZeroDigits;
+                        ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
+                        myVFCAdapter.SpeedUnitsByMaxDigits = vfc.Par.SpeedUnitsByMaxDigits;
+                        ///<ParUnitsPerDigits</ParUnitsPerDigits>
+                        myVFCAdapter.UnitsPerDigits = vfc.Par.UnitsPerDigits;
+                        ///<ParLenPKW</ParLenPKW>
+                        myVFCAdapter.LenPKW = vfc.Par.LenPKW;
+                        ///<ParLenPZD</ParLenPZD>
+                        myVFCAdapter.LenPZD = vfc.Par.LenPZD;
+                        ///<ParLenPZDInp</ParLenPZDInp>
+                        myVFCAdapter.LenPZDInp = vfc.Par.LenPZDInp;
 
+                        ioByteInc = Convert.ToInt32(vfc.Par.LenPZD);
+                        // myVFCAdapter.IoByteNo = Convert.ToString(ioByte + i * ioByteInc);
+                        myVFCAdapter.IoByteNo = Convert.ToString(nextIOByte);
+                        nextIOByte = nextIOByte + ioByteInc;
+                        ///<DPNode1>   </DPNode1>                         
+                        string dpNode1BML= Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnName)].Value);
+                        myVFCAdapter.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1BML);
+                        myVFCAdapter.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, int.Parse(myVFCAdapter.DPNode1));
+                        ///<CreateObject>   </CreateObject>
                         myVFCAdapter.CreateObject(Encoding.Unicode);
                         ProgressBar.Value = i;
                     }
+                    ProgressBar.Value = ProgressBar.Maximum;
                 }
                 
                 else if (createMode.Rule)
                 {
                     #region Parse rules
                     ///<ParseRule> </ParseRule>
-                    if (!AppGlobalSource.ParseInt(txtSymbolIncRule.Text, out tempInt))
+                    if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
                     {
                         if (moreThanOne)
                         {
-                            AppGlobalSource.MessageNotNumeric($"({GrpSymbolRule.Text}.{LblSymbolIncRule.Text})");
+                            AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{LblSymbolIncRule.Text})");
                             return;
                         }
                     }
                     ///<NameRule>生成名称规则</NameRule>
-                    name.PosInfo = LibGlobalSource.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
+                    name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
                     if (name.PosInfo.Len == -1)
                     {
                         if (moreThanOne)
                         {
-                            AppGlobalSource.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobalSource.MSG_CREATE_WILL_TERMINATE}");
+                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
                             return;
                         }
                     }
                     else
                     {
-                        name.Sub = LibGlobalSource.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
+                        name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
                     }
 
                     string selectedDPNode1Item = string.Empty;
                     if (ComboDPNode1.SelectedItem != null)
                     {
-                       
+                        needDPNodeChanged = true;
                         selectedDPNode1Item = ComboDPNode1.SelectedItem.ToString();
                     }
                     else
@@ -1839,16 +1696,16 @@ namespace GcproExtensionApp
                     }
                     if (needDPNodeChanged)
                     {
-                        dpNode1.PosInfo = LibGlobalSource.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
+                        dpNode1.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
                         if (dpNode1.PosInfo.Len == -1)
                         {
-                            AppGlobalSource.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobalSource.MSG_CREATE_WILL_TERMINATE}");
+                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
                             return;
                         }
                         else
                         {
                             dpNode1.Name = selectedDPNode1Item;
-                            dpNode1.Sub = LibGlobalSource.SplitStringWithRule(dpNode1.Name, txtSymbolRule.Text);
+                            dpNode1.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(dpNode1.Name, txtSymbolRule.Text);
                         }
                     }
                     else
@@ -1858,57 +1715,55 @@ namespace GcproExtensionApp
                     ///<DescRule>生成描述规则</DescRule>
                     if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
                     {
-                        description.PosInfo = LibGlobalSource.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
+                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
                         if (description.PosInfo.Len == -1)
                         {
                             if (moreThanOne)
                             {
-                                AppGlobalSource.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobalSource.MSG_CREATE_WILL_TERMINATE}");
+                                AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
                                 // return;
                             }
                         }
                         else
                         {
-                            description.Sub = LibGlobalSource.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
+                            description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
                         }
                     }
                     #endregion
 
-                    ProgressBar.Maximum = AppGlobalSource.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
+                    ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
                     ProgressBar.Value = 0;
                     ///<CreateObj>
                     ///Search IO key,DPNode
                     ///</CreateObj>
                     
                     int symbolInc, symbolRule, descriptionInc;
-                    tempBool = AppGlobalSource.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-                    tempBool = AppGlobalSource.ParseInt(txtSymbolRule.Text, out symbolRule);
-                    tempBool = AppGlobalSource.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+                    tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+                    tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+                    tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
                  
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
                         name.Inc = i * symbolInc;
-                        name.Name = LibGlobalSource.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
+                        name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                                       
                        
                         if (needDPNodeChanged && moreThanOne)
                         {
                             dpNode1.Inc = i * symbolInc;
-                            dpNode1.Name = LibGlobalSource.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                            myVFCAdapter.DPNode1 = AppGlobalSource.FindDPNodeNo(oledb, dpNode1.Name);
-
-                            int dpnode1 = int.Parse(myVFCAdapter.DPNode1);
-                            myVFCAdapter.FieldBusNode = AppGlobalSource.FindFieldbusNodeKey(oledb, dpnode1);
+                            dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
+                            myVFCAdapter.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
+                            myVFCAdapter.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, int.Parse(myVFCAdapter.DPNode1));
                         }
 
                         if (!String.IsNullOrEmpty(txtDescription.Text))
                         {
                             if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
-                                && AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobalSource.CheckNumericString(txtDescriptionIncRule.Text)
+                                && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                                 && (description.PosInfo.Len != -1))
                             {
                                 description.Inc = i * descriptionInc;
-                                description.Name = LibGlobalSource.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
+                                description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
                             }
                             else
                             {
@@ -1931,11 +1786,9 @@ namespace GcproExtensionApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show("创建对象过程出错:" + ex, AppGlobalSource.AppInfo.Title + ":" + AppGlobalSource.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
-
-      
     }  
 }

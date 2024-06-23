@@ -1,4 +1,4 @@
-﻿namespace GcproExtensionLibary.Gcpro.GCObject
+﻿namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     internal class Bin
     {

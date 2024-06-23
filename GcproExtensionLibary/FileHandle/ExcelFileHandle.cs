@@ -154,7 +154,7 @@ namespace GcproExtensionLibrary.FileHandle
                 throw new ArgumentException("Error reading file: " + ex.Message);
             }
         }
-        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string filter, string filterColumn, string filePath = null, string workSheetName = null)
+        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string filter, string filterColumn, string sortColumn = null, bool ascending = true,string filePath = null, string workSheetName = null)
         {
             try
             {
@@ -195,6 +195,18 @@ namespace GcproExtensionLibrary.FileHandle
                             dataRow[$"Column {i + 1}"] = worksheet.Cells[row, colIndex].Value;
                         }
                         dataTable.Rows.Add(dataRow);
+
+                        if (!string.IsNullOrEmpty(sortColumn))
+                        {
+                            int sortIndex = Array.IndexOf(columnsToRead, sortColumn);
+                            if (sortIndex != -1)
+                            {
+                                DataView dataView = dataTable.DefaultView;
+                                dataView.Sort = $"Column {sortIndex + 1} {(ascending ? "ASC" : "DESC")}";
+                                dataTable = dataView.ToTable();
+                            }
+                        }
+
                     }
                 }
                 return dataTable;
@@ -205,13 +217,12 @@ namespace GcproExtensionLibrary.FileHandle
             }
 
         }      
-        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string[] filter, string[] filterColumn, string filePath = null, string workSheetName = null)
+        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string[] filter, string[] filterColumn, string sortColumn = null, bool ascending = true,string filePath = null, string workSheetName = null)
         {
             try
             {
                 string effectiveWorksheetName = string.IsNullOrEmpty(workSheetName) ? this.workSheet : workSheetName;
                 string effectiveFilePath = string.IsNullOrEmpty(filePath) ? this.filePath : filePath;
-
                 FileInfo fileInfo = new FileInfo(effectiveFilePath);
                 DataTable dataTable = new DataTable();
 
@@ -225,19 +236,17 @@ namespace GcproExtensionLibrary.FileHandle
 
                     int rowCount = worksheet.Dimension?.Rows ?? 0;
                     int[] filterColumnIndexes = filterColumn.Select(ConvertColumnNameToNumber).ToArray();
-
-                    // 设置 DataTable 的列
+                   
                     for (int i = 0; i < columnsToRead.Length; i++)
                     {
                         dataTable.Columns.Add($"Column {i + 1}");
                     }
-
-                    // 用 LINQ 筛选符合条件的行
+                    
                     var filteredRows = Enumerable.Range(startRow, rowCount - startRow + 1)
                         .Select(row => new { RowIndex = row, FilterCells = filterColumnIndexes.Select(idx => worksheet.Cells[row, idx].Value).ToArray() })
                         .Where(x => FilterExpressions(x.FilterCells, filter));
 
-                    // 遍历筛选后的行并填充 DataTable
+                
                     foreach (var row in filteredRows)
                     {
                         DataRow dataRow = dataTable.NewRow();
@@ -248,6 +257,18 @@ namespace GcproExtensionLibrary.FileHandle
                         }
                         dataTable.Rows.Add(dataRow);
                     }
+                  
+                    if (!string.IsNullOrEmpty(sortColumn))
+                    {
+                        int sortIndex = Array.IndexOf(columnsToRead, sortColumn);
+                        if (sortIndex != -1)
+                        {
+                            DataView dataView = dataTable.DefaultView;
+                            dataView.Sort = $"Column {sortIndex + 1} {(ascending ? "ASC" : "DESC")}";
+                            dataTable = dataView.ToTable();
+                        }
+                    }
+
                 }
                 return dataTable;
             }
@@ -298,7 +319,7 @@ namespace GcproExtensionLibrary.FileHandle
         private List<string> FilterExpressionToTokens(string filter)
         {
             var tokens = new List<string>();
-            var tokenPattern = @"(\()|(\))|(\|\|)|(&&)|(!=)|(==)|(<)|(<=)|(>)|(>=)|(\w+)|(""[^""]*"")";
+            var tokenPattern = @"(\()|(\))|(\|\|)|(&&)|(!=)|(==)|(LIKE)|(<)|(<=)|(>)|(>=)|(\w+)|(""[^""]*"")";
             MatchCollection matches = Regex.Matches(filter, tokenPattern);
             foreach (Match match in matches)
             {
@@ -306,6 +327,7 @@ namespace GcproExtensionLibrary.FileHandle
             }
             return tokens;
         }
+
 
         // 递归地评估表达式
         private bool Evaluate(List<string> tokens, string cellValue)
@@ -377,7 +399,7 @@ namespace GcproExtensionLibrary.FileHandle
                 return EvaluateCondition(tokens, ref index, cellValue);
             }
         }
-       
+
         // 评估条件
         private bool EvaluateCondition(List<string> tokens, ref int index, string cellValue)
         {
@@ -402,10 +424,21 @@ namespace GcproExtensionLibrary.FileHandle
                     return string.Compare(cellValue, right) > 0;
                 case ">=":
                     return string.Compare(cellValue, right) >= 0;
+                case "LIKE":
+                    return Like(cellValue, right);
                 default:
                     throw new ArgumentException("Unsupported operator in filter expression: " + op);
             }
         }
+        private bool Like(string input, string pattern)
+        {
+            // 转换LIKE模式为正则表达式模式
+            string regexPattern = "^" + Regex.Escape(pattern)
+                                         .Replace("%", ".*")
+                                         .Replace("_", ".") + "$";
+            return Regex.IsMatch(input, regexPattern, RegexOptions.IgnoreCase);
+        }
+
         internal static int ConvertColumnNameToNumber(string columnName)
         {
             int columnNumber = 0;

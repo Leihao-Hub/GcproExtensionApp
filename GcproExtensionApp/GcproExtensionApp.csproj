@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>GcproExtensionApp</RootNamespace>
     <AssemblyName>GcproExtensionApp</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -50,13 +50,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutHelp.Designer.cs">
+      <DependentUpon>AboutHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="AppStart.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AppStart.Designer.cs">
       <DependentUpon>AppStart.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppGlobalSource.cs" />
+    <Compile Include="AppGlobal.cs" />
+    <Compile Include="EL\FormDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EL\FormDI.Designer.cs">
+      <DependentUpon>FormDI.cs</DependentUpon>
+    </Compile>
     <Compile Include="EL\FormMotor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +81,12 @@
     <Compile Include="EL\FormVFCAdapter.Designer.cs">
       <DependentUpon>FormVFCAdapter.cs</DependentUpon>
     </Compile>
+    <Compile Include="EL\FormVLS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EL\FormVLS.Designer.cs">
+      <DependentUpon>FormVLS.cs</DependentUpon>
+    </Compile>
     <Compile Include="ObjectBroswer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,16 +95,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AboutHelp.resx">
+      <DependentUpon>AboutHelp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AppStart.resx">
       <DependentUpon>AppStart.cs</DependentUpon>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppStart1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EL\FormDI.resx">
+      <DependentUpon>FormDI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EL\FormMotor.resx">
       <DependentUpon>FormMotor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EL\FormVFCAdapter.resx">
       <DependentUpon>FormVFCAdapter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EL\FormVLS.resx">
+      <DependentUpon>FormVLS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectBroswer.resx">
       <DependentUpon>ObjectBroswer.cs</DependentUpon>
@@ -116,6 +141,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Coorperatin2.ico" />
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\Excel.png" />
     <None Include="Resources\Excel.jpeg" />
     <None Include="Resources\Folder.ico" />
@@ -574,6 +602,9 @@
     <PackageReference Include="EPPlus">
       <Version>7.1.3</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

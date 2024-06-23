@@ -116,6 +116,11 @@
         /// Vertex
         /// </summary>
         Vertex = 3103,
+
+        /// <summary>
+        /// Project
+        /// </summary>
+        Project = 6000,
     }
 
     /// <summary>
@@ -160,6 +165,7 @@
         public string GcproGcsLibaryConnectionString;
         public string GcproProjectDBConnectionString;
         public string GcproTempPath;
+        public string ProjectType;
     }
 
 }

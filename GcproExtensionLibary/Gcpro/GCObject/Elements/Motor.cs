@@ -41,8 +41,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string fieldBusNode;
         private string panel_ID;
         private string diagram;
-
         private string page;
+
         private string inpFwd;
         private string outpFwd;
         private string inpRev;
@@ -62,7 +62,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string parSpeedService;
         private string unit;
 
-        #region Property:Gcpro motor data fields
+        #region Standard properties
         public override string Name
         {
             get { return name; }
@@ -78,7 +78,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return subType; }
             set { subType = value; }
         }
-
         public override string ProcessFct
         {
             get { return processFct; }
@@ -130,6 +129,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
+        #endregion
+
+        #region Application properties
         public override string DPNode2
         {
             get { return dpNode2; }
@@ -245,7 +247,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return isNew; }
             set { isNew = value; }
         }
+
+        public static string ImpExpRuleName { get; } = "ImpExpMotor";
+        public static int OTypeValue { get; } = (int)OTypeCollection.EL_Motor;
         #endregion
+
         public override string FilePath
         {
             get { return filePath; }
@@ -268,10 +274,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string M1VFC { get; } = "M1VFC";
         public static string M2VFC { get; } = "M2VFC";
         public static string M11ELV { get; } = "M11ELV";
-        public static string ImpExpRuleName { get; } = "ImpExpMotor";
-        public static int OTypeValue { get; } = (int)OTypeCollection.EL_Motor;
+    
         #endregion
-
         #region Readonly ptype property
         public static string P7031 { get; } = "7031";
         public static string P7032 { get; } = "7032";
@@ -373,7 +377,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.FilePath = this.filePath;
             isNew = "false";
             string stdString, appString;
-            stdString = (int)OType + LibGlobalSource.TAB +
+            stdString = OTypeValue + LibGlobalSource.TAB +
                 name + LibGlobalSource.TAB +
                 description + LibGlobalSource.TAB +
                 subType + LibGlobalSource.TAB +
@@ -432,11 +436,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);             
             }
         }
-        public void CreateRelation(string parent,string child,string filed,string filePath,Encoding encoding)
+        public void CreateRelation(string parent,string child,string connectedFiled, string filePath,Encoding encoding)
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = filePath;
-            string output = parent+LibGlobalSource.TAB+child+ LibGlobalSource.TAB+filed;
+            string output = parent+LibGlobalSource.TAB + child+LibGlobalSource.TAB + connectedFiled;
             textFileHandle.WriteToTextFile(output, encoding);
         }
         public void Clear()
@@ -482,17 +486,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             {
                 time = 8;
             }
-            else if (15.0 <= power && power < 18.5)
+            else if (15.0 <= power && power < 22.0)
             {
-                time = 12;
+                time = 10;
             }
-            else if (18.5 <= power && power < 22.0)
+            else if (22.0 <= power && power < 30.0)
             {
                 time = 15;
             }
-            else if (22.0 <= power && power < 37.0)
+            else if (30.0 <= power && power < 37.0)
             {
-                time = 20;
+                time = 19;
             }
             else if (37.0 <= power && power < 45.0)
             {
@@ -512,11 +516,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             }
             else
             {
-                time = 20;
+                time = 10;
             }
             return time;
         }
-
         public static int GetStartingTime(double power)
         {
             int time = 0;
@@ -532,17 +535,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             {
                 time = 8;
             }
-            else if (15.0 <= power && power < 18.5)
+            else if (15.0 <= power && power < 22.0)
             {
-                time = 12;
+                time = 10;
             }
-            else if (18.5 <= power && power < 22.0)
+            else if (22.0 <= power && power < 30.0)
             {
                 time = 15;
             }
-            else if (22.0 <= power && power < 37.0)
+            else if (30.0 <= power && power < 37.0)
             {
-                time = 20;
+                time = 19;
             }
             else if (37.0 <= power && power < 45.0)
             {
@@ -562,7 +565,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             }
             else
             {
-                time = 20;
+                time = 10;
             }
             return time;
         }

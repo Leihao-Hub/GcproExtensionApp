@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMotor));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,6 +48,9 @@ namespace GcproExtensionApp
             this.toolStripMenuReload = new System.Windows.Forms.ToolStripMenuItem();
             this.tabRule = new System.Windows.Forms.TabPage();
             this.PalGcObject = new System.Windows.Forms.Panel();
+            this.grpReference = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtDosingBin = new System.Windows.Forms.TextBox();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.chkOnlyFree = new System.Windows.Forms.CheckBox();
             this.LblSymbol = new System.Windows.Forms.Label();
@@ -145,8 +148,6 @@ namespace GcproExtensionApp
             this.grpBoxExcelData = new System.Windows.Forms.GroupBox();
             this.txtVFCPrefixBML = new System.Windows.Forms.TextBox();
             this.lblVFCPrefixBML = new System.Windows.Forms.Label();
-            this.comboStartRow = new System.Windows.Forms.ComboBox();
-            this.lblStartRow = new System.Windows.Forms.Label();
             this.btnReadBML = new System.Windows.Forms.Button();
             this.dataGridBML = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
@@ -155,6 +156,8 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum = new System.Windows.Forms.GroupBox();
             this.comboControlBML = new System.Windows.Forms.ComboBox();
             this.lblControlBML = new System.Windows.Forms.Label();
+            this.comboStartRow = new System.Windows.Forms.ComboBox();
+            this.lblStartRow = new System.Windows.Forms.Label();
             this.comboSectionBML = new System.Windows.Forms.ComboBox();
             this.comboPowerBML = new System.Windows.Forms.ComboBox();
             this.comboDescBML = new System.Windows.Forms.ComboBox();
@@ -194,14 +197,12 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
-            this.grpReference = new System.Windows.Forms.GroupBox();
-            this.txtDosingBin = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
             this.tabRule.SuspendLayout();
             this.PalGcObject.SuspendLayout();
+            this.grpReference.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.GrpDescriptionRule.SuspendLayout();
             this.GrpSymbolRule.SuspendLayout();
@@ -215,7 +216,6 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.SuspendLayout();
             this.GroupBoxSave.SuspendLayout();
             this.PalCommon.SuspendLayout();
-            this.grpReference.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -345,6 +345,7 @@ namespace GcproExtensionApp
             this.PalGcObject.AutoSize = true;
             this.PalGcObject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.PalGcObject.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.PalGcObject.Controls.Add(this.chkOnlyFree);
             this.PalGcObject.Controls.Add(this.grpReference);
             this.PalGcObject.Controls.Add(this.grpGeneral);
             this.PalGcObject.Controls.Add(this.BtnRegenerateDPNode);
@@ -387,9 +388,38 @@ namespace GcproExtensionApp
             this.PalGcObject.Size = new System.Drawing.Size(717, 547);
             this.PalGcObject.TabIndex = 105;
             // 
+            // grpReference
+            // 
+            this.grpReference.Controls.Add(this.label4);
+            this.grpReference.Controls.Add(this.txtDosingBin);
+            this.grpReference.Location = new System.Drawing.Point(459, 395);
+            this.grpReference.Name = "grpReference";
+            this.grpReference.Size = new System.Drawing.Size(121, 53);
+            this.grpReference.TabIndex = 62;
+            this.grpReference.TabStop = false;
+            this.grpReference.Text = "关联参考";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.TabIndex = 100;
+            this.label4.Text = "出仓";
+            // 
+            // txtDosingBin
+            // 
+            this.txtDosingBin.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDosingBin.Enabled = false;
+            this.txtDosingBin.Location = new System.Drawing.Point(63, 19);
+            this.txtDosingBin.Name = "txtDosingBin";
+            this.txtDosingBin.Size = new System.Drawing.Size(52, 13);
+            this.txtDosingBin.TabIndex = 60;
+            this.txtDosingBin.MouseEnter += new System.EventHandler(this.txtDosingBin_MouseEnter);
+            // 
             // grpGeneral
             // 
-            this.grpGeneral.Controls.Add(this.chkOnlyFree);
             this.grpGeneral.Controls.Add(this.LblSymbol);
             this.grpGeneral.Controls.Add(this.LblInpHWSuffix);
             this.grpGeneral.Controls.Add(this.LblInHwstop);
@@ -432,7 +462,7 @@ namespace GcproExtensionApp
             this.chkOnlyFree.AutoSize = true;
             this.chkOnlyFree.Checked = true;
             this.chkOnlyFree.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOnlyFree.Location = new System.Drawing.Point(587, 138);
+            this.chkOnlyFree.Location = new System.Drawing.Point(133, 260);
             this.chkOnlyFree.Name = "chkOnlyFree";
             this.chkOnlyFree.Size = new System.Drawing.Size(110, 17);
             this.chkOnlyFree.TabIndex = 62;
@@ -1378,8 +1408,6 @@ namespace GcproExtensionApp
             // 
             this.grpBoxExcelData.Controls.Add(this.txtVFCPrefixBML);
             this.grpBoxExcelData.Controls.Add(this.lblVFCPrefixBML);
-            this.grpBoxExcelData.Controls.Add(this.comboStartRow);
-            this.grpBoxExcelData.Controls.Add(this.lblStartRow);
             this.grpBoxExcelData.Controls.Add(this.btnReadBML);
             this.grpBoxExcelData.Controls.Add(this.dataGridBML);
             this.grpBoxExcelData.Controls.Add(this.label3);
@@ -1411,25 +1439,6 @@ namespace GcproExtensionApp
             this.lblVFCPrefixBML.TabIndex = 29;
             this.lblVFCPrefixBML.Text = "变频前缀";
             // 
-            // comboStartRow
-            // 
-            this.comboStartRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboStartRow.FormattingEnabled = true;
-            this.comboStartRow.IntegralHeight = false;
-            this.comboStartRow.Location = new System.Drawing.Point(405, 24);
-            this.comboStartRow.Name = "comboStartRow";
-            this.comboStartRow.Size = new System.Drawing.Size(66, 21);
-            this.comboStartRow.TabIndex = 28;
-            // 
-            // lblStartRow
-            // 
-            this.lblStartRow.AutoSize = true;
-            this.lblStartRow.Location = new System.Drawing.Point(364, 27);
-            this.lblStartRow.Name = "lblStartRow";
-            this.lblStartRow.Size = new System.Drawing.Size(43, 13);
-            this.lblStartRow.TabIndex = 28;
-            this.lblStartRow.Text = "起始行";
-            // 
             // btnReadBML
             // 
             this.btnReadBML.FlatAppearance.BorderColor = System.Drawing.SystemColors.MenuText;
@@ -1448,8 +1457,8 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1498,6 +1507,8 @@ namespace GcproExtensionApp
             // 
             this.grpBoxBMLColum.Controls.Add(this.comboControlBML);
             this.grpBoxBMLColum.Controls.Add(this.lblControlBML);
+            this.grpBoxBMLColum.Controls.Add(this.comboStartRow);
+            this.grpBoxBMLColum.Controls.Add(this.lblStartRow);
             this.grpBoxBMLColum.Controls.Add(this.comboSectionBML);
             this.grpBoxBMLColum.Controls.Add(this.comboPowerBML);
             this.grpBoxBMLColum.Controls.Add(this.comboDescBML);
@@ -1514,7 +1525,7 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.Controls.Add(this.lblBMLSymbol);
             this.grpBoxBMLColum.Location = new System.Drawing.Point(6, 40);
             this.grpBoxBMLColum.Name = "grpBoxBMLColum";
-            this.grpBoxBMLColum.Size = new System.Drawing.Size(582, 68);
+            this.grpBoxBMLColum.Size = new System.Drawing.Size(692, 68);
             this.grpBoxBMLColum.TabIndex = 16;
             this.grpBoxBMLColum.TabStop = false;
             this.grpBoxBMLColum.Text = "信息列";
@@ -1536,7 +1547,26 @@ namespace GcproExtensionApp
             this.lblControlBML.Name = "lblControlBML";
             this.lblControlBML.Size = new System.Drawing.Size(67, 13);
             this.lblControlBML.TabIndex = 28;
-            this.lblControlBML.Text = "控制类型：";
+            this.lblControlBML.Text = "控制方法：";
+            // 
+            // comboStartRow
+            // 
+            this.comboStartRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboStartRow.FormattingEnabled = true;
+            this.comboStartRow.IntegralHeight = false;
+            this.comboStartRow.Location = new System.Drawing.Point(620, 16);
+            this.comboStartRow.Name = "comboStartRow";
+            this.comboStartRow.Size = new System.Drawing.Size(66, 21);
+            this.comboStartRow.TabIndex = 28;
+            // 
+            // lblStartRow
+            // 
+            this.lblStartRow.AutoSize = true;
+            this.lblStartRow.Location = new System.Drawing.Point(579, 19);
+            this.lblStartRow.Name = "lblStartRow";
+            this.lblStartRow.Size = new System.Drawing.Size(43, 13);
+            this.lblStartRow.TabIndex = 28;
+            this.lblStartRow.Text = "起始行";
             // 
             // comboSectionBML
             // 
@@ -1960,36 +1990,6 @@ namespace GcproExtensionApp
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "页码";
             // 
-            // grpReference
-            // 
-            this.grpReference.Controls.Add(this.label4);
-            this.grpReference.Controls.Add(this.txtDosingBin);
-            this.grpReference.Location = new System.Drawing.Point(459, 395);
-            this.grpReference.Name = "grpReference";
-            this.grpReference.Size = new System.Drawing.Size(121, 53);
-            this.grpReference.TabIndex = 62;
-            this.grpReference.TabStop = false;
-            this.grpReference.Text = "关联参考";
-            // 
-            // txtDosingBin
-            // 
-            this.txtDosingBin.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDosingBin.Enabled = false;
-            this.txtDosingBin.Location = new System.Drawing.Point(63, 19);
-            this.txtDosingBin.Name = "txtDosingBin";
-            this.txtDosingBin.Size = new System.Drawing.Size(52, 13);
-            this.txtDosingBin.TabIndex = 60;
-            this.txtDosingBin.MouseEnter += new System.EventHandler(this.txtDosingBin_MouseEnter);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 19);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
-            this.label4.TabIndex = 100;
-            this.label4.Text = "出仓";
-            // 
             // FormMotor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2014,6 +2014,8 @@ namespace GcproExtensionApp
             this.tabRule.PerformLayout();
             this.PalGcObject.ResumeLayout(false);
             this.PalGcObject.PerformLayout();
+            this.grpReference.ResumeLayout(false);
+            this.grpReference.PerformLayout();
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
             this.GrpDescriptionRule.ResumeLayout(false);
@@ -2038,8 +2040,6 @@ namespace GcproExtensionApp
             this.GroupBoxSave.PerformLayout();
             this.PalCommon.ResumeLayout(false);
             this.PalCommon.PerformLayout();
-            this.grpReference.ResumeLayout(false);
-            this.grpReference.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
