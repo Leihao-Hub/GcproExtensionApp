@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml.Linq;
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class VFCAdapter : Element
+    public class VFCAdapter : Element, IGcpro
     {
         public struct VFCAdapterRule
         {
@@ -313,68 +313,69 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             Rule.slaveIndexInc = "1";
             Rule.ioByteInc= "12";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + ".Txt";
-            //this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + "_Relation.Txt";
-            //this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + "_FindConnector.Txt";
         }
         public VFCAdapter(string filePath = null) : this()
         {
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + ".Txt" : filePath + vfcFileName + ".Txt");
-
-            //this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-            //              LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + "_Relation.Txt" : filePath + vfcFileName + "_Relation.Txt");
-            //this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
-            //         LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + "_FindConnector.Txt" : filePath + vfcFileName + "_FindConnector.Txt");
         }
         public void CreateObject(Encoding encoding)
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
-            isNew = "false";
-            string stdString, appString;
-            stdString = OTypeValue + LibGlobalSource.TAB +
-                name + LibGlobalSource.TAB +
-                description + LibGlobalSource.TAB +
-                subType + LibGlobalSource.TAB +
-                processFct + LibGlobalSource.TAB +
-                building + LibGlobalSource.TAB +
-                elevation + LibGlobalSource.TAB +
-                fieldBusNode + LibGlobalSource.TAB +
-                panel_ID + LibGlobalSource.TAB +
-                diagram + LibGlobalSource.TAB +
-                page + LibGlobalSource.TAB;
+            isNew = "false";          
+            StringBuilder objFields = new StringBuilder();
 
+            ///<summary>
+            ///生产Standard字符串部分
+            ///</summary> 
+            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
+              .Append(name).Append(LibGlobalSource.TAB)
+              .Append(description).Append(LibGlobalSource.TAB)
+              .Append(subType).Append(LibGlobalSource.TAB)
+              .Append(processFct).Append(LibGlobalSource.TAB)
+              .Append(building).Append(LibGlobalSource.TAB)
+              .Append(elevation).Append(LibGlobalSource.TAB)
+              .Append(fieldBusNode).Append(LibGlobalSource.TAB)
+              .Append(panel_ID).Append(LibGlobalSource.TAB)
+              .Append(diagram).Append(LibGlobalSource.TAB)
+              .Append(page).Append(LibGlobalSource.TAB);
 
-            appString = dpNode1 + LibGlobalSource.TAB +               
-                value10 + LibGlobalSource.TAB +
-                speedLimitMin + LibGlobalSource.TAB +
-                speedLimitMax + LibGlobalSource.TAB +
-                speedMaxDigits + LibGlobalSource.TAB +
-                speedUnitsByZeroDigits + LibGlobalSource.TAB +
-                speedUnitsByMaxDigits + LibGlobalSource.TAB +
-                unitsPerDigits + LibGlobalSource.TAB +
-                ioByteNo + LibGlobalSource.TAB +
-                lenPKW + LibGlobalSource.TAB +
-                lenPZD + LibGlobalSource.TAB +
-                lenPZDInp + LibGlobalSource.TAB +
-                meagGateway + LibGlobalSource.TAB +
-                slaveIndex + LibGlobalSource.TAB +
-                outpHardwareStop + LibGlobalSource.TAB +
-                telegram1.ParPNO + LibGlobalSource.TAB +
-                telegram1.ParUnitsPerDigit + LibGlobalSource.TAB +
-                telegram2.ParPNO + LibGlobalSource.TAB +
-                telegram2.ParUnitsPerDigit + LibGlobalSource.TAB +
-                telegram3.ParPNO + LibGlobalSource.TAB +
-                telegram3.ParUnitsPerDigit + LibGlobalSource.TAB +
-                telegram4.ParPNO + LibGlobalSource.TAB +
-                telegram4.ParUnitsPerDigit + LibGlobalSource.TAB +
-                telegram5.ParPNO + LibGlobalSource.TAB +
-                telegram5.ParUnitsPerDigit + LibGlobalSource.TAB +
-                refCurrent+ LibGlobalSource.TAB +
-                refTorque+ LibGlobalSource.TAB +
-                refPower + LibGlobalSource.TAB +
-                isNew;
-            textFileHandle.WriteToTextFile(stdString + appString, encoding);
+            ///<summary>
+            ///生成Application 字符串部分
+            ///</summary>   
+            objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
+              .Append(value10).Append(LibGlobalSource.TAB)
+              .Append(speedLimitMin).Append(LibGlobalSource.TAB)
+              .Append(speedLimitMax).Append(LibGlobalSource.TAB)
+              .Append(speedMaxDigits).Append(LibGlobalSource.TAB)
+              .Append(speedUnitsByZeroDigits).Append(LibGlobalSource.TAB)
+              .Append(speedUnitsByMaxDigits).Append(LibGlobalSource.TAB)
+              .Append(unitsPerDigits).Append(LibGlobalSource.TAB)
+              .Append(ioByteNo).Append(LibGlobalSource.TAB)
+              .Append(lenPKW).Append(LibGlobalSource.TAB)
+              .Append(lenPZD).Append(LibGlobalSource.TAB)
+              .Append(lenPZDInp).Append(LibGlobalSource.TAB)
+              .Append(meagGateway).Append(LibGlobalSource.TAB)
+              .Append(slaveIndex).Append(LibGlobalSource.TAB)
+              .Append(outpHardwareStop).Append(LibGlobalSource.TAB)
+              .Append(telegram1.ParPNO).Append(LibGlobalSource.TAB)
+              .Append(telegram1.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
+              .Append(telegram2.ParPNO).Append(LibGlobalSource.TAB)
+              .Append(telegram2.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
+              .Append(telegram3.ParPNO).Append(LibGlobalSource.TAB)
+              .Append(telegram3.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
+              .Append(telegram4.ParPNO).Append(LibGlobalSource.TAB)
+              .Append(telegram4.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
+              .Append(telegram5.ParPNO).Append(LibGlobalSource.TAB)
+              .Append(telegram5.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
+              .Append(refCurrent).Append(LibGlobalSource.TAB)
+              .Append(refTorque).Append(LibGlobalSource.TAB)
+              .Append(refPower).Append(LibGlobalSource.TAB)
+              .Append(isNew);
+
+            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+            objFields = null;
         }
         public void Clear()
         {

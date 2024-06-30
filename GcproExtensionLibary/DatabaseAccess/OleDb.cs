@@ -1,4 +1,5 @@
 ﻿using GcproExtensionLibary;
+using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -47,8 +48,18 @@ namespace GcproExtensionLibrary
             this.isNewOLEDBDriver = newOledbDriver;
         }
         #region Query method
+        /// <summary>
+        /// 多字段读取
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="whereClause"></param>
+        /// <param name="parameters"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="fields"></param>
+        /// <returns>DataTable</returns>
+        /// <exception cref="ArgumentException"></exception>
         public DataTable QueryDataTable(string tableName, string whereClause, IDictionary<string, object> parameters, string sortBy, params string[] fields)
-        {              
+        {
             if (string.IsNullOrWhiteSpace(tableName) || fields.Length == 0)
             {
                 throw new ArgumentException(LibGlobalSource.EMPTY_TABLENAME_OR_FIELDNAME);
@@ -92,6 +103,17 @@ namespace GcproExtensionLibrary
             }
             return results;
         }
+        /// <summary>
+        /// 多字段读取,嵌套查询
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="whereClause"></param>
+        /// <param name="parameters"></param>
+        /// <param name="sortBy"></param>
+        /// <param name="subQuery"></param>
+        /// <param name="fields"></param>
+        /// <returns>DataTable</returns>
+        /// <exception cref="ArgumentException"></exception>
         public DataTable NestQueryDataTable(string tableName, string whereClause, IDictionary<string, object> parameters, string sortBy, string subQuery = null, params string[] fields)
         {
             if (string.IsNullOrWhiteSpace(tableName) || fields.Length == 0)
@@ -102,13 +124,11 @@ namespace GcproExtensionLibrary
             connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
                          $"Data Source={dataSource}";
 
-    
-
             if (!string.IsNullOrWhiteSpace(subQuery))
             {
-                whereClause= $"{whereClause} ({subQuery})";
+                whereClause = $"{whereClause} ({subQuery})";
             }
-        
+
             string fieldList = string.Join(", ", fields);
             string query = $"SELECT {fieldList} " +
                            $"FROM {tableName} " +
@@ -168,7 +188,8 @@ namespace GcproExtensionLibrary
             string columnNames = string.Join(", ", parameters.Select(p => $"[{p.Name}]"));
             string valueParameters = string.Join(", ", parameters.Select(p => "?"));
 
-            string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({valueParameters})";
+            string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) " +
+                $"VALUES ({valueParameters})";
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -239,7 +260,7 @@ namespace GcproExtensionLibrary
                         try
                         {
                             Console.WriteLine(ex.Message);
-                            transaction.Rollback(); 
+                            transaction.Rollback();
                         }
                         catch
                         {
@@ -302,10 +323,10 @@ namespace GcproExtensionLibrary
                         {
                             string deleteQuery = $"DELETE FROM [{tableName}] WHERE {whereClause}";
                             command.CommandText = deleteQuery;
-                            command.ExecuteNonQuery(); 
+                            command.ExecuteNonQuery();
                         }
 
-                        transaction.Commit(); 
+                        transaction.Commit();
                         return true;
                     }
                     catch (Exception ex)
@@ -313,7 +334,7 @@ namespace GcproExtensionLibrary
                         Console.WriteLine(ex.Message);
                         try
                         {
-                            transaction.Rollback(); 
+                            transaction.Rollback();
                         }
                         catch (Exception rollbackEx)
                         {
@@ -324,19 +345,30 @@ namespace GcproExtensionLibrary
                 }
             }
         }
-            #endregion
+        #endregion
         #region Update method
-            public bool UpdateRecord(string tableName, List<Gcpro.DbParameter> parameters, string whereClause)
+        /// <summary>
+        /// 根据条件执行一次性执行一次更新满足条件的多个字段值
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="parameters"></param>
+        /// <param name="whereClause"></param>
+        /// <returns></returns>
+        public bool UpdateRecord(string tableName, List<Gcpro.DbParameter> parameters, string whereClause)
+
         {
             connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
                         $"Data Source={dataSource}";
             var setClauseParts = new List<string>();
             foreach (var param in parameters)
             {
-                setClauseParts.Add($"[{param.Name}] = ?");  
+                setClauseParts.Add($"[{param.Name}] = ?");
             }
             var setClause = string.Join(", ", setClauseParts);
-            string updateQuery = $"UPDATE [{tableName}] SET {setClause} WHERE {whereClause}";
+            string updateQuery =
+                $"UPDATE [{tableName}] " +
+                $"SET {setClause} " +
+                $"WHERE {whereClause}";
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 try
@@ -347,7 +379,7 @@ namespace GcproExtensionLibrary
                     {
                         command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
                     }
-                    int affectedRows = command.ExecuteNonQuery();  
+                    int affectedRows = command.ExecuteNonQuery();
                     return affectedRows > 0;
                 }
                 catch (Exception ex)
@@ -357,6 +389,56 @@ namespace GcproExtensionLibrary
                 }
             }
         }
+        /// <summary>
+        /// 带嵌套查询的更新字段
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="parameters"></param>
+        /// <param name="whereClause"></param>
+        /// <param name="subTableName"></param>
+        /// <param name="subTableCondition"></param>
+        /// <returns></returns>
+        public bool UpdateRecordWithSubQuery(string tableName, List<Gcpro.DbParameter> parameters, string whereClause, string subQuery = null)
+        {
+            connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
+                $"Data Source={dataSource}";
+
+            var setClauseParts = new List<string>();
+            foreach (var param in parameters)
+            {
+                setClauseParts.Add($"[{param.Name}] = ?");
+            }
+            var setClause = string.Join(", ", setClauseParts);
+            string updateQuery = $@"UPDATE [{tableName}] AS MainTable SET {setClause} WHERE {whereClause} " +
+                                 $"{(string.IsNullOrWhiteSpace(subQuery) ? "" : $"AND EXISTS ({subQuery})")}";
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    OleDbCommand command = new OleDbCommand(updateQuery, connection);
+                    foreach (Gcpro.DbParameter param in parameters)
+                    {
+                        command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                    }
+                    int affectedRows = command.ExecuteNonQuery();
+                    return affectedRows > 0;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
+        }
+        /// <summary>
+        /// 根据条件执行,一次性执行多个更新满足条件的多个字段值
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="listOfParameterList"></param>
+        /// <param name="whereClause"></param>
+        /// <returns></returns>
         public bool UpdateMultipleRecords(string tableName, List<List<Gcpro.DbParameter>> listOfParameterList, string whereClause)
         {
             connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
@@ -374,11 +456,13 @@ namespace GcproExtensionLibrary
                             var setClauseParts = new List<string>();
                             foreach (var param in parameters)
                             {
-                                setClauseParts.Add($"[{param.Name}] = ?"); 
+                                setClauseParts.Add($"[{param.Name}] = ?");
                             }
                             var setClause = string.Join(", ", setClauseParts);
 
-                            string updateQuery = $"UPDATE [{tableName}] SET {setClause} WHERE {whereClause}";
+                            string updateQuery = $"UPDATE [{tableName}] " +
+                                $"SET {setClause}" +
+                                $" WHERE {whereClause}";
 
                             using (OleDbCommand command = new OleDbCommand(updateQuery, connection, transaction))
                             {
@@ -387,16 +471,16 @@ namespace GcproExtensionLibrary
                                     command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
                                 }
 
-                                command.ExecuteNonQuery(); 
+                                command.ExecuteNonQuery();
                             }
                         }
-                        transaction.Commit(); 
+                        transaction.Commit();
                         return true;
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback(); 
-                        Console.WriteLine(ex.Message); 
+                        transaction.Rollback();
+                        Console.WriteLine(ex.Message);
                         return false;
                     }
                 }

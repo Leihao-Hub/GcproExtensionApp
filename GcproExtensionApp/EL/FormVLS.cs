@@ -186,7 +186,7 @@ namespace GcproExtensionApp
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{VLS.ImpExpRuleName}'", null);
-                    CreateMotorImpExp(oledb);
+                    CreateVLSImpExp(oledb);
                 }
                 else
                 { 
@@ -195,7 +195,7 @@ namespace GcproExtensionApp
             }
             else
             { 
-                CreateMotorImpExp(oledb); 
+                CreateVLSImpExp(oledb); 
             }
 
         }
@@ -211,8 +211,7 @@ namespace GcproExtensionApp
             txtInpRunFwdSuffix.Text = BML.VLS.SuffixInpRunFwd;
             txtInpRunRevSuffix.Text = BML.VLS.SuffixInpRunRev;
             txtInpRunFwd.Text = txtSymbol.Text + txtInpLNSuffix.Text;
-           
-            
+                   
             txtSymbolIncRule.Text = "1";
             txtDescriptionIncRule.Text = "1";
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
@@ -241,7 +240,7 @@ namespace GcproExtensionApp
                 comboFloorBML.SelectedItem = "L";             
                 comboCabinetBML.SelectedItem = "P";
                 comboSectionBML.SelectedItem = "Q";
-                comboIORemarkBML.SelectedItem = "S";
+                comboIORemarkBML.SelectedItem = "R";
 
             }
             for (int i = 1; i <= 20; i++)
@@ -259,7 +258,7 @@ namespace GcproExtensionApp
 
         #endregion
 
-        private void CreateMotorImpExp(OleDb oledb)
+        private void CreateVLSImpExp(OleDb oledb)
         {
 
             List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
@@ -966,6 +965,7 @@ namespace GcproExtensionApp
 
                 myVLS.SubType= selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 NameSubElements(namePrefix);
+                SubtypeChanged();
             }  
             try
             {
@@ -1027,7 +1027,6 @@ namespace GcproExtensionApp
             { MessageBox.Show(ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
         #endregion
-
         #region <---BML part--->
         private void txtVLSSuffixBML_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1044,8 +1043,8 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtLocalPanelPrefix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.VLS.Prefix.LocalPanel", newJsonKeyValue);
-                BML.VLS.PrefixLocalPanel = newJsonKeyValue;
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.Prefix.LocalPanel", newJsonKeyValue);
+                BML.PrefixLocalPanel = newJsonKeyValue;
             }
         }
         private void AddWorkSheets()
@@ -1140,6 +1139,7 @@ namespace GcproExtensionApp
             ioRemarkColumn.HeaderText = BML.VLS.ColumnIORemark;
             ioRemarkColumn.Name = nameof(BML.VLS.ColumnIORemark);
             dataGridBML.Columns.Add(ioRemarkColumn);
+           
         }
 
         private void btnReadBML_Click(object sender, EventArgs e)
@@ -1148,7 +1148,8 @@ namespace GcproExtensionApp
                 comboCabinetBML.Text ,comboSectionBML.Text,comboIORemarkBML.Text};
             DataTable dataTable = new DataTable();
             string[] filters = { $@"Value LIKE ""{BML.VLS.ManualFlap}"" || Value LIKE ""{BML.VLS.PneFlap}"" || Value LIKE ""{BML.VLS.PneTwoWayValve}"" ||
-             Value LIKE ""%{BML.VLS.PneSlideGate}"" || Value LIKE ""%{BML.VLS.ManualSlideGate}"" || Value LIKE ""%{BML.VLS.PneShutOffValve}""" };
+             Value LIKE ""%{BML.VLS.PneSlideGate}"" || Value LIKE ""%{BML.VLS.ManualSlideGate}"" || Value LIKE ""%{BML.VLS.PneShutOffValve}""
+             || Value LIKE ""%{BML.VLS.PneAspValve}""" };
             string[] filterColumns = {  comboDescBML.Text };
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
 
@@ -1168,6 +1169,29 @@ namespace GcproExtensionApp
         #endregion
         #region Common used
         #region Genate elements name
+
+        private void SubtypeChanged()
+        {
+            if (myVLS.SubType==VLS.VMF)
+            {
+                chkContValve.Checked = false;
+                chkPulseValve.Checked = false;
+                chkManualFlap.Checked = true;
+            }
+            else if (myVLS.SubType == VLS.VCO)
+            {
+                chkContValve.Checked = true;
+                chkPulseValve.Checked = false;
+                chkManualFlap.Checked = false;
+            }
+            else if (myVLS.SubType == VLS.VPO || myVLS.SubType == VLS.VPOM || myVLS.SubType == VLS.VPOR)
+            {
+                chkContValve.Checked = false;
+                chkPulseValve.Checked = true;
+                chkManualFlap.Checked = false;
+            }
+
+        }
         private void NamePrefix()
         {
             namePrefix = txtSymbol.Text.Substring(0, txtSymbol.Text.IndexOf(txtSymbolRule.Text)) + txtSymbolRule.Text + "-";
@@ -1272,7 +1296,7 @@ namespace GcproExtensionApp
                 createMode.AutoSearch = false;
                 tabCreateMode.SelectedTab = tabBML;
                 txtVLSSuffixBML.Text = BML.VLS.SuffixVLS;
-                txtLocalPanelPrefix.Text = BML.VLS.PrefixLocalPanel;
+                txtLocalPanelPrefix.Text = BML.PrefixLocalPanel;
             }
 
         }
@@ -1448,35 +1472,7 @@ namespace GcproExtensionApp
                                 myVLS.CreateRelation(objName, InHWStop, GcproTable.ObjData.Value47.Name, myVLS.FileConnectorPath, Encoding.Unicode);
                             }
                         }
-                        //if (!String.IsNullOrEmpty(txtPowerApp.Text))
-                        //{
-                        //    if (all)
-                        //    {
-                        //        string powerApp= objName + txtPowerAppSuffix.Text; ;
-                        //        myVLS.CreateRelation(objName, powerApp, GcproTable.ObjData.Value50.Name, myVLS.FileConnectorPath, Encoding.Unicode);
-                        //    }
-                        //    else
-                        //    {
-                        //        double connectorKey = dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value50.Name);
-                        //        if (connectorKey != 0)
-                        //        {
-                        //            DataTable connectorTable = new DataTable();
-                        //            connectorTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={connectorKey}", null,
-                        //            null, GcproTable.ObjData.Value11.Name);
-                        //            if (connectorTable != null)
-                        //            {
-                        //                double connector = connectorTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name);
-                        //                if (connector == LibGlobalSource.NO_PARENT)
-                        //                {
-                        //                    string powerApp = objName + txtPowerAppSuffix.Text;
-                        //                    myVLS.CreateRelation(objName, powerApp, GcproTable.ObjData.Value50.Name, myVLS.FileConnectorPath, Encoding.Unicode);
-                        //                }
-                        //            }
-                        //            connectorTable.Rows.Clear();
-                        //        }                                  
-                        //    }                           
-                        //}
-                       
+                                  
                         ProgressBar.Value=count;
                     }
                     myVLS.SaveFileAs(myVLS.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
@@ -1634,15 +1630,15 @@ namespace GcproExtensionApp
                 ///<InpRunRev></InpRunRev>
                 myVLS.InpRunRev = LibGlobalSource.NOCHILD;
                 ///<InHWStop></InHWStop>
-                myVLS.HwStop = LibGlobalSource.NOCHILD;
+                myVLS.HwStop = string.Empty;
                 ///<RefRcvLN></RefRcvLN>
-                myVLS.RefRcvLN = LibGlobalSource.NOCHILD;
+                myVLS.RefRcvLN = string.Empty;
                 ///<RefRcvHN></RefRcvHN>
-                myVLS.RefRcvHN = LibGlobalSource.NOCHILD;
+                myVLS.RefRcvHN = string.Empty;
                 ///<RefSndBin></RefSndBin>
-                myVLS.RefSndBin = LibGlobalSource.NOCHILD;
+                myVLS.RefSndBin = string.Empty;
                 ///<RefAsp></RefAsp>
-                myVLS.RefAsp = LibGlobalSource.NOCHILD;
+                myVLS.RefAsp = string.Empty;
                 #endregion
                 if (createMode.BML)
                 {
@@ -1650,16 +1646,21 @@ namespace GcproExtensionApp
                     int noOfSubIO = 0;
                     int IO = dataGridBML.Rows.Count;
                     bool[] objChecked=new bool[dataGridBML.Rows.Count];
-                    string vlsSubtype;
+                    //string[] ioRemarksRule;
+                    //ioRemarksRule=LibGlobalSource.StringHelper.SplitStringWithRule(BML.VLS.IORemarkString, ",");
+                    string vlsDesc=string.Empty;
+                    string vlsType = string.Empty;
                     string vlsCabniet=string.Empty;
                     string vlsCabnietGroup = string.Empty;
-                    string vlsElevation=string.Empty;   
+                    string vlsIORemark= string.Empty;
+                    string vlsElevation=string.Empty;
+                    string vlsRcvLN, vlsRcvHN, vlsAsp, vlsSndBin;
+                    vlsRcvLN = vlsRcvHN = vlsAsp = vlsSndBin = string.Empty;
                     DataGridViewCell cell;
                     //DataGridViewCell cell;
-                    listBMLName = LibGlobalSource.BMLHelper.ExtractUniqueCommonSubstringsWithCount(dataGridBML, nameof(BML.VLS.ColumnName));  
+                    listBMLName = LibGlobalSource.BMLHelper.ExtractUniqueCommonSubstringsWithCount(dataGridBML, nameof(BML.VLS.ColumnName),8);  
                     ProgressBar.Maximum = quantityNeedToBeCreate - 1;
-                    ProgressBar.Value = 0;
-                                   
+                    ProgressBar.Value = 0;                                  
                     for (int i = 0; i < quantityNeedToBeCreate; i++)
                     {
                         commName = Convert.ToString(listBMLName[i].Key.ToString());
@@ -1678,18 +1679,27 @@ namespace GcproExtensionApp
                             if (noOfSubChecked>= noOfSubIO)
                             { break; }
                             cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnName)];
-                            if(Convert.ToString(cell.Value).StartsWith(commName))
+                            string bmlObjName = Convert.ToString(cell.Value);
+                            if (bmlObjName.StartsWith(commName))
                             {
                                 noOfSubChecked += 1;
                                 objChecked[row] = true;
                                 cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnDesc)];
-                                vlsSubtype = Convert.ToString(cell.Value);
-                                if (vlsSubtype.Equals(BML.VLS.ManualFlap))
+                                vlsType = Convert.ToString(cell.Value);
+                                vlsDesc = Convert.ToString(cell.Value);
+                                ///<Summary>
+                                ///Select Subtype
+                                ///Select PType
+                                ///</Summary>
+                                if (vlsType.Equals(BML.VLS.ManualFlap))
                                 {
                                     myVLS.SubType = VLS.VMF;
                                     myVLS.PType = VLS.P7082;
+                                    chkContValve.Checked=false;
+                                    chkPulseValve.Checked=false;    
+                                    chkManualFlap.Checked=true;
                                 }
-                                else if(vlsSubtype.Equals(BML.VLS.PneFlap))
+                                else if (vlsType.Equals(BML.VLS.PneFlap))
                                 {
                                     switch (noOfSubIO)
                                     {
@@ -1705,12 +1715,12 @@ namespace GcproExtensionApp
                                     }
                                     myVLS.PType = VLS.P7082;
                                 }
-                                else if (vlsSubtype.Equals(BML.VLS.ManualSlideGate))
+                                else if (vlsType.Equals(BML.VLS.ManualSlideGate))
                                 {
                                     myVLS.SubType = VLS.VMF;
                                     myVLS.PType = VLS.P7081;
                                 }
-                                else if (vlsSubtype.Equals(BML.VLS.PneSlideGate))
+                                else if (vlsType.Equals(BML.VLS.PneSlideGate))
                                 {
                                     switch (noOfSubIO)
                                     {
@@ -1726,7 +1736,7 @@ namespace GcproExtensionApp
                                     }
                                     myVLS.PType = VLS.P7081;
                                 }
-                                else if (vlsSubtype.Equals(BML.VLS.PneTwoWayValve))
+                                else if (vlsType.Equals(BML.VLS.PneTwoWayValve))
                                 {
                                     switch (noOfSubIO)
                                     {
@@ -1742,7 +1752,7 @@ namespace GcproExtensionApp
                                     }
                                     myVLS.PType = VLS.P7082;
                                 }
-                                else if (vlsSubtype.Equals(BML.VLS.PneShutOffValve))
+                                else if (vlsType.Equals(BML.VLS.PneShutOffValve))
                                 {
                                     switch (noOfSubIO)
                                     {
@@ -1758,6 +1768,22 @@ namespace GcproExtensionApp
                                     }
                                         myVLS.PType = VLS.P7081;
                                 }
+                                else if (vlsType.Equals(BML.VLS.PneAspValve))
+                                {
+                                    switch (noOfSubIO)
+                                    {
+                                        case 3:
+                                            myVLS.SubType = VLS.VCO;
+                                            break;
+                                        case 4:
+                                            myVLS.SubType = VLS.VPO;
+                                            break;
+                                        default:
+                                            myVLS.SubType = VLS.VCO;
+                                            break;
+                                    }
+                                    myVLS.PType = VLS.P7081;
+                                }
                                 if  (noOfSubChecked==1)
                                 {
                                     cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnCabinet)];
@@ -1767,18 +1793,44 @@ namespace GcproExtensionApp
                                     cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnFloor)];
                                     vlsElevation = Convert.ToString(cell.Value);
                                 }
+                                string bmlObjNameSuffix = bmlObjName.Replace(commName, "");
+                                if (bmlObjNameSuffix.Equals(BML.VLS.SuffixOutpLN.Replace(":O",""),StringComparison.InvariantCultureIgnoreCase)
+                                    || bmlObjNameSuffix.Equals(BML.VLS.SuffixInpLN.Replace(":I", ""), StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnIORemark)];
+                                    vlsIORemark = Convert.ToString(cell.Value);
+                                    if (!string.IsNullOrEmpty(vlsIORemark))
+                                    {
+                                        vlsRcvLN = BML.VLS.ParseIORemark(vlsIORemark);
+                                    }
+                                }
+                                else if (bmlObjNameSuffix.Equals(BML.VLS.SuffixOutpHN.Replace(":O", ""), StringComparison.InvariantCultureIgnoreCase)
+                                    || bmlObjNameSuffix.Equals(BML.VLS.SuffixInpHN.Replace(":I", ""), StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnIORemark)];
+                                    vlsIORemark = Convert.ToString(cell.Value);
+                                    if (!string.IsNullOrEmpty(vlsIORemark))
+                                    {
+                                        vlsRcvHN = BML.VLS.ParseIORemark(vlsIORemark);
+                                    }
+                                }
                             }        
                         }                  
                         NameSubElements(commName);
+                        SubtypeChanged();
                         myVLS.InpLN =String.IsNullOrEmpty(TxtInpLN.Text)?LibGlobalSource.NOCHILD: TxtInpLN.Text;
                         myVLS.OutpLN = String.IsNullOrEmpty(TxtOutpLN.Text) ? LibGlobalSource.NOCHILD : TxtOutpLN.Text;
                         myVLS.InpHN = String.IsNullOrEmpty(TxtInpHN.Text) ? LibGlobalSource.NOCHILD : TxtInpHN.Text;
                         myVLS.OutpHN = String.IsNullOrEmpty(TxtOutpHN.Text) ? LibGlobalSource.NOCHILD : TxtOutpHN.Text;
                         myVLS.InpRunRev = String.IsNullOrEmpty(txtInpRunRev.Text) ? LibGlobalSource.NOCHILD : txtInpRunRev.Text;
                         myVLS.InpRunFwd = String.IsNullOrEmpty(txtInpRunFwd.Text) ? LibGlobalSource.NOCHILD : txtInpRunFwd.Text;
-                        myVLS.Description = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VLS.ColumnDesc)].Value);
-                        myVLS.Panel_ID = vlsCabniet.StartsWith(BML.VLS.PrefixLocalPanel) ? vlsCabniet : vlsCabnietGroup + vlsCabniet;
+                        myVLS.Description = vlsDesc;
+                        myVLS.Panel_ID = vlsCabniet.StartsWith(BML.PrefixLocalPanel) ? vlsCabniet : vlsCabnietGroup + vlsCabniet;
                         myVLS.Elevation= vlsElevation;
+                        myVLS.RefRcvLN = vlsRcvLN;
+                        myVLS.RefRcvHN = vlsRcvHN;
+                        myVLS.RefAsp = vlsAsp;
+                        myVLS.RefSndBin = vlsSndBin;
                         myVLS.CreateObject(Encoding.Unicode);
                         ProgressBar.Value = i;
                     }

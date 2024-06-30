@@ -13,6 +13,10 @@ using Newtonsoft.Json.Linq;
 using static GcproExtensionLibrary.LibGlobalSource;
 using System.Linq;
 using static OfficeOpenXml.ExcelErrorValue;
+using System.Drawing;
+using System.Data.SqlTypes;
+using System.Text.RegularExpressions;
+using System.Reflection;
 #endregion
 namespace GcproExtensionApp
 {
@@ -65,7 +69,7 @@ namespace GcproExtensionApp
 
         public static bool NewOLEDBDriver;
         public static GcproDataBase GcproDBInfo;
-
+        public static string BinPrefix=BML.BinPrefix;
         static AppGlobal()
         {
 
@@ -109,21 +113,17 @@ namespace GcproExtensionApp
         {
             MessageBox.Show(AppGlobal.MSG_RULE_NOT_CORRECT + addition, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
-
-        public static bool CheckNumericString(string sourceString)
+        public static bool CheckNumericString(string input)
         {
-            // 直接尝试解析字符串，如果有异常在调用处抛出 out _表示不必关注参数
-            if (!string.IsNullOrEmpty(sourceString))
+            Regex numberCheck = new Regex(@"^[+-]?\d+(\.\d+)?$");
+            if (numberCheck.IsMatch(input))
             {
-                bool isInt = int.TryParse(sourceString, out _);
-                bool isLong = long.TryParse(sourceString, out _);
-                bool isFloat = float.TryParse(sourceString, out _);
-                return isInt || isLong || isFloat;
+                return true;
             }
             else
+            {
                 return false;
-
+            }
         }
         public static bool ParseInt(string sourceString, out int outValue)
         {
@@ -132,7 +132,6 @@ namespace GcproExtensionApp
             outValue = tempInt;
             return isInt;
         }
-
         public static bool ParseLong(string sourceString, out long outValue)
         {
             long tempLong;
@@ -140,7 +139,6 @@ namespace GcproExtensionApp
             outValue = tempLong;
             return isLong;
         }
-
         public static bool ParseFloat(string sourceString, out float outValue)
         {
             float tempFloat;
@@ -148,6 +146,50 @@ namespace GcproExtensionApp
             outValue = tempFloat;
             return isFloat;
         }
+
+        /// <summary>
+        /// 获取枚举类型成员个数
+        /// </summary>
+        /// <returns>整形</returns>
+        public static int GetEnumMemberCount<T>(this T enumType) where T : Enum
+        {
+            return Enum.GetValues(typeof(T)).Length;
+        }
+        /// <summary>
+        /// 获取枚举类型成员值
+        /// </summary>
+        /// <returns>
+        /// <return>Array of Enum</return>
+        /// <TypeConvert>比如(int).returns[]得到相应的数值</TypeConvert>
+        /// </returns>
+        public static T[] GetEnumValues<T>() where T : Enum
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
+        }
+        /// <summary>
+        /// 获取指定类型的所有属性名称
+        /// </summary>
+        /// <param name="type">类型</param>
+        /// <param name="includeNonPublic">是否包含非公共属性</param>
+        /// <returns>属性名称列表</returns>
+        public static List<string> GetPropertyNames(Type type, bool includeNonPublic = false)
+        {
+            var propertyNames = new List<string>();
+            BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Static;
+
+            if (includeNonPublic)
+            {
+                bindingFlags |= BindingFlags.NonPublic;
+            }
+
+            foreach (var property in type.GetProperties(bindingFlags))
+            {
+                propertyNames.Add(property.Name);
+            }
+
+            return propertyNames;
+        }
+
         #region Find info form database when create object
         public static string FindIOKey(OleDb dataSource, string objIOName)
         {
@@ -286,8 +328,6 @@ namespace GcproExtensionApp
         #endregion
     }
 
-
-
     #region BML
     public class VFCAdapterParameters
     {
@@ -307,21 +347,246 @@ namespace GcproExtensionApp
     }
     public static class BML
     {
-   
+        private static string prefixLocalPanel;
+        private static string binPrefix;
+        static BML()
+        {
+            try
+            {
+                string[] keysToRead = new string[]
+                {
+                "GcObject.Bin.Prefix",
+                "BML.Prefix.LocalPanel",
+                };
+                Dictionary<string, string> keyValueRead;
+                keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keysToRead);
+                binPrefix = keyValueRead["GcObject.Bin.Prefix"];
+                prefixLocalPanel = keyValueRead["BML.Prefix.LocalPanel"];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         public static int StartRow { get; } = 7;
-        public static string LocalPanelPrefix { get; set; } = "+F";
+        public static string PrefixLocalPanel
+        {
+            get { return prefixLocalPanel; }
+            set { prefixLocalPanel = value; }   
+    
+        }
+        public static string BinPrefix
+        {  
+            get { return binPrefix; } 
+        }
         public static class Motor
         {
-            public static string BMLPath { get; set; }
-            public static string Type { get; } = "Motor";
-            public static string ColumnIsVFC { get; } = "是否变频";
-            public static string ColumnName { get; } = "电机名称";
-            public static string ColumnDesc { get; } = "电机描述";
-            public static string ColumnPower { get; } = "功率";
-            public static string ColumnFloor { get; } = "楼层";
-            public static string ColumnCabinet { get; } = "电柜号";
-            public static string ColumnCabinetGroup { get; } = "电柜组";
+            #region Fields for properties
+            private static string bmlPath;
+            private static string type;
+            private static string columnName;
+            private static string columnDesc;
+            private static string columnPower;
+            private static string columnFloor;
+            private static string columnCabinet;
+            private static string columnCabinetGroup;
+            private static string columnMachine;
+            private static string columnIORemark;
+            private static string columnIsVFC;
+            private static string suffixMotor;
+            private static string suffixInpRunFwd;
+            private static string suffixOutpRunFwd;
+            private static string suffixInpRunRev;
+            private static string suffixOutpRunRev;
+            private static string suffixVFC;
+            private static string suffixPowerApp;
+            private static string suffixAO;
+            private static string prefixName;
+            private static string nameDelimiter;
+            private static string feederRollerMiller;
+            private static string rollerMiller;
+            private static string ioRemarkString;
+            #endregion   
+            static Motor()
+            {
+                try
+                {
+                    string key = "BML.Motor.";
+                    string[] keysToRead = new string[]
+                        {
+                        $"{key}Columns.Name",
+                        $"{key}Columns.Desc",
+                        $"{key}Columns.Power",
+                        $"{key}Columns.Floor",
+                        $"{key}Columns.Cabinet",
+                        $"{key}Columns.CabinetGroup",
+                        $"{key}Columns.Machine",
+                        $"{key}Columns.IORemark",
+                        $"{key}Columns.IsVFC",
+                        $"{key}MachineType.Type",
+                        $"{key}MachineType.RollerMiller",
+                        $"{key}MachineType.FeederRollerMiller",
+                        $"{key}Suffix.Motor",
+                        $"{key}Suffix.InpRunFwd",
+                        $"{key}Suffix.OutpRunFwd",
+                        $"{key}Suffix.InpRunRev",
+                        $"{key}Suffix.OutpRunRev",
+                        $"{key}Suffix.VFC",
+                        $"{key}Suffix.PowerApp",
+                        $"{key}Suffix.AO",
+                        $"{key}Prefix.Name",
+                        $"{key}Delimiter.Name",
+                        };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keysToRead);
+                    columnName = keyValueRead[$"{key}Columns.Name"];
+                    columnDesc = keyValueRead[$"{key}Columns.Desc"];
+                    columnPower = keyValueRead[$"{key}Columns.Power"];
+                    columnFloor = keyValueRead[$"{key}Columns.Floor"];
+                    columnCabinet = keyValueRead[$"{key}Columns.Cabinet"];
+                    columnCabinetGroup = keyValueRead[$"{key}Columns.CabinetGroup"];
+                    columnMachine = keyValueRead[$"{key}Columns.Machine"];
+                    columnIORemark = keyValueRead[$"{key}Columns.IORemark"];
+                    columnIsVFC = keyValueRead[$"{key}Columns.IsVFC"];
+                    type = keyValueRead[$"{key}MachineType.Type"];
+                    rollerMiller = keyValueRead[$"{key}MachineType.RollerMiller"];
+                    feederRollerMiller = keyValueRead[$"{key}MachineType.FeederRollerMiller"];
+                    suffixMotor = keyValueRead[$"{key}Suffix.Motor"];
+                    suffixInpRunFwd = keyValueRead[$"{key}Suffix.InpRunFwd"];
+                    suffixOutpRunFwd = keyValueRead[$"{key}Suffix.OutpRunFwd"];
+                    suffixInpRunRev = keyValueRead[$"{key}Suffix.InpRunRev"];
+                    suffixOutpRunRev = keyValueRead[$"{key}Suffix.OutpRunRev"];
+                    suffixVFC = keyValueRead[$"{key}Suffix.VFC"];
+                    suffixPowerApp = keyValueRead[$"{key}Suffix.PowerApp"];
+                    suffixAO = keyValueRead[$"{key}Suffix.AO"];
+                    prefixName = keyValueRead[$"{key}Prefix.Name"];
+                    nameDelimiter = keyValueRead[$"{key}Delimiter.Name"];
+                    bmlPath = string.Empty;
+                    keyValueRead = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "BML.Motor Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }     
+            #region Properties
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
+            public static string ColumnIsVFC 
+            {
+                get { return columnIsVFC; }
+            }    
+            public static string ColumnName
+            {
+                get { return columnName; }
+            }
 
+            public static string ColumnDesc
+            {
+                get { return columnDesc; }
+            }
+
+            public static string ColumnPower
+            {
+                get { return columnPower; } 
+            } 
+            public static string ColumnFloor
+            {
+                get { return columnFloor; }
+            }
+
+            public static string ColumnCabinet
+            {
+                get { return columnCabinet; }
+            }
+
+            public static string ColumnCabinetGroup
+            {
+                get { return columnCabinetGroup; }
+            }
+
+            public static string ColumnMachine
+            {
+                get { return columnMachine; }
+            }
+
+            public static string ColumnIORemark
+            {
+                get { return columnIORemark; }
+            }
+
+            public static string SuffixMotor
+            {
+                get { return suffixMotor; }
+                set { suffixMotor = value; }
+            }
+
+            public static string Type 
+            {
+                get { return type; } 
+            }
+
+            public static string RollerMiller
+            {
+                get { return rollerMiller; }
+            }
+            public static string FeederRollerMiller
+            {
+                get { return feederRollerMiller; }
+            }
+ 
+            public static string SuffixInpRunFwd
+            {
+                get { return suffixInpRunFwd; }
+                set { suffixInpRunFwd = value; }
+            }
+            public static string SuffixInpRunRev
+            {
+                get { return suffixInpRunRev; }
+                set { suffixInpRunRev = value; }
+            }
+
+            public static string SuffixOutpRunFwd
+            {
+                get { return suffixOutpRunFwd; }
+                set { suffixOutpRunFwd = value; }
+            }
+
+            public static string SuffixOutpRunRev
+            {
+                get { return suffixOutpRunRev; }
+                set { suffixOutpRunRev = value; }
+            }
+            public static string SuffixVFC
+            {
+                get { return suffixVFC; }
+                set { suffixVFC = value; }
+            }
+            public static string SuffixPowerApp
+            {
+                get { return suffixPowerApp; }
+                set { suffixPowerApp = value; }
+            }
+            public static string SuffixAO
+            {
+                get { return suffixAO; }
+                set { suffixAO = value; }
+            }
+            public static string PrefixName
+            {
+                get { return prefixName; }
+                set { prefixName = value; }
+            }
+            public static string NameDelimiter
+            {
+                get { return nameDelimiter; }
+                set { nameDelimiter = value; }
+            }
+            public static string IORemarkString { get; }
+            #endregion
             public const string PrefixVFC = "FCC";
         }
         public static class VFCAdapter
@@ -549,9 +814,9 @@ namespace GcproExtensionApp
 
             }
         }
-
         public static class VLS
-        {           
+        {
+            #region Fields for properties
             private static string bmlPath;
             private static string typeOutput;
             private static string typeInput;
@@ -562,26 +827,39 @@ namespace GcproExtensionApp
             private static string columnCabinetGroup;
             private static string columnMachine;
             private static string columnIORemark;
-
             private static string suffixVLS;
-            private static string prefixLocalPanel;
             private static string suffixInpLN;
             private static string suffixInpHN;
             private static string suffixOutpLN;
             private static string suffixOutpHN;
             private static string suffixInpRunRev;
-            private static string suffixInpRunFwd;    
+            private static string suffixInpRunFwd;
+            private static string prefixName;
+            private static string nameDelimiter;
             private static string manualFlap;
             private static string pneFlap;
             private static string pneSlideGate;
             private static string manualSlideGate;
             private static string pneTwoWayValve;
             private static string pneShutOffValve;
-            static  VLS()
-            {        
-                string key= "BML.VLS.";
-                string[] keysToRead= new string[]
-                    {
+            private static string pneAspValve;
+            private static string ioRemarkString;
+            #endregion   
+            private static string dirToBin;
+            private static string dirToValve;
+            private static string dirToHopper;
+            private static string dirBypass;
+            private static string dirSelect;
+            private static string dirTo;
+            private static string binOf;
+            static VLS()
+            {
+                try
+                {
+                    string key = "BML.VLS.";
+                    string[] ioRamarks = new string[7];
+                    string[] keysToRead = new string[]
+                        {
                         $"{key}Columns.Name",
                         $"{key}Columns.Desc",
                         $"{key}Columns.Floor",
@@ -595,6 +873,7 @@ namespace GcproExtensionApp
                         $"{key}MachineType.PneSlideGate",
                         $"{key}MachineType.PneTwoWayValve",
                         $"{key}MachineType.PneShutOffValve",
+                        $"{key}MachineType.PneAspValve",
                         $"{key}Suffix.VLS",
                         $"{key}Suffix.InpLN",
                         $"{key}Suffix.OutpLN",
@@ -602,40 +881,115 @@ namespace GcproExtensionApp
                         $"{key}Suffix.OutpHN",
                         $"{key}Suffix.InpRunRev",
                         $"{key}Suffix.InpRunFwd",
-                        $"{key}Prefix.LocalPanel",
+                        $"{key}Prefix.Name",
+                        $"{key}Delimiter.Name",
                         $"{key}IOType.Output",
                         $"{key}IOType.Input",
-                    };
-                Dictionary<string, string> keyValueRead;
-                keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keysToRead);
-                columnName = keyValueRead[$"{key}Columns.Name"];
-                columnDesc = keyValueRead[$"{key}Columns.Desc"];
-                columnFloor = keyValueRead[$"{key}Columns.Floor"];
-                columnCabinet = keyValueRead[$"{key}Columns.Cabinet"];
-                columnCabinetGroup = keyValueRead[$"{key}Columns.CabinetGroup"];
-                columnMachine = keyValueRead[$"{key}Columns.Machine"];
-                columnIORemark = keyValueRead[$"{key}Columns.IORemark"];
-                manualFlap = keyValueRead[$"{key}MachineType.ManualFlap"];
-                pneFlap = keyValueRead[$"{key}MachineType.PneFlap"];
-                manualSlideGate = keyValueRead[$"{key}MachineType.ManualSlideGate"];
-                pneSlideGate = keyValueRead[$"{key}MachineType.PneSlideGate"];
-                pneTwoWayValve = keyValueRead[$"{key}MachineType.PneTwoWayValve"];
-                pneShutOffValve = keyValueRead[$"{key}MachineType.PneShutOffValve"];
-                suffixVLS = keyValueRead[$"{key}Suffix.VLS"];
-                suffixInpLN = keyValueRead[$"{key}Suffix.InpLN"];
-                suffixInpHN = keyValueRead[$"{key}Suffix.InpHN"];
-                suffixOutpLN = keyValueRead[$"{key}Suffix.OutpLN"];
-                suffixOutpHN = keyValueRead[$"{key}Suffix.OutpHN"];
-                suffixInpRunRev = keyValueRead[$"{key}Suffix.InpRunRev"];
-                suffixInpRunFwd = keyValueRead[$"{key}Suffix.InpRunFwd"];
-                prefixLocalPanel = keyValueRead[$"{key}Prefix.LocalPanel"];
-                typeOutput = keyValueRead[$"{key}IOType.Output"];
-                typeInput = keyValueRead[$"{key}IOType.Input"];
-                bmlPath =string.Empty;
-
-                keyValueRead = null;
+                        $"{key}IORemark.DirToBin",
+                        $"{key}IORemark.DirToValve",
+                        $"{key}IORemark.DirToHopper",
+                        $"{key}IORemark.DirBypass",
+                        $"{key}IORemark.DirSelect",
+                        $"{key}IORemark.DirTo",
+                        $"{key}IORemark.BinOf",
+                        };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keysToRead);
+                    columnName = keyValueRead[$"{key}Columns.Name"];
+                    columnDesc = keyValueRead[$"{key}Columns.Desc"];
+                    columnFloor = keyValueRead[$"{key}Columns.Floor"];
+                    columnCabinet = keyValueRead[$"{key}Columns.Cabinet"];
+                    columnCabinetGroup = keyValueRead[$"{key}Columns.CabinetGroup"];
+                    columnMachine = keyValueRead[$"{key}Columns.Machine"];
+                    columnIORemark = keyValueRead[$"{key}Columns.IORemark"];
+                    manualFlap = keyValueRead[$"{key}MachineType.ManualFlap"];
+                    pneFlap = keyValueRead[$"{key}MachineType.PneFlap"];
+                    manualSlideGate = keyValueRead[$"{key}MachineType.ManualSlideGate"];
+                    pneSlideGate = keyValueRead[$"{key}MachineType.PneSlideGate"];
+                    pneTwoWayValve = keyValueRead[$"{key}MachineType.PneTwoWayValve"];
+                    pneShutOffValve = keyValueRead[$"{key}MachineType.PneShutOffValve"];
+                    pneAspValve = keyValueRead[$"{key}MachineType.PneAspValve"];
+                    suffixVLS = keyValueRead[$"{key}Suffix.VLS"];
+                    suffixInpLN = keyValueRead[$"{key}Suffix.InpLN"];
+                    suffixInpHN = keyValueRead[$"{key}Suffix.InpHN"];
+                    suffixOutpLN = keyValueRead[$"{key}Suffix.OutpLN"];
+                    suffixOutpHN = keyValueRead[$"{key}Suffix.OutpHN"];
+                    suffixInpRunRev = keyValueRead[$"{key}Suffix.InpRunRev"];
+                    suffixInpRunFwd = keyValueRead[$"{key}Suffix.InpRunFwd"];
+                    prefixName = keyValueRead[$"{key}Prefix.Name"];
+                    nameDelimiter = keyValueRead[$"{key}Delimiter.Name"];
+                    typeOutput = keyValueRead[$"{key}IOType.Output"];
+                    typeInput = keyValueRead[$"{key}IOType.Input"];
+                    ioRamarks[0]=dirToBin = keyValueRead[$"{key}IORemark.DirToBin"];
+                    ioRamarks[1] = dirToValve =keyValueRead[$"{key}IORemark.DirToValve"];
+                    ioRamarks[2] = dirToHopper= keyValueRead[$"{key}IORemark.DirToHopper"];
+                    ioRamarks[3] = dirBypass= keyValueRead[$"{key}IORemark.DirBypass"];
+                    ioRamarks[4] = dirSelect=keyValueRead[$"{key}IORemark.DirSelect"];
+                    ioRamarks[5] = dirTo = keyValueRead[$"{key}IORemark.DirTo"];
+                    ioRamarks[6] = binOf = keyValueRead[$"{key}IORemark.BinOf"];
+                    ioRemarkString = string.Join(", ", ioRamarks);
+                    bmlPath = string.Empty;               
+                    keyValueRead = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(),"BML.VLS Json配置文件",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-    
+            public static string GetInterlockingType(string input)
+            {
+                string result=string.Empty;
+                if (string.IsNullOrEmpty(input)) 
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    if (input.Equals(dirToBin, StringComparison.OrdinalIgnoreCase))
+                    {
+                       return AppGlobal.BinPrefix;
+                    }
+                }
+                return result;
+            }
+            public static string ParseIORemark(string input)
+            {
+                if (string.IsNullOrEmpty(input))
+                {
+                    return string.Empty;
+                }
+                else
+                {                      
+                    if (input.IndexOf(dirToBin, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        // return BML.BinPrefix + input.Replace(" ", "").Replace(dirToBin, "");//不可以忽略大小写
+                        return BML.BinPrefix + Regex.Replace(input, Regex.Escape(dirToBin), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                    }
+                    else if (input.IndexOf(dirToValve, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        string nameString = Regex.Replace(input, Regex.Escape(dirToValve), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        nameString = (nameString.EndsWith(nameDelimiter)? prefixName + nameString : prefixName + nameString + nameDelimiter) + VLS.SuffixVLS;
+                        return nameString;
+                    }
+                    else if (input.IndexOf(binOf, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        return BML.BinPrefix + Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                    }
+                    else if (input.IndexOf(dirTo, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        string nameString = Regex.Replace(input, Regex.Escape(dirTo), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                     
+                        nameString = Regex.IsMatch(nameString, $@"^\b[A-Za-z]{{1,}}{nameDelimiter}\d{{4,}}{nameDelimiter}?\b")? prefixName + nameString:string.Empty;
+                        return nameString;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                        
+                }               
+            }
+            #region Properties
             public static string BMLPath
             {
                 get { return bmlPath; }
@@ -692,13 +1046,6 @@ namespace GcproExtensionApp
                 get { return suffixVLS; }
                 set { suffixVLS = value;  }
             }
-
-            public static string PrefixLocalPanel
-            {
-                get { return prefixLocalPanel; }
-                set {  prefixLocalPanel = value; }
-            }
-
             public static string ManualFlap
             {
                 get { return manualFlap; }
@@ -724,6 +1071,10 @@ namespace GcproExtensionApp
             public static string PneShutOffValve
             {
                 get { return pneShutOffValve; }
+            }
+            public static string PneAspValve
+            {
+                get { return pneAspValve; }
             }
             public static string SuffixInpLN
             {
@@ -759,6 +1110,18 @@ namespace GcproExtensionApp
                 get { return suffixInpRunFwd; }
                 set { suffixInpRunFwd = value; }
             }
+            public static string PrefixName
+            {
+                get { return prefixName; }
+                set { prefixName = value; }
+            }
+            public static string NameDelimiter
+            {
+                get { return nameDelimiter; }
+                set { nameDelimiter = value; }
+            }
+            public static string IORemarkString { get; }
+            #endregion
         }
     }
     #endregion

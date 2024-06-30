@@ -45,7 +45,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -87,11 +86,11 @@
     <Compile Include="EL\FormVLS.Designer.cs">
       <DependentUpon>FormVLS.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectBroswer.cs">
+    <Compile Include="ObjectBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ObjectBroswer.Designer.cs">
-      <DependentUpon>ObjectBroswer.cs</DependentUpon>
+    <Compile Include="ObjectBrowser.Designer.cs">
+      <DependentUpon>ObjectBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,8 +112,8 @@
     <EmbeddedResource Include="EL\FormVLS.resx">
       <DependentUpon>FormVLS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ObjectBroswer.resx">
-      <DependentUpon>ObjectBroswer.cs</DependentUpon>
+    <EmbeddedResource Include="ObjectBrowser.resx">
+      <DependentUpon>ObjectBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -144,6 +143,10 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\dataBase.ico" />
+    <None Include="Resources\Value.JPG" />
+    <None Include="Resources\Motor.png" />
+    <None Include="Resources\Motor.JPG" />
     <None Include="Resources\Excel.png" />
     <None Include="Resources\Excel.jpeg" />
     <None Include="Resources\Folder.ico" />
@@ -265,7 +268,6 @@
     <None Include="Resources\1 %28137%29.ico" />
     <None Include="Resources\1 %28136%29.ico" />
     <None Include="Resources\1 %28135%29.ico" />
-    <None Include="Resources\1 %28134%29.ico" />
     <None Include="Resources\1 %28133%29.ico" />
     <None Include="Resources\1 %28132%29.ico" />
     <None Include="Resources\1 %28131%29.ico" />
@@ -291,7 +293,6 @@
     <None Include="Resources\1 %28100%29.ico" />
     <None Include="Resources\1 %2899%29.ico" />
     <None Include="Resources\1 %2898%29.ico" />
-    <None Include="Resources\1 %2897%29.ico" />
     <None Include="Resources\1 %2896%29.ico" />
     <None Include="Resources\1 %2895%29.ico" />
     <None Include="Resources\1 %2894%29.ico" />

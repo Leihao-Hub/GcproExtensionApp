@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
-        "projectName": "GcproExtensionLibary",
+        "projectName": "GcproExtensionLibrary",
         "projectPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
         "packagesPath": "C:\\Users\\Operator\\.nuget\\packages\\",
         "outputPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\obj\\",
@@ -52,6 +52,20 @@
               "version": "[13.0.3, )"
             }
           }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-arm64": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
         }
       }
     }

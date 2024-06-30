@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class VLS : Element
+    public class VLS : Element, IGcpro
     {
         public struct VLSRule
         {
@@ -328,55 +328,54 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
-            isNew = "false";
-            string stdString, appString;
-            stdString = OTypeValue + LibGlobalSource.TAB +
-                name + LibGlobalSource.TAB +
-                description + LibGlobalSource.TAB +
-                subType + LibGlobalSource.TAB +
-                processFct + LibGlobalSource.TAB +
-                building + LibGlobalSource.TAB +
-                elevation + LibGlobalSource.TAB +
-                fieldBusNode + LibGlobalSource.TAB +
-                panel_ID + LibGlobalSource.TAB +
-                diagram + LibGlobalSource.TAB +
-                page + LibGlobalSource.TAB +
-                pType + LibGlobalSource.TAB +
-                hornCode + LibGlobalSource.TAB;
-            appString = dpNode1 + LibGlobalSource.TAB +
-                dpNode2 + LibGlobalSource.TAB +
-                value9 + LibGlobalSource.TAB +
-                value10 + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                //inpLN + LibGlobalSource.TAB +
-                // inpHN + LibGlobalSource.TAB +
-                // outpLN + LibGlobalSource.TAB +
-                // outpHN + LibGlobalSource.TAB +
-                //  inpRunRev + LibGlobalSource.TAB +
-                //  inpRunFwd + LibGlobalSource.TAB +
-                //  hwStop + LibGlobalSource.TAB +
-                monTime + LibGlobalSource.TAB +
-                pulseTimeHN + LibGlobalSource.TAB +
-                pulseTimeLN + LibGlobalSource.TAB +
-                idlingTime + LibGlobalSource.TAB +
-                faultDelay + LibGlobalSource.TAB +
-                startDelay + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-                LibGlobalSource.NOCHILD + LibGlobalSource.TAB +
-               // refRcvLN + LibGlobalSource.TAB +
-               // refRcvHN + LibGlobalSource.TAB +
-              //  refSndBin + LibGlobalSource.TAB +
-              //  refAsp + LibGlobalSource.TAB +
-                isNew;
-            textFileHandle.WriteToTextFile(stdString + appString, encoding);
+            isNew = "false";       
+            StringBuilder objFields = new StringBuilder();
+            ///<summary>
+            ///生产Standard字符串部分
+            ///</summary> 
+            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
+              .Append(name).Append(LibGlobalSource.TAB)
+              .Append(description).Append(LibGlobalSource.TAB)
+              .Append(subType).Append(LibGlobalSource.TAB)
+              .Append(processFct).Append(LibGlobalSource.TAB)
+              .Append(building).Append(LibGlobalSource.TAB)
+              .Append(elevation).Append(LibGlobalSource.TAB)
+              .Append(fieldBusNode).Append(LibGlobalSource.TAB)
+              .Append(panel_ID).Append(LibGlobalSource.TAB)
+              .Append(diagram).Append(LibGlobalSource.TAB)
+              .Append(page).Append(LibGlobalSource.TAB)
+              .Append(pType).Append(LibGlobalSource.TAB)
+              .Append(hornCode).Append(LibGlobalSource.TAB);
+
+            ///<summary>
+            ///生成Application 字符串部分
+            ///</summary>
+            objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
+              .Append(dpNode2).Append(LibGlobalSource.TAB)
+              .Append(value9).Append(LibGlobalSource.TAB)
+              .Append(value10).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(monTime).Append(LibGlobalSource.TAB)
+              .Append(pulseTimeHN).Append(LibGlobalSource.TAB)
+              .Append(pulseTimeLN).Append(LibGlobalSource.TAB)
+              .Append(idlingTime).Append(LibGlobalSource.TAB)
+              .Append(faultDelay).Append(LibGlobalSource.TAB)
+              .Append(startDelay).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(isNew);
+            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+            objFields = null;
             if (subType == VPO || subType == VPOM || subType == VPOR)
             {
                 CreateRelation(name, inpLN, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
@@ -399,6 +398,22 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             {
                 CreateRelation(name, inpLN, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
                 CreateRelation(name, inpHN, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
+            }
+            if (!string.IsNullOrEmpty(refRcvLN))
+            {
+                CreateRelation(name, refRcvLN, GcproTable.ObjData.Value30.Name, this.fileRelationPath, encoding);
+            }
+            if (!string.IsNullOrEmpty(refRcvHN))
+            {
+                CreateRelation(name, refRcvHN, GcproTable.ObjData.Value31.Name, this.fileRelationPath, encoding);
+            }
+            if (!string.IsNullOrEmpty(refSndBin))
+            {
+                CreateRelation(name, refSndBin, GcproTable.ObjData.Value32.Name, this.fileRelationPath, encoding);
+            }
+            if (!string.IsNullOrEmpty(refAsp))
+            {
+                CreateRelation(name, refAsp, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);
             }
         }
         public void CreateRelation(string parent, string child, string connectedFiled, string filePath, Encoding encoding)

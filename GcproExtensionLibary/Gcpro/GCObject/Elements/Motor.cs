@@ -259,7 +259,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public string FileRelationPath
         {
-            get { return fileRelationPath; }           
+            get { return fileRelationPath; }
         }
         public string FileConnectorPath
         {
@@ -274,7 +274,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string M1VFC { get; } = "M1VFC";
         public static string M2VFC { get; } = "M2VFC";
         public static string M11ELV { get; } = "M11ELV";
-    
+
         #endregion
         #region Readonly ptype property
         public static string P7031 { get; } = "7031";
@@ -305,6 +305,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string P9052 { get; } = "9053";
         public static string P9053 { get; } = "9053";
         public static string P9056 { get; } = "9056";
+        public static string PF1012BBDFUTV { get; } = "1012BBDFUTV";
+        public static string PF1012MASPEED { get; } = "1012MASPEED";
+        public static string PF1012MDDXFEED { get; } = "1012MDDXFEED";
+        public static string PF1012MDGXDET { get; } = "1012MDGXDET";
+        public static string PF1012MDGXFED { get; } = "1012MDGXFED";
+        public static string PF1012MDGXGRM { get; } = "1012MDGXGRM";
+        public static string PF1012MDGXHYDP { get; } = "1012MDGXHYDP";
+        public static string PF1012PNFAN { get; } = "1012PNFAN";
         #endregion
         public Motor()
         {
@@ -347,7 +355,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             hwStop = LibGlobalSource.NOCHILD;
             adapter = LibGlobalSource.NOCHILD;
             powerApp = LibGlobalSource.NOCHILD;
-            ao=LibGlobalSource.NOCHILD; 
+            ao = LibGlobalSource.NOCHILD;
             parMonTime = "50";
             parStartDelay = "0";
             parStartingTime = "10";
@@ -357,17 +365,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             parPowerNominal = "0";
             parSpeedService = "20";
             unit = "2";
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+".Txt";
+            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + ".Txt";
             this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_Relation.Txt";
             this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_FindConnector.Txt";
         }
         public Motor(string filePath = null) : this()
         {
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+ ".Txt" : filePath + motorFileName+ ".Txt");
+                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + ".Txt" : filePath + motorFileName + ".Txt");
 
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                          LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName+ "_Relation.Txt" : filePath + motorFileName+ "_Relation.Txt");
+                          LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_Relation.Txt" : filePath + motorFileName + "_Relation.Txt");
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
                      LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_FindConnector.Txt" : filePath + motorFileName + "_FindConnector.Txt");
         }
@@ -376,48 +384,55 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
             isNew = "false";
-            string stdString, appString;
-            stdString = OTypeValue + LibGlobalSource.TAB +
-                name + LibGlobalSource.TAB +
-                description + LibGlobalSource.TAB +
-                subType + LibGlobalSource.TAB +
-                processFct + LibGlobalSource.TAB +
-                building + LibGlobalSource.TAB +
-                elevation + LibGlobalSource.TAB +
-                fieldBusNode + LibGlobalSource.TAB +
-                panel_ID + LibGlobalSource.TAB +
-                diagram + LibGlobalSource.TAB +
-                page + LibGlobalSource.TAB +
-                pType + LibGlobalSource.TAB +
-                hornCode + LibGlobalSource.TAB;
+            StringBuilder objFields = new StringBuilder();
+            ///<summary>
+            ///生产Standard字符串部分
+            ///</summary> 
+            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
+                .Append(name).Append(LibGlobalSource.TAB)
+                .Append(description).Append(LibGlobalSource.TAB)
+                .Append(subType).Append(LibGlobalSource.TAB)
+                .Append(processFct).Append(LibGlobalSource.TAB)
+                .Append(building).Append(LibGlobalSource.TAB)
+                .Append(elevation).Append(LibGlobalSource.TAB)
+                .Append(fieldBusNode).Append(LibGlobalSource.TAB)
+                .Append(panel_ID).Append(LibGlobalSource.TAB)
+                .Append(diagram).Append(LibGlobalSource.TAB)
+                .Append(page).Append(LibGlobalSource.TAB)
+                .Append(pType).Append(LibGlobalSource.TAB)
+                .Append(hornCode).Append(LibGlobalSource.TAB);
+            ///<summary>
+            ///生成Application 字符串部分
+            ///</summary>         
+            objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
+                .Append(dpNode2).Append(LibGlobalSource.TAB)
+                .Append(value9).Append(LibGlobalSource.TAB)
+                .Append(value10).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                .Append(parMonTime).Append(LibGlobalSource.TAB)
+                .Append(parStartDelay).Append(LibGlobalSource.TAB)
+                .Append(parStartingTime).Append(LibGlobalSource.TAB)
+                .Append(parStoppingTime).Append(LibGlobalSource.TAB)
+                .Append(parIdlingTime).Append(LibGlobalSource.TAB)
+                .Append(parFaultDelayTime).Append(LibGlobalSource.TAB)
+                .Append(parPowerNominal).Append(LibGlobalSource.TAB)
+                .Append(parSpeedService).Append(LibGlobalSource.TAB)
+                .Append(unit).Append(LibGlobalSource.TAB)
+                .Append(isNew);
+            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+            objFields = null;
 
-            appString = dpNode1 + LibGlobalSource.TAB +
-                dpNode2 + LibGlobalSource.TAB +
-                value9 + LibGlobalSource.TAB +
-                value10 + LibGlobalSource.TAB +
-                inpFwd + LibGlobalSource.TAB +
-                outpFwd + LibGlobalSource.TAB +
-                inpRev + LibGlobalSource.TAB +
-                outpRev + LibGlobalSource.TAB +
-                inpContactor + LibGlobalSource.TAB +
-                hwStop + LibGlobalSource.TAB +
-                adapter + LibGlobalSource.TAB +
-                powerApp+ LibGlobalSource.TAB +
-                ao+LibGlobalSource.TAB +    
-                parMonTime + LibGlobalSource.TAB +
-                parStartDelay + LibGlobalSource.TAB +
-                parStartingTime + LibGlobalSource.TAB +
-                parStoppingTime + LibGlobalSource.TAB +
-                parIdlingTime + LibGlobalSource.TAB +
-                parFaultDelayTime + LibGlobalSource.TAB +
-                parPowerNominal + LibGlobalSource.TAB +
-                parSpeedService + LibGlobalSource.TAB +
-                unit + LibGlobalSource.TAB +
-                isNew;
-            textFileHandle.WriteToTextFile(stdString + appString, encoding);
             if (subType == M11)
             {
-                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath,encoding);
+                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
                 CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
                 if (!string.IsNullOrEmpty(inpContactor))
                 {
@@ -428,19 +443,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             {
                 CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
                 CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, inpRev, GcproTable.ObjData.Value13.Name, this.fileRelationPath,encoding);
+                CreateRelation(name, inpRev, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
                 CreateRelation(name, outpRev, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
             }
             else if (subType == M1VFC || subType == M2VFC)
             {
-                CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);             
+                CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);
             }
         }
-        public void CreateRelation(string parent,string child,string connectedFiled, string filePath,Encoding encoding)
+        public void CreateRelation(string parent, string child, string connectedFiled, string filePath, Encoding encoding)
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = filePath;
-            string output = parent+LibGlobalSource.TAB + child+LibGlobalSource.TAB + connectedFiled;
+            string output = parent + LibGlobalSource.TAB + child + LibGlobalSource.TAB + connectedFiled;
             textFileHandle.WriteToTextFile(output, encoding);
         }
         public void Clear()
@@ -453,18 +468,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.FilePath = this.fileConnectorPath;
             textFileHandle.ClearContents();
         }
-        public bool SaveFileAs(string sourceFilePath,string title)
+        public bool SaveFileAs(string sourceFilePath, string title)
         {
             bool result;
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = sourceFilePath;
-            result=textFileHandle.SaveFileAs(title);  
+            result = textFileHandle.SaveFileAs(title);
             return result;
         }
     }
     public abstract class BaseMotor : Element
     {
-       public abstract string DPNode2 { get; set; }
+        public abstract string DPNode2 { get; set; }
 
         public BaseMotor()
         {

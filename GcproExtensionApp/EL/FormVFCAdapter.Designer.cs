@@ -1093,6 +1093,7 @@ namespace GcproExtensionApp
             this.txtSymbol.Size = new System.Drawing.Size(137, 13);
             this.txtSymbol.TabIndex = 2;
             this.txtSymbol.TextChanged += new System.EventHandler(this.TxtSymbol_TextChanged);
+            this.txtSymbol.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtSymbol_MouseDoubleClick);
             this.txtSymbol.MouseEnter += new System.EventHandler(this.TxtSymbol_MouseEnter);
             // 
             // LblDescription
@@ -1310,6 +1311,7 @@ namespace GcproExtensionApp
             // 
             this.tabBML.AutoScroll = true;
             this.tabBML.BackColor = System.Drawing.SystemColors.Control;
+            this.tabBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabBML.ContextMenuStrip = this.contextMenuStripBML;
             this.tabBML.Controls.Add(this.grpBoxExcelData);
             this.tabBML.Controls.Add(this.grpBoxExcelColumn);
@@ -1331,10 +1333,9 @@ namespace GcproExtensionApp
             this.grpBoxExcelData.Controls.Add(this.dataGridBML);
             this.grpBoxExcelData.Controls.Add(this.label3);
             this.grpBoxExcelData.Controls.Add(this.comboWorkSheetsBML);
-            this.grpBoxExcelData.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.grpBoxExcelData.Location = new System.Drawing.Point(3, 121);
+            this.grpBoxExcelData.Location = new System.Drawing.Point(6, 133);
             this.grpBoxExcelData.Name = "grpBoxExcelData";
-            this.grpBoxExcelData.Size = new System.Drawing.Size(717, 429);
+            this.grpBoxExcelData.Size = new System.Drawing.Size(705, 410);
             this.grpBoxExcelData.TabIndex = 16;
             this.grpBoxExcelData.TabStop = false;
             this.grpBoxExcelData.Text = "BML数据";
@@ -1356,7 +1357,7 @@ namespace GcproExtensionApp
             this.lblVFCSufffixBML.Name = "lblVFCSufffixBML";
             this.lblVFCSufffixBML.Size = new System.Drawing.Size(55, 13);
             this.lblVFCSufffixBML.TabIndex = 31;
-            this.lblVFCSufffixBML.Text = "变频后缀";
+            this.lblVFCSufffixBML.Text = "名称后缀";
             // 
             // txtVFCPrefixBML
             // 
@@ -1403,7 +1404,7 @@ namespace GcproExtensionApp
             this.dataGridBML.GridColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.Location = new System.Drawing.Point(6, 51);
             this.dataGridBML.Name = "dataGridBML";
-            this.dataGridBML.Size = new System.Drawing.Size(701, 372);
+            this.dataGridBML.Size = new System.Drawing.Size(695, 353);
             this.dataGridBML.TabIndex = 16;
             // 
             // label3

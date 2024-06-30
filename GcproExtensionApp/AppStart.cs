@@ -132,23 +132,7 @@ namespace GcproExtensionApp
             AppGlobal.AppInfo.Description = $"{description.Description}";
             AppGlobal.AppInfo.CopyRight= $"{copyright.Copyright}";
         }
-        #region Open form
-        private void btnAddMotor_Click(object sender, EventArgs e)
-        {
-            FormMotor formMotor = new FormMotor();
-            formMotor.Show();
-        }
-        private void btnAddVFC_Click(object sender, EventArgs e)
-        {
-            FormVFCAdapter formVFCAdapter = new FormVFCAdapter();
-            formVFCAdapter.Show();
-        }
-        private void btnAddValve_Click(object sender, EventArgs e)
-        {
-            FormVLS formVLS = new FormVLS();
-            formVLS.Show();
-        }
-        #endregion
+       
         private void tabMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabMain.SelectedTab == tabPage2)
@@ -185,5 +169,28 @@ namespace GcproExtensionApp
         {
             BtnOpenGcproTempPath_Click(sender, e);
         }
+
+        #region Open form
+        private void btnAddMotor_Click(object sender, EventArgs e)
+        {
+            FormMotor formMotor = new FormMotor();
+            formMotor.Show();
+        }
+        private void btnAddVFC_Click(object sender, EventArgs e)
+        {
+            FormVFCAdapter formVFCAdapter = new FormVFCAdapter();
+            formVFCAdapter.Show();
+        }
+        private void btnAddValve_Click(object sender, EventArgs e)
+        {
+            FormVLS formVLS = new FormVLS();
+            formVLS.Show();
+        }
+        private void btnAddDI_Click(object sender, EventArgs e)
+        {
+            FormDI formDI = new FormDI();
+            formDI.Show();
+        }
+        #endregion
     }
 }

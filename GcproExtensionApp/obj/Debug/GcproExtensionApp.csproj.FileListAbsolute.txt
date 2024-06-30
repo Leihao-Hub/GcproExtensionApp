@@ -15,6 +15,7 @@ Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionApp\bin\Debug\Gc
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExt.9C27A94B.Up2Date
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.pdb
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\appsettings.json
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.exe.config
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.exe
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.pdb
@@ -31,6 +32,7 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\Microsoft.Extensions.FileSystemGlobbing.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\Microsoft.Extensions.Primitives.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\Newtonsoft.Json.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\System.Buffers.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\System.ComponentModel.Annotations.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\System.Memory.dll
@@ -137,7 +139,6 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\System.Xml.XmlSerializer.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\System.Xml.XPath.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\System.Xml.XPath.XDocument.dll
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionLibary.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.AssemblyReference.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.SuggestedBindingRedirects.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe.config
@@ -147,13 +148,12 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMotor.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormVFCAdapter.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormVLS.resources
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.ObjectBroswer.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.Properties.Resources.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.GenerateResource.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.CoreCompileInputs.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExt.9C27A94B.Up2Date
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.pdb
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\appsettings.json
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\Newtonsoft.Json.dll
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionLibary.pdb
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.ObjectBrowser.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionLibrary.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionLibrary.pdb

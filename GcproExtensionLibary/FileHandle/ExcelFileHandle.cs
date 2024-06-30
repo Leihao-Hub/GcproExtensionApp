@@ -57,10 +57,6 @@ namespace GcproExtensionLibrary.FileHandle
             }
         }
 
-
-
-
-
         public List<Dictionary<string, object>> ReadAsList(int startRow, string[] columnsToRead, string filter, string filterColumn, string filePath = null, string workSheetName = null)
         {
             try

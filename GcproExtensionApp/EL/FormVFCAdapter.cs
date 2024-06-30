@@ -227,8 +227,16 @@ namespace GcproExtensionApp
             toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
             this.Text = "变频导入文件 " + " " + myVFCAdapter.FilePath;
         }
-        #endregion 
+        #endregion
         #region <---Rule and autosearch part---> 
+        private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ObjectBrowser objectBrowser = new ObjectBrowser();
+            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
+            objectBrowser.OType = Convert.ToString(VFCAdapter.OTypeValue);
+
+            objectBrowser.Show();
+        }
         private void TxtSymbol_TextChanged(object sender, EventArgs e)
         {
             myVFCAdapter.Name = txtSymbol.Text;
@@ -806,7 +814,7 @@ namespace GcproExtensionApp
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value42";
         }
-        #endregion        
+        #endregion            
         #endregion
         #region <---BML part--->
         private void AddWorkSheets()
@@ -1649,7 +1657,8 @@ namespace GcproExtensionApp
                         ///<DPNode1>   </DPNode1>                         
                         string dpNode1BML= Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnName)].Value);
                         myVFCAdapter.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1BML);
-                        myVFCAdapter.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, int.Parse(myVFCAdapter.DPNode1));
+                        myVFCAdapter.FieldBusNode = String.IsNullOrEmpty(myVFCAdapter.DPNode1 )?string.Empty:
+                            AppGlobal.FindFieldbusNodeKey(oledb, int.Parse(myVFCAdapter.DPNode1));
                         ///<CreateObject>   </CreateObject>
                         myVFCAdapter.CreateObject(Encoding.Unicode);
                         ProgressBar.Value = i;
@@ -1790,5 +1799,7 @@ namespace GcproExtensionApp
             }
         }
         #endregion
+
+     
     }  
 }

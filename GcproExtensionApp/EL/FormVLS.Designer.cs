@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVLS));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -656,7 +656,7 @@ namespace GcproExtensionApp
             this.txtIdlingTime.Name = "txtIdlingTime";
             this.txtIdlingTime.Size = new System.Drawing.Size(56, 13);
             this.txtIdlingTime.TabIndex = 136;
-            this.txtIdlingTime.Text = "1.0";
+            this.txtIdlingTime.Text = "0.0";
             this.txtIdlingTime.MouseEnter += new System.EventHandler(this.txtIdlingTime_MouseEnter);
             // 
             // lblFaultDelayTime
@@ -1482,6 +1482,7 @@ namespace GcproExtensionApp
             // 
             this.TxtInpLN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtInpLN.Enabled = false;
+            this.TxtInpLN.ForeColor = System.Drawing.SystemColors.MenuText;
             this.TxtInpLN.Location = new System.Drawing.Point(60, 110);
             this.TxtInpLN.Name = "TxtInpLN";
             this.TxtInpLN.Size = new System.Drawing.Size(100, 13);
@@ -1821,6 +1822,7 @@ namespace GcproExtensionApp
             // 
             this.tabBML.AutoScroll = true;
             this.tabBML.BackColor = System.Drawing.SystemColors.Control;
+            this.tabBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tabBML.ContextMenuStrip = this.contextMenuStripBML;
             this.tabBML.Controls.Add(this.grpBoxExcelData);
             this.tabBML.Controls.Add(this.grpBoxExcelColumn);
@@ -1843,9 +1845,9 @@ namespace GcproExtensionApp
             this.grpBoxExcelData.Controls.Add(this.label3);
             this.grpBoxExcelData.Controls.Add(this.comboWorkSheetsBML);
             this.grpBoxExcelData.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.grpBoxExcelData.Location = new System.Drawing.Point(3, 121);
+            this.grpBoxExcelData.Location = new System.Drawing.Point(3, 125);
             this.grpBoxExcelData.Name = "grpBoxExcelData";
-            this.grpBoxExcelData.Size = new System.Drawing.Size(706, 429);
+            this.grpBoxExcelData.Size = new System.Drawing.Size(702, 421);
             this.grpBoxExcelData.TabIndex = 16;
             this.grpBoxExcelData.TabStop = false;
             this.grpBoxExcelData.Text = "BML数据";
@@ -1853,7 +1855,7 @@ namespace GcproExtensionApp
             // txtLocalPanelPrefix
             // 
             this.txtLocalPanelPrefix.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLocalPanelPrefix.Location = new System.Drawing.Point(447, 21);
+            this.txtLocalPanelPrefix.Location = new System.Drawing.Point(444, 21);
             this.txtLocalPanelPrefix.Name = "txtLocalPanelPrefix";
             this.txtLocalPanelPrefix.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.txtLocalPanelPrefix.Size = new System.Drawing.Size(36, 13);
@@ -1864,7 +1866,7 @@ namespace GcproExtensionApp
             // lblLocalPanelPrefix
             // 
             this.lblLocalPanelPrefix.AutoSize = true;
-            this.lblLocalPanelPrefix.Location = new System.Drawing.Point(378, 21);
+            this.lblLocalPanelPrefix.Location = new System.Drawing.Point(375, 21);
             this.lblLocalPanelPrefix.Name = "lblLocalPanelPrefix";
             this.lblLocalPanelPrefix.Size = new System.Drawing.Size(67, 13);
             this.lblLocalPanelPrefix.TabIndex = 31;
@@ -1873,7 +1875,7 @@ namespace GcproExtensionApp
             // txtVLSSuffixBML
             // 
             this.txtVLSSuffixBML.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtVLSSuffixBML.Location = new System.Drawing.Point(547, 21);
+            this.txtVLSSuffixBML.Location = new System.Drawing.Point(540, 21);
             this.txtVLSSuffixBML.Name = "txtVLSSuffixBML";
             this.txtVLSSuffixBML.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.txtVLSSuffixBML.Size = new System.Drawing.Size(56, 13);
@@ -1884,7 +1886,7 @@ namespace GcproExtensionApp
             // lblVLSPrefixBML
             // 
             this.lblVLSPrefixBML.AutoSize = true;
-            this.lblVLSPrefixBML.Location = new System.Drawing.Point(493, 21);
+            this.lblVLSPrefixBML.Location = new System.Drawing.Point(487, 21);
             this.lblVLSPrefixBML.Name = "lblVLSPrefixBML";
             this.lblVLSPrefixBML.Size = new System.Drawing.Size(55, 13);
             this.lblVLSPrefixBML.TabIndex = 29;
@@ -1897,7 +1899,7 @@ namespace GcproExtensionApp
             this.btnReadBML.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnReadBML.Image = ((System.Drawing.Image)(resources.GetObject("btnReadBML.Image")));
             this.btnReadBML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReadBML.Location = new System.Drawing.Point(612, 14);
+            this.btnReadBML.Location = new System.Drawing.Point(606, 14);
             this.btnReadBML.Name = "btnReadBML";
             this.btnReadBML.Size = new System.Drawing.Size(89, 27);
             this.btnReadBML.TabIndex = 19;
@@ -1908,15 +1910,15 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridBML.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridBML.Location = new System.Drawing.Point(4, 45);
+            this.dataGridBML.Location = new System.Drawing.Point(7, 48);
             this.dataGridBML.Name = "dataGridBML";
-            this.dataGridBML.Size = new System.Drawing.Size(701, 384);
+            this.dataGridBML.Size = new System.Drawing.Size(688, 367);
             this.dataGridBML.TabIndex = 16;
             // 
             // label3
@@ -1949,7 +1951,7 @@ namespace GcproExtensionApp
             this.grpBoxExcelColumn.Controls.Add(this.LblGcproProjectPath);
             this.grpBoxExcelColumn.Location = new System.Drawing.Point(5, 6);
             this.grpBoxExcelColumn.Name = "grpBoxExcelColumn";
-            this.grpBoxExcelColumn.Size = new System.Drawing.Size(704, 115);
+            this.grpBoxExcelColumn.Size = new System.Drawing.Size(702, 115);
             this.grpBoxExcelColumn.TabIndex = 0;
             this.grpBoxExcelColumn.TabStop = false;
             this.grpBoxExcelColumn.Text = "BML清单信息";
@@ -1973,7 +1975,7 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.Controls.Add(this.lblPower);
             this.grpBoxBMLColum.Controls.Add(this.lblBMLDescription);
             this.grpBoxBMLColum.Controls.Add(this.lblBMLSymbol);
-            this.grpBoxBMLColum.Location = new System.Drawing.Point(6, 40);
+            this.grpBoxBMLColum.Location = new System.Drawing.Point(5, 40);
             this.grpBoxBMLColum.Name = "grpBoxBMLColum";
             this.grpBoxBMLColum.Size = new System.Drawing.Size(692, 68);
             this.grpBoxBMLColum.TabIndex = 16;
@@ -2004,7 +2006,7 @@ namespace GcproExtensionApp
             this.comboStartRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboStartRow.FormattingEnabled = true;
             this.comboStartRow.IntegralHeight = false;
-            this.comboStartRow.Location = new System.Drawing.Point(620, 16);
+            this.comboStartRow.Location = new System.Drawing.Point(613, 16);
             this.comboStartRow.Name = "comboStartRow";
             this.comboStartRow.Size = new System.Drawing.Size(66, 21);
             this.comboStartRow.TabIndex = 28;
@@ -2012,7 +2014,7 @@ namespace GcproExtensionApp
             // lblStartRow
             // 
             this.lblStartRow.AutoSize = true;
-            this.lblStartRow.Location = new System.Drawing.Point(579, 19);
+            this.lblStartRow.Location = new System.Drawing.Point(572, 19);
             this.lblStartRow.Name = "lblStartRow";
             this.lblStartRow.Size = new System.Drawing.Size(43, 13);
             this.lblStartRow.TabIndex = 28;
@@ -2023,7 +2025,7 @@ namespace GcproExtensionApp
             this.comboSectionBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboSectionBML.FormattingEnabled = true;
             this.comboSectionBML.IntegralHeight = false;
-            this.comboSectionBML.Location = new System.Drawing.Point(501, 44);
+            this.comboSectionBML.Location = new System.Drawing.Point(494, 44);
             this.comboSectionBML.Name = "comboSectionBML";
             this.comboSectionBML.Size = new System.Drawing.Size(66, 21);
             this.comboSectionBML.TabIndex = 27;
@@ -2043,7 +2045,7 @@ namespace GcproExtensionApp
             this.comboCabinetBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboCabinetBML.FormattingEnabled = true;
             this.comboCabinetBML.IntegralHeight = false;
-            this.comboCabinetBML.Location = new System.Drawing.Point(501, 18);
+            this.comboCabinetBML.Location = new System.Drawing.Point(494, 18);
             this.comboCabinetBML.Name = "comboCabinetBML";
             this.comboCabinetBML.Size = new System.Drawing.Size(66, 21);
             this.comboCabinetBML.TabIndex = 23;
@@ -2090,7 +2092,7 @@ namespace GcproExtensionApp
             // lblSection
             // 
             this.lblSection.AutoSize = true;
-            this.lblSection.Location = new System.Drawing.Point(440, 47);
+            this.lblSection.Location = new System.Drawing.Point(433, 47);
             this.lblSection.Name = "lblSection";
             this.lblSection.Size = new System.Drawing.Size(55, 13);
             this.lblSection.TabIndex = 10;
@@ -2108,7 +2110,7 @@ namespace GcproExtensionApp
             // lblCabibetNo
             // 
             this.lblCabibetNo.AutoSize = true;
-            this.lblCabibetNo.Location = new System.Drawing.Point(440, 19);
+            this.lblCabibetNo.Location = new System.Drawing.Point(433, 19);
             this.lblCabibetNo.Name = "lblCabibetNo";
             this.lblCabibetNo.Size = new System.Drawing.Size(43, 13);
             this.lblCabibetNo.TabIndex = 6;
@@ -2157,7 +2159,7 @@ namespace GcproExtensionApp
             this.BtnOpenProjectBML.ForeColor = System.Drawing.SystemColors.ControlText;
             this.BtnOpenProjectBML.Image = ((System.Drawing.Image)(resources.GetObject("BtnOpenProjectBML.Image")));
             this.BtnOpenProjectBML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnOpenProjectBML.Location = new System.Drawing.Point(609, 11);
+            this.BtnOpenProjectBML.Location = new System.Drawing.Point(604, 12);
             this.BtnOpenProjectBML.Name = "BtnOpenProjectBML";
             this.BtnOpenProjectBML.Size = new System.Drawing.Size(89, 27);
             this.BtnOpenProjectBML.TabIndex = 17;

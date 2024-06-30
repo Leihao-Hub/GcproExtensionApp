@@ -63,29 +63,9 @@ namespace GcproExtensionApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap _1__45_1 {
-            get {
-                object obj = ResourceManager.GetObject("1 (45)1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        public static System.Drawing.Icon _113 {
-            get {
-                object obj = ResourceManager.GetObject("_113", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap _new {
             get {
-                object obj = ResourceManager.GetObject("new", resourceCulture);
+                object obj = ResourceManager.GetObject("_new", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -125,7 +105,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap aggregation_avg {
             get {
-                object obj = ResourceManager.GetObject("aggregation-avg", resourceCulture);
+                object obj = ResourceManager.GetObject("aggregation_avg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -135,7 +115,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap aggregation_count {
             get {
-                object obj = ResourceManager.GetObject("aggregation-count", resourceCulture);
+                object obj = ResourceManager.GetObject("aggregation_count", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -145,7 +125,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap aggregation_max {
             get {
-                object obj = ResourceManager.GetObject("aggregation-max", resourceCulture);
+                object obj = ResourceManager.GetObject("aggregation_max", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -155,7 +135,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap aggregation_min {
             get {
-                object obj = ResourceManager.GetObject("aggregation-min", resourceCulture);
+                object obj = ResourceManager.GetObject("aggregation_min", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -165,7 +145,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap aggregation_sum {
             get {
-                object obj = ResourceManager.GetObject("aggregation-sum", resourceCulture);
+                object obj = ResourceManager.GetObject("aggregation_sum", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -175,7 +155,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap alarm_gone {
             get {
-                object obj = ResourceManager.GetObject("alarm-gone", resourceCulture);
+                object obj = ResourceManager.GetObject("alarm_gone", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -185,7 +165,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap alarm_viewed {
             get {
-                object obj = ResourceManager.GetObject("alarm-viewed", resourceCulture);
+                object obj = ResourceManager.GetObject("alarm_viewed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -215,7 +195,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap audit_management {
             get {
-                object obj = ResourceManager.GetObject("audit-management", resourceCulture);
+                object obj = ResourceManager.GetObject("audit_management", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -225,7 +205,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap aut_process {
             get {
-                object obj = ResourceManager.GetObject("aut-process", resourceCulture);
+                object obj = ResourceManager.GetObject("aut_process", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -245,7 +225,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap blend_off {
             get {
-                object obj = ResourceManager.GetObject("blend-off", resourceCulture);
+                object obj = ResourceManager.GetObject("blend_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -255,7 +235,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap blend_on {
             get {
-                object obj = ResourceManager.GetObject("blend-on", resourceCulture);
+                object obj = ResourceManager.GetObject("blend_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -265,7 +245,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap bool_checked {
             get {
-                object obj = ResourceManager.GetObject("bool-checked", resourceCulture);
+                object obj = ResourceManager.GetObject("bool_checked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -275,7 +255,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap bool_unchecked {
             get {
-                object obj = ResourceManager.GetObject("bool-unchecked", resourceCulture);
+                object obj = ResourceManager.GetObject("bool_unchecked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -285,7 +265,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap buehler_logo {
             get {
-                object obj = ResourceManager.GetObject("buehler-logo", resourceCulture);
+                object obj = ResourceManager.GetObject("buehler_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -295,7 +275,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap buehler_logo1 {
             get {
-                object obj = ResourceManager.GetObject("buehler-logo1", resourceCulture);
+                object obj = ResourceManager.GetObject("buehler_logo1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -321,32 +301,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Canacel {
-            get {
-                object obj = ResourceManager.GetObject("Canacel", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Canacel1 {
             get {
                 object obj = ResourceManager.GetObject("Canacel1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Chrome {
-            get {
-                object obj = ResourceManager.GetObject("Chrome", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -361,32 +321,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ChromeSmall {
-            get {
-                object obj = ResourceManager.GetObject("ChromeSmall", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon ChromeSmall1 {
             get {
                 object obj = ResourceManager.GetObject("ChromeSmall1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Cloud {
-            get {
-                object obj = ResourceManager.GetObject("Cloud", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -405,7 +345,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_accept_weight {
             get {
-                object obj = ResourceManager.GetObject("cmd-accept-weight", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_accept_weight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -415,7 +355,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_airlock_on_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-airlock-on-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_airlock_on_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -425,7 +365,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_all_corrections_done {
             get {
-                object obj = ResourceManager.GetObject("cmd-all-corrections-done", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_all_corrections_done", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -435,7 +375,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_automatic {
             get {
-                object obj = ResourceManager.GetObject("cmd-automatic", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_automatic", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -445,7 +385,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_bottle_change {
             get {
-                object obj = ResourceManager.GetObject("cmd-bottle-change", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_bottle_change", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -455,7 +395,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_check_job {
             get {
-                object obj = ResourceManager.GetObject("cmd-check-job", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_check_job", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -465,7 +405,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_clear_min_max {
             get {
-                object obj = ResourceManager.GetObject("cmd-clear-min-max", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_clear_min_max", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -475,7 +415,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_clear_total_value {
             get {
-                object obj = ResourceManager.GetObject("cmd-clear-total-value", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_clear_total_value", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -485,7 +425,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_cooler_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-cooler-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_cooler_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -495,7 +435,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_cooler_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-cooler-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_cooler_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -505,7 +445,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_correction_mode {
             get {
-                object obj = ResourceManager.GetObject("cmd-correction-mode", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_correction_mode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -515,7 +455,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_disable {
             get {
-                object obj = ResourceManager.GetObject("cmd-disable", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_disable", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -525,7 +465,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_disable_vibro_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-disable-vibro-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_disable_vibro_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -535,7 +475,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_disable_vibro_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-disable-vibro-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_disable_vibro_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -545,7 +485,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_enable {
             get {
-                object obj = ResourceManager.GetObject("cmd-enable", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_enable", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -555,7 +495,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_execute_correction {
             get {
-                object obj = ResourceManager.GetObject("cmd-execute-correction", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_execute_correction", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -565,7 +505,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_fan {
             get {
-                object obj = ResourceManager.GetObject("cmd-fan", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_fan", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -575,7 +515,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_fan_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-fan-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_fan_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -585,7 +525,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_fan_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-fan-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_fan_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -595,7 +535,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_force_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-force-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_force_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -605,7 +545,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_force_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-force-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_force_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -615,7 +555,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_heater_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-heater-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_heater_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -625,7 +565,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_heater_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-heater-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_heater_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -635,7 +575,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_high_number {
             get {
-                object obj = ResourceManager.GetObject("cmd-high-number", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_high_number", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -645,7 +585,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_ingredient_abort {
             get {
-                object obj = ResourceManager.GetObject("cmd-ingredient-abort", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_ingredient_abort", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -655,7 +595,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_ingredient_moved {
             get {
-                object obj = ResourceManager.GetObject("cmd-ingredient-moved", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_ingredient_moved", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -665,7 +605,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_ingredient_next {
             get {
-                object obj = ResourceManager.GetObject("cmd-ingredient-next", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_ingredient_next", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -675,7 +615,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_interrupt {
             get {
-                object obj = ResourceManager.GetObject("cmd-interrupt", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_interrupt", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -685,7 +625,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_interrupt_reset {
             get {
-                object obj = ResourceManager.GetObject("cmd-interrupt-reset", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_interrupt_reset", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -695,7 +635,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_limit_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-limit-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_limit_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -705,7 +645,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_limit_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-limit-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_limit_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -715,7 +655,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_log_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-log-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_log_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -725,7 +665,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_log_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-log-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_log_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -735,7 +675,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_low_number {
             get {
-                object obj = ResourceManager.GetObject("cmd-low-number", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_low_number", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -745,7 +685,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_manual_register_weight {
             get {
-                object obj = ResourceManager.GetObject("cmd-manual-register-weight", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_manual_register_weight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -755,7 +695,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_modify_bin {
             get {
-                object obj = ResourceManager.GetObject("cmd-modify-bin", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_modify_bin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -765,7 +705,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_modify_job {
             get {
-                object obj = ResourceManager.GetObject("cmd-modify-job", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_modify_job", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -775,7 +715,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_move_to_other_scale {
             get {
-                object obj = ResourceManager.GetObject("cmd-move-to-other-scale", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_move_to_other_scale", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -785,7 +725,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_new_batch {
             get {
-                object obj = ResourceManager.GetObject("cmd-new-batch", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_new_batch", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -795,7 +735,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_new_job {
             get {
-                object obj = ResourceManager.GetObject("cmd-new-job", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_new_job", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -805,7 +745,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_new_value {
             get {
-                object obj = ResourceManager.GetObject("cmd-new-value", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_new_value", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -815,7 +755,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_next_component {
             get {
-                object obj = ResourceManager.GetObject("cmd-next-component", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_next_component", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -825,7 +765,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_next_storage {
             get {
-                object obj = ResourceManager.GetObject("cmd-next-storage", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_next_storage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -835,7 +775,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_override_hl_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-override-hl-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_override_hl_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -845,7 +785,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_override_hl_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-override-hl-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_override_hl_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -855,7 +795,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_print_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-print-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_print_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -865,7 +805,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_print_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-print-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_print_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -875,7 +815,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_read_register {
             get {
-                object obj = ResourceManager.GetObject("cmd-read-register", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_read_register", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -885,7 +825,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_register {
             get {
-                object obj = ResourceManager.GetObject("cmd-register", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_register", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -895,7 +835,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_reset_job {
             get {
-                object obj = ResourceManager.GetObject("cmd-reset-job", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_reset_job", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -905,7 +845,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_rest_discharge {
             get {
-                object obj = ResourceManager.GetObject("cmd-rest-discharge", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_rest_discharge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -915,7 +855,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_rest_discharge_off {
             get {
-                object obj = ResourceManager.GetObject("cmd-rest-discharge-off", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_rest_discharge_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -925,7 +865,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_rest_discharge_on {
             get {
-                object obj = ResourceManager.GetObject("cmd-rest-discharge-on", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_rest_discharge_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -935,7 +875,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_sample {
             get {
-                object obj = ResourceManager.GetObject("cmd-sample", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_sample", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -945,7 +885,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_sequence_stop {
             get {
-                object obj = ResourceManager.GetObject("cmd-sequence-stop", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_sequence_stop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -955,7 +895,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_set_level {
             get {
-                object obj = ResourceManager.GetObject("cmd-set-level", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_set_level", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -965,7 +905,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_start_empty_job {
             get {
-                object obj = ResourceManager.GetObject("cmd-start-empty-job", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_start_empty_job", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -975,7 +915,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_takeover {
             get {
-                object obj = ResourceManager.GetObject("cmd-takeover", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_takeover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -985,17 +925,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap cmd_teach {
             get {
-                object obj = ResourceManager.GetObject("cmd-teach", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CommandBypass {
-            get {
-                object obj = ResourceManager.GetObject("CommandBypass", resourceCulture);
+                object obj = ResourceManager.GetObject("cmd_teach", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1007,16 +937,6 @@ namespace GcproExtensionApp.Properties {
             get {
                 object obj = ResourceManager.GetObject("CommandBypass1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Compass {
-            get {
-                object obj = ResourceManager.GetObject("Compass", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1051,32 +971,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Computer1 {
-            get {
-                object obj = ResourceManager.GetObject("Computer1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Computer11 {
             get {
                 object obj = ResourceManager.GetObject("Computer11", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Computer2 {
-            get {
-                object obj = ResourceManager.GetObject("Computer2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1091,32 +991,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Computer3 {
-            get {
-                object obj = ResourceManager.GetObject("Computer3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Computer31 {
             get {
                 object obj = ResourceManager.GetObject("Computer31", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ComputerBox {
-            get {
-                object obj = ResourceManager.GetObject("ComputerBox", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1131,32 +1011,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ComputerBoxAndNetwork {
-            get {
-                object obj = ResourceManager.GetObject("ComputerBoxAndNetwork", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon ComputerBoxAndNetwork1 {
             get {
                 object obj = ResourceManager.GetObject("ComputerBoxAndNetwork1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ComputerBoxAndWindows {
-            get {
-                object obj = ResourceManager.GetObject("ComputerBoxAndWindows", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1175,17 +1035,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap confirm_manual_addition {
             get {
-                object obj = ResourceManager.GetObject("confirm-manual-addition", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Confirm1 {
-            get {
-                object obj = ResourceManager.GetObject("Confirm1", resourceCulture);
+                object obj = ResourceManager.GetObject("confirm_manual_addition", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1201,32 +1051,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Confirm2 {
-            get {
-                object obj = ResourceManager.GetObject("Confirm2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Confirm21 {
             get {
                 object obj = ResourceManager.GetObject("Confirm21", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Confirm3 {
-            get {
-                object obj = ResourceManager.GetObject("Confirm3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1241,32 +1071,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Coorperatin2 {
-            get {
-                object obj = ResourceManager.GetObject("Coorperatin2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Coorperatin21 {
             get {
                 object obj = ResourceManager.GetObject("Coorperatin21", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Coorperatin3 {
-            get {
-                object obj = ResourceManager.GetObject("Coorperatin3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1285,17 +1095,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap correction_component {
             get {
-                object obj = ResourceManager.GetObject("correction-component", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CrossX1 {
-            get {
-                object obj = ResourceManager.GetObject("CrossX1", resourceCulture);
+                object obj = ResourceManager.GetObject("correction_component", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1307,16 +1107,6 @@ namespace GcproExtensionApp.Properties {
             get {
                 object obj = ResourceManager.GetObject("CrossX11", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CrossX2 {
-            get {
-                object obj = ResourceManager.GetObject("CrossX2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1335,7 +1125,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap date_time {
             get {
-                object obj = ResourceManager.GetObject("date-time", resourceCulture);
+                object obj = ResourceManager.GetObject("date_time", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1351,32 +1141,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap DischargerManagement {
-            get {
-                object obj = ResourceManager.GetObject("DischargerManagement", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon DischargerManagement1 {
             get {
                 object obj = ResourceManager.GetObject("DischargerManagement1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap DischargerVertex {
-            get {
-                object obj = ResourceManager.GetObject("DischargerVertex", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1391,11 +1161,21 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon DP_Salve {
+            get {
+                object obj = ResourceManager.GetObject("DP_Salve", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap DP_Salve1 {
             get {
-                object obj = ResourceManager.GetObject("DP Salve1", resourceCulture);
+                object obj = ResourceManager.GetObject("DP_Salve1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1405,7 +1185,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap edit_list {
             get {
-                object obj = ResourceManager.GetObject("edit-list", resourceCulture);
+                object obj = ResourceManager.GetObject("edit_list", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1415,7 +1195,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap emergency_gap {
             get {
-                object obj = ResourceManager.GetObject("emergency-gap", resourceCulture);
+                object obj = ResourceManager.GetObject("emergency_gap", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1435,7 +1215,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap empty_list {
             get {
-                object obj = ResourceManager.GetObject("empty-list", resourceCulture);
+                object obj = ResourceManager.GetObject("empty_list", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1445,17 +1225,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap end_of_job {
             get {
-                object obj = ResourceManager.GetObject("end-of-job", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ErrorRed {
-            get {
-                object obj = ResourceManager.GetObject("ErrorRed", resourceCulture);
+                object obj = ResourceManager.GetObject("end_of_job", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1475,7 +1245,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_list {
             get {
-                object obj = ResourceManager.GetObject("event-list", resourceCulture);
+                object obj = ResourceManager.GetObject("event_list", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1485,7 +1255,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_log_process_alarm {
             get {
-                object obj = ResourceManager.GetObject("event-log-process-alarm", resourceCulture);
+                object obj = ResourceManager.GetObject("event_log_process_alarm", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1495,7 +1265,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_log_process_auditlog {
             get {
-                object obj = ResourceManager.GetObject("event-log-process-auditlog", resourceCulture);
+                object obj = ResourceManager.GetObject("event_log_process_auditlog", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1505,7 +1275,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_log_process_info {
             get {
-                object obj = ResourceManager.GetObject("event-log-process-info", resourceCulture);
+                object obj = ResourceManager.GetObject("event_log_process_info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1515,7 +1285,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_log_process_warning {
             get {
-                object obj = ResourceManager.GetObject("event-log-process-warning", resourceCulture);
+                object obj = ResourceManager.GetObject("event_log_process_warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1525,7 +1295,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_log_system_error {
             get {
-                object obj = ResourceManager.GetObject("event-log-system-error", resourceCulture);
+                object obj = ResourceManager.GetObject("event_log_system_error", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1535,7 +1305,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_log_system_information {
             get {
-                object obj = ResourceManager.GetObject("event-log-system-information", resourceCulture);
+                object obj = ResourceManager.GetObject("event_log_system_information", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1545,7 +1315,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap event_log_system_warning {
             get {
-                object obj = ResourceManager.GetObject("event-log-system-warning", resourceCulture);
+                object obj = ResourceManager.GetObject("event_log_system_warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1573,49 +1343,9 @@ namespace GcproExtensionApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Excel2 {
-            get {
-                object obj = ResourceManager.GetObject("Excel2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap extended_shelf_life {
             get {
-                object obj = ResourceManager.GetObject("extended-shelf-life", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Find {
-            get {
-                object obj = ResourceManager.GetObject("Find", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Find1 {
-            get {
-                object obj = ResourceManager.GetObject("Find1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Firefox {
-            get {
-                object obj = ResourceManager.GetObject("Firefox", resourceCulture);
+                object obj = ResourceManager.GetObject("extended_shelf_life", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1631,16 +1361,6 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap FirefoxSmall {
-            get {
-                object obj = ResourceManager.GetObject("FirefoxSmall", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon FirefoxSmall1 {
@@ -1651,42 +1371,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap FireWall_1 {
-            get {
-                object obj = ResourceManager.GetObject("FireWall_1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon FireWall_11 {
             get {
                 object obj = ResourceManager.GetObject("FireWall_11", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Folder {
-            get {
-                object obj = ResourceManager.GetObject("Folder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Gcpro {
-            get {
-                object obj = ResourceManager.GetObject("Gcpro", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1711,32 +1401,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap HardDiskAndDriver {
-            get {
-                object obj = ResourceManager.GetObject("HardDiskAndDriver", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon HardDiskAndDriver1 {
             get {
                 object obj = ResourceManager.GetObject("HardDiskAndDriver1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap HardDiskDriverAndNetwork {
-            get {
-                object obj = ResourceManager.GetObject("HardDiskDriverAndNetwork", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1765,17 +1435,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap high_level {
             get {
-                object obj = ResourceManager.GetObject("high-level", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap IE {
-            get {
-                object obj = ResourceManager.GetObject("IE", resourceCulture);
+                object obj = ResourceManager.GetObject("high_level", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1791,32 +1451,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap IESmall {
-            get {
-                object obj = ResourceManager.GetObject("IESmall", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon IESmall1 {
             get {
                 object obj = ResourceManager.GetObject("IESmall1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_1013 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_1013", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1831,32 +1471,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_1024 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_1024", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon imageres_10241 {
             get {
                 object obj = ResourceManager.GetObject("imageres_10241", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_1043 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_1043", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1871,32 +1491,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_109 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_109", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon imageres_1091 {
             get {
                 object obj = ResourceManager.GetObject("imageres_1091", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_110 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_110", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1911,32 +1511,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_20 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_20", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon imageres_201 {
             get {
                 object obj = ResourceManager.GetObject("imageres_201", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_25 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_25", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1951,16 +1531,6 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_5325 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_5325", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon imageres_53251 {
@@ -1971,32 +1541,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_81 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_81", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon imageres_811 {
             get {
                 object obj = ResourceManager.GetObject("imageres_811", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap imageres_99 {
-            get {
-                object obj = ResourceManager.GetObject("imageres_99", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2055,7 +1605,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap layer_tracing {
             get {
-                object obj = ResourceManager.GetObject("layer-tracing", resourceCulture);
+                object obj = ResourceManager.GetObject("layer_tracing", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2105,7 +1655,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap list_bullets {
             get {
-                object obj = ResourceManager.GetObject("list-bullets", resourceCulture);
+                object obj = ResourceManager.GetObject("list_bullets", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2125,7 +1675,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap locked_discharging {
             get {
-                object obj = ResourceManager.GetObject("locked-discharging", resourceCulture);
+                object obj = ResourceManager.GetObject("locked_discharging", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2135,7 +1685,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap locked_filling {
             get {
-                object obj = ResourceManager.GetObject("locked-filling", resourceCulture);
+                object obj = ResourceManager.GetObject("locked_filling", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2175,7 +1725,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap low_level {
             get {
-                object obj = ResourceManager.GetObject("low-level", resourceCulture);
+                object obj = ResourceManager.GetObject("low_level", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2195,7 +1745,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap manual_addition {
             get {
-                object obj = ResourceManager.GetObject("manual-addition", resourceCulture);
+                object obj = ResourceManager.GetObject("manual_addition", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2215,7 +1765,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap map_pin {
             get {
-                object obj = ResourceManager.GetObject("map-pin", resourceCulture);
+                object obj = ResourceManager.GetObject("map_pin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2225,7 +1775,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap master_items {
             get {
-                object obj = ResourceManager.GetObject("master-items", resourceCulture);
+                object obj = ResourceManager.GetObject("master_items", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2235,7 +1785,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap mechanical_fault {
             get {
-                object obj = ResourceManager.GetObject("mechanical-fault", resourceCulture);
+                object obj = ResourceManager.GetObject("mechanical_fault", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2255,7 +1805,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap mercury_loader {
             get {
-                object obj = ResourceManager.GetObject("mercury-loader", resourceCulture);
+                object obj = ResourceManager.GetObject("mercury_loader", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2265,7 +1815,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap mercury_report {
             get {
-                object obj = ResourceManager.GetObject("mercury-report", resourceCulture);
+                object obj = ResourceManager.GetObject("mercury_report", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2285,7 +1835,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap more_horizontal {
             get {
-                object obj = ResourceManager.GetObject("more-horizontal", resourceCulture);
+                object obj = ResourceManager.GetObject("more_horizontal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2295,7 +1845,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap more_vertical {
             get {
-                object obj = ResourceManager.GetObject("more-vertical", resourceCulture);
+                object obj = ResourceManager.GetObject("more_vertical", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2303,9 +1853,9 @@ namespace GcproExtensionApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap motor {
+        public static System.Drawing.Bitmap Motor {
             get {
-                object obj = ResourceManager.GetObject("motor", resourceCulture);
+                object obj = ResourceManager.GetObject("Motor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2315,7 +1865,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap motor_left {
             get {
-                object obj = ResourceManager.GetObject("motor-left", resourceCulture);
+                object obj = ResourceManager.GetObject("motor_left", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2325,7 +1875,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap motor_stop {
             get {
-                object obj = ResourceManager.GetObject("motor-stop", resourceCulture);
+                object obj = ResourceManager.GetObject("motor_stop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2337,6 +1887,16 @@ namespace GcproExtensionApp.Properties {
             get {
                 object obj = ResourceManager.GetObject("motor1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Motor2 {
+            get {
+                object obj = ResourceManager.GetObject("Motor2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2361,32 +1921,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap NetworkBlue {
-            get {
-                object obj = ResourceManager.GetObject("NetworkBlue", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon NetworkBlue1 {
             get {
                 object obj = ResourceManager.GetObject("NetworkBlue1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap NetworkGrey {
-            get {
-                object obj = ResourceManager.GetObject("NetworkGrey", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2403,39 +1943,9 @@ namespace GcproExtensionApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap NewTextFile {
-            get {
-                object obj = ResourceManager.GetObject("NewTextFile", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap NewTextFile1 {
-            get {
-                object obj = ResourceManager.GetObject("NewTextFile1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap not_found {
             get {
-                object obj = ResourceManager.GetObject("not-found", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap NoteBook1 {
-            get {
-                object obj = ResourceManager.GetObject("NoteBook1", resourceCulture);
+                object obj = ResourceManager.GetObject("not_found", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2461,16 +1971,6 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap OpenFolder {
-            get {
-                object obj = ResourceManager.GetObject("OpenFolder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon OpenFolder1 {
@@ -2485,7 +1985,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap parameter_horizontal {
             get {
-                object obj = ResourceManager.GetObject("parameter-horizontal", resourceCulture);
+                object obj = ResourceManager.GetObject("parameter_horizontal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2495,7 +1995,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap parameter_horizontalSmall {
             get {
-                object obj = ResourceManager.GetObject("parameter-horizontalSmall", resourceCulture);
+                object obj = ResourceManager.GetObject("parameter_horizontalSmall", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2505,17 +2005,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap parameter_vertical {
             get {
-                object obj = ResourceManager.GetObject("parameter-vertical", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Penicl {
-            get {
-                object obj = ResourceManager.GetObject("Penicl", resourceCulture);
+                object obj = ResourceManager.GetObject("parameter_vertical", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2545,7 +2035,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap pin_pinned {
             get {
-                object obj = ResourceManager.GetObject("pin-pinned", resourceCulture);
+                object obj = ResourceManager.GetObject("pin_pinned", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2555,17 +2045,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap pin_unpin {
             get {
-                object obj = ResourceManager.GetObject("pin-unpin", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Pin1 {
-            get {
-                object obj = ResourceManager.GetObject("Pin1", resourceCulture);
+                object obj = ResourceManager.GetObject("pin_unpin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2585,7 +2065,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap pre_alarm_off {
             get {
-                object obj = ResourceManager.GetObject("pre-alarm-off", resourceCulture);
+                object obj = ResourceManager.GetObject("pre_alarm_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2595,7 +2075,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap pre_alarm_on {
             get {
-                object obj = ResourceManager.GetObject("pre-alarm-on", resourceCulture);
+                object obj = ResourceManager.GetObject("pre_alarm_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2605,17 +2085,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap prepstate_info {
             get {
-                object obj = ResourceManager.GetObject("prepstate-info", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Printer01 {
-            get {
-                object obj = ResourceManager.GetObject("Printer01", resourceCulture);
+                object obj = ResourceManager.GetObject("prepstate_info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2631,32 +2101,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Printer02 {
-            get {
-                object obj = ResourceManager.GetObject("Printer02", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon Printer021 {
             get {
                 object obj = ResourceManager.GetObject("Printer021", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Printer03 {
-            get {
-                object obj = ResourceManager.GetObject("Printer03", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2685,7 +2135,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap product_assign {
             get {
-                object obj = ResourceManager.GetObject("product-assign", resourceCulture);
+                object obj = ResourceManager.GetObject("product_assign", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2695,7 +2145,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap product_deassign {
             get {
-                object obj = ResourceManager.GetObject("product-deassign", resourceCulture);
+                object obj = ResourceManager.GetObject("product_deassign", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2707,6 +2157,16 @@ namespace GcproExtensionApp.Properties {
             get {
                 object obj = ResourceManager.GetObject("products", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon Puls_ {
+            get {
+                object obj = ResourceManager.GetObject("Puls_", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -2725,7 +2185,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap recipe_step {
             get {
-                object obj = ResourceManager.GetObject("recipe-step", resourceCulture);
+                object obj = ResourceManager.GetObject("recipe_step", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2735,17 +2195,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap recipe_template {
             get {
-                object obj = ResourceManager.GetObject("recipe-template", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Recycle {
-            get {
-                object obj = ResourceManager.GetObject("Recycle", resourceCulture);
+                object obj = ResourceManager.GetObject("recipe_template", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2761,32 +2211,12 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap RecycleBox {
-            get {
-                object obj = ResourceManager.GetObject("RecycleBox", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon RecycleBox1 {
             get {
                 object obj = ResourceManager.GetObject("RecycleBox1", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap RecycleBoxEmpty {
-            get {
-                object obj = ResourceManager.GetObject("RecycleBoxEmpty", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2835,17 +2265,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap sampler_management {
             get {
-                object obj = ResourceManager.GetObject("sampler-management", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Save {
-            get {
-                object obj = ResourceManager.GetObject("Save", resourceCulture);
+                object obj = ResourceManager.GetObject("sampler_management", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2871,16 +2291,6 @@ namespace GcproExtensionApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap ScaleMonitorData {
-            get {
-                object obj = ResourceManager.GetObject("ScaleMonitorData", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon ScaleMonitorData1 {
@@ -2895,7 +2305,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap scheduler_disabled {
             get {
-                object obj = ResourceManager.GetObject("scheduler-disabled", resourceCulture);
+                object obj = ResourceManager.GetObject("scheduler_disabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2905,7 +2315,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap scheduler_enabled {
             get {
-                object obj = ResourceManager.GetObject("scheduler-enabled", resourceCulture);
+                object obj = ResourceManager.GetObject("scheduler_enabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2925,7 +2335,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap select_arrow {
             get {
-                object obj = ResourceManager.GetObject("select-arrow", resourceCulture);
+                object obj = ResourceManager.GetObject("select_arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2945,7 +2355,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap set_dry_level_done {
             get {
-                object obj = ResourceManager.GetObject("set-dry-level-done", resourceCulture);
+                object obj = ResourceManager.GetObject("set_dry_level_done", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2955,7 +2365,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap set_level_to_empty {
             get {
-                object obj = ResourceManager.GetObject("set-level-to-empty", resourceCulture);
+                object obj = ResourceManager.GetObject("set_level_to_empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2965,17 +2375,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap set_level_to_not_empty {
             get {
-                object obj = ResourceManager.GetObject("set-level-to-not-empty", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap Shield {
-            get {
-                object obj = ResourceManager.GetObject("Shield", resourceCulture);
+                object obj = ResourceManager.GetObject("set_level_to_not_empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2995,7 +2395,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap sound_mute {
             get {
-                object obj = ResourceManager.GetObject("sound-mute", resourceCulture);
+                object obj = ResourceManager.GetObject("sound_mute", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3005,7 +2405,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap sound_off {
             get {
-                object obj = ResourceManager.GetObject("sound-off", resourceCulture);
+                object obj = ResourceManager.GetObject("sound_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3015,7 +2415,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_check_recipe {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-check-recipe", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_check_recipe", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3025,7 +2425,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_dp_fault {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-dp-fault", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_dp_fault", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3035,7 +2435,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_forced {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-forced", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_forced", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3045,7 +2445,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_hw_stop {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-hw-stop", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_hw_stop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3055,7 +2455,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_inputs {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-inputs", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_inputs", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3065,7 +2465,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_local {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-local", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_local", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3075,7 +2475,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_manual {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-manual", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_manual", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3085,7 +2485,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_print {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-print", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_print", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3095,7 +2495,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_reserve {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-reserve", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_reserve", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3105,17 +2505,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stateinfo_warning {
             get {
-                object obj = ResourceManager.GetObject("stateinfo-warning", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap StInfoDPfault {
-            get {
-                object obj = ResourceManager.GetObject("StInfoDPfault", resourceCulture);
+                object obj = ResourceManager.GetObject("stateinfo_warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3135,7 +2525,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stop_cu {
             get {
-                object obj = ResourceManager.GetObject("stop-cu", resourceCulture);
+                object obj = ResourceManager.GetObject("stop_cu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3145,7 +2535,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap stop_feeder {
             get {
-                object obj = ResourceManager.GetObject("stop-feeder", resourceCulture);
+                object obj = ResourceManager.GetObject("stop_feeder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3165,7 +2555,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap storage_is_empty {
             get {
-                object obj = ResourceManager.GetObject("storage-is-empty", resourceCulture);
+                object obj = ResourceManager.GetObject("storage_is_empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3175,7 +2565,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap storage_is_not_empty {
             get {
-                object obj = ResourceManager.GetObject("storage-is-not-empty", resourceCulture);
+                object obj = ResourceManager.GetObject("storage_is_not_empty", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3205,7 +2595,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap system_monitor {
             get {
-                object obj = ResourceManager.GetObject("system-monitor", resourceCulture);
+                object obj = ResourceManager.GetObject("system_monitor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3235,7 +2625,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap user_engineer {
             get {
-                object obj = ResourceManager.GetObject("user-engineer", resourceCulture);
+                object obj = ResourceManager.GetObject("user_engineer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3245,7 +2635,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap user_interaction {
             get {
-                object obj = ResourceManager.GetObject("user-interaction", resourceCulture);
+                object obj = ResourceManager.GetObject("user_interaction", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3253,9 +2643,9 @@ namespace GcproExtensionApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap valve {
+        public static System.Drawing.Bitmap Value {
             get {
-                object obj = ResourceManager.GetObject("valve", resourceCulture);
+                object obj = ResourceManager.GetObject("Value", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3295,7 +2685,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap wincos_1 {
             get {
-                object obj = ResourceManager.GetObject("wincos-1", resourceCulture);
+                object obj = ResourceManager.GetObject("wincos_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3305,7 +2695,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap wincos_2 {
             get {
-                object obj = ResourceManager.GetObject("wincos-2", resourceCulture);
+                object obj = ResourceManager.GetObject("wincos_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3315,7 +2705,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap wincos_3 {
             get {
-                object obj = ResourceManager.GetObject("wincos-3", resourceCulture);
+                object obj = ResourceManager.GetObject("wincos_3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3325,7 +2715,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap wincos_4 {
             get {
-                object obj = ResourceManager.GetObject("wincos-4", resourceCulture);
+                object obj = ResourceManager.GetObject("wincos_4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3335,7 +2725,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap window_fullscreen {
             get {
-                object obj = ResourceManager.GetObject("window-fullscreen", resourceCulture);
+                object obj = ResourceManager.GetObject("window_fullscreen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3345,7 +2735,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap window_fullscreen_off {
             get {
-                object obj = ResourceManager.GetObject("window-fullscreen-off", resourceCulture);
+                object obj = ResourceManager.GetObject("window_fullscreen_off", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3355,7 +2745,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap window_large {
             get {
-                object obj = ResourceManager.GetObject("window-large", resourceCulture);
+                object obj = ResourceManager.GetObject("window_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3365,7 +2755,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap window_medium {
             get {
-                object obj = ResourceManager.GetObject("window-medium", resourceCulture);
+                object obj = ResourceManager.GetObject("window_medium", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3425,7 +2815,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap zero_gap {
             get {
-                object obj = ResourceManager.GetObject("zero-gap", resourceCulture);
+                object obj = ResourceManager.GetObject("zero_gap", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3435,7 +2825,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap zoom_in {
             get {
-                object obj = ResourceManager.GetObject("zoom-in", resourceCulture);
+                object obj = ResourceManager.GetObject("zoom_in", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -3445,7 +2835,7 @@ namespace GcproExtensionApp.Properties {
         /// </summary>
         public static System.Drawing.Bitmap zoom_out {
             get {
-                object obj = ResourceManager.GetObject("zoom-out", resourceCulture);
+                object obj = ResourceManager.GetObject("zoom_out", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

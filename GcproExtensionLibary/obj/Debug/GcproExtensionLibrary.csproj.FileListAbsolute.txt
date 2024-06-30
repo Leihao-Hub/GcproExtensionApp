@@ -8,8 +8,6 @@ Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExt.CCE0ECD5.Up2Date
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.dll
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.pdb
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibary.dll
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibary.pdb
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\EPPlus.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\EPPlus.Interfaces.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\EPPlus.System.Drawing.dll
@@ -23,6 +21,7 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\De
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\Microsoft.Extensions.FileSystemGlobbing.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\Microsoft.Extensions.Primitives.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\Newtonsoft.Json.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\System.Buffers.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\System.ComponentModel.Annotations.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\System.Memory.dll
@@ -132,6 +131,7 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\De
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.AssemblyReference.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.CoreCompileInputs.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExt.CCE0ECD5.Up2Date
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.dll
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.pdb
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\Newtonsoft.Json.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibrary.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibrary.pdb
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.pdb

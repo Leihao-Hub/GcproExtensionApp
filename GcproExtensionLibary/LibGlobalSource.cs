@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.Windows.Forms;
 using System.Configuration;
 using System.IO;
+using OfficeOpenXml.Packaging.Ionic.Zlib;
 
 
 namespace GcproExtensionLibrary
@@ -42,17 +43,6 @@ namespace GcproExtensionLibrary
         {
             public static string[] SplitStringWithRule(string source, string rule)
             {
-                //异常抛出做在调用者那边更好
-                //if (string.IsNullOrEmpty(source))
-                //{
-                //    throw new ArgumentException("源字符串不能为空", nameof(source));
-                //}
-
-                //if (string.IsNullOrEmpty(rule))
-                //{
-                //    throw new ArgumentException("规则字符串不能为空", nameof(rule));
-                //}
-                // 使用 rule 分割 source 字符串，并移除空返回项
                 string[] result = source.Split(new string[] { rule }, StringSplitOptions.RemoveEmptyEntries);
                 return result;
             }
@@ -81,24 +71,21 @@ namespace GcproExtensionLibrary
                 };
                 return ruleSubPos;
             }
-            public static string RemoveSubstring(string mainString, string subStringToRemove)
-            {
-                if (string.IsNullOrEmpty(mainString) || string.IsNullOrEmpty(subStringToRemove))
-                {
-                    return mainString;
-                }
-                string pattern = Regex.Escape(subStringToRemove);
-                return Regex.Replace(mainString, pattern, "", RegexOptions.None, TimeSpan.FromMilliseconds(100));
-            }
-            public static string ExtractNumericPart(string stringTobeExtract, bool withSign)
+            //public static string RemoveSubstring(string mainString, string subStringToRemove)
+            //{
+            //    if (string.IsNullOrEmpty(mainString) || string.IsNullOrEmpty(subStringToRemove))
+            //    {
+            //        return mainString;
+            //    }
+            //    string pattern = Regex.Escape(subStringToRemove);
+            //    return Regex.Replace(mainString, pattern, "", RegexOptions.None, TimeSpan.FromMilliseconds(100));
+            //}
+            private static string ExtractStringPart(string pattern, string stringTobeExtract)
             {
                 string result;
                 if (!string.IsNullOrEmpty(stringTobeExtract))
-                {
-                    string pattern = withSign ? @"[+-]?\d+(\.\d+)?" : @"\d+(\.\d+)?";
-
+                {                   
                     Match match = Regex.Match(stringTobeExtract, pattern);
-
                     result = match.Success ? match.Value : string.Empty;
                     return result;
                 }
@@ -106,6 +93,34 @@ namespace GcproExtensionLibrary
                 {
                     return string.Empty;
                 }
+            }
+            public static string ExtractNumericPart(string stringTobeExtract, bool withSign)
+            {
+                string result;                         
+                string pattern = withSign ? @"[+-]?\d+(\.\d+)?" : @"\d+(\.\d+)?";
+                result = ExtractStringPart(pattern, stringTobeExtract);
+                return result;         
+            }
+            public static string ExtractLetterAndNumeric(string stringTobeExtract)
+            {
+                string result;      
+                string pattern =  @"^[a-zA-A0-9-]+$";
+                result = ExtractStringPart(pattern, stringTobeExtract);
+                return result;  
+            }
+            static string RemoveParts(string input, string[] partsToRemove,bool removeSpace)
+            {
+                string result = input;
+
+                foreach (string part in partsToRemove)
+                {
+                    result = result.Replace(part, "");
+                }
+                if (removeSpace)
+                {
+                    result = result.Replace(" ", "");
+                }
+                return result;
             }
             public static string ExtractStringBetween(string input, char startChar, char endChar)
             {
@@ -137,12 +152,11 @@ namespace GcproExtensionLibrary
                     return "No match found!";
                 }
             }
-            public static string FindContinuousCommonSubstring(string str1, string str2)
+            public static string FindContinuousAndSameSubstring(string str1, string str2,int minLen=0)
             {
                 int[,] lcs = new int[str1.Length + 1, str2.Length + 1];
                 int length = 0;
                 int row = 0, col = 0;
-
                 for (int i = 1; i <= str1.Length; i++)
                 {
                     for (int j = 1; j <= str2.Length; j++)
@@ -168,7 +182,6 @@ namespace GcproExtensionLibrary
                 {
                     return string.Empty;
                 }
-
                 string result = string.Empty;
                 while (lcs[row, col] != 0)
                 {
@@ -176,10 +189,22 @@ namespace GcproExtensionLibrary
                     row--;
                     col--;
                 }
-
-                return result;
+                if (minLen == 0)
+                {
+                    return result;
+                }
+                else
+                {
+                    if (result.Length < minLen)
+                    {
+                        return string.Empty;
+                    }
+                    else
+                    {
+                     return  result.Substring(0, minLen);
+                    }
+                }
             }
-
             public static string ExtendPrefixToSeparator(string prefix, List<string> columnValues)
             {
                 foreach (var value in columnValues)
@@ -200,7 +225,7 @@ namespace GcproExtensionLibrary
         }
         public static class BMLHelper
         {
-            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataTable dataTable, string columnName)
+            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataTable dataTable, string columnName,int minLen=0)
             {
                 List<string> columnValues = dataTable.AsEnumerable().Select(row => row.Field<string>(columnName)).ToList();
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
@@ -212,7 +237,8 @@ namespace GcproExtensionLibrary
                     {
                         for (int j = i + 1; j < columnValues.Count; j++)
                         {
-                            string commonSubstring = StringHelper.FindContinuousCommonSubstring(columnValues[i], columnValues[j]);
+                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j],minLen);
+                         
                             if (!string.IsNullOrEmpty(commonSubstring))
                             {
                                 for (int k = 0; k <= commonSubstring.Length; k++)
@@ -249,7 +275,7 @@ namespace GcproExtensionLibrary
 
                 return finalResults;
             }
-            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataGridView dataGridView, string columnName)
+            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataGridView dataGridView, string columnName,int minLen=0)
             {
                 List<string> columnValues = dataGridView.Rows
                     .Cast<DataGridViewRow>()
@@ -266,7 +292,7 @@ namespace GcproExtensionLibrary
                     {
                         for (int j = i + 1; j < columnValues.Count; j++)
                         {
-                            string commonSubstring = StringHelper.FindContinuousCommonSubstring(columnValues[i], columnValues[j]);
+                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j],minLen);
                             if (!string.IsNullOrEmpty(commonSubstring))
                             {
                                 for (int k = 1; k <= commonSubstring.Length; k++)

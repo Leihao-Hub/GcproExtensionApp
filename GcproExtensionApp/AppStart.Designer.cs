@@ -174,7 +174,6 @@
             // 
             // lblGcproTempPath
             // 
-            this.lblGcproTempPath.Image = global::GcproExtensionApp.Properties.Resources.Folder;
             this.lblGcproTempPath.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.lblGcproTempPath.Location = new System.Drawing.Point(6, 18);
             this.lblGcproTempPath.Name = "lblGcproTempPath";
@@ -186,6 +185,7 @@
             // pictureBoxBuhlerCode
             // 
             this.pictureBoxBuhlerCode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxBuhlerCode.ErrorImage = null;
             this.pictureBoxBuhlerCode.Image = global::GcproExtensionApp.Properties.Resources.buhlerCode;
             this.pictureBoxBuhlerCode.Location = new System.Drawing.Point(708, 15);
             this.pictureBoxBuhlerCode.Name = "pictureBoxBuhlerCode";
@@ -256,7 +256,6 @@
             // 
             // lblProjectType
             // 
-            this.lblProjectType.Image = global::GcproExtensionApp.Properties.Resources.AccessSmall;
             this.lblProjectType.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblProjectType.Location = new System.Drawing.Point(6, 85);
             this.lblProjectType.Name = "lblProjectType";
@@ -285,7 +284,6 @@
             // 
             // LblGcproLibaryPath
             // 
-            this.LblGcproLibaryPath.Image = global::GcproExtensionApp.Properties.Resources.AccessSmall;
             this.LblGcproLibaryPath.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblGcproLibaryPath.Location = new System.Drawing.Point(6, 50);
             this.LblGcproLibaryPath.Name = "LblGcproLibaryPath";
@@ -296,7 +294,6 @@
             // 
             // LblGcproProjectPath
             // 
-            this.LblGcproProjectPath.Image = global::GcproExtensionApp.Properties.Resources.AccessSmall;
             this.LblGcproProjectPath.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.LblGcproProjectPath.Location = new System.Drawing.Point(6, 18);
             this.LblGcproProjectPath.Name = "LblGcproProjectPath";
@@ -386,7 +383,6 @@
             this.btnAddBin.Name = "btnAddBin";
             this.btnAddBin.Size = new System.Drawing.Size(30, 21);
             this.btnAddBin.TabIndex = 1;
-            this.btnAddBin.Text = "/";
             this.btnAddBin.UseVisualStyleBackColor = true;
             // 
             // lblBin
@@ -667,6 +663,7 @@
             this.btnAddDI.Size = new System.Drawing.Size(30, 21);
             this.btnAddDI.TabIndex = 7;
             this.btnAddDI.UseVisualStyleBackColor = true;
+            this.btnAddDI.Click += new System.EventHandler(this.btnAddDI_Click);
             // 
             // lblDI
             // 
@@ -760,8 +757,9 @@
             // 
             // pictureBoxBuhler2
             // 
+            this.pictureBoxBuhler2.BackgroundImage = global::GcproExtensionApp.Properties.Resources.buhlerCode;
             this.pictureBoxBuhler2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxBuhler2.Image = global::GcproExtensionApp.Properties.Resources.buhlerCode;
+            this.pictureBoxBuhler2.ErrorImage = null;
             this.pictureBoxBuhler2.Location = new System.Drawing.Point(701, 19);
             this.pictureBoxBuhler2.Name = "pictureBoxBuhler2";
             this.pictureBoxBuhler2.Size = new System.Drawing.Size(86, 87);
@@ -771,8 +769,9 @@
             // 
             // PictureBuhler
             // 
+            this.PictureBuhler.BackgroundImage = global::GcproExtensionApp.Properties.Resources.buehler_logo;
+            this.PictureBuhler.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.PictureBuhler.ErrorImage = null;
-            this.PictureBuhler.Image = global::GcproExtensionApp.Properties.Resources.buehler_logo;
             this.PictureBuhler.Location = new System.Drawing.Point(15, 10);
             this.PictureBuhler.Name = "PictureBuhler";
             this.PictureBuhler.Size = new System.Drawing.Size(196, 36);
