@@ -24,7 +24,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string fileRelationPath;
         private string fileConnectorPath;
         private static string vlsFileName = $@"\{OTypeCollection.EL_VLS}";
-
         public static VLSRule Rule;
         private string name;
         private string description;
@@ -137,7 +136,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         }
 
-        public override string Value9
+        public string Value9
         {
             get { return value9; }
             set { value9 = value; }
@@ -324,58 +323,61 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
                      LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + "_FindConnector.Txt" : filePath + vlsFileName + "_FindConnector.Txt");
         }
-        public void CreateObject(Encoding encoding)
+        public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
-            isNew = "false";       
-            StringBuilder objFields = new StringBuilder();
-            ///<summary>
-            ///生产Standard字符串部分
-            ///</summary> 
-            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(name).Append(LibGlobalSource.TAB)
-              .Append(description).Append(LibGlobalSource.TAB)
-              .Append(subType).Append(LibGlobalSource.TAB)
-              .Append(processFct).Append(LibGlobalSource.TAB)
-              .Append(building).Append(LibGlobalSource.TAB)
-              .Append(elevation).Append(LibGlobalSource.TAB)
-              .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-              .Append(panel_ID).Append(LibGlobalSource.TAB)
-              .Append(diagram).Append(LibGlobalSource.TAB)
-              .Append(page).Append(LibGlobalSource.TAB)
-              .Append(pType).Append(LibGlobalSource.TAB)
-              .Append(hornCode).Append(LibGlobalSource.TAB);
+            if (!onlyRelation)
+            {
+                TextFileHandle textFileHandle = new TextFileHandle();
+                textFileHandle.FilePath = this.filePath;
+                isNew = "false";
+                StringBuilder objFields = new StringBuilder();
+                ///<summary>
+                ///生产Standard字符串部分
+                ///</summary> 
+                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
+                  .Append(name).Append(LibGlobalSource.TAB)
+                  .Append(description).Append(LibGlobalSource.TAB)
+                  .Append(subType).Append(LibGlobalSource.TAB)
+                  .Append(processFct).Append(LibGlobalSource.TAB)
+                  .Append(building).Append(LibGlobalSource.TAB)
+                  .Append(elevation).Append(LibGlobalSource.TAB)
+                  .Append(fieldBusNode).Append(LibGlobalSource.TAB)
+                  .Append(panel_ID).Append(LibGlobalSource.TAB)
+                  .Append(diagram).Append(LibGlobalSource.TAB)
+                  .Append(page).Append(LibGlobalSource.TAB)
+                  .Append(pType).Append(LibGlobalSource.TAB)
+                  .Append(hornCode).Append(LibGlobalSource.TAB);
 
-            ///<summary>
-            ///生成Application 字符串部分
-            ///</summary>
-            objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
-              .Append(dpNode2).Append(LibGlobalSource.TAB)
-              .Append(value9).Append(LibGlobalSource.TAB)
-              .Append(value10).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(monTime).Append(LibGlobalSource.TAB)
-              .Append(pulseTimeHN).Append(LibGlobalSource.TAB)
-              .Append(pulseTimeLN).Append(LibGlobalSource.TAB)
-              .Append(idlingTime).Append(LibGlobalSource.TAB)
-              .Append(faultDelay).Append(LibGlobalSource.TAB)
-              .Append(startDelay).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-              .Append(isNew);
-            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-            objFields = null;
+                ///<summary>
+                ///生成Application 字符串部分
+                ///</summary>
+                objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
+                  .Append(dpNode2).Append(LibGlobalSource.TAB)
+                  .Append(value9).Append(LibGlobalSource.TAB)
+                  .Append(value10).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(monTime).Append(LibGlobalSource.TAB)
+                  .Append(pulseTimeHN).Append(LibGlobalSource.TAB)
+                  .Append(pulseTimeLN).Append(LibGlobalSource.TAB)
+                  .Append(idlingTime).Append(LibGlobalSource.TAB)
+                  .Append(faultDelay).Append(LibGlobalSource.TAB)
+                  .Append(startDelay).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                  .Append(isNew);
+                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+                objFields = null;
+            }
             if (subType == VPO || subType == VPOM || subType == VPOR)
             {
                 CreateRelation(name, inpLN, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
@@ -416,13 +418,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 CreateRelation(name, refAsp, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);
             }
         }
-        public void CreateRelation(string parent, string child, string connectedFiled, string filePath, Encoding encoding)
-        {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = filePath;
-            string output = parent + LibGlobalSource.TAB + child + LibGlobalSource.TAB + connectedFiled;
-            textFileHandle.WriteToTextFile(output, encoding);
-        }
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();
@@ -432,14 +427,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.ClearContents();
             textFileHandle.FilePath = this.fileConnectorPath;
             textFileHandle.ClearContents();
-        }
-        public bool SaveFileAs(string sourceFilePath, string title)
-        {
-            bool result;
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = sourceFilePath;
-            result = textFileHandle.SaveFileAs(title);
-            return result;
         }
     }
 }

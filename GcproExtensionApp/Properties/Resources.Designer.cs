@@ -63,6 +63,16 @@ namespace GcproExtensionApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap _1__26_1 {
+            get {
+                object obj = ResourceManager.GetObject("1 (26)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap _new {
             get {
                 object obj = ResourceManager.GetObject("_new", resourceCulture);
@@ -1036,6 +1046,16 @@ namespace GcproExtensionApp.Properties {
         public static System.Drawing.Bitmap confirm_manual_addition {
             get {
                 object obj = ResourceManager.GetObject("confirm_manual_addition", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Confirm1 {
+            get {
+                object obj = ResourceManager.GetObject("Confirm1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2257,6 +2277,16 @@ namespace GcproExtensionApp.Properties {
             get {
                 object obj = ResourceManager.GetObject("rollermill", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon RollerMill1 {
+            get {
+                object obj = ResourceManager.GetObject("RollerMill1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

@@ -227,7 +227,7 @@ namespace GcproExtensionApp
             this.ProgressBar});
             this.statusStrip.Location = new System.Drawing.Point(0, 778);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(731, 22);
+            this.statusStrip.Size = new System.Drawing.Size(723, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusBar";
             // 
@@ -286,9 +286,10 @@ namespace GcproExtensionApp
             this.tabCreateMode.Margin = new System.Windows.Forms.Padding(0);
             this.tabCreateMode.Name = "tabCreateMode";
             this.tabCreateMode.SelectedIndex = 0;
-            this.tabCreateMode.Size = new System.Drawing.Size(731, 579);
+            this.tabCreateMode.Size = new System.Drawing.Size(723, 579);
             this.tabCreateMode.TabIndex = 107;
             this.tabCreateMode.SelectedIndexChanged += new System.EventHandler(this.tabCreateMode_SelectedIndexChanged);
+            this.tabCreateMode.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tabCreateMode_MouseDoubleClick);
             // 
             // contextMenuStripBML
             // 
@@ -327,13 +328,12 @@ namespace GcproExtensionApp
             // 
             // tabRule
             // 
-            this.tabRule.AutoScroll = true;
             this.tabRule.BackColor = System.Drawing.SystemColors.Control;
             this.tabRule.Controls.Add(this.PalGcObject);
             this.tabRule.Location = new System.Drawing.Point(4, 22);
             this.tabRule.Name = "tabRule";
             this.tabRule.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRule.Size = new System.Drawing.Size(723, 553);
+            this.tabRule.Size = new System.Drawing.Size(715, 553);
             this.tabRule.TabIndex = 0;
             this.tabRule.Text = "设定规则创建";
             // 
@@ -353,7 +353,7 @@ namespace GcproExtensionApp
             this.PalGcObject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PalGcObject.Location = new System.Drawing.Point(3, 3);
             this.PalGcObject.Name = "PalGcObject";
-            this.PalGcObject.Size = new System.Drawing.Size(717, 547);
+            this.PalGcObject.Size = new System.Drawing.Size(709, 547);
             this.PalGcObject.TabIndex = 105;
             // 
             // grpSinamics
@@ -365,9 +365,9 @@ namespace GcproExtensionApp
             this.grpSinamics.Controls.Add(this.lblParRefTorque);
             this.grpSinamics.Controls.Add(this.txtParRefCurrent);
             this.grpSinamics.Controls.Add(this.lblParRefCurrent);
-            this.grpSinamics.Location = new System.Drawing.Point(6, 447);
+            this.grpSinamics.Location = new System.Drawing.Point(5, 446);
             this.grpSinamics.Name = "grpSinamics";
-            this.grpSinamics.Size = new System.Drawing.Size(189, 95);
+            this.grpSinamics.Size = new System.Drawing.Size(189, 92);
             this.grpSinamics.TabIndex = 146;
             this.grpSinamics.TabStop = false;
             this.grpSinamics.Text = "Sinamics";
@@ -375,7 +375,7 @@ namespace GcproExtensionApp
             // txtParRefPower
             // 
             this.txtParRefPower.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParRefPower.Location = new System.Drawing.Point(111, 76);
+            this.txtParRefPower.Location = new System.Drawing.Point(111, 72);
             this.txtParRefPower.Name = "txtParRefPower";
             this.txtParRefPower.Size = new System.Drawing.Size(63, 13);
             this.txtParRefPower.TabIndex = 157;
@@ -385,7 +385,7 @@ namespace GcproExtensionApp
             // lblParRefPower
             // 
             this.lblParRefPower.AutoSize = true;
-            this.lblParRefPower.Location = new System.Drawing.Point(6, 76);
+            this.lblParRefPower.Location = new System.Drawing.Point(6, 72);
             this.lblParRefPower.Name = "lblParRefPower";
             this.lblParRefPower.Size = new System.Drawing.Size(70, 13);
             this.lblParRefPower.TabIndex = 158;
@@ -395,7 +395,7 @@ namespace GcproExtensionApp
             // 
             this.chkWithMultiMotorCfg.AutoSize = true;
             this.chkWithMultiMotorCfg.Enabled = false;
-            this.chkWithMultiMotorCfg.Location = new System.Drawing.Point(6, 19);
+            this.chkWithMultiMotorCfg.Location = new System.Drawing.Point(6, 16);
             this.chkWithMultiMotorCfg.Name = "chkWithMultiMotorCfg";
             this.chkWithMultiMotorCfg.Size = new System.Drawing.Size(113, 17);
             this.chkWithMultiMotorCfg.TabIndex = 156;
@@ -407,7 +407,7 @@ namespace GcproExtensionApp
             // txtParRefTorque
             // 
             this.txtParRefTorque.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParRefTorque.Location = new System.Drawing.Point(111, 57);
+            this.txtParRefTorque.Location = new System.Drawing.Point(111, 53);
             this.txtParRefTorque.Name = "txtParRefTorque";
             this.txtParRefTorque.Size = new System.Drawing.Size(63, 13);
             this.txtParRefTorque.TabIndex = 83;
@@ -417,7 +417,7 @@ namespace GcproExtensionApp
             // lblParRefTorque
             // 
             this.lblParRefTorque.AutoSize = true;
-            this.lblParRefTorque.Location = new System.Drawing.Point(6, 57);
+            this.lblParRefTorque.Location = new System.Drawing.Point(6, 53);
             this.lblParRefTorque.Name = "lblParRefTorque";
             this.lblParRefTorque.Size = new System.Drawing.Size(74, 13);
             this.lblParRefTorque.TabIndex = 84;
@@ -426,7 +426,7 @@ namespace GcproExtensionApp
             // txtParRefCurrent
             // 
             this.txtParRefCurrent.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParRefCurrent.Location = new System.Drawing.Point(111, 38);
+            this.txtParRefCurrent.Location = new System.Drawing.Point(111, 36);
             this.txtParRefCurrent.Name = "txtParRefCurrent";
             this.txtParRefCurrent.Size = new System.Drawing.Size(63, 13);
             this.txtParRefCurrent.TabIndex = 82;
@@ -436,7 +436,7 @@ namespace GcproExtensionApp
             // lblParRefCurrent
             // 
             this.lblParRefCurrent.AutoSize = true;
-            this.lblParRefCurrent.Location = new System.Drawing.Point(6, 38);
+            this.lblParRefCurrent.Location = new System.Drawing.Point(6, 36);
             this.lblParRefCurrent.Name = "lblParRefCurrent";
             this.lblParRefCurrent.Size = new System.Drawing.Size(74, 13);
             this.lblParRefCurrent.TabIndex = 82;
@@ -448,7 +448,7 @@ namespace GcproExtensionApp
             this.grpTelegramm5.Controls.Add(this.lblParUnitsPerDigit_T5);
             this.grpTelegramm5.Controls.Add(this.txtParPNO_T5);
             this.grpTelegramm5.Controls.Add(this.lblParPNO_T5);
-            this.grpTelegramm5.Location = new System.Drawing.Point(221, 386);
+            this.grpTelegramm5.Location = new System.Drawing.Point(220, 386);
             this.grpTelegramm5.Name = "grpTelegramm5";
             this.grpTelegramm5.Size = new System.Drawing.Size(189, 60);
             this.grpTelegramm5.TabIndex = 145;
@@ -468,7 +468,7 @@ namespace GcproExtensionApp
             // lblParUnitsPerDigit_T5
             // 
             this.lblParUnitsPerDigit_T5.AutoSize = true;
-            this.lblParUnitsPerDigit_T5.Location = new System.Drawing.Point(6, 36);
+            this.lblParUnitsPerDigit_T5.Location = new System.Drawing.Point(5, 36);
             this.lblParUnitsPerDigit_T5.Name = "lblParUnitsPerDigit_T5";
             this.lblParUnitsPerDigit_T5.Size = new System.Drawing.Size(84, 13);
             this.lblParUnitsPerDigit_T5.TabIndex = 84;
@@ -499,7 +499,7 @@ namespace GcproExtensionApp
             this.grpTelegramm4.Controls.Add(this.lblParUnitsPerDigit_T4);
             this.grpTelegramm4.Controls.Add(this.txtParPNO_T4);
             this.grpTelegramm4.Controls.Add(this.lblParPNO_T4);
-            this.grpTelegramm4.Location = new System.Drawing.Point(6, 386);
+            this.grpTelegramm4.Location = new System.Drawing.Point(5, 386);
             this.grpTelegramm4.Name = "grpTelegramm4";
             this.grpTelegramm4.Size = new System.Drawing.Size(189, 60);
             this.grpTelegramm4.TabIndex = 144;
@@ -550,7 +550,7 @@ namespace GcproExtensionApp
             this.grpTelegramm3.Controls.Add(this.lblParUnitsPerDigit_T3);
             this.grpTelegramm3.Controls.Add(this.txtParPNO_T3);
             this.grpTelegramm3.Controls.Add(this.lblParPNO_T3);
-            this.grpTelegramm3.Location = new System.Drawing.Point(436, 327);
+            this.grpTelegramm3.Location = new System.Drawing.Point(435, 327);
             this.grpTelegramm3.Name = "grpTelegramm3";
             this.grpTelegramm3.Size = new System.Drawing.Size(189, 60);
             this.grpTelegramm3.TabIndex = 143;
@@ -601,7 +601,7 @@ namespace GcproExtensionApp
             this.grpTelegramm2.Controls.Add(this.lblParUnitsPerDigit_T2);
             this.grpTelegramm2.Controls.Add(this.txtParPNO_T2);
             this.grpTelegramm2.Controls.Add(this.lblParPNO_T2);
-            this.grpTelegramm2.Location = new System.Drawing.Point(221, 327);
+            this.grpTelegramm2.Location = new System.Drawing.Point(220, 327);
             this.grpTelegramm2.Name = "grpTelegramm2";
             this.grpTelegramm2.Size = new System.Drawing.Size(189, 60);
             this.grpTelegramm2.TabIndex = 142;
@@ -621,7 +621,7 @@ namespace GcproExtensionApp
             // lblParUnitsPerDigit_T2
             // 
             this.lblParUnitsPerDigit_T2.AutoSize = true;
-            this.lblParUnitsPerDigit_T2.Location = new System.Drawing.Point(6, 36);
+            this.lblParUnitsPerDigit_T2.Location = new System.Drawing.Point(5, 36);
             this.lblParUnitsPerDigit_T2.Name = "lblParUnitsPerDigit_T2";
             this.lblParUnitsPerDigit_T2.Size = new System.Drawing.Size(84, 13);
             this.lblParUnitsPerDigit_T2.TabIndex = 84;
@@ -652,7 +652,7 @@ namespace GcproExtensionApp
             this.grpTelegramm1.Controls.Add(this.lblParUnitsPerDigit_T1);
             this.grpTelegramm1.Controls.Add(this.txtParPNO_T1);
             this.grpTelegramm1.Controls.Add(this.lblParPNO_T1);
-            this.grpTelegramm1.Location = new System.Drawing.Point(6, 327);
+            this.grpTelegramm1.Location = new System.Drawing.Point(5, 327);
             this.grpTelegramm1.Name = "grpTelegramm1";
             this.grpTelegramm1.Size = new System.Drawing.Size(189, 60);
             this.grpTelegramm1.TabIndex = 141;
@@ -742,9 +742,10 @@ namespace GcproExtensionApp
             this.grpGeneral.Controls.Add(this.LblSpeedLimitMin);
             this.grpGeneral.Controls.Add(this.txtParSpeedUnitsByMaxDigits);
             this.grpGeneral.Controls.Add(this.lblParLenPZD);
-            this.grpGeneral.Location = new System.Drawing.Point(6, 4);
+            this.grpGeneral.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpGeneral.Location = new System.Drawing.Point(0, 0);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(704, 324);
+            this.grpGeneral.Size = new System.Drawing.Size(705, 323);
             this.grpGeneral.TabIndex = 118;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "常规";
@@ -770,7 +771,7 @@ namespace GcproExtensionApp
             // txtParUnitsPerDigits
             // 
             this.txtParUnitsPerDigits.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParUnitsPerDigits.Location = new System.Drawing.Point(147, 255);
+            this.txtParUnitsPerDigits.Location = new System.Drawing.Point(147, 252);
             this.txtParUnitsPerDigits.Name = "txtParUnitsPerDigits";
             this.txtParUnitsPerDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParUnitsPerDigits.TabIndex = 155;
@@ -781,7 +782,7 @@ namespace GcproExtensionApp
             // 
             this.lblUnitsPerDigits.AutoSize = true;
             this.lblUnitsPerDigits.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblUnitsPerDigits.Location = new System.Drawing.Point(4, 255);
+            this.lblUnitsPerDigits.Location = new System.Drawing.Point(4, 252);
             this.lblUnitsPerDigits.Name = "lblUnitsPerDigits";
             this.lblUnitsPerDigits.Size = new System.Drawing.Size(73, 13);
             this.lblUnitsPerDigits.TabIndex = 154;
@@ -845,7 +846,7 @@ namespace GcproExtensionApp
             // chkParWithActivePower
             // 
             this.chkParWithActivePower.AutoSize = true;
-            this.chkParWithActivePower.Location = new System.Drawing.Point(234, 305);
+            this.chkParWithActivePower.Location = new System.Drawing.Point(234, 295);
             this.chkParWithActivePower.Name = "chkParWithActivePower";
             this.chkParWithActivePower.Size = new System.Drawing.Size(124, 17);
             this.chkParWithActivePower.TabIndex = 147;
@@ -1108,7 +1109,7 @@ namespace GcproExtensionApp
             // lblSpeedMaxDigits
             // 
             this.lblSpeedMaxDigits.AutoSize = true;
-            this.lblSpeedMaxDigits.Location = new System.Drawing.Point(4, 204);
+            this.lblSpeedMaxDigits.Location = new System.Drawing.Point(4, 201);
             this.lblSpeedMaxDigits.Name = "lblSpeedMaxDigits";
             this.lblSpeedMaxDigits.Size = new System.Drawing.Size(84, 13);
             this.lblSpeedMaxDigits.TabIndex = 121;
@@ -1117,7 +1118,7 @@ namespace GcproExtensionApp
             // chkParProfinet
             // 
             this.chkParProfinet.AutoSize = true;
-            this.chkParProfinet.Location = new System.Drawing.Point(234, 287);
+            this.chkParProfinet.Location = new System.Drawing.Point(234, 277);
             this.chkParProfinet.Name = "chkParProfinet";
             this.chkParProfinet.Size = new System.Drawing.Size(78, 17);
             this.chkParProfinet.TabIndex = 134;
@@ -1131,7 +1132,7 @@ namespace GcproExtensionApp
             this.chkParPZDConsistent.AutoSize = true;
             this.chkParPZDConsistent.Checked = true;
             this.chkParPZDConsistent.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkParPZDConsistent.Location = new System.Drawing.Point(234, 269);
+            this.chkParPZDConsistent.Location = new System.Drawing.Point(234, 259);
             this.chkParPZDConsistent.Name = "chkParPZDConsistent";
             this.chkParPZDConsistent.Size = new System.Drawing.Size(113, 17);
             this.chkParPZDConsistent.TabIndex = 133;
@@ -1143,7 +1144,7 @@ namespace GcproExtensionApp
             // txtParSpeedMaxDigits
             // 
             this.txtParSpeedMaxDigits.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParSpeedMaxDigits.Location = new System.Drawing.Point(147, 204);
+            this.txtParSpeedMaxDigits.Location = new System.Drawing.Point(147, 201);
             this.txtParSpeedMaxDigits.Name = "txtParSpeedMaxDigits";
             this.txtParSpeedMaxDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedMaxDigits.TabIndex = 122;
@@ -1154,7 +1155,7 @@ namespace GcproExtensionApp
             // 
             this.txtValue10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtValue10.Enabled = false;
-            this.txtValue10.Location = new System.Drawing.Point(376, 289);
+            this.txtValue10.Location = new System.Drawing.Point(376, 279);
             this.txtValue10.Name = "txtValue10";
             this.txtValue10.Size = new System.Drawing.Size(42, 13);
             this.txtValue10.TabIndex = 135;
@@ -1163,7 +1164,7 @@ namespace GcproExtensionApp
             // txtParLenPKW
             // 
             this.txtParLenPKW.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParLenPKW.Location = new System.Drawing.Point(147, 272);
+            this.txtParLenPKW.Location = new System.Drawing.Point(147, 269);
             this.txtParLenPKW.Name = "txtParLenPKW";
             this.txtParLenPKW.Size = new System.Drawing.Size(63, 13);
             this.txtParLenPKW.TabIndex = 132;
@@ -1173,7 +1174,7 @@ namespace GcproExtensionApp
             // lblSpeedUnitsByZeroDigits
             // 
             this.lblSpeedUnitsByZeroDigits.AutoSize = true;
-            this.lblSpeedUnitsByZeroDigits.Location = new System.Drawing.Point(4, 221);
+            this.lblSpeedUnitsByZeroDigits.Location = new System.Drawing.Point(4, 218);
             this.lblSpeedUnitsByZeroDigits.Name = "lblSpeedUnitsByZeroDigits";
             this.lblSpeedUnitsByZeroDigits.Size = new System.Drawing.Size(122, 13);
             this.lblSpeedUnitsByZeroDigits.TabIndex = 123;
@@ -1182,7 +1183,7 @@ namespace GcproExtensionApp
             // lblValue10
             // 
             this.lblValue10.AutoSize = true;
-            this.lblValue10.Location = new System.Drawing.Point(372, 270);
+            this.lblValue10.Location = new System.Drawing.Point(372, 260);
             this.lblValue10.Name = "lblValue10";
             this.lblValue10.Size = new System.Drawing.Size(46, 13);
             this.lblValue10.TabIndex = 136;
@@ -1191,7 +1192,7 @@ namespace GcproExtensionApp
             // txtParLenPZDInp
             // 
             this.txtParLenPZDInp.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParLenPZDInp.Location = new System.Drawing.Point(147, 306);
+            this.txtParLenPZDInp.Location = new System.Drawing.Point(147, 303);
             this.txtParLenPZDInp.Name = "txtParLenPZDInp";
             this.txtParLenPZDInp.Size = new System.Drawing.Size(63, 13);
             this.txtParLenPZDInp.TabIndex = 140;
@@ -1202,7 +1203,7 @@ namespace GcproExtensionApp
             // 
             this.lblParLenPKW.AutoSize = true;
             this.lblParLenPKW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblParLenPKW.Location = new System.Drawing.Point(4, 272);
+            this.lblParLenPKW.Location = new System.Drawing.Point(4, 269);
             this.lblParLenPKW.Name = "lblParLenPKW";
             this.lblParLenPKW.Size = new System.Drawing.Size(66, 13);
             this.lblParLenPKW.TabIndex = 131;
@@ -1211,7 +1212,7 @@ namespace GcproExtensionApp
             // txtParSpeedUnitsByZeroDigits
             // 
             this.txtParSpeedUnitsByZeroDigits.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParSpeedUnitsByZeroDigits.Location = new System.Drawing.Point(147, 221);
+            this.txtParSpeedUnitsByZeroDigits.Location = new System.Drawing.Point(147, 218);
             this.txtParSpeedUnitsByZeroDigits.Name = "txtParSpeedUnitsByZeroDigits";
             this.txtParSpeedUnitsByZeroDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedUnitsByZeroDigits.TabIndex = 124;
@@ -1232,7 +1233,7 @@ namespace GcproExtensionApp
             // 
             this.lblParLenPZDInp.AutoSize = true;
             this.lblParLenPZDInp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblParLenPZDInp.Location = new System.Drawing.Point(4, 306);
+            this.lblParLenPZDInp.Location = new System.Drawing.Point(4, 303);
             this.lblParLenPZDInp.Name = "lblParLenPZDInp";
             this.lblParLenPZDInp.Size = new System.Drawing.Size(78, 13);
             this.lblParLenPZDInp.TabIndex = 139;
@@ -1251,7 +1252,7 @@ namespace GcproExtensionApp
             // lblSpeedUnitsByMaxDigits
             // 
             this.lblSpeedUnitsByMaxDigits.AutoSize = true;
-            this.lblSpeedUnitsByMaxDigits.Location = new System.Drawing.Point(4, 238);
+            this.lblSpeedUnitsByMaxDigits.Location = new System.Drawing.Point(4, 235);
             this.lblSpeedUnitsByMaxDigits.Name = "lblSpeedUnitsByMaxDigits";
             this.lblSpeedUnitsByMaxDigits.Size = new System.Drawing.Size(120, 13);
             this.lblSpeedUnitsByMaxDigits.TabIndex = 125;
@@ -1270,7 +1271,7 @@ namespace GcproExtensionApp
             // txtParLenPZD
             // 
             this.txtParLenPZD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParLenPZD.Location = new System.Drawing.Point(147, 289);
+            this.txtParLenPZD.Location = new System.Drawing.Point(147, 286);
             this.txtParLenPZD.Name = "txtParLenPZD";
             this.txtParLenPZD.Size = new System.Drawing.Size(63, 13);
             this.txtParLenPZD.TabIndex = 138;
@@ -1289,7 +1290,7 @@ namespace GcproExtensionApp
             // txtParSpeedUnitsByMaxDigits
             // 
             this.txtParSpeedUnitsByMaxDigits.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParSpeedUnitsByMaxDigits.Location = new System.Drawing.Point(147, 238);
+            this.txtParSpeedUnitsByMaxDigits.Location = new System.Drawing.Point(147, 235);
             this.txtParSpeedUnitsByMaxDigits.Name = "txtParSpeedUnitsByMaxDigits";
             this.txtParSpeedUnitsByMaxDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedUnitsByMaxDigits.TabIndex = 126;
@@ -1300,7 +1301,7 @@ namespace GcproExtensionApp
             // 
             this.lblParLenPZD.AutoSize = true;
             this.lblParLenPZD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblParLenPZD.Location = new System.Drawing.Point(4, 289);
+            this.lblParLenPZD.Location = new System.Drawing.Point(4, 286);
             this.lblParLenPZD.Name = "lblParLenPZD";
             this.lblParLenPZD.Size = new System.Drawing.Size(63, 13);
             this.lblParLenPZD.TabIndex = 137;
@@ -1319,7 +1320,7 @@ namespace GcproExtensionApp
             this.tabBML.Margin = new System.Windows.Forms.Padding(0);
             this.tabBML.Name = "tabBML";
             this.tabBML.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBML.Size = new System.Drawing.Size(723, 553);
+            this.tabBML.Size = new System.Drawing.Size(715, 553);
             this.tabBML.TabIndex = 1;
             this.tabBML.Text = "通过BML创建";
             // 
@@ -1406,6 +1407,7 @@ namespace GcproExtensionApp
             this.dataGridBML.Name = "dataGridBML";
             this.dataGridBML.Size = new System.Drawing.Size(695, 353);
             this.dataGridBML.TabIndex = 16;
+            this.dataGridBML.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridBML_RowsRemoved);
             // 
             // label3
             // 
@@ -1908,7 +1910,7 @@ namespace GcproExtensionApp
             this.PalCommon.ForeColor = System.Drawing.SystemColors.ControlText;
             this.PalCommon.Location = new System.Drawing.Point(0, 579);
             this.PalCommon.Name = "PalCommon";
-            this.PalCommon.Size = new System.Drawing.Size(731, 199);
+            this.PalCommon.Size = new System.Drawing.Size(723, 199);
             this.PalCommon.TabIndex = 106;
             // 
             // txtPage
@@ -1936,7 +1938,7 @@ namespace GcproExtensionApp
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(731, 800);
+            this.ClientSize = new System.Drawing.Size(723, 800);
             this.Controls.Add(this.PalCommon);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.tabCreateMode);

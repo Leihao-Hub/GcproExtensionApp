@@ -167,6 +167,13 @@ namespace GcproExtensionLibrary
 
             return results;
         }
+        /// <summary>
+        /// 获取DATA TABLE中某一列的数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataTable"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
         public static List<T> GetColumnData<T>(DataTable dataTable, string columnName)
         {
             var columnData = dataTable.AsEnumerable()
@@ -174,9 +181,27 @@ namespace GcproExtensionLibrary
                                       .ToList();
             return columnData;
         }
-        #endregion
-        #region Insert method
-        public bool InsertRecord(string tableName, List<Gcpro.DbParameter> parameters)
+        /// <summary>
+        /// 获取DATA TABLE中多列的数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataTable"></param>
+        /// <param name="columnNames"></param>
+        /// <returns></returns>
+        public static List<Dictionary<string, T>> GetColumnsData<T>(DataTable dataTable, params string[] columnNames)
+        {
+            var columnsData = dataTable.AsEnumerable()
+                                       .Select(row => columnNames.ToDictionary(
+                                           columnName => columnName,
+                                           columnName => row[columnName] != DBNull.Value ? (T)Convert.ChangeType(row[columnName], typeof(T)) : default(T)))
+                                       .ToList();
+
+            return columnsData;
+        }
+    
+    #endregion
+    #region Insert method
+    public bool InsertRecord(string tableName, List<Gcpro.DbParameter> parameters)
         {
             if (string.IsNullOrWhiteSpace(tableName))
             {

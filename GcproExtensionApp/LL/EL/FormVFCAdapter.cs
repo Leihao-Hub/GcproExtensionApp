@@ -243,7 +243,7 @@ namespace GcproExtensionApp
         }
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BML.VFCAdapter.VFC vfc=new BML.VFCAdapter.VFC();
+            BML.VFCAdapter.VFCAdapterParameters vfc =new BML.VFCAdapter.VFCAdapterParameters();
             string selectedItem = Convert.ToString(ComboEquipmentSubType.SelectedItem);
             myVFCAdapter.SubType = String.IsNullOrEmpty(selectedItem) ? VFCAdapter.ATVDP :
                 selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
@@ -814,7 +814,7 @@ namespace GcproExtensionApp
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value42";
         }
-        #endregion            
+        #endregion                
         #endregion
         #region <---BML part--->
         private void AddWorkSheets()
@@ -875,7 +875,11 @@ namespace GcproExtensionApp
             if (! String.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled= true;   
-            }
+            }           
+        }
+        private void dataGridBML_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            TxtQuantity.Text = dataGridBML.Rows.Count.ToString();
         }
         private void CreateBMLDefault()
         {
@@ -1276,23 +1280,6 @@ namespace GcproExtensionApp
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
                
             }
-            //else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.AutoSearch)
-            //{
-            //    tabCreateMode.SelectedTab = tabRule;
-            //    createMode.Rule = false;
-            //    createMode.BML = false;
-            //    createMode.AutoSearch = true;
-            //    txtSymbolRule.Text = VFCAdapter.Rule.Common.NameRule;
-            //    txtSymbolIncRule.Text =VFCAdapter.Rule.Common.NameRuleInc;
-            //    LblQuantity.Visible = false;
-            //    TxtQuantity.Visible = false;
-            //    GrpSymbolRule.Visible = false;
-            //    LblSymbol.Text = AppGlobalSource.KEY_WORD_AUTOSEARCH;
-            //    txtSymbol.Text = "-VFC";
-            //    tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
-                
-            //}
-
             else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.BML)
             {
                 createMode.Rule = false;
@@ -1336,6 +1323,7 @@ namespace GcproExtensionApp
                 dataGridBML.Rows.RemoveAt(row.Index);
             }
             dataGridBML.ClearSelection();
+            TxtQuantity.Text = dataGridBML.Rows.Count.ToString();
         }
         private void TxtQuantity_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1369,8 +1357,8 @@ namespace GcproExtensionApp
         private void BtnSaveAs_Click(object sender, EventArgs e)
         {
 
-            myVFCAdapter.SaveFileAs(myVFCAdapter.FilePath, LibGlobalSource.CREATE_OBJECT);
-            myVFCAdapter.SaveFileAs(myVFCAdapter.FileRelationPath, LibGlobalSource.CREATE_RELATION);
+            VFCAdapter.SaveFileAs(myVFCAdapter.FilePath, LibGlobalSource.CREATE_OBJECT);
+            VFCAdapter.SaveFileAs(myVFCAdapter.FileRelationPath, LibGlobalSource.CREATE_RELATION);
         }
         private void BtnNewImpExpDef_Click(object sender, EventArgs e)
         {
@@ -1599,7 +1587,7 @@ namespace GcproExtensionApp
                 {
                     ProgressBar.Maximum = dataGridBML.Rows.Count - 1;
                     ProgressBar.Value = 0;
-                    BML.VFCAdapter.VFC vfc = new BML.VFCAdapter.VFC();
+                    BML.VFCAdapter.VFCAdapterParameters vfc = new BML.VFCAdapter.VFCAdapterParameters();
                     int nextIOByte = ioByte;
                     for (int i = 0; i < dataGridBML.Rows.Count; i++)
                     {
@@ -1611,9 +1599,7 @@ namespace GcproExtensionApp
                         ///<Name>   </Name>
                         myVFCAdapter.Name = Convert.ToString(cell.Value)+txtVFCSufffixBML.Text;
                         ///<Description>   </Description>           
-                        myVFCAdapter.Description = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnDesc)].Value);
-
-                      
+                        myVFCAdapter.Description = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnDesc)].Value);                      
                         ///<Panel_ID>   </Panel_ID>  
                         myVFCAdapter.Panel_ID= Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnCabinetGroup)].Value)+
                             Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.VFCAdapter.ColumnCabinet)].Value);
@@ -1798,8 +1784,16 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         #endregion
 
-     
+        private void tabCreateMode_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ObjectBrowser objectBrowser = new ObjectBrowser();
+            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
+            objectBrowser.OType = Convert.ToString(VFCAdapter.OTypeValue);
+
+            objectBrowser.Show();
+        } 
     }  
 }

@@ -62,29 +62,54 @@
       <DependentUpon>AppStart.cs</DependentUpon>
     </Compile>
     <Compile Include="AppGlobal.cs" />
-    <Compile Include="EL\FormDI.cs">
+    <Compile Include="CretaeObjHelper\BML.cs" />
+    <Compile Include="CretaeObjHelper\BMLAndGcObjectCommon.cs" />
+    <Compile Include="CretaeObjHelper\Engineering.cs" />
+    <Compile Include="LL\EL\FormAI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EL\FormDI.Designer.cs">
+    <Compile Include="LL\EL\FormAI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormAI.Designer.cs">
+      <DependentUpon>FormAI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormDI.Designer.cs">
       <DependentUpon>FormDI.cs</DependentUpon>
     </Compile>
-    <Compile Include="EL\FormMotor.cs">
+    <Compile Include="LL\EL\FormMDDx.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EL\FormMotor.Designer.cs">
+    <Compile Include="LL\EL\FormMDDx.Designer.cs">
+      <DependentUpon>FormMDDx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormMotor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormMotor.Designer.cs">
       <DependentUpon>FormMotor.cs</DependentUpon>
     </Compile>
-    <Compile Include="EL\FormVFCAdapter.cs">
+    <Compile Include="LL\EL\FormVFCAdapter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EL\FormVFCAdapter.Designer.cs">
+    <Compile Include="LL\EL\FormVFCAdapter.Designer.cs">
       <DependentUpon>FormVFCAdapter.cs</DependentUpon>
     </Compile>
-    <Compile Include="EL\FormVLS.cs">
+    <Compile Include="LL\EL\FormVLS.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EL\FormVLS.Designer.cs">
+    <Compile Include="LL\EL\FormVLS.Designer.cs">
       <DependentUpon>FormVLS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CretaeObjHelper\GcObjectInfo.cs" />
+    <Compile Include="LL\MA\FormMA_Roll8Stand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_Roll8Stand.Designer.cs">
+      <DependentUpon>FormMA_Roll8Stand.cs</DependentUpon>
     </Compile>
     <Compile Include="ObjectBrowser.cs">
       <SubType>Form</SubType>
@@ -94,22 +119,40 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UL\FormBin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UL\FormBin.Designer.cs">
+      <DependentUpon>FormBin.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutHelp.resx">
       <DependentUpon>AboutHelp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AppStart.resx">
       <DependentUpon>AppStart.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EL\FormDI.resx">
+    <EmbeddedResource Include="LL\EL\FormAI.resx">
+      <DependentUpon>FormAI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormMDDx.resx">
+      <DependentUpon>FormMDDx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\MA\FormMA_Roll8Stand.resx">
+      <DependentUpon>FormMA_Roll8Stand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UL\FormBin.resx">
+      <DependentUpon>FormBin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormDI.resx">
       <DependentUpon>FormDI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EL\FormMotor.resx">
+    <EmbeddedResource Include="LL\EL\FormMotor.resx">
       <DependentUpon>FormMotor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EL\FormVFCAdapter.resx">
+    <EmbeddedResource Include="LL\EL\FormVFCAdapter.resx">
       <DependentUpon>FormVFCAdapter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EL\FormVLS.resx">
+    <EmbeddedResource Include="LL\EL\FormVLS.resx">
       <DependentUpon>FormVLS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ObjectBrowser.resx">
@@ -144,6 +187,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\dataBase.ico" />
+    <None Include="Resources\RollerMill.ico" />
     <None Include="Resources\Value.JPG" />
     <None Include="Resources\Motor.png" />
     <None Include="Resources\Motor.JPG" />
@@ -607,5 +651,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,11 +11,10 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.IO;
 using OfficeOpenXml.Packaging.Ionic.Zlib;
-
-
+using System.Reflection;
+using System.Globalization;
 namespace GcproExtensionLibrary
 {
-
     public static class LibGlobalSource
     {
         #region Public const declaration
@@ -80,7 +79,7 @@ namespace GcproExtensionLibrary
             //    string pattern = Regex.Escape(subStringToRemove);
             //    return Regex.Replace(mainString, pattern, "", RegexOptions.None, TimeSpan.FromMilliseconds(100));
             //}
-            private static string ExtractStringPart(string pattern, string stringTobeExtract)
+            public static string ExtractStringPart(string pattern, string stringTobeExtract)
             {
                 string result;
                 if (!string.IsNullOrEmpty(stringTobeExtract))
@@ -152,7 +151,35 @@ namespace GcproExtensionLibrary
                     return "No match found!";
                 }
             }
-            public static string FindContinuousAndSameSubstring(string str1, string str2,int minLen=0)
+            public static string FindLongestCommonSubstring(string str1, string str2)
+            {
+                int[,] table = new int[str1.Length + 1, str2.Length + 1];
+                int longestLength = 0;
+                int endIndexStr1 = 0;
+
+                for (int i = 1; i <= str1.Length; i++)
+                {
+                    for (int j = 1; j <= str2.Length; j++)
+                    {
+                        if (str1[i - 1] == str2[j - 1])
+                        {
+                            table[i, j] = table[i - 1, j - 1] + 1;
+                            if (table[i, j] > longestLength)
+                            {
+                                longestLength = table[i, j];
+                                endIndexStr1 = i;
+                            }
+                        }
+                        else
+                        {
+                            table[i, j] = 0;
+                        }
+                    }
+                }
+
+                return str1.Substring(endIndexStr1 - longestLength, longestLength);
+            }   
+            public static string FindContinuousAndSameSubstring(string str1, string str2,int minLen=0,int maxLen=0)
             {
                 int[,] lcs = new int[str1.Length + 1, str2.Length + 1];
                 int length = 0;
@@ -189,7 +216,7 @@ namespace GcproExtensionLibrary
                     row--;
                     col--;
                 }
-                if (minLen == 0)
+                if (minLen == 0 && maxLen == 0)
                 {
                     return result;
                 }
@@ -201,7 +228,10 @@ namespace GcproExtensionLibrary
                     }
                     else
                     {
-                     return  result.Substring(0, minLen);
+                        if (result.Length > maxLen && result.Length != 0)
+                        { return result.Substring(0, maxLen); }
+                        else
+                        { return result; }
                     }
                 }
             }
@@ -219,110 +249,152 @@ namespace GcproExtensionLibrary
                         return value.Substring(0, index);
                     }
                 }
-
                 return prefix;
             }
         }
         public static class BMLHelper
         {
-            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataTable dataTable, string columnName,int minLen=0)
+            /// <summary>
+            /// 提取数据表上，某列数据上共同部分字符串
+            /// </summary>
+            /// <param name="dataTable"></param>
+            /// <param name="columnName"></param>
+            /// <param name="minLen">返回字符串最小长度</param>
+            /// <param name="maxLen">返回字符串最大长度</param>
+            /// <returns></returns>
+            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataTable dataTable, string columnName,int minLen=0,int maxLen=0)
             {
                 List<string> columnValues = dataTable.AsEnumerable().Select(row => row.Field<string>(columnName)).ToList();
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
-
+                int timeLimit = columnValues.Count * 10; 
+                DateTime startTime = DateTime.Now;
                 while (columnValues.Count > 0)
                 {
-                    Dictionary<string, int> substringCounts = new Dictionary<string, int>();
+                    if ((DateTime.Now - startTime).TotalMilliseconds > timeLimit)
+                    {
+                //        break;
+                    }
+                    Dictionary<string, int> substringWithCount = new Dictionary<string, int>();
                     for (int i = 0; i < columnValues.Count; i++)
                     {
-                        for (int j = i + 1; j < columnValues.Count; j++)
+                        for (int j = i+1; j < columnValues.Count; j++)
                         {
-                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j],minLen);
-                         
+                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j], minLen, maxLen);
                             if (!string.IsNullOrEmpty(commonSubstring))
                             {
-                                for (int k = 0; k <= commonSubstring.Length; k++)
-                                {
+                                 for (int k = minLen; k <= commonSubstring.Length; k++)
+                                   {
                                     string prefix = commonSubstring.Substring(0, k);
-                                    if (substringCounts.ContainsKey(prefix))
+                                    //string prefix = commonSubstring;
+                                    if (!string.IsNullOrEmpty(prefix))
                                     {
-                                        substringCounts[prefix]++;
-                                    }
-                                    else
-                                    {
-                                        substringCounts[prefix] = 1;
+                                        if (substringWithCount.ContainsKey(prefix))
+                                        {
+                                            substringWithCount[prefix]++;
+                                        }
+                                        else
+                                        {
+                                            substringWithCount[prefix] = 1;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-
-                    var bestMatch = substringCounts
-                        .Where(x => x.Value >= 2) // 至少出现两次
+                    var bestMatch = substringWithCount
+                        .Where(x => x.Value >= 2 && x.Value <= 10)
                         .OrderByDescending(x => x.Key.Length)
                         .ThenByDescending(x => x.Value)
                         .FirstOrDefault();
 
                     if (bestMatch.Key == null) break;
 
-                    // 扩展找到的最好匹配前缀到分隔符处
                     string bestPrefix = StringHelper.ExtendPrefixToSeparator(bestMatch.Key, columnValues);
                     int count = columnValues.Count(value => value.StartsWith(bestPrefix));
-
+                    if (count == 0)
+                    {
+                        bestMatch = substringWithCount
+                        .Where(x => x.Value >= 1 && x.Value <= 10)
+                        .OrderByDescending(x => x.Key.Length)
+                        .ThenByDescending(x => x.Value)
+                        .FirstOrDefault();
+                       bestPrefix = StringHelper.ExtendPrefixToSeparator(bestMatch.Key, columnValues);
+                       count = columnValues.Count(value => value.StartsWith(bestPrefix));
+                    }
                     finalResults.Add(new KeyValuePair<string, int>(bestPrefix, count));
                     columnValues.RemoveAll(value => value.StartsWith(bestPrefix));
                 }
-
+                int _c=finalResults.Count;
                 return finalResults;
             }
-            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataGridView dataGridView, string columnName,int minLen=0)
+            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataGridView dataGridView, string columnName,int minLen=0,int maxLen=0)
             {
                 List<string> columnValues = dataGridView.Rows
                     .Cast<DataGridViewRow>()
                     .Where(row => row.Cells[columnName].Value != null)
                     .Select(row => row.Cells[columnName].Value.ToString())
                     .ToList();
-
+                int prevKeyLength, KeyLength;
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
-
+                int timeLimit = columnValues.Count * 10;
+                DateTime startTime = DateTime.Now;
                 while (columnValues.Count > 0)
                 {
-                    Dictionary<string, int> substringCounts = new Dictionary<string, int>();
+                    if ((DateTime.Now - startTime).TotalMilliseconds > timeLimit)
+                    {
+                        break;
+                    }
+                    Dictionary<string, int> substringWithCount = new Dictionary<string, int>();
                     for (int i = 0; i < columnValues.Count; i++)
                     {
                         for (int j = i + 1; j < columnValues.Count; j++)
                         {
-                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j],minLen);
+                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j],minLen,maxLen);
                             if (!string.IsNullOrEmpty(commonSubstring))
                             {
-                                for (int k = 1; k <= commonSubstring.Length; k++)
+                                for (int k = minLen; k <= commonSubstring.Length; k++)
                                 {
                                     string prefix = commonSubstring.Substring(0, k);
-                                    if (substringCounts.ContainsKey(prefix))
+                                    if (substringWithCount.ContainsKey(prefix))
                                     {
-                                        substringCounts[prefix]++;
+                                        substringWithCount[prefix]++;
                                     }
                                     else
                                     {
-                                        substringCounts[prefix] = 1;
+                                        substringWithCount[prefix] = 1;
                                     }
                                 }
                             }
                         }
                     }
-
-                    var bestMatch = substringCounts
-                        .Where(x => x.Value >= 2) // 至少出现两次
+                    ///<summary>
+                    ///非手动闸门等设备名称字符串通常情况下至少出现2次
+                    ///</summary>               
+                    var bestMatch = substringWithCount
+                        .Where(x => x.Value >= 2 && x.Value<=10) 
                         .OrderByDescending(x => x.Key.Length)
-                        .ThenByDescending(x => x.Value)
+                        .ThenByDescending(x => x.Value) 
                         .FirstOrDefault();
 
                     if (bestMatch.Key == null) break;
-
-                    // 扩展找到的最好匹配前缀到分隔符处
+                 
                     string bestPrefix = StringHelper.ExtendPrefixToSeparator(bestMatch.Key, columnValues);
                     int count = columnValues.Count(value => value.StartsWith(bestPrefix));
-
+                    ///<summary>
+                    ///手动闸门等,搜索到的最符合字符串，只有一次，按照至少
+                    ///出现2次规则提取字符串，会截取中间字符串作为设备名称，
+                    ///故改变筛选规则；
+                    ///</summary>
+                    if (count == 0)
+                    {
+                        bestMatch = substringWithCount
+                        .Where(x => x.Value >= 1 && x.Value <= 10)
+                        .OrderByDescending(x => x.Key.Length)
+                        .ThenByDescending(x => x.Value)
+                        .FirstOrDefault();
+                        bestPrefix = StringHelper.ExtendPrefixToSeparator(bestMatch.Key, columnValues);
+                        count = columnValues.Count(value => value.StartsWith(bestPrefix));
+                    }
                     finalResults.Add(new KeyValuePair<string, int>(bestPrefix, count));
                     columnValues.RemoveAll(value => value.StartsWith(bestPrefix));
                 }
@@ -353,7 +425,12 @@ namespace GcproExtensionLibrary
                 JToken token = jObject.SelectToken(key);
                 return token?.ToString();
             }
-
+            /// <summary>
+            /// 返回参数数组keys中包含的键的值
+            /// </summary>
+            /// <param name="filePath"></param>
+            /// <param name="keys"></param>
+            /// <returns></returns>
             public static Dictionary<string, string> ReadKeyValues(string filePath, params string[] keys)
             {
                 JObject jObject = ReadConfig(filePath);
@@ -367,7 +444,12 @@ namespace GcproExtensionLibrary
 
                 return values;
             }
-
+/// <summary>
+/// Write the Value to key
+/// </summary>
+/// <param name="filePath">The Json file name</param>
+/// <param name="key">The key name</param>
+/// <param name="value">The value to be write</param>
             public static void WriteKeyValue(string filePath, string key, JToken value)
             {
                 JObject jObject = ReadConfig(filePath);
@@ -449,7 +531,7 @@ namespace GcproExtensionLibrary
     public interface IGcpro
     {
 
-        void CreateObject(Encoding encoding);
+        void CreateObject(Encoding encoding,bool onlyRelation=false);
 
     }
 }

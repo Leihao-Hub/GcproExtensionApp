@@ -10,6 +10,7 @@ using GcproExtensionLibrary.Gcpro;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 using GcproExtensionLibrary.Gcpro.GCObject;
 using System.Xml.Linq;
+using System.Collections.Generic;
 #endregion
 
 namespace GcproExtensionApp
@@ -74,6 +75,7 @@ namespace GcproExtensionApp
 
         private void AppStart_Load(object sender, EventArgs e)
         {
+            AppGlobal.GetJsonConfiguration();   
             AppGlobal.GcproDBInfo.ProjectDBPath = Environment.GetEnvironmentVariable("GcsProjectDBPath", EnvironmentVariableTarget.User);
             AppGlobal.GcproDBInfo.GcsLibaryPath = Environment.GetEnvironmentVariable("GcsLibraryPath", EnvironmentVariableTarget.User);
             AppGlobal.GcproDBInfo.GcproTempPath = (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GcproTempPath", EnvironmentVariableTarget.User)) ?
@@ -81,7 +83,8 @@ namespace GcproExtensionApp
             TxtProjectPath.Text = AppGlobal.GcproDBInfo.ProjectDBPath;
             TxtGcsLibraryPath.Text = AppGlobal.GcproDBInfo.GcsLibaryPath;
             txtGcproTempPath.Text = AppGlobal.GcproDBInfo.GcproTempPath;
-
+            txtRegexNameWithoutTypeLL.Text = Engineering.PatternNameWithoutTypeLL;
+            txtRegexNameOnlyWithNumberTypeLL.Text=Engineering.PatternNameOnlyWithNumber;     
             if (!string.IsNullOrEmpty(TxtProjectPath.Text))
             {
                 try
@@ -137,7 +140,7 @@ namespace GcproExtensionApp
         {
             if (tabMain.SelectedTab == tabPage2)
             {
-                this.Size = new Size(846, 333);
+                this.Size = new Size(846, 422);
             }
             else if (tabMain.SelectedTab == tabPage3)
             {
@@ -169,7 +172,24 @@ namespace GcproExtensionApp
         {
             BtnOpenGcproTempPath_Click(sender, e);
         }
-
+        private void textRegexNameWithoutTypeLL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string newJsonKeyValue = txtRegexNameWithoutTypeLL.Text;
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "Engineering.Pattern.NameWithoutTypeLL", newJsonKeyValue);
+                Engineering.PatternNameWithoutTypeLL = newJsonKeyValue;
+            }
+        }
+        private void txtRegexNameOnlyWithNumberTypeLL_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string newJsonKeyValue = txtRegexNameOnlyWithNumberTypeLL.Text;
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "Engineering.Pattern.NameOnlyWithNumber", newJsonKeyValue);
+                Engineering.PatternNameOnlyWithNumber = newJsonKeyValue;
+            }
+        }
         #region Open form
         private void btnAddMotor_Click(object sender, EventArgs e)
         {
@@ -191,6 +211,63 @@ namespace GcproExtensionApp
             FormDI formDI = new FormDI();
             formDI.Show();
         }
-        #endregion
+
+        private void btnAddAI_Click(object sender, EventArgs e)
+        {
+            FormAI formAI = new FormAI();
+            formAI.Show();
+        }
+        private void btnAddFBAL_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnAddScaleAdapter_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnAddRollStandPhoenix_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnAddBin_Click(object sender, EventArgs e)
+        {
+            FormBin formBin = new FormBin();
+            formBin.Show();
+        }
+        private void btnAddMDDx_Click(object sender, EventArgs e)
+        {
+            FormMDDx formMDDx = new FormMDDx();
+            formMDDx.Show();
+        } 
+        private void btnAddDPSlave_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnAddMA_Roll8Stand_Click(object sender, EventArgs e)
+        {
+            FormMA_Roll8Stand formMA_Roll8Stand = new FormMA_Roll8Stand();
+            formMA_Roll8Stand.Show();
+        }
+
+        private void btnAddMotorWithBypass_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddMADischarger_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddMA_MDDY_Click(object sender, EventArgs e)
+        {
+
+        }
+    
+        private void btnAddDischargerVertex_Click(object sender, EventArgs e)
+        {
+
+        }
     }
+        #endregion
 }

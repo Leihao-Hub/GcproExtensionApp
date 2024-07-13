@@ -15,11 +15,20 @@ namespace GcproExtensionApp
         private string oType;
         private string otherAdditionalFiled;
         private string updateFiled;
+        private string subType=string.Empty;
         private string subQuery;
+        private string returnedItem;
+        private static ToolTip toolTip=new ToolTip();
+
         public string OType
         {
             get {  return oType; }
             set { oType = value; }
+        }
+        public string SubType
+        {
+            get { return subType; }
+            set { subType = value; }
         }
         public string OtherAdditionalFiled
         {
@@ -31,6 +40,10 @@ namespace GcproExtensionApp
             get { return updateFiled; }
             set { updateFiled = value; }
         }
+        public string ReturnedItem
+        {
+            get { return returnedItem; }         
+        }
         public ObjectBrowser()
         {
             InitializeComponent();
@@ -39,6 +52,7 @@ namespace GcproExtensionApp
         private void ObjectBrowser_Load(object sender, System.EventArgs e)
         {
 
+            toolTip.SetToolTip(BtnConfirm, "返回表格中选择项");
             dataGridObjData.AutoGenerateColumns = false;
             DataGridViewTextBoxColumn nameField = new DataGridViewTextBoxColumn();
             nameField.HeaderText = "[Text0-名称]";
@@ -133,10 +147,11 @@ namespace GcproExtensionApp
                 DataTable dataTable = new DataTable();
                 oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 oledb.IsNewOLEDBDriver = false;
-                string parten = "^(?=.*\b(AND | OR)\b)(? !(.*\bAND\b){ 2,}| (.*\bOR\b){ 2,}|.*\bAND\b.*\bOR\b.*|.*\bOR\b.*\bAND\b.*).+$";
+               //string parten = "^(?=.*\b(AND | OR)\b)(? !(.*\bAND\b){ 2,}| (.*\bOR\b){ 2,}|.*\bAND\b.*\bOR\b.*|.*\bOR\b.*\bAND\b.*).+$";
 
                 string filter = $"{GcproTable.ObjData.OType.Name} = {_oType}";
-                filter = string.IsNullOrEmpty(txtUserDefinedFilter.Text) ? filter : $@"{filter} {txtUserDefinedFilter.Text}";
+                filter = string.IsNullOrEmpty(subType) ? filter : $@"{filter} AND {GcproTable.ObjData.SubType.Name} = '{subType}'";
+                filter = string.IsNullOrEmpty(txtUserDefinedFilter.Text) ? filter : $@"{filter} AND {txtUserDefinedFilter.Text}";
                 filter = string.IsNullOrEmpty(txtFilterName.Text) ? filter : $@"{filter} AND Text0 LIKE '%{txtFilterName.Text}%'";
                 filter = string.IsNullOrEmpty(txtFilterDescription.Text) ? filter : $@"{filter} AND Text1 LIKE '%{txtFilterDescription.Text}%'";                      
                 List<string> fields = new List<string>();
@@ -254,6 +269,17 @@ namespace GcproExtensionApp
         private void comboAdditionalField_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataGridObjData.Columns[2].HeaderText=comboAdditionalField.SelectedItem.ToString();
+        }
+
+        public string ReturnSelectItem()
+        {
+            return dataGridObjData.CurrentRow.Cells[0].Value.ToString();
+        }
+
+        private void BtnConfirm_Click(object sender, EventArgs e)
+        {
+            returnedItem= ReturnSelectItem();
+            this.Close();
         }
     }
 }

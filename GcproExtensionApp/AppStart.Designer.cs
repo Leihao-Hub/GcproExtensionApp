@@ -46,6 +46,11 @@
             this.LblGcproLibaryPath = new System.Windows.Forms.Label();
             this.LblGcproProjectPath = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtRegexNameOnlyWithNumberTypeLL = new System.Windows.Forms.TextBox();
+            this.lblRegexNameOnlyWithNumberTypeLL = new System.Windows.Forms.Label();
+            this.txtRegexNameWithoutTypeLL = new System.Windows.Forms.TextBox();
+            this.lblNameWithoutTypeLL = new System.Windows.Forms.Label();
             this.grpBoxOther = new System.Windows.Forms.GroupBox();
             this.btnAddDPSlave = new System.Windows.Forms.Button();
             this.lblDPSlave = new System.Windows.Forms.Label();
@@ -94,6 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuhlerCode)).BeginInit();
             this.GcproDB.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.grpBoxOther.SuspendLayout();
             this.grpMachine.SuspendLayout();
             this.grpBoxElement.SuspendLayout();
@@ -114,7 +120,7 @@
             this.tabMain.Location = new System.Drawing.Point(0, 0);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(830, 221);
+            this.tabMain.Size = new System.Drawing.Size(830, 383);
             this.tabMain.TabIndex = 112;
             this.tabMain.SelectedIndexChanged += new System.EventHandler(this.tabMain_SelectedIndexChanged);
             // 
@@ -130,7 +136,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(822, 192);
+            this.tabPage1.Size = new System.Drawing.Size(822, 354);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "项目信息";
             // 
@@ -174,6 +180,7 @@
             // 
             // lblGcproTempPath
             // 
+            this.lblGcproTempPath.Image = global::GcproExtensionApp.Properties.Resources._1__26_1;
             this.lblGcproTempPath.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.lblGcproTempPath.Location = new System.Drawing.Point(6, 18);
             this.lblGcproTempPath.Name = "lblGcproTempPath";
@@ -284,6 +291,7 @@
             // 
             // LblGcproLibaryPath
             // 
+            this.LblGcproLibaryPath.Image = global::GcproExtensionApp.Properties.Resources.AccessSmall;
             this.LblGcproLibaryPath.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.LblGcproLibaryPath.Location = new System.Drawing.Point(6, 50);
             this.LblGcproLibaryPath.Name = "LblGcproLibaryPath";
@@ -294,6 +302,7 @@
             // 
             // LblGcproProjectPath
             // 
+            this.LblGcproProjectPath.Image = global::GcproExtensionApp.Properties.Resources.AccessSmall;
             this.LblGcproProjectPath.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.LblGcproProjectPath.Location = new System.Drawing.Point(6, 18);
             this.LblGcproProjectPath.Name = "LblGcproProjectPath";
@@ -306,15 +315,63 @@
             // 
             this.tabPage2.AutoScroll = true;
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.grpBoxOther);
             this.tabPage2.Controls.Add(this.grpMachine);
             this.tabPage2.Controls.Add(this.grpBoxElement);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(822, 192);
+            this.tabPage2.Size = new System.Drawing.Size(822, 354);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "新建对象";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtRegexNameOnlyWithNumberTypeLL);
+            this.groupBox1.Controls.Add(this.lblRegexNameOnlyWithNumberTypeLL);
+            this.groupBox1.Controls.Add(this.txtRegexNameWithoutTypeLL);
+            this.groupBox1.Controls.Add(this.lblNameWithoutTypeLL);
+            this.groupBox1.Location = new System.Drawing.Point(8, 267);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(810, 81);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "开发者选项";
+            // 
+            // txtRegexNameOnlyWithNumberTypeLL
+            // 
+            this.txtRegexNameOnlyWithNumberTypeLL.Location = new System.Drawing.Point(166, 46);
+            this.txtRegexNameOnlyWithNumberTypeLL.Name = "txtRegexNameOnlyWithNumberTypeLL";
+            this.txtRegexNameOnlyWithNumberTypeLL.Size = new System.Drawing.Size(326, 20);
+            this.txtRegexNameOnlyWithNumberTypeLL.TabIndex = 11;
+            this.txtRegexNameOnlyWithNumberTypeLL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRegexNameOnlyWithNumberTypeLL_KeyDown);
+            // 
+            // lblRegexNameOnlyWithNumberTypeLL
+            // 
+            this.lblRegexNameOnlyWithNumberTypeLL.AutoSize = true;
+            this.lblRegexNameOnlyWithNumberTypeLL.Location = new System.Drawing.Point(5, 49);
+            this.lblRegexNameOnlyWithNumberTypeLL.Name = "lblRegexNameOnlyWithNumberTypeLL";
+            this.lblRegexNameOnlyWithNumberTypeLL.Size = new System.Drawing.Size(157, 13);
+            this.lblRegexNameOnlyWithNumberTypeLL.TabIndex = 10;
+            this.lblRegexNameOnlyWithNumberTypeLL.Text = "设备编号提取规则(仅含数字)";
+            // 
+            // txtRegexNameWithoutTypeLL
+            // 
+            this.txtRegexNameWithoutTypeLL.Location = new System.Drawing.Point(166, 20);
+            this.txtRegexNameWithoutTypeLL.Name = "txtRegexNameWithoutTypeLL";
+            this.txtRegexNameWithoutTypeLL.Size = new System.Drawing.Size(326, 20);
+            this.txtRegexNameWithoutTypeLL.TabIndex = 9;
+            this.txtRegexNameWithoutTypeLL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRegexNameWithoutTypeLL_KeyDown);
+            // 
+            // lblNameWithoutTypeLL
+            // 
+            this.lblNameWithoutTypeLL.AutoSize = true;
+            this.lblNameWithoutTypeLL.Location = new System.Drawing.Point(5, 23);
+            this.lblNameWithoutTypeLL.Name = "lblNameWithoutTypeLL";
+            this.lblNameWithoutTypeLL.Size = new System.Drawing.Size(157, 13);
+            this.lblNameWithoutTypeLL.TabIndex = 8;
+            this.lblNameWithoutTypeLL.Text = "设备名称提取规则(不含后缀)";
             // 
             // grpBoxOther
             // 
@@ -327,7 +384,7 @@
             this.grpBoxOther.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpBoxOther.Location = new System.Drawing.Point(8, 180);
             this.grpBoxOther.Name = "grpBoxOther";
-            this.grpBoxOther.Size = new System.Drawing.Size(812, 81);
+            this.grpBoxOther.Size = new System.Drawing.Size(810, 81);
             this.grpBoxOther.TabIndex = 4;
             this.grpBoxOther.TabStop = false;
             this.grpBoxOther.Text = "OtherObjects";
@@ -337,17 +394,18 @@
             this.btnAddDPSlave.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
             this.btnAddDPSlave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAddDPSlave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddDPSlave.Location = new System.Drawing.Point(316, 16);
+            this.btnAddDPSlave.Location = new System.Drawing.Point(316, 19);
             this.btnAddDPSlave.Name = "btnAddDPSlave";
             this.btnAddDPSlave.Size = new System.Drawing.Size(30, 21);
             this.btnAddDPSlave.TabIndex = 5;
             this.btnAddDPSlave.UseVisualStyleBackColor = true;
+            this.btnAddDPSlave.Click += new System.EventHandler(this.btnAddDPSlave_Click);
             // 
             // lblDPSlave
             // 
             this.lblDPSlave.AutoSize = true;
             this.lblDPSlave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDPSlave.Location = new System.Drawing.Point(184, 16);
+            this.lblDPSlave.Location = new System.Drawing.Point(184, 20);
             this.lblDPSlave.Name = "lblDPSlave";
             this.lblDPSlave.Size = new System.Drawing.Size(107, 16);
             this.lblDPSlave.TabIndex = 4;
@@ -358,11 +416,12 @@
             this.btnAddDischargerVertex.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
             this.btnAddDischargerVertex.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAddDischargerVertex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddDischargerVertex.Location = new System.Drawing.Point(129, 51);
+            this.btnAddDischargerVertex.Location = new System.Drawing.Point(129, 50);
             this.btnAddDischargerVertex.Name = "btnAddDischargerVertex";
             this.btnAddDischargerVertex.Size = new System.Drawing.Size(30, 21);
             this.btnAddDischargerVertex.TabIndex = 3;
             this.btnAddDischargerVertex.UseVisualStyleBackColor = true;
+            this.btnAddDischargerVertex.Click += new System.EventHandler(this.btnAddDischargerVertex_Click);
             // 
             // lblDischargerVertex
             // 
@@ -379,17 +438,18 @@
             this.btnAddBin.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
             this.btnAddBin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAddBin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddBin.Location = new System.Drawing.Point(129, 16);
+            this.btnAddBin.Location = new System.Drawing.Point(129, 19);
             this.btnAddBin.Name = "btnAddBin";
             this.btnAddBin.Size = new System.Drawing.Size(30, 21);
             this.btnAddBin.TabIndex = 1;
             this.btnAddBin.UseVisualStyleBackColor = true;
+            this.btnAddBin.Click += new System.EventHandler(this.btnAddBin_Click);
             // 
             // lblBin
             // 
             this.lblBin.AutoSize = true;
             this.lblBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBin.Location = new System.Drawing.Point(6, 16);
+            this.lblBin.Location = new System.Drawing.Point(6, 20);
             this.lblBin.Name = "lblBin";
             this.lblBin.Size = new System.Drawing.Size(81, 16);
             this.lblBin.TabIndex = 0;
@@ -408,7 +468,7 @@
             this.grpMachine.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpMachine.Location = new System.Drawing.Point(6, 93);
             this.grpMachine.Name = "grpMachine";
-            this.grpMachine.Size = new System.Drawing.Size(812, 81);
+            this.grpMachine.Size = new System.Drawing.Size(810, 81);
             this.grpMachine.TabIndex = 2;
             this.grpMachine.TabStop = false;
             this.grpMachine.Text = "Machines";
@@ -423,6 +483,7 @@
             this.btnAddMA_MDDY.Size = new System.Drawing.Size(30, 21);
             this.btnAddMA_MDDY.TabIndex = 7;
             this.btnAddMA_MDDY.UseVisualStyleBackColor = true;
+            this.btnAddMA_MDDY.Click += new System.EventHandler(this.btnAddMA_MDDY_Click);
             // 
             // lblMA_MDDY
             // 
@@ -444,6 +505,7 @@
             this.btnAddMA_Roll8Stand.Size = new System.Drawing.Size(30, 21);
             this.btnAddMA_Roll8Stand.TabIndex = 5;
             this.btnAddMA_Roll8Stand.UseVisualStyleBackColor = true;
+            this.btnAddMA_Roll8Stand.Click += new System.EventHandler(this.btnAddMA_Roll8Stand_Click);
             // 
             // lblMA_Roll8Stand
             // 
@@ -465,6 +527,7 @@
             this.btnAddMADischarger.Size = new System.Drawing.Size(30, 21);
             this.btnAddMADischarger.TabIndex = 3;
             this.btnAddMADischarger.UseVisualStyleBackColor = true;
+            this.btnAddMADischarger.Click += new System.EventHandler(this.btnAddMADischarger_Click);
             // 
             // lblMA_Discharger
             // 
@@ -486,6 +549,7 @@
             this.btnAddMotorWithBypass.Size = new System.Drawing.Size(30, 21);
             this.btnAddMotorWithBypass.TabIndex = 1;
             this.btnAddMotorWithBypass.UseVisualStyleBackColor = true;
+            this.btnAddMotorWithBypass.Click += new System.EventHandler(this.btnAddMotorWithBypass_Click);
             // 
             // lblMA_MotorWithPass
             // 
@@ -520,7 +584,7 @@
             this.grpBoxElement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpBoxElement.Location = new System.Drawing.Point(6, 6);
             this.grpBoxElement.Name = "grpBoxElement";
-            this.grpBoxElement.Size = new System.Drawing.Size(812, 81);
+            this.grpBoxElement.Size = new System.Drawing.Size(810, 81);
             this.grpBoxElement.TabIndex = 0;
             this.grpBoxElement.TabStop = false;
             this.grpBoxElement.Text = "Elements";
@@ -535,6 +599,7 @@
             this.btnAddRollStandPhoenix.Size = new System.Drawing.Size(30, 21);
             this.btnAddRollStandPhoenix.TabIndex = 17;
             this.btnAddRollStandPhoenix.UseVisualStyleBackColor = true;
+            this.btnAddRollStandPhoenix.Click += new System.EventHandler(this.btnAddRollStandPhoenix_Click);
             // 
             // lblRollStandPhoenix
             // 
@@ -556,6 +621,7 @@
             this.btnAddFBAL.Size = new System.Drawing.Size(30, 21);
             this.btnAddFBAL.TabIndex = 15;
             this.btnAddFBAL.UseVisualStyleBackColor = true;
+            this.btnAddFBAL.Click += new System.EventHandler(this.btnAddFBAL_Click);
             // 
             // lblFBAL
             // 
@@ -577,6 +643,7 @@
             this.btnAddScaleAdapter.Size = new System.Drawing.Size(30, 21);
             this.btnAddScaleAdapter.TabIndex = 13;
             this.btnAddScaleAdapter.UseVisualStyleBackColor = true;
+            this.btnAddScaleAdapter.Click += new System.EventHandler(this.btnAddScaleAdapter_Click);
             // 
             // lblScaleAdapter
             // 
@@ -620,6 +687,7 @@
             this.btnAddMDDx.Size = new System.Drawing.Size(30, 21);
             this.btnAddMDDx.TabIndex = 11;
             this.btnAddMDDx.UseVisualStyleBackColor = true;
+            this.btnAddMDDx.Click += new System.EventHandler(this.btnAddMDDx_Click);
             // 
             // lblMDDx
             // 
@@ -685,6 +753,7 @@
             this.btnAddAI.Size = new System.Drawing.Size(30, 21);
             this.btnAddAI.TabIndex = 5;
             this.btnAddAI.UseVisualStyleBackColor = true;
+            this.btnAddAI.Click += new System.EventHandler(this.btnAddAI_Click);
             // 
             // lblAI
             // 
@@ -725,7 +794,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(822, 192);
+            this.tabPage3.Size = new System.Drawing.Size(822, 354);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "软件信息";
             // 
@@ -808,7 +877,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(830, 221);
+            this.ClientSize = new System.Drawing.Size(830, 383);
             this.Controls.Add(this.tabMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
@@ -823,6 +892,8 @@
             this.GcproDB.ResumeLayout(false);
             this.GcproDB.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.grpBoxOther.ResumeLayout(false);
             this.grpBoxOther.PerformLayout();
             this.grpMachine.ResumeLayout(false);
@@ -897,5 +968,10 @@
         private System.Windows.Forms.ComboBox comboProjectType;
         internal System.Windows.Forms.Label lblProjectType;
         internal System.Windows.Forms.Button BtnOpenProjectDB;
+        private System.Windows.Forms.TextBox txtRegexNameWithoutTypeLL;
+        private System.Windows.Forms.Label lblNameWithoutTypeLL;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox txtRegexNameOnlyWithNumberTypeLL;
+        private System.Windows.Forms.Label lblRegexNameOnlyWithNumberTypeLL;
     }
 }

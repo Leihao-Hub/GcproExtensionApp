@@ -40,6 +40,7 @@
             this.lblUserDefinedFilter = new System.Windows.Forms.Label();
             this.txtUserDefinedFilter = new System.Windows.Forms.TextBox();
             this.grpDataQuery = new System.Windows.Forms.GroupBox();
+            this.BtnConfirm = new System.Windows.Forms.Button();
             this.lblAnd = new System.Windows.Forms.Label();
             this.txtFilterName = new System.Windows.Forms.TextBox();
             this.lblFilterName = new System.Windows.Forms.Label();
@@ -137,7 +138,7 @@
             this.btnQuery.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnQuery.Location = new System.Drawing.Point(811, 17);
             this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(89, 27);
+            this.btnQuery.Size = new System.Drawing.Size(88, 27);
             this.btnQuery.TabIndex = 19;
             this.btnQuery.Text = "       查询";
             this.btnQuery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -164,6 +165,7 @@
             // 
             // grpDataQuery
             // 
+            this.grpDataQuery.Controls.Add(this.BtnConfirm);
             this.grpDataQuery.Controls.Add(this.lblAnd);
             this.grpDataQuery.Controls.Add(this.txtFilterName);
             this.grpDataQuery.Controls.Add(this.lblFilterName);
@@ -182,6 +184,21 @@
             this.grpDataQuery.TabIndex = 22;
             this.grpDataQuery.TabStop = false;
             this.grpDataQuery.Text = "数据库查询";
+            // 
+            // BtnConfirm
+            // 
+            this.BtnConfirm.BackColor = System.Drawing.SystemColors.Control;
+            this.BtnConfirm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnConfirm.Image = global::GcproExtensionApp.Properties.Resources.Confirm1;
+            this.BtnConfirm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnConfirm.Location = new System.Drawing.Point(811, 52);
+            this.BtnConfirm.Name = "BtnConfirm";
+            this.BtnConfirm.Size = new System.Drawing.Size(88, 27);
+            this.BtnConfirm.TabIndex = 55;
+            this.BtnConfirm.Text = "选择";
+            this.BtnConfirm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnConfirm.UseVisualStyleBackColor = false;
+            this.BtnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
             // 
             // lblAnd
             // 
@@ -235,7 +252,7 @@
             this.btnUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnUpdate.Location = new System.Drawing.Point(811, 16);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(89, 27);
+            this.btnUpdate.Size = new System.Drawing.Size(88, 27);
             this.btnUpdate.TabIndex = 26;
             this.btnUpdate.Text = "       更新";
             this.btnUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -438,5 +455,6 @@
         internal System.Windows.Forms.Label lblAnd;
         private System.Windows.Forms.GroupBox grpUpdate;
         private System.Windows.Forms.ComboBox comboFilterLogic;
+        internal System.Windows.Forms.Button BtnConfirm;
     }
 }

@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVLS));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -133,6 +133,11 @@ namespace GcproExtensionApp
             this.textBox22 = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
+            this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
+            this.chkAddSectionToDesc = new System.Windows.Forms.CheckBox();
+            this.chkAddFloorToDesc = new System.Windows.Forms.CheckBox();
+            this.chkAddNameToDesc = new System.Windows.Forms.CheckBox();
+            this.chkAddCabinetToDesc = new System.Windows.Forms.CheckBox();
             this.lblInpRunFwdSuffix = new System.Windows.Forms.Label();
             this.txtInpRunFwdSuffix = new System.Windows.Forms.TextBox();
             this.txtInpRunRevSuffix = new System.Windows.Forms.TextBox();
@@ -152,7 +157,7 @@ namespace GcproExtensionApp
             this.TxtInpLN = new System.Windows.Forms.TextBox();
             this.txtInpHWSuffix = new System.Windows.Forms.TextBox();
             this.txtInHWStop = new System.Windows.Forms.TextBox();
-            this.TxtInpFaultDevSuffix = new System.Windows.Forms.TextBox();
+            this.txtInpFaultDevSuffix = new System.Windows.Forms.TextBox();
             this.LblInpFaultDevSuffix = new System.Windows.Forms.Label();
             this.GrpDescriptionRule = new System.Windows.Forms.GroupBox();
             this.LblDescriptionRule = new System.Windows.Forms.Label();
@@ -194,6 +199,8 @@ namespace GcproExtensionApp
             this.comboWorkSheetsBML = new System.Windows.Forms.ComboBox();
             this.grpBoxExcelColumn = new System.Windows.Forms.GroupBox();
             this.grpBoxBMLColum = new System.Windows.Forms.GroupBox();
+            this.comboLineBML = new System.Windows.Forms.ComboBox();
+            this.lblLineBML = new System.Windows.Forms.Label();
             this.comboIORemarkBML = new System.Windows.Forms.ComboBox();
             this.lblIORemarkBML = new System.Windows.Forms.Label();
             this.comboStartRow = new System.Windows.Forms.ComboBox();
@@ -243,6 +250,7 @@ namespace GcproExtensionApp
             this.PalGcObject.SuspendLayout();
             this.grpReference.SuspendLayout();
             this.grpGeneral.SuspendLayout();
+            this.grpAddInfoToDesc.SuspendLayout();
             this.GrpDescriptionRule.SuspendLayout();
             this.GrpSymbolRule.SuspendLayout();
             this.tabBML.SuspendLayout();
@@ -265,7 +273,7 @@ namespace GcproExtensionApp
             this.ProgressBar});
             this.statusStrip.Location = new System.Drawing.Point(0, 778);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(720, 22);
+            this.statusStrip.Size = new System.Drawing.Size(722, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusBar";
             // 
@@ -324,7 +332,7 @@ namespace GcproExtensionApp
             this.tabCreateMode.Margin = new System.Windows.Forms.Padding(0);
             this.tabCreateMode.Name = "tabCreateMode";
             this.tabCreateMode.SelectedIndex = 0;
-            this.tabCreateMode.Size = new System.Drawing.Size(720, 579);
+            this.tabCreateMode.Size = new System.Drawing.Size(722, 579);
             this.tabCreateMode.TabIndex = 107;
             this.tabCreateMode.SelectedIndexChanged += new System.EventHandler(this.tabCreateMode_SelectedIndexChanged);
             // 
@@ -371,7 +379,7 @@ namespace GcproExtensionApp
             this.tabRule.Location = new System.Drawing.Point(4, 22);
             this.tabRule.Name = "tabRule";
             this.tabRule.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRule.Size = new System.Drawing.Size(712, 553);
+            this.tabRule.Size = new System.Drawing.Size(714, 553);
             this.tabRule.TabIndex = 0;
             this.tabRule.Text = "设定规则创建";
             // 
@@ -419,17 +427,17 @@ namespace GcproExtensionApp
             this.PalGcObject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PalGcObject.Location = new System.Drawing.Point(3, 3);
             this.PalGcObject.Name = "PalGcObject";
-            this.PalGcObject.Size = new System.Drawing.Size(706, 547);
+            this.PalGcObject.Size = new System.Drawing.Size(708, 547);
             this.PalGcObject.TabIndex = 105;
             // 
             // chkStartwarningHN
             // 
             this.chkStartwarningHN.AutoSize = true;
-            this.chkStartwarningHN.Location = new System.Drawing.Point(376, 381);
+            this.chkStartwarningHN.Location = new System.Drawing.Point(376, 377);
             this.chkStartwarningHN.Name = "chkStartwarningHN";
-            this.chkStartwarningHN.Size = new System.Drawing.Size(74, 17);
+            this.chkStartwarningHN.Size = new System.Drawing.Size(117, 17);
             this.chkStartwarningHN.TabIndex = 147;
-            this.chkStartwarningHN.Text = "高位预警";
+            this.chkStartwarningHN.Text = "ParStartwarningHN";
             this.chkStartwarningHN.UseVisualStyleBackColor = true;
             this.chkStartwarningHN.CheckedChanged += new System.EventHandler(this.chkStartwarningHN_CheckedChanged);
             this.chkStartwarningHN.MouseEnter += new System.EventHandler(this.chkStartwarningHN_MouseEnter);
@@ -437,11 +445,11 @@ namespace GcproExtensionApp
             // chkStartwarningLN
             // 
             this.chkStartwarningLN.AutoSize = true;
-            this.chkStartwarningLN.Location = new System.Drawing.Point(376, 363);
+            this.chkStartwarningLN.Location = new System.Drawing.Point(376, 359);
             this.chkStartwarningLN.Name = "chkStartwarningLN";
-            this.chkStartwarningLN.Size = new System.Drawing.Size(74, 17);
+            this.chkStartwarningLN.Size = new System.Drawing.Size(115, 17);
             this.chkStartwarningLN.TabIndex = 146;
-            this.chkStartwarningLN.Text = "低位预警";
+            this.chkStartwarningLN.Text = "ParStartwarningLN";
             this.chkStartwarningLN.UseVisualStyleBackColor = true;
             this.chkStartwarningLN.CheckedChanged += new System.EventHandler(this.chkStartwarningLN_CheckedChanged);
             this.chkStartwarningLN.MouseEnter += new System.EventHandler(this.chkStartwarningLN_MouseEnter);
@@ -449,18 +457,18 @@ namespace GcproExtensionApp
             // LblEquipmentInfoType
             // 
             this.LblEquipmentInfoType.AutoSize = true;
-            this.LblEquipmentInfoType.Location = new System.Drawing.Point(9, 248);
+            this.LblEquipmentInfoType.Location = new System.Drawing.Point(9, 244);
             this.LblEquipmentInfoType.Name = "LblEquipmentInfoType";
-            this.LblEquipmentInfoType.Size = new System.Drawing.Size(79, 13);
+            this.LblEquipmentInfoType.Size = new System.Drawing.Size(99, 13);
             this.LblEquipmentInfoType.TabIndex = 119;
-            this.LblEquipmentInfoType.Text = "设备信息类型";
+            this.LblEquipmentInfoType.Text = "EquipmentInfoType";
             // 
             // ComboEquipmentInfoType
             // 
             this.ComboEquipmentInfoType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboEquipmentInfoType.FormattingEnabled = true;
             this.ComboEquipmentInfoType.IntegralHeight = false;
-            this.ComboEquipmentInfoType.Location = new System.Drawing.Point(104, 245);
+            this.ComboEquipmentInfoType.Location = new System.Drawing.Point(132, 241);
             this.ComboEquipmentInfoType.Name = "ComboEquipmentInfoType";
             this.ComboEquipmentInfoType.Size = new System.Drawing.Size(384, 21);
             this.ComboEquipmentInfoType.TabIndex = 120;
@@ -468,18 +476,17 @@ namespace GcproExtensionApp
             // 
             // LblHornCode
             // 
-            this.LblHornCode.AutoSize = true;
-            this.LblHornCode.Location = new System.Drawing.Point(9, 273);
+            this.LblHornCode.Location = new System.Drawing.Point(9, 269);
             this.LblHornCode.Name = "LblHornCode";
             this.LblHornCode.Size = new System.Drawing.Size(55, 13);
             this.LblHornCode.TabIndex = 121;
-            this.LblHornCode.Text = "报警喇叭";
+            this.LblHornCode.Text = "HornCode";
             // 
             // ComboHornCode
             // 
             this.ComboHornCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboHornCode.FormattingEnabled = true;
-            this.ComboHornCode.Location = new System.Drawing.Point(104, 269);
+            this.ComboHornCode.Location = new System.Drawing.Point(132, 265);
             this.ComboHornCode.Name = "ComboHornCode";
             this.ComboHornCode.Size = new System.Drawing.Size(115, 21);
             this.ComboHornCode.TabIndex = 122;
@@ -488,11 +495,12 @@ namespace GcproExtensionApp
             // chkParLogOff
             // 
             this.chkParLogOff.AutoSize = true;
-            this.chkParLogOff.Location = new System.Drawing.Point(376, 273);
+            this.chkParLogOff.Location = new System.Drawing.Point(376, 269);
             this.chkParLogOff.Name = "chkParLogOff";
-            this.chkParLogOff.Size = new System.Drawing.Size(62, 17);
+            this.chkParLogOff.Size = new System.Drawing.Size(72, 17);
             this.chkParLogOff.TabIndex = 145;
-            this.chkParLogOff.Text = "记录关";
+            this.chkParLogOff.Text = "ParLogoff";
+            this.chkParLogOff.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chkParLogOff.UseVisualStyleBackColor = true;
             this.chkParLogOff.CheckedChanged += new System.EventHandler(this.chkParLogOff_CheckedChanged);
             this.chkParLogOff.MouseEnter += new System.EventHandler(this.chkParLogOff_MouseEnter);
@@ -500,26 +508,26 @@ namespace GcproExtensionApp
             // LblDPNode1
             // 
             this.LblDPNode1.AutoSize = true;
-            this.LblDPNode1.Location = new System.Drawing.Point(9, 298);
+            this.LblDPNode1.Location = new System.Drawing.Point(9, 294);
             this.LblDPNode1.Name = "LblDPNode1";
-            this.LblDPNode1.Size = new System.Drawing.Size(52, 13);
+            this.LblDPNode1.Size = new System.Drawing.Size(70, 13);
             this.LblDPNode1.TabIndex = 123;
-            this.LblDPNode1.Text = "DP站点1";
+            this.LblDPNode1.Text = "ParDPNode1";
             // 
             // LblDPNode2
             // 
             this.LblDPNode2.AutoSize = true;
-            this.LblDPNode2.Location = new System.Drawing.Point(9, 321);
+            this.LblDPNode2.Location = new System.Drawing.Point(9, 317);
             this.LblDPNode2.Name = "LblDPNode2";
-            this.LblDPNode2.Size = new System.Drawing.Size(52, 13);
+            this.LblDPNode2.Size = new System.Drawing.Size(70, 13);
             this.LblDPNode2.TabIndex = 124;
-            this.LblDPNode2.Text = "DP站点2";
+            this.LblDPNode2.Text = "ParDPNode2";
             // 
             // ComboDPNode1
             // 
             this.ComboDPNode1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboDPNode1.FormattingEnabled = true;
-            this.ComboDPNode1.Location = new System.Drawing.Point(104, 292);
+            this.ComboDPNode1.Location = new System.Drawing.Point(132, 288);
             this.ComboDPNode1.Name = "ComboDPNode1";
             this.ComboDPNode1.Size = new System.Drawing.Size(115, 21);
             this.ComboDPNode1.TabIndex = 125;
@@ -529,7 +537,7 @@ namespace GcproExtensionApp
             // 
             this.ComboDPNode2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboDPNode2.FormattingEnabled = true;
-            this.ComboDPNode2.Location = new System.Drawing.Point(104, 316);
+            this.ComboDPNode2.Location = new System.Drawing.Point(132, 312);
             this.ComboDPNode2.Name = "ComboDPNode2";
             this.ComboDPNode2.Size = new System.Drawing.Size(115, 21);
             this.ComboDPNode2.TabIndex = 126;
@@ -538,16 +546,16 @@ namespace GcproExtensionApp
             // lblMonTime
             // 
             this.lblMonTime.AutoSize = true;
-            this.lblMonTime.Location = new System.Drawing.Point(9, 344);
+            this.lblMonTime.Location = new System.Drawing.Point(9, 340);
             this.lblMonTime.Name = "lblMonTime";
-            this.lblMonTime.Size = new System.Drawing.Size(66, 13);
+            this.lblMonTime.Size = new System.Drawing.Size(78, 13);
             this.lblMonTime.TabIndex = 127;
-            this.lblMonTime.Text = "监控时间[s]";
+            this.lblMonTime.Text = "ParMonTime[s]";
             // 
             // txtMonTime
             // 
             this.txtMonTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMonTime.Location = new System.Drawing.Point(104, 344);
+            this.txtMonTime.Location = new System.Drawing.Point(132, 340);
             this.txtMonTime.Name = "txtMonTime";
             this.txtMonTime.Size = new System.Drawing.Size(56, 13);
             this.txtMonTime.TabIndex = 128;
@@ -556,11 +564,11 @@ namespace GcproExtensionApp
             // chkManualFlap
             // 
             this.chkManualFlap.AutoSize = true;
-            this.chkManualFlap.Location = new System.Drawing.Point(376, 345);
+            this.chkManualFlap.Location = new System.Drawing.Point(376, 341);
             this.chkManualFlap.Name = "chkManualFlap";
-            this.chkManualFlap.Size = new System.Drawing.Size(62, 17);
+            this.chkManualFlap.Size = new System.Drawing.Size(97, 17);
             this.chkManualFlap.TabIndex = 144;
-            this.chkManualFlap.Text = "手动阀";
+            this.chkManualFlap.Text = "ParManualFlap";
             this.chkManualFlap.UseVisualStyleBackColor = true;
             this.chkManualFlap.CheckedChanged += new System.EventHandler(this.chkManualFlap_CheckedChanged);
             this.chkManualFlap.MouseEnter += new System.EventHandler(this.chkManualFlap_MouseEnter);
@@ -568,16 +576,16 @@ namespace GcproExtensionApp
             // lblStartDelayTime
             // 
             this.lblStartDelayTime.AutoSize = true;
-            this.lblStartDelayTime.Location = new System.Drawing.Point(9, 363);
+            this.lblStartDelayTime.Location = new System.Drawing.Point(9, 359);
             this.lblStartDelayTime.Name = "lblStartDelayTime";
-            this.lblStartDelayTime.Size = new System.Drawing.Size(66, 13);
+            this.lblStartDelayTime.Size = new System.Drawing.Size(83, 13);
             this.lblStartDelayTime.TabIndex = 129;
-            this.lblStartDelayTime.Text = "启动延迟[s]";
+            this.lblStartDelayTime.Text = "ParStartDelay[s]";
             // 
             // txtStartDelayTime
             // 
             this.txtStartDelayTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtStartDelayTime.Location = new System.Drawing.Point(104, 363);
+            this.txtStartDelayTime.Location = new System.Drawing.Point(132, 359);
             this.txtStartDelayTime.Name = "txtStartDelayTime";
             this.txtStartDelayTime.Size = new System.Drawing.Size(56, 13);
             this.txtStartDelayTime.TabIndex = 130;
@@ -586,16 +594,16 @@ namespace GcproExtensionApp
             // lblPulseTimeHN
             // 
             this.lblPulseTimeHN.AutoSize = true;
-            this.lblPulseTimeHN.Location = new System.Drawing.Point(9, 380);
+            this.lblPulseTimeHN.Location = new System.Drawing.Point(9, 376);
             this.lblPulseTimeHN.Name = "lblPulseTimeHN";
-            this.lblPulseTimeHN.Size = new System.Drawing.Size(66, 13);
+            this.lblPulseTimeHN.Size = new System.Drawing.Size(99, 13);
             this.lblPulseTimeHN.TabIndex = 131;
-            this.lblPulseTimeHN.Text = "高位时间[s]";
+            this.lblPulseTimeHN.Text = "ParPulseTimeHN[s]";
             // 
             // txtPulseTimeHN
             // 
             this.txtPulseTimeHN.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPulseTimeHN.Location = new System.Drawing.Point(104, 380);
+            this.txtPulseTimeHN.Location = new System.Drawing.Point(132, 376);
             this.txtPulseTimeHN.Name = "txtPulseTimeHN";
             this.txtPulseTimeHN.Size = new System.Drawing.Size(56, 13);
             this.txtPulseTimeHN.TabIndex = 132;
@@ -605,7 +613,7 @@ namespace GcproExtensionApp
             // lblValue10
             // 
             this.lblValue10.AutoSize = true;
-            this.lblValue10.Location = new System.Drawing.Point(451, 273);
+            this.lblValue10.Location = new System.Drawing.Point(451, 269);
             this.lblValue10.Name = "lblValue10";
             this.lblValue10.Size = new System.Drawing.Size(46, 13);
             this.lblValue10.TabIndex = 143;
@@ -614,17 +622,17 @@ namespace GcproExtensionApp
             // lblPulseTimeLN
             // 
             this.lblPulseTimeLN.AutoSize = true;
-            this.lblPulseTimeLN.Location = new System.Drawing.Point(9, 399);
+            this.lblPulseTimeLN.Location = new System.Drawing.Point(9, 395);
             this.lblPulseTimeLN.Name = "lblPulseTimeLN";
-            this.lblPulseTimeLN.Size = new System.Drawing.Size(66, 13);
+            this.lblPulseTimeLN.Size = new System.Drawing.Size(97, 13);
             this.lblPulseTimeLN.TabIndex = 133;
-            this.lblPulseTimeLN.Text = "低位时间[s]";
+            this.lblPulseTimeLN.Text = "ParPulseTimeLN[s]";
             // 
             // txtValue10
             // 
             this.txtValue10.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtValue10.Enabled = false;
-            this.txtValue10.Location = new System.Drawing.Point(455, 292);
+            this.txtValue10.Location = new System.Drawing.Point(455, 288);
             this.txtValue10.Name = "txtValue10";
             this.txtValue10.Size = new System.Drawing.Size(36, 13);
             this.txtValue10.TabIndex = 142;
@@ -633,7 +641,7 @@ namespace GcproExtensionApp
             // txtPulseTimeLN
             // 
             this.txtPulseTimeLN.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPulseTimeLN.Location = new System.Drawing.Point(104, 399);
+            this.txtPulseTimeLN.Location = new System.Drawing.Point(132, 395);
             this.txtPulseTimeLN.Name = "txtPulseTimeLN";
             this.txtPulseTimeLN.Size = new System.Drawing.Size(56, 13);
             this.txtPulseTimeLN.TabIndex = 134;
@@ -643,16 +651,16 @@ namespace GcproExtensionApp
             // lblIdlingTime
             // 
             this.lblIdlingTime.AutoSize = true;
-            this.lblIdlingTime.Location = new System.Drawing.Point(9, 417);
+            this.lblIdlingTime.Location = new System.Drawing.Point(9, 413);
             this.lblIdlingTime.Name = "lblIdlingTime";
-            this.lblIdlingTime.Size = new System.Drawing.Size(66, 13);
+            this.lblIdlingTime.Size = new System.Drawing.Size(82, 13);
             this.lblIdlingTime.TabIndex = 135;
-            this.lblIdlingTime.Text = "空转时间[s]";
+            this.lblIdlingTime.Text = "ParIdlingTime[s]";
             // 
             // txtIdlingTime
             // 
             this.txtIdlingTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtIdlingTime.Location = new System.Drawing.Point(104, 417);
+            this.txtIdlingTime.Location = new System.Drawing.Point(132, 413);
             this.txtIdlingTime.Name = "txtIdlingTime";
             this.txtIdlingTime.Size = new System.Drawing.Size(56, 13);
             this.txtIdlingTime.TabIndex = 136;
@@ -663,16 +671,16 @@ namespace GcproExtensionApp
             // 
             this.lblFaultDelayTime.AutoSize = true;
             this.lblFaultDelayTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblFaultDelayTime.Location = new System.Drawing.Point(9, 434);
+            this.lblFaultDelayTime.Location = new System.Drawing.Point(9, 430);
             this.lblFaultDelayTime.Name = "lblFaultDelayTime";
-            this.lblFaultDelayTime.Size = new System.Drawing.Size(90, 13);
+            this.lblFaultDelayTime.Size = new System.Drawing.Size(107, 13);
             this.lblFaultDelayTime.TabIndex = 137;
-            this.lblFaultDelayTime.Text = "报警延迟时间[s]";
+            this.lblFaultDelayTime.Text = "ParDelayFaultTime[s]";
             // 
             // txtFaultDelayTime
             // 
             this.txtFaultDelayTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFaultDelayTime.Location = new System.Drawing.Point(104, 434);
+            this.txtFaultDelayTime.Location = new System.Drawing.Point(132, 430);
             this.txtFaultDelayTime.Name = "txtFaultDelayTime";
             this.txtFaultDelayTime.Size = new System.Drawing.Size(56, 13);
             this.txtFaultDelayTime.TabIndex = 138;
@@ -681,14 +689,15 @@ namespace GcproExtensionApp
             // 
             // chkParManual
             // 
+            this.chkParManual.AllowDrop = true;
             this.chkParManual.AutoSize = true;
             this.chkParManual.Checked = true;
             this.chkParManual.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkParManual.Location = new System.Drawing.Point(376, 290);
+            this.chkParManual.Location = new System.Drawing.Point(376, 286);
             this.chkParManual.Name = "chkParManual";
-            this.chkParManual.Size = new System.Drawing.Size(74, 17);
+            this.chkParManual.Size = new System.Drawing.Size(77, 17);
             this.chkParManual.TabIndex = 139;
-            this.chkParManual.Text = "允许手动";
+            this.chkParManual.Text = "ParManual";
             this.chkParManual.UseVisualStyleBackColor = true;
             this.chkParManual.CheckedChanged += new System.EventHandler(this.chkParManual_CheckedChanged);
             this.chkParManual.MouseEnter += new System.EventHandler(this.chkParManual_MouseEnter);
@@ -696,11 +705,11 @@ namespace GcproExtensionApp
             // chkPulseValve
             // 
             this.chkPulseValve.AutoSize = true;
-            this.chkPulseValve.Location = new System.Drawing.Point(376, 308);
+            this.chkPulseValve.Location = new System.Drawing.Point(376, 304);
             this.chkPulseValve.Name = "chkPulseValve";
-            this.chkPulseValve.Size = new System.Drawing.Size(62, 17);
+            this.chkPulseValve.Size = new System.Drawing.Size(95, 17);
             this.chkPulseValve.TabIndex = 140;
-            this.chkPulseValve.Text = "双控阀";
+            this.chkPulseValve.Text = "ParPulseValve";
             this.chkPulseValve.UseVisualStyleBackColor = true;
             this.chkPulseValve.CheckedChanged += new System.EventHandler(this.chkPulseValve_CheckedChanged);
             this.chkPulseValve.MouseEnter += new System.EventHandler(this.chkPulseValve_MouseEnter);
@@ -708,11 +717,11 @@ namespace GcproExtensionApp
             // chkContValve
             // 
             this.chkContValve.AutoSize = true;
-            this.chkContValve.Location = new System.Drawing.Point(376, 327);
+            this.chkContValve.Location = new System.Drawing.Point(376, 323);
             this.chkContValve.Name = "chkContValve";
-            this.chkContValve.Size = new System.Drawing.Size(62, 17);
+            this.chkContValve.Size = new System.Drawing.Size(91, 17);
             this.chkContValve.TabIndex = 141;
-            this.chkContValve.Text = "单控阀";
+            this.chkContValve.Text = "ParContValve";
             this.chkContValve.UseVisualStyleBackColor = true;
             this.chkContValve.CheckedChanged += new System.EventHandler(this.chkContValve_CheckedChanged);
             this.chkContValve.MouseEnter += new System.EventHandler(this.chkContValve_MouseEnter);
@@ -722,7 +731,7 @@ namespace GcproExtensionApp
             this.chkOnlyFree.AutoSize = true;
             this.chkOnlyFree.Checked = true;
             this.chkOnlyFree.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOnlyFree.Location = new System.Drawing.Point(132, 220);
+            this.chkOnlyFree.Location = new System.Drawing.Point(132, 216);
             this.chkOnlyFree.Name = "chkOnlyFree";
             this.chkOnlyFree.Size = new System.Drawing.Size(110, 17);
             this.chkOnlyFree.TabIndex = 62;
@@ -784,12 +793,12 @@ namespace GcproExtensionApp
             this.grpReference.Controls.Add(this.label30);
             this.grpReference.Controls.Add(this.textBox22);
             this.grpReference.Controls.Add(this.label31);
-            this.grpReference.Location = new System.Drawing.Point(5, 450);
+            this.grpReference.Location = new System.Drawing.Point(5, 446);
             this.grpReference.Name = "grpReference";
             this.grpReference.Size = new System.Drawing.Size(453, 93);
             this.grpReference.TabIndex = 62;
             this.grpReference.TabStop = false;
-            this.grpReference.Text = "关联参考";
+            this.grpReference.Text = "Renerences";
             // 
             // checkBox14
             // 
@@ -806,9 +815,9 @@ namespace GcproExtensionApp
             this.lblRcvLN.AutoSize = true;
             this.lblRcvLN.Location = new System.Drawing.Point(7, 16);
             this.lblRcvLN.Name = "lblRcvLN";
-            this.lblRcvLN.Size = new System.Drawing.Size(55, 13);
+            this.lblRcvLN.Size = new System.Drawing.Size(67, 13);
             this.lblRcvLN.TabIndex = 128;
-            this.lblRcvLN.Text = "低位走向";
+            this.lblRcvLN.Text = "Receiver LN";
             // 
             // lblAspRule
             // 
@@ -818,6 +827,7 @@ namespace GcproExtensionApp
             this.lblAspRule.Size = new System.Drawing.Size(55, 13);
             this.lblAspRule.TabIndex = 148;
             this.lblAspRule.Text = "规则字段";
+            this.lblAspRule.Visible = false;
             // 
             // checkBox13
             // 
@@ -836,6 +846,7 @@ namespace GcproExtensionApp
             this.txtRcvLNIncRule.Name = "txtRcvLNIncRule";
             this.txtRcvLNIncRule.Size = new System.Drawing.Size(66, 13);
             this.txtRcvLNIncRule.TabIndex = 138;
+            this.txtRcvLNIncRule.Visible = false;
             // 
             // txtRcvHNIncRule
             // 
@@ -844,6 +855,7 @@ namespace GcproExtensionApp
             this.txtRcvHNIncRule.Name = "txtRcvHNIncRule";
             this.txtRcvHNIncRule.Size = new System.Drawing.Size(66, 13);
             this.txtRcvHNIncRule.TabIndex = 142;
+            this.txtRcvHNIncRule.Visible = false;
             // 
             // checkBox12
             // 
@@ -862,6 +874,7 @@ namespace GcproExtensionApp
             this.txtRcvLN.Name = "txtRcvLN";
             this.txtRcvLN.Size = new System.Drawing.Size(96, 13);
             this.txtRcvLN.TabIndex = 129;
+            this.txtRcvLN.TextChanged += new System.EventHandler(this.txtRcvLN_TextChanged);
             this.txtRcvLN.MouseEnter += new System.EventHandler(this.txtRcvLN_MouseEnter);
             // 
             // lblRcvHNIncRule
@@ -872,6 +885,7 @@ namespace GcproExtensionApp
             this.lblRcvHNIncRule.Size = new System.Drawing.Size(55, 13);
             this.lblRcvHNIncRule.TabIndex = 143;
             this.lblRcvHNIncRule.Text = "递增规则";
+            this.lblRcvHNIncRule.Visible = false;
             // 
             // checkBox11
             // 
@@ -891,6 +905,7 @@ namespace GcproExtensionApp
             this.lblRcvLNIncRule.Size = new System.Drawing.Size(55, 13);
             this.lblRcvLNIncRule.TabIndex = 139;
             this.lblRcvLNIncRule.Text = "递增规则";
+            this.lblRcvLNIncRule.Visible = false;
             // 
             // txtAspIncRule
             // 
@@ -899,6 +914,7 @@ namespace GcproExtensionApp
             this.txtAspIncRule.Name = "txtAspIncRule";
             this.txtAspIncRule.Size = new System.Drawing.Size(66, 13);
             this.txtAspIncRule.TabIndex = 150;
+            this.txtAspIncRule.Visible = false;
             // 
             // label48
             // 
@@ -916,6 +932,7 @@ namespace GcproExtensionApp
             this.txtRcvHNRule.Name = "txtRcvHNRule";
             this.txtRcvHNRule.Size = new System.Drawing.Size(66, 13);
             this.txtRcvHNRule.TabIndex = 141;
+            this.txtRcvHNRule.Visible = false;
             // 
             // lblRcvHNRule
             // 
@@ -925,6 +942,7 @@ namespace GcproExtensionApp
             this.lblRcvHNRule.Size = new System.Drawing.Size(55, 13);
             this.lblRcvHNRule.TabIndex = 140;
             this.lblRcvHNRule.Text = "规则字段";
+            this.lblRcvHNRule.Visible = false;
             // 
             // textBox38
             // 
@@ -940,9 +958,9 @@ namespace GcproExtensionApp
             this.lblRcvHN.AutoSize = true;
             this.lblRcvHN.Location = new System.Drawing.Point(7, 33);
             this.lblRcvHN.Name = "lblRcvHN";
-            this.lblRcvHN.Size = new System.Drawing.Size(55, 13);
+            this.lblRcvHN.Size = new System.Drawing.Size(69, 13);
             this.lblRcvHN.TabIndex = 130;
-            this.lblRcvHN.Text = "高位走向";
+            this.lblRcvHN.Text = "Receiver HN";
             // 
             // lblRcvLNRule
             // 
@@ -952,6 +970,7 @@ namespace GcproExtensionApp
             this.lblRcvLNRule.Size = new System.Drawing.Size(55, 13);
             this.lblRcvLNRule.TabIndex = 136;
             this.lblRcvLNRule.Text = "规则字段";
+            this.lblRcvLNRule.Visible = false;
             // 
             // checkBox10
             // 
@@ -972,6 +991,7 @@ namespace GcproExtensionApp
             this.txtRcvLNRule.Name = "txtRcvLNRule";
             this.txtRcvLNRule.Size = new System.Drawing.Size(66, 13);
             this.txtRcvLNRule.TabIndex = 137;
+            this.txtRcvLNRule.Visible = false;
             // 
             // lblAspIncRule
             // 
@@ -981,6 +1001,7 @@ namespace GcproExtensionApp
             this.lblAspIncRule.Size = new System.Drawing.Size(55, 13);
             this.lblAspIncRule.TabIndex = 151;
             this.lblAspIncRule.Text = "递增规则";
+            this.lblAspIncRule.Visible = false;
             // 
             // checkBox9
             // 
@@ -1007,6 +1028,7 @@ namespace GcproExtensionApp
             this.txtAsp.Name = "txtAsp";
             this.txtAsp.Size = new System.Drawing.Size(96, 13);
             this.txtAsp.TabIndex = 135;
+            this.txtAsp.TextChanged += new System.EventHandler(this.txtAsp_TextChanged);
             this.txtAsp.MouseEnter += new System.EventHandler(this.txtAsp_MouseEnter);
             // 
             // checkBox8
@@ -1026,6 +1048,7 @@ namespace GcproExtensionApp
             this.txtRcvHN.Name = "txtRcvHN";
             this.txtRcvHN.Size = new System.Drawing.Size(96, 13);
             this.txtRcvHN.TabIndex = 131;
+            this.txtRcvHN.TextChanged += new System.EventHandler(this.txtRcvHN_TextChanged);
             this.txtRcvHN.MouseEnter += new System.EventHandler(this.txtRcvHN_MouseEnter);
             // 
             // lblSndBinIncRule
@@ -1051,9 +1074,9 @@ namespace GcproExtensionApp
             this.lblAsp.AutoSize = true;
             this.lblAsp.Location = new System.Drawing.Point(7, 68);
             this.lblAsp.Name = "lblAsp";
-            this.lblAsp.Size = new System.Drawing.Size(31, 13);
+            this.lblAsp.Size = new System.Drawing.Size(53, 13);
             this.lblAsp.TabIndex = 134;
-            this.lblAsp.Text = "风网";
+            this.lblAsp.Text = "Aspiration";
             // 
             // txtAspRule
             // 
@@ -1062,6 +1085,7 @@ namespace GcproExtensionApp
             this.txtAspRule.Name = "txtAspRule";
             this.txtAspRule.Size = new System.Drawing.Size(66, 13);
             this.txtAspRule.TabIndex = 149;
+            this.txtAspRule.Visible = false;
             // 
             // textBox37
             // 
@@ -1087,6 +1111,8 @@ namespace GcproExtensionApp
             this.txtSndBin.Name = "txtSndBin";
             this.txtSndBin.Size = new System.Drawing.Size(96, 13);
             this.txtSndBin.TabIndex = 133;
+            this.txtSndBin.TextChanged += new System.EventHandler(this.txtSndBin_TextChanged);
+            this.txtSndBin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtSndBin_MouseDoubleClick);
             this.txtSndBin.MouseEnter += new System.EventHandler(this.txtSndBin_MouseEnter);
             // 
             // label34
@@ -1103,9 +1129,9 @@ namespace GcproExtensionApp
             this.lblSndBin.AutoSize = true;
             this.lblSndBin.Location = new System.Drawing.Point(7, 50);
             this.lblSndBin.Name = "lblSndBin";
-            this.lblSndBin.Size = new System.Drawing.Size(43, 13);
+            this.lblSndBin.Size = new System.Drawing.Size(59, 13);
             this.lblSndBin.TabIndex = 132;
-            this.lblSndBin.Text = "发送仓";
+            this.lblSndBin.Text = "Sender Bin";
             // 
             // lblSndBinRule
             // 
@@ -1277,6 +1303,7 @@ namespace GcproExtensionApp
             // 
             // grpGeneral
             // 
+            this.grpGeneral.Controls.Add(this.grpAddInfoToDesc);
             this.grpGeneral.Controls.Add(this.lblInpRunFwdSuffix);
             this.grpGeneral.Controls.Add(this.txtInpRunFwdSuffix);
             this.grpGeneral.Controls.Add(this.txtInpRunRevSuffix);
@@ -1296,7 +1323,7 @@ namespace GcproExtensionApp
             this.grpGeneral.Controls.Add(this.TxtInpLN);
             this.grpGeneral.Controls.Add(this.txtInpHWSuffix);
             this.grpGeneral.Controls.Add(this.txtInHWStop);
-            this.grpGeneral.Controls.Add(this.TxtInpFaultDevSuffix);
+            this.grpGeneral.Controls.Add(this.txtInpFaultDevSuffix);
             this.grpGeneral.Controls.Add(this.LblInpFaultDevSuffix);
             this.grpGeneral.Controls.Add(this.GrpDescriptionRule);
             this.grpGeneral.Controls.Add(this.txtInpFaultDev);
@@ -1317,10 +1344,71 @@ namespace GcproExtensionApp
             this.grpGeneral.Controls.Add(this.lblInpFwdSuffix);
             this.grpGeneral.Location = new System.Drawing.Point(5, 2);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(695, 202);
+            this.grpGeneral.Size = new System.Drawing.Size(695, 201);
             this.grpGeneral.TabIndex = 118;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "常规";
+            // 
+            // grpAddInfoToDesc
+            // 
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddSectionToDesc);
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddFloorToDesc);
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddNameToDesc);
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddCabinetToDesc);
+            this.grpAddInfoToDesc.Location = new System.Drawing.Point(256, 156);
+            this.grpAddInfoToDesc.Name = "grpAddInfoToDesc";
+            this.grpAddInfoToDesc.Size = new System.Drawing.Size(425, 39);
+            this.grpAddInfoToDesc.TabIndex = 146;
+            this.grpAddInfoToDesc.TabStop = false;
+            this.grpAddInfoToDesc.Text = "附加信息到描述";
+            // 
+            // chkAddSectionToDesc
+            // 
+            this.chkAddSectionToDesc.AutoSize = true;
+            this.chkAddSectionToDesc.Checked = true;
+            this.chkAddSectionToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAddSectionToDesc.Location = new System.Drawing.Point(7, 17);
+            this.chkAddSectionToDesc.Name = "chkAddSectionToDesc";
+            this.chkAddSectionToDesc.Size = new System.Drawing.Size(50, 17);
+            this.chkAddSectionToDesc.TabIndex = 123;
+            this.chkAddSectionToDesc.Text = "工段";
+            this.chkAddSectionToDesc.UseVisualStyleBackColor = true;
+            // 
+            // chkAddFloorToDesc
+            // 
+            this.chkAddFloorToDesc.AutoSize = true;
+            this.chkAddFloorToDesc.Checked = true;
+            this.chkAddFloorToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAddFloorToDesc.Location = new System.Drawing.Point(169, 17);
+            this.chkAddFloorToDesc.Name = "chkAddFloorToDesc";
+            this.chkAddFloorToDesc.Size = new System.Drawing.Size(50, 17);
+            this.chkAddFloorToDesc.TabIndex = 121;
+            this.chkAddFloorToDesc.Text = "楼层";
+            this.chkAddFloorToDesc.UseVisualStyleBackColor = true;
+            // 
+            // chkAddNameToDesc
+            // 
+            this.chkAddNameToDesc.AutoSize = true;
+            this.chkAddNameToDesc.Checked = true;
+            this.chkAddNameToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAddNameToDesc.Location = new System.Drawing.Point(88, 17);
+            this.chkAddNameToDesc.Name = "chkAddNameToDesc";
+            this.chkAddNameToDesc.Size = new System.Drawing.Size(50, 17);
+            this.chkAddNameToDesc.TabIndex = 119;
+            this.chkAddNameToDesc.Text = "编号";
+            this.chkAddNameToDesc.UseVisualStyleBackColor = true;
+            // 
+            // chkAddCabinetToDesc
+            // 
+            this.chkAddCabinetToDesc.AutoSize = true;
+            this.chkAddCabinetToDesc.Checked = true;
+            this.chkAddCabinetToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAddCabinetToDesc.Location = new System.Drawing.Point(250, 17);
+            this.chkAddCabinetToDesc.Name = "chkAddCabinetToDesc";
+            this.chkAddCabinetToDesc.Size = new System.Drawing.Size(50, 17);
+            this.chkAddCabinetToDesc.TabIndex = 120;
+            this.chkAddCabinetToDesc.Text = "电柜";
+            this.chkAddCabinetToDesc.UseVisualStyleBackColor = true;
             // 
             // lblInpRunFwdSuffix
             // 
@@ -1366,7 +1454,7 @@ namespace GcproExtensionApp
             // 
             this.txtInpRunFwd.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtInpRunFwd.Enabled = false;
-            this.txtInpRunFwd.Location = new System.Drawing.Point(60, 178);
+            this.txtInpRunFwd.Location = new System.Drawing.Point(62, 178);
             this.txtInpRunFwd.Name = "txtInpRunFwd";
             this.txtInpRunFwd.Size = new System.Drawing.Size(100, 13);
             this.txtInpRunFwd.TabIndex = 141;
@@ -1376,26 +1464,26 @@ namespace GcproExtensionApp
             // lblInpRunFwd
             // 
             this.lblInpRunFwd.AutoSize = true;
-            this.lblInpRunFwd.Location = new System.Drawing.Point(4, 178);
+            this.lblInpRunFwd.Location = new System.Drawing.Point(2, 178);
             this.lblInpRunFwd.Name = "lblInpRunFwd";
-            this.lblInpRunFwd.Size = new System.Drawing.Size(55, 13);
+            this.lblInpRunFwd.Size = new System.Drawing.Size(62, 13);
             this.lblInpRunFwd.TabIndex = 140;
-            this.lblInpRunFwd.Text = "电机正转";
+            this.lblInpRunFwd.Text = "InpRunFwd";
             // 
             // LblOutpLN
             // 
             this.LblOutpLN.AutoSize = true;
             this.LblOutpLN.Location = new System.Drawing.Point(253, 110);
             this.LblOutpLN.Name = "LblOutpLN";
-            this.LblOutpLN.Size = new System.Drawing.Size(42, 13);
+            this.LblOutpLN.Size = new System.Drawing.Size(44, 13);
             this.LblOutpLN.TabIndex = 129;
-            this.LblOutpLN.Text = "低位:O";
+            this.LblOutpLN.Text = "OutpLN";
             // 
             // txtInpRunRev
             // 
             this.txtInpRunRev.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtInpRunRev.Enabled = false;
-            this.txtInpRunRev.Location = new System.Drawing.Point(60, 156);
+            this.txtInpRunRev.Location = new System.Drawing.Point(62, 156);
             this.txtInpRunRev.Name = "txtInpRunRev";
             this.txtInpRunRev.Size = new System.Drawing.Size(100, 13);
             this.txtInpRunRev.TabIndex = 139;
@@ -1405,20 +1493,20 @@ namespace GcproExtensionApp
             // LblInpLN
             // 
             this.LblInpLN.AutoSize = true;
-            this.LblInpLN.Location = new System.Drawing.Point(4, 110);
+            this.LblInpLN.Location = new System.Drawing.Point(2, 110);
             this.LblInpLN.Name = "LblInpLN";
-            this.LblInpLN.Size = new System.Drawing.Size(37, 13);
+            this.LblInpLN.Size = new System.Drawing.Size(36, 13);
             this.LblInpLN.TabIndex = 128;
-            this.LblInpLN.Text = "低位:I";
+            this.LblInpLN.Text = "InpLN";
             // 
             // lblInpRunRev
             // 
             this.lblInpRunRev.AutoSize = true;
-            this.lblInpRunRev.Location = new System.Drawing.Point(4, 156);
+            this.lblInpRunRev.Location = new System.Drawing.Point(2, 156);
             this.lblInpRunRev.Name = "lblInpRunRev";
-            this.lblInpRunRev.Size = new System.Drawing.Size(55, 13);
+            this.lblInpRunRev.Size = new System.Drawing.Size(62, 13);
             this.lblInpRunRev.TabIndex = 138;
-            this.lblInpRunRev.Text = "电机反转";
+            this.lblInpRunRev.Text = "InpRunRev";
             // 
             // TxtOutpLN
             // 
@@ -1447,9 +1535,9 @@ namespace GcproExtensionApp
             this.LblOutpHN.AutoSize = true;
             this.LblOutpHN.Location = new System.Drawing.Point(253, 131);
             this.LblOutpHN.Name = "LblOutpHN";
-            this.LblOutpHN.Size = new System.Drawing.Size(42, 13);
+            this.LblOutpHN.Size = new System.Drawing.Size(46, 13);
             this.LblOutpHN.TabIndex = 136;
-            this.LblOutpHN.Text = "高位:O";
+            this.LblOutpHN.Text = "OutpHN";
             // 
             // LblSymbol
             // 
@@ -1468,22 +1556,23 @@ namespace GcproExtensionApp
             this.LblInpHWSuffix.Size = new System.Drawing.Size(31, 13);
             this.LblInpHWSuffix.TabIndex = 117;
             this.LblInpHWSuffix.Text = "后缀";
+            this.LblInpHWSuffix.Visible = false;
             // 
             // LblInHwstop
             // 
             this.LblInHwstop.AutoSize = true;
-            this.LblInHwstop.Location = new System.Drawing.Point(259, 86);
+            this.LblInHwstop.Location = new System.Drawing.Point(244, 86);
             this.LblInHwstop.Name = "LblInHwstop";
-            this.LblInHwstop.Size = new System.Drawing.Size(31, 13);
+            this.LblInHwstop.Size = new System.Drawing.Size(63, 13);
             this.LblInHwstop.TabIndex = 62;
-            this.LblInHwstop.Text = "急停";
+            this.LblInHwstop.Text = "[InHWStop]";
             // 
             // TxtInpLN
             // 
             this.TxtInpLN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtInpLN.Enabled = false;
             this.TxtInpLN.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.TxtInpLN.Location = new System.Drawing.Point(60, 110);
+            this.TxtInpLN.Location = new System.Drawing.Point(62, 110);
             this.TxtInpLN.Name = "TxtInpLN";
             this.TxtInpLN.Size = new System.Drawing.Size(100, 13);
             this.TxtInpLN.TabIndex = 130;
@@ -1498,6 +1587,7 @@ namespace GcproExtensionApp
             this.txtInpHWSuffix.Size = new System.Drawing.Size(50, 13);
             this.txtInpHWSuffix.TabIndex = 116;
             this.txtInpHWSuffix.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtInpHWSuffix.Visible = false;
             this.txtInpHWSuffix.TextChanged += new System.EventHandler(this.txtInpHWSuffix_TextChanged);
             // 
             // txtInHWStop
@@ -1510,15 +1600,15 @@ namespace GcproExtensionApp
             this.txtInHWStop.TextChanged += new System.EventHandler(this.txtInHWStop_TextChanged);
             this.txtInHWStop.MouseEnter += new System.EventHandler(this.TxtInHWStop_MouseEnter);
             // 
-            // TxtInpFaultDevSuffix
+            // txtInpFaultDevSuffix
             // 
-            this.TxtInpFaultDevSuffix.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtInpFaultDevSuffix.Location = new System.Drawing.Point(448, 67);
-            this.TxtInpFaultDevSuffix.Name = "TxtInpFaultDevSuffix";
-            this.TxtInpFaultDevSuffix.Size = new System.Drawing.Size(50, 13);
-            this.TxtInpFaultDevSuffix.TabIndex = 114;
-            this.TxtInpFaultDevSuffix.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.TxtInpFaultDevSuffix.TextChanged += new System.EventHandler(this.TxtInpFaultDevSuffix_TextChanged);
+            this.txtInpFaultDevSuffix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtInpFaultDevSuffix.Location = new System.Drawing.Point(448, 67);
+            this.txtInpFaultDevSuffix.Name = "txtInpFaultDevSuffix";
+            this.txtInpFaultDevSuffix.Size = new System.Drawing.Size(50, 13);
+            this.txtInpFaultDevSuffix.TabIndex = 114;
+            this.txtInpFaultDevSuffix.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtInpFaultDevSuffix.TextChanged += new System.EventHandler(this.TxtInpFaultDevSuffix_TextChanged);
             // 
             // LblInpFaultDevSuffix
             // 
@@ -1593,9 +1683,9 @@ namespace GcproExtensionApp
             this.lblInpFaultDev.AutoSize = true;
             this.lblInpFaultDev.Location = new System.Drawing.Point(242, 66);
             this.lblInpFaultDev.Name = "lblInpFaultDev";
-            this.lblInpFaultDev.Size = new System.Drawing.Size(55, 13);
+            this.lblInpFaultDev.Size = new System.Drawing.Size(65, 13);
             this.lblInpFaultDev.TabIndex = 112;
-            this.lblInpFaultDev.Text = "故障设备";
+            this.lblInpFaultDev.Text = "InpFaultDev";
             // 
             // GrpSymbolRule
             // 
@@ -1659,7 +1749,7 @@ namespace GcproExtensionApp
             // 
             this.TxtInpHN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TxtInpHN.Enabled = false;
-            this.TxtInpHN.Location = new System.Drawing.Point(60, 131);
+            this.TxtInpHN.Location = new System.Drawing.Point(62, 131);
             this.TxtInpHN.Name = "TxtInpHN";
             this.TxtInpHN.Size = new System.Drawing.Size(100, 13);
             this.TxtInpHN.TabIndex = 135;
@@ -1692,11 +1782,11 @@ namespace GcproExtensionApp
             // LblInpHN
             // 
             this.LblInpHN.AutoSize = true;
-            this.LblInpHN.Location = new System.Drawing.Point(4, 131);
+            this.LblInpHN.Location = new System.Drawing.Point(2, 131);
             this.LblInpHN.Name = "LblInpHN";
-            this.LblInpHN.Size = new System.Drawing.Size(37, 13);
+            this.LblInpHN.Size = new System.Drawing.Size(38, 13);
             this.LblInpHN.TabIndex = 134;
-            this.LblInpHN.Text = "高位:I";
+            this.LblInpHN.Text = "InpHN";
             // 
             // txtDescription
             // 
@@ -1734,6 +1824,7 @@ namespace GcproExtensionApp
             this.txtSymbol.Size = new System.Drawing.Size(137, 13);
             this.txtSymbol.TabIndex = 2;
             this.txtSymbol.TextChanged += new System.EventHandler(this.TxtSymbol_TextChanged);
+            this.txtSymbol.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtSymbol_MouseDoubleClick);
             this.txtSymbol.MouseEnter += new System.EventHandler(this.TxtSymbol_MouseEnter);
             // 
             // txtInpHNSuffix
@@ -1754,7 +1845,7 @@ namespace GcproExtensionApp
             this.LblDescription.Name = "LblDescription";
             this.LblDescription.Size = new System.Drawing.Size(55, 13);
             this.LblDescription.TabIndex = 1;
-            this.LblDescription.Text = "电机描述";
+            this.LblDescription.Text = "阀门描述";
             // 
             // txtInpLNSuffix
             // 
@@ -1782,7 +1873,7 @@ namespace GcproExtensionApp
             this.BtnRegenerateDPNode.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnRegenerateDPNode.BackgroundImage")));
             this.BtnRegenerateDPNode.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnRegenerateDPNode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnRegenerateDPNode.Location = new System.Drawing.Point(48, 211);
+            this.BtnRegenerateDPNode.Location = new System.Drawing.Point(48, 207);
             this.BtnRegenerateDPNode.Name = "BtnRegenerateDPNode";
             this.BtnRegenerateDPNode.Size = new System.Drawing.Size(36, 30);
             this.BtnRegenerateDPNode.TabIndex = 88;
@@ -1796,7 +1887,7 @@ namespace GcproExtensionApp
             this.BtnNewImpExpDef.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnNewImpExpDef.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnNewImpExpDef.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnNewImpExpDef.Location = new System.Drawing.Point(6, 211);
+            this.BtnNewImpExpDef.Location = new System.Drawing.Point(6, 207);
             this.BtnNewImpExpDef.Name = "BtnNewImpExpDef";
             this.BtnNewImpExpDef.Size = new System.Drawing.Size(36, 30);
             this.BtnNewImpExpDef.TabIndex = 76;
@@ -1811,7 +1902,7 @@ namespace GcproExtensionApp
             this.BtnConnectIO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.BtnConnectIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnConnectIO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnConnectIO.Location = new System.Drawing.Point(90, 211);
+            this.BtnConnectIO.Location = new System.Drawing.Point(90, 207);
             this.BtnConnectIO.Name = "BtnConnectIO";
             this.BtnConnectIO.Size = new System.Drawing.Size(36, 30);
             this.BtnConnectIO.TabIndex = 98;
@@ -1830,7 +1921,7 @@ namespace GcproExtensionApp
             this.tabBML.Margin = new System.Windows.Forms.Padding(0);
             this.tabBML.Name = "tabBML";
             this.tabBML.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBML.Size = new System.Drawing.Size(712, 553);
+            this.tabBML.Size = new System.Drawing.Size(714, 553);
             this.tabBML.TabIndex = 1;
             this.tabBML.Text = "通过BML创建";
             // 
@@ -1847,7 +1938,7 @@ namespace GcproExtensionApp
             this.grpBoxExcelData.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grpBoxExcelData.Location = new System.Drawing.Point(3, 125);
             this.grpBoxExcelData.Name = "grpBoxExcelData";
-            this.grpBoxExcelData.Size = new System.Drawing.Size(702, 421);
+            this.grpBoxExcelData.Size = new System.Drawing.Size(704, 421);
             this.grpBoxExcelData.TabIndex = 16;
             this.grpBoxExcelData.TabStop = false;
             this.grpBoxExcelData.Text = "BML数据";
@@ -1910,8 +2001,8 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1920,6 +2011,7 @@ namespace GcproExtensionApp
             this.dataGridBML.Name = "dataGridBML";
             this.dataGridBML.Size = new System.Drawing.Size(688, 367);
             this.dataGridBML.TabIndex = 16;
+            this.dataGridBML.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridBML_RowsRemoved);
             // 
             // label3
             // 
@@ -1958,6 +2050,8 @@ namespace GcproExtensionApp
             // 
             // grpBoxBMLColum
             // 
+            this.grpBoxBMLColum.Controls.Add(this.comboLineBML);
+            this.grpBoxBMLColum.Controls.Add(this.lblLineBML);
             this.grpBoxBMLColum.Controls.Add(this.comboIORemarkBML);
             this.grpBoxBMLColum.Controls.Add(this.lblIORemarkBML);
             this.grpBoxBMLColum.Controls.Add(this.comboStartRow);
@@ -1981,6 +2075,25 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.TabIndex = 16;
             this.grpBoxBMLColum.TabStop = false;
             this.grpBoxBMLColum.Text = "信息列";
+            // 
+            // comboLineBML
+            // 
+            this.comboLineBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboLineBML.FormattingEnabled = true;
+            this.comboLineBML.IntegralHeight = false;
+            this.comboLineBML.Location = new System.Drawing.Point(614, 16);
+            this.comboLineBML.Name = "comboLineBML";
+            this.comboLineBML.Size = new System.Drawing.Size(66, 21);
+            this.comboLineBML.TabIndex = 33;
+            // 
+            // lblLineBML
+            // 
+            this.lblLineBML.AutoSize = true;
+            this.lblLineBML.Location = new System.Drawing.Point(568, 19);
+            this.lblLineBML.Name = "lblLineBML";
+            this.lblLineBML.Size = new System.Drawing.Size(55, 13);
+            this.lblLineBML.TabIndex = 32;
+            this.lblLineBML.Text = "生产线：";
             // 
             // comboIORemarkBML
             // 
@@ -2006,7 +2119,7 @@ namespace GcproExtensionApp
             this.comboStartRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboStartRow.FormattingEnabled = true;
             this.comboStartRow.IntegralHeight = false;
-            this.comboStartRow.Location = new System.Drawing.Point(613, 16);
+            this.comboStartRow.Location = new System.Drawing.Point(613, 42);
             this.comboStartRow.Name = "comboStartRow";
             this.comboStartRow.Size = new System.Drawing.Size(66, 21);
             this.comboStartRow.TabIndex = 28;
@@ -2014,7 +2127,7 @@ namespace GcproExtensionApp
             // lblStartRow
             // 
             this.lblStartRow.AutoSize = true;
-            this.lblStartRow.Location = new System.Drawing.Point(572, 19);
+            this.lblStartRow.Location = new System.Drawing.Point(572, 45);
             this.lblStartRow.Name = "lblStartRow";
             this.lblStartRow.Size = new System.Drawing.Size(43, 13);
             this.lblStartRow.TabIndex = 28;
@@ -2184,9 +2297,9 @@ namespace GcproExtensionApp
             this.LblPanel.AutoSize = true;
             this.LblPanel.Location = new System.Drawing.Point(298, 96);
             this.LblPanel.Name = "LblPanel";
-            this.LblPanel.Size = new System.Drawing.Size(31, 13);
+            this.LblPanel.Size = new System.Drawing.Size(34, 13);
             this.LblPanel.TabIndex = 49;
-            this.LblPanel.Text = "电柜";
+            this.LblPanel.Text = "Panel";
             // 
             // ComboPanel
             // 
@@ -2213,18 +2326,18 @@ namespace GcproExtensionApp
             this.LblDiagram.AutoSize = true;
             this.LblDiagram.Location = new System.Drawing.Point(298, 121);
             this.LblDiagram.Name = "LblDiagram";
-            this.LblDiagram.Size = new System.Drawing.Size(31, 13);
+            this.LblDiagram.Size = new System.Drawing.Size(46, 13);
             this.LblDiagram.TabIndex = 51;
-            this.LblDiagram.Text = "图纸";
+            this.LblDiagram.Text = "Diagram";
             // 
             // LblElevation
             // 
             this.LblElevation.AutoSize = true;
             this.LblElevation.Location = new System.Drawing.Point(3, 148);
             this.LblElevation.Name = "LblElevation";
-            this.LblElevation.Size = new System.Drawing.Size(31, 13);
+            this.LblElevation.Size = new System.Drawing.Size(51, 13);
             this.LblElevation.TabIndex = 47;
-            this.LblElevation.Text = "楼层";
+            this.LblElevation.Text = "Elevation";
             // 
             // ComboDiagram
             // 
@@ -2241,9 +2354,9 @@ namespace GcproExtensionApp
             this.LblBuilding.AutoSize = true;
             this.LblBuilding.Location = new System.Drawing.Point(3, 121);
             this.LblBuilding.Name = "LblBuilding";
-            this.LblBuilding.Size = new System.Drawing.Size(31, 13);
+            this.LblBuilding.Size = new System.Drawing.Size(44, 13);
             this.LblBuilding.TabIndex = 45;
-            this.LblBuilding.Text = "车间";
+            this.LblBuilding.Text = "Building";
             // 
             // ComboProcessFct
             // 
@@ -2352,9 +2465,9 @@ namespace GcproExtensionApp
             this.LblProcessFct.AutoSize = true;
             this.LblProcessFct.Location = new System.Drawing.Point(3, 96);
             this.LblProcessFct.Name = "LblProcessFct";
-            this.LblProcessFct.Size = new System.Drawing.Size(55, 13);
+            this.LblProcessFct.Size = new System.Drawing.Size(63, 13);
             this.LblProcessFct.TabIndex = 43;
-            this.LblProcessFct.Text = "过程控制";
+            this.LblProcessFct.Text = "Process Fct";
             // 
             // ComboEquipmentSubType
             // 
@@ -2372,9 +2485,9 @@ namespace GcproExtensionApp
             this.LblEquipmentSubType.AutoSize = true;
             this.LblEquipmentSubType.Location = new System.Drawing.Point(3, 71);
             this.LblEquipmentSubType.Name = "LblEquipmentSubType";
-            this.LblEquipmentSubType.Size = new System.Drawing.Size(79, 13);
+            this.LblEquipmentSubType.Size = new System.Drawing.Size(46, 13);
             this.LblEquipmentSubType.TabIndex = 41;
-            this.LblEquipmentSubType.Text = "设备控制类型";
+            this.LblEquipmentSubType.Text = "Subtype";
             // 
             // ComboBuilding
             // 
@@ -2410,7 +2523,7 @@ namespace GcproExtensionApp
             this.PalCommon.ForeColor = System.Drawing.SystemColors.ControlText;
             this.PalCommon.Location = new System.Drawing.Point(0, 579);
             this.PalCommon.Name = "PalCommon";
-            this.PalCommon.Size = new System.Drawing.Size(720, 199);
+            this.PalCommon.Size = new System.Drawing.Size(722, 199);
             this.PalCommon.TabIndex = 106;
             // 
             // txtPage
@@ -2427,9 +2540,9 @@ namespace GcproExtensionApp
             this.lblPage.AutoSize = true;
             this.lblPage.Location = new System.Drawing.Point(298, 148);
             this.lblPage.Name = "lblPage";
-            this.lblPage.Size = new System.Drawing.Size(31, 13);
+            this.lblPage.Size = new System.Drawing.Size(32, 13);
             this.lblPage.TabIndex = 58;
-            this.lblPage.Text = "页码";
+            this.lblPage.Text = "Page";
             // 
             // FormVLS
             // 
@@ -2438,7 +2551,7 @@ namespace GcproExtensionApp
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(720, 800);
+            this.ClientSize = new System.Drawing.Size(722, 800);
             this.Controls.Add(this.PalCommon);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.tabCreateMode);
@@ -2459,6 +2572,8 @@ namespace GcproExtensionApp
             this.grpReference.PerformLayout();
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
+            this.grpAddInfoToDesc.ResumeLayout(false);
+            this.grpAddInfoToDesc.PerformLayout();
             this.GrpDescriptionRule.ResumeLayout(false);
             this.GrpDescriptionRule.PerformLayout();
             this.GrpSymbolRule.ResumeLayout(false);
@@ -2509,26 +2624,6 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.ComboBox ComboBuilding;
         internal System.Windows.Forms.Panel PalCommon;
         private System.Windows.Forms.TabPage tabRule;
-        internal System.Windows.Forms.Panel PalGcObject;
-        internal System.Windows.Forms.Button BtnRegenerateDPNode;
-        internal System.Windows.Forms.Label LblSymbol;
-        internal System.Windows.Forms.Label LblDescription;
-        internal System.Windows.Forms.Button BtnNewImpExpDef;
-        internal System.Windows.Forms.TextBox txtSymbol;
-        internal System.Windows.Forms.Button BtnConnectIO;
-        internal System.Windows.Forms.TextBox txtDescription;
-        internal System.Windows.Forms.GroupBox GrpSymbolRule;
-        internal System.Windows.Forms.Label LblSymbolRule;
-        internal System.Windows.Forms.TextBox txtSymbolRule;
-        internal System.Windows.Forms.TextBox txtSymbolIncRule;
-        internal System.Windows.Forms.Label LblSymbolIncRule;
-        internal System.Windows.Forms.GroupBox GrpDescriptionRule;
-        internal System.Windows.Forms.Label LblDescriptionRule;
-        internal System.Windows.Forms.TextBox txtDescriptionIncRule;
-        internal System.Windows.Forms.Label Lbl;
-        internal System.Windows.Forms.TextBox txtDescriptionRule;
-        internal System.Windows.Forms.TextBox txtInHWStop;
-        internal System.Windows.Forms.Label LblInHwstop;
         private System.Windows.Forms.GroupBox grpBoxExcelColumn;
         private System.Windows.Forms.Label lblBMLSymbol;
         private System.Windows.Forms.Label lblBMLDescription;
@@ -2562,97 +2657,14 @@ namespace GcproExtensionApp
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuClearList;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuReload;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        internal System.Windows.Forms.Label lblInpFwdSuffix;
-        internal System.Windows.Forms.TextBox txtInpLNSuffix;
-        internal System.Windows.Forms.Label lblOutpRevSuffix;
-        internal System.Windows.Forms.TextBox txtOutpHNSuffix;
-        internal System.Windows.Forms.TextBox txtOutpLNSuffix;
-        internal System.Windows.Forms.Label lblInpRevSuffix;
-        internal System.Windows.Forms.Label lblOutpFwdSuffix;
-        internal System.Windows.Forms.TextBox txtInpHNSuffix;
-        internal System.Windows.Forms.TextBox txtInpFaultDev;
-        internal System.Windows.Forms.Label lblInpFaultDev;
-        internal System.Windows.Forms.Label LblInpHWSuffix;
-        internal System.Windows.Forms.TextBox txtInpHWSuffix;
-        internal System.Windows.Forms.TextBox TxtInpFaultDevSuffix;
-        internal System.Windows.Forms.Label LblInpFaultDevSuffix;
-        private System.Windows.Forms.GroupBox grpGeneral;
-        internal System.Windows.Forms.CheckBox chkOnlyFree;
         internal System.Windows.Forms.ComboBox comboIORemarkBML;
         private System.Windows.Forms.Label lblIORemarkBML;
         internal System.Windows.Forms.TextBox txtVLSSuffixBML;
         private System.Windows.Forms.Label lblVLSPrefixBML;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuDelete;
-        internal System.Windows.Forms.GroupBox grpReference;
-        internal System.Windows.Forms.Label LblInpLN;
-        internal System.Windows.Forms.Label LblOutpLN;
-        internal System.Windows.Forms.TextBox txtInpRunFwd;
-        internal System.Windows.Forms.TextBox TxtInpLN;
-        internal System.Windows.Forms.Label lblInpRunFwd;
-        internal System.Windows.Forms.TextBox TxtOutpLN;
-        internal System.Windows.Forms.TextBox txtInpRunRev;
-        internal System.Windows.Forms.Label lblInpRunRev;
-        internal System.Windows.Forms.TextBox TxtOutpHN;
-        internal System.Windows.Forms.Label LblOutpHN;
-        internal System.Windows.Forms.TextBox TxtInpHN;
-        internal System.Windows.Forms.Label LblInpHN;
-        internal System.Windows.Forms.Label lblInpRunFwdSuffix;
-        internal System.Windows.Forms.TextBox txtInpRunFwdSuffix;
-        internal System.Windows.Forms.TextBox txtInpRunRevSuffix;
-        internal System.Windows.Forms.Label lblInpRunRevSuffix;
-        internal System.Windows.Forms.Label lblRcvLN;
-        internal System.Windows.Forms.Label lblAspRule;
-        internal System.Windows.Forms.TextBox txtRcvLNIncRule;
-        internal System.Windows.Forms.TextBox txtRcvHNIncRule;
-        internal System.Windows.Forms.TextBox txtRcvLN;
-        internal System.Windows.Forms.Label lblRcvHNIncRule;
-        internal System.Windows.Forms.Label lblRcvLNIncRule;
-        internal System.Windows.Forms.TextBox txtAspIncRule;
-        internal System.Windows.Forms.TextBox txtRcvHNRule;
-        internal System.Windows.Forms.Label lblRcvHNRule;
-        internal System.Windows.Forms.Label lblRcvHN;
-        internal System.Windows.Forms.Label lblRcvLNRule;
-        internal System.Windows.Forms.TextBox txtRcvLNRule;
-        internal System.Windows.Forms.Label lblAspIncRule;
-        internal System.Windows.Forms.TextBox txtSndBinRule;
-        internal System.Windows.Forms.TextBox txtAsp;
-        internal System.Windows.Forms.TextBox txtRcvHN;
-        internal System.Windows.Forms.Label lblSndBinIncRule;
-        internal System.Windows.Forms.Label lblAsp;
-        internal System.Windows.Forms.TextBox txtAspRule;
-        internal System.Windows.Forms.TextBox txtSndBinIncRule;
-        internal System.Windows.Forms.TextBox txtSndBin;
-        internal System.Windows.Forms.Label lblSndBin;
-        internal System.Windows.Forms.Label lblSndBinRule;
-        internal System.Windows.Forms.CheckBox checkBox14;
-        internal System.Windows.Forms.CheckBox checkBox13;
-        internal System.Windows.Forms.CheckBox checkBox12;
-        internal System.Windows.Forms.CheckBox checkBox11;
-        internal System.Windows.Forms.Label label48;
-        internal System.Windows.Forms.TextBox textBox38;
-        internal System.Windows.Forms.CheckBox checkBox10;
-        internal System.Windows.Forms.CheckBox checkBox9;
-        internal System.Windows.Forms.CheckBox checkBox8;
-        internal System.Windows.Forms.Label label47;
-        internal System.Windows.Forms.TextBox textBox37;
-        internal System.Windows.Forms.Label label34;
-        internal System.Windows.Forms.ComboBox comboBox5;
-        internal System.Windows.Forms.TextBox textBox24;
-        internal System.Windows.Forms.ComboBox comboBox6;
-        internal System.Windows.Forms.Label label26;
-        internal System.Windows.Forms.Label label27;
-        internal System.Windows.Forms.Label label33;
-        internal System.Windows.Forms.ComboBox comboBox7;
-        internal System.Windows.Forms.TextBox textBox20;
-        internal System.Windows.Forms.TextBox textBox23;
-        internal System.Windows.Forms.Label label28;
-        internal System.Windows.Forms.Label label29;
-        internal System.Windows.Forms.ComboBox comboBox8;
-        internal System.Windows.Forms.Label label32;
-        internal System.Windows.Forms.TextBox textBox21;
-        internal System.Windows.Forms.Label label30;
-        internal System.Windows.Forms.TextBox textBox22;
-        internal System.Windows.Forms.Label label31;
+        internal System.Windows.Forms.TextBox txtLocalPanelPrefix;
+        private System.Windows.Forms.Label lblLocalPanelPrefix;
+        internal System.Windows.Forms.Panel PalGcObject;
         internal System.Windows.Forms.CheckBox chkStartwarningHN;
         internal System.Windows.Forms.CheckBox chkStartwarningLN;
         internal System.Windows.Forms.Label LblEquipmentInfoType;
@@ -2682,8 +2694,118 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.CheckBox chkParManual;
         internal System.Windows.Forms.CheckBox chkPulseValve;
         internal System.Windows.Forms.CheckBox chkContValve;
-        internal System.Windows.Forms.TextBox txtLocalPanelPrefix;
-        private System.Windows.Forms.Label lblLocalPanelPrefix;
+        internal System.Windows.Forms.CheckBox chkOnlyFree;
+        internal System.Windows.Forms.GroupBox grpReference;
+        internal System.Windows.Forms.CheckBox checkBox14;
+        internal System.Windows.Forms.Label lblRcvLN;
+        internal System.Windows.Forms.Label lblAspRule;
+        internal System.Windows.Forms.CheckBox checkBox13;
+        internal System.Windows.Forms.TextBox txtRcvLNIncRule;
+        internal System.Windows.Forms.TextBox txtRcvHNIncRule;
+        internal System.Windows.Forms.CheckBox checkBox12;
+        internal System.Windows.Forms.TextBox txtRcvLN;
+        internal System.Windows.Forms.Label lblRcvHNIncRule;
+        internal System.Windows.Forms.CheckBox checkBox11;
+        internal System.Windows.Forms.Label lblRcvLNIncRule;
+        internal System.Windows.Forms.TextBox txtAspIncRule;
+        internal System.Windows.Forms.Label label48;
+        internal System.Windows.Forms.TextBox txtRcvHNRule;
+        internal System.Windows.Forms.Label lblRcvHNRule;
+        internal System.Windows.Forms.TextBox textBox38;
+        internal System.Windows.Forms.Label lblRcvHN;
+        internal System.Windows.Forms.Label lblRcvLNRule;
+        internal System.Windows.Forms.CheckBox checkBox10;
+        internal System.Windows.Forms.TextBox txtRcvLNRule;
+        internal System.Windows.Forms.Label lblAspIncRule;
+        internal System.Windows.Forms.CheckBox checkBox9;
+        internal System.Windows.Forms.TextBox txtSndBinRule;
+        internal System.Windows.Forms.TextBox txtAsp;
+        internal System.Windows.Forms.CheckBox checkBox8;
+        internal System.Windows.Forms.TextBox txtRcvHN;
+        internal System.Windows.Forms.Label lblSndBinIncRule;
+        internal System.Windows.Forms.Label label47;
+        internal System.Windows.Forms.Label lblAsp;
+        internal System.Windows.Forms.TextBox txtAspRule;
+        internal System.Windows.Forms.TextBox textBox37;
+        internal System.Windows.Forms.TextBox txtSndBinIncRule;
+        internal System.Windows.Forms.TextBox txtSndBin;
+        internal System.Windows.Forms.Label label34;
+        internal System.Windows.Forms.Label lblSndBin;
+        internal System.Windows.Forms.Label lblSndBinRule;
+        internal System.Windows.Forms.ComboBox comboBox5;
+        internal System.Windows.Forms.TextBox textBox24;
+        internal System.Windows.Forms.ComboBox comboBox6;
+        internal System.Windows.Forms.Label label26;
+        internal System.Windows.Forms.Label label27;
+        internal System.Windows.Forms.Label label33;
+        internal System.Windows.Forms.ComboBox comboBox7;
+        internal System.Windows.Forms.TextBox textBox20;
+        internal System.Windows.Forms.TextBox textBox23;
+        internal System.Windows.Forms.Label label28;
+        internal System.Windows.Forms.Label label29;
+        internal System.Windows.Forms.ComboBox comboBox8;
+        internal System.Windows.Forms.Label label32;
+        internal System.Windows.Forms.TextBox textBox21;
+        internal System.Windows.Forms.Label label30;
+        internal System.Windows.Forms.TextBox textBox22;
+        internal System.Windows.Forms.Label label31;
+        private System.Windows.Forms.GroupBox grpGeneral;
+        private System.Windows.Forms.GroupBox grpAddInfoToDesc;
+        internal System.Windows.Forms.CheckBox chkAddSectionToDesc;
+        internal System.Windows.Forms.CheckBox chkAddFloorToDesc;
+        internal System.Windows.Forms.CheckBox chkAddNameToDesc;
+        internal System.Windows.Forms.CheckBox chkAddCabinetToDesc;
+        internal System.Windows.Forms.Label lblInpRunFwdSuffix;
+        internal System.Windows.Forms.TextBox txtInpRunFwdSuffix;
+        internal System.Windows.Forms.TextBox txtInpRunRevSuffix;
+        internal System.Windows.Forms.Label lblInpRunRevSuffix;
+        internal System.Windows.Forms.TextBox txtInpRunFwd;
+        internal System.Windows.Forms.Label lblInpRunFwd;
+        internal System.Windows.Forms.Label LblOutpLN;
+        internal System.Windows.Forms.TextBox txtInpRunRev;
+        internal System.Windows.Forms.Label LblInpLN;
+        internal System.Windows.Forms.Label lblInpRunRev;
+        internal System.Windows.Forms.TextBox TxtOutpLN;
+        internal System.Windows.Forms.TextBox TxtOutpHN;
+        internal System.Windows.Forms.Label LblOutpHN;
+        internal System.Windows.Forms.Label LblSymbol;
+        internal System.Windows.Forms.Label LblInpHWSuffix;
+        internal System.Windows.Forms.Label LblInHwstop;
+        internal System.Windows.Forms.TextBox TxtInpLN;
+        internal System.Windows.Forms.TextBox txtInpHWSuffix;
+        internal System.Windows.Forms.TextBox txtInHWStop;
+        internal System.Windows.Forms.TextBox txtInpFaultDevSuffix;
+        internal System.Windows.Forms.Label LblInpFaultDevSuffix;
+        internal System.Windows.Forms.GroupBox GrpDescriptionRule;
+        internal System.Windows.Forms.Label LblDescriptionRule;
+        internal System.Windows.Forms.TextBox txtDescriptionIncRule;
+        internal System.Windows.Forms.Label Lbl;
+        internal System.Windows.Forms.TextBox txtDescriptionRule;
+        internal System.Windows.Forms.TextBox txtInpFaultDev;
+        internal System.Windows.Forms.Label lblInpFaultDev;
+        internal System.Windows.Forms.GroupBox GrpSymbolRule;
+        internal System.Windows.Forms.Label LblSymbolRule;
+        internal System.Windows.Forms.TextBox txtSymbolRule;
+        internal System.Windows.Forms.TextBox txtSymbolIncRule;
+        internal System.Windows.Forms.Label LblSymbolIncRule;
+        internal System.Windows.Forms.Label lblOutpRevSuffix;
+        internal System.Windows.Forms.TextBox TxtInpHN;
+        internal System.Windows.Forms.TextBox txtOutpHNSuffix;
+        internal System.Windows.Forms.TextBox txtOutpLNSuffix;
+        internal System.Windows.Forms.Label LblInpHN;
+        internal System.Windows.Forms.TextBox txtDescription;
+        internal System.Windows.Forms.Label lblInpRevSuffix;
+        internal System.Windows.Forms.Label lblOutpFwdSuffix;
+        internal System.Windows.Forms.TextBox txtSymbol;
+        internal System.Windows.Forms.TextBox txtInpHNSuffix;
+        internal System.Windows.Forms.Label LblDescription;
+        internal System.Windows.Forms.TextBox txtInpLNSuffix;
+        internal System.Windows.Forms.Label lblInpFwdSuffix;
+        internal System.Windows.Forms.Button BtnRegenerateDPNode;
+        internal System.Windows.Forms.Button BtnNewImpExpDef;
+        internal System.Windows.Forms.Button BtnConnectIO;
+        internal System.Windows.Forms.ComboBox comboLineBML;
+        private System.Windows.Forms.Label lblLineBML;
     }
 }
 

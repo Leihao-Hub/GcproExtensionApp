@@ -30,7 +30,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string isNew;
         private string hornCode;
         private string pType;
-        private string value9;
         private string value10;
         private string dpNode1;
         private string meagGateway;
@@ -119,12 +118,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             get { return page; }
             set { page = value; }
-        }
-        public override string Value9
-        {
-            get { return value9; }
-            set { value9 = value; }
-        }
+        }      
         public override string Value10
         {
             get { return value10; }
@@ -158,31 +152,26 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return meagGateway; }
             set { meagGateway = value; }
         }
-
         public string SlaveIndex
         {
             get { return slaveIndex; }
             set { slaveIndex = value; }
         }
-
         public string OutpHardwareStop
         {
             get { return outpHardwareStop; }
             set { outpHardwareStop = value; }
         }
-   
         public string SpeedMaxDigits
         {
             get { return speedMaxDigits; }
             set { speedMaxDigits = value; }
         }
-
         public string SpeedUnitsByZeroDigits
         {
             get { return speedUnitsByZeroDigits; }
             set { speedUnitsByZeroDigits = value; }
         }
-
         public string SpeedUnitsByMaxDigits
         {
             get { return speedUnitsByMaxDigits; }
@@ -198,31 +187,26 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return speedLimitMin; }
             set { speedLimitMin = value; }
         }
-
         public string SpeedLimitMax
         {
             get { return speedLimitMax; }
             set { speedLimitMax = value; }
         }
-
         public string IoByteNo
         {
             get { return ioByteNo; }
             set { ioByteNo = value; }
         }
-
         public string LenPKW
         {
             get { return lenPKW; }
             set { lenPKW = value; }
         }
-
         public string LenPZD
         {
             get { return lenPZD; }
             set { lenPZD = value; }
         }
-
         public string LenPZDInp
         {
             get { return lenPZDInp; }
@@ -233,13 +217,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return refCurrent; }
             set { refCurrent = value; }
         }
-
         public string RefTorque
         {
             get { return refTorque; }
             set { refTorque = value; }
         }
-
         public string RefPower
         {
             get { return refPower; }
@@ -250,19 +232,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return telegram1; }
             set { telegram1 = value; }
         }
-
         public VFCTelegram Telegram2
         {
             get { return telegram2; }
             set { telegram2 = value; }
         }
-
         public VFCTelegram Telegram3
         {
             get { return telegram3; }
             set { telegram3= value; }
         }
-
         public VFCTelegram Telegram4
         {
             get { return telegram4; }
@@ -319,7 +298,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + ".Txt" : filePath + vfcFileName + ".Txt");
         }
-        public void CreateObject(Encoding encoding)
+        public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
@@ -382,19 +361,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
             textFileHandle.ClearContents();
-            //textFileHandle.FilePath = this.fileRelationPath;
-            //textFileHandle.ClearContents();
-            //textFileHandle.FilePath = this.fileConnectorPath;
-            //textFileHandle.ClearContents();
         }
-        public bool SaveFileAs(string sourceFilePath, string title)
-        {
-            bool result;
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = sourceFilePath;
-            result = textFileHandle.SaveFileAs(title);
-            return result;
-        }
+  
     }
     public class VFCTelegram
     {

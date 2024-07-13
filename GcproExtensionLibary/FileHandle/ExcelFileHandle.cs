@@ -36,9 +36,6 @@ namespace GcproExtensionLibrary.FileHandle
             return BaseFileHandle.Browse(FileFilter, 1, false, true, "请选择一个" + fileType);
         }
 
-
-
-
         public List<string> GetWorkSheets(string filePath = null)
         {
             string _filePath = (string.IsNullOrEmpty(filePath)) ? this.filePath : filePath;
@@ -315,7 +312,7 @@ namespace GcproExtensionLibrary.FileHandle
         private List<string> FilterExpressionToTokens(string filter)
         {
             var tokens = new List<string>();
-            var tokenPattern = @"(\()|(\))|(\|\|)|(&&)|(!=)|(==)|(LIKE)|(<)|(<=)|(>)|(>=)|(\w+)|(""[^""]*"")";
+            var tokenPattern = @"(\()|(\))|(\|\|)|(&&)|(!=)|(==)|(LIKE)|(NOT LIKE)|(<)|(<=)|(>)|(>=)|(\w+)|(""[^""]*"")";
             MatchCollection matches = Regex.Matches(filter, tokenPattern);
             foreach (Match match in matches)
             {
@@ -422,6 +419,8 @@ namespace GcproExtensionLibrary.FileHandle
                     return string.Compare(cellValue, right) >= 0;
                 case "LIKE":
                     return Like(cellValue, right);
+                case "NOT LIKE":
+                    return !Like(cellValue, right);
                 default:
                     throw new ArgumentException("Unsupported operator in filter expression: " + op);
             }
@@ -434,7 +433,7 @@ namespace GcproExtensionLibrary.FileHandle
                                          .Replace("_", ".") + "$";
             return Regex.IsMatch(input, regexPattern, RegexOptions.IgnoreCase);
         }
-
+ 
         internal static int ConvertColumnNameToNumber(string columnName)
         {
             int columnNumber = 0;

@@ -20,8 +20,6 @@
         /// </summary>
         DOC = 901,
 
-
-
         /// <summary>
         /// AIC
         /// </summary>
@@ -167,5 +165,5 @@
         public string GcproTempPath;
         public string ProjectType;
     }
-
+ 
 }
