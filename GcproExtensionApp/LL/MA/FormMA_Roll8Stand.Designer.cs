@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMA_Roll8Stand));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -134,20 +134,20 @@ namespace GcproExtensionApp
             this.lblInpPressureS1 = new System.Windows.Forms.Label();
             this.chkOnlyFree = new System.Windows.Forms.CheckBox();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
-            this.LblSymbol = new System.Windows.Forms.Label();
-            this.GrpDescriptionRule = new System.Windows.Forms.GroupBox();
-            this.LblDescriptionRule = new System.Windows.Forms.Label();
+            this.lblSymbol = new System.Windows.Forms.Label();
+            this.grpDescriptionRule = new System.Windows.Forms.GroupBox();
+            this.lblDescriptionRule = new System.Windows.Forms.Label();
             this.txtDescriptionIncRule = new System.Windows.Forms.TextBox();
-            this.Lbl = new System.Windows.Forms.Label();
+            this.lblDescriptionIncRule = new System.Windows.Forms.Label();
             this.txtDescriptionRule = new System.Windows.Forms.TextBox();
-            this.GrpSymbolRule = new System.Windows.Forms.GroupBox();
-            this.LblSymbolRule = new System.Windows.Forms.Label();
+            this.grpSymbolRule = new System.Windows.Forms.GroupBox();
+            this.lblSymbolRule = new System.Windows.Forms.Label();
             this.txtSymbolRule = new System.Windows.Forms.TextBox();
             this.txtSymbolIncRule = new System.Windows.Forms.TextBox();
-            this.LblSymbolIncRule = new System.Windows.Forms.Label();
+            this.lblSymbolIncRule = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.txtSymbol = new System.Windows.Forms.TextBox();
-            this.LblDescription = new System.Windows.Forms.Label();
+            this.lblDescription = new System.Windows.Forms.Label();
             this.BtnNewImpExpDef = new System.Windows.Forms.Button();
             this.LblEquipmentInfoType = new System.Windows.Forms.Label();
             this.ComboEquipmentInfoType = new System.Windows.Forms.ComboBox();
@@ -160,12 +160,10 @@ namespace GcproExtensionApp
             this.comboWorkSheetsBML = new System.Windows.Forms.ComboBox();
             this.grpBoxExcelColumn = new System.Windows.Forms.GroupBox();
             this.grpBoxBMLColum = new System.Windows.Forms.GroupBox();
+            this.comboControlBML = new System.Windows.Forms.ComboBox();
+            this.lblControlBML = new System.Windows.Forms.Label();
             this.comboLineBML = new System.Windows.Forms.ComboBox();
             this.lblLineBML = new System.Windows.Forms.Label();
-            this.comboIORemarkBML = new System.Windows.Forms.ComboBox();
-            this.comboControlBML = new System.Windows.Forms.ComboBox();
-            this.lblIORemarkBML = new System.Windows.Forms.Label();
-            this.lblControlBML = new System.Windows.Forms.Label();
             this.comboStartRow = new System.Windows.Forms.ComboBox();
             this.lblStartRow = new System.Windows.Forms.Label();
             this.comboSectionBML = new System.Windows.Forms.ComboBox();
@@ -205,6 +203,11 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
+            this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
+            this.chkNameOnlyNumber = new System.Windows.Forms.CheckBox();
+            this.chkAddSectionToDesc = new System.Windows.Forms.CheckBox();
+            this.chkAddFloorToDesc = new System.Windows.Forms.CheckBox();
+            this.chkAddNameToDesc = new System.Windows.Forms.CheckBox();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
@@ -212,8 +215,8 @@ namespace GcproExtensionApp
             this.PalGcObject.SuspendLayout();
             this.grpCurrentReferences.SuspendLayout();
             this.grpGeneral.SuspendLayout();
-            this.GrpDescriptionRule.SuspendLayout();
-            this.GrpSymbolRule.SuspendLayout();
+            this.grpDescriptionRule.SuspendLayout();
+            this.grpSymbolRule.SuspendLayout();
             this.tabBML.SuspendLayout();
             this.grpBoxExcelData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridBML)).BeginInit();
@@ -221,6 +224,7 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.SuspendLayout();
             this.GroupBoxSave.SuspendLayout();
             this.PalCommon.SuspendLayout();
+            this.grpAddInfoToDesc.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -234,7 +238,7 @@ namespace GcproExtensionApp
             this.ProgressBar});
             this.statusStrip.Location = new System.Drawing.Point(0, 879);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(731, 22);
+            this.statusStrip.Size = new System.Drawing.Size(730, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusBar";
             // 
@@ -293,7 +297,7 @@ namespace GcproExtensionApp
             this.tabCreateMode.Margin = new System.Windows.Forms.Padding(0);
             this.tabCreateMode.Name = "tabCreateMode";
             this.tabCreateMode.SelectedIndex = 0;
-            this.tabCreateMode.Size = new System.Drawing.Size(731, 689);
+            this.tabCreateMode.Size = new System.Drawing.Size(730, 689);
             this.tabCreateMode.TabIndex = 107;
             this.tabCreateMode.SelectedIndexChanged += new System.EventHandler(this.tabCreateMode_SelectedIndexChanged);
             // 
@@ -340,7 +344,7 @@ namespace GcproExtensionApp
             this.tabRule.Location = new System.Drawing.Point(4, 22);
             this.tabRule.Name = "tabRule";
             this.tabRule.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRule.Size = new System.Drawing.Size(723, 663);
+            this.tabRule.Size = new System.Drawing.Size(722, 663);
             this.tabRule.TabIndex = 0;
             this.tabRule.Text = "设定规则创建";
             // 
@@ -435,7 +439,7 @@ namespace GcproExtensionApp
             this.PalGcObject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PalGcObject.Location = new System.Drawing.Point(3, 3);
             this.PalGcObject.Name = "PalGcObject";
-            this.PalGcObject.Size = new System.Drawing.Size(717, 657);
+            this.PalGcObject.Size = new System.Drawing.Size(716, 657);
             this.PalGcObject.TabIndex = 105;
             // 
             // txtSMS2
@@ -446,6 +450,8 @@ namespace GcproExtensionApp
             this.txtSMS2.Size = new System.Drawing.Size(100, 13);
             this.txtSMS2.TabIndex = 258;
             this.txtSMS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSMS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtSMS2.MouseEnter += new System.EventHandler(this.txtSMS2_MouseEnter);
             // 
             // txtHLOutlet2S2
             // 
@@ -455,6 +461,8 @@ namespace GcproExtensionApp
             this.txtHLOutlet2S2.Size = new System.Drawing.Size(100, 13);
             this.txtHLOutlet2S2.TabIndex = 257;
             this.txtHLOutlet2S2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLOutlet2S2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLOutlet2S2.MouseEnter += new System.EventHandler(this.txtHLOutlet2S2_MouseEnter);
             // 
             // txtHLOutlet1S2
             // 
@@ -464,6 +472,8 @@ namespace GcproExtensionApp
             this.txtHLOutlet1S2.Size = new System.Drawing.Size(100, 13);
             this.txtHLOutlet1S2.TabIndex = 256;
             this.txtHLOutlet1S2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLOutlet1S2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLOutlet1S2.MouseEnter += new System.EventHandler(this.txtHLOutlet1S2_MouseEnter);
             // 
             // txtFeedrollS2Div
             // 
@@ -473,6 +483,8 @@ namespace GcproExtensionApp
             this.txtFeedrollS2Div.Size = new System.Drawing.Size(100, 13);
             this.txtFeedrollS2Div.TabIndex = 255;
             this.txtFeedrollS2Div.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFeedrollS2Div.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtFeedrollS2Div.MouseEnter += new System.EventHandler(this.txtFeedrollS2Div_MouseEnter);
             // 
             // txtFeedrollS2
             // 
@@ -482,6 +494,8 @@ namespace GcproExtensionApp
             this.txtFeedrollS2.Size = new System.Drawing.Size(100, 13);
             this.txtFeedrollS2.TabIndex = 254;
             this.txtFeedrollS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFeedrollS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtFeedrollS2.MouseEnter += new System.EventHandler(this.txtFeedrollS2_MouseEnter);
             // 
             // chkParManual
             // 
@@ -492,6 +506,7 @@ namespace GcproExtensionApp
             this.chkParManual.TabIndex = 182;
             this.chkParManual.Text = "ParManual";
             this.chkParManual.UseVisualStyleBackColor = true;
+            this.chkParManual.CheckedChanged += new System.EventHandler(this.chkParManual_CheckedChanged);
             // 
             // txtInpPressureS2
             // 
@@ -501,6 +516,8 @@ namespace GcproExtensionApp
             this.txtInpPressureS2.Size = new System.Drawing.Size(100, 13);
             this.txtInpPressureS2.TabIndex = 253;
             this.txtInpPressureS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtInpPressureS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtInpPressureS2.MouseEnter += new System.EventHandler(this.txtInpPressureS2_MouseEnter);
             // 
             // chkParWithHLInletS1
             // 
@@ -512,6 +529,7 @@ namespace GcproExtensionApp
             this.chkParWithHLInletS1.TabIndex = 183;
             this.chkParWithHLInletS1.Text = "ParWithHLInletSide1";
             this.chkParWithHLInletS1.UseVisualStyleBackColor = true;
+            this.chkParWithHLInletS1.CheckedChanged += new System.EventHandler(this.chkParWithHLInletS1_CheckedChanged);
             // 
             // txtHLOutlet3S2
             // 
@@ -521,6 +539,8 @@ namespace GcproExtensionApp
             this.txtHLOutlet3S2.Size = new System.Drawing.Size(100, 13);
             this.txtHLOutlet3S2.TabIndex = 252;
             this.txtHLOutlet3S2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLOutlet3S2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLOutlet3S2.MouseEnter += new System.EventHandler(this.txtHLOutlet3S2_MouseEnter);
             // 
             // chkParWithHLInletS2
             // 
@@ -533,6 +553,7 @@ namespace GcproExtensionApp
             this.chkParWithHLInletS2.Tag = "";
             this.chkParWithHLInletS2.Text = "ParWithHLInletSide2";
             this.chkParWithHLInletS2.UseVisualStyleBackColor = true;
+            this.chkParWithHLInletS2.CheckedChanged += new System.EventHandler(this.chkParWithHLInletS2_CheckedChanged);
             // 
             // txtHLInletS2Div
             // 
@@ -542,6 +563,8 @@ namespace GcproExtensionApp
             this.txtHLInletS2Div.Size = new System.Drawing.Size(100, 13);
             this.txtHLInletS2Div.TabIndex = 251;
             this.txtHLInletS2Div.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLInletS2Div.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLInletS2Div.MouseEnter += new System.EventHandler(this.txtHLInletS2Div_MouseEnter);
             // 
             // txtValue10
             // 
@@ -551,6 +574,7 @@ namespace GcproExtensionApp
             this.txtValue10.Size = new System.Drawing.Size(49, 13);
             this.txtValue10.TabIndex = 185;
             this.txtValue10.Text = "0";
+            this.txtValue10.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtValue10_KeyDown);
             // 
             // txtHLInletS2
             // 
@@ -560,6 +584,8 @@ namespace GcproExtensionApp
             this.txtHLInletS2.Size = new System.Drawing.Size(100, 13);
             this.txtHLInletS2.TabIndex = 250;
             this.txtHLInletS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLInletS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLInletS2.MouseEnter += new System.EventHandler(this.txtHLInletS2_MouseEnter);
             // 
             // lblValue10
             // 
@@ -578,6 +604,8 @@ namespace GcproExtensionApp
             this.txtHLBackupRightS2.Size = new System.Drawing.Size(100, 13);
             this.txtHLBackupRightS2.TabIndex = 249;
             this.txtHLBackupRightS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLBackupRightS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLBackupRightS2.MouseEnter += new System.EventHandler(this.txtHLBackupRightS2_MouseEnter);
             // 
             // txtHLBackupLeftS2
             // 
@@ -587,6 +615,8 @@ namespace GcproExtensionApp
             this.txtHLBackupLeftS2.Size = new System.Drawing.Size(100, 13);
             this.txtHLBackupLeftS2.TabIndex = 248;
             this.txtHLBackupLeftS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLBackupLeftS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLBackupLeftS2.MouseEnter += new System.EventHandler(this.txtHLBackupLeftS2_MouseEnter);
             // 
             // txtMotorUpS2
             // 
@@ -596,6 +626,8 @@ namespace GcproExtensionApp
             this.txtMotorUpS2.Size = new System.Drawing.Size(100, 13);
             this.txtMotorUpS2.TabIndex = 247;
             this.txtMotorUpS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMotorUpS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtMotorUpS2.MouseEnter += new System.EventHandler(this.txtMotorUpS2_MouseEnter);
             // 
             // lblFeedrollS2Div
             // 
@@ -617,6 +649,7 @@ namespace GcproExtensionApp
             this.chkParWithSMS1.Tag = "";
             this.chkParWithSMS1.Text = "ParWithSMSide1";
             this.chkParWithSMS1.UseVisualStyleBackColor = true;
+            this.chkParWithSMS1.CheckedChanged += new System.EventHandler(this.chkParWithSMS1_CheckedChanged);
             // 
             // lblFeedrollS2
             // 
@@ -638,6 +671,7 @@ namespace GcproExtensionApp
             this.chkParWithSMS2.Tag = "";
             this.chkParWithSMS2.Text = "ParWithSMSide2";
             this.chkParWithSMS2.UseVisualStyleBackColor = true;
+            this.chkParWithSMS2.CheckedChanged += new System.EventHandler(this.chkParWithSMS2_CheckedChanged);
             // 
             // lblInpPressureS2
             // 
@@ -659,6 +693,7 @@ namespace GcproExtensionApp
             this.chkPar4Rolls.Tag = "";
             this.chkPar4Rolls.Text = "Par4Rollers";
             this.chkPar4Rolls.UseVisualStyleBackColor = true;
+            this.chkPar4Rolls.CheckedChanged += new System.EventHandler(this.chkPar4Rolls_CheckedChanged);
             // 
             // lblHLOutlet2S2
             // 
@@ -696,6 +731,7 @@ namespace GcproExtensionApp
             this.txtSide2Bottom.Size = new System.Drawing.Size(108, 13);
             this.txtSide2Bottom.TabIndex = 98;
             this.txtSide2Bottom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSide2Bottom.MouseEnter += new System.EventHandler(this.txtSide2Bottom_MouseEnter);
             // 
             // lblSide2Bottom
             // 
@@ -716,6 +752,7 @@ namespace GcproExtensionApp
             this.txtSide2Top.Size = new System.Drawing.Size(108, 13);
             this.txtSide2Top.TabIndex = 92;
             this.txtSide2Top.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSide2Top.MouseEnter += new System.EventHandler(this.txtSide2Top_MouseEnter);
             // 
             // lblSide2Top
             // 
@@ -736,6 +773,7 @@ namespace GcproExtensionApp
             this.txtSide1Bottom.Size = new System.Drawing.Size(108, 13);
             this.txtSide1Bottom.TabIndex = 85;
             this.txtSide1Bottom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSide1Bottom.MouseEnter += new System.EventHandler(this.txtSide1Bottom_MouseEnter);
             // 
             // lblSide1Bottom
             // 
@@ -756,6 +794,7 @@ namespace GcproExtensionApp
             this.txtSide1Top.Size = new System.Drawing.Size(108, 13);
             this.txtSide1Top.TabIndex = 79;
             this.txtSide1Top.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSide1Top.MouseEnter += new System.EventHandler(this.txtSide1Top_MouseEnter);
             // 
             // lblSide1Top
             // 
@@ -786,6 +825,7 @@ namespace GcproExtensionApp
             this.chkParWithMDDx.Tag = "";
             this.chkParWithMDDx.Text = "ParWithMDDx";
             this.chkParWithMDDx.UseVisualStyleBackColor = true;
+            this.chkParWithMDDx.CheckedChanged += new System.EventHandler(this.chkParWithMDDx_CheckedChanged);
             // 
             // lblHLOutlet3S2
             // 
@@ -807,15 +847,16 @@ namespace GcproExtensionApp
             this.chkParWithHLInletS1Div.Tag = "";
             this.chkParWithHLInletS1Div.Text = "ParWithHLInletSide1Div";
             this.chkParWithHLInletS1Div.UseVisualStyleBackColor = true;
+            this.chkParWithHLInletS1Div.CheckedChanged += new System.EventHandler(this.chkParWithHLInletS1Div_CheckedChanged);
             // 
             // lblSMS2
             // 
             this.lblSMS2.AutoSize = true;
             this.lblSMS2.Location = new System.Drawing.Point(247, 340);
             this.lblSMS2.Name = "lblSMS2";
-            this.lblSMS2.Size = new System.Drawing.Size(66, 13);
+            this.lblSMS2.Size = new System.Drawing.Size(59, 13);
             this.lblSMS2.TabIndex = 240;
-            this.lblSMS2.Text = "Side2:SMS1";
+            this.lblSMS2.Text = "Side2:SM1";
             // 
             // chkParWithHLInletS2Div
             // 
@@ -828,6 +869,7 @@ namespace GcproExtensionApp
             this.chkParWithHLInletS2Div.Tag = "";
             this.chkParWithHLInletS2Div.Text = "ParWithHLInletSide2Div";
             this.chkParWithHLInletS2Div.UseVisualStyleBackColor = true;
+            this.chkParWithHLInletS2Div.CheckedChanged += new System.EventHandler(this.chkParWithHLInletS2Div_CheckedChanged);
             // 
             // lblHLInletS1Di2
             // 
@@ -848,6 +890,7 @@ namespace GcproExtensionApp
             this.chkWithMotorUpS1.TabIndex = 195;
             this.chkWithMotorUpS1.Text = "ParWithMotorUpSide1";
             this.chkWithMotorUpS1.UseVisualStyleBackColor = true;
+            this.chkWithMotorUpS1.CheckedChanged += new System.EventHandler(this.chkWithMotorUpS1_CheckedChanged);
             // 
             // lblHLInletS2
             // 
@@ -868,6 +911,7 @@ namespace GcproExtensionApp
             this.chkWithMotorUpS2.TabIndex = 196;
             this.chkWithMotorUpS2.Text = "ParWithMotorUpSide2";
             this.chkWithMotorUpS2.UseVisualStyleBackColor = true;
+            this.chkWithMotorUpS2.CheckedChanged += new System.EventHandler(this.chkWithMotorUpS2_CheckedChanged);
             // 
             // lblHLBackupRightS2
             // 
@@ -889,6 +933,7 @@ namespace GcproExtensionApp
             this.chkWithHLOutlet1S1.Tag = "";
             this.chkWithHLOutlet1S1.Text = "ParWithHLOutlet1Side1";
             this.chkWithHLOutlet1S1.UseVisualStyleBackColor = true;
+            this.chkWithHLOutlet1S1.CheckedChanged += new System.EventHandler(this.chkWithHLOutlet1S1_CheckedChanged);
             // 
             // lblHLBackupLeftS2
             // 
@@ -910,6 +955,7 @@ namespace GcproExtensionApp
             this.chkWithHLOutlet2S1.Tag = "";
             this.chkWithHLOutlet2S1.Text = "ParWithHLOutlet2Side1";
             this.chkWithHLOutlet2S1.UseVisualStyleBackColor = true;
+            this.chkWithHLOutlet2S1.CheckedChanged += new System.EventHandler(this.chkWithHLOutlet2S1_CheckedChanged);
             // 
             // txtMotorLowS2
             // 
@@ -919,6 +965,8 @@ namespace GcproExtensionApp
             this.txtMotorLowS2.Size = new System.Drawing.Size(100, 13);
             this.txtMotorLowS2.TabIndex = 235;
             this.txtMotorLowS2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMotorLowS2.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtMotorLowS2.MouseEnter += new System.EventHandler(this.txtMotorLowS2_MouseEnter);
             // 
             // chkWithHLOutlet1S2
             // 
@@ -931,6 +979,7 @@ namespace GcproExtensionApp
             this.chkWithHLOutlet1S2.Tag = "";
             this.chkWithHLOutlet1S2.Text = "ParWithHLOutlet1Side2";
             this.chkWithHLOutlet1S2.UseVisualStyleBackColor = true;
+            this.chkWithHLOutlet1S2.CheckedChanged += new System.EventHandler(this.chkWithHLOutlet1S2_CheckedChanged);
             // 
             // lblMotorUpS2
             // 
@@ -952,6 +1001,7 @@ namespace GcproExtensionApp
             this.chkWithHLOutlet2S2.Tag = "";
             this.chkWithHLOutlet2S2.Text = "ParWithHLOutlet2Side2";
             this.chkWithHLOutlet2S2.UseVisualStyleBackColor = true;
+            this.chkWithHLOutlet2S2.CheckedChanged += new System.EventHandler(this.chkWithHLOutlet2S2_CheckedChanged);
             // 
             // lblMotorLowS2
             // 
@@ -973,6 +1023,7 @@ namespace GcproExtensionApp
             this.chkWithHLOutlet3S1.Tag = "";
             this.chkWithHLOutlet3S1.Text = "ParWithHLOutlet3Side1";
             this.chkWithHLOutlet3S1.UseVisualStyleBackColor = true;
+            this.chkWithHLOutlet3S1.CheckedChanged += new System.EventHandler(this.chkWithHLOutlet3S1_CheckedChanged);
             // 
             // txtSMS1
             // 
@@ -983,6 +1034,8 @@ namespace GcproExtensionApp
             this.txtSMS1.Size = new System.Drawing.Size(100, 13);
             this.txtSMS1.TabIndex = 232;
             this.txtSMS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSMS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtSMS1.MouseEnter += new System.EventHandler(this.txtSMS1_MouseEnter);
             // 
             // chkWithHLOutlet3S2
             // 
@@ -995,6 +1048,7 @@ namespace GcproExtensionApp
             this.chkWithHLOutlet3S2.Tag = "";
             this.chkWithHLOutlet3S2.Text = "ParWithHLOutlet3Side2";
             this.chkWithHLOutlet3S2.UseVisualStyleBackColor = true;
+            this.chkWithHLOutlet3S2.CheckedChanged += new System.EventHandler(this.chkWithHLOutlet3S2_CheckedChanged);
             // 
             // txtHLOutlet2S1
             // 
@@ -1005,6 +1059,8 @@ namespace GcproExtensionApp
             this.txtHLOutlet2S1.Size = new System.Drawing.Size(100, 13);
             this.txtHLOutlet2S1.TabIndex = 231;
             this.txtHLOutlet2S1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLOutlet2S1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLOutlet2S1.MouseEnter += new System.EventHandler(this.txtHLOutlet2S1_MouseEnter);
             // 
             // chkWithATVForFeedRolls
             // 
@@ -1017,6 +1073,7 @@ namespace GcproExtensionApp
             this.chkWithATVForFeedRolls.Tag = "";
             this.chkWithATVForFeedRolls.Text = "ParWithATVForFeedRolls";
             this.chkWithATVForFeedRolls.UseVisualStyleBackColor = true;
+            this.chkWithATVForFeedRolls.CheckedChanged += new System.EventHandler(this.chkWithATVForFeedRolls_CheckedChanged);
             // 
             // txtHLOutlet1S1
             // 
@@ -1027,6 +1084,8 @@ namespace GcproExtensionApp
             this.txtHLOutlet1S1.Size = new System.Drawing.Size(100, 13);
             this.txtHLOutlet1S1.TabIndex = 230;
             this.txtHLOutlet1S1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLOutlet1S1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLOutlet1S1.MouseEnter += new System.EventHandler(this.txtHLOutlet1S1_MouseEnter);
             // 
             // chkWithCurrentTransform
             // 
@@ -1039,6 +1098,7 @@ namespace GcproExtensionApp
             this.chkWithCurrentTransform.Tag = "";
             this.chkWithCurrentTransform.Text = "ParWithCurrentTarnsform";
             this.chkWithCurrentTransform.UseVisualStyleBackColor = true;
+            this.chkWithCurrentTransform.CheckedChanged += new System.EventHandler(this.chkWithCurrentTransform_CheckedChanged);
             // 
             // txtFeedrollS1Div
             // 
@@ -1049,6 +1109,8 @@ namespace GcproExtensionApp
             this.txtFeedrollS1Div.Size = new System.Drawing.Size(100, 13);
             this.txtFeedrollS1Div.TabIndex = 229;
             this.txtFeedrollS1Div.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFeedrollS1Div.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtFeedrollS1Div.MouseEnter += new System.EventHandler(this.txtFeedrollS1Div_MouseEnter);
             // 
             // lblMotorLowS1
             // 
@@ -1068,6 +1130,8 @@ namespace GcproExtensionApp
             this.txtFeedrollS1.Size = new System.Drawing.Size(100, 13);
             this.txtFeedrollS1.TabIndex = 228;
             this.txtFeedrollS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFeedrollS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtFeedrollS1.MouseEnter += new System.EventHandler(this.txtFeedrollS1_MouseEnter);
             // 
             // lblMotorUpS1
             // 
@@ -1087,6 +1151,8 @@ namespace GcproExtensionApp
             this.txtInpPressureS1.Size = new System.Drawing.Size(100, 13);
             this.txtInpPressureS1.TabIndex = 227;
             this.txtInpPressureS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtInpPressureS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtInpPressureS1.MouseEnter += new System.EventHandler(this.txtInpPressureS1_MouseEnter);
             // 
             // txtMotorLowS1
             // 
@@ -1096,7 +1162,10 @@ namespace GcproExtensionApp
             this.txtMotorLowS1.Name = "txtMotorLowS1";
             this.txtMotorLowS1.Size = new System.Drawing.Size(100, 13);
             this.txtMotorLowS1.TabIndex = 207;
+            this.txtMotorLowS1.Text = " ";
             this.txtMotorLowS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMotorLowS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtMotorLowS1.MouseEnter += new System.EventHandler(this.txtMotorLowS1_MouseEnter);
             // 
             // txtHLOutlet3S1
             // 
@@ -1107,6 +1176,8 @@ namespace GcproExtensionApp
             this.txtHLOutlet3S1.Size = new System.Drawing.Size(100, 13);
             this.txtHLOutlet3S1.TabIndex = 226;
             this.txtHLOutlet3S1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLOutlet3S1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLOutlet3S1.MouseEnter += new System.EventHandler(this.txtHLOutlet3S1_MouseEnter);
             // 
             // lblHLBackupLeftS1
             // 
@@ -1126,6 +1197,8 @@ namespace GcproExtensionApp
             this.txtHLInletS1Div.Size = new System.Drawing.Size(100, 13);
             this.txtHLInletS1Div.TabIndex = 225;
             this.txtHLInletS1Div.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLInletS1Div.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLInletS1Div.MouseEnter += new System.EventHandler(this.txtHLInletS1Div_MouseEnter);
             // 
             // lblHLBackupRightS1
             // 
@@ -1145,6 +1218,8 @@ namespace GcproExtensionApp
             this.txtHLInletS1.Size = new System.Drawing.Size(100, 13);
             this.txtHLInletS1.TabIndex = 224;
             this.txtHLInletS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLInletS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLInletS1.MouseEnter += new System.EventHandler(this.txtHLInletS1_MouseEnter);
             // 
             // lblHLInletS1
             // 
@@ -1164,6 +1239,8 @@ namespace GcproExtensionApp
             this.txtHLBackupRightS1.Size = new System.Drawing.Size(100, 13);
             this.txtHLBackupRightS1.TabIndex = 223;
             this.txtHLBackupRightS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLBackupRightS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLBackupRightS1.MouseEnter += new System.EventHandler(this.txtHLBackupRightS1_MouseEnter);
             // 
             // lblHLInletS1Div
             // 
@@ -1183,15 +1260,17 @@ namespace GcproExtensionApp
             this.txtHLBackupLeftS1.Size = new System.Drawing.Size(100, 13);
             this.txtHLBackupLeftS1.TabIndex = 222;
             this.txtHLBackupLeftS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHLBackupLeftS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtHLBackupLeftS1.MouseEnter += new System.EventHandler(this.txtHLBackupLeftS1_MouseEnter);
             // 
             // lblSMS1
             // 
             this.lblSMS1.AutoSize = true;
             this.lblSMS1.Location = new System.Drawing.Point(4, 340);
             this.lblSMS1.Name = "lblSMS1";
-            this.lblSMS1.Size = new System.Drawing.Size(66, 13);
+            this.lblSMS1.Size = new System.Drawing.Size(59, 13);
             this.lblSMS1.TabIndex = 212;
-            this.lblSMS1.Text = "Side1:SMS1";
+            this.lblSMS1.Text = "Side1:SM1";
             // 
             // txtMotorUpS1
             // 
@@ -1201,7 +1280,10 @@ namespace GcproExtensionApp
             this.txtMotorUpS1.Name = "txtMotorUpS1";
             this.txtMotorUpS1.Size = new System.Drawing.Size(100, 13);
             this.txtMotorUpS1.TabIndex = 221;
+            this.txtMotorUpS1.Text = " ";
             this.txtMotorUpS1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMotorUpS1.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtMotorUpS1.MouseEnter += new System.EventHandler(this.txtMotorUpS1_MouseEnter);
             // 
             // lblHLOutlet3S1
             // 
@@ -1221,6 +1303,8 @@ namespace GcproExtensionApp
             this.txtMDDx.Size = new System.Drawing.Size(100, 13);
             this.txtMDDx.TabIndex = 220;
             this.txtMDDx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMDDx.TextChanged += new System.EventHandler(this.SubElementsName_Changed);
+            this.txtMDDx.MouseEnter += new System.EventHandler(this.txtMDDx_MouseEnter);
             // 
             // lblHLOutlet1S1
             // 
@@ -1290,12 +1374,13 @@ namespace GcproExtensionApp
             // 
             // grpGeneral
             // 
-            this.grpGeneral.Controls.Add(this.LblSymbol);
-            this.grpGeneral.Controls.Add(this.GrpDescriptionRule);
-            this.grpGeneral.Controls.Add(this.GrpSymbolRule);
+            this.grpGeneral.Controls.Add(this.grpAddInfoToDesc);
+            this.grpGeneral.Controls.Add(this.lblSymbol);
+            this.grpGeneral.Controls.Add(this.grpDescriptionRule);
+            this.grpGeneral.Controls.Add(this.grpSymbolRule);
             this.grpGeneral.Controls.Add(this.txtDescription);
             this.grpGeneral.Controls.Add(this.txtSymbol);
-            this.grpGeneral.Controls.Add(this.LblDescription);
+            this.grpGeneral.Controls.Add(this.lblDescription);
             this.grpGeneral.Location = new System.Drawing.Point(6, 3);
             this.grpGeneral.Name = "grpGeneral";
             this.grpGeneral.Size = new System.Drawing.Size(703, 113);
@@ -1303,36 +1388,36 @@ namespace GcproExtensionApp
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "常规";
             // 
-            // LblSymbol
+            // lblSymbol
             // 
-            this.LblSymbol.AutoSize = true;
-            this.LblSymbol.Location = new System.Drawing.Point(6, 16);
-            this.LblSymbol.Name = "LblSymbol";
-            this.LblSymbol.Size = new System.Drawing.Size(31, 13);
-            this.LblSymbol.TabIndex = 0;
-            this.LblSymbol.Text = "名称";
+            this.lblSymbol.AutoSize = true;
+            this.lblSymbol.Location = new System.Drawing.Point(6, 16);
+            this.lblSymbol.Name = "lblSymbol";
+            this.lblSymbol.Size = new System.Drawing.Size(31, 13);
+            this.lblSymbol.TabIndex = 0;
+            this.lblSymbol.Text = "名称";
             // 
-            // GrpDescriptionRule
+            // grpDescriptionRule
             // 
-            this.GrpDescriptionRule.Controls.Add(this.LblDescriptionRule);
-            this.GrpDescriptionRule.Controls.Add(this.txtDescriptionIncRule);
-            this.GrpDescriptionRule.Controls.Add(this.Lbl);
-            this.GrpDescriptionRule.Controls.Add(this.txtDescriptionRule);
-            this.GrpDescriptionRule.Location = new System.Drawing.Point(603, 16);
-            this.GrpDescriptionRule.Name = "GrpDescriptionRule";
-            this.GrpDescriptionRule.Size = new System.Drawing.Size(78, 88);
-            this.GrpDescriptionRule.TabIndex = 74;
-            this.GrpDescriptionRule.TabStop = false;
-            this.GrpDescriptionRule.Text = "描述规则";
+            this.grpDescriptionRule.Controls.Add(this.lblDescriptionRule);
+            this.grpDescriptionRule.Controls.Add(this.txtDescriptionIncRule);
+            this.grpDescriptionRule.Controls.Add(this.lblDescriptionIncRule);
+            this.grpDescriptionRule.Controls.Add(this.txtDescriptionRule);
+            this.grpDescriptionRule.Location = new System.Drawing.Point(603, 16);
+            this.grpDescriptionRule.Name = "grpDescriptionRule";
+            this.grpDescriptionRule.Size = new System.Drawing.Size(78, 88);
+            this.grpDescriptionRule.TabIndex = 74;
+            this.grpDescriptionRule.TabStop = false;
+            this.grpDescriptionRule.Text = "描述规则";
             // 
-            // LblDescriptionRule
+            // lblDescriptionRule
             // 
-            this.LblDescriptionRule.AutoSize = true;
-            this.LblDescriptionRule.Location = new System.Drawing.Point(7, 14);
-            this.LblDescriptionRule.Name = "LblDescriptionRule";
-            this.LblDescriptionRule.Size = new System.Drawing.Size(55, 13);
-            this.LblDescriptionRule.TabIndex = 9;
-            this.LblDescriptionRule.Text = "规则字段";
+            this.lblDescriptionRule.AutoSize = true;
+            this.lblDescriptionRule.Location = new System.Drawing.Point(7, 14);
+            this.lblDescriptionRule.Name = "lblDescriptionRule";
+            this.lblDescriptionRule.Size = new System.Drawing.Size(55, 13);
+            this.lblDescriptionRule.TabIndex = 9;
+            this.lblDescriptionRule.Text = "规则字段";
             // 
             // txtDescriptionIncRule
             // 
@@ -1341,16 +1426,15 @@ namespace GcproExtensionApp
             this.txtDescriptionIncRule.Name = "txtDescriptionIncRule";
             this.txtDescriptionIncRule.Size = new System.Drawing.Size(66, 13);
             this.txtDescriptionIncRule.TabIndex = 72;
-            this.txtDescriptionIncRule.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtDescriptionIncRule_KeyDown);
             // 
-            // Lbl
+            // lblDescriptionIncRule
             // 
-            this.Lbl.AutoSize = true;
-            this.Lbl.Location = new System.Drawing.Point(6, 50);
-            this.Lbl.Name = "Lbl";
-            this.Lbl.Size = new System.Drawing.Size(55, 13);
-            this.Lbl.TabIndex = 73;
-            this.Lbl.Text = "递增规则";
+            this.lblDescriptionIncRule.AutoSize = true;
+            this.lblDescriptionIncRule.Location = new System.Drawing.Point(6, 50);
+            this.lblDescriptionIncRule.Name = "lblDescriptionIncRule";
+            this.lblDescriptionIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblDescriptionIncRule.TabIndex = 73;
+            this.lblDescriptionIncRule.Text = "递增规则";
             // 
             // txtDescriptionRule
             // 
@@ -1359,29 +1443,29 @@ namespace GcproExtensionApp
             this.txtDescriptionRule.Name = "txtDescriptionRule";
             this.txtDescriptionRule.Size = new System.Drawing.Size(66, 13);
             this.txtDescriptionRule.TabIndex = 11;
-            this.txtDescriptionRule.TextChanged += new System.EventHandler(this.TxtDescriptionRule_TextChanged);
+            this.txtDescriptionRule.TextChanged += new System.EventHandler(this.txtDescriptionRule_TextChanged);
             // 
-            // GrpSymbolRule
+            // grpSymbolRule
             // 
-            this.GrpSymbolRule.Controls.Add(this.LblSymbolRule);
-            this.GrpSymbolRule.Controls.Add(this.txtSymbolRule);
-            this.GrpSymbolRule.Controls.Add(this.txtSymbolIncRule);
-            this.GrpSymbolRule.Controls.Add(this.LblSymbolIncRule);
-            this.GrpSymbolRule.Location = new System.Drawing.Point(151, 16);
-            this.GrpSymbolRule.Name = "GrpSymbolRule";
-            this.GrpSymbolRule.Size = new System.Drawing.Size(78, 88);
-            this.GrpSymbolRule.TabIndex = 75;
-            this.GrpSymbolRule.TabStop = false;
-            this.GrpSymbolRule.Text = "名称规则";
+            this.grpSymbolRule.Controls.Add(this.lblSymbolRule);
+            this.grpSymbolRule.Controls.Add(this.txtSymbolRule);
+            this.grpSymbolRule.Controls.Add(this.txtSymbolIncRule);
+            this.grpSymbolRule.Controls.Add(this.lblSymbolIncRule);
+            this.grpSymbolRule.Location = new System.Drawing.Point(151, 16);
+            this.grpSymbolRule.Name = "grpSymbolRule";
+            this.grpSymbolRule.Size = new System.Drawing.Size(78, 88);
+            this.grpSymbolRule.TabIndex = 75;
+            this.grpSymbolRule.TabStop = false;
+            this.grpSymbolRule.Text = "名称规则";
             // 
-            // LblSymbolRule
+            // lblSymbolRule
             // 
-            this.LblSymbolRule.AutoSize = true;
-            this.LblSymbolRule.Location = new System.Drawing.Point(8, 14);
-            this.LblSymbolRule.Name = "LblSymbolRule";
-            this.LblSymbolRule.Size = new System.Drawing.Size(55, 13);
-            this.LblSymbolRule.TabIndex = 8;
-            this.LblSymbolRule.Text = "规则字段";
+            this.lblSymbolRule.AutoSize = true;
+            this.lblSymbolRule.Location = new System.Drawing.Point(8, 14);
+            this.lblSymbolRule.Name = "lblSymbolRule";
+            this.lblSymbolRule.Size = new System.Drawing.Size(55, 13);
+            this.lblSymbolRule.TabIndex = 8;
+            this.lblSymbolRule.Text = "规则字段";
             // 
             // txtSymbolRule
             // 
@@ -1390,7 +1474,7 @@ namespace GcproExtensionApp
             this.txtSymbolRule.Name = "txtSymbolRule";
             this.txtSymbolRule.Size = new System.Drawing.Size(66, 13);
             this.txtSymbolRule.TabIndex = 10;
-            this.txtSymbolRule.TextChanged += new System.EventHandler(this.TxtSymbolRule_TextChanged);
+            this.txtSymbolRule.TextChanged += new System.EventHandler(this.txtSymbolRule_TextChanged);
             // 
             // txtSymbolIncRule
             // 
@@ -1399,16 +1483,15 @@ namespace GcproExtensionApp
             this.txtSymbolIncRule.Name = "txtSymbolIncRule";
             this.txtSymbolIncRule.Size = new System.Drawing.Size(66, 13);
             this.txtSymbolIncRule.TabIndex = 71;
-            this.txtSymbolIncRule.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSymbolIncRule_KeyDown);
             // 
-            // LblSymbolIncRule
+            // lblSymbolIncRule
             // 
-            this.LblSymbolIncRule.AutoSize = true;
-            this.LblSymbolIncRule.Location = new System.Drawing.Point(4, 50);
-            this.LblSymbolIncRule.Name = "LblSymbolIncRule";
-            this.LblSymbolIncRule.Size = new System.Drawing.Size(55, 13);
-            this.LblSymbolIncRule.TabIndex = 70;
-            this.LblSymbolIncRule.Text = "递增规则";
+            this.lblSymbolIncRule.AutoSize = true;
+            this.lblSymbolIncRule.Location = new System.Drawing.Point(4, 50);
+            this.lblSymbolIncRule.Name = "lblSymbolIncRule";
+            this.lblSymbolIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblSymbolIncRule.TabIndex = 70;
+            this.lblSymbolIncRule.Text = "递增规则";
             // 
             // txtDescription
             // 
@@ -1417,7 +1500,8 @@ namespace GcproExtensionApp
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(346, 13);
             this.txtDescription.TabIndex = 3;
-            this.txtDescription.MouseEnter += new System.EventHandler(this.TxtDescription_MouseEnter);
+            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
+            this.txtDescription.MouseEnter += new System.EventHandler(this.txtDescription_MouseEnter);
             // 
             // txtSymbol
             // 
@@ -1428,16 +1512,16 @@ namespace GcproExtensionApp
             this.txtSymbol.TabIndex = 2;
             this.txtSymbol.TextChanged += new System.EventHandler(this.txtSymbol_TextChanged);
             this.txtSymbol.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtSymbol_MouseDoubleClick);
-            this.txtSymbol.MouseEnter += new System.EventHandler(this.TxtSymbol_MouseEnter);
+            this.txtSymbol.MouseEnter += new System.EventHandler(this.txtSymbol_MouseEnter);
             // 
-            // LblDescription
+            // lblDescription
             // 
-            this.LblDescription.AutoSize = true;
-            this.LblDescription.Location = new System.Drawing.Point(242, 16);
-            this.LblDescription.Name = "LblDescription";
-            this.LblDescription.Size = new System.Drawing.Size(55, 13);
-            this.LblDescription.TabIndex = 1;
-            this.LblDescription.Text = "输入描述";
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(242, 16);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(55, 13);
+            this.lblDescription.TabIndex = 1;
+            this.lblDescription.Text = "输入描述";
             // 
             // BtnNewImpExpDef
             // 
@@ -1499,7 +1583,7 @@ namespace GcproExtensionApp
             this.tabBML.Margin = new System.Windows.Forms.Padding(0);
             this.tabBML.Name = "tabBML";
             this.tabBML.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBML.Size = new System.Drawing.Size(723, 663);
+            this.tabBML.Size = new System.Drawing.Size(722, 663);
             this.tabBML.TabIndex = 1;
             this.tabBML.Text = "通过BML创建";
             // 
@@ -1509,10 +1593,9 @@ namespace GcproExtensionApp
             this.grpBoxExcelData.Controls.Add(this.dataGridBML);
             this.grpBoxExcelData.Controls.Add(this.lblWorkSheet);
             this.grpBoxExcelData.Controls.Add(this.comboWorkSheetsBML);
-            this.grpBoxExcelData.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.grpBoxExcelData.Location = new System.Drawing.Point(3, 231);
+            this.grpBoxExcelData.Location = new System.Drawing.Point(6, 127);
             this.grpBoxExcelData.Name = "grpBoxExcelData";
-            this.grpBoxExcelData.Size = new System.Drawing.Size(717, 429);
+            this.grpBoxExcelData.Size = new System.Drawing.Size(712, 531);
             this.grpBoxExcelData.TabIndex = 16;
             this.grpBoxExcelData.TabStop = false;
             this.grpBoxExcelData.Text = "BML数据";
@@ -1535,15 +1618,15 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridBML.GridColor = System.Drawing.SystemColors.Control;
-            this.dataGridBML.Location = new System.Drawing.Point(6, 51);
+            this.dataGridBML.Location = new System.Drawing.Point(5, 51);
             this.dataGridBML.Name = "dataGridBML";
-            this.dataGridBML.Size = new System.Drawing.Size(701, 372);
+            this.dataGridBML.Size = new System.Drawing.Size(701, 473);
             this.dataGridBML.TabIndex = 16;
             this.dataGridBML.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridBML_RowsRemoved);
             // 
@@ -1577,19 +1660,17 @@ namespace GcproExtensionApp
             this.grpBoxExcelColumn.Controls.Add(this.LblGcproProjectPath);
             this.grpBoxExcelColumn.Location = new System.Drawing.Point(6, 6);
             this.grpBoxExcelColumn.Name = "grpBoxExcelColumn";
-            this.grpBoxExcelColumn.Size = new System.Drawing.Size(704, 115);
+            this.grpBoxExcelColumn.Size = new System.Drawing.Size(712, 115);
             this.grpBoxExcelColumn.TabIndex = 0;
             this.grpBoxExcelColumn.TabStop = false;
             this.grpBoxExcelColumn.Text = "BML清单信息";
             // 
             // grpBoxBMLColum
             // 
+            this.grpBoxBMLColum.Controls.Add(this.comboControlBML);
+            this.grpBoxBMLColum.Controls.Add(this.lblControlBML);
             this.grpBoxBMLColum.Controls.Add(this.comboLineBML);
             this.grpBoxBMLColum.Controls.Add(this.lblLineBML);
-            this.grpBoxBMLColum.Controls.Add(this.comboIORemarkBML);
-            this.grpBoxBMLColum.Controls.Add(this.comboControlBML);
-            this.grpBoxBMLColum.Controls.Add(this.lblIORemarkBML);
-            this.grpBoxBMLColum.Controls.Add(this.lblControlBML);
             this.grpBoxBMLColum.Controls.Add(this.comboStartRow);
             this.grpBoxBMLColum.Controls.Add(this.lblStartRow);
             this.grpBoxBMLColum.Controls.Add(this.comboSectionBML);
@@ -1606,10 +1687,29 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.Controls.Add(this.lblBMLSymbol);
             this.grpBoxBMLColum.Location = new System.Drawing.Point(6, 40);
             this.grpBoxBMLColum.Name = "grpBoxBMLColum";
-            this.grpBoxBMLColum.Size = new System.Drawing.Size(692, 68);
+            this.grpBoxBMLColum.Size = new System.Drawing.Size(698, 68);
             this.grpBoxBMLColum.TabIndex = 16;
             this.grpBoxBMLColum.TabStop = false;
             this.grpBoxBMLColum.Text = "信息列";
+            // 
+            // comboControlBML
+            // 
+            this.comboControlBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboControlBML.FormattingEnabled = true;
+            this.comboControlBML.IntegralHeight = false;
+            this.comboControlBML.Location = new System.Drawing.Point(206, 42);
+            this.comboControlBML.Name = "comboControlBML";
+            this.comboControlBML.Size = new System.Drawing.Size(66, 21);
+            this.comboControlBML.TabIndex = 35;
+            // 
+            // lblControlBML
+            // 
+            this.lblControlBML.AutoSize = true;
+            this.lblControlBML.Location = new System.Drawing.Point(146, 44);
+            this.lblControlBML.Name = "lblControlBML";
+            this.lblControlBML.Size = new System.Drawing.Size(67, 13);
+            this.lblControlBML.TabIndex = 34;
+            this.lblControlBML.Text = "控制方法：";
             // 
             // comboLineBML
             // 
@@ -1629,46 +1729,6 @@ namespace GcproExtensionApp
             this.lblLineBML.Size = new System.Drawing.Size(55, 13);
             this.lblLineBML.TabIndex = 32;
             this.lblLineBML.Text = "生产线：";
-            // 
-            // comboIORemarkBML
-            // 
-            this.comboIORemarkBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboIORemarkBML.FormattingEnabled = true;
-            this.comboIORemarkBML.IntegralHeight = false;
-            this.comboIORemarkBML.Location = new System.Drawing.Point(206, 44);
-            this.comboIORemarkBML.Name = "comboIORemarkBML";
-            this.comboIORemarkBML.Size = new System.Drawing.Size(66, 21);
-            this.comboIORemarkBML.TabIndex = 31;
-            // 
-            // comboControlBML
-            // 
-            this.comboControlBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboControlBML.FormattingEnabled = true;
-            this.comboControlBML.IntegralHeight = false;
-            this.comboControlBML.Location = new System.Drawing.Point(341, 41);
-            this.comboControlBML.Name = "comboControlBML";
-            this.comboControlBML.Size = new System.Drawing.Size(66, 21);
-            this.comboControlBML.TabIndex = 29;
-            this.comboControlBML.Visible = false;
-            // 
-            // lblIORemarkBML
-            // 
-            this.lblIORemarkBML.AutoSize = true;
-            this.lblIORemarkBML.Location = new System.Drawing.Point(146, 49);
-            this.lblIORemarkBML.Name = "lblIORemarkBML";
-            this.lblIORemarkBML.Size = new System.Drawing.Size(54, 13);
-            this.lblIORemarkBML.TabIndex = 30;
-            this.lblIORemarkBML.Text = "IO注释：";
-            // 
-            // lblControlBML
-            // 
-            this.lblControlBML.AutoSize = true;
-            this.lblControlBML.Location = new System.Drawing.Point(281, 43);
-            this.lblControlBML.Name = "lblControlBML";
-            this.lblControlBML.Size = new System.Drawing.Size(67, 13);
-            this.lblControlBML.TabIndex = 28;
-            this.lblControlBML.Text = "控制类型：";
-            this.lblControlBML.Visible = false;
             // 
             // comboStartRow
             // 
@@ -2091,6 +2151,65 @@ namespace GcproExtensionApp
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "Page";
             // 
+            // grpAddInfoToDesc
+            // 
+            this.grpAddInfoToDesc.Controls.Add(this.chkNameOnlyNumber);
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddSectionToDesc);
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddFloorToDesc);
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddNameToDesc);
+            this.grpAddInfoToDesc.Location = new System.Drawing.Point(235, 59);
+            this.grpAddInfoToDesc.Name = "grpAddInfoToDesc";
+            this.grpAddInfoToDesc.Size = new System.Drawing.Size(360, 39);
+            this.grpAddInfoToDesc.TabIndex = 147;
+            this.grpAddInfoToDesc.TabStop = false;
+            this.grpAddInfoToDesc.Text = "附加信息到描述";
+            // 
+            // chkNameOnlyNumber
+            // 
+            this.chkNameOnlyNumber.AutoSize = true;
+            this.chkNameOnlyNumber.Checked = true;
+            this.chkNameOnlyNumber.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNameOnlyNumber.Location = new System.Drawing.Point(240, 17);
+            this.chkNameOnlyNumber.Name = "chkNameOnlyNumber";
+            this.chkNameOnlyNumber.Size = new System.Drawing.Size(98, 17);
+            this.chkNameOnlyNumber.TabIndex = 125;
+            this.chkNameOnlyNumber.Text = "编号仅含数字";
+            this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
+            // 
+            // chkAddSectionToDesc
+            // 
+            this.chkAddSectionToDesc.AutoSize = true;
+            this.chkAddSectionToDesc.Checked = true;
+            this.chkAddSectionToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAddSectionToDesc.Location = new System.Drawing.Point(7, 17);
+            this.chkAddSectionToDesc.Name = "chkAddSectionToDesc";
+            this.chkAddSectionToDesc.Size = new System.Drawing.Size(50, 17);
+            this.chkAddSectionToDesc.TabIndex = 123;
+            this.chkAddSectionToDesc.Text = "工段";
+            this.chkAddSectionToDesc.UseVisualStyleBackColor = true;
+            // 
+            // chkAddFloorToDesc
+            // 
+            this.chkAddFloorToDesc.AutoSize = true;
+            this.chkAddFloorToDesc.Location = new System.Drawing.Point(169, 17);
+            this.chkAddFloorToDesc.Name = "chkAddFloorToDesc";
+            this.chkAddFloorToDesc.Size = new System.Drawing.Size(50, 17);
+            this.chkAddFloorToDesc.TabIndex = 121;
+            this.chkAddFloorToDesc.Text = "楼层";
+            this.chkAddFloorToDesc.UseVisualStyleBackColor = true;
+            // 
+            // chkAddNameToDesc
+            // 
+            this.chkAddNameToDesc.AutoSize = true;
+            this.chkAddNameToDesc.Checked = true;
+            this.chkAddNameToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAddNameToDesc.Location = new System.Drawing.Point(88, 17);
+            this.chkAddNameToDesc.Name = "chkAddNameToDesc";
+            this.chkAddNameToDesc.Size = new System.Drawing.Size(50, 17);
+            this.chkAddNameToDesc.TabIndex = 119;
+            this.chkAddNameToDesc.Text = "编号";
+            this.chkAddNameToDesc.UseVisualStyleBackColor = true;
+            // 
             // FormMA_Roll8Stand
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2098,7 +2217,7 @@ namespace GcproExtensionApp
             this.AutoScroll = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(731, 901);
+            this.ClientSize = new System.Drawing.Size(730, 901);
             this.Controls.Add(this.PalCommon);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.tabCreateMode);
@@ -2119,10 +2238,10 @@ namespace GcproExtensionApp
             this.grpCurrentReferences.PerformLayout();
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
-            this.GrpDescriptionRule.ResumeLayout(false);
-            this.GrpDescriptionRule.PerformLayout();
-            this.GrpSymbolRule.ResumeLayout(false);
-            this.GrpSymbolRule.PerformLayout();
+            this.grpDescriptionRule.ResumeLayout(false);
+            this.grpDescriptionRule.PerformLayout();
+            this.grpSymbolRule.ResumeLayout(false);
+            this.grpSymbolRule.PerformLayout();
             this.tabBML.ResumeLayout(false);
             this.grpBoxExcelData.ResumeLayout(false);
             this.grpBoxExcelData.PerformLayout();
@@ -2135,6 +2254,8 @@ namespace GcproExtensionApp
             this.GroupBoxSave.PerformLayout();
             this.PalCommon.ResumeLayout(false);
             this.PalCommon.PerformLayout();
+            this.grpAddInfoToDesc.ResumeLayout(false);
+            this.grpAddInfoToDesc.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2207,28 +2328,24 @@ namespace GcproExtensionApp
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuReload;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         internal System.Windows.Forms.CheckBox chkOnlyFree;
-        internal System.Windows.Forms.ComboBox comboControlBML;
-        private System.Windows.Forms.Label lblControlBML;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuDelete;
-        internal System.Windows.Forms.ComboBox comboIORemarkBML;
-        private System.Windows.Forms.Label lblIORemarkBML;
         internal System.Windows.Forms.ComboBox comboLineBML;
         private System.Windows.Forms.Label lblLineBML;
         private System.Windows.Forms.GroupBox grpGeneral;
-        internal System.Windows.Forms.Label LblSymbol;
-        internal System.Windows.Forms.GroupBox GrpDescriptionRule;
-        internal System.Windows.Forms.Label LblDescriptionRule;
+        internal System.Windows.Forms.Label lblSymbol;
+        internal System.Windows.Forms.GroupBox grpDescriptionRule;
+        internal System.Windows.Forms.Label lblDescriptionRule;
         internal System.Windows.Forms.TextBox txtDescriptionIncRule;
-        internal System.Windows.Forms.Label Lbl;
+        internal System.Windows.Forms.Label lblDescriptionIncRule;
         internal System.Windows.Forms.TextBox txtDescriptionRule;
-        internal System.Windows.Forms.GroupBox GrpSymbolRule;
-        internal System.Windows.Forms.Label LblSymbolRule;
+        internal System.Windows.Forms.GroupBox grpSymbolRule;
+        internal System.Windows.Forms.Label lblSymbolRule;
         internal System.Windows.Forms.TextBox txtSymbolRule;
         internal System.Windows.Forms.TextBox txtSymbolIncRule;
-        internal System.Windows.Forms.Label LblSymbolIncRule;
+        internal System.Windows.Forms.Label lblSymbolIncRule;
         internal System.Windows.Forms.TextBox txtDescription;
         internal System.Windows.Forms.TextBox txtSymbol;
-        internal System.Windows.Forms.Label LblDescription;
+        internal System.Windows.Forms.Label lblDescription;
         internal System.Windows.Forms.TextBox txtSMS2;
         internal System.Windows.Forms.TextBox txtHLOutlet2S2;
         internal System.Windows.Forms.TextBox txtHLOutlet1S2;
@@ -2313,6 +2430,13 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Label lblFeedrollS1;
         internal System.Windows.Forms.Label lblMDDx;
         internal System.Windows.Forms.Label lblInpPressureS1;
+        internal System.Windows.Forms.ComboBox comboControlBML;
+        private System.Windows.Forms.Label lblControlBML;
+        private System.Windows.Forms.GroupBox grpAddInfoToDesc;
+        internal System.Windows.Forms.CheckBox chkNameOnlyNumber;
+        internal System.Windows.Forms.CheckBox chkAddSectionToDesc;
+        internal System.Windows.Forms.CheckBox chkAddFloorToDesc;
+        internal System.Windows.Forms.CheckBox chkAddNameToDesc;
     }
 }
 

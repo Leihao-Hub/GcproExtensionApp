@@ -43,8 +43,7 @@ namespace GcproExtensionApp
         private int value30 = 0;
         private int value31 = 0;
         private int tempInt = 0;
-        private long tempLong = 0;
-        private float tempFloat = (float)0.0;
+        //private float tempFloat = 0.0f;
         private bool tempBool = false;
         private string descPrefixRule = string.Empty;
         private string descPrefixPart = string.Empty;
@@ -155,7 +154,7 @@ namespace GcproExtensionApp
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Bin.ImpExpRuleName}'", null);
-                    CreateDIImpExp(oledb);
+                    CreateBinImpExp(oledb);
                 }
                 else
                 {
@@ -164,7 +163,7 @@ namespace GcproExtensionApp
             }
             else
             {
-                CreateDIImpExp(oledb);
+                CreateBinImpExp(oledb);
             }
 
         }
@@ -189,7 +188,7 @@ namespace GcproExtensionApp
         }
 
         #endregion
-        private void CreateDIImpExp(OleDb oledb)
+        private void CreateBinImpExp(OleDb oledb)
         {
 
             List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
@@ -1200,7 +1199,7 @@ namespace GcproExtensionApp
                 TxtQuantity.Visible = false;
                 GrpSymbolRule.Visible = false;
                 LblSymbol.Text = AppGlobal.KEY_WORD_AUTOSEARCH;
-                txtSymbol.Text = "BIN";
+                txtSymbol.Text = "BIN100";
                 tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
 
             }
@@ -1264,100 +1263,103 @@ namespace GcproExtensionApp
         }
         private void btnConnectChild_Click(object sender, EventArgs e)
         {
-            return;
-            if (MessageBox.Show(AppGlobal.CONNECT_IO, AppGlobal.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
-                == DialogResult.OK)
-            {
-                RuleSubDataSet highLevel = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                RuleSubDataSet lowLevel = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                RuleSubDataSet middleLevel = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                RuleSubDataSet analogLevel = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                try
-                {
-                    bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}", null,
-                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value2.Name,
-                        GcproTable.ObjData.Value3.Name, GcproTable.ObjData.Value4.Name, GcproTable.ObjData.Value14.Name);
-                    ProgressBar.Maximum = dataTable.Rows.Count - 1;
-                    ProgressBar.Value = 0;
-                    Bin.Clear(myBin.FileConnectorPath);
-                    for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
-                    {
-                        objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
-                        objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
+            /*
+               if (MessageBox.Show(AppGlobal.CONNECT_IO, AppGlobal.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                   == DialogResult.OK)
+               {
+                   RuleSubDataSet highLevel = new RuleSubDataSet
+                   {
+                       Sub = new string[] { },
+                       Inc = 0,
+                       PosInfo = new RuleSubPos
+                       {
+                           StartPos = false,
+                           MidPos = false,
+                           EndPos = false,
+                           PosInString = 0,
+                           Len = 0,
+                       }
+                   };
+                   RuleSubDataSet lowLevel = new RuleSubDataSet
+                   {
+                       Sub = new string[] { },
+                       Inc = 0,
+                       PosInfo = new RuleSubPos
+                       {
+                           StartPos = false,
+                           MidPos = false,
+                           EndPos = false,
+                           PosInString = 0,
+                           Len = 0,
+                       }
+                   };
+                   RuleSubDataSet middleLevel = new RuleSubDataSet
+                   {
+                       Sub = new string[] { },
+                       Inc = 0,
+                       PosInfo = new RuleSubPos
+                       {
+                           StartPos = false,
+                           MidPos = false,
+                           EndPos = false,
+                           PosInString = 0,
+                           Len = 0,
+                       }
+                   };
+                   RuleSubDataSet analogLevel = new RuleSubDataSet
+                   {
+                       Sub = new string[] { },
+                       Inc = 0,
+                       PosInfo = new RuleSubPos
+                       {
+                           StartPos = false,
+                           MidPos = false,
+                           EndPos = false,
+                           PosInString = 0,
+                           Len = 0,
+                       }
+                   };
+                   try
+                   {
+                       bool all = !chkOnlyFree.Checked;
+                       string objName = String.Empty;
+                       string objSubType = String.Empty;
+                       OleDb oledb = new OleDb();
+                       DataTable dataTable = new DataTable();
+                       oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                       oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                       dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}", null,
+                           $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value2.Name,
+                           GcproTable.ObjData.Value3.Name, GcproTable.ObjData.Value4.Name, GcproTable.ObjData.Value14.Name);
+                       ProgressBar.Maximum = dataTable.Rows.Count - 1;
+                       ProgressBar.Value = 0;
+                       Bin.Clear(myBin.FileConnectorPath);
+                       for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
+                       {
+                           objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
+                           objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
 
-                        if (!String.IsNullOrEmpty(txtHighLevel.Text))
-                        {
-                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value2.Name) == 0 || all)
-                            {
-                                Bin.CreateRelation(objName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
-                            }
-                        }
-                        ProgressBar.Value = count;
-                    }
-                    DI.SaveFileAs(myBin.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
-                    dataTable.Clear();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("寻找料位与关联过程出错:" + ex, AppGlobal.INFO + ":" + AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                           if (!String.IsNullOrEmpty(txtHighLevel.Text))
+                           {
+                               if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value2.Name) == 0 || all)
+                               {
+                                   Bin.CreateRelation(objName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                               }
+                           }
+                           ProgressBar.Value = count;
+                       }
+                       DI.SaveFileAs(myBin.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
+                       dataTable.Clear();
+                   }
+                   catch (Exception ex)
+                   {
+                       MessageBox.Show("寻找料位与关联过程出错:" + ex, AppGlobal.INFO + ":" + AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                }
-            }
+                   }
+
+
+               }
+              */
         }
         private void BtnClear_Click(object sender, EventArgs e)
         {
@@ -1397,7 +1399,6 @@ namespace GcproExtensionApp
                 int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                 bool moreThanOne = quantityNeedToBeCreate > 1;
                 bool onlyOne = quantityNeedToBeCreate == 1;
-                int objCreated = 0;
                 int binNo = 0;
                 string descTotal = txtDescription.Text;
                 RuleSubDataSet description, name, descPrefix, highLevel, lowLevel, middleLevel, analogLevel;
@@ -1843,10 +1844,10 @@ namespace GcproExtensionApp
                         myBin.MiddleLevel = middleLevel.Name;
                         myBin.LowLevel = lowLevel.Name;
                         myBin.AnalogLevel = analogLevel.Name;
-                        objCreated = i;
                         myBin.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = objCreated;
+                        ProgressBar.Value = i;
                     }
+                    ProgressBar.Value = ProgressBar.Maximum;
                 }
             }
             catch (Exception ex)

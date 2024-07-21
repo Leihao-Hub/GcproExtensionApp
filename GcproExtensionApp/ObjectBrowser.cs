@@ -4,6 +4,7 @@ using OfficeOpenXml.Table.PivotTable;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
@@ -130,13 +131,15 @@ namespace GcproExtensionApp
                     comboAdditionalField.SelectedItem = item;
                     break;
                 }
-            }
- 
-      
+            }  
             QueryObj();
-
         }
-
+        private void comboOType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedItem;
+            selectedItem=comboOType.SelectedItem.ToString();
+            oType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+        }
         private void QueryObj()
         {
 
@@ -281,5 +284,7 @@ namespace GcproExtensionApp
             returnedItem= ReturnSelectItem();
             this.Close();
         }
+
+       
     }
 }

@@ -38,13 +38,13 @@ namespace GcproExtensionApp
         private string DEMO_DESCRIPTION_RULE_MDDx = "";
         #endregion
         private long value25 = 0;
-        private long value26 = 0;
+        private long value26 = 286752;
         private long value27 = 0;
-        private long value28 = 0;
+        private long value28 = 804672;
         private int value10 = 0;
         private int tempInt = 0;
-        private long tempLong = 0;
-        private float tempFloat = (float)0.0;
+       // private long tempLong = 0;
+      //  private float tempFloat = 0.0f;
         private bool tempBool = false;
         #region Public interfaces
         public void GetInfoFromDatabase()
@@ -163,7 +163,6 @@ namespace GcproExtensionApp
             txtSymbolIncRule.Text = MDDx.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = MDDx.Rule.Common.DescriptionRule;
             txtDescriptionIncRule.Text = MDDx.Rule.Common.DescriptionRuleInc;
-
         }
         public void CreateTips()
         {
@@ -187,7 +186,7 @@ namespace GcproExtensionApp
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{MDDx.ImpExpRuleName}'", null);
-                    CreateDIImpExp(oledb);
+                    CreateMDDxImpExp(oledb);
                 }
                 else
                 { 
@@ -196,14 +195,14 @@ namespace GcproExtensionApp
             }
             else
             { 
-                CreateDIImpExp(oledb); 
+                CreateMDDxImpExp(oledb); 
             }
 
         }
         public void Default()
         {
             txtSymbol.Focus();
-            
+          
             txtSymbolIncRule.Text = "1";
             txtDescriptionIncRule.Text = "1";
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
@@ -212,7 +211,9 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             txtValue10.Text = "0";
-            myMDDx.Value10 = "0";            
+            txtValue26.Text = "286752";
+            txtValue28.Text = "804672";
+            txtIOByteIncRule.Text = MDDx.IOByteLen;
             ComboEquipmentSubType.SelectedIndex = 0;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
@@ -222,9 +223,8 @@ namespace GcproExtensionApp
         }
 
         #endregion
-        private void CreateDIImpExp(OleDb oledb)
+        private void CreateMDDxImpExp(OleDb oledb)
         {
-
             List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
                     {
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
@@ -324,15 +324,8 @@ namespace GcproExtensionApp
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "DP node1"},
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DPNode1.Name }
 
-                    },      
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Gcpro parameters"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value9.Name }
-
                     },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Object parameters"},
@@ -342,94 +335,94 @@ namespace GcproExtensionApp
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpTrue"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "IOByteNo"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name }
 
                     },
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpFaultDev"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value19.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InHWStop"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value47.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "OutpFaultReset"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value13.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "OutpPowerOff" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "OutpLamp" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value42.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDelayChange"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDelayTrue"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value22.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDelayFalse"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value23.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTimeoutTrue"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTimeoutFalse"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value25"},
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
 
                     },
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Special"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value46.Name}
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value26"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value26.Name }
 
                     },
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "MRMAMixer"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name}
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value27"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value27.Name}
 
                     },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value28" },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value28.Name }
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Top MYTA" },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value32.Name }
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Top PassageNo"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value36.Name}
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Bottom MYTA"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name}
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Bottom PassageNo"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value37.Name}
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Top MYTA" },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name}
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value ="Side2 Top PassageNo"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value38.Name }
+
+                    },
+                      new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Bottom MYTA"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value35.Name}
+
+                    },
+                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                    {
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Bottom PassageNo"},
+                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value39.Name}
+
+                    },                  
                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
                     {
                         new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
@@ -461,7 +454,7 @@ namespace GcproExtensionApp
 
         #region <------Check and store rule event------>
        
-        private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
+        private void txtSymbolRule_TextChanged(object sender, EventArgs e)
         {
             if (AppGlobal.CheckNumericString(txtSymbolRule.Text))
             {
@@ -473,7 +466,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
+        private void txtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -489,7 +482,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
+        private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
 
             if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
@@ -502,7 +495,7 @@ namespace GcproExtensionApp
             }
 
         }
-        private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
+        private void txtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -516,7 +509,18 @@ namespace GcproExtensionApp
                 }
             }
         }
-  
+        private void txtParIOByte_TextChanged(object sender, EventArgs e)
+        {
+         
+                if (AppGlobal.CheckNumericString(txtParIOByte.Text))
+                {
+                    MDDx.Rule.Common.DescriptionRuleInc = txtParIOByte.Text;
+                }
+                else
+                {
+                    AppGlobal.MessageNotNumeric();
+                }      
+        }
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -528,29 +532,406 @@ namespace GcproExtensionApp
 
         #endregion
         #region <------ Check and unchek "Value9" and "Value10------>"    
-   
-        //private void chkMonCovered_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    value9 = int.Parse(txtValue9.Text);
-        //    if (chkMonCovered.Checked)
+        private void chkParLogOff_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParLogOff.Checked)
 
-        //    { AppGlobal.SetBit(ref value9, (byte)12); }
+            { AppGlobal.SetBit(ref value10, (byte)0); }
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            myMDDx.Value10 = value10.ToString();
+            txtValue10.Text = myMDDx.Value10;
+        }
 
-        //    else
-        //    { AppGlobal.ClearBit(ref value9, (byte)12); }
+        private void chkParSide1Divided_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParSide1Divided.Checked)
 
-        //    myMDDx.Value9 = value9.ToString();
-        //    txtValue9.Text = myMDDx.Value9;
-        //}
-      
-      
+            { AppGlobal.SetBit(ref value10, (byte)1); }
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            myMDDx.Value10 = value10.ToString();
+            txtValue10.Text = myMDDx.Value10;
+        }
+
+        private void chkParSide2Divided_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParSide2Divided.Checked)
+
+            { AppGlobal.SetBit(ref value10, (byte)2); }
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            myMDDx.Value10 = value10.ToString();
+            txtValue10.Text = myMDDx.Value10;
+        }
+
+        private void chkParWithBearTemp_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithBearTemp.Checked)
+
+            { AppGlobal.SetBit(ref value10, (byte)3); }
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            myMDDx.Value10 = value10.ToString();
+            txtValue10.Text = myMDDx.Value10;
+        }
+
+        private void chkParWithFeedRollRecipe_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithFeedRollRecipe.Checked)
+
+            { AppGlobal.SetBit(ref value10, (byte)4); }
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            myMDDx.Value10 = value10.ToString();
+            txtValue10.Text = myMDDx.Value10;
+        }
+
+        private void chkParWithRollerTemp_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithRollerTemp.Checked)
+
+            { AppGlobal.SetBit(ref value10, (byte)5); }
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            myMDDx.Value10 = value10.ToString();
+            txtValue10.Text = myMDDx.Value10;
+        }
+
+        private void chkParWithRollerGapRecipe_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithRollerGapRecipe.Checked)
+
+            { AppGlobal.SetBit(ref value10, (byte)6); }
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            myMDDx.Value10 = value10.ToString();
+            txtValue10.Text = myMDDx.Value10;
+        }
+
+
+        private void chkWarningAx07Range_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningAx07Range.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)7); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)7); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA018Battery_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA018Battery.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)5); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)5); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA024Empty_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA024Empty.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)18); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)18); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningAx30Zero_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningAx30Zero.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)6); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)6); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningAx32Rod_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningAx32Rod.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)8); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)8); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningAx50FRoll1_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningAx50FRoll1.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)9); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)9); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningAx51FRoll2_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningAx51FRoll2.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)10); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)10); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA052RollUp_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA052RollUp.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)11); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)11); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA053RollLow_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA053RollLow.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)12); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)12); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA054MotUp_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA054MotUp.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)13); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)13); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA055MotLow_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA055MotLow.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)14); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)14); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA056STBYUP_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA056STBYUP.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)15); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)15); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningA057STBYDN_CheckedChanged(object sender, EventArgs e)
+        {
+            value26 = int.Parse(txtValue26.Text);
+            if (chkWarningA057STBYDN.Checked)
+
+            { AppGlobal.SetBit(ref value26, (byte)16); }
+            else
+            { AppGlobal.ClearBit(ref value26, (byte)16); }
+            myMDDx.Value26 = value26.ToString();
+            txtValue26.Text = myMDDx.Value26;
+        }
+
+        private void chkWarningAx60HLInlet_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningAx60HLInlet.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)1); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)1); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningA061HLOut1_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningA061HLOut1.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)2); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)2); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningA062HLOut2_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningA062HLOut2.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)3); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)3); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningA063HLOut3_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningA063HLOut3.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)4); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)4); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningA064HLBackupLeft_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningA064HLBackupLeft.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)5); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)5); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningW065HLBackupLeft_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningW065HLBackupLeft.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)6); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)6); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningA066HLBackupRight_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningA066HLBackupRight.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)7); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)7); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningW067HLBackupRight_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningW067HLBackupRight.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)8); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)8); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningAx68InletFull_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningAx68InletFull.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)9); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)9); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+
+        private void chkWarningAx69DosMax_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningAx69DosMax.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)10); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)10); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+        private void chkWarningW075WarnTemp_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningW075WarnTemp.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)14); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)14); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+        private void chkWarningA110Gap_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningA110Gap.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)18); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)18); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
+        private void chkWarningA111GapSet_CheckedChanged(object sender, EventArgs e)
+        {
+            value28 = int.Parse(txtValue28.Text);
+            if (chkWarningA111GapSet.Checked)
+
+            { AppGlobal.SetBit(ref value28, (byte)19); }
+            else
+            { AppGlobal.ClearBit(ref value28, (byte)19); }
+            myMDDx.Value28 = value28.ToString();
+            txtValue28.Text = myMDDx.Value28;
+        }
         #endregion
         #region <------Field in database display
-        private void TxtSymbol_MouseEnter(object sender, EventArgs e)
+        private void txtSymbol_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text0";
         }
-        private void TxtDescription_MouseEnter(object sender, EventArgs e)
+        private void txtDescription_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text1";
         }
@@ -574,81 +955,12 @@ namespace GcproExtensionApp
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "DPNode1";
         }
-        private void txtDelayChange_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value21";
-        }
-        private void txtDelayTrue_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value22";
-        }
-        private void txtDelayFalse_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value23";
-        }
-        private void txtTimeoutTrue_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value24";
-        }
-        private void txtTimeoutFalse_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value25";
-        }
-        private void chkParLogOff_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit0";
-        }
-        private void chkParPulsing_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit1";
-        }
-        private void chkParFaultRetry_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit3";
-        }
-        private void chkParBinLevel_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit4";
-        }
-        private void chkInterlockNextObject_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit0";
-        }
-        private void chkInvertInput_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit1";
-        }
-        private void chkMonTrue_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit2";
-        }
-        private void chkMonCovered_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit12";
-        }
-        private void chkMonFalse_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit3";
-        }
-        private void chkMonUnCovered_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit13";
-        }
-        private void chkInPreAlarm_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit4";
-        }
-        private void chKInpFaultDev_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit6";
-        }
-        #endregion
-        private void TxtSymbol_TextChanged(object sender, EventArgs e)
+        private void txtSymbol_TextChanged(object sender, EventArgs e)
         {
             txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
-            
             myMDDx.Name = txtSymbol.Text;
         }
+        #endregion
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ObjectBrowser objectBrowser = new ObjectBrowser();
@@ -658,17 +970,25 @@ namespace GcproExtensionApp
         }
         void SubTypeChanged(string subType)
         {
-            if (subType == DI.MON2BS)
+            if (subType == MDDx.MDDRDP)
+
             {
-               
+                chkParSide1Divided.Enabled = chkParSide1Divided.Enabled=true;
+            }         
+            else
+            {
+                chkParSide1Divided.Enabled = chkParSide1Divided.Enabled = false;
             }
-          
-         
         }
         void GetValue10BitValue(int value)
         {
             chkParLogOff.Checked = AppGlobal.GetBitValue(value, 0);
-           
+            chkParSide1Divided.Checked = AppGlobal.GetBitValue(value, 1);
+            chkParSide2Divided.Checked = AppGlobal.GetBitValue(value, 2);
+            chkParWithBearTemp.Checked = AppGlobal.GetBitValue(value, 3);
+            chkParWithFeedRollRecipe.Checked = AppGlobal.GetBitValue(value, 4);
+            chkParWithRollerTemp.Checked = AppGlobal.GetBitValue(value, 5);
+            chkParWithRollerGapRecipe.Checked = AppGlobal.GetBitValue(value, 6);
         }
         void GetValue25BitValue(long value)
         {
@@ -695,32 +1015,18 @@ namespace GcproExtensionApp
                 {
                     myMDDx.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
-                SubTypeChanged(myMDDx.SubType);
-                if (myMDDx.SubType == DI.DIC || myMDDx.SubType == DI.MON1MVC)
-                {
-                    foreach (var item in ComboEquipmentInfoType.Items)
-                    {
-                        if (item.ToString().StartsWith(DI.P7154))
-                        {
-                            ComboEquipmentInfoType.SelectedItem = item;
-                            break;
-                        }
-                    }                
-                }
-                                                          
-                GetValue10BitValue(value10);
-                GetValue25BitValue(value25);
-                GetValue26BitValue(value26);
-                GetValue27BitValue(value27);
-                GetValue28BitValue(value28);
+                SubTypeChanged(myMDDx.SubType);                                                                    
+               // GetValue10BitValue(value10);
+                //GetValue25BitValue(value25);
+                //GetValue26BitValue(value26);
+                //GetValue27BitValue(value27);
+                //GetValue28BitValue(value28);
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
-   
 
         #endregion
-
         #region <---BML part--->
         private void AddWorkSheets()
         {
@@ -766,8 +1072,8 @@ namespace GcproExtensionApp
         private void TxtExcelPath_TextChanged(object sender, EventArgs e)
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
-            BML.DI.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.MDDx.Path", BML.DI.BMLPath);
+            BML.MDDx.BMLPath = excelFileHandle.FilePath;
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.MDDx.Path", BML.MDDx.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -799,7 +1105,6 @@ namespace GcproExtensionApp
                 comboSectionBML.Items.Add(item);
                 comboCabinetBML.Items.Add(item);
                 comboControlBML.Items.Add(item);
-                comboIORemarkBML.Items.Add(item);
                 comboLineBML.Items.Add(item);
                 comboNameBML.SelectedItem = "B";
                 comboDescBML.SelectedItem = "N";
@@ -808,7 +1113,6 @@ namespace GcproExtensionApp
                 comboCabinetBML.SelectedItem = "P";
                 comboSectionBML.SelectedItem = "Q";
                 comboControlBML.SelectedItem = "H";
-                comboIORemarkBML.SelectedItem = "R";
                 comboLineBML.SelectedItem = "X";
             }
             for (int i = 1; i <= 20; i++)
@@ -817,78 +1121,66 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text=BML.DI.BMLPath;
+            TxtExcelPath.Text=BML.MDDx.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.DI.ColumnName; 
-            nameColumn.Name = nameof(BML.DI.ColumnName);                                                
+            nameColumn.HeaderText = BML.MDDx.ColumnName; 
+            nameColumn.Name = nameof(BML.MDDx.ColumnName);                                                
             dataGridBML.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.DI.ColumnDesc;
-            descColumn.Name = nameof(BML.DI.ColumnDesc);
+            descColumn.HeaderText = BML.MDDx.ColumnDesc;
+            descColumn.Name = nameof(BML.MDDx.ColumnDesc);
             dataGridBML.Columns.Add(descColumn);
 
             DataGridViewTextBoxColumn diTypeColumn = new DataGridViewTextBoxColumn();
-            diTypeColumn.HeaderText = BML.DI.ColumnDIType;
-            diTypeColumn.Name = nameof(BML.DI.ColumnDIType);
+            diTypeColumn.HeaderText = BML.MDDx.ColumnControlMethod;
+            diTypeColumn.Name = nameof(BML.MDDx.ColumnControlMethod);
             dataGridBML.Columns.Add(diTypeColumn);
 
             DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.DI.ColumnFloor;
-            floorColumn.Name = nameof(BML.DI.ColumnFloor);
+            floorColumn.HeaderText = BML.MDDx.ColumnFloor;
+            floorColumn.Name = nameof(BML.MDDx.ColumnFloor);
             dataGridBML.Columns.Add(floorColumn);
 
             DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.DI.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.DI.ColumnCabinet);
+            cabinetColumn.HeaderText = BML.MDDx.ColumnCabinet;
+            cabinetColumn.Name = nameof(BML.MDDx.ColumnCabinet);
             dataGridBML.Columns.Add(cabinetColumn);
 
             DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.DI.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.DI.ColumnCabinetGroup);
+            cabinetColumnGroup.HeaderText = BML.MDDx.ColumnCabinetGroup;
+            cabinetColumnGroup.Name = nameof(BML.MDDx.ColumnCabinetGroup);
             dataGridBML.Columns.Add(cabinetColumnGroup);
 
-            DataGridViewTextBoxColumn ioRemarkColumn = new DataGridViewTextBoxColumn();
-            ioRemarkColumn.HeaderText = BML.DI.ColumnIORemark;
-            ioRemarkColumn.Name = nameof(BML.DI.ColumnIORemark);
-            dataGridBML.Columns.Add(ioRemarkColumn);
-
             DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.DI.ColumnLine;
-            lineColumn.Name = nameof(BML.DI.ColumnLine);
+            lineColumn.HeaderText = BML.MDDx.ColumnLine;
+            lineColumn.Name = nameof(BML.MDDx.ColumnLine);
             dataGridBML.Columns.Add(lineColumn);
 
         }
 
         private void btnReadBML_Click(object sender, EventArgs e)
         {
-            string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboTypeBML.Text,comboFloorBML.Text,
-                comboCabinetBML.Text ,comboSectionBML.Text,comboIORemarkBML.Text,comboLineBML.Text};
-           StringBuilder sbFilters = new StringBuilder();
-            sbFilters.Append($@"Value LIKE ""%{BML.DI.BeltMonitor}"" || ").Append($@"Value LIKE ""%{BML.DI.EmergencyStop}"" || ").Append($@"Value LIKE ""%{BML.DI.Explosion}"" || ")
-                 .Append($@"Value LIKE ""%{BML.DI.HighLevel}"" || ").Append($@"Value LIKE ""%{BML.DI.LimitSwitch}"" || ").Append($@"Value LIKE ""%{BML.DI.LowLevel}"" || ")
-                 .Append($@"Value LIKE ""%{BML.DI.MiddleLevel}"" || ").Append($@"Value LIKE ""%{BML.DI.Overflow}"" ||").Append($@"Value LIKE ""%{BML.DI.PSw}"" || ")
-                 .Append($@"Value LIKE ""%{BML.DI.PushButton}"" || ").Append($@"Value LIKE ""%{BML.DI.SafetySwitch}"" || ").Append($@"Value LIKE ""%{BML.DI.SpeedMonitor}"" || ")
-                 .Append($@"Value LIKE ""%{BML.DI.TemperatureSwitch}"" || ").Append($@"Value LIKE ""%{BML.DI.VibrationSwitch}"" || ").Append($@"Value LIKE ""%{BML.DI.ZeroSpeedMonitor}""");
-            StringBuilder sbValveFilters = new StringBuilder();
-            sbValveFilters.Append($@"Value NOT LIKE ""%{BML.VLS.ManualFlap}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneFlap}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneTwoWayValve}"" && ")
-           .Append($@"Value NOT LIKE ""%{BML.VLS.PneSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.ManualSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneShutOffValve}"" && ")
-           .Append($@"Value NOT LIKE ""%{BML.VLS.PneAspValve}""");
+            string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboControlBML.Text,comboFloorBML.Text,
+                comboCabinetBML.Text ,comboSectionBML.Text,comboLineBML.Text,comboTypeBML.Text};
+            StringBuilder sbControlFilters = new StringBuilder();
+            sbControlFilters.Append($@"Value LIKE ""%{BML.MDDx.TypeMDDx}%""");
+            StringBuilder sbTypeFilters = new StringBuilder();
+            sbTypeFilters.Append($@"Value LIKE ""%{BML.MDDx.TypeKCL}""");
             DataTable dataTable = new DataTable();
-            string[] filters = {sbFilters .ToString(), sbValveFilters.ToString()};
-            string[] filterColumns = { comboTypeBML.Text ,comboDescBML.Text};
+            string[] filters = { sbControlFilters.ToString(), sbTypeFilters.ToString()};
+            string[] filterColumns = { comboControlBML.Text ,comboTypeBML.Text};
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
 
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
-            dataGridBML.Columns[nameof(BML.DI.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.DI.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.DI.ColumnDIType)].DataPropertyName = dataTable.Columns[2].ColumnName;
-            dataGridBML.Columns[nameof(BML.DI.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.DI.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.DI.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            dataGridBML.Columns[nameof(BML.DI.ColumnIORemark)].DataPropertyName = dataTable.Columns[6].ColumnName;
-            dataGridBML.Columns[nameof(BML.DI.ColumnLine)].DataPropertyName = dataTable.Columns[7].ColumnName;
+            dataGridBML.Columns[nameof(BML.MDDx.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
+            dataGridBML.Columns[nameof(BML.MDDx.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.MDDx.ColumnControlMethod)].DataPropertyName = dataTable.Columns[2].ColumnName;
+            dataGridBML.Columns[nameof(BML.MDDx.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.MDDx.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.MDDx.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.MDDx.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
             TxtQuantity.Text = dataTable.Rows.Count.ToString();
         }
         #endregion
@@ -905,8 +1197,8 @@ namespace GcproExtensionApp
                 txtSymbolIncRule.Text = MDDx.Rule.Common.NameRuleInc;
                 LblQuantity.Visible = true;
                 TxtQuantity.Visible = true;
-                GrpSymbolRule.Visible = true;
-                LblSymbol.Text = AppGlobal.NAME;
+                grpSymbolRule.Visible = true;
+                lblSymbol.Text = AppGlobal.NAME;
                 txtSymbol.Text = DEMO_NAME_MDDx;
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
                
@@ -917,13 +1209,13 @@ namespace GcproExtensionApp
                 createMode.Rule = false;
                 createMode.BML = false;
                 createMode.AutoSearch = true;
-                txtSymbolRule.Text = DI.Rule.Common.NameRule;
-                txtSymbolIncRule.Text = DI.Rule.Common.NameRuleInc;
+                txtSymbolRule.Text = MDDx.Rule.Common.NameRule;
+                txtSymbolIncRule.Text = MDDx.Rule.Common.NameRuleInc;
                 LblQuantity.Visible = false;
                 TxtQuantity.Visible = false;
-                GrpSymbolRule.Visible = false;
-                LblSymbol.Text = AppGlobal.KEY_WORD_AUTOSEARCH;
-                txtSymbol.Text = "-BLH01";
+                grpSymbolRule.Visible = false;
+                lblSymbol.Text = AppGlobal.KEY_WORD_AUTOSEARCH;
+            
                 tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
                 
             }
@@ -960,7 +1252,6 @@ namespace GcproExtensionApp
         {
             btnReadBML_Click(sender, e);
         }
-
         private void toolStripMenuDelete_Click(object sender, EventArgs e)
         {
             foreach(DataGridViewRow row in dataGridBML.SelectedRows)
@@ -980,7 +1271,6 @@ namespace GcproExtensionApp
                 }
             }
         }
-
         private void TxtQuantity_TextChanged(object sender, EventArgs e)
         {
             if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
@@ -1036,6 +1326,8 @@ namespace GcproExtensionApp
             try
             {
                 OleDb oledb = new OleDb();
+                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                oledb.IsNewOLEDBDriver= isNewOledbDriver;
                 DataTable dataTable = new DataTable();
                 #region common used variables declaration       
                 bool needDPNodeChanged = false;
@@ -1043,7 +1335,6 @@ namespace GcproExtensionApp
                 int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                 bool moreThanOne = quantityNeedToBeCreate > 1;
                 bool onlyOne = quantityNeedToBeCreate == 1;
-                int objCreated = 0;
                 RuleSubDataSet description, name, dpNode1;
                 description = new RuleSubDataSet
                 {
@@ -1085,7 +1376,7 @@ namespace GcproExtensionApp
                     }
                 };
                 #endregion
-                #region Prepare export DI file
+                #region Prepare export MDDx file
                 ///<OType>is set when object generated</OType>
                 ///<SubType></SubType>
                 string selectedSubTypeItem;
@@ -1097,7 +1388,7 @@ namespace GcproExtensionApp
                 }
                 else
                 {
-                    myMDDx.SubType = DI.DIC;
+                    myMDDx.SubType = MDDx.MDDRDP;
                 }
                 ///<PType></PType>
                 string selectedPTypeItem;
@@ -1108,21 +1399,29 @@ namespace GcproExtensionApp
                 }
                 else
                 {
-                    myMDDx.PType = DI.P7154;
+                    myMDDx.PType = MDDx.P7366.ToString();
                 }
-                ///<Value10</Value10
-                myMDDx.Value10= value10.ToString();            
+                ///<Value10</Value10>
+                myMDDx.Value10= value10.ToString();
+                ///<Value25</Value25>
+                myMDDx.Value25 = value25.ToString();
+                ///<Value26</Value26>
+                myMDDx.Value26 = value26.ToString();
+                ///<Value27</Value27>
+                myMDDx.Value27 = value27.ToString();
+                ///<Value28</Value28>
+                myMDDx.Value28 = value28.ToString();
                 ///<Value10>Value is set when corresponding check box's check state changed</Value10>
                 ///<Name>Value is set in TxtSymbol text changed event</Name>
                 ///<Description></Description>
                 myMDDx.Description = txtDescription.Text;
                 ///<ProcessFct></ProcessFct>
                 string selectedProcessFct = string.Empty;
-                if (ComboProcessFct.SelectedItem != null)
-                {
-                    selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                    myMDDx.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                }
+                //if (ComboProcessFct.SelectedItem != null)
+                //{
+                //    selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
+                //    myMDDx.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                //}
                 ///<Diagram></Diagram>
                 string selectedDiagram;
                 if (ComboDiagram.SelectedItem != null)
@@ -1182,27 +1481,34 @@ namespace GcproExtensionApp
                     ProgressBar.Value = 0;
                     SuffixObject suffixObject = new SuffixObject();
                     string cabinet,cabinetGroup;
-                    string _nameNumberString;
-                    string _nameBin;
+                    string _nameNumberString=string.Empty;
                     Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
                     for (int i = 0; i < dataGridBML.Rows.Count; i++)
                     {
                         DataGridViewCell cell;
-                        cell = dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnName)];
+                        cell = dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnName)];
                         if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                         { continue; }
-                        string _subType = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnDIType)].Value);
-                        string desc = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnDesc)].Value);
-
-                        if (_subType == BML.DI.SpeedMonitor && desc == BML.MachineType.Elevator)
-                        { continue; }
-                        ///<AdditionInfoToDesc></AdditionInfoToDesc>
+                                           
+                        cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnCabinet)].Value);
+                        cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnCabinetGroup)].Value);
+                        myMDDx.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
+                        myMDDx.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnFloor)].Value);
+                       
+                        #region Subtype and PType                                          
+                       // SubTypeChanged(myMDDx.SubType);
+                        #endregion
+                        ///<AdditionInfoToDesc>
+                        ///</AdditionInfoToDesc>
+                        string desc = $"{Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnDesc)].Value)}{suffixObject.SuffixObjectType["KCL"]}";
                         descTotalBuilder.Clear();
                         myMDDx.Name = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnName)].Value);
-                        string ioRemark = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnIORemark)].Value);
+                        bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
+                         chkAddCabinetToDesc.Checked;
+
                         if (chkAddSectionToDesc.Checked)
                         {
-                            _nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, myMDDx.Name);
+                            _nameNumberString = LibGlobalSource.StringHelper.ExtractNumericPart(myMDDx.Name, false);
                             if (!string.IsNullOrEmpty(_nameNumberString))
                             {
                                 if (AppGlobal.ParseInt(_nameNumberString, out tempInt))
@@ -1211,81 +1517,40 @@ namespace GcproExtensionApp
                                 }
                             }
                         }
-                       
-                        if (!(myMDDx.Name.Contains(suffixObject.GetKey("BLH")) || myMDDx.Name.Contains(suffixObject.GetKey("BLL"))))
-                        {
-                            descTotalBuilder.Append($"{desc}");
+                        if (additionInfToDesc)
+                        {                                                 
+                            AppendInfoToBuilder(chkAddFloorToDesc, $"{myMDDx.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
+                            string descName = chkNameOnlyNumber.Checked ? _nameNumberString : LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myMDDx.Name);
+                            descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
+                            AppendInfoToBuilder(chkAddNameToDesc, $"({descName})", descTotalBuilder);
+                                                    
                         }
-                      
-                        cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnCabinet)].Value);
-                        cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnCabinetGroup)].Value);
-                        myMDDx.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
-                        myMDDx.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnFloor)].Value);
-                       
-                        #region Subtype and PType           
-                                
-                        SubTypeChanged(myMDDx.SubType);
-                        #endregion
-                        ///<AdditionInfoToDesc>
-                        ///</AdditionInfoToDesc>
-                        bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
-                              chkAddCabinetToDesc.Checked;
+                        descTotalBuilder.Append(desc);
+                   
                         if (additionInfToDesc)
                         {
                             descTotalBuilder.Append("[");
-                            AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myMDDx.Name)}", descTotalBuilder);
-                            AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myMDDx.Elevation}", descTotalBuilder);
-                            AppendInfoToBuilder(chkAddCabinetToDesc, $" {GcObjectInfo.General.AddInfoCabinet}{myMDDx.Panel_ID}", descTotalBuilder);
+                         //   AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myMDDx.Name)}", descTotalBuilder);
+                         //   AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myMDDx.Elevation}", descTotalBuilder);
+                            AppendInfoToBuilder(chkAddCabinetToDesc, $"{GcObjectInfo.General.AddInfoCabinet}{myMDDx.Panel_ID}", descTotalBuilder);
                             descTotalBuilder.Append("]");
                         }                                        
-                        myMDDx.Description = descTotalBuilder.ToString();                     
+                        myMDDx.Description = descTotalBuilder.ToString();
+
+                        myMDDx.IoByteNo = (int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i).ToString();
+                        ///<DPNode1>   </DPNode1>                         
+                        string dpNode1BML = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnName)].Value);
+                        myMDDx.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1BML);
+                        myMDDx.FieldBusNode = String.IsNullOrEmpty(myMDDx.DPNode1) ? string.Empty :
+                            AppGlobal.FindFieldbusNodeKey(oledb, int.Parse(myMDDx.DPNode1));
                         myMDDx.CreateObject(Encoding.Unicode);
                         ProgressBar.Value = i;
                     }
+                    ProgressBar.Value = ProgressBar.Maximum ;
                 }
                 else if (createMode.AutoSearch)
                 {
-                    List<string> objList = new List<string>();
-                    List<int> objOutpKeyList = new List<int>();
-                    List<int> objInpKeyList = new List<int>();
-                    string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name);
-
-                    objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
-                    objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
-                    for (int i = 0; i <= objList.Count - 1; i++)
-                    {
-                        objList[i] = AppGlobal.GetObjectSymbolFromIO(objList[i]);
-                    }
-                    quantityNeedToBeCreate = objInpKeyList.Count;
-                    ProgressBar.Maximum = quantityNeedToBeCreate - 1;
-                    ProgressBar.Value = 0;
-                    ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                    {
-                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                        if (description.PosInfo.Len == -1)
-                        {
-                            if (moreThanOne)
-                            {
-                                AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                                // return;
-                            }
-                        }
-                        else
-                        { description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
-                    }
-                    for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
-                    {
-                        myMDDx.Name = objList[i];
-                        //myMDDx.InpFwd = objInpKeyList[i].ToString();
-                        //myMDDx.OutpFwd = AppGlobal.FindIOKey(oledb, $"{objList[i]}:O");
-                        objCreated = i;
-                        myMDDx.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = objCreated;
-                    }
+                    
                 }
                 else if (createMode.Rule)
                 {
@@ -1295,7 +1560,7 @@ namespace GcproExtensionApp
                     {
                         if (moreThanOne)
                         {
-                            AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{LblSymbolIncRule.Text})");
+                            AppGlobal.MessageNotNumeric($"({grpSymbolRule.Text}.{lblSymbolIncRule.Text})");
                             return;
                         }
                     }
@@ -1305,7 +1570,7 @@ namespace GcproExtensionApp
                     {
                         if (moreThanOne)
                         {
-                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                            AppGlobal.RuleNotSetCorrect($"{grpSymbolRule.Text}.{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
                             return;
                         }
                     }
@@ -1329,7 +1594,7 @@ namespace GcproExtensionApp
                         dpNode1.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
                         if (dpNode1.PosInfo.Len == -1)
                         {
-                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                            AppGlobal.RuleNotSetCorrect($"{grpSymbolRule.Text}.{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
                             return;
                         }
                         else
@@ -1350,7 +1615,7 @@ namespace GcproExtensionApp
                         {
                             if (moreThanOne)
                             {
-                                AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                                AppGlobal.RuleNotSetCorrect($"{grpDescriptionRule.Text}.{lblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
                                 // return;
                             }
                         }
@@ -1373,20 +1638,7 @@ namespace GcproExtensionApp
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
                         name.Inc = i * symbolInc;
-                        name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-                                                                                                         
-                     //   myMDDx.HWStop = String.IsNullOrEmpty(txtInHWStop.Text)?string.Empty:txtInHWStop.Text;
-
-                        if (needDPNodeChanged && moreThanOne)
-                        {
-                            dpNode1.Inc = i * symbolInc;
-                            dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                            myMDDx.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
-
-                            int dpnode1 = int.Parse(myMDDx.DPNode1);
-                            myMDDx.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
-                        }
-
+                        name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));        
                         if (!String.IsNullOrEmpty(txtDescription.Text))
                         {
                             if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
@@ -1408,10 +1660,15 @@ namespace GcproExtensionApp
                         }
                         myMDDx.Name = name.Name;
                         myMDDx.Description = description.Name;
-                        objCreated = i;
+                        myMDDx.IoByteNo = (int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i).ToString();
+                        ///<DPNode1>   </DPNode1>                                               
+                        myMDDx.DPNode1 = AppGlobal.FindDPNodeNo(oledb, myMDDx.Name);
+                        myMDDx.FieldBusNode = String.IsNullOrEmpty(myMDDx.DPNode1) ? string.Empty :
+                            AppGlobal.FindFieldbusNodeKey(oledb, int.Parse(myMDDx.DPNode1));
                         myMDDx.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = objCreated;
+                        ProgressBar.Value = i;
                     }
+                    ProgressBar.Value = ProgressBar.Maximum;
                 }
             }
             catch (Exception ex)
@@ -1419,9 +1676,8 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         #endregion
 
-     
+      
     } 
 }

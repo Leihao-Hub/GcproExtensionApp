@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using static GcproExtensionLibrary.Gcpro.GCObject.Motor;
+
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
@@ -31,8 +32,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string page;
         private string pType;
         private string value10;
-        private Roll8Stand8Side side1;
-        private Roll8Stand8Side side2;
+        private Roll8StandSide side1;
+        private Roll8StandSide side2;
         private string mddx;
         private string isNew;
         #region Standard properties
@@ -99,16 +100,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
 
         #endregion
-        #region Application properties
-
-     
-        public override string Value10 { get; set; }
-        public Roll8Stand8Side Side1
+        #region Application properties 
+        public override string Value10
+        {
+            get { return value10; }
+            set { value10 = value; }
+        }
+        public Roll8StandSide Side1
         { 
           get { return side1; }
           set { side1 = value; } 
         }
-        public Roll8Stand8Side Side2
+        public Roll8StandSide Side2
         {
             get { return side2; }
             set { side2 = value; }
@@ -138,15 +141,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string ROLL8 { get; } = "8ROLL";
         public static string ROLL8M { get; } = "8ROLLM";
         public static string ROLL8M2M { get; } = "8ROLLM2M";
-        public static string P2046 { get; } = "2046";
+        public static float P2046 { get; } = 2046f;
+        public static string ImpExpRuleName { get; } = "ImpExpRoll8Stand";
         public static int OTypeValue { get; } = (int)OTypeCollection.MA_Roll8Stand;
         #endregion
  
         public Roll8Stand()
         {
-            side1 = new Roll8Stand8Side();
-            side2 = new Roll8Stand8Side();
-            pType =P2046;
+            side1 = new Roll8StandSide();
+            side2 = new Roll8StandSide();
+            pType =P2046.ToString();
+            value10 = "786656";
+            Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.MA_Roll8Stand);
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + ".Txt";
             this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + "_Relation.Txt";
@@ -161,6 +167,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
                 LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + "_FindConnector.Txt" : filePath + roll8StandFileName + "_FindConnector.Txt");
         }
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
@@ -173,17 +184,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 ///生产Standard字符串部分
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                    .Append(name).Append(LibGlobalSource.TAB)
-                    .Append(description).Append(LibGlobalSource.TAB)
-                    .Append(subType).Append(LibGlobalSource.TAB)
-                    .Append(processFct).Append(LibGlobalSource.TAB)
-                    .Append(building).Append(LibGlobalSource.TAB)
-                    .Append(elevation).Append(LibGlobalSource.TAB)
-                    .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-                    .Append(panel_ID).Append(LibGlobalSource.TAB)
-                    .Append(diagram).Append(LibGlobalSource.TAB)
-                    .Append(page).Append(LibGlobalSource.TAB)
-                    .Append(pType).Append(LibGlobalSource.TAB);
+                    .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>         
@@ -223,28 +224,45 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
-            //if (subType == M11)
-            //{
-            //    CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
-            //    CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
-            //    if (!string.IsNullOrEmpty(inpContactor))
-            //    {
-            //        CreateRelation(name, inpContactor, GcproTable.ObjData.Value38.Name, this.fileRelationPath, encoding);
-            //    }
-            //}
-            //else if (subType == M12)
-            //{
-            //    CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
-            //    CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
-            //    CreateRelation(name, inpRev, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
-            //    CreateRelation(name, outpRev, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
-            //}
-            //else if (subType == M1VFC || subType == M2VFC)
-            //{
-            //    CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);
-            //}
-        }
 
+            var relations = new List<Relation>
+            {
+               new Relation(name , side1.MotorLow , GcproTable.ObjData.Value11.Name),
+               new Relation(name , side1.MotorUp , GcproTable.ObjData.Value12.Name),
+               new Relation(name , side1.HLBackupLeft , GcproTable.ObjData.Value13.Name),
+               new Relation(name , side1.HLBackupRight , GcproTable.ObjData.Value42.Name),
+               new Relation(name , side1.HLInlet , GcproTable.ObjData.Value14.Name),
+               new Relation(name , side1.DivHLInlet , GcproTable.ObjData.Value24.Name),
+               new Relation(name , side1.SM1 , GcproTable.ObjData.Value15.Name),
+               new Relation(name , side1.HLOutlet3 , GcproTable.ObjData.Value43.Name),
+               new Relation(name , side1.InpPressure , GcproTable.ObjData.Value16.Name),
+               new Relation(name , side1.FeedRoll , GcproTable.ObjData.Value26.Name),
+               new Relation(name , side1.DivFeedRoll , GcproTable.ObjData.Value27.Name),
+               new Relation(name , side1.HLOutlet1 , GcproTable.ObjData.Value35.Name),
+               new Relation(name , side1.HLOutlet2 , GcproTable.ObjData.Value36.Name),
+               new Relation(name , side1.MotorLowCur , GcproTable.ObjData.Value31.Name),
+               new Relation(name , side1.MotorUpCur , GcproTable.ObjData.Value30.Name),
+
+               new Relation(name ,side2.MotorLow , GcproTable.ObjData.Value17.Name),
+               new Relation(name ,side2.MotorUp , GcproTable.ObjData.Value18.Name),
+               new Relation(name ,side2.HLBackupLeft , GcproTable.ObjData.Value19.Name),
+               new Relation(name ,side2.HLBackupRight , GcproTable.ObjData.Value44.Name),
+               new Relation(name ,side2.HLInlet , GcproTable.ObjData.Value20.Name),
+               new Relation(name ,side2.DivHLInlet , GcproTable.ObjData.Value25.Name),
+               new Relation(name ,side2.SM1 , GcproTable.ObjData.Value21.Name),
+               new Relation(name ,side2.HLOutlet3 , GcproTable.ObjData.Value45.Name),
+               new Relation(name ,side2.InpPressure , GcproTable.ObjData.Value22.Name),
+               new Relation(name ,side2.FeedRoll , GcproTable.ObjData.Value28.Name),
+               new Relation(name ,side2.DivFeedRoll , GcproTable.ObjData.Value29.Name),
+               new Relation(name ,side2.HLOutlet1 , GcproTable.ObjData.Value37.Name),
+               new Relation(name ,side2.HLOutlet2 , GcproTable.ObjData.Value38.Name),
+               new Relation(name ,side2.MotorLowCur , GcproTable.ObjData.Value33.Name),
+               new Relation(name ,side2.MotorUpCur , GcproTable.ObjData.Value32.Name),
+
+               new Relation(name ,MDDx , GcproTable.ObjData.Value41.Name),
+            };
+             CreateRelations(relations, this.fileRelationPath, encoding);
+    } 
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();
@@ -255,7 +273,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.FilePath = this.fileConnectorPath;
             textFileHandle.ClearContents();
         }
-        public class Roll8Stand8Side
+        public class Roll8StandSide
         {
             private string motorLow;
             private string motorUp;
@@ -266,8 +284,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             private string sm1;
             private string hlOutlet3;
             private string inpPressure;
-            private string feedroll;
-            private string divFeedroll;
+            private string feedRoll;
+            private string divFeedRoll;
             private string hlOutlet1;
             private string hlOutlet2;
             private string motorLowCur;
@@ -326,16 +344,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 set { inpPressure = value; }
             }
 
-            public string Feedroll
+            public string FeedRoll
             {
-                get { return feedroll; }
-                set { feedroll = value; }
+                get { return feedRoll; }
+                set { feedRoll = value; }
             }
 
-            public string DivFeedroll
+            public string DivFeedRoll
             {
-                get { return divFeedroll; }
-                set { divFeedroll = value; }
+                get { return divFeedRoll; }
+                set { divFeedRoll = value; }
             }
 
             public string HLOutlet1

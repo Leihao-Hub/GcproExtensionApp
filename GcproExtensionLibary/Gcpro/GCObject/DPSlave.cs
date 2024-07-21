@@ -7,12 +7,25 @@ using System.Threading.Tasks;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Xml.Linq;
 using GcproExtensionLibrary.Gcpro;
+using GcproExtensionLibrary;
+using GcproExtensionLibrary.FileHandle;
 
 namespace GcproExtensionLibary.Gcpro.GCObject
 {
-    public class DPSlave : GcObject
+    public class DPSlave : Element
 
     {
+        public struct DPSlaveRule
+        {
+            public GcBaseRule Common;
+            public string IPAddressInc;
+            public string SlaveNoInc;
+        }
+        private string filePath;
+        //private string fileRelationPath;
+        //private string fileConnectorPath;
+        private static string dpSlaveFileName = $@"\{OTypeCollection.DP_Slave}";
+        public static DPSlaveRule Rule;
         private string name;
         private string description;
         private string subType;
@@ -22,10 +35,19 @@ namespace GcproExtensionLibary.Gcpro.GCObject
         private string fieldBusNode;
         private string panel_ID;
         private string diagram;
-        private string isNew;
         private string page;
-        private string filePath;
-
+        private string pType;
+        private string hornCode;
+        private string dpNode1;
+        private string value10;
+        private string value31;
+        private string ipAddr;
+        private byte slaveNo;
+        private int updateTime;
+        private int watchDogFactor;
+        private int watchDogTime;
+        private string isNew;
+        #region Standard properties
         public override string Name
         {
             get { return name; }
@@ -77,16 +99,136 @@ namespace GcproExtensionLibary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string FilePath
+        public override string PType
         {
-            get { return filePath; }
-            set { filePath = value; }
+            get { return pType; }
+            set { pType = value; }
+
         }
+        public override string HornCode
+        {
+            get { return hornCode; }
+            set { hornCode = value; }
+        }
+        public override string DPNode1
+        {
+            get { return dpNode1; }
+            set { dpNode1 = value; }
+        }    
         public override string IsNew
         {
             get { return isNew; }
             set { isNew = value; }
         }
+        #endregion
+        #region Application properties
+        public override string Value10
+        {
+            get { return value10; }
+            set { value10 = value; }
+        }
+        public string Value31
+        {
+            get { return value31; }
+            set { value31 = value; }
+        }
+        public string IPAddr
+        {
+            get { return ipAddr; }
+            set { ipAddr = value; }
+        }
+        public byte SlaveNo
+        {
+            get { return slaveNo; }
+            set { slaveNo = value; }
+        }
+        public int UpdateTime
+        {
+            get { return updateTime; }
+            set { updateTime = value; }
+        }
+        public int WatchDogFactor
+        {
+            get { return watchDogFactor; }
+            set { watchDogFactor = value; }
+        }
+        public int WatchDogTime
+        {
+            get { return watchDogTime; }
+            set { watchDogTime = value; }
+        }
+        public override string FilePath
+        {
+            get { return filePath; }
+            set { filePath = value; }
+        }
+        #endregion
+        public static string ImpExpRuleName { get; } = "ImpExpDPSlave";
         public static int OTypeValue { get; } = (int)OTypeCollection.DP_Slave;
+        #region Readonly property
+        public static string Profibus { get; } = "Profibus";
+        public static string Profinet { get; } = "Profinet";
+        public static string ProfinetIOLINKIFM { get; } = "ProfinetIOLINKIFM";
+        public static string WAGO { get; } = "WAGO";
+        public static float P7895 { get; } = 7895f;         
+        #endregion
+        public DPSlave()
+        {
+            Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
+            Rule.IPAddressInc=Rule.SlaveNoInc = "1";
+            fieldBusNode = string.Empty;
+            panel_ID = string.Empty;
+            diagram = string.Empty;
+            page = string.Empty;
+            hornCode = LibGlobalSource.NOCHILD;
+            dpNode1 = string.Empty;
+            value10 = "0";
+            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + dpSlaveFileName + ".Txt";
+          //  this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_Relation.Txt";
+           // this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_FindConnector.Txt";
+        }
+        public DPSlave(string filePath = null) : this()
+        {
+            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
+                                        LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + dpSlaveFileName + ".Txt" : filePath + dpSlaveFileName + ".Txt");          
+        }
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
+        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        {
+            if (!onlyRelation)
+            {
+                TextFileHandle textFileHandle = new TextFileHandle();
+                textFileHandle.FilePath = this.filePath;
+                isNew = "false";
+                StringBuilder objFields = new StringBuilder();
+                ///<summary>
+                ///生产Standard字符串部分-使用父类中方法实现
+                ///</summary> 
+                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
+                  .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
+                ///<summary>
+                ///生成Application 字符串部分
+                ///</summary>   
+               objFields.Append(value31).Append(LibGlobalSource.TAB)
+                  .Append(ipAddr).Append(LibGlobalSource.TAB)
+                  .Append(slaveNo).Append(LibGlobalSource.TAB)
+                  .Append(updateTime).Append(LibGlobalSource.TAB)
+                  .Append(watchDogFactor).Append(LibGlobalSource.TAB)
+                  .Append(watchDogTime).Append(LibGlobalSource.TAB)
+                  .Append(isNew);
+                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+                objFields = null;
+            }
+        }
+        public void Clear()
+        {
+            TextFileHandle textFileHandle = new TextFileHandle();
+            textFileHandle.FilePath = this.filePath;
+            textFileHandle.ClearContents();
+        }
     }
 }

@@ -75,7 +75,7 @@ namespace GcproExtensionApp
 
         private void AppStart_Load(object sender, EventArgs e)
         {
-            AppGlobal.GetJsonConfiguration();   
+        //    AppGlobal.GetJsonConfiguration();   
             AppGlobal.GcproDBInfo.ProjectDBPath = Environment.GetEnvironmentVariable("GcsProjectDBPath", EnvironmentVariableTarget.User);
             AppGlobal.GcproDBInfo.GcsLibaryPath = Environment.GetEnvironmentVariable("GcsLibraryPath", EnvironmentVariableTarget.User);
             AppGlobal.GcproDBInfo.GcproTempPath = (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("GcproTempPath", EnvironmentVariableTarget.User)) ?
@@ -177,7 +177,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtRegexNameWithoutTypeLL.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "Engineering.Pattern.NameWithoutTypeLL", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.NameWithoutTypeLL", newJsonKeyValue);
                 Engineering.PatternNameWithoutTypeLL = newJsonKeyValue;
             }
         }
@@ -186,7 +186,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtRegexNameOnlyWithNumberTypeLL.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "Engineering.Pattern.NameOnlyWithNumber", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.NameOnlyWithNumber", newJsonKeyValue);
                 Engineering.PatternNameOnlyWithNumber = newJsonKeyValue;
             }
         }
@@ -241,7 +241,8 @@ namespace GcproExtensionApp
         } 
         private void btnAddDPSlave_Click(object sender, EventArgs e)
         {
-
+            FormDPSlave formMA_DPSlave = new FormDPSlave();
+            formMA_DPSlave.Show();
         }
         private void btnAddMA_Roll8Stand_Click(object sender, EventArgs e)
         {

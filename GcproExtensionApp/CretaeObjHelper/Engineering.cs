@@ -30,9 +30,10 @@ namespace GcproExtensionApp
         }
         static Engineering()
         {
+            string keyPattern = $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.";
             try
             {
-                string keyPattern = "Engineering.Pattern.";
+                
                 var keys = new Dictionary<string, Action<string>>
                     {
                         { $"{keyPattern}NameWithoutTypeLL", value => patternNameWithoutTypeLL = value },
@@ -53,7 +54,7 @@ namespace GcproExtensionApp
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "GcObjectInfo.Engineering Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString(), $"{keyPattern} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

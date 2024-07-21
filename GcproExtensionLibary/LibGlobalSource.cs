@@ -266,13 +266,13 @@ namespace GcproExtensionLibrary
             {
                 List<string> columnValues = dataTable.AsEnumerable().Select(row => row.Field<string>(columnName)).ToList();
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
-                int timeLimit = columnValues.Count * 10; 
+                int timeLimit = columnValues.Count * 5; 
                 DateTime startTime = DateTime.Now;
                 while (columnValues.Count > 0)
                 {
                     if ((DateTime.Now - startTime).TotalMilliseconds > timeLimit)
                     {
-                //        break;
+                        break;
                     }
                     Dictionary<string, int> substringWithCount = new Dictionary<string, int>();
                     for (int i = 0; i < columnValues.Count; i++)
@@ -324,7 +324,6 @@ namespace GcproExtensionLibrary
                     finalResults.Add(new KeyValuePair<string, int>(bestPrefix, count));
                     columnValues.RemoveAll(value => value.StartsWith(bestPrefix));
                 }
-                int _c=finalResults.Count;
                 return finalResults;
             }
             public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataGridView dataGridView, string columnName,int minLen=0,int maxLen=0)
@@ -333,10 +332,9 @@ namespace GcproExtensionLibrary
                     .Cast<DataGridViewRow>()
                     .Where(row => row.Cells[columnName].Value != null)
                     .Select(row => row.Cells[columnName].Value.ToString())
-                    .ToList();
-                int prevKeyLength, KeyLength;
+                    .ToList();     
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
-                int timeLimit = columnValues.Count * 10;
+                int timeLimit = columnValues.Count * 5;
                 DateTime startTime = DateTime.Now;
                 while (columnValues.Count > 0)
                 {
@@ -397,6 +395,77 @@ namespace GcproExtensionLibrary
                     }
                     finalResults.Add(new KeyValuePair<string, int>(bestPrefix, count));
                     columnValues.RemoveAll(value => value.StartsWith(bestPrefix));
+                }
+
+                return finalResults;
+            }
+            public static List<KeyValuePair<string, int>> ExtractMachineNameWithCount(DataTable dataTable, string columnName, string pattern)
+            {
+                List<string> columnValues = dataTable.AsEnumerable().Select(row => row.Field<string>(columnName)).ToList();
+                List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
+                int timeLimit = columnValues.Count * 5;
+                DateTime startTime = DateTime.Now;              
+                Dictionary<string, int> substringWithCount = new Dictionary<string, int>();
+                for (int i = 0; i < columnValues.Count; i++)
+                {
+                    if ((DateTime.Now - startTime).TotalMilliseconds > timeLimit)
+                    {
+                        break;
+                    }
+                    string commonSubstring = StringHelper.ExtractStringPart(pattern, columnValues[i]);
+                    if (!string.IsNullOrEmpty(commonSubstring))
+                    {
+                        if (substringWithCount.ContainsKey(commonSubstring))
+                        {
+                            substringWithCount[commonSubstring]++;
+                        }
+                        else
+                        {
+                            substringWithCount[commonSubstring] = 1;
+                        }
+                    }
+                }
+                foreach (var subs in substringWithCount)
+                {
+                    finalResults.Add(subs);
+                }
+
+                return finalResults;
+            }
+
+            public static List<KeyValuePair<string, int>> ExtractMachineNameWithCount(DataGridView dataGridView, string columnName, string pattern)
+            {
+                List<string> columnValues = dataGridView.Rows
+                    .Cast<DataGridViewRow>()
+                    .Where(row => row.Cells[columnName].Value != null)
+                    .Select(row => row.Cells[columnName].Value.ToString())
+                    .ToList();
+                List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
+                int timeLimit = columnValues.Count * 5;
+                DateTime startTime = DateTime.Now;
+                Dictionary<string, int> substringWithCount = new Dictionary<string, int>();
+                for (int i = 0; i < columnValues.Count; i++)
+                {
+                    if ((DateTime.Now - startTime).TotalMilliseconds > timeLimit)
+                    {
+                        break;
+                    }
+                    string commonSubstring = StringHelper.ExtractStringPart(pattern, columnValues[i]);
+                    if (!string.IsNullOrEmpty(commonSubstring))
+                    {
+                        if (substringWithCount.ContainsKey(commonSubstring))
+                        {
+                            substringWithCount[commonSubstring]++;
+                        }
+                        else
+                        {
+                            substringWithCount[commonSubstring] = 1;
+                        }
+                    }
+                }
+                foreach (var subs in substringWithCount)
+                {
+                    finalResults.Add(subs);
                 }
 
                 return finalResults;
@@ -530,7 +599,6 @@ namespace GcproExtensionLibrary
     }
     public interface IGcpro
     {
-
         void CreateObject(Encoding encoding,bool onlyRelation=false);
 
     }

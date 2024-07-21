@@ -261,14 +261,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string VPO { get; } = "VPO";
         public static string VPOM { get; } = "VPOM";
         public static string VPOR { get; } = "VPOR";
-        public static string P7081 { get; } = "7081";
-        public static string P7082 { get; } = "7082";
-        public static string P7083 { get; } = "7083";
-        public static string P7084 { get; } = "7084";
-        public static string P7085 { get; } = "7085";
-        public static string P7086 { get; } = "7086";
-        public static string P7087 { get; } = "7087";
-        public static string P7087_1 { get; } = "7087.1";
+        public static float P7081 { get; } = 7081f;
+        public static float P7082 { get; } = 7082f;
+        public static float P7083 { get; } = 7083f;
+        public static float P7084 { get; } = 7084f;
+        public static float P7085 { get; } = 7085f;
+        public static float P7086 { get; } = 7086f;
+        public static float P7087 { get; } = 7087f;
+        public static float P7087_1 { get; } = 7087.1f;
         #endregion
         public VLS()
         {
@@ -285,7 +285,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             diagram = string.Empty;
             page = string.Empty;
 
-            pType = P7081;
+            pType = P7081.ToString();
             hornCode = LibGlobalSource.NOCHILD;
             dpNode1 = LibGlobalSource.NOCHILD;
             dpNode2 = LibGlobalSource.NOCHILD;
@@ -332,29 +332,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 isNew = "false";
                 StringBuilder objFields = new StringBuilder();
                 ///<summary>
-                ///生产Standard字符串部分
+                ///生产Standard字符串部分-使用父类中方法实现
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(name).Append(LibGlobalSource.TAB)
-                  .Append(description).Append(LibGlobalSource.TAB)
-                  .Append(subType).Append(LibGlobalSource.TAB)
-                  .Append(processFct).Append(LibGlobalSource.TAB)
-                  .Append(building).Append(LibGlobalSource.TAB)
-                  .Append(elevation).Append(LibGlobalSource.TAB)
-                  .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-                  .Append(panel_ID).Append(LibGlobalSource.TAB)
-                  .Append(diagram).Append(LibGlobalSource.TAB)
-                  .Append(page).Append(LibGlobalSource.TAB)
-                  .Append(pType).Append(LibGlobalSource.TAB)
-                  .Append(hornCode).Append(LibGlobalSource.TAB);
-
+                  .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
-                ///</summary>
-                objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
-                  .Append(dpNode2).Append(LibGlobalSource.TAB)
+                ///</summary>     
+                objFields.Append(dpNode2).Append(LibGlobalSource.TAB)
                   .Append(value9).Append(LibGlobalSource.TAB)
-                  .Append(value10).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)

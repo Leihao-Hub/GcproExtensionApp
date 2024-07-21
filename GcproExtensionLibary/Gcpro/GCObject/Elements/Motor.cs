@@ -277,34 +277,34 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
 
         #region Readonly ptype property
-        public static string P7031 { get; } = "7031";
-        public static string P7032 { get; } = "7032";
-        public static string P7033 { get; } = "7033";
-        public static string P7034 { get; } = "7034";
-        public static string P7035 { get; } = "7035";
-        public static string P7036 { get; } = "7036";
-        public static string P7041 { get; } = "7041";
-        public static string P7042 { get; } = "7042";
-        public static string P7043 { get; } = "7043";
-        public static string P7044 { get; } = "7044";
-        public static string P7045 { get; } = "7045";
-        public static string P7046 { get; } = "7046";
-        public static string P7051 { get; } = "7051";
-        public static string P7052 { get; } = "7052";
-        public static string P7053 { get; } = "7053";
-        public static string P7054 { get; } = "7054";
-        public static string P7055 { get; } = "7055";
-        public static string P7056 { get; } = "7056";
-        public static string P7056_1 { get; } = "7056.1";
-        public static string P7056_2 { get; } = "7056.2";
-        public static string P7057 { get; } = "7057";
-        public static string P7058 { get; } = "7058";
-        public static string P7059 { get; } = "7059";
-        public static string P7060 { get; } = "7060";
-        public static string P9051 { get; } = "9051";
-        public static string P9052 { get; } = "9053";
-        public static string P9053 { get; } = "9053";
-        public static string P9056 { get; } = "9056";
+        public static float P7031 { get; } = 7031f;
+        public static float P7032 { get; } = 7032f;
+        public static float P7033 { get; } = 7033f;
+        public static float P7034 { get; } = 7034f;
+        public static float P7035 { get; } = 7035f;
+        public static float P7036 { get; } = 7036f;
+        public static float P7041 { get; } = 7041f;
+        public static float P7042 { get; } = 7042f;
+        public static float P7043 { get; } = 7043f;
+        public static float P7044 { get; } = 7044f;
+        public static float P7045 { get; } = 7045f;
+        public static float P7046 { get; } = 7046f;
+        public static float P7051 { get; } = 7051f;
+        public static float P7052 { get; } = 7052f;
+        public static float P7053 { get; } = 7053f;
+        public static float P7054 { get; } = 7054f;
+        public static float P7055 { get; } = 7055f;
+        public static float P7056 { get; } = 7056f;
+        public static float P7056_1 { get; } = 7056.1f;
+        public static float P7056_2 { get; } = 7056.2f;
+        public static float P7057 { get; } = 7057f;
+        public static float P7058 { get; } = 7058f;
+        public static float P7059 { get; } = 7059f;
+        public static float P7060 { get; } = 7060f;
+        public static float P9051 { get; } = 9051f;
+        public static float P9052 { get; } = 9052f;  // Note: Corrected from 9053 to 9052
+        public static float P9053 { get; } = 9053f;
+        public static float P9056 { get; } = 9056f;
         public static string PF1012BBDFUTV { get; } = "1012BBDFUTV";
         public static string PF1012MASPEED { get; } = "1012MASPEED";
         public static string PF1012MDDXFEED { get; } = "1012MDDXFEED";
@@ -341,7 +341,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             diagram = string.Empty;
             page = string.Empty;
 
-            pType = P7053;
+            pType = P7053.ToString();
             hornCode = LibGlobalSource.NOCHILD;
             dpNode1 = LibGlobalSource.NOCHILD;
             dpNode2 = LibGlobalSource.NOCHILD;
@@ -379,6 +379,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
                      LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_FindConnector.Txt" : filePath + motorFileName + "_FindConnector.Txt");
         }
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
         public void CreateObject(Encoding encoding,bool onlyRelation=false)
         {
             if (!onlyRelation)
@@ -391,25 +396,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 ///生产Standard字符串部分
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                    .Append(name).Append(LibGlobalSource.TAB)
-                    .Append(description).Append(LibGlobalSource.TAB)
-                    .Append(subType).Append(LibGlobalSource.TAB)
-                    .Append(processFct).Append(LibGlobalSource.TAB)
-                    .Append(building).Append(LibGlobalSource.TAB)
-                    .Append(elevation).Append(LibGlobalSource.TAB)
-                    .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-                    .Append(panel_ID).Append(LibGlobalSource.TAB)
-                    .Append(diagram).Append(LibGlobalSource.TAB)
-                    .Append(page).Append(LibGlobalSource.TAB)
-                    .Append(pType).Append(LibGlobalSource.TAB)
-                    .Append(hornCode).Append(LibGlobalSource.TAB);
+                    .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>         
-                objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
-                    .Append(dpNode2).Append(LibGlobalSource.TAB)
+                objFields.Append(dpNode2).Append(LibGlobalSource.TAB)
                     .Append(value9).Append(LibGlobalSource.TAB)
-                    .Append(value10).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
@@ -580,6 +572,58 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 time = 10;
             }
             return time;
+        }
+        public static float GetCTRatio(float power)
+        {
+         
+            if (power <=1.5f)
+            {
+                return 5.0f;
+            }
+            else if (power <=3.0f)
+            {
+                return 10.0f;
+            }
+            else if (power <= 4.0f)
+            {
+                return 15.0f;
+            }
+            else if (power <= 5.5f)
+            {
+                return 20.0f;
+            }
+            else if (power <= 7.5f)
+            {
+                return 25.0f;
+            }
+            else if (power <= 9.2f)
+            {
+                return 30.0f;
+            }
+            else if (power <= 11.0f)
+            {
+                return 40.0f;
+            }
+            else if (power <= 15.0f)
+            {
+                return 50.0f;
+            }
+            else if (power <= 18.5f)
+            {
+                return 60.0f;
+            }
+            else if (power <= 22.0f)
+            {
+                return 75.0f;
+            }
+            else if (power <= 30.0f)
+            {
+                return 100.0f;
+            }
+            else
+            {
+                return 150.0f;
+            }
         }
     }
     //public class MotorPower

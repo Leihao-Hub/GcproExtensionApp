@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMotor));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -54,6 +54,7 @@ namespace GcproExtensionApp
             this.txtDosingBin = new System.Windows.Forms.TextBox();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
+            this.chkNameOnlyNumber = new System.Windows.Forms.CheckBox();
             this.chkLine = new System.Windows.Forms.CheckBox();
             this.chkAddSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddPowerToDesc = new System.Windows.Forms.CheckBox();
@@ -100,7 +101,7 @@ namespace GcproExtensionApp
             this.txtOutpRunRev = new System.Windows.Forms.TextBox();
             this.BtnRegenerateDPNode = new System.Windows.Forms.Button();
             this.GrUnit = new System.Windows.Forms.GroupBox();
-            this.ComboUnit = new System.Windows.Forms.ComboBox();
+            this.comboUnit = new System.Windows.Forms.ComboBox();
             this.LblSpeed = new System.Windows.Forms.Label();
             this.BtnNewImpExpDef = new System.Windows.Forms.Button();
             this.GrVFCAndAO = new System.Windows.Forms.GroupBox();
@@ -346,7 +347,7 @@ namespace GcproExtensionApp
             this.tabRule.Padding = new System.Windows.Forms.Padding(3);
             this.tabRule.Size = new System.Drawing.Size(720, 553);
             this.tabRule.TabIndex = 0;
-            this.tabRule.Text = "设定规则创建";
+            this.tabRule.Text = "设定规则创建";
             // 
             // PalGcObject
             // 
@@ -481,6 +482,7 @@ namespace GcproExtensionApp
             // 
             // grpAddInfoToDesc
             // 
+            this.grpAddInfoToDesc.Controls.Add(this.chkNameOnlyNumber);
             this.grpAddInfoToDesc.Controls.Add(this.chkLine);
             this.grpAddInfoToDesc.Controls.Add(this.chkAddSectionToDesc);
             this.grpAddInfoToDesc.Controls.Add(this.chkAddPowerToDesc);
@@ -494,12 +496,24 @@ namespace GcproExtensionApp
             this.grpAddInfoToDesc.TabStop = false;
             this.grpAddInfoToDesc.Text = "附加信息到描述";
             // 
+            // chkNameOnlyNumber
+            // 
+            this.chkNameOnlyNumber.AutoSize = true;
+            this.chkNameOnlyNumber.Checked = true;
+            this.chkNameOnlyNumber.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNameOnlyNumber.Location = new System.Drawing.Point(428, 17);
+            this.chkNameOnlyNumber.Name = "chkNameOnlyNumber";
+            this.chkNameOnlyNumber.Size = new System.Drawing.Size(98, 17);
+            this.chkNameOnlyNumber.TabIndex = 125;
+            this.chkNameOnlyNumber.Text = "编号仅含数字";
+            this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
+            // 
             // chkLine
             // 
             this.chkLine.AutoSize = true;
             this.chkLine.Checked = true;
             this.chkLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLine.Location = new System.Drawing.Point(84, 17);
+            this.chkLine.Location = new System.Drawing.Point(76, 17);
             this.chkLine.Name = "chkLine";
             this.chkLine.Size = new System.Drawing.Size(62, 17);
             this.chkLine.TabIndex = 124;
@@ -521,7 +535,7 @@ namespace GcproExtensionApp
             // chkAddPowerToDesc
             // 
             this.chkAddPowerToDesc.AutoSize = true;
-            this.chkAddPowerToDesc.Location = new System.Drawing.Point(392, 17);
+            this.chkAddPowerToDesc.Location = new System.Drawing.Point(364, 17);
             this.chkAddPowerToDesc.Name = "chkAddPowerToDesc";
             this.chkAddPowerToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddPowerToDesc.TabIndex = 122;
@@ -533,7 +547,7 @@ namespace GcproExtensionApp
             this.chkAddFloorToDesc.AutoSize = true;
             this.chkAddFloorToDesc.Checked = true;
             this.chkAddFloorToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddFloorToDesc.Location = new System.Drawing.Point(238, 17);
+            this.chkAddFloorToDesc.Location = new System.Drawing.Point(226, 17);
             this.chkAddFloorToDesc.Name = "chkAddFloorToDesc";
             this.chkAddFloorToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddFloorToDesc.TabIndex = 121;
@@ -545,7 +559,7 @@ namespace GcproExtensionApp
             this.chkAddNameToDesc.AutoSize = true;
             this.chkAddNameToDesc.Checked = true;
             this.chkAddNameToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddNameToDesc.Location = new System.Drawing.Point(161, 17);
+            this.chkAddNameToDesc.Location = new System.Drawing.Point(157, 17);
             this.chkAddNameToDesc.Name = "chkAddNameToDesc";
             this.chkAddNameToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddNameToDesc.TabIndex = 119;
@@ -557,7 +571,7 @@ namespace GcproExtensionApp
             this.chkAddCabinetToDesc.AutoSize = true;
             this.chkAddCabinetToDesc.Checked = true;
             this.chkAddCabinetToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddCabinetToDesc.Location = new System.Drawing.Point(315, 17);
+            this.chkAddCabinetToDesc.Location = new System.Drawing.Point(295, 17);
             this.chkAddCabinetToDesc.Name = "chkAddCabinetToDesc";
             this.chkAddCabinetToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddCabinetToDesc.TabIndex = 120;
@@ -950,7 +964,7 @@ namespace GcproExtensionApp
             // 
             // GrUnit
             // 
-            this.GrUnit.Controls.Add(this.ComboUnit);
+            this.GrUnit.Controls.Add(this.comboUnit);
             this.GrUnit.Controls.Add(this.LblSpeed);
             this.GrUnit.Location = new System.Drawing.Point(548, 193);
             this.GrUnit.Name = "GrUnit";
@@ -959,15 +973,15 @@ namespace GcproExtensionApp
             this.GrUnit.TabStop = false;
             this.GrUnit.Text = "WinCos:Unit";
             // 
-            // ComboUnit
+            // comboUnit
             // 
-            this.ComboUnit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ComboUnit.FormattingEnabled = true;
-            this.ComboUnit.Location = new System.Drawing.Point(63, 16);
-            this.ComboUnit.Name = "ComboUnit";
-            this.ComboUnit.Size = new System.Drawing.Size(94, 21);
-            this.ComboUnit.TabIndex = 99;
-            this.ComboUnit.MouseEnter += new System.EventHandler(this.ComboUnit_MouseEnter);
+            this.comboUnit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboUnit.FormattingEnabled = true;
+            this.comboUnit.Location = new System.Drawing.Point(63, 16);
+            this.comboUnit.Name = "comboUnit";
+            this.comboUnit.Size = new System.Drawing.Size(94, 21);
+            this.comboUnit.TabIndex = 99;
+            this.comboUnit.MouseEnter += new System.EventHandler(this.ComboUnit_MouseEnter);
             // 
             // LblSpeed
             // 
@@ -976,7 +990,7 @@ namespace GcproExtensionApp
             this.LblSpeed.Name = "LblSpeed";
             this.LblSpeed.Size = new System.Drawing.Size(60, 13);
             this.LblSpeed.TabIndex = 99;
-            this.LblSpeed.Text = "Uuit Speed";
+            this.LblSpeed.Text = "Unit Speed";
             // 
             // BtnNewImpExpDef
             // 
@@ -1550,8 +1564,8 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -2196,7 +2210,7 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Label LblSymbol;
         internal System.Windows.Forms.Label LblDescription;
         internal System.Windows.Forms.GroupBox GrUnit;
-        internal System.Windows.Forms.ComboBox ComboUnit;
+        internal System.Windows.Forms.ComboBox comboUnit;
         internal System.Windows.Forms.Label LblSpeed;
         internal System.Windows.Forms.Button BtnNewImpExpDef;
         internal System.Windows.Forms.TextBox txtSymbol;
@@ -2335,6 +2349,7 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.ComboBox comboLineBML;
         private System.Windows.Forms.Label lblLineBML;
         internal System.Windows.Forms.CheckBox chkLine;
+        internal System.Windows.Forms.CheckBox chkNameOnlyNumber;
     }
 }
 

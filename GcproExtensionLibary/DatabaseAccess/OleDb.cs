@@ -235,7 +235,7 @@ namespace GcproExtensionLibrary
                         transaction.Commit();
                         return true;
                     }
-                    catch (Exception ex)
+                    catch 
                     {
                         try
                         {

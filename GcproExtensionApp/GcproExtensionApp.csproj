@@ -68,9 +68,6 @@
     <Compile Include="LL\EL\FormAI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LL\EL\FormAI.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="LL\EL\FormAI.Designer.cs">
       <DependentUpon>FormAI.cs</DependentUpon>
     </Compile>
@@ -105,6 +102,12 @@
       <DependentUpon>FormVLS.cs</DependentUpon>
     </Compile>
     <Compile Include="CretaeObjHelper\GcObjectInfo.cs" />
+    <Compile Include="LL\FormDPSlave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\FormDPSlave.Designer.cs">
+      <DependentUpon>FormDPSlave.cs</DependentUpon>
+    </Compile>
     <Compile Include="LL\MA\FormMA_Roll8Stand.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LL\EL\FormMDDx.resx">
       <DependentUpon>FormMDDx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\FormDPSlave.resx">
+      <DependentUpon>FormDPSlave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LL\MA\FormMA_Roll8Stand.resx">
       <DependentUpon>FormMA_Roll8Stand.cs</DependentUpon>

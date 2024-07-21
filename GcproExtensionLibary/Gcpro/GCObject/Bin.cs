@@ -1,6 +1,8 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using static OfficeOpenXml.ExcelErrorValue;
 using System.Text;
+using System.Collections.Generic;
+using System.Security.Cryptography.Xml;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
@@ -236,6 +238,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
                      LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + "_FindConnector.Txt" : filePath + binFileName + "_FindConnector.Txt");
         }
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
@@ -248,16 +255,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 ///生产Standard字符串部分
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(name).Append(LibGlobalSource.TAB)
-                  .Append(description).Append(LibGlobalSource.TAB)
-                  .Append(subType).Append(LibGlobalSource.TAB)
-                  .Append(processFct).Append(LibGlobalSource.TAB)
-                  .Append(building).Append(LibGlobalSource.TAB)
-                  .Append(elevation).Append(LibGlobalSource.TAB)
-                  .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-                  .Append(panel_ID).Append(LibGlobalSource.TAB)
-                  .Append(diagram).Append(LibGlobalSource.TAB)
-                  .Append(page).Append(LibGlobalSource.TAB);
+                  .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>
@@ -281,23 +279,32 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
-      
-            if (!string.IsNullOrEmpty(highLevel))
+
+            var relations = new List<Relation>
             {
-                CreateRelation(name, highLevel, GcproTable.ObjData.Value2.Name, this.fileRelationPath, encoding);
-            }
-            if (!string.IsNullOrEmpty(middleLevel))
-            {
-                CreateRelation(name, middleLevel, GcproTable.ObjData.Value4.Name, this.fileRelationPath, encoding);
-            }
-            if (!string.IsNullOrEmpty(lowLevel))
-            {
-                CreateRelation(name, lowLevel, GcproTable.ObjData.Value3.Name, this.fileRelationPath, encoding);
-            }
-            if (!string.IsNullOrEmpty(analogLevel))
-            {
-                CreateRelation(name, analogLevel, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
-            }
+                new Relation(name,highLevel, GcproTable.ObjData.Value2.Name),
+                new Relation(name,middleLevel, GcproTable.ObjData.Value4.Name),
+                new Relation(name,lowLevel, GcproTable.ObjData.Value3.Name),
+                new Relation(name,analogLevel, GcproTable.ObjData.Value14.Name),
+            };
+            CreateRelations(relations, this.fileRelationPath, encoding);
+
+            //if (!string.IsNullOrEmpty(highLevel))
+            //{
+            //    CreateRelation(name, highLevel, GcproTable.ObjData.Value2.Name, this.fileRelationPath, encoding);
+            //}
+            //if (!string.IsNullOrEmpty(middleLevel))
+            //{
+            //    CreateRelation(name, middleLevel, GcproTable.ObjData.Value4.Name, this.fileRelationPath, encoding);
+            //}
+            //if (!string.IsNullOrEmpty(lowLevel))
+            //{
+            //    CreateRelation(name, lowLevel, GcproTable.ObjData.Value3.Name, this.fileRelationPath, encoding);
+            //}
+            //if (!string.IsNullOrEmpty(analogLevel))
+            //{
+            //    CreateRelation(name, analogLevel, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
+            //}
         }
 
         public void Clear()

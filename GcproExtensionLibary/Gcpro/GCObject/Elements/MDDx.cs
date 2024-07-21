@@ -1,5 +1,8 @@
 ﻿using GcproExtensionLibrary.FileHandle;
+using System;
+using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Xml.Linq;
 namespace GcproExtensionLibrary.Gcpro.GCObject
@@ -14,7 +17,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static MDDxRule Rule;
         private string filePath;
         private string fileRelationPath;
-        private string fileConnectorPath;
+     //   private string fileConnectorPath;
         private static string mddxFileName = $@"\{OTypeCollection.EL_MDDx}";
         private string name;
         private string description;
@@ -50,10 +53,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             get { return fileRelationPath; }
         }
-        public string FileConnectorPath
-        {
-            get { return fileConnectorPath; }
-        }
+        //public string FileConnectorPath
+        //{
+        //    get { return fileConnectorPath; }
+        //}
         #region Standard properties  
         public override string Name
         {
@@ -124,7 +127,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         #endregion
         #region Application properties
- 
+
         public string IoByteNo
         {
             get { return ioByteNo; }
@@ -185,70 +188,81 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string MDDRDP { get; } = "MDDRDP";
         public static string MDDTDP { get; } = "MDDTDP";
         public static string MDDTDP2M { get; } = "MDDTDP2M";
-        public static string P7365{ get; } = "7365";
-        public static string P7366 { get; } = "7366";
+        public static float P7365 { get; } = 7365f;
+        public static float P7366 { get; } = 7366f;
         public static string ImpExpRuleName { get; } = "ImpExpMDDx";
+        public static string IOByteLen { get; } = "72";
         public static int OTypeValue { get; } = (int)OTypeCollection.EL_MDDx;
         #endregion
         public MDDx()
         {
-        
+            value10 = "0";
+            value25 = value27 = "0";
+            Value26 = "286752";
+            Value28 = "804672";
             SetOTypeProperty(OTypeCollection.EL_MDDx);
             side1Top = new MYTARef("", 1);
             side1Bottom = new MYTARef("", 2);
             side2Top = new MYTARef("", 3);
             side2Bottom = new MYTARef("", 4);
-            pType = P7366;
-            hornCode= LibGlobalSource.NOCHILD;
+            pType = P7366.ToString();
+            hornCode = LibGlobalSource.NOCHILD;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-            Rule.ioByteInc= "72";
+            Rule.ioByteInc = "72";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddxFileName + ".Txt";
+            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddxFileName + "_Relation.Txt";
         }
         public MDDx(string filePath = null) : this()
         {
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddxFileName + ".Txt" : filePath + mddxFileName + ".Txt");
+            this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
+                        LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddxFileName + ".Txt" : filePath + mddxFileName + "_Relation.Txt");
         }
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
-            isNew = "false";          
+            isNew = "false";
             StringBuilder objFields = new StringBuilder();
             ///<summary>
-            ///生产Standard字符串部分
+            ///生产Standard字符串部分-使用父类中方法实现
             ///</summary> 
             objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(name).Append(LibGlobalSource.TAB)
-              .Append(description).Append(LibGlobalSource.TAB)
-              .Append(subType).Append(LibGlobalSource.TAB)
-              .Append(processFct).Append(LibGlobalSource.TAB)
-              .Append(building).Append(LibGlobalSource.TAB)
-              .Append(elevation).Append(LibGlobalSource.TAB)
-              .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-              .Append(panel_ID).Append(LibGlobalSource.TAB)
-              .Append(diagram).Append(LibGlobalSource.TAB)
-              .Append(page).Append(LibGlobalSource.TAB)
-              .Append(pType).Append(LibGlobalSource.TAB)
-              .Append(hornCode).Append(LibGlobalSource.TAB);
+              .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
             ///<summary>
-            ///生成Application 字符串部分
-            ///</summary>   
-            objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
-              .Append(ioByteNo).Append(LibGlobalSource.TAB)
-              .Append(value10).Append(LibGlobalSource.TAB)
+            ///生成Application字符串部分-子类中自身完成
+            ///</summary>  
+             objFields.Append(ioByteNo).Append(LibGlobalSource.TAB)          
               .Append(value25).Append(LibGlobalSource.TAB)
               .Append(value26).Append(LibGlobalSource.TAB)
               .Append(value27).Append(LibGlobalSource.TAB)
               .Append(value28).Append(LibGlobalSource.TAB)
               .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(Convert.ToString(side1Top.PassageNo)).Append(LibGlobalSource.TAB)
               .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(Convert.ToString(side1Bottom.PassageNo)).Append(LibGlobalSource.TAB)
               .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(Convert.ToString(side2Top.PassageNo)).Append(LibGlobalSource.TAB)
               .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+              .Append(Convert.ToString(side2Bottom.PassageNo)).Append(LibGlobalSource.TAB)
               .Append(isNew);
-
             textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
             objFields = null;
+
+            var relations = new List<Relation>
+            {
+                new Relation(name,side1Top.MYTA, GcproTable.ObjData.Value32.Name),
+                new Relation(name,side1Bottom.MYTA, GcproTable.ObjData.Value33.Name),
+                new Relation(name,side2Top.MYTA, GcproTable.ObjData.Value34.Name),
+                new Relation(name,side2Bottom.MYTA, GcproTable.ObjData.Value35.Name),
+            };
+            CreateRelations(relations, this.fileRelationPath, encoding);       
         }
         public void Clear()
         {
@@ -256,7 +270,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.FilePath = this.filePath;
             textFileHandle.ClearContents();
         }
-  
+
     }
     public class MYTARef
     {
@@ -267,10 +281,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return myta; }
             set { myta = value; }
         }
-        public MYTARef(string myta,int passageNo) 
+        public int PassageNo
         {
-            this.myta = myta;   
-            this.passageNo= passageNo;   
+            get { return passageNo; }
+            set { passageNo = value; }
         }
+        public MYTARef(string myta, int passageNo)
+        {
+            this.myta = myta;
+            this.passageNo = passageNo;
+        }
+
     }
 }

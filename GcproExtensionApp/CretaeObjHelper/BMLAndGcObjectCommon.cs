@@ -1,10 +1,12 @@
 ﻿using GcproExtensionLibrary;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static GcproExtensionApp.AppGlobal;
 
 namespace GcproExtensionApp
 {
@@ -210,6 +212,67 @@ namespace GcproExtensionApp
             //}
         }
     }
+    public class Bins
+    {
+        private string silo;
+        private string rawWheat;
+        private string tempering;
+        private string screenings;
+        private string baseFlour;
+        private string mixing;
+        private string bagging;
+        private string outload;
+        private string byProduct;
+        public string Silo
+        {
+            get { return silo; }
+            set { silo = value; }
+        }
+        public string RawWheat
+        {
+            get { return rawWheat; }
+            set { rawWheat = value; }
+        }
+        public string Tempering
+        {
+            get { return tempering; }
+            set { tempering = value; }
+        }
+        public string Screenings
+        {
+            get { return screenings; }
+            set { screenings = value; }
+        }
+        public string BaseFlour
+        {
+            get { return baseFlour; }
+            set { baseFlour = value; }
+        }
+        public string Mixing
+        {
+            get { return mixing; }
+            set { mixing = value; }
+        }
+        public string Bagging
+        {
+            get { return bagging; }
+            set { bagging = value; }
+        }
+        public string Outload
+        {
+            get { return outload; }
+            set { outload = value; }
+        }
+        public string ByProduct
+        {
+            get { return byProduct; }
+            set { byProduct = value; }
+        }
+        public Bins()
+        {
+
+        }
+    }
     public class SuffixObject
     {
         private Dictionary<string, string> suffixObjectType = new Dictionary<string, string>();
@@ -331,65 +394,100 @@ namespace GcproExtensionApp
             return suffixObjectType.ContainsKey(key) ? key : null;
         }
     }
-    public class Bins
+    public class MotorCurrent
     {
-        private string silo;
-        private string rawWheat;
-        private string tempering;
-        private string screenings;
-        private string baseFlour;
-        private string mixing;
-        private string bagging;
-        private string outload;
-        private string byProduct;
-        public string Silo
+        private float ratedCurrent;
+        private float ctRatio;
+        public float RatedCurrent
         {
-            get { return silo; }
-            set { silo = value; }
+            get { return ratedCurrent; }
+            set { ratedCurrent = value; }
         }
-        public string RawWheat
+        public float CTRatio
         {
-            get { return rawWheat; }
-            set { rawWheat = value; }
+            get { return ctRatio; }
+            set { ctRatio = value; }
         }
-        public string Tempering
+        public MotorCurrent(float rc=0.0f, float ctr=0.0f)
         {
-            get { return tempering; }
-            set { tempering = value; }
+            ratedCurrent = rc;
+            ctRatio = ctr;
         }
-        public string Screenings
+        protected bool ParseCurrent(string rcAndCtr)
         {
-            get { return screenings; }
-            set { screenings = value; }
+            string[] parts = rcAndCtr.Split(',');
+            if (parts.Length == 2 &&
+                float.TryParse(parts[0], out float rc) &&
+                float.TryParse(parts[1], out float ctr))
+            {
+                this.ratedCurrent = rc;
+                this.ctRatio = ctr;
+                return true;
+            }
+            else
+            {
+                this.ratedCurrent = 0.0f;
+                this.ctRatio = 0.0f;
+                return false;
+            }
         }
-        public string BaseFlour
+    }
+    public class MotorHelper: MotorCurrent
+    {
+        /// <summary>
+        /// 根据电机功率，计算理论上的电机额定电流
+        /// </summary>
+        /// <param name="motorPower">额定功率KW</param>
+        /// <param name="voltage">额定电压，默认380V</param>
+        /// <param name="efficiency">电机效率，默认0.9</param>
+        /// <param name="powerFactor">功率因素，默认0.85</param>
+        /// <returns>电机额定电流</returns>
+        public float CalcRateCurrent(float motorPower,int voltage=380,float efficiency=0.9f,float powerFactor=0.85f)
         {
-            get { return baseFlour; }
-            set { baseFlour = value; }
+            float powerW = motorPower * 1000;
+            return  (float)(powerW / (Math.Sqrt(3) * voltage * efficiency * powerFactor)); 
         }
-        public string Mixing
+        public bool  GetConfig(string motorPower)
+    
         {
-            get { return mixing; }
-            set { mixing = value; }
+            try
+            {
+                string keyMotorPower = $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_MOTORPOWER}";
+                string actValueMotorPower =string.Empty;
+                var keys = new Dictionary<string, Action<string>>
+                 {
+                    //Json配置文件中键名规范严格，同时使用"."来分割键名，因此当某个键值名称中含有特殊字符
+                    //"."时，需要对键值访问路径进行特殊处理，比如"Engineering.MotorPower.0.37KW"此时
+                    //键"0.37KW"包含"."，因此，访问改键值需要特殊处理为"Engineering.MotorPower['0.37KW']".
+                     { $@"{keyMotorPower}['{motorPower}KW']", value => actValueMotorPower = value },
+                 };
+                Dictionary<string, string> keyValueRead;
+                keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                foreach (var key in keys)
+                {
+                    if (keyValueRead.TryGetValue(key.Key, out var value))
+                    {
+                       key.Value(value);
+                    }
+                }
+                if (actValueMotorPower == "未找到配置项" || String.IsNullOrEmpty(actValueMotorPower))
+                {
+                    return false;
+                }
+                else
+                {
+                    return ParseCurrent(actValueMotorPower)?true:false;
+                }          
+            }
+            catch
+            {
+               return false;
+            }
         }
-        public string Bagging
+        public MotorHelper()
         {
-            get { return bagging; }
-            set { bagging = value; }
+        
         }
-        public string Outload
-        {
-            get { return outload; }
-            set { outload = value; }
-        }
-        public string ByProduct
-        {
-            get { return byProduct; }
-            set { byProduct = value; }
-        }
-        public Bins()
-        { 
-
-        }
+     
     }
 }

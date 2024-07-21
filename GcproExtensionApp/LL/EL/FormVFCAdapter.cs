@@ -35,10 +35,8 @@ namespace GcproExtensionApp
         private string DEMO_NAME_RULE_VFC = "1001";
         private string DEMO_DESCRIPTION_VFC = "100号基粉仓活化器变频器/或者空白";
         private string DEMO_DESCRIPTION_RULE_VFC = "100/或者空白";
-        private int value9 = 0;
         private int value10 = 1;
         private int tempInt = 0;
-        private long tempLong = 0;
         private float tempFloat = (float)0.0;
         private bool tempBool = false;
         #endregion
@@ -814,7 +812,8 @@ namespace GcproExtensionApp
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value42";
         }
-        #endregion                
+        #endregion
+        
         #endregion
         #region <---BML part--->
         private void AddWorkSheets()
@@ -955,6 +954,7 @@ namespace GcproExtensionApp
             TxtQuantity.Text = dataTable.Rows.Count.ToString();
         }
         #endregion
+
         #region Common used
         private void CreateVFCAdapterImpExp(OleDb oledb)
         {
@@ -1358,7 +1358,7 @@ namespace GcproExtensionApp
         {
 
             VFCAdapter.SaveFileAs(myVFCAdapter.FilePath, LibGlobalSource.CREATE_OBJECT);
-            VFCAdapter.SaveFileAs(myVFCAdapter.FileRelationPath, LibGlobalSource.CREATE_RELATION);
+           // VFCAdapter.SaveFileAs(myVFCAdapter.FileRelationPath, LibGlobalSource.CREATE_RELATION);
         }
         private void BtnNewImpExpDef_Click(object sender, EventArgs e)
         {
@@ -1400,6 +1400,8 @@ namespace GcproExtensionApp
             try
             {
                 OleDb oledb = new OleDb();
+                oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+                oledb.IsNewOLEDBDriver = isNewOledbDriver;
                 DataTable dataTable = new DataTable();
                 oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 #region common used variables declaration
@@ -1786,7 +1788,6 @@ namespace GcproExtensionApp
         }
 
         #endregion
-
         private void tabCreateMode_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ObjectBrowser objectBrowser = new ObjectBrowser();

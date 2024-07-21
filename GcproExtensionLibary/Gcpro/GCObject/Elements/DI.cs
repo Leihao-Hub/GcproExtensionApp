@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Xml.Linq;
 
@@ -243,49 +244,49 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string MON2SS { get; } = "MON2SS";
         public static string MON2SSP { get; } = "MON2SSP";
         public static string MON2BS { get; } = "MON2BS";
-        public static string P7131 { get; } = "7131";
-        public static string P7135 { get; } = "7135";
-        public static string P7136 { get; } = "7136";
-        public static string P7137 { get; } = "7137";
-        public static string P7139 { get; } = "7139";
-        public static string P7140 { get; } = "7140";
-        public static string P7141 { get; } = "7141";
-        public static string P7142 { get; } = "7142";
-        public static string P7143 { get; } = "7143";
-        public static string P7144 { get; } = "7144";
-        public static string P7145 { get; } = "7145";
-        public static string P7146 { get; } = "7146";
-        public static string P7147 { get; } = "7147";
-        public static string P7148 { get; } = "7148";
-        public static string P7149 { get; } = "7149";
-        public static string P7150 { get; } = "7150";
-        public static string P7151 { get; } = "7151";
-        public static string P7152 { get; } = "7152";
-        public static string P7153 { get; } = "7153";
-        public static string P7154 { get; } = "7154";
-        public static string P7155 { get; } = "7155";
-        public static string P7156 { get; } = "7156";
-        public static string P7158 { get; } = "7158";
-        public static string P7159 { get; } = "7159";
-        public static string P7161 { get; } = "7161";
-        public static string P7161_1 { get; } = "7161.1";
-        public static string P7162 { get; } = "7162";
-        public static string P7163 { get; } = "7163";
-        public static string P7164 { get; } = "7164";
-        public static string P7165 { get; } = "7165";
-        public static string P7166 { get; } = "7166";
-        public static string P7167 { get; } = "7167";
-        public static string P7168 { get; } = "7168";
-        public static string P7169 { get; } = "7169";
-        public static string P7170 { get; } = "7170";
-        public static string P7171 { get; } = "7171";
-        public static string P7172 { get; } = "7172";
-        public static string P7173 { get; } = "7173";
-        public static string P7174 { get; } = "7174";
-        public static string P7175 { get; } = "7175";
-        public static string P7176 { get; } = "7176";
-        public static string P7177 { get; } = "7177";
-        public static string P7188 { get; } = "7188";
+        public static float P7131 { get; } = 7131f;
+        public static float P7135 { get; } = 7135f;
+        public static float P7136 { get; } = 7136f;
+        public static float P7137 { get; } = 7137f;
+        public static float P7139 { get; } = 7139f;
+        public static float P7140 { get; } = 7140f;
+        public static float P7141 { get; } = 7141f;
+        public static float P7142 { get; } = 7142f;
+        public static float P7143 { get; } = 7143f;
+        public static float P7144 { get; } = 7144f;
+        public static float P7145 { get; } = 7145f;
+        public static float P7146 { get; } = 7146f;
+        public static float P7147 { get; } = 7147f;
+        public static float P7148 { get; } = 7148f;
+        public static float P7149 { get; } = 7149f;
+        public static float P7150 { get; } = 7150f;
+        public static float P7151 { get; } = 7151f;
+        public static float P7152 { get; } = 7152f;
+        public static float P7153 { get; } = 7153f;
+        public static float P7154 { get; } = 7154f;
+        public static float P7155 { get; } = 7155f;
+        public static float P7156 { get; } = 7156f;
+        public static float P7158 { get; } = 7158f;
+        public static float P7159 { get; } = 7159f;
+        public static float P7161 { get; } = 7161f;
+        public static float P7161_1 { get; } = 7161.1f;
+        public static float P7162 { get; } = 7162f;
+        public static float P7163 { get; } = 7163f;
+        public static float P7164 { get; } = 7164f;
+        public static float P7165 { get; } = 7165f;
+        public static float P7166 { get; } = 7166f;
+        public static float P7167 { get; } = 7167f;
+        public static float P7168 { get; } = 7168f;
+        public static float P7169 { get; } = 7169f;
+        public static float P7170 { get; } = 7170f;
+        public static float P7171 { get; } = 7171f;
+        public static float P7172 { get; } = 7172f;
+        public static float P7173 { get; } = 7173f;
+        public static float P7174 { get; } = 7174f;
+        public static float P7175 { get; } = 7175f;
+        public static float P7176 { get; } = 7176f;
+        public static float P7177 { get; } = 7177f;
+        public static float P7188 { get; } = 7188f;
         #endregion
         public DI()
         {
@@ -300,7 +301,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             panel_ID = string.Empty;
             diagram = string.Empty;
             page = string.Empty;
-            pType = P7147;
+            pType = P7147.ToString();
             hornCode = LibGlobalSource.NOCHILD;
             dpNode1 = LibGlobalSource.NOCHILD;
             value9 = "0";
@@ -332,6 +333,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
                      LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_FindConnector.Txt" : filePath + diFileName + "_FindConnector.Txt");
         }
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
@@ -341,27 +347,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 isNew = "false";
                 StringBuilder objFields = new StringBuilder();
                 ///<summary>
-                ///生产Standard字符串部分
+                ///生产Standard字符串部分-使用父类中方法实现
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(name).Append(LibGlobalSource.TAB)
-                  .Append(description).Append(LibGlobalSource.TAB)
-                  .Append(subType).Append(LibGlobalSource.TAB)
-                  .Append(processFct).Append(LibGlobalSource.TAB)
-                  .Append(building).Append(LibGlobalSource.TAB)
-                  .Append(elevation).Append(LibGlobalSource.TAB)
-                  .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-                  .Append(panel_ID).Append(LibGlobalSource.TAB)
-                  .Append(diagram).Append(LibGlobalSource.TAB)
-                  .Append(page).Append(LibGlobalSource.TAB)
-                  .Append(pType).Append(LibGlobalSource.TAB)
-                  .Append(hornCode).Append(LibGlobalSource.TAB);
+                  .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>
-                objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
-                  .Append(value9).Append(LibGlobalSource.TAB)
-                  .Append(value10).Append(LibGlobalSource.TAB)
+                objFields.Append(value9).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
@@ -379,15 +372,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
-            CreateRelation(name, inpTrue, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);                             
-            if (!string.IsNullOrEmpty(refSpecial))
+           
+
+            var relations = new List<Relation>
             {
-                CreateRelation(name, refSpecial, GcproTable.ObjData.Value46.Name, this.fileRelationPath, encoding);
-            }
-            if (!string.IsNullOrEmpty(refMRMAMixer))
-            {
-                CreateRelation(name, refMRMAMixer, GcproTable.ObjData.Value31.Name, this.fileRelationPath, encoding);
-            }                
+                new Relation(name,inpTrue, GcproTable.ObjData.Value11.Name),
+                new Relation(name,refSpecial, GcproTable.ObjData.Value46.Name),
+                new Relation(name,refMRMAMixer, GcproTable.ObjData.Value31.Name),
+            };
+           CreateRelations(relations,this.fileRelationPath,encoding);           
         }     
         public void Clear()
         {

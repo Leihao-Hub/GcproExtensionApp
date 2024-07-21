@@ -14,8 +14,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public static VFCAdapterRule Rule;
         private string filePath;
-        private string fileRelationPath;
-        private string fileConnectorPath;
+       // private string fileRelationPath;
+      //  private string fileConnectorPath;
         private static string vfcFileName = $@"\{OTypeCollection.EL_VFCAdapter}";
         private string name;
         private string description;
@@ -59,14 +59,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return filePath; }
             set { filePath = value; }
         }
-        public string FileRelationPath
-        {
-            get { return fileRelationPath; }
-        }
-        public string FileConnectorPath
-        {
-            get { return fileConnectorPath; }
-        }
+        //public string FileRelationPath
+        //{
+        //    get { return fileRelationPath; }
+        //}
+        //public string FileConnectorPath
+        //{
+        //    get { return fileConnectorPath; }
+        //}
         #region Standard properties  
         public override string Name
         {
@@ -309,22 +309,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             ///生产Standard字符串部分
             ///</summary> 
             objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(name).Append(LibGlobalSource.TAB)
-              .Append(description).Append(LibGlobalSource.TAB)
-              .Append(subType).Append(LibGlobalSource.TAB)
-              .Append(processFct).Append(LibGlobalSource.TAB)
-              .Append(building).Append(LibGlobalSource.TAB)
-              .Append(elevation).Append(LibGlobalSource.TAB)
-              .Append(fieldBusNode).Append(LibGlobalSource.TAB)
-              .Append(panel_ID).Append(LibGlobalSource.TAB)
-              .Append(diagram).Append(LibGlobalSource.TAB)
-              .Append(page).Append(LibGlobalSource.TAB);
+              .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
 
             ///<summary>
             ///生成Application 字符串部分
             ///</summary>   
-            objFields.Append(dpNode1).Append(LibGlobalSource.TAB)
-              .Append(value10).Append(LibGlobalSource.TAB)
+            objFields.Append(speedLimitMin).Append(LibGlobalSource.TAB)
               .Append(speedLimitMin).Append(LibGlobalSource.TAB)
               .Append(speedLimitMax).Append(LibGlobalSource.TAB)
               .Append(speedMaxDigits).Append(LibGlobalSource.TAB)

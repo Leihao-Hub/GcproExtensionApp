@@ -61,6 +61,9 @@
             this.lblFilterField2 = new System.Windows.Forms.Label();
             this.grpUpdate = new System.Windows.Forms.GroupBox();
             this.comboFilterLogic = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridObjData)).BeginInit();
             this.grpDataQuery.SuspendLayout();
             this.grpUpdate.SuspendLayout();
@@ -69,7 +72,7 @@
             // LblFilterDescription
             // 
             this.LblFilterDescription.AutoSize = true;
-            this.LblFilterDescription.Location = new System.Drawing.Point(527, 26);
+            this.LblFilterDescription.Location = new System.Drawing.Point(525, 26);
             this.LblFilterDescription.Name = "LblFilterDescription";
             this.LblFilterDescription.Size = new System.Drawing.Size(79, 13);
             this.LblFilterDescription.TabIndex = 15;
@@ -78,9 +81,9 @@
             // txtFilterDescription
             // 
             this.txtFilterDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFilterDescription.Location = new System.Drawing.Point(616, 26);
+            this.txtFilterDescription.Location = new System.Drawing.Point(625, 26);
             this.txtFilterDescription.Name = "txtFilterDescription";
-            this.txtFilterDescription.Size = new System.Drawing.Size(176, 13);
+            this.txtFilterDescription.Size = new System.Drawing.Size(166, 13);
             this.txtFilterDescription.TabIndex = 14;
             // 
             // LblOType
@@ -129,6 +132,7 @@
             this.comboOType.Name = "comboOType";
             this.comboOType.Size = new System.Drawing.Size(125, 21);
             this.comboOType.TabIndex = 18;
+            this.comboOType.SelectedIndexChanged += new System.EventHandler(this.comboOType_SelectedIndexChanged);
             // 
             // btnQuery
             // 
@@ -157,14 +161,17 @@
             // txtUserDefinedFilter
             // 
             this.txtUserDefinedFilter.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUserDefinedFilter.Location = new System.Drawing.Point(312, 59);
+            this.txtUserDefinedFilter.Location = new System.Drawing.Point(331, 59);
             this.txtUserDefinedFilter.Name = "txtUserDefinedFilter";
-            this.txtUserDefinedFilter.Size = new System.Drawing.Size(480, 13);
+            this.txtUserDefinedFilter.Size = new System.Drawing.Size(461, 13);
             this.txtUserDefinedFilter.TabIndex = 21;
             this.txtUserDefinedFilter.TextChanged += new System.EventHandler(this.txtUserDefinedFilter_TextChanged);
             // 
             // grpDataQuery
             // 
+            this.grpDataQuery.Controls.Add(this.label3);
+            this.grpDataQuery.Controls.Add(this.label2);
+            this.grpDataQuery.Controls.Add(this.label1);
             this.grpDataQuery.Controls.Add(this.BtnConfirm);
             this.grpDataQuery.Controls.Add(this.lblAnd);
             this.grpDataQuery.Controls.Add(this.txtFilterName);
@@ -204,7 +211,7 @@
             // 
             this.lblAnd.AutoSize = true;
             this.lblAnd.ForeColor = System.Drawing.Color.Blue;
-            this.lblAnd.Location = new System.Drawing.Point(496, 26);
+            this.lblAnd.Location = new System.Drawing.Point(498, 26);
             this.lblAnd.Name = "lblAnd";
             this.lblAnd.Size = new System.Drawing.Size(30, 13);
             this.lblAnd.TabIndex = 39;
@@ -213,9 +220,9 @@
             // txtFilterName
             // 
             this.txtFilterName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFilterName.Location = new System.Drawing.Point(312, 26);
+            this.txtFilterName.Location = new System.Drawing.Point(331, 26);
             this.txtFilterName.Name = "txtFilterName";
-            this.txtFilterName.Size = new System.Drawing.Size(176, 13);
+            this.txtFilterName.Size = new System.Drawing.Size(166, 13);
             this.txtFilterName.TabIndex = 30;
             // 
             // lblFilterName
@@ -401,6 +408,36 @@
             this.comboFilterLogic.Size = new System.Drawing.Size(50, 21);
             this.comboFilterLogic.TabIndex = 39;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(301, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 56;
+            this.label1.Text = "LIKE";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.Blue;
+            this.label2.Location = new System.Drawing.Point(600, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.TabIndex = 57;
+            this.label2.Text = "LIKE";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.Color.Blue;
+            this.label3.Location = new System.Drawing.Point(301, 59);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(30, 13);
+            this.label3.TabIndex = 58;
+            this.label3.Text = "AND";
+            // 
             // ObjectBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -456,5 +493,8 @@
         private System.Windows.Forms.GroupBox grpUpdate;
         private System.Windows.Forms.ComboBox comboFilterLogic;
         internal System.Windows.Forms.Button BtnConfirm;
+        internal System.Windows.Forms.Label label2;
+        internal System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.Label label3;
     }
 }

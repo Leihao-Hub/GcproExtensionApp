@@ -165,5 +165,19 @@
         public string GcproTempPath;
         public string ProjectType;
     }
- 
+
+    public struct Relation
+    {
+        public string Parent { get; }
+        public string Child { get; }
+        public string ConnectedFiled { get; }
+
+        public Relation(string parent, string child, string connectedField)
+        {
+            Parent = parent;
+            Child = child;
+            ConnectedFiled = connectedField;
+        }
+    }
+
 }

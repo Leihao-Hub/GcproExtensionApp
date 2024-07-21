@@ -7,60 +7,16 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static GcproExtensionLibrary.LibGlobalSource;
+using GcproExtensionLibrary.Gcpro.GCObject;
 
 namespace GcproExtensionApp
 {
     public class BML
     {
-        private static string prefixLocalPanel;    
+        private static string prefixLocalPanel;
         private static MachineType machineType = new MachineType();
         private static Sections sections = new Sections();
         private static Bins bins = new Bins();
-        static BML()
-        {         
-            try
-            {
-                string keySections = "BML.Sections.";
-                string keyBins = "BML.Bins.";
-                var keys = new Dictionary<string, Action<string>>
-                 {
-                    {"BML.Prefix.LocalPanel",value => prefixLocalPanel= value },
-                    {$"{keySections}Common",value => sections.Common= value },
-                    {$"{keySections}PreCleaning",value => sections.PreCleaning= value },
-                    {$"{keySections}Cleaning",value => sections.Cleaning= value },
-                    {$"{keySections}Screenings",value => sections.Screenings= value },
-                    {$"{keySections}Milling",value => sections.Milling =value },
-                    {$"{keySections}Flour",value => sections.Flour= value },
-                    {$"{keySections}Stacking",value => sections.Stacking= value },
-                    {$"{keySections}Outload",value => sections.Outload= value },
-                    {$"{keySections}Byproduct",value => sections.Byproduct= value },
-                    {$"{keyBins}Silo",value => bins.Silo= value },
-                    {$"{keyBins}RawWheat",value => bins.RawWheat= value },
-                    {$"{keyBins}Screenings",value => bins.Screenings= value },
-                    {$"{keyBins}Tempering",value => bins.Tempering= value },
-                    {$"{keyBins}BaseFlour",value => bins.BaseFlour= value },           
-                    {$"{keyBins}Mixing",value => bins.Mixing= value },
-                    {$"{keyBins}Bagging",value => bins.Bagging= value },
-                    {$"{keyBins}Outload",value => bins.Outload= value },
-                    {$"{keyBins}ByProduct",value => bins.ByProduct= value },
-            };
-                Dictionary<string, string> keyValueRead;
-                keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
-                foreach (var key in keys)
-                {
-                    if (keyValueRead.TryGetValue(key.Key, out var value))
-                    {
-                        key.Value(value);
-                    }
-                }
-                keyValueRead = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "BML Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public static int StartRow { get; } = 7;
         #region Properties
         public static string PrefixLocalPanel
         {
@@ -80,6 +36,52 @@ namespace GcproExtensionApp
             get { return bins; }
         }
         #endregion
+        static BML()
+        {
+            try
+            {
+                string keySections = $"{AppGlobal.JS_BML}.{AppGlobal.JS_SECTION}.";
+                string keyBins = $"{AppGlobal.JS_BML}.{AppGlobal.JS_BIN}.";
+                var keys = new Dictionary<string, Action<string>>
+                 {
+                    {"BML.Prefix.LocalPanel",value => prefixLocalPanel= value },
+                    {$"{keySections}Common",value => sections.Common= value },
+                    {$"{keySections}PreCleaning",value => sections.PreCleaning= value },
+                    {$"{keySections}Cleaning",value => sections.Cleaning= value },
+                    {$"{keySections}Screenings",value => sections.Screenings= value },
+                    {$"{keySections}Milling",value => sections.Milling =value },
+                    {$"{keySections}Flour",value => sections.Flour= value },
+                    {$"{keySections}Stacking",value => sections.Stacking= value },
+                    {$"{keySections}Outload",value => sections.Outload= value },
+                    {$"{keySections}Byproduct",value => sections.Byproduct= value },
+                    {$"{keyBins}Silo",value => bins.Silo= value },
+                    {$"{keyBins}RawWheat",value => bins.RawWheat= value },
+                    {$"{keyBins}Screenings",value => bins.Screenings= value },
+                    {$"{keyBins}Tempering",value => bins.Tempering= value },
+                    {$"{keyBins}BaseFlour",value => bins.BaseFlour= value },
+                    {$"{keyBins}Mixing",value => bins.Mixing= value },
+                    {$"{keyBins}Bagging",value => bins.Bagging= value },
+                    {$"{keyBins}Outload",value => bins.Outload= value },
+                    {$"{keyBins}ByProduct",value => bins.ByProduct= value },
+            };
+                Dictionary<string, string> keyValueRead;
+                keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                foreach (var key in keys)
+                {
+                    if (keyValueRead.TryGetValue(key.Key, out var value))
+                    {
+                        key.Value(value);
+                    }
+                }
+                keyValueRead = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), $"{AppGlobal.JS_BML} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public static int StartRow { get; } = 7;
+      
         public static class Motor
         {
             #region Fields for properties
@@ -97,7 +99,7 @@ namespace GcproExtensionApp
             private static string columnLine;
             private static string prefixName;
             private static string nameDelimiter;
-            private static string ioRemarkString;
+            //  private static string ioRemarkString;
             private static string prefixVFC;
             #endregion
             #region Properties
@@ -172,28 +174,29 @@ namespace GcproExtensionApp
                 set { prefixVFC = value; }
             }
             public static string IORemarkString { get; }
-            #endregion
-       
+            #endregion     
             static Motor()
-            {         
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MOTOR}.";
+                string keyColums = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
                 try
-                {
-                    string keyMotor = "BML.Motor.";
+                {               
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        {$"{keyMotor}Columns.Name",value => columnName= value },
-                        {$"{keyMotor}Columns.Desc", value => columnDesc= value },
-                        {$"{keyMotor}Columns.Power", value => columnPower = value },
-                        {$"{keyMotor}Columns.Floor", value => columnFloor = value },
-                        {$"{keyMotor}Columns.Cabinet", value => columnCabinet = value },
-                        {$"{keyMotor}Columns.CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyMotor}Columns.Machine",value => columnMachine = value },
-                        {$"{keyMotor}Columns.IORemark",value => columnIORemark = value },
-                        {$"{keyMotor}Columns.IsVFC",value => columnIsVFC= value },
-                        {$"{keyMotor}Columns.Line",value => columnLine= value },
-                        {$"{keyMotor}Filter.VFC",value => prefixVFC= value },
-                        {$"{keyMotor}Filter.Motor",value => type= value },
-                        {$"{keyMotor}Path",value => bmlPath = value },
+                        {$"{keyColums}Name",value => columnName= value },
+                        {$"{keyColums}Desc", value => columnDesc= value },
+                        {$"{keyColums}Power", value => columnPower = value },
+                        {$"{keyColums}Floor", value => columnFloor = value },
+                        {$"{keyColums}Cabinet", value => columnCabinet = value },
+                        {$"{keyColums}CabinetGroup", value => columnCabinetGroup = value },
+                        {$"{keyColums}Machine",value => columnMachine = value },
+                        {$"{keyColums}IORemark",value => columnIORemark = value },
+                        {$"{keyColums}IsVFC",value => columnIsVFC= value },
+                        {$"{keyColums}Line",value => columnLine= value },
+                        {$"{keyFilter}VFC",value => prefixVFC= value },
+                        {$"{keyFilter}Motor",value => type= value },
+                        {$"{keyPath}Path",value => bmlPath = value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -209,11 +212,9 @@ namespace GcproExtensionApp
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "BML.Motor Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-     
-      
         }
         public static class VFCAdapter
         {
@@ -225,7 +226,7 @@ namespace GcproExtensionApp
             public static string ColumnFloor { get; } = "楼层";
             public static string ColumnCabinet { get; } = "电柜号";
             public static string ColumnCabinetGroup { get; } = "电柜组";
-            public static string ColumnControlMethod { get; } = "控制方式";       
+            public static string ColumnControlMethod { get; } = "控制方式";
             public static class TypeEnmu
             {
                 public static string ATV320 { get; } = "ATV320";
@@ -565,39 +566,44 @@ namespace GcproExtensionApp
             public static string IORemarkString { get; }
             #endregion
             static VLS()
-            {     
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_VLS}.";
+                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyFilter= $"{keyPath}{AppGlobal.JS_FILTER}.";
+                string keyIORemark = $"{keyPath}{AppGlobal.JS_IO_REMARK}.";
+                string keyIOType = $"{keyPath}{AppGlobal.JS_IO_TYPE}.";
                 try
                 {
-                    string keyVLS = "BML.VLS.";
+                  
                     string[] ioRemarks = new string[7];
-                    var keys = new Dictionary<string, Action<string>>                
+                    var keys = new Dictionary<string, Action<string>>
                     {
-                        {$"{keyVLS}Columns.Name",value => columnName= value },
-                        {$"{keyVLS}Columns.Desc", value => columnDesc= value },
-                        {$"{keyVLS}Columns.Floor", value => columnFloor = value },
-                        {$"{keyVLS}Columns.Cabinet", value => columnCabinet = value },
-                        {$"{keyVLS}Columns.CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyVLS}Columns.Machine",value => columnMachine = value },
-                        {$"{keyVLS}Columns.IORemark",value => columnIORemark = value },
-                        {$"{keyVLS}Columns.Line",value => columnLine= value },
-                        {$"{keyVLS}Filter.ManualFlap",value => manualFlap= value },
-                        {$"{keyVLS}Filter.PneFlap",value => pneFlap = value },
-                        {$"{keyVLS}Filter.ManualSlideGate",value => manualSlideGate = value },
-                        {$"{keyVLS}Filter.PneSlideGate",value => pneSlideGate= value },
-                        {$"{keyVLS}Filter.PneTwoWayValve",value => pneTwoWayValve = value },
-                        {$"{keyVLS}Filter.PneShutOffValve",value => pneShutOffValve = value },
-                        {$"{keyVLS}Filter.PneAspValve",value => pneAspValve = value },
-                        {$"{keyVLS}IOType.Output",value =>  typeOutput = value },
-                        {$"{keyVLS}IOType.Input",value =>  typeInput = value },
-                        {$"{keyVLS}IORemark.DirToBin",value => dirToBin= value },
-                        {$"{keyVLS}IORemark.DirToValve",value => dirToValve = value },
-                        {$"{keyVLS}IORemark.DirToFlap",value => dirToFlap= value },
-                        {$"{keyVLS}IORemark.DirToHopper",value => dirToHopper = value },
-                        {$"{keyVLS}IORemark.DirBypass",value =>  dirBypass = value },
-                        {$"{keyVLS}IORemark.DirSelect",value =>  dirSelect = value },
-                        {$"{keyVLS}IORemark.DirTo",value =>  dirTo = value },
-                        {$"{keyVLS}IORemark.BinOf",value =>  binOf = value },
-                        {$"{keyVLS}Path",value => bmlPath = value },
+                        {$"{keyColumns}Name",value => columnName= value },
+                        {$"{keyColumns}Desc", value => columnDesc= value },
+                        {$"{keyColumns}Floor", value => columnFloor = value },
+                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
+                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
+                        {$"{keyColumns}Machine",value => columnMachine = value },
+                        {$"{keyColumns}IORemark",value => columnIORemark = value },
+                        {$"{keyColumns}Line",value => columnLine= value },
+                        {$"{keyFilter}ManualFlap",value => manualFlap= value },
+                        {$"{keyFilter}PneFlap",value => pneFlap = value },
+                        {$"{keyFilter}ManualSlideGate",value => manualSlideGate = value },
+                        {$"{keyFilter}PneSlideGate",value => pneSlideGate= value },
+                        {$"{keyFilter}PneTwoWayValve",value => pneTwoWayValve = value },
+                        {$"{keyFilter}PneShutOffValve",value => pneShutOffValve = value },
+                        {$"{keyFilter}PneAspValve",value => pneAspValve = value },
+                        {$"{keyIOType}Output",value =>  typeOutput = value },
+                        {$"{keyIOType}Input",value =>  typeInput = value },
+                        {$"{keyIORemark}DirToBin",value => dirToBin= value },
+                        {$"{keyIORemark}DirToValve",value => dirToValve = value },
+                        {$"{keyIORemark}DirToFlap",value => dirToFlap= value },
+                        {$"{keyIORemark}DirToHopper",value => dirToHopper = value },
+                        {$"{keyIORemark}DirBypass",value =>  dirBypass = value },
+                        {$"{keyIORemark}DirSelect",value =>  dirSelect = value },
+                        {$"{keyIORemark}DirTo",value =>  dirTo = value },
+                        {$"{keyIORemark}BinOf",value =>  binOf = value },
+                        {$"{keyPath}Path",value => bmlPath = value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -608,38 +614,22 @@ namespace GcproExtensionApp
                             key.Value(value);
                         }
                     }
-                    ioRemarks[0] = dirToBin ;
-                    ioRemarks[1] = dirToValve ;
-                    ioRemarks[2] = dirToHopper ;
-                    ioRemarks[3] = dirBypass ;
+                    ioRemarks[0] = dirToBin;
+                    ioRemarks[1] = dirToValve;
+                    ioRemarks[2] = dirToHopper;
+                    ioRemarks[3] = dirBypass;
                     ioRemarks[4] = dirSelect;
-                    ioRemarks[5] = dirTo ;
-                    ioRemarks[6] = binOf ;
+                    ioRemarks[5] = dirTo;
+                    ioRemarks[6] = binOf;
                     ioRemarkString = string.Join(", ", ioRemarks);
                     keyValueRead = null;
                 }
 
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "BML.VLS Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            //public static string GetInterlockingType(string input)
-            //{
-            //    string result = string.Empty;
-            //    if (string.IsNullOrEmpty(input))
-            //    {
-            //        return string.Empty;
-            //    }
-            //    else
-            //    {
-            //        if (input.Equals(dirToBin, StringComparison.OrdinalIgnoreCase))
-            //        {
-            //            return GcObjectInfo.Bin.BinPrefix;
-            //        }
-            //    }
-            //    return result;
-            //}
             public static string ParseIORemark(string input)
             {
                 if (string.IsNullOrEmpty(input))
@@ -649,9 +639,9 @@ namespace GcproExtensionApp
                 else
                 {
                     if (input.IndexOf(dirToBin, StringComparison.OrdinalIgnoreCase) >= 0)
-                    {              
+                    {
                         return GcObjectInfo.Bin.BinPrefix + Regex.Replace(input, Regex.Escape(dirToBin), "", RegexOptions.IgnoreCase).Replace(" ", "");
-                    } 
+                    }
                     else if (input.IndexOf(dirToValve, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         string nameString = Regex.Replace(input, Regex.Escape(dirToValve), "", RegexOptions.IgnoreCase).Replace(" ", "");
@@ -659,14 +649,13 @@ namespace GcproExtensionApp
                         nameString = (nameString.StartsWith(prefixName) ? nameString : prefixName + nameString);
                         nameString = (nameString.EndsWith(nameDelimiter) ? nameString : nameString + nameDelimiter) + suffixVLS;
                         return nameString;
-                        return nameString;
                     }
                     else if (input.IndexOf(dirToFlap, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         string nameString = Regex.Replace(input, Regex.Escape(dirToFlap), "", RegexOptions.IgnoreCase).Replace(" ", "");
-                       // nameString = (nameString.EndsWith(nameDelimiter) ? prefixName + nameString : prefixName + nameString + nameDelimiter) + suffixVLS;
+                        // nameString = (nameString.EndsWith(nameDelimiter) ? prefixName + nameString : prefixName + nameString + nameDelimiter) + suffixVLS;
                         nameString = (nameString.StartsWith(prefixName) ? nameString : prefixName + nameString);
-                        nameString = (nameString.EndsWith(nameDelimiter)? nameString: nameString + nameDelimiter) + suffixVLS;
+                        nameString = (nameString.EndsWith(nameDelimiter) ? nameString : nameString + nameDelimiter) + suffixVLS;
                         return nameString;
                     }
                     else if (input.IndexOf(binOf, StringComparison.OrdinalIgnoreCase) >= 0)
@@ -674,9 +663,9 @@ namespace GcproExtensionApp
                         return GcObjectInfo.Bin.BinPrefix + Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
                     }
                     else if (input.IndexOf(dirTo, StringComparison.OrdinalIgnoreCase) >= 0)
-                    {               
+                    {
                         string nameString = input;
-                        nameString= StringHelper.ExtractStringPart($@"{Engineering.PatternNameWithoutTypeLL}(-[A-Za-z]{{3}}\\d{{1,3}})?", nameString);
+                        nameString = StringHelper.ExtractStringPart($@"{Engineering.PatternNameWithoutTypeLL}(-[A-Za-z]{{3}}\\d{{1,3}})?", nameString);
                         nameString = string.IsNullOrEmpty(nameString) ? string.Empty : (nameString.StartsWith(prefixName) ? nameString : prefixName + nameString);
                         return nameString;
                     }
@@ -686,16 +675,15 @@ namespace GcproExtensionApp
                     }
                 }
             }
-       
+
         }
         public static class DI
         {
             #region Fields for properties
             private static string bmlPath;
-            private static string type;
+          //  private static string type;
             private static string columnName;
             private static string columnDesc;
-            private static string columnPower;
             private static string columnFloor;
             private static string columnCabinet;
             private static string columnCabinetGroup;
@@ -704,7 +692,6 @@ namespace GcproExtensionApp
             private static string columnLine;
             private static string prefixName;
             private static string nameDelimiter;
-            private static string ioRemarkString;
             private static string beltMonitor;
             private static string emergencyStop;
             private static string explosion;
@@ -721,59 +708,7 @@ namespace GcproExtensionApp
             private static string vibrationSwitch;
             private static string zeroSpeedMonitor;
             private static string binOf;
-            #endregion   
-            static DI()
-            {
-                try
-                {
-                    string keyDI = "BML.DI.";
-                    string[] ioRemarks = new string[7];
-                    var keys = new Dictionary<string, Action<string>>
-                    {
-                        {$"{keyDI}Columns.Name",value => columnName= value },
-                        {$"{keyDI}Columns.Desc", value => columnDesc= value },
-                        {$"{keyDI}Columns.Floor", value => columnFloor = value },
-                        {$"{keyDI}Columns.Cabinet", value => columnCabinet = value },
-                        {$"{keyDI}Columns.CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyDI}Columns.DIType",value => columnDIType = value },
-                        {$"{keyDI}Columns.IORemark",value => columnIORemark = value },
-                        {$"{keyDI}Columns.Line",value => columnLine= value },
-                        {$"{keyDI}Filter.BeltMonitor",value => beltMonitor= value },
-                        {$"{keyDI}Filter.EmergencyStopSwitch",value => emergencyStop = value },
-                        {$"{keyDI}Filter.Explosion",value => explosion = value },
-                        {$"{keyDI}Filter.HighLevel",value => highLevel= value },
-                        {$"{keyDI}Filter.LimitSwitch",value => limitSwitch = value },
-                        {$"{keyDI}Filter.LowLevel",value => lowLevel = value },
-                        {$"{keyDI}Filter.MiddleLevel",value => middleLevel = value },
-                        {$"{keyDI}Filter.Overflow",value => overflow = value },
-                        {$"{keyDI}Filter.PSW",value => pSw = value },
-                        {$"{keyDI}Filter.PushButton",value => pushButton = value },
-                        {$"{keyDI}Filter.SafetySwitch",value =>  safetySwitch = value },
-                        {$"{keyDI}Filter.SpeedMonitor",value =>  speedMonitor = value },
-                        {$"{keyDI}Filter.TemperatureSwitch",value =>  temperatureSwitch = value },
-                        {$"{keyDI}Filter.VibrationSwitch",value => vibrationSwitch = value },
-                        {$"{keyDI}Filter.ZeroSpeedMonitor",value => zeroSpeedMonitor = value },
-                        {$"{keyDI}IORemark.BinOf",value => binOf = value },
-                        {$"{keyDI}Path",value => bmlPath = value },
-                    };
-                    Dictionary<string, string> keyValueRead;
-                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
-                    foreach (var key in keys)
-                    {
-                        if (keyValueRead.TryGetValue(key.Key, out var value))
-                        {
-                            key.Value(value);
-                        }
-                    }
-                    //   ioRemarkString = string.Join(", ", ioRemarks);
-                    keyValueRead = null;
-                }
-
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "BML.DI Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            #endregion
             #region Properties
             public static string BMLPath
             {
@@ -787,10 +722,6 @@ namespace GcproExtensionApp
             public static string ColumnDesc
             {
                 get { return columnDesc; }
-            }
-            public static string ColumnPower
-            {
-                get { return columnPower; }
             }
             public static string ColumnFloor
             {
@@ -816,10 +747,10 @@ namespace GcproExtensionApp
             {
                 get { return columnLine; }
             }
-            public static string Type
-            {
-                get { return type; }
-            }
+            //public static string Type
+            //{
+            //    get { return type; }
+            //}
             public static string PrefixName
             {
                 get { return prefixName; }
@@ -896,6 +827,63 @@ namespace GcproExtensionApp
                 get { return binOf; }
             }
             #endregion
+            static DI()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DI}.";
+                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
+                string keyIORemark = $"{keyPath}{AppGlobal.JS_IO_REMARK}.";
+                string keyIOType = $"{keyPath}{AppGlobal.JS_IO_TYPE}.";
+                try
+                {
+                    string[] ioRemarks = new string[7];
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        {$"{keyColumns}Name",value => columnName= value },
+                        {$"{keyColumns}Desc", value => columnDesc= value },
+                        {$"{keyColumns}Floor", value => columnFloor = value },
+                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
+                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
+                        {$"{keyColumns}DIType",value => columnDIType = value },
+                        {$"{keyColumns}IORemark",value => columnIORemark = value },
+                        {$"{keyColumns}Line",value => columnLine= value },
+                        {$"{keyFilter}BeltMonitor",value => beltMonitor= value },
+                        {$"{keyFilter}EmergencyStopSwitch",value => emergencyStop = value },
+                        {$"{keyFilter}Explosion",value => explosion = value },
+                        {$"{keyFilter}HighLevel",value => highLevel= value },
+                        {$"{keyFilter}LimitSwitch",value => limitSwitch = value },
+                        {$"{keyFilter}LowLevel",value => lowLevel = value },
+                        {$"{keyFilter}MiddleLevel",value => middleLevel = value },
+                        {$"{keyFilter}Overflow",value => overflow = value },
+                        {$"{keyFilter}PSW",value => pSw = value },
+                        {$"{keyFilter}PushButton",value => pushButton = value },
+                        {$"{keyFilter}SafetySwitch",value =>  safetySwitch = value },
+                        {$"{keyFilter}SpeedMonitor",value =>  speedMonitor = value },
+                        {$"{keyFilter}TemperatureSwitch",value =>  temperatureSwitch = value },
+                        {$"{keyFilter}VibrationSwitch",value => vibrationSwitch = value },
+                        {$"{keyFilter}ZeroSpeedMonitor",value => zeroSpeedMonitor = value },
+                        {$"{keyIORemark}.BinOf",value => binOf = value },
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    //   ioRemarkString = string.Join(", ", ioRemarks);
+                    keyValueRead = null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+           
             public static string ParseIORemark(string input)
             {
                 if (string.IsNullOrEmpty(input))
@@ -903,7 +891,7 @@ namespace GcproExtensionApp
                     return string.Empty;
                 }
                 else
-                {                                     
+                {
                     if (input.IndexOf(binOf, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         return GcObjectInfo.Bin.BinPrefix + Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
@@ -912,6 +900,293 @@ namespace GcproExtensionApp
                     {
                         return string.Empty;
                     }
+                }
+            }
+        }
+        public static class MDDx
+        {
+            #region Fields for properties
+            private static string bmlPath;
+            private static string columnName;
+            private static string columnDesc;
+            private static string columnFloor;
+            private static string columnCabinet;
+            private static string columnCabinetGroup;
+            private static string columnControlMethod;
+            private static string columnLine;
+            private static string filterMDDx;
+            private static string filterMDDY;
+            private static string filterKCL;
+            #endregion
+
+            #region Properties 
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
+            public static string ColumnName
+            {
+                get { return columnName; }
+            }
+
+            public static string ColumnDesc
+            {
+                get { return columnDesc; }
+            }
+
+            public static string ColumnFloor
+            {
+                get { return columnFloor; }
+            }
+
+            public static string ColumnCabinet
+            {
+                get { return columnCabinet; }
+            }
+
+            public static string ColumnCabinetGroup
+            {
+                get { return columnCabinetGroup; }
+            }
+
+            public static string ColumnControlMethod
+            {
+                get { return columnControlMethod; }
+            }
+
+            public static string ColumnLine
+            {
+                get { return columnLine; }
+            }
+            public static string TypeMDDx
+            {
+                get { return filterMDDx; }
+            }
+            public static string TypeMDDY
+            {
+                get { return filterMDDY; }
+            }
+            public static string TypeKCL
+            {
+                get { return filterKCL; }
+            }
+            #endregion
+            static MDDx()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDX}.";
+                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
+                try
+                {
+              
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        {$"{keyColumns}Name",value => columnName= value },
+                        {$"{keyColumns}Desc", value => columnDesc= value },
+                        {$"{keyColumns}Floor", value => columnFloor = value },
+                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
+                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
+                        {$"{keyColumns}ControlMethod",value => columnControlMethod = value },
+                        {$"{keyColumns}Line",value => columnLine= value },
+                        {$"{keyFilter}MDDx",value => filterMDDx = value },
+                        {$"{keyFilter}MDDY",value => filterMDDY = value },
+                        {$"{keyFilter}KCL",value => filterKCL = value },
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }         
+        }
+        public static class AI
+        {
+            #region Fields for properties
+            private static string bmlPath;
+            private static string columnName;
+            private static string columnDesc;
+            public static string columnPower;
+            private static string columnFloor;
+            private static string columnCabinet;
+            private static string columnCabinetGroup;
+            private static string columnLine;
+            //private static string filterMotor;
+            //private static string filterRollerMill;
+            #endregion
+
+            #region Properties 
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
+            public static string ColumnName
+            {
+                get { return columnName; }
+            }
+
+            public static string ColumnDesc
+            {
+                get { return columnDesc; }
+            }
+            public static string ColumnPower
+            {
+                get { return columnPower; }
+            }
+
+            public static string ColumnFloor
+            {
+                get { return columnFloor; }
+            }
+
+            public static string ColumnCabinet
+            {
+                get { return columnCabinet; }
+            }
+
+            public static string ColumnCabinetGroup
+            {
+                get { return columnCabinetGroup; }
+            }
+
+            public static string ColumnLine
+            {
+                get { return columnLine; }
+            }
+            //public static string TypeMotor
+            //{
+            //    get { return filterMotor; }
+            //}
+            //public static string TypeRollerMill
+            //{
+            //    get { return filterRollerMill; }
+            //}
+            #endregion
+            static AI()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_AI}.";
+                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
+                try
+                {
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        {$"{keyColumns}Name",value => columnName= value },
+                        {$"{keyColumns}Desc", value => columnDesc= value },
+                        {$"{keyColumns}Power", value => columnPower= value },
+                        {$"{keyColumns}Floor", value => columnFloor = value },
+                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
+                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
+                        {$"{keyColumns}Line",value => columnLine= value },
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public static class Roll8Stand
+        {
+            #region Fields for properties
+            private static string bmlPath;
+            private static string columnName;
+            private static string columnDesc;
+            public static string  columnType;
+            private static string columnFloor;
+            private static string columnLine;
+            private static string filterMDDx;
+            #endregion
+
+            #region Properties 
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
+            public static string ColumnName
+            {
+                get { return columnName; }
+            }
+
+            public static string ColumnDesc
+            {
+                get { return columnDesc; }
+            }
+            public static string ColumnType
+            {
+                get { return columnType; }
+            }
+
+            public static string ColumnFloor
+            {
+                get { return columnFloor; }
+            }
+            public static string ColumnLine
+            {
+                get { return columnLine; }
+            }
+            public static string TypeMDDx
+            {
+                get { return filterMDDx; }
+            }
+
+            #endregion
+            static Roll8Stand()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_ROLL8STAND}.";
+                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
+                try
+                {
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        {$"{keyColumns}Name",value => columnName= value },
+                        {$"{keyColumns}Desc", value => columnDesc= value },
+                        {$"{keyColumns}Type", value => columnType= value },
+                        {$"{keyColumns}Floor", value => columnFloor = value },
+                        {$"{keyColumns}Line",value => columnLine= value },
+                        {$"{keyFilter}MDDx",value => filterMDDx= value },
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

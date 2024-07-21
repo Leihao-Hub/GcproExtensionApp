@@ -1,10 +1,13 @@
 ﻿using GcproExtensionLibrary;
+using GcproExtensionLibrary.Gcpro.GCObject;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using static GcproExtensionLibrary.Gcpro.GCObject.Roll8Stand;
 namespace GcproExtensionApp
 {
     public static class GcObjectInfo
@@ -18,7 +21,7 @@ namespace GcproExtensionApp
             private static IOSuffix suffixIO = new IOSuffix();
             private static string delimiterSymbol;
             private static string prefixName;
-            private static string prefixLocalPanel;
+         //   private static string prefixLocalPanel;
             private static string commonSection;
             private static string preCleaningSection;
             private static string cleaningSection;
@@ -27,16 +30,7 @@ namespace GcproExtensionApp
             private static string flourSection;
             private static string stackingSection;
             private static string outloadSection;
-            private static string byproductSection;
-            private static string silo;
-            private static string rawWheatBin;
-            private static string temperingBin;
-            private static string screeningsBin;
-            private static string baseFlourBin;
-            private static string mixingBin;
-            private static string bagingBin;
-            private static string outLoadBin;
-            private static string byProductBin;     
+            private static string byproductSection;        
             private static string addInfoSymbol;
             private static string addInfoCabinet;
             private static string addInfoElevation;
@@ -221,15 +215,15 @@ namespace GcproExtensionApp
             }
             private static void ParseAllRanges()
             {
-                silo = AppGlobal.Range.ParseRange(bins.Silo);
-                rawWheatBin = AppGlobal.Range.ParseRange(bins.RawWheat);
-                temperingBin = AppGlobal.Range.ParseRange(bins.Tempering);
-                screeningsBin = AppGlobal.Range.ParseRange(bins.Screenings);
-                baseFlourBin = AppGlobal.Range.ParseRange(bins.BaseFlour);
-                mixingBin = AppGlobal.Range.ParseRange(bins.Mixing);
-                baggingBin= AppGlobal.Range.ParseRange(bins.Bagging);
-                outloadBin = AppGlobal.Range.ParseRange(bins.Outload);
-                byproductBin= AppGlobal.Range.ParseRange(bins.ByProduct);
+                silo.ParseRange(bins.Silo);
+                rawWheatBin.ParseRange(bins.RawWheat);
+                temperingBin.ParseRange(bins.Tempering);
+                screeningsBin.ParseRange(bins.Screenings);
+                baseFlourBin.ParseRange(bins.BaseFlour);
+                mixingBin.ParseRange(bins.Mixing);
+                baggingBin.ParseRange(bins.Bagging);
+                outloadBin.ParseRange(bins.Outload);
+                byproductBin.ParseRange(bins.ByProduct);
             }
             static Bin()
             {
@@ -401,23 +395,23 @@ namespace GcproExtensionApp
             {
                 try
                 {
-                    string keyVLS = "GcObjectInfo.VLS.";
+                    string keyPath = "GcObjectInfo.VLS.";
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        { $"{keyVLS}Suffix.VLS", value => suffixVLS = value },
-                        { $"{keyVLS}Suffix.VLSPattern", value => suffixVLSPattern = value },
-                        { $"{keyVLS}Suffix.InpLN", value => suffixInpLN = value },
-                        { $"{keyVLS}Suffix.OutpLN", value => suffixOutpLN = value },
-                        { $"{keyVLS}Suffix.InpHN", value => suffixInpHN = value },
-                        { $"{keyVLS}Suffix.OutpHN", value => suffixOutpHN = value },
-                        { $"{keyVLS}Suffix.InpRunRev", value => suffixInpRunRev = value },
-                        { $"{keyVLS}Suffix.OutpRunRev", value => suffixOutpRunRev = value },
-                        { $"{keyVLS}Suffix.InpRunFwd", value => suffixInpRunFwd = value },
-                        { $"{keyVLS}Suffix.OutpRunFwd", value => suffixOutpRunFwd = value },
-                        { $"{keyVLS}Suffix.InpPattern", value => suffixInpPattern= value },
-                        { $"{keyVLS}Suffix.OutpPattern", value => suffixOutpPattern = value },
-                        { $"{keyVLS}Suffix.InpRunPattern", value => suffixInpRunPattern = value },
-                        { $"{keyVLS}Suffix.OutpRunPattern", value => suffixOutpRunPattern = value },
+                        { $"{keyPath}Suffix.VLS", value => suffixVLS = value },
+                        { $"{keyPath}Suffix.VLSPattern", value => suffixVLSPattern = value },
+                        { $"{keyPath}Suffix.InpLN", value => suffixInpLN = value },
+                        { $"{keyPath}Suffix.OutpLN", value => suffixOutpLN = value },
+                        { $"{keyPath}Suffix.InpHN", value => suffixInpHN = value },
+                        { $"{keyPath}Suffix.OutpHN", value => suffixOutpHN = value },
+                        { $"{keyPath}Suffix.InpRunRev", value => suffixInpRunRev = value },
+                        { $"{keyPath}Suffix.OutpRunRev", value => suffixOutpRunRev = value },
+                        { $"{keyPath}Suffix.InpRunFwd", value => suffixInpRunFwd = value },
+                        { $"{keyPath}Suffix.OutpRunFwd", value => suffixOutpRunFwd = value },
+                        { $"{keyPath}Suffix.InpPattern", value => suffixInpPattern= value },
+                        { $"{keyPath}Suffix.OutpPattern", value => suffixOutpPattern = value },
+                        { $"{keyPath}Suffix.InpRunPattern", value => suffixInpRunPattern = value },
+                        { $"{keyPath}Suffix.OutpRunPattern", value => suffixOutpRunPattern = value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -450,6 +444,7 @@ namespace GcproExtensionApp
                     Count = count;
                 }
             }
+            #region Fields for properties
             private static string suffixMotor;
             private static string suffixInpRunFwd;
             private static string suffixOutpRunFwd;
@@ -458,8 +453,8 @@ namespace GcproExtensionApp
             private static string suffixVFC;
             private static string suffixPowerApp;
             private static string suffixAO;
-            private static string prefixName;
-            private static string nameDelimiter;
+            #endregion
+            #region Properties
             public static string SuffixMotor
             {
                 get { return suffixMotor; }
@@ -500,21 +495,22 @@ namespace GcproExtensionApp
                 get { return suffixAO; }
                 set { suffixAO = value; }
             }
+            #endregion
             static Motor()
             {
                 try
                 {
-                    string keyMotor = "GcObjectInfo.Motor.";
+                    string keyPath = "GcObjectInfo.Motor.";
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        { $"{keyMotor}Suffix.Motor", value => suffixMotor = value },
-                        { $"{keyMotor}Suffix.InpRunFwd", value => suffixInpRunFwd= value },
-                        { $"{keyMotor}Suffix.OutpRunFwd", value => suffixOutpRunFwd = value },
-                        { $"{keyMotor}Suffix.InpRunRev", value => suffixInpRunRev = value },
-                        { $"{keyMotor}Suffix.OutpRunRev", value => suffixOutpRunRev = value },
-                        { $"{keyMotor}Suffix.VFC", value => suffixVFC = value },
-                        { $"{keyMotor}Suffix.PowerApp", value => suffixPowerApp = value },
-                        { $"{keyMotor}Suffix.AO", value => suffixAO= value },
+                        { $"{keyPath}Suffix.Motor", value => suffixMotor = value },
+                        { $"{keyPath}Suffix.InpRunFwd", value => suffixInpRunFwd= value },
+                        { $"{keyPath}Suffix.OutpRunFwd", value => suffixOutpRunFwd = value },
+                        { $"{keyPath}Suffix.InpRunRev", value => suffixInpRunRev = value },
+                        { $"{keyPath}Suffix.OutpRunRev", value => suffixOutpRunRev = value },
+                        { $"{keyPath}Suffix.VFC", value => suffixVFC = value },
+                        { $"{keyPath}Suffix.PowerApp", value => suffixPowerApp = value },
+                        { $"{keyPath}Suffix.AO", value => suffixAO= value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -573,14 +569,14 @@ namespace GcproExtensionApp
             {
                 try
                 {
-                    string keyVLS = "GcObjectInfo.DI.";
+                    string keyPath = "GcObjectInfo.DI.";
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        { $"{keyVLS}Suffix.InpTrue", value => suffixInpTrue = value },
-                        { $"{keyVLS}Suffix.InpFaultDev", value => suffixInpFaultDev = value },
-                        { $"{keyVLS}Suffix.OutpFaultReset", value => suffixOutpFaultReset = value },
-                        { $"{keyVLS}Suffix.OutpPowerOff", value => suffixOutpPowerOff = value },
-                        { $"{keyVLS}Suffix.OutpLamp", value => suffixOutpLamp = value },
+                        { $"{keyPath}Suffix.InpTrue", value => suffixInpTrue = value },
+                        { $"{keyPath}Suffix.InpFaultDev", value => suffixInpFaultDev = value },
+                        { $"{keyPath}Suffix.OutpFaultReset", value => suffixOutpFaultReset = value },
+                        { $"{keyPath}Suffix.OutpPowerOff", value => suffixOutpPowerOff = value },
+                        { $"{keyPath}Suffix.OutpLamp", value => suffixOutpLamp = value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -600,6 +596,208 @@ namespace GcproExtensionApp
 
             }
         }
+        public static class AI
+        {
+            private static string suffixName;
+            private static string suffixInpValue;
+            private static string suffixInpFaultDev;
+            private static string suffixInpLowLow;
+            private static string suffixInpLow;
+            private static string suffixInpHigh;
+            private static string suffixInpHighHigh;
+            public static string SuffixName
+            {
+                get { return suffixName; }
+                set { suffixName= value; }
+            }
+            public static string SuffixInpValue
+            {
+                get { return suffixInpValue; }
+                set { suffixInpValue = value; }
+            }
+            public static string SuffixInpFaultDev
+            {
+                get { return suffixInpFaultDev; }
+                set { suffixInpFaultDev = value; }
+            }
+            public static string SuffixInpLowLow
+            {
+                get { return suffixInpLowLow; }
+                set { suffixInpLowLow = value; }
+            }
+
+            public static string SuffixInpLow
+            {
+                get { return suffixInpLow; }
+                set { suffixInpLowLow = value; }
+            }
+
+            public static string SuffixInpHigh
+            {
+                get { return suffixInpHigh; }
+                set { suffixInpHigh = value; }
+            }
+            public static string SuffixInpHighHigh
+            {
+                get { return suffixInpHighHigh; }
+                set { suffixInpHighHigh = value; }
+            }
+            static AI()
+            {
+                try
+                {
+                    string keyPath = "GcObjectInfo.AI.";
+                    var keys = new Dictionary<string, Action<string>>
+                    { 
+                        { $"{keyPath}Suffix.AI", value => suffixName = value },
+                        { $"{keyPath}Suffix.InpValue", value => suffixInpValue = value },
+                        { $"{keyPath}Suffix.InpFaultDev", value => suffixInpFaultDev = value },
+                        { $"{keyPath}Suffix.InpLowLow", value => suffixInpLowLow = value },
+                        { $"{keyPath}Suffix.InpLow", value => suffixInpLow = value },
+                        { $"{keyPath}Suffix.InpHigh", value => suffixInpHigh = value },
+                        { $"{keyPath}Suffix.InpHighHigh", value => suffixInpHighHigh = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "GcObjectInfo.AI Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+        public static class MDDx
+        {
+            private static string suffixMDDx;
+            public static string SuffixMDDx
+            {
+                get { return suffixMDDx; }
+            }
+            static MDDx()
+            {
+
+                try
+                {
+                    string keyPath = "GcObjectInfo.MDDx.";
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        { $"{keyPath}Suffix.MDDx", value => suffixMDDx = value },             
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "GcObjectInfo.MDDx Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        public static class Roll8Stand
+        {
+
+            private static string suffixMDDx;
+            private static string suffixCurrent;
+            private static Roll8StandSide suffixSide1 ;
+            private static Roll8StandSide suffixSide2;
+            public static string SuffixMDDx
+            {
+                get { return suffixMDDx; }
+                set { suffixMDDx = value; }
+            }
+            public static string SuffixCurrent
+            {
+                get { return suffixCurrent; }
+                set { suffixCurrent = value; }
+            }
+            public static Roll8StandSide SiffixSide1
+            {
+                get { return suffixSide1; }
+                set { suffixSide1 = value; }
+            }
+            public static Roll8StandSide SiffixSide2
+            {
+                get { return suffixSide2; }
+                set { suffixSide2 = value; }
+            }
+            static Roll8Stand()
+            {
+                try
+                {
+                    suffixSide1 = new Roll8StandSide();
+                    suffixSide2 = new Roll8StandSide();
+                    string keyPath = "GcObjectInfo.Roll8Stand.";
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        { $"{keyPath}Suffix.MDDx", value => suffixMDDx = value },
+                        { $"{keyPath}Suffix.Current", value => suffixCurrent = value },
+                        { $"{keyPath}Suffix.Side1.MotorLow", value => suffixSide1.MotorLow = value },
+                        { $"{keyPath}Suffix.Side1.MotorUp", value => suffixSide1.MotorUp = value },
+                        { $"{keyPath}Suffix.Side1.HLBackupLeft", value => suffixSide1.HLBackupLeft = value },
+                        { $"{keyPath}Suffix.Side1.HLBackupRight", value => suffixSide1.HLBackupRight = value },
+                        { $"{keyPath}Suffix.Side1.HLInlet", value => suffixSide1.HLInlet = value },
+                        { $"{keyPath}Suffix.Side1.DivHLInlet", value => suffixSide1.DivHLInlet = value },
+                        { $"{keyPath}Suffix.Side1.SM1", value => suffixSide1.SM1 = value },
+                        { $"{keyPath}Suffix.Side1.InpPressure", value => suffixSide1.InpPressure = value },
+                        { $"{keyPath}Suffix.Side1.FeedRoll", value => suffixSide1.FeedRoll = value },
+                        { $"{keyPath}Suffix.Side1.DivFeedRoll", value => suffixSide1.DivFeedRoll = value },
+                        { $"{keyPath}Suffix.Side1.HLOutlet1", value => suffixSide1.HLOutlet1 = value },
+                        { $"{keyPath}Suffix.Side1.HLOutlet2", value => suffixSide1.HLOutlet2 = value },
+                        { $"{keyPath}Suffix.Side1.HLOutlet3", value => suffixSide1.HLOutlet3 = value },
+                        { $"{keyPath}Suffix.Side2.MotorLow", value => suffixSide2.MotorLow = value },
+                        { $"{keyPath}Suffix.Side2.MotorUp", value => suffixSide2.MotorUp = value },
+                        { $"{keyPath}Suffix.Side2.HLBackupLeft", value => suffixSide2.HLBackupLeft = value },
+                        { $"{keyPath}Suffix.Side2.HLBackupRight", value => suffixSide2.HLBackupRight = value },
+                        { $"{keyPath}Suffix.Side2.HLInlet", value => suffixSide2.HLInlet = value },
+                        { $"{keyPath}Suffix.Side2.DivHLInlet", value => suffixSide2.DivHLInlet = value },
+                        { $"{keyPath}Suffix.Side2.SM1", value => suffixSide2.SM1 = value },
+                        { $"{keyPath}Suffix.Side2.InpPressure", value => suffixSide2.InpPressure = value },
+                        { $"{keyPath}Suffix.Side2.FeedRoll", value => suffixSide2.FeedRoll = value },
+                        { $"{keyPath}Suffix.Side2.DivFeedRoll", value => suffixSide2.DivFeedRoll = value },
+                        { $"{keyPath}Suffix.Side2.HLOutlet1", value => suffixSide2.HLOutlet1 = value },
+                        { $"{keyPath}Suffix.Side2.HLOutlet2", value => suffixSide2.HLOutlet2 = value },
+                        { $"{keyPath}Suffix.Side2.HLOutlet3", value => suffixSide2.HLOutlet3 = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "GcObjectInfo.Roll8Stand Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+              
+            }
+
+        }
+
         public static class Section
         {
             private static AppGlobal.Range commonSection = new AppGlobal.Range(9001, 9999);
@@ -610,7 +808,7 @@ namespace GcproExtensionApp
             private static AppGlobal.Range flourSection = new AppGlobal.Range(6001, 6800);
             private static AppGlobal.Range stackingSection = new AppGlobal.Range(6801, 6999);
             private static AppGlobal.Range outloadSection = new AppGlobal.Range(7001, 7999);
-            private static AppGlobal.Range byproductSection = new AppGlobal.Range(8001, 8999);
+            private static AppGlobal.Range byproductSection = new AppGlobal.Range(8001, 8999);  
             private static Sections sections =new Sections();         
             #region Properties
             public static AppGlobal.Range CommonSection
@@ -669,31 +867,31 @@ namespace GcproExtensionApp
 
             private static Dictionary<string, Action<string>> GetKeyValueDictionary()
             {
-                string keySections = "GcObjectInfo.General.NameNumberRule.Section.";
+                string keyPath = "GcObjectInfo.General.NameNumberRule.Section.";
                 return new Dictionary<string, Action<string>>
                 {
-                    { $"{keySections}Common", value => sections.Common = value },
-                    { $"{keySections}PreCleaning", value => sections.PreCleaning = value },
-                    { $"{keySections}Cleaning", value => sections.Cleaning= value },
-                    { $"{keySections}Screenings", value => sections.Screenings= value },
-                    { $"{keySections}Milling", value => sections.Milling = value },
-                    { $"{keySections}Flour", value => sections.Flour = value },
-                    { $"{keySections}Stacking", value => sections.Stacking = value },
-                    { $"{keySections}Outload", value => sections.Outload = value },
-                    { $"{keySections}Byproduct", value => sections.Byproduct = value }
+                    { $"{keyPath}Common", value => sections.Common = value },
+                    { $"{keyPath}PreCleaning", value => sections.PreCleaning = value },
+                    { $"{keyPath}Cleaning", value => sections.Cleaning= value },
+                    { $"{keyPath}Screenings", value => sections.Screenings= value },
+                    { $"{keyPath}Milling", value => sections.Milling = value },
+                    { $"{keyPath}Flour", value => sections.Flour = value },
+                    { $"{keyPath}Stacking", value => sections.Stacking = value },
+                    { $"{keyPath}Outload", value => sections.Outload = value },
+                    { $"{keyPath}Byproduct", value => sections.Byproduct = value }
                 };
             }
             private static void ParseAllRanges()
             {
-                commonSection = AppGlobal.Range.ParseRange(sections.Common);
-                preCleaningSection = AppGlobal.Range.ParseRange(sections.PreCleaning);
-                cleaningSection = AppGlobal.Range.ParseRange(sections.Cleaning );
-                screeningsSection = AppGlobal.Range.ParseRange(sections.Screenings);
-                millingSection = AppGlobal.Range.ParseRange(sections.Milling);
-                flourSection = AppGlobal.Range.ParseRange(sections.Flour);
-                stackingSection = AppGlobal.Range.ParseRange(sections.Stacking);
-                outloadSection = AppGlobal.Range.ParseRange(sections.Outload);
-                byproductSection = AppGlobal.Range.ParseRange(sections.Byproduct);
+                commonSection.ParseRange(sections.Common);
+                preCleaningSection.ParseRange(sections.PreCleaning);
+                cleaningSection.ParseRange(sections.Cleaning );
+                screeningsSection.ParseRange(sections.Screenings);
+                millingSection.ParseRange(sections.Milling);
+                flourSection.ParseRange(sections.Flour);
+                stackingSection.ParseRange(sections.Stacking);
+                outloadSection.ParseRange(sections.Outload);
+                byproductSection.ParseRange(sections.Byproduct);       
             }
             static Section()
             {

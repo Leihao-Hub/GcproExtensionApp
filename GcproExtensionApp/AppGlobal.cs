@@ -17,6 +17,7 @@ using System.Drawing;
 using System.Data.SqlTypes;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 #endregion
 namespace GcproExtensionApp
 {
@@ -27,6 +28,7 @@ namespace GcproExtensionApp
         public const string JSON_FILE_PATH = "appsettings.json";
         public const string ERROR_ENTER_TYPE = "输入类型错误";
         public const string ENTER_NUMERIC = "请输入一个数字类型";
+        public const string UPDATE_AI_UNITSMAXDIGITS = "自动更新模拟量输入点[UnitsByMaxDigits]值";
         public const string FIELDS_SEPARATOR = "   |";
         public const string CREATE_IMPORT_RULE = "创建导入规则";
         public const string CONNECT_IO = "关联IO";
@@ -58,6 +60,38 @@ namespace GcproExtensionApp
         public const string EX_UNKNOW = "未知错误";
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
         public const int MIN_IO_SYMBOL_LENGTH = 3;
+        public const string PATTERN_IP = "\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3}";
+        #region Appsetting struct
+        #region BML
+        public const string JS_BML = "BML";
+        public const string JS_PATH = "Path";
+        public const string JS_PREFIX = "Prefix";
+        public const string JS_SUFFIX = "Suffix";
+        public const string JS_OBJECT_TYPE = "ObjectType";
+        public const string JS_SECTION = "Section";
+        public const string JS_BIN = "Bin";
+        public const string JS_MACHINE= "machine";
+        public const string JS_VLS = "VLS";
+        public const string JS_MOTOR = "Motor";
+        public const string JS_DI = "DI";
+        public const string JS_AI = "AI";
+        public const string JS_MDDX = "MDDx";
+        public const string JS_ROLL8STAND = "Roll8Stand";
+        public const string JS_COLUMNS = "Columns";
+        public const string JS_IO_TYPE = "IOType";
+        public const string JS_IO_REMARK= "IORemark";
+        public const string JS_FILTER = "Filter";
+        #endregion
+        public const string JS_DELIMITER = "Delimiter";
+        #region GcObjectInfo
+        #endregion
+        #region Engineer
+        public const string JS_ENGINEERING = "Engineering";
+        public const string JS_MOTORPOWER = "MotorPower";
+        public const string JS_PATTERN = "Pattern";
+        #endregion
+
+        #endregion
         #endregion
         public static class AppInfo
         {
@@ -68,33 +102,60 @@ namespace GcproExtensionApp
         }
         public class Range
         {
-            public int Min { get; set; }
-            public int Max { get; set; }
+
+            private int min, max;
+            public int Min
+            {
+                get { return min;}
+                set{ min = value;} 
+            }
+            public int Max
+            {
+                get { return max; }
+                set { max = value; }
+            }
 
             public Range(int min, int max)
             {
-                Min = min;
-                Max = max;
+                this.min = min;
+                this.max= max;
             }
             public bool IsInRange(int value)
             {
                 return value >= Min && value <= Max;
             }
 
-            public static Range ParseRange(string rangeStr)
+            public void ParseRange(string rangeStr)
+            {
+                string[] parts = rangeStr.Split('-');
+                if (parts.Length == 2 &&
+                    int.TryParse(parts[0], out int min) &&
+                    int.TryParse(parts[1], out int max))
+                {                
+                 this.min = min;
+                 this.max = max;
+
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid range format");
+                }
+            }
+
+            public static Range ReturnNewRange(string rangeStr)
             {
                 string[] parts = rangeStr.Split('-');
                 if (parts.Length == 2 &&
                     int.TryParse(parts[0], out int min) &&
                     int.TryParse(parts[1], out int max))
                 {
-                    return new Range(min, max);
+                     return new Range(min, max);                   
                 }
                 else
                 {
                     throw new ArgumentException("Invalid range format");
                 }
-            }     
+            }
         }
         public static bool NewOLEDBDriver;
         public static GcproDataBase GcproDBInfo;
@@ -252,8 +313,8 @@ namespace GcproExtensionApp
         {
             string key = string.Empty;
             DataTable data;
-            data = dataSource.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldText.Name} LIKE'{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name}='{GcproTable.TranslationCbo.Class_ASWInDPFault}'",
-                          null, null, GcproTable.TranslationCbo.FieldValue.Name);
+            data = dataSource.QueryDataTable(GcproTable.TranslationCbo.TableName, $@"{GcproTable.TranslationCbo.FieldText.Name} LIKE '{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name} = '{GcproTable.TranslationCbo.Class_ASWInDPFault}'",
+                          null, null, $"{GcproTable.TranslationCbo.FieldValue.Name}");
             if (data.Rows.Count != 0)
             { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name).ToString(); }
             else
@@ -367,6 +428,7 @@ namespace GcproExtensionApp
             string ret= string.IsNullOrEmpty(match)?String.Empty:match.Replace(pattern,"");
             return ret; 
         }
+    
         #region Operate bit 
         /// <summary>
         /// 返回一个整形数上指定位的值
@@ -399,7 +461,6 @@ namespace GcproExtensionApp
             int mask = 1 << position;
             sourceValue = sourceValue | mask;
         }
-
         public static void SetBit(ref byte sourceValue, byte position)
         {
             byte mask = (byte)(1 << position);
@@ -413,29 +474,24 @@ namespace GcproExtensionApp
             sourceValue = (ushort)(sourceValue | mask);
 
         }
-
         public static void ClearBit(ref long sourceValue, byte position)
         {
             long mask = ~(1L << position);
             sourceValue = sourceValue & mask;
 
         }
-
         public static void ClearBit(ref int sourceValue, byte position)
         {
             int mask = ~(1 << position);
             sourceValue = sourceValue & mask;
 
         }
-
-
         public static void ClearBit(ref byte sourceValue, byte position)
         {
             byte mask = (byte)~(1 << position);
             sourceValue = (byte)(sourceValue & mask);
 
         }
-
         public static void ClearBit(ref ushort sourceValue, byte position)
         {
             ushort mask = (ushort)~(1 << position);
@@ -443,85 +499,7 @@ namespace GcproExtensionApp
 
         }
         #endregion
-        public static void GetJsonConfiguration()
-        {
-            try
-            {
-                /* Remove
-                
-                string keyGeneral = "GcObjectInfo.General.";
-                string keyVLS = "GcObjectInfo.VLS.";
-                string keyMotor = "GcObjectInfo.Motor.";
-                string keyBin = "GcObjectInfo.Bin.";
-                string keyDI = "GcObjectInfo.DI.";
-                string[] keysToRead = new string[]
-                    {
-                        $"{keyGeneral}Prefix.Name",
-                        $"{keyGeneral}Delimiter.Symbol",
-                        $"{keyGeneral}Suffix.IO.DI",
-                        $"{keyGeneral}Suffix.IO.DO",
-                        $"{keyGeneral}Suffix.IO.AI",
-                        $"{keyGeneral}Suffix.IO.AO",
-                        $"{keyGeneral}Suffix.IO.Delimiter",
-                        $"{keyVLS}Suffix.VLS",
-                        $"{keyVLS}Suffix.VLSPattern",
-                        $"{keyVLS}Suffix.InpLN",
-                        $"{keyVLS}Suffix.OutpLN",
-                        $"{keyVLS}Suffix.InpHN",
-                        $"{keyVLS}Suffix.OutpHN",
-                        $"{keyVLS}Suffix.InpRunRev",
-                        $"{keyVLS}Suffix.OutpRunRev",
-                        $"{keyVLS}Suffix.OutpRunFwd",
-                        $"{keyVLS}Suffix.InpRunFwd",
-                        $"{keyMotor}Suffix.Motor",
-                        $"{keyMotor}Suffix.InpRunFwd",
-                        $"{keyMotor}Suffix.OutpRunFwd",
-                        $"{keyMotor}Suffix.InpRunRev",
-                        $"{keyMotor}Suffix.OutpRunRev",
-                        $"{keyMotor}Suffix.VFC",
-                        $"{keyMotor}Suffix.PowerApp",
-                        $"{keyMotor}Suffix.AO",
-                       $"{keyBin}Prefix",
-                    };
-                Dictionary<string, string> keyValueRead;
-                keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keysToRead);
-                GcObjectInfo.General.PrefixName = keyValueRead[$"{keyGeneral}Prefix.Name"];
-                GcObjectInfo.General.DelimiterSymbol = keyValueRead[$"{keyGeneral}Delimiter.Symbol"];
-                GcObjectInfo.General.SuffixIO.DI = keyValueRead[$"{keyGeneral}Suffix.IO.DI"];
-                GcObjectInfo.General.SuffixIO.DO = keyValueRead[$"{keyGeneral}Suffix.IO.DO"];
-                GcObjectInfo.General.SuffixIO.AI = keyValueRead[$"{keyGeneral}Suffix.IO.AI"];
-                GcObjectInfo.General.SuffixIO.AO = keyValueRead[$"{keyGeneral}Suffix.IO.AO"];
-                GcObjectInfo.General.SuffixIO.Delimiter = keyValueRead[$"{keyGeneral}Suffix.IO.Delimiter"];
-                GcObjectInfo.VLS.SuffixVLS = keyValueRead[$"{keyVLS}Suffix.VLS"];
-                GcObjectInfo.VLS.SuffixVLSPattern = keyValueRead[$"{keyVLS}Suffix.VLSPattern"];
-                GcObjectInfo.VLS.SuffixInpLN = keyValueRead[$"{keyVLS}Suffix.InpLN"];
-                GcObjectInfo.VLS.SuffixOutpLN = keyValueRead[$"{keyVLS}Suffix.OutpLN"];
-                GcObjectInfo.VLS.SuffixInpHN = keyValueRead[$"{keyVLS}Suffix.InpHN"];
-                GcObjectInfo.VLS.SuffixOutpHN = keyValueRead[$"{keyVLS}Suffix.OutpHN"];
-                GcObjectInfo.VLS.SuffixInpRunRev = keyValueRead[$"{keyVLS}Suffix.InpRunRev"];
-                GcObjectInfo.VLS.SuffixOutpRunRev = keyValueRead[$"{keyVLS}Suffix.OutpRunRev"];
-                GcObjectInfo.VLS.SuffixInpRunFwd = keyValueRead[$"{keyVLS}Suffix.InpRunFwd"];
-                GcObjectInfo.VLS.SuffixOutpRunFwd = keyValueRead[$"{keyVLS}Suffix.OutpRunFwd"];
-                GcObjectInfo.Motor.SuffixMotor = keyValueRead[$"{keyMotor}Suffix.Motor"];
-                GcObjectInfo.Motor.SuffixInpRunFwd = keyValueRead[$"{keyMotor}Suffix.InpRunFwd"];
-                GcObjectInfo.Motor.SuffixOutpRunFwd = keyValueRead[$"{keyMotor}Suffix.OutpRunFwd"];
-                GcObjectInfo.Motor.SuffixInpRunRev = keyValueRead[$"{keyMotor}Suffix.InpRunRev"];
-                GcObjectInfo.Motor.SuffixOutpRunRev = keyValueRead[$"{keyMotor}Suffix.OutpRunRev"];
-                GcObjectInfo.Motor.SuffixVFC = keyValueRead[$"{keyMotor}Suffix.VFC"];
-                GcObjectInfo.Motor.SuffixPowerApp = keyValueRead[$"{keyMotor}Suffix.PowerApp"];
-                GcObjectInfo.Motor.SuffixAO = keyValueRead[$"{keyMotor}Suffix.AO"];
-                GcObjectInfo.Bin.BinPrefix = keyValueRead[$"{keyBin}Prefix"];
-                BML.VLS.SuffixVLS = GcObjectInfo.VLS.SuffixVLS;
-                BML.VLS.NameDelimiter = GcObjectInfo.General.DelimiterSymbol;
-                BML.VLS.PrefixName = GcObjectInfo.General.PrefixName;
-                keyValueRead = null;
-                */            
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "GcObject.General Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+       
     }
     public class CreateMode
     {
