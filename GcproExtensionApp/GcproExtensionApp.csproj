@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Coorperatin2.ico</ApplicationIcon>
+    <ApplicationIcon>Common\Coorperatin2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,19 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutHelp.cs">
+    <Compile Include="Common\AppStart.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutHelp.Designer.cs">
-      <DependentUpon>AboutHelp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AppStart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AppStart.Designer.cs">
+    <Compile Include="Common\AppStart.Designer.cs">
       <DependentUpon>AppStart.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppGlobal.cs" />
+    <Compile Include="Common\AppGlobal.cs" />
     <Compile Include="CretaeObjHelper\BML.cs" />
     <Compile Include="CretaeObjHelper\BMLAndGcObjectCommon.cs" />
     <Compile Include="CretaeObjHelper\Engineering.cs" />
@@ -89,6 +83,12 @@
     <Compile Include="LL\EL\FormMotor.Designer.cs">
       <DependentUpon>FormMotor.cs</DependentUpon>
     </Compile>
+    <Compile Include="LL\EL\FormRollStandPhoenix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormRollStandPhoenix.Designer.cs">
+      <DependentUpon>FormRollStandPhoenix.cs</DependentUpon>
+    </Compile>
     <Compile Include="LL\EL\FormVFCAdapter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,16 +108,22 @@
     <Compile Include="LL\FormDPSlave.Designer.cs">
       <DependentUpon>FormDPSlave.cs</DependentUpon>
     </Compile>
+    <Compile Include="LL\MA\FormMA_MDDYZPhoenix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_MDDYZPhoenix.Designer.cs">
+      <DependentUpon>FormMA_MDDYZPhoenix.cs</DependentUpon>
+    </Compile>
     <Compile Include="LL\MA\FormMA_Roll8Stand.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LL\MA\FormMA_Roll8Stand.Designer.cs">
       <DependentUpon>FormMA_Roll8Stand.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectBrowser.cs">
+    <Compile Include="Common\ObjectBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ObjectBrowser.Designer.cs">
+    <Compile Include="Common\ObjectBrowser.Designer.cs">
       <DependentUpon>ObjectBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -128,10 +134,7 @@
     <Compile Include="UL\FormBin.Designer.cs">
       <DependentUpon>FormBin.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutHelp.resx">
-      <DependentUpon>AboutHelp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AppStart.resx">
+    <EmbeddedResource Include="Common\AppStart.resx">
       <DependentUpon>AppStart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LL\EL\FormAI.resx">
@@ -140,8 +143,14 @@
     <EmbeddedResource Include="LL\EL\FormMDDx.resx">
       <DependentUpon>FormMDDx.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormRollStandPhoenix.resx">
+      <DependentUpon>FormRollStandPhoenix.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LL\FormDPSlave.resx">
       <DependentUpon>FormDPSlave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\MA\FormMA_MDDYZPhoenix.resx">
+      <DependentUpon>FormMA_MDDYZPhoenix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LL\MA\FormMA_Roll8Stand.resx">
       <DependentUpon>FormMA_Roll8Stand.cs</DependentUpon>
@@ -161,7 +170,7 @@
     <EmbeddedResource Include="LL\EL\FormVLS.resx">
       <DependentUpon>FormVLS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ObjectBrowser.resx">
+    <EmbeddedResource Include="Common\ObjectBrowser.resx">
       <DependentUpon>ObjectBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -188,7 +197,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Coorperatin2.ico" />
+    <Content Include="Common\Coorperatin2.ico" />
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

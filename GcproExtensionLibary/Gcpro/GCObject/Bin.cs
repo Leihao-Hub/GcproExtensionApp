@@ -3,6 +3,7 @@ using static OfficeOpenXml.ExcelErrorValue;
 using System.Text;
 using System.Collections.Generic;
 using System.Security.Cryptography.Xml;
+using System;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
@@ -184,8 +185,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return isNew; }
             set { isNew = value; }
         }
-        public static string ImpExpRuleName { get; } = "ImpExpBin";
-        public static int OTypeValue { get; } = (int)OTypeCollection.Bin;
+
         public override string FilePath
         {
             get { return filePath; }
@@ -204,6 +204,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string BINB { get; } = "BINB";
         public static string BING { get; } = "BING";
         public static string BINM { get; } = "BINM";
+        public static string ImpExpRuleName { get; } = "IE_Bin";
+        public static int OTypeValue { get; } = (int)OTypeCollection.Bin;
         #endregion
         public Bin()
         {
@@ -274,8 +276,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(isNew);
+                  .Append(LibGlobalSource.NOCHILD);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
@@ -317,5 +318,139 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             //textFileHandle.FilePath = this.fileConnectorPath;
             //textFileHandle.ClearContents();
         }
+        /// <summary>
+        /// 向数据库ImpExpDef中插入对向的导入定义
+        /// </summary>
+        /// <param name="insertMultipleRecords">传入一个Oledb类中InsertMultipleRecords方法的委托</param>
+        /// <returns></returns>
+        public bool CreateImpExpDef(Func<string, List<List<Gcpro.DbParameter>>, bool> insertMultipleRecords)
+        {
+            List<List<Gcpro.DbParameter>> impExpList = new List<List<Gcpro.DbParameter>>();
+            string tableName = GcproTable.ImpExpDef.TableName;
+            base.CreateImpExpDef(impExpList, ImpExpRuleName);
+            #region  #region Add records list
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "BinNo"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value1.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "EmptyingTime"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "OverfillingWeight"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "DryFillingWeight"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value23.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "RestdischargeWeight"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "HighLevelRemote" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value41.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "MiddleLevelRemote"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value42.Name }
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "LowLevelRemote"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value43.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InFillLevelRemote"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value44.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParValue24" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value ="GCPRO"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value30.Name }
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "WinCos.r2"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name}
+
+             });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "HighLevel"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value2.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "MiddleLevel"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value4.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "LowLevel"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value3.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "AnalogLevel"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name}
+
+            });  
+            #endregion
+            bool result = insertMultipleRecords(tableName, impExpList);
+            impExpList.Clear();
+            return result;
+        }
+
     }
 }

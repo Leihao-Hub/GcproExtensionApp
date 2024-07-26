@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBin));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -411,6 +411,7 @@ namespace GcproExtensionApp
             this.txtHighLevel.TabIndex = 21;
             this.txtHighLevel.TextChanged += new System.EventHandler(this.txtHighLevel_TextChanged);
             this.txtHighLevel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtHighLevel_MouseDoubleClick);
+            this.txtHighLevel.MouseEnter += new System.EventHandler(this.txtHighLevel_MouseEnter);
             // 
             // txtAnalogLevelIncRule
             // 
@@ -449,6 +450,7 @@ namespace GcproExtensionApp
             this.txtMiddleLevel.TabIndex = 23;
             this.txtMiddleLevel.TextChanged += new System.EventHandler(this.txtMiddleLevel_TextChanged);
             this.txtMiddleLevel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtMiddleLevel_MouseDoubleClick);
+            this.txtMiddleLevel.MouseEnter += new System.EventHandler(this.txtMiddleLevel_MouseEnter);
             // 
             // txtAnalogLevelRule
             // 
@@ -486,6 +488,7 @@ namespace GcproExtensionApp
             this.txtLowLevel.TabIndex = 25;
             this.txtLowLevel.TextChanged += new System.EventHandler(this.txtLowLevel_TextChanged);
             this.txtLowLevel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtLowLevel_MouseDoubleClick);
+            this.txtLowLevel.MouseEnter += new System.EventHandler(this.txtLowLevel_MouseEnter);
             // 
             // txtLowLevelIncRule
             // 
@@ -524,6 +527,7 @@ namespace GcproExtensionApp
             this.txtAnalogLevel.TabIndex = 27;
             this.txtAnalogLevel.TextChanged += new System.EventHandler(this.txtAnalogLevel_TextChanged);
             this.txtAnalogLevel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtAnalogLevel_MouseDoubleClick);
+            this.txtAnalogLevel.MouseEnter += new System.EventHandler(this.txtAnalogLevel_MouseEnter);
             // 
             // txtLowLevelRule
             // 
@@ -662,6 +666,7 @@ namespace GcproExtensionApp
             this.txtRemoteHighLevel.TabIndex = 84;
             this.txtRemoteHighLevel.Text = "0";
             this.txtRemoteHighLevel.TextChanged += new System.EventHandler(this.txtRemoteHighLevel_TextChanged);
+            this.txtRemoteHighLevel.MouseEnter += new System.EventHandler(this.txtRemoteHighLevel_MouseEnter);
             // 
             // txtRemoteLowLevel
             // 
@@ -672,6 +677,7 @@ namespace GcproExtensionApp
             this.txtRemoteLowLevel.TabIndex = 88;
             this.txtRemoteLowLevel.Text = "0";
             this.txtRemoteLowLevel.TextChanged += new System.EventHandler(this.txtRemoteLowLevel_TextChanged);
+            this.txtRemoteLowLevel.MouseEnter += new System.EventHandler(this.txtRemoteLowLevel_MouseEnter);
             // 
             // lblRemoteMiddleLevel
             // 
@@ -700,6 +706,7 @@ namespace GcproExtensionApp
             this.txtRemoteMiddleLevel.TabIndex = 86;
             this.txtRemoteMiddleLevel.Text = "0";
             this.txtRemoteMiddleLevel.TextChanged += new System.EventHandler(this.txtRemoteMiddleLevel_TextChanged);
+            this.txtRemoteMiddleLevel.MouseEnter += new System.EventHandler(this.txtRemoteMiddleLevel_MouseEnter);
             // 
             // grpGcpro
             // 
@@ -818,6 +825,7 @@ namespace GcproExtensionApp
             this.txtBinNo.Size = new System.Drawing.Size(66, 13);
             this.txtBinNo.TabIndex = 85;
             this.txtBinNo.TextChanged += new System.EventHandler(this.txtBinNo_TextChanged);
+            this.txtBinNo.MouseEnter += new System.EventHandler(this.txtBinNo_MouseEnter);
             // 
             // chkLLisBelowBin
             // 
@@ -840,6 +848,7 @@ namespace GcproExtensionApp
             this.txtRestdischargeWeight.TabIndex = 101;
             this.txtRestdischargeWeight.Text = "0";
             this.txtRestdischargeWeight.TextChanged += new System.EventHandler(this.txtRestdischargeWeight_TextChanged);
+            this.txtRestdischargeWeight.MouseEnter += new System.EventHandler(this.txtRestdischargeWeight_MouseEnter);
             // 
             // chkRestdischarge
             // 
@@ -882,6 +891,7 @@ namespace GcproExtensionApp
             this.txtDryFillingWeight.TabIndex = 99;
             this.txtDryFillingWeight.Text = "0";
             this.txtDryFillingWeight.TextChanged += new System.EventHandler(this.txtDryFillingWeight_TextChanged);
+            this.txtDryFillingWeight.MouseEnter += new System.EventHandler(this.txtDryFillingWeight_MouseEnter);
             // 
             // lblDryFillingWeight
             // 
@@ -941,6 +951,7 @@ namespace GcproExtensionApp
             this.txtOverFillingWeight.TabIndex = 95;
             this.txtOverFillingWeight.Text = "100";
             this.txtOverFillingWeight.TextChanged += new System.EventHandler(this.txtOverFillingWeight_TextChanged);
+            this.txtOverFillingWeight.MouseEnter += new System.EventHandler(this.txtOverFillingWeight_MouseEnter);
             // 
             // txtEmptyingTime
             // 
@@ -951,6 +962,7 @@ namespace GcproExtensionApp
             this.txtEmptyingTime.TabIndex = 93;
             this.txtEmptyingTime.Text = "0";
             this.txtEmptyingTime.TextChanged += new System.EventHandler(this.txtEmptyingTime_TextChanged);
+            this.txtEmptyingTime.MouseEnter += new System.EventHandler(this.txtEmptyingTime_MouseEnter);
             // 
             // lblOverFillingWeight
             // 
@@ -1077,7 +1089,6 @@ namespace GcproExtensionApp
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(346, 13);
             this.txtDescription.TabIndex = 3;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescription_KeyDown);
             this.txtDescription.MouseEnter += new System.EventHandler(this.txtDescription_MouseEnter);
             // 
@@ -1272,8 +1283,8 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

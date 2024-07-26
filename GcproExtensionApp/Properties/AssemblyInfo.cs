@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Gcpro Extension Application")]
-[assembly: AssemblyDescription("A assiant tool to fast create GC objects accroding with rule or import from BML file")]
+[assembly: AssemblyDescription("1：自定义规则建立对象；2：通过BML表格建立对象；3：根据IO建立对象；4：关联对象的IO和连锁")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bühler (Wuxi) Commercial Co., Ltd.")]
 [assembly: AssemblyProduct("Gcpro plantform extension product")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]

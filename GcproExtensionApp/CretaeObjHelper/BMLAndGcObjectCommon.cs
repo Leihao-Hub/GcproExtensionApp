@@ -36,6 +36,7 @@ namespace GcproExtensionApp
         private string branFinisher;
         private string detacher;
         private string fan;
+        #region Properties
         public string Elevator
         {
             get { return elevator; }
@@ -80,11 +81,13 @@ namespace GcproExtensionApp
         {
             get { return feederRollerMiller; }
         }
+        #endregion Properties
         public MachineType()
         {
+            string keyMachines = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MACHINE}.";
             try
             {
-                string keyMachines = "BML.Machine.";
+            
                 var keys = new Dictionary<string, Action<string>>
                  {
                     {$"{keyMachines}Elevator",value => elevator = value },
@@ -112,7 +115,7 @@ namespace GcproExtensionApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "BML Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString(), $"{keyMachines} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
@@ -127,6 +130,7 @@ namespace GcproExtensionApp
         private string stacking;
         private string outload;
         private string byproduct;
+        #region Properties
         public string Common
         {
             get { return common; }
@@ -178,38 +182,10 @@ namespace GcproExtensionApp
             get { return byproduct; }
             set { byproduct = value; }
         }
+        #endregion Properties
         public Sections()
-        {
-            //try
-            //{
-            //    string keySections = "BML.Sections.";
-            //    var keys = new Dictionary<string, Action<string>>
-            //     {
-            //        {$"{keySections}Common",value => commonSection= value },
-            //        {$"{keySections}PreCleaning",value => preCleaningSection= value },
-            //        {$"{keySections}Cleaning",value => cleaningSection= value },
-            //        {$"{keySections}Screenings",value => screeningsSection= value },
-            //        {$"{keySections}Milling",value => millingSection= value },
-            //        {$"{keySections}Flour",value => flourSection= value },
-            //        {$"{keySections}Stacking",value => stackingSection= value },
-            //        {$"{keySections}Outload",value => outloadSection= value },
-            //        {$"{keySections}Byproduct",value => byproductSection= value },
-            //     };
-            //    Dictionary<string, string> keyValueRead;
-            //    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
-            //    foreach (var key in keys)
-            //    {
-            //        if (keyValueRead.TryGetValue(key.Key, out var value))
-            //        {
-            //            key.Value(value);
-            //        }
-            //    }
-            //    keyValueRead = null;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.ToString(), "BML Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+        { 
+            
         }
     }
     public class Bins
@@ -278,6 +254,7 @@ namespace GcproExtensionApp
         private Dictionary<string, string> suffixObjectType = new Dictionary<string, string>();
         public SuffixObject()
         {
+            string keySuffixObjectType = $"{AppGlobal.JS_BML}.{AppGlobal.JS_SUFFIX}.{AppGlobal.JS_OBJECT_TYPE}.";
             suffixObjectType = new Dictionary<string, string>
             {
                 { "MXZ", string.Empty},
@@ -321,9 +298,7 @@ namespace GcproExtensionApp
                 { "PPW", string.Empty}
             };
             try
-            {
-                string keySuffixObjectType = "BML.Suffix.ObjectType.";
-
+            {              
                 var keys = new Dictionary<string, Action<string>>
                  {
                     { $"{keySuffixObjectType}MXZ", value => suffixObjectType["MXZ"] = value },
@@ -381,7 +356,7 @@ namespace GcproExtensionApp
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "BML Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString(), $"{keySuffixObjectType} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public Dictionary<string, string> SuffixObjectType

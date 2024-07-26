@@ -144,7 +144,6 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.AssemblyReference.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.SuggestedBindingRedirects.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe.config
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.AboutBox1.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.AppStart.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormAI.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormDI.resources
@@ -162,3 +161,5 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMA_Roll8Stand.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMDDx.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormDPSlave.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormRollStandPhoenix.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMA_MDDYZPhoenix.resources

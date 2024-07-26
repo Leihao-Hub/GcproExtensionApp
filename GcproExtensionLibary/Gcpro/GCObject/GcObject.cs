@@ -1,18 +1,14 @@
 ﻿using GcproExtensionLibrary.FileHandle;
+using GcproExtensionLibrary.Gcpro;
 using System.Text;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using System;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using System.Collections.Generic;
-using System.Windows.Media.Imaging;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     public abstract class GcObject
-    {      
+    {
         public static OTypeCollection OType { get; protected set; }
         public abstract string Name { get; set; }
         public abstract string Description { get; set; }
@@ -59,10 +55,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// </summary>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public string CreateObjectStandardPart(Encoding encoding) 
+        public string CreateObjectStandardPart(Encoding encoding)
         {
             StringBuilder objFields = new StringBuilder();
-            objFields.Append(Name).Append(LibGlobalSource.TAB)
+            objFields.Append(IsNew).Append(LibGlobalSource.TAB)
+              .Append(Name).Append(LibGlobalSource.TAB)
               .Append(Description).Append(LibGlobalSource.TAB)
               .Append(SubType).Append(LibGlobalSource.TAB)
               .Append(ProcessFct).Append(LibGlobalSource.TAB)
@@ -95,21 +92,109 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="relations"></param>
         /// <param name="filePath"></param>
         /// <param name="encoding"></param>
-        protected void CreateRelations( List<Relation> relations, string filePath, Encoding encoding)
+        protected void CreateRelations(List<Relation> relations, string filePath, Encoding encoding)
         {
             foreach (var relation in relations)
             {
                 if (!String.IsNullOrEmpty(relation.Child))
-                {                  
-                      CreateRelation(
-                      parent: relation.Parent,
-                      child: relation.Child,
-                      connectedFiled: relation.ConnectedFiled,
-                      filePath: filePath,
-                      encoding: encoding
-                      );
+                {
+                    CreateRelation(
+                    parent: relation.Parent,
+                    child: relation.Child,
+                    connectedFiled: relation.ConnectedFiled,
+                    filePath: filePath,
+                    encoding: encoding
+                    );
                 }
             }
         }
+        protected void CreateImpExpDef(List<List<Gcpro.DbParameter>> impExpList, string impExpRuleName)
+        {
+           
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Type" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.OType.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "IsNew" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.IsNew.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Name" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.Text0.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Description" },
+                new Gcpro.DbParameter { Name =  ImpExpDef.FieldFieldName.Name, Value = ObjData.Text1.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "SubType" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name ,Value = ObjData.SubType.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "ProcessFct" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.ProcessFct.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Building" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.Building.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Elevation" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.Elevation.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "FieldBusNode" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.FieldbusNode.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Panel ID" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.Panel_ID.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Diagram" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.DiagramNo.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldType.Name, Value = impExpRuleName },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldDescription.Name, Value = "Page" },
+                new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.PageName.Name }
+            });
+        }
+
     }
 }

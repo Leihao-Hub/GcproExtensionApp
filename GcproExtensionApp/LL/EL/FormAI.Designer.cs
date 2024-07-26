@@ -1709,6 +1709,7 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
+            this.dataGridBML.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;

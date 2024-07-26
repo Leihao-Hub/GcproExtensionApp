@@ -170,7 +170,19 @@ namespace GcproExtensionApp
             toolTip.SetToolTip(txtSymbol, AppGlobal.DEMO_NAME + DEMO_NAME_MDDx);
             toolTip.SetToolTip(txtSymbolRule, AppGlobal.DEMO_NAME_RULE + DEMO_NAME_RULE_MDDx);
             toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_MDDx);
+            toolTip.SetToolTip(BtnRegenerateDPNode, AppGlobal.MSG_REGENERATE_DPNODE);
             toolTip.SetToolTip(txtDescriptionRule, AppGlobal.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_MDDx);
+        }
+        private void CreateMDDxImpExp(OleDb oledb)
+        {
+            bool result = myMDDx.CreateImpExpDef((tableName, impExpList) =>
+            {
+                return oledb.InsertMultipleRecords(tableName, impExpList);
+            });
+            if (result)
+            {
+                MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
         public void CreateImpExp()
         {
@@ -199,6 +211,7 @@ namespace GcproExtensionApp
             }
 
         }
+     
         public void Default()
         {
             txtSymbol.Focus();
@@ -223,219 +236,7 @@ namespace GcproExtensionApp
         }
 
         #endregion
-        private void CreateMDDxImpExp(OleDb oledb)
-        {
-            List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
-                    {
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value =MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Type" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.OType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Name" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Text0.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Description" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.Text1.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "SubType" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.SubType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ProcessFct" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.ProcessFct.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Building" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Building.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Elevation" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Elevation.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "FieldBusNode" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.FieldbusNode.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Panel ID"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Panel_ID.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Diagram"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DiagramNo.Name}
-
-                    },
-                        new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Page"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.PageName.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "PType"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value5.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Horn Code"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value2.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "DP node1"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DPNode1.Name }
-
-                    },
-                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Object parameters"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value10.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "IOByteNo"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value25"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value26"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value26.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value27"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value27.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Value28" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value28.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Top MYTA" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value32.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Top PassageNo"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value36.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Bottom MYTA"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Bottom PassageNo"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value37.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Top MYTA" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value ="Side2 Top PassageNo"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value38.Name }
-
-                    },
-                      new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Bottom MYTA"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value35.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Bottom PassageNo"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value39.Name}
-
-                    },                  
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = MDDx.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Is new" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.IsNew.Name }
-
-                    }
-                };
-            if (oledb.InsertMultipleRecords(GcproTable.ImpExpDef.TableName, recordList))
-            {
-                MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+     
         private void FormMDDx_Load(object sender, EventArgs e)
         {
             isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
@@ -935,14 +736,6 @@ namespace GcproExtensionApp
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text1";
         }
-        private void txtInpTrue_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value11";
-        } 
-        private void txtInHWStop_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value47";
-        }
         private void ComboEquipmentInfoType_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value5";
@@ -954,6 +747,10 @@ namespace GcproExtensionApp
         private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "DPNode1";
+        }
+        private void txtParIOByte_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value21";
         }
         private void txtSymbol_TextChanged(object sender, EventArgs e)
         {
@@ -973,11 +770,11 @@ namespace GcproExtensionApp
             if (subType == MDDx.MDDRDP)
 
             {
-                chkParSide1Divided.Enabled = chkParSide1Divided.Enabled=true;
+                chkParSide1Divided.Enabled = chkParSide2Divided.Enabled =true;
             }         
             else
             {
-                chkParSide1Divided.Enabled = chkParSide1Divided.Enabled = false;
+                chkParSide1Divided.Enabled = chkParSide2Divided.Enabled = false;
             }
         }
         void GetValue10BitValue(int value)
@@ -1016,11 +813,6 @@ namespace GcproExtensionApp
                     myMDDx.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
                 SubTypeChanged(myMDDx.SubType);                                                                    
-               // GetValue10BitValue(value10);
-                //GetValue25BitValue(value25);
-                //GetValue26BitValue(value26);
-                //GetValue27BitValue(value27);
-                //GetValue28BitValue(value28);
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -1123,38 +915,38 @@ namespace GcproExtensionApp
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text=BML.MDDx.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.MDDx.ColumnName; 
-            nameColumn.Name = nameof(BML.MDDx.ColumnName);                                                
+            nameColumn.HeaderText = BML.ColumnName; 
+            nameColumn.Name = nameof(BML.ColumnName);                                                
             dataGridBML.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.MDDx.ColumnDesc;
-            descColumn.Name = nameof(BML.MDDx.ColumnDesc);
+            descColumn.HeaderText = BML.ColumnDesc;
+            descColumn.Name = nameof(BML.ColumnDesc);
             dataGridBML.Columns.Add(descColumn);
 
             DataGridViewTextBoxColumn diTypeColumn = new DataGridViewTextBoxColumn();
-            diTypeColumn.HeaderText = BML.MDDx.ColumnControlMethod;
-            diTypeColumn.Name = nameof(BML.MDDx.ColumnControlMethod);
+            diTypeColumn.HeaderText = BML.ColumnControlMethod;
+            diTypeColumn.Name = nameof(BML.ColumnControlMethod);
             dataGridBML.Columns.Add(diTypeColumn);
 
             DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.MDDx.ColumnFloor;
-            floorColumn.Name = nameof(BML.MDDx.ColumnFloor);
+            floorColumn.HeaderText = BML.ColumnFloor;
+            floorColumn.Name = nameof(BML.ColumnFloor);
             dataGridBML.Columns.Add(floorColumn);
 
             DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.MDDx.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.MDDx.ColumnCabinet);
+            cabinetColumn.HeaderText = BML.ColumnCabinet;
+            cabinetColumn.Name = nameof(BML.ColumnCabinet);
             dataGridBML.Columns.Add(cabinetColumn);
 
             DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.MDDx.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.MDDx.ColumnCabinetGroup);
+            cabinetColumnGroup.HeaderText = BML.ColumnCabinetGroup;
+            cabinetColumnGroup.Name = nameof(BML.ColumnCabinetGroup);
             dataGridBML.Columns.Add(cabinetColumnGroup);
 
             DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.MDDx.ColumnLine;
-            lineColumn.Name = nameof(BML.MDDx.ColumnLine);
+            lineColumn.HeaderText = BML.ColumnLine;
+            lineColumn.Name = nameof(BML.ColumnLine);
             dataGridBML.Columns.Add(lineColumn);
 
         }
@@ -1174,13 +966,13 @@ namespace GcproExtensionApp
 
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
-            dataGridBML.Columns[nameof(BML.MDDx.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.MDDx.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.MDDx.ColumnControlMethod)].DataPropertyName = dataTable.Columns[2].ColumnName;
-            dataGridBML.Columns[nameof(BML.MDDx.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.MDDx.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.MDDx.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            dataGridBML.Columns[nameof(BML.MDDx.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnControlMethod)].DataPropertyName = dataTable.Columns[2].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
             TxtQuantity.Text = dataTable.Rows.Count.ToString();
         }
         #endregion
@@ -1482,27 +1274,26 @@ namespace GcproExtensionApp
                     SuffixObject suffixObject = new SuffixObject();
                     string cabinet,cabinetGroup;
                     string _nameNumberString=string.Empty;
-                    Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
                     for (int i = 0; i < dataGridBML.Rows.Count; i++)
                     {
                         DataGridViewCell cell;
-                        cell = dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnName)];
+                        cell = dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)];
                         if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                         { continue; }
                                            
-                        cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnCabinet)].Value);
-                        cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnCabinetGroup)].Value);
+                        cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
+                        cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
                         myMDDx.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
-                        myMDDx.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnFloor)].Value);
+                        myMDDx.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
                        
                         #region Subtype and PType                                          
                        // SubTypeChanged(myMDDx.SubType);
                         #endregion
                         ///<AdditionInfoToDesc>
                         ///</AdditionInfoToDesc>
-                        string desc = $"{Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnDesc)].Value)}{suffixObject.SuffixObjectType["KCL"]}";
+                        string desc = $"{Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value)}{suffixObject.SuffixObjectType["KCL"]}";
                         descTotalBuilder.Clear();
-                        myMDDx.Name = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.DI.ColumnName)].Value);
+                        myMDDx.Name = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
                         bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
                          chkAddCabinetToDesc.Checked;
 
@@ -1529,9 +1320,7 @@ namespace GcproExtensionApp
                    
                         if (additionInfToDesc)
                         {
-                            descTotalBuilder.Append("[");
-                         //   AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myMDDx.Name)}", descTotalBuilder);
-                         //   AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myMDDx.Elevation}", descTotalBuilder);
+                            descTotalBuilder.Append("[");       
                             AppendInfoToBuilder(chkAddCabinetToDesc, $"{GcObjectInfo.General.AddInfoCabinet}{myMDDx.Panel_ID}", descTotalBuilder);
                             descTotalBuilder.Append("]");
                         }                                        
@@ -1539,7 +1328,7 @@ namespace GcproExtensionApp
 
                         myMDDx.IoByteNo = (int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i).ToString();
                         ///<DPNode1>   </DPNode1>                         
-                        string dpNode1BML = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.MDDx.ColumnName)].Value);
+                        string dpNode1BML = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
                         myMDDx.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1BML);
                         myMDDx.FieldBusNode = String.IsNullOrEmpty(myMDDx.DPNode1) ? string.Empty :
                             AppGlobal.FindFieldbusNodeKey(oledb, int.Parse(myMDDx.DPNode1));
@@ -1676,6 +1465,7 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         #endregion
 
       

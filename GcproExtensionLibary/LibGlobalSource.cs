@@ -107,6 +107,7 @@ namespace GcproExtensionLibrary
                 result = ExtractStringPart(pattern, stringTobeExtract);
                 return result;  
             }
+            /*
             static string RemoveParts(string input, string[] partsToRemove,bool removeSpace)
             {
                 string result = input;
@@ -137,8 +138,6 @@ namespace GcproExtensionLibrary
             }
             public static string ExtractStringBetween(string input, string startString, string endString)
             {
-                // 使用正则表达式提取开始字符串和结束字符串之间的内容
-                // 要求开始字符串之后的第一个字符必须是字母或数字
                 string pattern = $@"{Regex.Escape(startString)}([a-zA-Z0-9].*?){Regex.Escape(endString)}";
                 Match match = Regex.Match(input, pattern);
 
@@ -179,6 +178,7 @@ namespace GcproExtensionLibrary
 
                 return str1.Substring(endIndexStr1 - longestLength, longestLength);
             }   
+            */
             public static string FindContinuousAndSameSubstring(string str1, string str2,int minLen=0,int maxLen=0)
             {
                 int[,] lcs = new int[str1.Length + 1, str2.Length + 1];

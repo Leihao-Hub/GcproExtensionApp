@@ -188,337 +188,23 @@ namespace GcproExtensionApp
             txtValue10.Text = myRoll8Stand.Value10;
             value10 = int.Parse(txtValue10.Text);
             chkParManual.Checked = true;
-            //    ComboEquipmentSubType.SelectedIndex = 1;
+            ComboEquipmentSubType.SelectedIndex = 1;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
             toolStripMenuReload.Click += new EventHandler(toolStripMenuReload_Click);
             toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
-            this.Text = "Roll8Stand导入文件 " + " " + myRoll8Stand.FilePath;
+            this.Text = "MA_Roll8Stand导入文件 " + " " + myRoll8Stand.FilePath;
         }
 
         #endregion
         private void CreateRoll8StandImpExp(OleDb oledb)
         {
 
-            List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
-                    {
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value =Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Type" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.OType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Name" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Text0.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Description" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.Text1.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "SubType" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.SubType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ProcessFct" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.ProcessFct.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Building" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Building.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Elevation" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Elevation.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "FieldBusNode" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.FieldbusNode.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Panel ID"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Panel_ID.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Diagram"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DiagramNo.Name}
-
-                    },
-                        new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Page"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.PageName.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "PType"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value5.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Object parameters"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value10.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorLow"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorUp"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value12.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLBackupLeft"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value13.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLBackupRight"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value42.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLInlet" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1Div HLInlet" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 SM1"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value15.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLOutlet3"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value43.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 InpPressure"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value16.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Feedroll"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value26.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1Div Feedroll"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value27.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLOutlet1"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value35.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLOutlet2"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value36.Name}
-
-                    },
-                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                     {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorLowCur"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name}
-
-                     },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorUpCur"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value30.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorLow"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value17.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorUp"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value18.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLBackupLeft"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value19.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLBackupRight"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value44.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLInlet" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value20.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2Div HLInlet" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 SM1"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLOutlet3"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value45.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 InpPressure"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value22.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Feedroll"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value28.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2Div Feedroll"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value29.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLOutlet1"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value37.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLOutlet2"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value38.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorLowCur"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name}
-
-                    },
-                     new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorUpCur"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value32.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "MDDx"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value41.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Roll8Stand.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Is new" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.IsNew.Name }
-
-                    }
-                };
-            if (oledb.InsertMultipleRecords(GcproTable.ImpExpDef.TableName, recordList))
+            bool result = myRoll8Stand.CreateImpExpDef((tableName, impExpList) =>
+            {
+                return oledb.InsertMultipleRecords(tableName, impExpList);
+            });
+            if (result)
             {
                 MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -1102,30 +788,32 @@ namespace GcproExtensionApp
         }
         void SetElementsName(string subType,string name)
         {
-            myRoll8Stand.Side1.MotorLow = txtMotorLowS1.Text = name + GcObjectInfo.Roll8Stand.SiffixSide1.MotorLow;
-            myRoll8Stand.Side2.MotorLow = txtMotorLowS2.Text = name + GcObjectInfo.Roll8Stand.SiffixSide2.MotorLow;
-            if (subType == Roll8Stand.ROLL8 || subType == Roll8Stand.ROLL8M)
+            myRoll8Stand.Side1.MotorLow = txtMotorLowS1.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide1.MotorLow;
+            myRoll8Stand.Side2.MotorLow = txtMotorLowS2.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide2.MotorLow;
+            if (subType == Roll8Stand.ROLL8)
             {
-                myRoll8Stand.Side1.MotorUp = txtMotorUpS1.Text = name + GcObjectInfo.Roll8Stand.SiffixSide1.MotorUp;
-                myRoll8Stand.Side2.MotorUp = txtMotorUpS2.Text = name + GcObjectInfo.Roll8Stand.SiffixSide2.MotorUp;
+                myRoll8Stand.Side1.MotorUp = txtMotorUpS1.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide1.MotorUp;
+                myRoll8Stand.Side2.MotorUp = txtMotorUpS2.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide2.MotorUp;
             }
             else if (subType == Roll8Stand.ROLL4M || subType == Roll8Stand.ROLL8M2M || subType == Roll8Stand.ROLL8M)
             {
 
-                myRoll8Stand.Side1.FeedRoll = txtFeedrollS1.Text = name + GcObjectInfo.Roll8Stand.SiffixSide1.FeedRoll;
-                myRoll8Stand.Side2.FeedRoll = txtFeedrollS2.Text = name + GcObjectInfo.Roll8Stand.SiffixSide2.FeedRoll;
-                myRoll8Stand.MDDx= txtMDDx.Text = name + GcObjectInfo.Roll8Stand.SuffixMDDx;
+                myRoll8Stand.Side1.FeedRoll = txtFeedrollS1.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide1.FeedRoll;
+                myRoll8Stand.Side2.FeedRoll = txtFeedrollS2.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide2.FeedRoll;
+                myRoll8Stand.MDDx= txtMDDx.Text = name + GcObjectInfo.MA_Roll8Stand.SuffixMDDx;
                 if (subType == Roll8Stand.ROLL8M)
                 {
-                    myRoll8Stand.Side1.MotorLowCur = txtSide1Bottom.Text = txtMotorLowS1.Text + GcObjectInfo.Roll8Stand.SuffixCurrent;
-                    myRoll8Stand.Side2.MotorLowCur = txtSide2Bottom.Text = txtMotorLowS2.Text + GcObjectInfo.Roll8Stand.SuffixCurrent;
-                    myRoll8Stand.Side1.MotorUpCur = txtSide1Top.Text = txtMotorUpS1.Text + GcObjectInfo.Roll8Stand.SuffixCurrent;
-                    myRoll8Stand.Side1.MotorUpCur = txtSide2Top.Text = txtMotorUpS2.Text + GcObjectInfo.Roll8Stand.SuffixCurrent;
+                    myRoll8Stand.Side1.MotorUp = txtMotorUpS1.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide1.MotorUp;
+                    myRoll8Stand.Side2.MotorUp = txtMotorUpS2.Text = name + GcObjectInfo.MA_Roll8Stand.SiffixSide2.MotorUp;
+                    myRoll8Stand.Side1.MotorLowCur = txtSide1Bottom.Text = txtMotorLowS1.Text + GcObjectInfo.MA_Roll8Stand.SuffixCurrent;
+                    myRoll8Stand.Side2.MotorLowCur = txtSide2Bottom.Text = txtMotorLowS2.Text + GcObjectInfo.MA_Roll8Stand.SuffixCurrent;
+                    myRoll8Stand.Side1.MotorUpCur = txtSide1Top.Text = txtMotorUpS1.Text + GcObjectInfo.MA_Roll8Stand.SuffixCurrent;
+                    myRoll8Stand.Side1.MotorUpCur = txtSide2Top.Text = txtMotorUpS2.Text + GcObjectInfo.MA_Roll8Stand.SuffixCurrent;
                 }
                 else
                 {
-                    myRoll8Stand.Side1.MotorUpCur = txtSide1Top.Text = txtMotorLowS1.Text + GcObjectInfo.Roll8Stand.SuffixCurrent;
-                    myRoll8Stand.Side2.MotorUpCur = txtSide2Top.Text = txtMotorLowS2.Text + GcObjectInfo.Roll8Stand.SuffixCurrent;
+                    myRoll8Stand.Side1.MotorUpCur = txtSide1Top.Text = txtMotorLowS1.Text + GcObjectInfo.MA_Roll8Stand.SuffixCurrent;
+                    myRoll8Stand.Side2.MotorUpCur = txtSide2Top.Text = txtMotorLowS2.Text + GcObjectInfo.MA_Roll8Stand.SuffixCurrent;
                 }
             }
           
@@ -1240,9 +928,10 @@ namespace GcproExtensionApp
         }
         void SetElements(string subType)
         {
-            SetElementsName(subType,txtSymbol.Text);
+           
             SetElementsEnbale(subType);
             SetValue10AndElements();
+            SetElementsName(subType, txtSymbol.Text);
         }
         void SubTypeChanged()
         {
@@ -1333,8 +1022,8 @@ namespace GcproExtensionApp
         private void TxtExcelPath_TextChanged(object sender, EventArgs e)
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
-            BML.Roll8Stand.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.Roll8Stand.Path", BML.Roll8Stand.BMLPath);
+            BML.MA_Roll8Stand.BMLPath = excelFileHandle.FilePath;
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ROLL8STAND}.Path", BML.MA_Roll8Stand.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1351,7 +1040,7 @@ namespace GcproExtensionApp
         }
         private void dataGridBML_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.Roll8Stand.ColumnName), Engineering.PatternNameWithoutTypeLL);
+            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternNameWithoutTypeLL);
             TxtQuantity.Text = listBMLName.Count.ToString();
         }
         private void CreateBMLDefault()
@@ -1383,35 +1072,35 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.Roll8Stand.BMLPath;
+            TxtExcelPath.Text = BML.MA_Roll8Stand.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.Roll8Stand.ColumnName;
-            nameColumn.Name = nameof(BML.Roll8Stand.ColumnName);
+            nameColumn.HeaderText = BML.ColumnName;
+            nameColumn.Name = nameof(BML.ColumnName);
             dataGridBML.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.Roll8Stand.ColumnDesc;
-            descColumn.Name = nameof(BML.Roll8Stand.ColumnDesc);
+            descColumn.HeaderText = BML.ColumnDesc;
+            descColumn.Name = nameof(BML.ColumnDesc);
             dataGridBML.Columns.Add(descColumn);
 
             DataGridViewTextBoxColumn typeColumn = new DataGridViewTextBoxColumn();
-            typeColumn.HeaderText = BML.Roll8Stand.ColumnType;
-            typeColumn.Name = nameof(BML.Roll8Stand.ColumnType);
+            typeColumn.HeaderText = BML.ColumnType;
+            typeColumn.Name = nameof(BML.ColumnType);
             dataGridBML.Columns.Add(typeColumn);
 
             DataGridViewTextBoxColumn controlColumn = new DataGridViewTextBoxColumn();
-            controlColumn.HeaderText = BML.VFCAdapter.ColumnControlMethod;
-            controlColumn.Name = nameof(BML.VFCAdapter.ColumnControlMethod);
+            controlColumn.HeaderText = BML.ColumnControlMethod;
+            controlColumn.Name = nameof(BML.ColumnControlMethod);
             dataGridBML.Columns.Add(controlColumn);
 
             DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.Roll8Stand.ColumnFloor;
-            floorColumn.Name = nameof(BML.Roll8Stand.ColumnFloor);
+            floorColumn.HeaderText = BML.ColumnFloor;
+            floorColumn.Name = nameof(BML.ColumnFloor);
             dataGridBML.Columns.Add(floorColumn);
 
             DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.Roll8Stand.ColumnLine;
-            lineColumn.Name = nameof(BML.Roll8Stand.ColumnLine);
+            lineColumn.HeaderText = BML.ColumnLine;
+            lineColumn.Name = nameof(BML.ColumnLine);
             dataGridBML.Columns.Add(lineColumn);
 
         }
@@ -1429,15 +1118,18 @@ namespace GcproExtensionApp
 
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
-            dataGridBML.Columns[nameof(BML.Roll8Stand.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.Roll8Stand.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.Roll8Stand.ColumnType)].DataPropertyName = dataTable.Columns[2].ColumnName;
-            dataGridBML.Columns[nameof(BML.VFCAdapter.ColumnControlMethod)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.Roll8Stand.ColumnFloor)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.Roll8Stand.ColumnLine)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnType)].DataPropertyName = dataTable.Columns[2].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnControlMethod)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[5].ColumnName;
 
             var rowsContainingMDDY = dataTable.AsEnumerable()
-                .Where(row => row.Field<string>(3). Contains(BML.MDDx.TypeMDDY))
+                .Where(row => row.Field<string>(3). Contains(BML.MDDx.TypeMDDY) ||
+                              row.Field<string>(3).Contains(BML.MDDx.TypeMDDZ) ||
+                              row.Field<string>(3).Contains(BML.MDDx.TypeMRRA4) ||
+                              row.Field<string>(3).Contains(BML.MDDx.TypeMRRA8))
                 .ToList();
             var uniquePrefixes = rowsContainingMDDY
                 .Select(row => {
@@ -1475,7 +1167,7 @@ namespace GcproExtensionApp
                 TxtQuantity.Visible = true;
                 grpSymbolRule.Visible = true;
                 lblSymbol.Text = AppGlobal.NAME;
-               // txtSymbol.Text = DEMO_NAME_ROLL8STAND;
+                txtSymbol.Text = DEMO_NAME_ROLL8STAND;
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
 
             }
@@ -1535,7 +1227,7 @@ namespace GcproExtensionApp
                 dataGridBML.Rows.RemoveAt(row.Index);
             }
             dataGridBML.ClearSelection();
-            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.Roll8Stand.ColumnName), Engineering.PatternNameWithoutTypeLL);
+            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternNameWithoutTypeLL);
             TxtQuantity.Text = listBMLName.Count.ToString();
         }
         private void TxtQuantity_KeyDown(object sender, KeyEventArgs e)
@@ -1637,10 +1329,8 @@ namespace GcproExtensionApp
         {
             StringBuilder descTotalBuilder = new StringBuilder();
             int noOfSubElements = 0;
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-            int subElements = dataGridBML.Rows.Count;
-         
-            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.Roll8Stand.ColumnName), Engineering.PatternNameWithoutTypeLL);
+            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;           
+            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternNameWithoutTypeLL);
             ProgressBar.Maximum = quantityNeedToBeCreate;
             ProgressBar.Value = 0;       
             string _nameNumberString=string.Empty;

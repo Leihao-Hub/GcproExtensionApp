@@ -17,6 +17,10 @@ using System.Security.Cryptography;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Linq;
 using OfficeOpenXml.Export.HtmlExport.StyleCollectors.StyleContracts;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using System.Windows.Media.Animation;
+using System.Xml.Linq;
+using System.Net.NetworkInformation;
 #endregion
 namespace GcproExtensionApp
 {
@@ -139,6 +143,7 @@ namespace GcproExtensionApp
             toolTip.SetToolTip(txtSymbolRule, AppGlobal.DEMO_NAME_RULE + DEMO_NAME_RULE_BIN);
             toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_BIN);
             toolTip.SetToolTip(txtDescriptionRule, AppGlobal.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_BIN);
+           
         }
         public void CreateImpExp()
         {
@@ -170,6 +175,10 @@ namespace GcproExtensionApp
         public void Default()
         {
             tabCreateMode.Controls[1].Enabled = false;
+            txtSymbol.Text= DEMO_NAME_BIN;
+            txtDescription.Text = DEMO_DESCRIPTION_BIN;
+            var args = new KeyEventArgs(Keys.Enter);
+            txtDescription_KeyDown(txtDescription, args);
             txtSymbol.Focus();
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
@@ -187,213 +196,18 @@ namespace GcproExtensionApp
             this.Text = "Bin导入文件 " + " " + myBin.FilePath;
         }
 
-        #endregion
+        #endregion Public interfaces
         private void CreateBinImpExp(OleDb oledb)
         {
-
-            List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
-                    {
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value =Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Type" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.OType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Name" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Text0.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Description" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.Text1.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "SubType" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.SubType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ProcessFct" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.ProcessFct.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Building" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Building.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Elevation" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Elevation.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "FieldBusNode" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.FieldbusNode.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Panel ID"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Panel_ID.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Diagram"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DiagramNo.Name}
-
-                    },
-                        new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Page"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.PageName.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "BinNo"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value1.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "EmptyingTime"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "OverfillingWeight"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "DryFillingWeight"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value23.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "RestdischargeWeight"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "HighLevelRemote"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value41.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "MiddleLevelRemote" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value42.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "LowLevelRemote" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value43.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InFillLevelRemote"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value44.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Object parameters"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "GCPRO"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value30.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "WinCos.r2"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "HighLevel"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value2.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "MiddleLevel"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value4.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "LowLevel"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value3.Name}
-
-                    },
-                   new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "AnalogLevel"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = Bin.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Is new" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.IsNew.Name }
-
-                    }
-                };
-            if (oledb.InsertMultipleRecords(GcproTable.ImpExpDef.TableName, recordList))
+            bool result = myBin.CreateImpExpDef((tableName, impExpList) =>
+            {
+                return oledb.InsertMultipleRecords(tableName, impExpList);
+            });
+            if (result)
             {
                 MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
         private void FormBin_Load(object sender, EventArgs e)
         {
@@ -447,14 +261,30 @@ namespace GcproExtensionApp
         {
            
         }
+        private string GetBinIdentPrefix(string description)
+        {
+            if (string.IsNullOrEmpty(description))
+            {
+                return string.Empty;
+            }
+
+            int separatorIndex = description.IndexOf(GcObjectInfo.Bin.IdentDescSeparator);
+            return separatorIndex >= 0 ? description.Substring(0, separatorIndex) : string.Empty;
+        }
+        private string GetDescriptionRule(string description,string binIdentPrefix)
+        {
+            string descriptionRule;
+            descriptionRule = string.IsNullOrEmpty(binIdentPrefix) ? LibGlobalSource.StringHelper.ExtractNumericPart(description, false) :
+                               LibGlobalSource.StringHelper.ExtractNumericPart(description.Replace(binIdentPrefix, ""), false);
+            return descriptionRule;
+        }
         private void txtDescription_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                descPrefixPart = string.IsNullOrEmpty(txtDescription.Text) ? string.Empty : (txtDescription.Text.Contains(":") ? txtDescription.Text.Substring(0, txtDescription.Text.IndexOf(":")+1) : string.Empty);
+                descPrefixPart = GetBinIdentPrefix(txtDescription.Text);
                 descPrefixRule = string.IsNullOrEmpty(descPrefixPart) ? string.Empty : LibGlobalSource.StringHelper.ExtractNumericPart(descPrefixPart, false);
-                txtDescriptionRule.Text = string.IsNullOrEmpty(descPrefixPart) ? LibGlobalSource.StringHelper.ExtractNumericPart(txtDescription.Text, false) :
-                    LibGlobalSource.StringHelper.ExtractNumericPart(txtDescription.Text.Replace(descPrefixPart, ""), false);
+                txtDescriptionRule.Text = GetDescriptionRule(txtDescription.Text, descPrefixPart);
                 descPart = string.IsNullOrEmpty(descPrefixPart) ? txtDescription.Text : txtDescription.Text.Replace(descPrefixPart, "");
             }
         }
@@ -856,22 +686,27 @@ namespace GcproExtensionApp
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text1";
         }
-        private void txtParBinNo_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value1";
-        }
-        private void txtParEmptyingTime_MouseEnter(object sender, EventArgs e)
+  
+        private void txtEmptyingTime_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value11";
         }
-        private void txtParOverfillingWeight_MouseEnter(object sender, EventArgs e)
+
+        private void txtBinNo_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value1";
+        }
+
+        private void txtOverFillingWeight_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value21";
         }
-        private void txtParDryFillingWeight_MouseEnter(object sender, EventArgs e)
+
+        private void txtDryFillingWeight_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value23";
         }
+     
         private void txtRestdischargeWeight_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value25";
@@ -998,8 +833,8 @@ namespace GcproExtensionApp
             catch (Exception ex)
             { MessageBox.Show(ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
-        #endregion
-        #endregion
+        #endregion<------Field in database display
+        #endregion <---Rule and autosearch part--->
         #region <---BML part--->
         private void AddWorkSheets()
         {
@@ -1263,103 +1098,236 @@ namespace GcproExtensionApp
         }
         private void btnConnectChild_Click(object sender, EventArgs e)
         {
-            /*
-               if (MessageBox.Show(AppGlobal.CONNECT_IO, AppGlobal.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
-                   == DialogResult.OK)
-               {
-                   RuleSubDataSet highLevel = new RuleSubDataSet
-                   {
-                       Sub = new string[] { },
-                       Inc = 0,
-                       PosInfo = new RuleSubPos
-                       {
-                           StartPos = false,
-                           MidPos = false,
-                           EndPos = false,
-                           PosInString = 0,
-                           Len = 0,
-                       }
-                   };
-                   RuleSubDataSet lowLevel = new RuleSubDataSet
-                   {
-                       Sub = new string[] { },
-                       Inc = 0,
-                       PosInfo = new RuleSubPos
-                       {
-                           StartPos = false,
-                           MidPos = false,
-                           EndPos = false,
-                           PosInString = 0,
-                           Len = 0,
-                       }
-                   };
-                   RuleSubDataSet middleLevel = new RuleSubDataSet
-                   {
-                       Sub = new string[] { },
-                       Inc = 0,
-                       PosInfo = new RuleSubPos
-                       {
-                           StartPos = false,
-                           MidPos = false,
-                           EndPos = false,
-                           PosInString = 0,
-                           Len = 0,
-                       }
-                   };
-                   RuleSubDataSet analogLevel = new RuleSubDataSet
-                   {
-                       Sub = new string[] { },
-                       Inc = 0,
-                       PosInfo = new RuleSubPos
-                       {
-                           StartPos = false,
-                           MidPos = false,
-                           EndPos = false,
-                           PosInString = 0,
-                           Len = 0,
-                       }
-                   };
-                   try
-                   {
-                       bool all = !chkOnlyFree.Checked;
-                       string objName = String.Empty;
-                       string objSubType = String.Empty;
-                       OleDb oledb = new OleDb();
-                       DataTable dataTable = new DataTable();
-                       oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                       oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                       dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}", null,
-                           $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value2.Name,
-                           GcproTable.ObjData.Value3.Name, GcproTable.ObjData.Value4.Name, GcproTable.ObjData.Value14.Name);
-                       ProgressBar.Maximum = dataTable.Rows.Count - 1;
-                       ProgressBar.Value = 0;
-                       Bin.Clear(myBin.FileConnectorPath);
-                       for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
-                       {
-                           objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
-                           objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
 
-                           if (!String.IsNullOrEmpty(txtHighLevel.Text))
-                           {
-                               if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value2.Name) == 0 || all)
-                               {
-                                   Bin.CreateRelation(objName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
-                               }
-                           }
-                           ProgressBar.Value = count;
-                       }
-                       DI.SaveFileAs(myBin.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
-                       dataTable.Clear();
-                   }
-                   catch (Exception ex)
-                   {
-                       MessageBox.Show("寻找料位与关联过程出错:" + ex, AppGlobal.INFO + ":" + AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (MessageBox.Show(AppGlobal.CONNECT_CONNECTOR, AppGlobal.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                == DialogResult.OK)
+            {
+                RuleSubDataSet highLevel = new RuleSubDataSet
+                {
+                    Sub = new string[] { },
+                    Inc = 0,
+                    PosInfo = new RuleSubPos
+                    {
+                        StartPos = false,
+                        MidPos = false,
+                        EndPos = false,
+                        PosInString = 0,
+                        Len = 0,
+                    }
+                };
+                RuleSubDataSet lowLevel = new RuleSubDataSet
+                {
+                    Sub = new string[] { },
+                    Inc = 0,
+                    PosInfo = new RuleSubPos
+                    {
+                        StartPos = false,
+                        MidPos = false,
+                        EndPos = false,
+                        PosInString = 0,
+                        Len = 0,
+                    }
+                };
+                RuleSubDataSet middleLevel = new RuleSubDataSet
+                {
+                    Sub = new string[] { },
+                    Inc = 0,
+                    PosInfo = new RuleSubPos
+                    {
+                        StartPos = false,
+                        MidPos = false,
+                        EndPos = false,
+                        PosInString = 0,
+                        Len = 0,
+                    }
+                };
+                RuleSubDataSet analogLevel = new RuleSubDataSet
+                {
+                    Sub = new string[] { },
+                    Inc = 0,
+                    PosInfo = new RuleSubPos
+                    {
+                        StartPos = false,
+                        MidPos = false,
+                        EndPos = false,
+                        PosInString = 0,
+                        Len = 0,
+                    }
+                };
+                bool connectLLWithDesc, connectHLWithDesc, connectMLWithDesc, connectALWithDesc;
+                connectLLWithDesc = string.IsNullOrEmpty(txtLowLevel.Text);
+                connectHLWithDesc = string.IsNullOrEmpty(txtHighLevel.Text);
+                connectMLWithDesc = string.IsNullOrEmpty(txtMiddleLevel.Text);
+                connectALWithDesc = string.IsNullOrEmpty(txtAnalogLevel.Text);
+                try
+                {
+                    bool all = !chkOnlyFree.Checked;
+                    List<(string name, string desc, double binNo,double value2, double value3, double value4, double value14) > binList = new List<(string, string,double, double, double, double, double)>();
+                  //  List<Dictionary<string, double>> binListD = new List<Dictionary<string, double>>();
+                    List<Dictionary<string, string>> binLLList = new List<Dictionary<string, string>>();
+                    List<Dictionary<string, string>> binHLList = new List<Dictionary<string, string>> ();
+                   // List<Dictionary<string, string>> binMLList = new List<Dictionary<string, string>>();
+                 //   List<Dictionary<string, string>> binALList = new List<Dictionary<string, string>>();
+                    OleDb oledb = new OleDb();
+                    DataTable dataTable = new DataTable();
+                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                    oledb.IsNewOLEDBDriver = isNewOledbDriver;                  
+                    if (connectLLWithDesc)
+                    {
+                        dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {DI.OTypeValue} AND {GcproTable.ObjData.SubType.Name } = '{DI.LLBIN}'",
+                            null, $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+                        binLLList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+                    }
+                    if (connectHLWithDesc)
+                    {
+                        dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {DI.OTypeValue} AND {GcproTable.ObjData.SubType.Name} = '{DI.HLBIN}'",
+                            null, $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+                        binHLList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+                    }
+                    //if (connectMLWithDesc)
+                    //{
+                    //    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {DI.OTypeValue} AND ({GcproTable.ObjData.SubType.Name} = '{DI.HLBIN}'" +
+                    //         $"OR {GcproTable.ObjData.SubType.Name} = '{DI.LLBIN}')", null, $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
 
-                   }
+                    //    binMLList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+                    //}
+                    //if (connectALWithDesc)
+                    //{
+                    //    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {AI.OTypeValue} ",
+                    //        null, $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+                    //    binALList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+                    //}
+                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}", null,
+                   $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Value1.Name,
+                   GcproTable.ObjData.Value2.Name, GcproTable.ObjData.Value3.Name, GcproTable.ObjData.Value4.Name, GcproTable.ObjData.Value14.Name);
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        binList.Add((row.Field<string>(GcproTable.ObjData.Text0.Name), row.Field<string>(GcproTable.ObjData.Text1.Name), row.Field<double>(GcproTable.ObjData.Value1.Name),
+                            row.Field<double>(GcproTable.ObjData.Value2.Name), row.Field<double>(GcproTable.ObjData.Value3.Name), row.Field<double>(GcproTable.ObjData.Value4.Name),
+                            row.Field<double>(GcproTable.ObjData.Value14.Name)));
+                    }
+                    ProgressBar.Maximum = binList.Count - 1;
+                    ProgressBar.Value = 0;
+                    Bin.Clear(myBin.FileConnectorPath);
+                    for (var count = 0; count <= binList.Count - 1; count++)
+                    {
+                        string binName = binList[count].name;
+                        string binDesc = binList[count].desc;
+                        binDesc = binDesc.Contains(GcObjectInfo.Bin.IdentDescSeparator) ? GetBinIdentPrefix(binDesc) : string.Empty;
+                        string binNo = binList[count].binNo.ToString();
+
+                        dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value2}", null,
+                            null, GcproTable.ObjData.Value11.Name);
+                        bool needCreateHLRel = dataTable.Rows.Count == 0 ? false : (dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
+
+                        //dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value4}", null,
+                        //null, GcproTable.ObjData.Value11.Name);
+                       // bool needCreateMLRel = dataTable.Rows.Count == 0 ? false : (dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
+
+                        dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value3}", null,
+                                 null, GcproTable.ObjData.Value11.Name);
+                        bool needCreateLLRel = dataTable.Rows.Count == 0 ? false : (dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
+
+                        //dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value14}", null,
+                        //   null, GcproTable.ObjData.Value11.Name);
+                        //bool needCreateALRel = dataTable.Rows.Count == 0? false:(dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
+
+                        if (connectHLWithDesc)
+                        {
+                           
+                            var descOfThisBin = binHLList
+                                 .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
+                                 .Select(dict => dict["Text0"])
+                                 .Where(value => value != null)
+                                 .ToList();
+                            if (descOfThisBin.Count >= 1 && needCreateHLRel)
+                            {
+                                highLevel.Name = descOfThisBin[0];
+                                Bin.CreateRelation(binName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        else
+                        {
+                            if (needCreateHLRel)
+                            {
+                                Bin.CreateRelation(binName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        //if (connectMLWithDesc)
+                        //{
+                        //    var descOfThisBin = binMLList
+                        //          .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
+                        //         .Select(dict => dict["Text0"])
+                        //         .Where(value => value != null)
+                        //         .ToList();
+                        //    if (descOfThisBin.Count >= 1)
+                        //    {
+                        //        middleLevel.Name = descOfThisBin[0];
+                        //        Bin.CreateRelation(binName, middleLevel.Name, GcproTable.ObjData.Value4.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value4.Name) == 0 || all)
+                        //    {
+                        //        Bin.CreateRelation(binName, highLevel.Name, GcproTable.ObjData.Value4.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                        //    }
+                        //}
+                        if (connectLLWithDesc)
+                        {
+                            var descOfThisBin = binLLList
+                                 .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
+                                 .Select(dict => dict["Text0"])
+                                 .Where(value => value != null)
+                                 .ToList();
+                            if (descOfThisBin.Count >= 1 && needCreateLLRel)
+                            {
+                                lowLevel.Name = descOfThisBin[0];
+                                Bin.CreateRelation(binName, lowLevel.Name, GcproTable.ObjData.Value3.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        else
+                        {
+                            if (needCreateLLRel)
+                            {
+                                Bin.CreateRelation(binName ,lowLevel.Name, GcproTable.ObjData.Value3.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                            }
+                        }
+                        //if (connectALWithDesc)
+                        //{
+                        //    var descOfThisBin = binALList
+                        //         .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
+                        //         .Select(dict => dict["Text0"])
+                        //         .Where(value => value != null)
+                        //         .ToList();
+                        //    if (descOfThisBin.Count >= 1 && needCreateALRel)
+                        //    {
+                        //        analogLevel.Name = descOfThisBin[0];
+                        //        Bin.CreateRelation(binName, analogLevel.Name, GcproTable.ObjData.Value14.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (needCreateALRel)
+                        //    {
+                        //        Bin.CreateRelation(binName, analogLevel.Name, GcproTable.ObjData.Value14.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                        //    }
+                        //}
+                        ProgressBar.Value = count;
+                    }
+                      Bin.SaveFileAs(myBin.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
+                    ProgressBar.Value = ProgressBar.Maximum;
+                    dataTable.Clear();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("寻找料位与关联过程出错:" + ex, AppGlobal.INFO + ":" + AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
 
 
-               }
-              */
+            }
+
         }
         private void BtnClear_Click(object sender, EventArgs e)
         {
@@ -1855,6 +1823,8 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion   
+        #endregion
+
+    
     }
 }

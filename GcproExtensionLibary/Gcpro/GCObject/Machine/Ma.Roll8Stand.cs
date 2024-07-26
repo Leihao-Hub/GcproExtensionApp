@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
+ 
     public class Roll8Stand:Machine
     {
         public struct Roll8StandRule
@@ -32,8 +33,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string page;
         private string pType;
         private string value10;
-        private Roll8StandSide side1;
-        private Roll8StandSide side2;
+        private RollermillSide side1;
+        private RollermillSide side2;
         private string mddx;
         private string isNew;
         #region Standard properties
@@ -106,12 +107,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return value10; }
             set { value10 = value; }
         }
-        public Roll8StandSide Side1
+        public RollermillSide Side1
         { 
           get { return side1; }
           set { side1 = value; } 
         }
-        public Roll8StandSide Side2
+        public RollermillSide Side2
         {
             get { return side2; }
             set { side2 = value; }
@@ -142,14 +143,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string ROLL8M { get; } = "8ROLLM";
         public static string ROLL8M2M { get; } = "8ROLLM2M";
         public static float P2046 { get; } = 2046f;
-        public static string ImpExpRuleName { get; } = "ImpExpRoll8Stand";
+        public static string ImpExpRuleName { get; } = "IE_MA_Roll8Stand";
         public static int OTypeValue { get; } = (int)OTypeCollection.MA_Roll8Stand;
         #endregion
  
         public Roll8Stand()
         {
-            side1 = new Roll8StandSide();
-            side2 = new Roll8StandSide();
+            side1 = new RollermillSide();
+            side2 = new RollermillSide();
             pType =P2046.ToString();
             value10 = "786656";
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
@@ -178,7 +179,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             {
                 TextFileHandle textFileHandle = new TextFileHandle();
                 textFileHandle.FilePath = this.filePath;
-                isNew = "false";
+                isNew = "False";
                 StringBuilder objFields = new StringBuilder();
                 ///<summary>
                 ///生产Standard字符串部分
@@ -188,7 +189,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>         
-                objFields.Append(value10).Append(LibGlobalSource.TAB)                                
+                objFields.Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
@@ -218,9 +219,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(isNew);
+                    .Append(LibGlobalSource.NOCHILD);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
@@ -273,112 +272,251 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.FilePath = this.fileConnectorPath;
             textFileHandle.ClearContents();
         }
-        public class Roll8StandSide
+        /// <summary>
+        /// 向数据库ImpExpDef中插入对向的导入定义
+        /// </summary>
+        /// <param name="insertMultipleRecords">传入一个Oledb类中InsertMultipleRecords方法的委托</param>
+        /// <returns></returns>
+        public bool CreateImpExpDef(Func<string, List<List<Gcpro.DbParameter>>, bool> insertMultipleRecords)
         {
-            private string motorLow;
-            private string motorUp;
-            private string hlBackupLeft;
-            private string hlBackupRight;
-            private string hlInlet;
-            private string divHLInlet;
-            private string sm1;
-            private string hlOutlet3;
-            private string inpPressure;
-            private string feedRoll;
-            private string divFeedRoll;
-            private string hlOutlet1;
-            private string hlOutlet2;
-            private string motorLowCur;
-            private string motorUpCur;
-            public string MotorLow
+            List<List<Gcpro.DbParameter>> impExpList = new List<List<Gcpro.DbParameter>>();
+            string tableName = GcproTable.ImpExpDef.TableName;
+            base.CreateImpExpDef(impExpList, ImpExpRuleName);
+            #region  #region Add records list
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return motorLow; }
-                set { motorLow = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorLow"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
+            });
 
-            public string MotorUp
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return motorUp; }
-                set { motorUp = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorUp"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value12.Name }
 
-            public string HLBackupLeft
-            {
-                get { return hlBackupLeft; }
-                set { hlBackupLeft = value; }
-            }
+            });
 
-            public string HLBackupRight
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return hlBackupRight; }
-                set { hlBackupRight = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLBackupLeft"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value13.Name }
 
-            public string HLInlet
-            {
-                get { return hlInlet; }
-                set { hlInlet = value; }
-            }
+            });
 
-            public string DivHLInlet
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return divHLInlet; }
-                set { divHLInlet = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLBackupRight"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value42.Name }
 
-            public string SM1
-            {
-                get { return sm1; }
-                set { sm1 = value; }
-            }
+            });
 
-            public string HLOutlet3
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return hlOutlet3; }
-                set { hlOutlet3 = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLInlet"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name }
 
-            public string InpPressure
-            {
-                get { return inpPressure; }
-                set { inpPressure = value; }
-            }
+            });
 
-            public string FeedRoll
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return feedRoll; }
-                set { feedRoll = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1Div HLInlet" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name }
 
-            public string DivFeedRoll
-            {
-                get { return divFeedRoll; }
-                set { divFeedRoll = value; }
-            }
+            });
 
-            public string HLOutlet1
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return hlOutlet1; }
-                set { hlOutlet1 = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 SM1"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value15.Name }
 
-            public string HLOutlet2
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return hlOutlet2; }
-                set { hlOutlet2 = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLOutlet3"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value43.Name}
 
-            public string MotorLowCur
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return motorLowCur; }
-                set { motorLowCur = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 InpPressure"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value16.Name}
 
-            public string MotorUpCur
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
             {
-                get { return motorUpCur; }
-                set { motorUpCur = value; }
-            }
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 Feedroll" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value26.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value ="Side1Div Feedroll"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value27.Name }
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLOutlet1"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value35.Name}
+
+             });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 HLOutlet2"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value36.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorLowCur"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side1 MotorUpCur"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value30.Name}
+
+            });
+
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorLow"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value17.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorUp"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value18.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLBackupLeft"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value19.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLBackupRight"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value44.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLInlet"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value20.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2Div HLInlet" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 SM1"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name }
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLOutlet3"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value45.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 InpPressure"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value22.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 Feedroll" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value28.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value ="Side2Div Feedroll"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value29.Name }
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLOutlet1"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value37.Name}
+
+             });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 HLOutlet2"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value38.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorLowCur"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Side2 MotorUpCur"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value32.Name}
+
+            });
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "MDDx"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value41.Name}
+
+            });
+   
+            #endregion
+            bool result = insertMultipleRecords(tableName, impExpList);
+            impExpList.Clear();
+            return result;
         }
     }
 }

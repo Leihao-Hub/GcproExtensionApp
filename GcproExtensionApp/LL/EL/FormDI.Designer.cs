@@ -78,6 +78,7 @@ namespace GcproExtensionApp
             this.chkOnlyFree = new System.Windows.Forms.CheckBox();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
+            this.chkNameOnlyNumber = new System.Windows.Forms.CheckBox();
             this.chkAddSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddFloorToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddNameToDesc = new System.Windows.Forms.CheckBox();
@@ -182,7 +183,6 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
-            this.chkNameOnlyNumber = new System.Windows.Forms.CheckBox();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
@@ -724,6 +724,18 @@ namespace GcproExtensionApp
             this.grpAddInfoToDesc.TabIndex = 122;
             this.grpAddInfoToDesc.TabStop = false;
             this.grpAddInfoToDesc.Text = "附加信息到描述";
+            // 
+            // chkNameOnlyNumber
+            // 
+            this.chkNameOnlyNumber.AutoSize = true;
+            this.chkNameOnlyNumber.Checked = true;
+            this.chkNameOnlyNumber.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNameOnlyNumber.Location = new System.Drawing.Point(426, 17);
+            this.chkNameOnlyNumber.Name = "chkNameOnlyNumber";
+            this.chkNameOnlyNumber.Size = new System.Drawing.Size(98, 17);
+            this.chkNameOnlyNumber.TabIndex = 125;
+            this.chkNameOnlyNumber.Text = "编号仅含数字";
+            this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
             // 
             // chkAddSectionToDesc
             // 
@@ -1286,6 +1298,7 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
+            this.dataGridBML.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
@@ -1842,18 +1855,6 @@ namespace GcproExtensionApp
             this.lblPage.Size = new System.Drawing.Size(32, 13);
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "Page";
-            // 
-            // chkNameOnlyNumber
-            // 
-            this.chkNameOnlyNumber.AutoSize = true;
-            this.chkNameOnlyNumber.Checked = true;
-            this.chkNameOnlyNumber.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNameOnlyNumber.Location = new System.Drawing.Point(426, 17);
-            this.chkNameOnlyNumber.Name = "chkNameOnlyNumber";
-            this.chkNameOnlyNumber.Size = new System.Drawing.Size(98, 17);
-            this.chkNameOnlyNumber.TabIndex = 125;
-            this.chkNameOnlyNumber.Text = "编号仅含数字";
-            this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
             // 
             // FormDI
             // 

@@ -50,10 +50,14 @@
     <Compile Include="Gcpro\GCObject\Elements\AI.cs" />
     <Compile Include="Gcpro\GCObject\Elements\DI.cs" />
     <Compile Include="Gcpro\GCObject\Elements\MDDx.cs" />
+    <Compile Include="Gcpro\GCObject\Elements\MDDYZ.cs" />
+    <Compile Include="Gcpro\GCObject\Elements\MYTARef.cs" />
     <Compile Include="Gcpro\GCObject\Elements\VLS.cs" />
     <Compile Include="Gcpro\GCObject\Elements\Motor.cs" />
     <Compile Include="Gcpro\GCObject\Elements\VFCAdapter.cs" />
+    <Compile Include="Gcpro\GCObject\Machine\RollermillSide.cs" />
     <Compile Include="Gcpro\GCObject\Machine\Ma.MotorWithBypass.cs" />
+    <Compile Include="Gcpro\GCObject\Machine\Ma.MDDYZPhoenix.cs" />
     <Compile Include="Gcpro\GCObject\Machine\Ma.Roll8Stand.cs" />
     <Compile Include="Gcpro\GCObject\Machine\Machine.cs" />
     <Compile Include="Gcpro\GCObject\GcObject.cs" />

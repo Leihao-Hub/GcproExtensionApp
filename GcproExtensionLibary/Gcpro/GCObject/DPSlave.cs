@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Xml.Linq;
 using GcproExtensionLibrary.Gcpro;
-using GcproExtensionLibrary;
 using GcproExtensionLibrary.FileHandle;
 
-namespace GcproExtensionLibary.Gcpro.GCObject
+namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     public class DPSlave : Element
 
@@ -42,7 +41,7 @@ namespace GcproExtensionLibary.Gcpro.GCObject
         private string value10;
         private string value31;
         private string ipAddr;
-        private byte slaveNo;
+        private int slaveNo;
         private int updateTime;
         private int watchDogFactor;
         private int watchDogTime;
@@ -137,7 +136,7 @@ namespace GcproExtensionLibary.Gcpro.GCObject
             get { return ipAddr; }
             set { ipAddr = value; }
         }
-        public byte SlaveNo
+        public int SlaveNo
         {
             get { return slaveNo; }
             set { slaveNo = value; }
@@ -163,19 +162,25 @@ namespace GcproExtensionLibary.Gcpro.GCObject
             set { filePath = value; }
         }
         #endregion
-        public static string ImpExpRuleName { get; } = "ImpExpDPSlave";
-        public static int OTypeValue { get; } = (int)OTypeCollection.DP_Slave;
+   
         #region Readonly property
         public static string Profibus { get; } = "Profibus";
         public static string Profinet { get; } = "Profinet";
         public static string ProfinetIOLINKIFM { get; } = "ProfinetIOLINKIFM";
         public static string WAGO { get; } = "WAGO";
-        public static float P7895 { get; } = 7895f;         
+        public static float P7895 { get; } = 7895f;
+        public static string ImpExpRuleName { get; } = "IE_DPSlave";
+        public static int OTypeValue { get; } = (int)OTypeCollection.DP_Slave;
         #endregion
         public DPSlave()
         {
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             Rule.IPAddressInc=Rule.SlaveNoInc = "1";
+            ipAddr = "192.168.1.2";
+            updateTime = 1;
+            slaveNo = 3;
+            watchDogFactor = 200;
+            pType = P7895.ToString();
             fieldBusNode = string.Empty;
             panel_ID = string.Empty;
             diagram = string.Empty;
@@ -213,13 +218,12 @@ namespace GcproExtensionLibary.Gcpro.GCObject
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>   
-               objFields.Append(value31).Append(LibGlobalSource.TAB)
-                  .Append(ipAddr).Append(LibGlobalSource.TAB)
-                  .Append(slaveNo).Append(LibGlobalSource.TAB)
-                  .Append(updateTime).Append(LibGlobalSource.TAB)
-                  .Append(watchDogFactor).Append(LibGlobalSource.TAB)
-                  .Append(watchDogTime).Append(LibGlobalSource.TAB)
-                  .Append(isNew);
+                objFields.Append(value31).Append(LibGlobalSource.TAB)
+                   .Append(ipAddr).Append(LibGlobalSource.TAB)
+                   .Append(slaveNo).Append(LibGlobalSource.TAB)
+                   .Append(updateTime).Append(LibGlobalSource.TAB)
+                   .Append(watchDogFactor).Append(LibGlobalSource.TAB)
+                   .Append(watchDogTime);                 
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
@@ -229,6 +233,68 @@ namespace GcproExtensionLibary.Gcpro.GCObject
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
             textFileHandle.ClearContents();
+        }
+        /// <summary>
+        /// 向数据库ImpExpDef中插入对向的导入定义
+        /// </summary>
+        /// <param name="insertMultipleRecords">传入一个Oledb类中InsertMultipleRecords方法的委托</param>
+        /// <returns></returns>
+        public bool CreateImpExpDef(Func<string, List<List<Gcpro.DbParameter>>, bool> insertMultipleRecords)
+        {
+            List<List<Gcpro.DbParameter>> impExpList = new List<List<Gcpro.DbParameter>>();
+            string tableName = GcproTable.ImpExpDef.TableName;
+            base.CreateImpExpDef(impExpList, ImpExpRuleName);
+            #region  #region Add records list
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParValue31"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "IPAddress"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Text6.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParSlaveNo"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.OIndex.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "UpdateTime"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value32.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "WatchDogFactor"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "WatchDogTime" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name }
+
+            });      
+            #endregion
+            bool result = insertMultipleRecords(tableName, impExpList);
+            impExpList.Clear();
+            return result;
         }
     }
 }

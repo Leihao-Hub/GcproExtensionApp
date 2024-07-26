@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Linq;
 using System.Collections;
+using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
@@ -184,6 +185,7 @@ namespace GcproExtensionApp
             toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_AI);
             toolTip.SetToolTip(txtDescriptionRule, AppGlobal.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_AI);
             toolTip.SetToolTip(chkUpdateUnitsByMaxDigits, AppGlobal.UPDATE_AI_UNITSMAXDIGITS);
+            toolTip.SetToolTip(BtnRegenerateDPNode, AppGlobal.MSG_REGENERATE_DPNODE);
         }
         public void CreateImpExp()
         {
@@ -251,291 +253,11 @@ namespace GcproExtensionApp
         private void CreateAIImpExp(OleDb oledb)
         {
 
-            List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>
-                    {
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldType.Name, Value =AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Type" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.OType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Name" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Text0.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Description" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value =GcproTable.ObjData.Text1.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "SubType" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.SubType.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ProcessFct" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.ProcessFct.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Building" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Building.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Elevation" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Elevation.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "FieldBusNode" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.FieldbusNode.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Panel ID"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Panel_ID.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Diagram"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DiagramNo.Name}
-
-                    },
-                        new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Page"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.PageName.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "PType"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value5.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Horn Code"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value2.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "DP node1"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.DPNode1.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Object parameters"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value10.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Gcpro parameters"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value9.Name }
-
-                    },          
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpValue"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpFaultDev"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value19.Name }
-
-                    },
-              
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpLowLow"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value12.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpLow" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value13.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpHigh" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InpHighHigh"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value15.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParUnitsBy100"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value23.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParOffsetUnits"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value41.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDelayTimeDown"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDelayTimeUp"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDelayFaultTime"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value35.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Unit"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value38.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParLimitLowLow"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParLimitLow"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParLimitHigh"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value26.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParLimitHighHigh"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value27.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParMonTimeLowLow"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value28.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParMonTimeLow"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value29.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParMonTimeMiddle"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value30.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParMonTimeHigh"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParMonTimeHighHigh"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value32.Name}
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "InHWStop"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value47.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Reference"},
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value39.Name }
-
-                    },
-                    new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                    {
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = AI.ImpExpRuleName },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Is new" },
-                        new GcproExtensionLibrary.Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.IsNew.Name }
-
-                    }
-                };
-            if (oledb.InsertMultipleRecords(GcproTable.ImpExpDef.TableName, recordList))
+            bool result = myAI.CreateImpExpDef((tableName, impExpList) =>
+            {
+                return oledb.InsertMultipleRecords(tableName, impExpList);
+            });
+            if (result)
             {
                 MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -1480,39 +1202,39 @@ namespace GcproExtensionApp
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text=BML.AI.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.AI.ColumnName; 
-            nameColumn.Name = nameof(BML.AI.ColumnName);                                                
+            nameColumn.HeaderText = BML.ColumnName; 
+            nameColumn.Name = nameof(BML.ColumnName);                                                
             dataGridBML.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.AI.ColumnDesc;
-            descColumn.Name = nameof(BML.AI.ColumnDesc);
+            descColumn.HeaderText = BML.ColumnDesc;
+            descColumn.Name = nameof(BML.ColumnDesc);
             dataGridBML.Columns.Add(descColumn);
            
             DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
-            powerColumn.HeaderText = BML.AI.ColumnPower;
-            powerColumn.Name = nameof(BML.AI.ColumnPower);
+            powerColumn.HeaderText = BML.ColumnPower;
+            powerColumn.Name = nameof(BML.ColumnPower);
             dataGridBML.Columns.Add(powerColumn);
             dataGridBML.Columns[2].Width = 100;
 
            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.AI.ColumnFloor;
-            floorColumn.Name = nameof(BML.AI.ColumnFloor);
+            floorColumn.HeaderText = BML.ColumnFloor;
+            floorColumn.Name = nameof(BML.ColumnFloor);
             dataGridBML.Columns.Add(floorColumn);
 
             DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.AI.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.AI.ColumnCabinet);
+            cabinetColumn.HeaderText = BML.ColumnCabinet;
+            cabinetColumn.Name = nameof(BML.ColumnCabinet);
             dataGridBML.Columns.Add(cabinetColumn);
 
             DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.AI.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.AI.ColumnCabinetGroup);
+            cabinetColumnGroup.HeaderText = BML.ColumnCabinetGroup;
+            cabinetColumnGroup.Name = nameof(BML.ColumnCabinetGroup);
             dataGridBML.Columns.Add(cabinetColumnGroup);
 
             DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.AI.ColumnLine;
-            lineColumn.Name = nameof(BML.AI.ColumnLine);
+            lineColumn.HeaderText = BML.ColumnLine;
+            lineColumn.Name = nameof(BML.ColumnLine);
             dataGridBML.Columns.Add(lineColumn);
         }
 
@@ -1531,16 +1253,17 @@ namespace GcproExtensionApp
 
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
-            dataGridBML.Columns[nameof(BML.AI.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.AI.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.AI.ColumnPower)].DataPropertyName = dataTable.Columns[2].ColumnName;
-            dataGridBML.Columns[nameof(BML.AI.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.AI.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.AI.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            dataGridBML.Columns[nameof(BML.AI.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnPower)].DataPropertyName = dataTable.Columns[2].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
             TxtQuantity.Text = dataTable.Rows.Count.ToString();
         }
         #endregion
+
         #region Common used
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1646,9 +1369,7 @@ namespace GcproExtensionApp
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                     oledb.IsNewOLEDBDriver = isNewOledbDriver;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={AI.OTypeValue}", null,
-                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name,
-                        GcproTable.ObjData.Value12.Name, GcproTable.ObjData.Value13.Name, GcproTable.ObjData.Value14.Name,
-                        GcproTable.ObjData.Value15.Name,GcproTable.ObjData.Value47.Name, GcproTable.ObjData.Value39.Name);
+                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name);         
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
                     AI.Clear(myAI.FileConnectorPath);
@@ -1656,23 +1377,12 @@ namespace GcproExtensionApp
                     {
                         objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
                         objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
-                            string inpTrue;
-                            inpTrue = objName + txtInpValeSuffix.Text;
+                            string inpValue=objName +txtInpValeSuffix.Text;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name)==0 || all)
                             {
-                                AI.CreateRelation(objName, inpTrue, GcproTable.ObjData.Value11.Name, myAI.FileConnectorPath, Encoding.Unicode);
+                                AI.CreateRelation(objName, inpValue, GcproTable.ObjData.Value11.Name, myAI.FileConnectorPath, Encoding.Unicode);
                             }                                                
-                                                          
-                        if (!String.IsNullOrEmpty(txtInHWStop.Text))
-                        {
-                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
-                            {
-                                string InHWStop= objName + txtInHWStop.Text; ;
-                                AI.CreateRelation(objName, InHWStop, GcproTable.ObjData.Value47.Name, myAI.FileConnectorPath, Encoding.Unicode);
-                            }
-                        }
-                     
-                       
+                                                                                            
                         ProgressBar.Value=count;
                     }
                     AI.SaveFileAs(myAI.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
@@ -1701,7 +1411,6 @@ namespace GcproExtensionApp
             AI.SaveFileAs(myAI.FilePath, LibGlobalSource.CREATE_OBJECT);
             AI.SaveFileAs(myAI.FileRelationPath, LibGlobalSource.CREATE_RELATION);
         }
-
         private void BtnNewImpExpDef_Click(object sender, EventArgs e)
         {
             CreateImpExp();
@@ -1724,150 +1433,444 @@ namespace GcproExtensionApp
                 builder.Append(info);
             }
         }
+        private void CreatObjectRule()
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();   
+           // StringBuilder descTotalBuilder = new StringBuilder();
+            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            bool moreThanOne = quantityNeedToBeCreate > 1;
+            bool onlyOne = quantityNeedToBeCreate == 1;
+            bool needDPNodeChanged = false;
+            RuleSubDataSet description, name, dpNode1;
+            description = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            name = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            dpNode1 = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            #region Prepare export motor file
+            ///<OType>is set when object generated</OType>
+            ///<SubType></SubType>
+                string selectedSubTypeItem;
+            if (ComboEquipmentSubType.SelectedItem != null)
+            {
+                selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
+                myAI.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+
+            }
+            else
+            {
+                myAI.SubType = AI.AIT;
+            }
+            ///<PType></PType>
+            string selectedPTypeItem;
+            if (ComboEquipmentInfoType.SelectedItem != null)
+            {
+                selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
+                myAI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            else
+            {
+                myAI.PType = AI.P7252.ToString();
+            }
+
+            ///<Value9>Value is set when corresponding check box's check state changed</Value9>
+            ///<Value10>Value is set when corresponding check box's check state changed</Value10>
+            ///<Name>Value is set in TxtSymbol text changed event</Name>
+            ///<Description></Description>
+            myAI.Description = txtDescription.Text;
+            ///<ProcessFct></ProcessFct>
+            string selectedProcessFct = string.Empty;
+            if (ComboProcessFct.SelectedItem != null)
+            {
+                selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
+                myAI.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            ///<Diagram></Diagram>
+            string selectedDiagram;
+            if (ComboDiagram.SelectedItem != null)
+            {
+                selectedDiagram = ComboDiagram.SelectedItem.ToString();
+                myAI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+
+            ///<Page></Page>
+            myAI.Page = txtPage.Text;
+            ///<Building></Building>
+            string selectedBudling = "--";
+            if (ComboBuilding.SelectedItem != null)
+            {
+                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                myAI.Building = selectedBudling;
+            }
+            ///<Elevation></Elevation>
+            string selectedElevation;
+            if (ComboElevation.SelectedItem != null)
+            {
+                selectedElevation = ComboElevation.SelectedItem.ToString();
+                myAI.Elevation = selectedElevation;
+            }
+            ///<Panel_ID></Panel_ID>
+            string selectedPanel_ID;
+            if (ComboPanel.SelectedItem != null)
+            {
+                selectedPanel_ID = ComboPanel.SelectedItem.ToString();
+                myAI.Panel_ID = selectedPanel_ID;
+            }
+            ///<IsNew>is set when object generated,Default value is "No"</IsNew>
+            ///<FieldBusNode></FieldBusNode>
+            myAI.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            ///<DPNode1></DPNode1>
+            string selectDPNode1 = String.Empty;
+            if (ComboDPNode1.SelectedItem != null)
+            {
+                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
+                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                myAI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, selectDPNode1);
+                int dpnode1 = int.Parse(myAI.DPNode1);
+                myAI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
+            }
+            if (ComboHornCode.SelectedItem != null)
+            {
+                string hornCode = ComboHornCode.SelectedItem.ToString();
+                myAI.HornCode = hornCode.Substring(0, 2);
+            }
+            #endregion
+
+            #region Parse rules
+            ///<ParseRule> </ParseRule>
+            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{lblSymbolIncRule.Text})");
+                    return;
+                }
+            }
+            ///<NameRule>生成名称规则</NameRule>
+            name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
+            if (name.PosInfo.Len == -1)
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    return;
+                }
+            }
+            else
+            {
+                name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
+            }
+
+            string selectedDPNode1Item = string.Empty;
+            if (ComboDPNode1.SelectedItem != null)
+            {
+
+                selectedDPNode1Item = ComboDPNode1.SelectedItem.ToString();
+            }
+            else
+            {
+                needDPNodeChanged = false;
+            }
+            if (needDPNodeChanged)
+            {
+                dpNode1.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
+                if (dpNode1.PosInfo.Len == -1)
+                {
+                    AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    return;
+                }
+                else
+                {
+                    dpNode1.Name = selectedDPNode1Item;
+                    dpNode1.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(dpNode1.Name, txtSymbolRule.Text);
+                }
+            }
+            else
+            {
+                dpNode1.Name = string.Empty;
+            }
+            ///<DescRule>生成描述规则</DescRule>
+            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            {
+                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
+                if (description.PosInfo.Len == -1)
+                {
+                    if (moreThanOne)
+                    {
+                        AppGlobal.RuleNotSetCorrect($"{grpDescriptionRule.Text}.{lblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                        // return;
+                    }
+                }
+                else
+                {
+                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
+                }
+            }
+            #endregion
+            ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
+            ProgressBar.Value = 0;
+            ///<CreateObj>
+            ///DPNode
+            ///</CreateObj>
+            int symbolInc, symbolRule, descriptionInc;
+            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
+            {
+                name.Inc = i * symbolInc;
+                name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
+
+                //   myAI.HWStop = String.IsNullOrEmpty(txtInHWStop.Text)?string.Empty:txtInHWStop.Text;
+
+                if (needDPNodeChanged && moreThanOne)
+                {
+                    dpNode1.Inc = i * symbolInc;
+                    dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
+                    myAI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
+                    int dpnode1 = int.Parse(myAI.DPNode1);
+                    myAI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
+                }
+
+                if (!String.IsNullOrEmpty(txtDescription.Text))
+                {
+                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                        && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
+                        && (description.PosInfo.Len != -1))
+                    {
+                        description.Inc = i * descriptionInc;
+                        description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
+                    }
+                    else
+                    {
+                        description.Name = txtDescription.Text;
+                    }
+
+                }
+                else
+                {
+                    description.Name = "电流";
+                }
+                myAI.Name = name.Name;
+                if (myAI.SubType == AI.AIT)
+                {
+                    myAI.InpValue = (myAI.Name.Contains(GcObjectInfo.AI.SuffixName) ? myAI.Name.Replace(GcObjectInfo.AI.SuffixName, string.Empty) : myAI.Name)
+                                + txtInpValeSuffix.Text;
+
+                }
+                else if (myAI.SubType == AI.AIDI)
+                {
+                    myAI.InpLowLow = myAI.Name + txtSuffixInpLowLow.Text;
+                    myAI.InpLow = myAI.Name + txtSuffixInpLow.Text;
+                    myAI.InpHigh = myAI.Name + txtSuffixInpHigh.Text;
+                    myAI.InpHighHigh = myAI.Name + txtSuffixInpHighHigh.Text;
+                }
+
+                myAI.Description = description.Name;
+                myAI.CreateObject(Encoding.Unicode);
+                ProgressBar.Value = i;
+            }
+            ProgressBar.Value = ProgressBar.Maximum;
+        }
+        private void CreatObjectBML()
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            StringBuilder descTotalBuilder = new StringBuilder();
+         //   int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            ProgressBar.Maximum = dataGridBML.Rows.Count - 1;
+            ProgressBar.Value = 0;
+            SuffixObject suffixObject = new SuffixObject();
+            string cabinet, cabinetGroup;
+            string nameNumberString = string.Empty;
+            string nameMotor;
+            float motorPower;
+            string motorPowerStr;
+            (float rateCurrent, float ctRatio) motorCurrent = (0.0f, 0.0f);
+            Dictionary<string, (float, float)> motorPowerInfo = new Dictionary<string, (float, float)>();
+            MotorHelper motorHelper = new MotorHelper();
+            for (int i = 0; i < dataGridBML.Rows.Count; i++)
+            {
+                DataGridViewCell cell;
+                cell = dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)];
+                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                { continue; }
+                nameMotor = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
+                myAI.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
+                motorPower = (float)Convert.ToDouble(dataGridBML.Rows[i].Cells[nameof(BML.ColumnPower)].Value);
+                motorPowerStr = motorPower.ToString();
+                cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
+                cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
+                myAI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
+                string desc = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
+                descTotalBuilder.Clear();
+
+                if (motorPowerInfo == null || !motorPowerInfo.ContainsKey(motorPowerStr))
+                {
+                    if (motorHelper.GetConfig(motorPowerStr))
+                    {
+                        motorCurrent.rateCurrent = motorHelper.RatedCurrent;
+                        motorCurrent.ctRatio = motorHelper.CTRatio;
+                    }
+                    else
+                    {
+                        motorCurrent.rateCurrent = motorHelper.CalcRateCurrent(motorPower);
+                        motorCurrent.ctRatio = Motor.GetCTRatio(motorPower);
+                    }
+                    motorPowerInfo.Add(motorPowerStr, motorCurrent);
+
+                }
+                else
+                {
+                    motorPowerInfo.TryGetValue(motorPowerStr, out motorCurrent);
+                }
+                ///<AdditionInfoToDesc>
+                ///</AdditionInfoToDesc>
+                bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
+                chkAddCabinetToDesc.Checked;
+                if (chkAddSectionToDesc.Checked)
+                {
+                    nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, nameMotor);
+                    if (!string.IsNullOrEmpty(nameNumberString))
+                    {
+                        if (AppGlobal.ParseInt(nameNumberString, out tempInt))
+                        {
+                            descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
+                        }
+                    }
+                }
+                if (additionInfToDesc)
+                {
+                    AppendInfoToBuilder(chkAddFloorToDesc, $"{myAI.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
+                    string descName = chkNameOnlyNumber.Checked ? nameNumberString : LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myAI.Name);
+                    descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
+                    AppendInfoToBuilder(chkAddNameToDesc, $"({descName})", descTotalBuilder);
+                }
+                descTotalBuilder.Append($"{desc}电流");
+                if (additionInfToDesc)
+                {
+                    descTotalBuilder.Append("[");
+                    // AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myAI.Name)}", descTotalBuilder);
+                    //  AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myAI.Elevation}", descTotalBuilder);
+                    AppendInfoToBuilder(chkAddCabinetToDesc, $"{GcObjectInfo.General.AddInfoCabinet}{myAI.Panel_ID}", descTotalBuilder);
+                    descTotalBuilder.Append("]");
+                }
+                myAI.Description = descTotalBuilder.ToString();
+                myAI.Name = $"{nameMotor}{GcObjectInfo.AI.SuffixName}";
+                myAI.PType = AI.P7408_1.ToString();
+                myAI.InpValue = $"{nameMotor}{GcObjectInfo.AI.SuffixInpValue}";
+                myAI.UnitsBy100 = motorCurrent.rateCurrent.ToString("F1");
+                myAI.Unit = "11";//A
+                myAI.LimitLowLow = (motorCurrent.rateCurrent * 0.1f).ToString("F0");
+                myAI.LimitLow = (motorCurrent.rateCurrent * 0.3f).ToString("F0");
+                myAI.LimitHigh = (motorCurrent.rateCurrent * 0.9f).ToString("F0");
+                myAI.LimitHighHigh = (motorCurrent.rateCurrent * 1.1f).ToString("F0");
+                myAI.MonTimeHighHigh = (Motor.GetStartingTime(motorCurrent.rateCurrent) * 10).ToString();
+                myAI.CreateObject(Encoding.Unicode);
+                ///<UpdateFiled>
+                ///Update Value22 for Analog input
+                ///</UpdateFiled>
+                if (chkUpdateUnitsByMaxDigits.Checked)
+                {
+                    string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.AIC}  AND {GcproTable.ObjData.Text0.Name} = '{nameMotor}{GcObjectInfo.AI.SuffixInpValue}'";
+                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        List<int> inpValueKeyList = new List<int>();
+                        inpValueKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
+                        string filterInpValue = $@"{GcproTable.ObjData.Key.Name} = {inpValueKeyList[0]}";
+                        List<GcproExtensionLibrary.Gcpro.DbParameter> updateField = new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                                    {
+                                         new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ObjData.Value22.Name, Value = (double)motorCurrent.ctRatio},
+                                         new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ObjData.Value21.Name, Value = 0.0},
+                                         new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ObjData.IsNew.Name, Value =false},
+                                         new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ObjData.Text8.Name, Value = "A"},
+                                    };
+
+                        oledb.UpdateRecord(GcproTable.ObjData.TableName, updateField, filterInpValue);
+                    }
+                }
+                ProgressBar.Value = i;
+            }
+            ProgressBar.Value = ProgressBar.Maximum;
+        }
+        private void CreatObjectAutoSearch()
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            List<string> objList = new List<string>();
+            List<string> objDescList = new List<string>();
+            string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.AIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} ";
+            filter = String.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+
+            // objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
+            objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
+            objDescList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text1.Name);
+            for (int i = 0; i <= objList.Count - 1; i++)
+            {
+                objList[i] = AppGlobal.GetObjectSymbolFromIO(objList[i]);
+            }
+            ProgressBar.Maximum = objList.Count - 1;
+            ProgressBar.Value = 0;        
+            for (int i = 0; i <= objList.Count - 1; i++)
+            {
+                myAI.Name = AppGlobal.GetObjectSymbolFromIO(objList[i]);
+                myAI.InpValue = objList[i];
+                myAI.Description = objDescList[i];
+                myAI.CreateObject(Encoding.Unicode);
+                ProgressBar.Value = i;
+            }
+            ProgressBar.Value = ProgressBar.Maximum;
+        }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             try
-            {
-                OleDb oledb = new OleDb();
-                oledb.DataSource=AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                DataTable dataTable = new DataTable();
-                #region common used variables declaration       
-                bool needDPNodeChanged = false;
-                StringBuilder descTotalBuilder = new StringBuilder();
-                int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-                bool moreThanOne = quantityNeedToBeCreate > 1;
-                bool onlyOne = quantityNeedToBeCreate == 1;
-                RuleSubDataSet description, name, dpNode1;
-                description = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                name = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                dpNode1 = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                #endregion
-                #region Prepare export motor file
-                ///<OType>is set when object generated</OType>
-                ///<SubType></SubType>
-                string selectedSubTypeItem;
-                if (ComboEquipmentSubType.SelectedItem != null)
-                {
-                    selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                    myAI.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                 
-                }
-                else
-                {
-                    myAI.SubType = AI.AIT;
-                }
-                ///<PType></PType>
-                string selectedPTypeItem;
-                if (ComboEquipmentInfoType.SelectedItem != null)
-                {
-                    selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                    myAI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                }
-                else
-                {
-                    myAI.PType = AI.P7252.ToString();
-                }
-           
-                ///<Value9>Value is set when corresponding check box's check state changed</Value9>
-                ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-                ///<Name>Value is set in TxtSymbol text changed event</Name>
-                ///<Description></Description>
-                myAI.Description = txtDescription.Text;
-                ///<ProcessFct></ProcessFct>
-                string selectedProcessFct = string.Empty;
-                if (ComboProcessFct.SelectedItem != null)
-                {
-                    selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                    myAI.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                }
-                ///<Diagram></Diagram>
-                string selectedDiagram;
-                if (ComboDiagram.SelectedItem != null)
-                {
-                    selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                    myAI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                }
-         
-                ///<Page></Page>
-                myAI.Page = txtPage.Text;
-                ///<Building></Building>
-                string selectedBudling = "--";
-                if (ComboBuilding.SelectedItem != null)
-                {
-                    selectedBudling = ComboBuilding.SelectedItem.ToString();
-                    myAI.Building = selectedBudling;
-                }
-                ///<Elevation></Elevation>
-                string selectedElevation;
-                if (ComboElevation.SelectedItem != null)
-                {
-                    selectedElevation = ComboElevation.SelectedItem.ToString();
-                    myAI.Elevation = selectedElevation;
-                }
-                ///<Panel_ID></Panel_ID>
-                string selectedPanel_ID;
-                if (ComboPanel.SelectedItem != null)
-                {
-                    selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                    myAI.Panel_ID = selectedPanel_ID;
-                }
-                ///<IsNew>is set when object generated,Default value is "No"</IsNew>
-                ///<FieldBusNode></FieldBusNode>
-                myAI.FieldBusNode = LibGlobalSource.NOCHILD; ;
-                ///<DPNode1></DPNode1>
-                string selectDPNode1 = String.Empty;
-                if (ComboDPNode1.SelectedItem != null)
-                {
-                    selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    myAI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, selectDPNode1);
-                    int dpnode1 = int.Parse(myAI.DPNode1);
-                    myAI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
-                }            
-                if (ComboHornCode.SelectedItem != null)
-                {
-                    string hornCode = ComboHornCode.SelectedItem.ToString();
-                    myAI.HornCode = hornCode.Substring(0, 2);
-                }  
-                
+            {               
                 if (createMode.Rule || createMode.AutoSearch)
                 {
                     ///<UnitsBy100</UnitsBy100>
@@ -1906,304 +1909,17 @@ namespace GcproExtensionApp
                     ///<ParMonTimeHighHigh></ParMonTimeHighHigh>
                     myAI.MonTimeHighHigh = AppGlobal.ParseFloat(txtMonTimeHighHigh.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
                 }
-                #endregion
                 if (createMode.BML)
                 {
-                    ProgressBar.Maximum = dataGridBML.Rows.Count - 1;
-                    ProgressBar.Value = 0;
-                    SuffixObject suffixObject = new SuffixObject();
-                    string cabinet,cabinetGroup;
-                    string nameNumberString=string.Empty;
-                    string nameMotor;
-                    float motorPower;
-                    string motorPowerStr;
-                    (float rateCurrent, float ctRatio) motorCurrent=(0.0f,0.0f);
-                    Dictionary<string,(float,float)> motorPowerInfo= new Dictionary<string,(float,float)>();
-                    MotorHelper motorHelper = new MotorHelper();
-                    for (int i = 0; i < dataGridBML.Rows.Count; i++)
-                    {
-                        DataGridViewCell cell;
-                        cell = dataGridBML.Rows[i].Cells[nameof(BML.AI.ColumnName)];
-                        if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
-                        { continue; }
-                        nameMotor = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.AI.ColumnName)].Value);
-                        myAI.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.AI.ColumnFloor)].Value);
-                        motorPower = (float) Convert.ToDouble(dataGridBML.Rows[i].Cells[nameof(BML.AI.ColumnPower)].Value);
-                        motorPowerStr = motorPower.ToString();
-                        cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.AI.ColumnCabinet)].Value);
-                        cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.AI.ColumnCabinetGroup)].Value);
-                        myAI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
-                        string desc = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.AI.ColumnDesc)].Value);                   
-                        descTotalBuilder.Clear();
-                      
-                        if (motorPowerInfo == null || !motorPowerInfo.ContainsKey(motorPowerStr))
-                        {
-                            if (motorHelper.GetConfig(motorPowerStr))
-                            {
-                                motorCurrent.rateCurrent = motorHelper.RatedCurrent;
-                                motorCurrent.ctRatio = motorHelper.CTRatio;
-                            }
-                            else
-                            {
-                                motorCurrent.rateCurrent =motorHelper.CalcRateCurrent(motorPower);
-                                motorCurrent.ctRatio = Motor.GetCTRatio(motorPower);
-                            }
-                            motorPowerInfo.Add(motorPowerStr, motorCurrent);
-
-                        }
-                        else
-                        {                                                 
-                            motorPowerInfo.TryGetValue(motorPowerStr, out motorCurrent);                                                   
-                        }
-                        ///<AdditionInfoToDesc>
-                        ///</AdditionInfoToDesc>
-                        bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
-                        chkAddCabinetToDesc.Checked;
-                        if (chkAddSectionToDesc.Checked)
-                        {
-                            nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, nameMotor);
-                            if (!string.IsNullOrEmpty(nameNumberString))
-                            {
-                                if (AppGlobal.ParseInt(nameNumberString, out tempInt))
-                                {
-                                    descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
-                                }
-                            }
-                        }
-                        if (additionInfToDesc)
-                        {
-                            AppendInfoToBuilder(chkAddFloorToDesc, $"{myAI.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
-                            string descName = chkNameOnlyNumber.Checked ? nameNumberString : LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myAI.Name);
-                            descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
-                            AppendInfoToBuilder(chkAddNameToDesc, $"({descName})", descTotalBuilder);                           
-                        }
-                        descTotalBuilder.Append($"{desc}电流");
-                        if (additionInfToDesc)
-                        {
-                            descTotalBuilder.Append("[");
-                           // AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myAI.Name)}", descTotalBuilder);
-                          //  AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myAI.Elevation}", descTotalBuilder);
-                            AppendInfoToBuilder(chkAddCabinetToDesc, $"{GcObjectInfo.General.AddInfoCabinet}{myAI.Panel_ID}", descTotalBuilder);
-                            descTotalBuilder.Append("]");
-                        }                       
-                        myAI.Description = descTotalBuilder.ToString();
-                        myAI.Name = $"{nameMotor}{GcObjectInfo.AI.SuffixName}";
-                        myAI.PType = AI.P7408_1.ToString();                          
-                        myAI.InpValue = $"{nameMotor}{GcObjectInfo.AI.SuffixInpValue}";
-                        myAI.UnitsBy100 = motorCurrent.rateCurrent.ToString("F1");
-                        myAI.Unit = "11";//A
-                        myAI.LimitLowLow =( motorCurrent.rateCurrent*0.1f).ToString("F0");
-                        myAI.LimitLow = (motorCurrent.rateCurrent * 0.3f).ToString("F0");
-                        myAI.LimitHigh = (motorCurrent.rateCurrent * 0.9f).ToString("F0");
-                        myAI.LimitHighHigh= (motorCurrent.rateCurrent * 1.1f).ToString("F0");
-                        myAI.MonTimeHighHigh = (Motor.GetStartingTime(motorCurrent.rateCurrent)*10).ToString();
-                        myAI.CreateObject(Encoding.Unicode);
-                        ///<UpdateFiled>
-                        ///Update Value22 for Analog input
-                        ///</UpdateFiled>
-                        if (chkUpdateUnitsByMaxDigits.Checked)
-                        {
-                            string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.AIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND {GcproTable.ObjData.Text0.Name} = '{nameMotor}{GcObjectInfo.AI.SuffixInpValue}'";
-                            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name);
-                            if (dataTable.Rows.Count > 0 )
-                            {
-                                List<int> objInpKeyList= new List<int>();
-                                objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
-                                string filterKey = $@"{GcproTable.ObjData.Key.Name} = {objInpKeyList[0]}";
-                                List<GcproExtensionLibrary.Gcpro.DbParameter> updateField = new List<GcproExtensionLibrary.Gcpro.DbParameter>
-                                    {
-                                         new GcproExtensionLibrary.Gcpro.DbParameter { Name = GcproTable.ObjData.Value22.Name, Value = (int)motorCurrent.ctRatio},
-                                    };
-
-                                oledb.UpdateRecord(GcproTable.ObjData.TableName, updateField, filterKey);
-                            }
-                        }
-                        ProgressBar.Value = i;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                    CreatObjectBML();
                 }
                 else if (createMode.AutoSearch)
                 {
-                    List<string> objList = new List<string>();
-        
-                    string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.AIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} ";
-                    filter = String.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name);
-
-                   // objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
-                    objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
-                    for (int i = 0; i <= objList.Count - 1; i++)
-                    {
-                        objList[i] = AppGlobal.GetObjectSymbolFromIO(objList[i]);
-                    }
-                    quantityNeedToBeCreate = objList.Count;
-                    ProgressBar.Maximum = quantityNeedToBeCreate - 1;
-                    ProgressBar.Value = 0;
-                    ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                    {
-                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                        if (description.PosInfo.Len == -1)
-                        {
-                            if (moreThanOne)
-                            {
-                                AppGlobal.RuleNotSetCorrect($"{grpDescriptionRule.Text}.{lblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                                // return;
-                            }
-                        }
-                        else
-                        { description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
-                    }
-                    for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
-                    {
-                        myAI.Name = objList[i];
-                        myAI.InpValue = objList[i].ToString();
-                        myAI.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                    CreatObjectAutoSearch();
                 }
                 else if (createMode.Rule)
-                {                  
-                    #region Parse rules
-                    ///<ParseRule> </ParseRule>
-                    if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
-                    {
-                        if (moreThanOne)
-                        {
-                            AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{lblSymbolIncRule.Text})");
-                            return;
-                        }
-                    }
-                    ///<NameRule>生成名称规则</NameRule>
-                    name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
-                    if (name.PosInfo.Len == -1)
-                    {
-                        if (moreThanOne)
-                        {
-                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
-                    }
-
-                    string selectedDPNode1Item = string.Empty;
-                    if (ComboDPNode1.SelectedItem != null)
-                    {
-                    
-                        selectedDPNode1Item = ComboDPNode1.SelectedItem.ToString();
-                    }
-                    else
-                    {
-                        needDPNodeChanged = false;
-                    }
-                    if (needDPNodeChanged)
-                    {
-                        dpNode1.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
-                        if (dpNode1.PosInfo.Len == -1)
-                        {
-                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                            return;
-                        }
-                        else
-                        {
-                            dpNode1.Name = selectedDPNode1Item;
-                            dpNode1.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(dpNode1.Name, txtSymbolRule.Text);
-                        }
-                    }
-                    else
-                    {
-                        dpNode1.Name = string.Empty;
-                    }
-                    ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                    {
-                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                        if (description.PosInfo.Len == -1)
-                        {
-                            if (moreThanOne)
-                            {
-                                AppGlobal.RuleNotSetCorrect($"{grpDescriptionRule.Text}.{lblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                                // return;
-                            }
-                        }
-                        else
-                        {
-                            description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
-                        }
-                    }
-                    #endregion
-
-                    ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
-                    ProgressBar.Value = 0;
-                    ///<CreateObj>
-                    ///DPNode
-                    ///</CreateObj>
-                    int symbolInc, symbolRule, descriptionInc;
-                    tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-                    tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-                    tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-                    for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
-                    {
-                        name.Inc = i * symbolInc;
-                        name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-                                                                                                         
-                     //   myAI.HWStop = String.IsNullOrEmpty(txtInHWStop.Text)?string.Empty:txtInHWStop.Text;
-
-                        if (needDPNodeChanged && moreThanOne)
-                        {
-                            dpNode1.Inc = i * symbolInc;
-                            dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                            myAI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
-
-                            int dpnode1 = int.Parse(myAI.DPNode1);
-                            myAI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
-                        }
-
-                        if (!String.IsNullOrEmpty(txtDescription.Text))
-                        {
-                            if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
-                                && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
-                                && (description.PosInfo.Len != -1))
-                            {
-                                description.Inc = i * descriptionInc;
-                                description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
-                            }
-                            else
-                            {
-                                description.Name = txtDescription.Text;
-                            }
-
-                        }
-                        else
-                        {
-                            description.Name = "电流";
-                        }
-                        myAI.Name = name.Name;
-                        if (myAI.SubType==AI.AIT)
-                        {
-                            myAI.InpValue = (myAI.Name.Contains(GcObjectInfo.AI.SuffixName) ? myAI.Name.Replace(GcObjectInfo.AI.SuffixName, string.Empty) : myAI.Name)
-                                        + txtInpValeSuffix.Text;
-                            
-                        }
-                        else if (myAI.SubType == AI.AIDI)
-                        {
-                            myAI.InpLowLow = myAI.Name + txtSuffixInpLowLow.Text;
-                            myAI.InpLow = myAI.Name + txtSuffixInpLow.Text;
-                            myAI.InpHigh= myAI.Name + txtSuffixInpHigh.Text;
-                            myAI.InpHighHigh = myAI.Name + txtSuffixInpHighHigh.Text;
-                        }
-                       
-                        myAI.Description = description.Name;
-                        myAI.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                {
+                    CreatObjectRule();
                 }
             }
             catch (Exception ex)

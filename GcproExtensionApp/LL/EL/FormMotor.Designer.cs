@@ -55,7 +55,7 @@ namespace GcproExtensionApp
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
             this.chkNameOnlyNumber = new System.Windows.Forms.CheckBox();
-            this.chkLine = new System.Windows.Forms.CheckBox();
+            this.chkAddUserSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddPowerToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddFloorToDesc = new System.Windows.Forms.CheckBox();
@@ -483,7 +483,7 @@ namespace GcproExtensionApp
             // grpAddInfoToDesc
             // 
             this.grpAddInfoToDesc.Controls.Add(this.chkNameOnlyNumber);
-            this.grpAddInfoToDesc.Controls.Add(this.chkLine);
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddUserSectionToDesc);
             this.grpAddInfoToDesc.Controls.Add(this.chkAddSectionToDesc);
             this.grpAddInfoToDesc.Controls.Add(this.chkAddPowerToDesc);
             this.grpAddInfoToDesc.Controls.Add(this.chkAddFloorToDesc);
@@ -501,24 +501,23 @@ namespace GcproExtensionApp
             this.chkNameOnlyNumber.AutoSize = true;
             this.chkNameOnlyNumber.Checked = true;
             this.chkNameOnlyNumber.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNameOnlyNumber.Location = new System.Drawing.Point(428, 17);
+            this.chkNameOnlyNumber.Location = new System.Drawing.Point(427, 17);
             this.chkNameOnlyNumber.Name = "chkNameOnlyNumber";
             this.chkNameOnlyNumber.Size = new System.Drawing.Size(98, 17);
             this.chkNameOnlyNumber.TabIndex = 125;
             this.chkNameOnlyNumber.Text = "编号仅含数字";
             this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
             // 
-            // chkLine
+            // chkAddUserSectionToDesc
             // 
-            this.chkLine.AutoSize = true;
-            this.chkLine.Checked = true;
-            this.chkLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLine.Location = new System.Drawing.Point(76, 17);
-            this.chkLine.Name = "chkLine";
-            this.chkLine.Size = new System.Drawing.Size(62, 17);
-            this.chkLine.TabIndex = 124;
-            this.chkLine.Text = "生产线";
-            this.chkLine.UseVisualStyleBackColor = true;
+            this.chkAddUserSectionToDesc.AutoSize = true;
+            this.chkAddUserSectionToDesc.Location = new System.Drawing.Point(71, 17);
+            this.chkAddUserSectionToDesc.Name = "chkAddUserSectionToDesc";
+            this.chkAddUserSectionToDesc.Size = new System.Drawing.Size(86, 17);
+            this.chkAddUserSectionToDesc.TabIndex = 124;
+            this.chkAddUserSectionToDesc.Text = "自定义工段";
+            this.chkAddUserSectionToDesc.UseVisualStyleBackColor = true;
+            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddUserSectionToDesc_CheckedChanged);
             // 
             // chkAddSectionToDesc
             // 
@@ -531,11 +530,12 @@ namespace GcproExtensionApp
             this.chkAddSectionToDesc.TabIndex = 123;
             this.chkAddSectionToDesc.Text = "工段";
             this.chkAddSectionToDesc.UseVisualStyleBackColor = true;
+            this.chkAddSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddSectionToDesc_CheckedChanged);
             // 
             // chkAddPowerToDesc
             // 
             this.chkAddPowerToDesc.AutoSize = true;
-            this.chkAddPowerToDesc.Location = new System.Drawing.Point(364, 17);
+            this.chkAddPowerToDesc.Location = new System.Drawing.Point(363, 17);
             this.chkAddPowerToDesc.Name = "chkAddPowerToDesc";
             this.chkAddPowerToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddPowerToDesc.TabIndex = 122;
@@ -547,7 +547,7 @@ namespace GcproExtensionApp
             this.chkAddFloorToDesc.AutoSize = true;
             this.chkAddFloorToDesc.Checked = true;
             this.chkAddFloorToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddFloorToDesc.Location = new System.Drawing.Point(226, 17);
+            this.chkAddFloorToDesc.Location = new System.Drawing.Point(235, 17);
             this.chkAddFloorToDesc.Name = "chkAddFloorToDesc";
             this.chkAddFloorToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddFloorToDesc.TabIndex = 121;
@@ -559,7 +559,7 @@ namespace GcproExtensionApp
             this.chkAddNameToDesc.AutoSize = true;
             this.chkAddNameToDesc.Checked = true;
             this.chkAddNameToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddNameToDesc.Location = new System.Drawing.Point(157, 17);
+            this.chkAddNameToDesc.Location = new System.Drawing.Point(171, 17);
             this.chkAddNameToDesc.Name = "chkAddNameToDesc";
             this.chkAddNameToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddNameToDesc.TabIndex = 119;
@@ -571,7 +571,7 @@ namespace GcproExtensionApp
             this.chkAddCabinetToDesc.AutoSize = true;
             this.chkAddCabinetToDesc.Checked = true;
             this.chkAddCabinetToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddCabinetToDesc.Location = new System.Drawing.Point(295, 17);
+            this.chkAddCabinetToDesc.Location = new System.Drawing.Point(299, 17);
             this.chkAddCabinetToDesc.Name = "chkAddCabinetToDesc";
             this.chkAddCabinetToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddCabinetToDesc.TabIndex = 120;
@@ -1564,6 +1564,7 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
+            this.dataGridBML.AllowUserToAddRows = false;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
@@ -2348,7 +2349,7 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.CheckBox chkAddSectionToDesc;
         internal System.Windows.Forms.ComboBox comboLineBML;
         private System.Windows.Forms.Label lblLineBML;
-        internal System.Windows.Forms.CheckBox chkLine;
+        internal System.Windows.Forms.CheckBox chkAddUserSectionToDesc;
         internal System.Windows.Forms.CheckBox chkNameOnlyNumber;
     }
 }

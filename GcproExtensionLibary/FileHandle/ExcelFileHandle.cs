@@ -9,6 +9,7 @@ namespace GcproExtensionLibrary.FileHandle
 {
     public class ExcelFileHandle
     {
+
         public static string FileFilter = @"Excel File   (*.xlsx)|*.xlsx|Excel File   (*.xls)|CSV File   (*.CSV)|*.CSV|*.xls|All Files (*.*)|*.*";
         private static string fileType = "Excel 文件";
         private string filePath = string.Empty;
@@ -25,9 +26,9 @@ namespace GcproExtensionLibrary.FileHandle
         }
         public ExcelFileHandle()
         {
-
+          
         }
-        public ExcelFileHandle(string filePath)
+        public ExcelFileHandle(string filePath):this()
         {
             this.filePath = filePath;
         }
@@ -40,10 +41,12 @@ namespace GcproExtensionLibrary.FileHandle
         {
             string _filePath = (string.IsNullOrEmpty(filePath)) ? this.filePath : filePath;
             FileInfo fileInfo = new FileInfo(_filePath);
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage package = new ExcelPackage(fileInfo))
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                var worksheets = package.Workbook.Worksheets;
+                // ExcelPackage.Workbook.Worksheets worksheets = package.Workbook.Worksheets;
+                ExcelWorksheets worksheets = package.Workbook.Worksheets;
                 List<string> listWorkSheetNames = new List<string>();
                 foreach (var worksheet in worksheets)
                 {
@@ -234,12 +237,18 @@ namespace GcproExtensionLibrary.FileHandle
                     {
                         dataTable.Columns.Add($"Column {i + 1}");
                     }
-                    
-                    var filteredRows = Enumerable.Range(startRow, rowCount - startRow + 1)
-                        .Select(row => new { RowIndex = row, FilterCells = filterColumnIndexes.Select(idx => worksheet.Cells[row, idx].Value).ToArray() })
-                        .Where(x => FilterExpressions(x.FilterCells, filter));
 
-                
+                    var filteredRows = Enumerable.Range(startRow, rowCount - startRow + 1)
+                        .Select(row =>
+                        new
+                        {
+                            RowIndex = row,
+                            FilterCells = filterColumnIndexes.Select(idx => worksheet.Cells[row, idx].Value).ToArray()
+                        }
+                        )
+                        .Where(filters => FilterExpressions(filters.FilterCells, filter));
+
+
                     foreach (var row in filteredRows)
                     {
                         DataRow dataRow = dataTable.NewRow();

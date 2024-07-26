@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormDPSlave));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,9 +48,9 @@ namespace GcproExtensionApp
             this.toolStripMenuReload = new System.Windows.Forms.ToolStripMenuItem();
             this.tabRule = new System.Windows.Forms.TabPage();
             this.PalGcObject = new System.Windows.Forms.Panel();
-            this.TxtParSlaveNoIncRule = new System.Windows.Forms.TextBox();
+            this.txtParSlaveNoIncRule = new System.Windows.Forms.TextBox();
             this.LblParSlaveNoIncRule = new System.Windows.Forms.Label();
-            this.TxtIPAddressIncRule = new System.Windows.Forms.TextBox();
+            this.txtIPAddressIncRule = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.LblIPAddressIncRule = new System.Windows.Forms.Label();
             this.txtParSlaveNo = new System.Windows.Forms.TextBox();
@@ -62,9 +62,9 @@ namespace GcproExtensionApp
             this.chkUpdateTimeManCalc = new System.Windows.Forms.CheckBox();
             this.lblValue31 = new System.Windows.Forms.Label();
             this.txtValue31 = new System.Windows.Forms.TextBox();
-            this.txtSide2Top = new System.Windows.Forms.TextBox();
+            this.txtWatchDogTime = new System.Windows.Forms.TextBox();
             this.lblWatchDogTime = new System.Windows.Forms.Label();
-            this.txtSide1Bottom = new System.Windows.Forms.TextBox();
+            this.txtWatchDogFactor = new System.Windows.Forms.TextBox();
             this.lblWatchDogFactor = new System.Windows.Forms.Label();
             this.txtUpdateTime = new System.Windows.Forms.TextBox();
             this.lblUpdateTime = new System.Windows.Forms.Label();
@@ -291,9 +291,9 @@ namespace GcproExtensionApp
             this.PalGcObject.AutoSize = true;
             this.PalGcObject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.PalGcObject.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.PalGcObject.Controls.Add(this.TxtParSlaveNoIncRule);
+            this.PalGcObject.Controls.Add(this.txtParSlaveNoIncRule);
             this.PalGcObject.Controls.Add(this.LblParSlaveNoIncRule);
-            this.PalGcObject.Controls.Add(this.TxtIPAddressIncRule);
+            this.PalGcObject.Controls.Add(this.txtIPAddressIncRule);
             this.PalGcObject.Controls.Add(this.textBox1);
             this.PalGcObject.Controls.Add(this.LblIPAddressIncRule);
             this.PalGcObject.Controls.Add(this.txtParSlaveNo);
@@ -315,37 +315,39 @@ namespace GcproExtensionApp
             this.PalGcObject.Size = new System.Drawing.Size(728, 472);
             this.PalGcObject.TabIndex = 105;
             // 
-            // TxtParSlaveNoIncRule
+            // txtParSlaveNoIncRule
             // 
-            this.TxtParSlaveNoIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParSlaveNoIncRule.Location = new System.Drawing.Point(285, 271);
-            this.TxtParSlaveNoIncRule.Name = "TxtParSlaveNoIncRule";
-            this.TxtParSlaveNoIncRule.Size = new System.Drawing.Size(66, 13);
-            this.TxtParSlaveNoIncRule.TabIndex = 157;
+            this.txtParSlaveNoIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParSlaveNoIncRule.Location = new System.Drawing.Point(285, 278);
+            this.txtParSlaveNoIncRule.Name = "txtParSlaveNoIncRule";
+            this.txtParSlaveNoIncRule.Size = new System.Drawing.Size(66, 13);
+            this.txtParSlaveNoIncRule.TabIndex = 157;
+            this.txtParSlaveNoIncRule.TextChanged += new System.EventHandler(this.txtParSlaveNoIncRule_TextChanged);
             // 
             // LblParSlaveNoIncRule
             // 
             this.LblParSlaveNoIncRule.AutoSize = true;
-            this.LblParSlaveNoIncRule.Location = new System.Drawing.Point(224, 271);
+            this.LblParSlaveNoIncRule.Location = new System.Drawing.Point(224, 278);
             this.LblParSlaveNoIncRule.Name = "LblParSlaveNoIncRule";
             this.LblParSlaveNoIncRule.Size = new System.Drawing.Size(55, 13);
             this.LblParSlaveNoIncRule.TabIndex = 156;
             this.LblParSlaveNoIncRule.Text = "递增规则";
             // 
-            // TxtIPAddressIncRule
+            // txtIPAddressIncRule
             // 
-            this.TxtIPAddressIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtIPAddressIncRule.Location = new System.Drawing.Point(285, 249);
-            this.TxtIPAddressIncRule.Name = "TxtIPAddressIncRule";
-            this.TxtIPAddressIncRule.Size = new System.Drawing.Size(66, 13);
-            this.TxtIPAddressIncRule.TabIndex = 149;
+            this.txtIPAddressIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtIPAddressIncRule.Location = new System.Drawing.Point(285, 256);
+            this.txtIPAddressIncRule.Name = "txtIPAddressIncRule";
+            this.txtIPAddressIncRule.Size = new System.Drawing.Size(66, 13);
+            this.txtIPAddressIncRule.TabIndex = 149;
+            this.txtIPAddressIncRule.TextChanged += new System.EventHandler(this.txtIPAddressIncRule_TextChanged);
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(100, 295);
+            this.textBox1.Location = new System.Drawing.Point(100, 302);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 13);
             this.textBox1.TabIndex = 155;
@@ -354,7 +356,7 @@ namespace GcproExtensionApp
             // LblIPAddressIncRule
             // 
             this.LblIPAddressIncRule.AutoSize = true;
-            this.LblIPAddressIncRule.Location = new System.Drawing.Point(224, 249);
+            this.LblIPAddressIncRule.Location = new System.Drawing.Point(224, 256);
             this.LblIPAddressIncRule.Name = "LblIPAddressIncRule";
             this.LblIPAddressIncRule.Size = new System.Drawing.Size(55, 13);
             this.LblIPAddressIncRule.TabIndex = 148;
@@ -364,15 +366,17 @@ namespace GcproExtensionApp
             // 
             this.txtParSlaveNo.BackColor = System.Drawing.SystemColors.Window;
             this.txtParSlaveNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParSlaveNo.Location = new System.Drawing.Point(100, 272);
+            this.txtParSlaveNo.Location = new System.Drawing.Point(100, 279);
             this.txtParSlaveNo.Name = "txtParSlaveNo";
             this.txtParSlaveNo.Size = new System.Drawing.Size(100, 13);
             this.txtParSlaveNo.TabIndex = 154;
+            this.txtParSlaveNo.TextChanged += new System.EventHandler(this.txtParSlaveNo_TextChanged);
+            this.txtParSlaveNo.MouseEnter += new System.EventHandler(this.txtParSlaveNo_MouseEnter);
             // 
             // LblParDPNode
             // 
             this.LblParDPNode.AutoSize = true;
-            this.LblParDPNode.Location = new System.Drawing.Point(4, 295);
+            this.LblParDPNode.Location = new System.Drawing.Point(4, 302);
             this.LblParDPNode.Name = "LblParDPNode";
             this.LblParDPNode.Size = new System.Drawing.Size(70, 13);
             this.LblParDPNode.TabIndex = 153;
@@ -382,15 +386,18 @@ namespace GcproExtensionApp
             // 
             this.txtIPAddress.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtIPAddress.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtIPAddress.Location = new System.Drawing.Point(100, 249);
+            this.txtIPAddress.Location = new System.Drawing.Point(100, 256);
             this.txtIPAddress.Name = "txtIPAddress";
             this.txtIPAddress.Size = new System.Drawing.Size(100, 13);
             this.txtIPAddress.TabIndex = 152;
+            this.txtIPAddress.TextChanged += new System.EventHandler(this.txtIPAddress_TextChanged);
+            this.txtIPAddress.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIPAddress_KeyDown);
+            this.txtIPAddress.MouseEnter += new System.EventHandler(this.txtIPAddress_MouseEnter);
             // 
             // LblIPAddress
             // 
             this.LblIPAddress.AutoSize = true;
-            this.LblIPAddress.Location = new System.Drawing.Point(4, 249);
+            this.LblIPAddress.Location = new System.Drawing.Point(4, 256);
             this.LblIPAddress.Name = "LblIPAddress";
             this.LblIPAddress.Size = new System.Drawing.Size(58, 13);
             this.LblIPAddress.TabIndex = 150;
@@ -399,7 +406,7 @@ namespace GcproExtensionApp
             // lblParSlaveNo
             // 
             this.lblParSlaveNo.AutoSize = true;
-            this.lblParSlaveNo.Location = new System.Drawing.Point(4, 272);
+            this.lblParSlaveNo.Location = new System.Drawing.Point(4, 279);
             this.lblParSlaveNo.Name = "lblParSlaveNo";
             this.lblParSlaveNo.Size = new System.Drawing.Size(64, 13);
             this.lblParSlaveNo.TabIndex = 151;
@@ -410,9 +417,9 @@ namespace GcproExtensionApp
             this.grpProfinet.Controls.Add(this.chkUpdateTimeManCalc);
             this.grpProfinet.Controls.Add(this.lblValue31);
             this.grpProfinet.Controls.Add(this.txtValue31);
-            this.grpProfinet.Controls.Add(this.txtSide2Top);
+            this.grpProfinet.Controls.Add(this.txtWatchDogTime);
             this.grpProfinet.Controls.Add(this.lblWatchDogTime);
-            this.grpProfinet.Controls.Add(this.txtSide1Bottom);
+            this.grpProfinet.Controls.Add(this.txtWatchDogFactor);
             this.grpProfinet.Controls.Add(this.lblWatchDogFactor);
             this.grpProfinet.Controls.Add(this.txtUpdateTime);
             this.grpProfinet.Controls.Add(this.lblUpdateTime);
@@ -426,14 +433,14 @@ namespace GcproExtensionApp
             // chkUpdateTimeManCalc
             // 
             this.chkUpdateTimeManCalc.AutoSize = true;
-            this.chkUpdateTimeManCalc.Checked = true;
-            this.chkUpdateTimeManCalc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateTimeManCalc.Location = new System.Drawing.Point(444, 36);
+            this.chkUpdateTimeManCalc.Location = new System.Drawing.Point(444, 34);
             this.chkUpdateTimeManCalc.Name = "chkUpdateTimeManCalc";
             this.chkUpdateTimeManCalc.Size = new System.Drawing.Size(174, 17);
             this.chkUpdateTimeManCalc.TabIndex = 125;
             this.chkUpdateTimeManCalc.Text = "UpdateTime ManualCalculation";
             this.chkUpdateTimeManCalc.UseVisualStyleBackColor = true;
+            this.chkUpdateTimeManCalc.CheckedChanged += new System.EventHandler(this.chkUpdateTimeManCalc_CheckedChanged);
+            this.chkUpdateTimeManCalc.MouseEnter += new System.EventHandler(this.chkUpdateTimeManCalc_MouseEnter);
             // 
             // lblValue31
             // 
@@ -452,17 +459,17 @@ namespace GcproExtensionApp
             this.txtValue31.Size = new System.Drawing.Size(39, 13);
             this.txtValue31.TabIndex = 122;
             this.txtValue31.Text = "0";
-            this.txtValue31.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtValue10_KeyDown);
             // 
-            // txtSide2Top
+            // txtWatchDogTime
             // 
-            this.txtSide2Top.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.txtSide2Top.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSide2Top.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.txtSide2Top.Location = new System.Drawing.Point(114, 68);
-            this.txtSide2Top.Name = "txtSide2Top";
-            this.txtSide2Top.Size = new System.Drawing.Size(85, 13);
-            this.txtSide2Top.TabIndex = 92;
+            this.txtWatchDogTime.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtWatchDogTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtWatchDogTime.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.txtWatchDogTime.Location = new System.Drawing.Point(114, 68);
+            this.txtWatchDogTime.Name = "txtWatchDogTime";
+            this.txtWatchDogTime.Size = new System.Drawing.Size(85, 13);
+            this.txtWatchDogTime.TabIndex = 92;
+            this.txtWatchDogTime.MouseEnter += new System.EventHandler(this.txtWatchDogTime_MouseEnter);
             // 
             // lblWatchDogTime
             // 
@@ -473,15 +480,16 @@ namespace GcproExtensionApp
             this.lblWatchDogTime.TabIndex = 91;
             this.lblWatchDogTime.Text = "WatchDogTime[ms]";
             // 
-            // txtSide1Bottom
+            // txtWatchDogFactor
             // 
-            this.txtSide1Bottom.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.txtSide1Bottom.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSide1Bottom.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.txtSide1Bottom.Location = new System.Drawing.Point(114, 42);
-            this.txtSide1Bottom.Name = "txtSide1Bottom";
-            this.txtSide1Bottom.Size = new System.Drawing.Size(85, 13);
-            this.txtSide1Bottom.TabIndex = 85;
+            this.txtWatchDogFactor.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtWatchDogFactor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtWatchDogFactor.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.txtWatchDogFactor.Location = new System.Drawing.Point(114, 42);
+            this.txtWatchDogFactor.Name = "txtWatchDogFactor";
+            this.txtWatchDogFactor.Size = new System.Drawing.Size(85, 13);
+            this.txtWatchDogFactor.TabIndex = 85;
+            this.txtWatchDogFactor.MouseEnter += new System.EventHandler(this.txtWatchDogFactor_MouseEnter);
             // 
             // lblWatchDogFactor
             // 
@@ -501,6 +509,7 @@ namespace GcproExtensionApp
             this.txtUpdateTime.Name = "txtUpdateTime";
             this.txtUpdateTime.Size = new System.Drawing.Size(85, 13);
             this.txtUpdateTime.TabIndex = 79;
+            this.txtUpdateTime.MouseEnter += new System.EventHandler(this.txtUpdateTime_MouseEnter);
             // 
             // lblUpdateTime
             // 
@@ -540,6 +549,7 @@ namespace GcproExtensionApp
             this.grpAddInfoToDesc.TabIndex = 122;
             this.grpAddInfoToDesc.TabStop = false;
             this.grpAddInfoToDesc.Text = "附加信息到描述(BML)";
+            this.grpAddInfoToDesc.Visible = false;
             // 
             // chkNameOnlyNumber
             // 
@@ -715,6 +725,7 @@ namespace GcproExtensionApp
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(346, 13);
             this.txtDescription.TabIndex = 3;
+            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             this.txtDescription.MouseEnter += new System.EventHandler(this.txtDescription_MouseEnter);
             // 
             // txtSymbol
@@ -768,7 +779,7 @@ namespace GcproExtensionApp
             // LblEquipmentInfoType
             // 
             this.LblEquipmentInfoType.AutoSize = true;
-            this.LblEquipmentInfoType.Location = new System.Drawing.Point(1, 199);
+            this.LblEquipmentInfoType.Location = new System.Drawing.Point(1, 206);
             this.LblEquipmentInfoType.Name = "LblEquipmentInfoType";
             this.LblEquipmentInfoType.Size = new System.Drawing.Size(99, 13);
             this.LblEquipmentInfoType.TabIndex = 12;
@@ -779,7 +790,7 @@ namespace GcproExtensionApp
             this.ComboEquipmentInfoType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboEquipmentInfoType.FormattingEnabled = true;
             this.ComboEquipmentInfoType.IntegralHeight = false;
-            this.ComboEquipmentInfoType.Location = new System.Drawing.Point(100, 196);
+            this.ComboEquipmentInfoType.Location = new System.Drawing.Point(100, 203);
             this.ComboEquipmentInfoType.Name = "ComboEquipmentInfoType";
             this.ComboEquipmentInfoType.Size = new System.Drawing.Size(337, 21);
             this.ComboEquipmentInfoType.TabIndex = 13;
@@ -788,7 +799,7 @@ namespace GcproExtensionApp
             // LblHornCode
             // 
             this.LblHornCode.AutoSize = true;
-            this.LblHornCode.Location = new System.Drawing.Point(1, 224);
+            this.LblHornCode.Location = new System.Drawing.Point(1, 231);
             this.LblHornCode.Name = "LblHornCode";
             this.LblHornCode.Size = new System.Drawing.Size(71, 13);
             this.LblHornCode.TabIndex = 14;
@@ -798,7 +809,7 @@ namespace GcproExtensionApp
             // 
             this.ComboHornCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboHornCode.FormattingEnabled = true;
-            this.ComboHornCode.Location = new System.Drawing.Point(100, 220);
+            this.ComboHornCode.Location = new System.Drawing.Point(100, 227);
             this.ComboHornCode.Name = "ComboHornCode";
             this.ComboHornCode.Size = new System.Drawing.Size(146, 21);
             this.ComboHornCode.TabIndex = 15;
@@ -844,6 +855,7 @@ namespace GcproExtensionApp
             this.chkUserDifinedExcel.TabIndex = 121;
             this.chkUserDifinedExcel.Text = "自定义表格";
             this.chkUserDifinedExcel.UseVisualStyleBackColor = true;
+            this.chkUserDifinedExcel.CheckedChanged += new System.EventHandler(this.chkUserDifinedExcel_CheckedChanged);
             // 
             // btnReadBML
             // 
@@ -863,8 +875,9 @@ namespace GcproExtensionApp
             // 
             // dataGridBML
             // 
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridBML.AllowUserToAddRows = false;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -940,7 +953,7 @@ namespace GcproExtensionApp
             this.comboControl_SlaveNoBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboControl_SlaveNoBML.FormattingEnabled = true;
             this.comboControl_SlaveNoBML.IntegralHeight = false;
-            this.comboControl_SlaveNoBML.Location = new System.Drawing.Point(214, 44);
+            this.comboControl_SlaveNoBML.Location = new System.Drawing.Point(214, 43);
             this.comboControl_SlaveNoBML.Name = "comboControl_SlaveNoBML";
             this.comboControl_SlaveNoBML.Size = new System.Drawing.Size(66, 21);
             this.comboControl_SlaveNoBML.TabIndex = 29;
@@ -953,6 +966,7 @@ namespace GcproExtensionApp
             this.lblControl_SlaveNo.Size = new System.Drawing.Size(67, 13);
             this.lblControl_SlaveNo.TabIndex = 28;
             this.lblControl_SlaveNo.Text = "控制类型：";
+            this.lblControl_SlaveNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // comboStartRow
             // 
@@ -1054,11 +1068,12 @@ namespace GcproExtensionApp
             // lblType_IPAddr
             // 
             this.lblType_IPAddr.AutoSize = true;
-            this.lblType_IPAddr.Location = new System.Drawing.Point(165, 19);
+            this.lblType_IPAddr.Location = new System.Drawing.Point(154, 19);
             this.lblType_IPAddr.Name = "lblType_IPAddr";
-            this.lblType_IPAddr.Size = new System.Drawing.Size(43, 13);
+            this.lblType_IPAddr.Size = new System.Drawing.Size(67, 13);
             this.lblType_IPAddr.TabIndex = 8;
-            this.lblType_IPAddr.Text = "类型：";
+            this.lblType_IPAddr.Text = "设备类型：";
+            this.lblType_IPAddr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblCabibetNo
             // 
@@ -1520,16 +1535,16 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Label lblValue31;
         internal System.Windows.Forms.TextBox txtValue31;
         internal System.Windows.Forms.GroupBox grpProfinet;
-        internal System.Windows.Forms.TextBox txtSide2Top;
+        internal System.Windows.Forms.TextBox txtWatchDogTime;
         internal System.Windows.Forms.Label lblWatchDogTime;
-        internal System.Windows.Forms.TextBox txtSide1Bottom;
+        internal System.Windows.Forms.TextBox txtWatchDogFactor;
         internal System.Windows.Forms.Label lblWatchDogFactor;
         internal System.Windows.Forms.TextBox txtUpdateTime;
         internal System.Windows.Forms.Label lblUpdateTime;
         internal System.Windows.Forms.CheckBox chkNameOnlyNumber;
-        internal System.Windows.Forms.TextBox TxtParSlaveNoIncRule;
+        internal System.Windows.Forms.TextBox txtParSlaveNoIncRule;
         internal System.Windows.Forms.Label LblParSlaveNoIncRule;
-        internal System.Windows.Forms.TextBox TxtIPAddressIncRule;
+        internal System.Windows.Forms.TextBox txtIPAddressIncRule;
         internal System.Windows.Forms.TextBox textBox1;
         internal System.Windows.Forms.Label LblIPAddressIncRule;
         internal System.Windows.Forms.TextBox txtParSlaveNo;

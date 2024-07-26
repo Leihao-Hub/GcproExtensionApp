@@ -66,9 +66,9 @@
         EL_MDDx = 1037,
 
         /// <summary>
-        /// EL RollStandPhoenix
+        /// EL MDDYZ
         /// </summary>
-        EL_RollStandPhoenix = 1755,
+        EL_MDDYZ = 1755,
 
         /// <summary>
         /// EL VFCAdapter

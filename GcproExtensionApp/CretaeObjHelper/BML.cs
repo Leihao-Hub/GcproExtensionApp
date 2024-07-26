@@ -17,6 +17,22 @@ namespace GcproExtensionApp
         private static MachineType machineType = new MachineType();
         private static Sections sections = new Sections();
         private static Bins bins = new Bins();
+        private static string columnName;
+        private static string columnDesc;
+        private static string columnPower;
+        private static string columnType;
+       // private static string type;
+        private static string columnControlMethod;
+        private static string columnFloor;
+        private static string columnCabinet;
+        private static string columnCabinetGroup;
+        private static string columnMachine;
+        private static string columnIORemark;
+        private static string columnIsVFC;
+        private static string columnDIType;
+        private static string columnIPAddr;
+        private static string columnSlaveNo;
+        private static string columnLine;
         #region Properties
         public static string PrefixLocalPanel
         {
@@ -35,16 +51,101 @@ namespace GcproExtensionApp
         {
             get { return bins; }
         }
+        public static string ColumnIsVFC
+        {
+            get { return columnIsVFC; }
+        }
+        public static string ColumnName
+        {
+            get { return columnName; }
+        }
+
+        public static string ColumnDesc
+        {
+            get { return columnDesc; }
+        }
+
+        public static string ColumnPower
+        {
+            get { return columnPower; }
+        }
+        public static string ColumnFloor
+        {
+            get { return columnFloor; }
+        }
+
+        public static string ColumnCabinet
+        {
+            get { return columnCabinet; }
+        }
+
+        public static string ColumnCabinetGroup
+        {
+            get { return columnCabinetGroup; }
+        }
+
+        public static string ColumnMachine
+        {
+            get { return columnMachine; }
+        }
+        public static string ColumnControlMethod
+        {
+            get { return columnControlMethod; }
+        }
+        public static string ColumnIORemark
+        {
+            get { return columnIORemark; }
+        }
+        public static string ColumnIPAddr
+        {
+            get { return columnIPAddr; }
+        }
+        public static string ColumnSlaveNo
+        {
+            get { return columnSlaveNo; }
+        }
+        public static string ColumnLine
+        {
+            get { return columnLine; }
+        }
+        //public static string Type
+        //{
+        //    get { return type; }
+        //}
+        public static string ColumnType
+        {
+            get { return columnType; }
+        }
+        public static string ColumnDIType
+        {
+            get { return columnDIType; }
+        }
         #endregion
         static BML()
         {
             try
             {
                 string keySections = $"{AppGlobal.JS_BML}.{AppGlobal.JS_SECTION}.";
+                string keyColumns = $"{AppGlobal.JS_BML}.{AppGlobal.JS_COLUMNS}.";
                 string keyBins = $"{AppGlobal.JS_BML}.{AppGlobal.JS_BIN}.";
                 var keys = new Dictionary<string, Action<string>>
                  {
-                    {"BML.Prefix.LocalPanel",value => prefixLocalPanel= value },
+                    {$"{keyColumns}Name",value => columnName= value },
+                    {$"{keyColumns}Desc", value => columnDesc= value },
+                    {$"{keyColumns}Power", value => columnPower = value },
+                    {$"{keyColumns}Floor", value => columnFloor = value },
+                    {$"{keyColumns}Cabinet", value => columnCabinet = value },
+                    {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
+                    {$"{keyColumns}ControlMethod", value => columnControlMethod = value },
+                    {$"{keyColumns}Machine",value => columnMachine = value },
+                    {$"{keyColumns}IORemark",value => columnIORemark = value },
+                    {$"{keyColumns}DIType",value => columnDIType = value },
+                    {$"{keyColumns}Type",value => columnType= value },
+                    {$"{keyColumns}IsVFC",value => columnIsVFC= value },
+                    {$"{keyColumns}IPAddr",value => columnIPAddr= value },
+                    {$"{keyColumns}SlaveNo",value => columnSlaveNo= value },
+                    {$"{keyColumns}Line",value => columnLine= value },
+                    {$"{AppGlobal.JS_BML}.{AppGlobal.JS_PREFIX}.LocalPanel",value => prefixLocalPanel= value },
                     {$"{keySections}Common",value => sections.Common= value },
                     {$"{keySections}PreCleaning",value => sections.PreCleaning= value },
                     {$"{keySections}Cleaning",value => sections.Cleaning= value },
@@ -80,25 +181,14 @@ namespace GcproExtensionApp
                 MessageBox.Show(ex.ToString(), $"{AppGlobal.JS_BML} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public static int StartRow { get; } = 7;
-      
+        public static int StartRow { get; } = 7;     
         public static class Motor
         {
             #region Fields for properties
             private static string bmlPath;
-            private static string type;
-            private static string columnName;
-            private static string columnDesc;
-            private static string columnPower;
-            private static string columnFloor;
-            private static string columnCabinet;
-            private static string columnCabinetGroup;
-            private static string columnMachine;
-            private static string columnIORemark;
-            private static string columnIsVFC;
-            private static string columnLine;
             private static string prefixName;
             private static string nameDelimiter;
+            private static string type;
             //  private static string ioRemarkString;
             private static string prefixVFC;
             #endregion
@@ -107,57 +197,7 @@ namespace GcproExtensionApp
             {
                 get { return bmlPath; }
                 set { bmlPath = value; }
-            }
-            public static string ColumnIsVFC
-            {
-                get { return columnIsVFC; }
-            }
-            public static string ColumnName
-            {
-                get { return columnName; }
-            }
-
-            public static string ColumnDesc
-            {
-                get { return columnDesc; }
-            }
-
-            public static string ColumnPower
-            {
-                get { return columnPower; }
-            }
-            public static string ColumnFloor
-            {
-                get { return columnFloor; }
-            }
-
-            public static string ColumnCabinet
-            {
-                get { return columnCabinet; }
-            }
-
-            public static string ColumnCabinetGroup
-            {
-                get { return columnCabinetGroup; }
-            }
-
-            public static string ColumnMachine
-            {
-                get { return columnMachine; }
-            }
-
-            public static string ColumnIORemark
-            {
-                get { return columnIORemark; }
-            }
-            public static string ColumnLine
-            {
-                get { return columnLine; }
-            }
-            public static string Type
-            {
-                get { return type; }
-            }
+            }       
             public static string PrefixName
             {
                 get { return prefixName; }
@@ -173,27 +213,19 @@ namespace GcproExtensionApp
                 get { return prefixVFC; }
                 set { prefixVFC = value; }
             }
-            public static string IORemarkString { get; }
+            public static string Type
+            {
+                get { return type; }
+            }
             #endregion     
             static Motor()
             {
                 string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MOTOR}.";
-                string keyColums = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
                 string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
                 try
                 {               
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        {$"{keyColums}Name",value => columnName= value },
-                        {$"{keyColums}Desc", value => columnDesc= value },
-                        {$"{keyColums}Power", value => columnPower = value },
-                        {$"{keyColums}Floor", value => columnFloor = value },
-                        {$"{keyColums}Cabinet", value => columnCabinet = value },
-                        {$"{keyColums}CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyColums}Machine",value => columnMachine = value },
-                        {$"{keyColums}IORemark",value => columnIORemark = value },
-                        {$"{keyColums}IsVFC",value => columnIsVFC= value },
-                        {$"{keyColums}Line",value => columnLine= value },
                         {$"{keyFilter}VFC",value => prefixVFC= value },
                         {$"{keyFilter}Motor",value => type= value },
                         {$"{keyPath}Path",value => bmlPath = value },
@@ -219,14 +251,6 @@ namespace GcproExtensionApp
         public static class VFCAdapter
         {
             public static string BMLPath { get; set; }
-            public static string Type { get; } = "Motor";
-            public static string ColumnName { get; } = "变频名称";
-            public static string ColumnDesc { get; } = "变频描述";
-            public static string ColumnPower { get; } = "功率";
-            public static string ColumnFloor { get; } = "楼层";
-            public static string ColumnCabinet { get; } = "电柜号";
-            public static string ColumnCabinetGroup { get; } = "电柜组";
-            public static string ColumnControlMethod { get; } = "控制方式";
             public static class TypeEnmu
             {
                 public static string ATV320 { get; } = "ATV320";
@@ -682,14 +706,7 @@ namespace GcproExtensionApp
             #region Fields for properties
             private static string bmlPath;
           //  private static string type;
-            private static string columnName;
-            private static string columnDesc;
-            private static string columnFloor;
-            private static string columnCabinet;
-            private static string columnCabinetGroup;
-            private static string columnDIType;
-            private static string columnIORemark;
-            private static string columnLine;
+ 
             private static string prefixName;
             private static string nameDelimiter;
             private static string beltMonitor;
@@ -714,43 +731,7 @@ namespace GcproExtensionApp
             {
                 get { return bmlPath; }
                 set { bmlPath = value; }
-            }
-            public static string ColumnName
-            {
-                get { return columnName; }
-            }
-            public static string ColumnDesc
-            {
-                get { return columnDesc; }
-            }
-            public static string ColumnFloor
-            {
-                get { return columnFloor; }
-            }
-            public static string ColumnCabinet
-            {
-                get { return columnCabinet; }
-            }
-            public static string ColumnCabinetGroup
-            {
-                get { return columnCabinetGroup; }
-            }
-            public static string ColumnDIType
-            {
-                get { return columnDIType; }
-            }
-            public static string ColumnIORemark
-            {
-                get { return columnIORemark; }
-            }
-            public static string ColumnLine
-            {
-                get { return columnLine; }
-            }
-            //public static string Type
-            //{
-            //    get { return type; }
-            //}
+            }           
             public static string PrefixName
             {
                 get { return prefixName; }
@@ -761,7 +742,7 @@ namespace GcproExtensionApp
                 get { return nameDelimiter; }
                 set { nameDelimiter = value; }
             }
-            public static string IORemarkString { get; }
+
             public static string BeltMonitor
             {
                 get { return beltMonitor; }
@@ -829,8 +810,7 @@ namespace GcproExtensionApp
             #endregion
             static DI()
             {
-                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DI}.";
-                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DI}.";             
                 string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
                 string keyIORemark = $"{keyPath}{AppGlobal.JS_IO_REMARK}.";
                 string keyIOType = $"{keyPath}{AppGlobal.JS_IO_TYPE}.";
@@ -839,14 +819,6 @@ namespace GcproExtensionApp
                     string[] ioRemarks = new string[7];
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        {$"{keyColumns}Name",value => columnName= value },
-                        {$"{keyColumns}Desc", value => columnDesc= value },
-                        {$"{keyColumns}Floor", value => columnFloor = value },
-                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
-                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyColumns}DIType",value => columnDIType = value },
-                        {$"{keyColumns}IORemark",value => columnIORemark = value },
-                        {$"{keyColumns}Line",value => columnLine= value },
                         {$"{keyFilter}BeltMonitor",value => beltMonitor= value },
                         {$"{keyFilter}EmergencyStopSwitch",value => emergencyStop = value },
                         {$"{keyFilter}Explosion",value => explosion = value },
@@ -907,15 +879,11 @@ namespace GcproExtensionApp
         {
             #region Fields for properties
             private static string bmlPath;
-            private static string columnName;
-            private static string columnDesc;
-            private static string columnFloor;
-            private static string columnCabinet;
-            private static string columnCabinetGroup;
-            private static string columnControlMethod;
-            private static string columnLine;
             private static string filterMDDx;
             private static string filterMDDY;
+            private static string filterMDDZ;
+            private static string filterMRRA4;
+            private static string filterMRRA8;
             private static string filterKCL;
             #endregion
 
@@ -925,40 +893,6 @@ namespace GcproExtensionApp
                 get { return bmlPath; }
                 set { bmlPath = value; }
             }
-            public static string ColumnName
-            {
-                get { return columnName; }
-            }
-
-            public static string ColumnDesc
-            {
-                get { return columnDesc; }
-            }
-
-            public static string ColumnFloor
-            {
-                get { return columnFloor; }
-            }
-
-            public static string ColumnCabinet
-            {
-                get { return columnCabinet; }
-            }
-
-            public static string ColumnCabinetGroup
-            {
-                get { return columnCabinetGroup; }
-            }
-
-            public static string ColumnControlMethod
-            {
-                get { return columnControlMethod; }
-            }
-
-            public static string ColumnLine
-            {
-                get { return columnLine; }
-            }
             public static string TypeMDDx
             {
                 get { return filterMDDx; }
@@ -966,6 +900,18 @@ namespace GcproExtensionApp
             public static string TypeMDDY
             {
                 get { return filterMDDY; }
+            }
+            public static string TypeMDDZ
+            {
+                get { return filterMDDZ; }
+            }
+            public static string TypeMRRA4
+            {
+                get { return filterMRRA4; }
+            }
+            public static string TypeMRRA8
+            {
+                get { return filterMRRA8; }
             }
             public static string TypeKCL
             {
@@ -975,22 +921,17 @@ namespace GcproExtensionApp
             static MDDx()
             {
                 string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDX}.";
-                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
                 string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
                 try
                 {
               
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        {$"{keyColumns}Name",value => columnName= value },
-                        {$"{keyColumns}Desc", value => columnDesc= value },
-                        {$"{keyColumns}Floor", value => columnFloor = value },
-                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
-                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyColumns}ControlMethod",value => columnControlMethod = value },
-                        {$"{keyColumns}Line",value => columnLine= value },
                         {$"{keyFilter}MDDx",value => filterMDDx = value },
                         {$"{keyFilter}MDDY",value => filterMDDY = value },
+                        {$"{keyFilter}MDDZ",value => filterMDDZ = value },
+                        {$"{keyFilter}MRRA4",value => filterMRRA4 = value },
+                        {$"{keyFilter}MRRA8",value => filterMRRA8 = value },
                         {$"{keyFilter}KCL",value => filterKCL = value },
                         {$"{keyPath}Path",value => bmlPath = value },
                     };
@@ -1015,15 +956,6 @@ namespace GcproExtensionApp
         {
             #region Fields for properties
             private static string bmlPath;
-            private static string columnName;
-            private static string columnDesc;
-            public static string columnPower;
-            private static string columnFloor;
-            private static string columnCabinet;
-            private static string columnCabinetGroup;
-            private static string columnLine;
-            //private static string filterMotor;
-            //private static string filterRollerMill;
             #endregion
 
             #region Properties 
@@ -1031,65 +963,16 @@ namespace GcproExtensionApp
             {
                 get { return bmlPath; }
                 set { bmlPath = value; }
-            }
-            public static string ColumnName
-            {
-                get { return columnName; }
-            }
-
-            public static string ColumnDesc
-            {
-                get { return columnDesc; }
-            }
-            public static string ColumnPower
-            {
-                get { return columnPower; }
-            }
-
-            public static string ColumnFloor
-            {
-                get { return columnFloor; }
-            }
-
-            public static string ColumnCabinet
-            {
-                get { return columnCabinet; }
-            }
-
-            public static string ColumnCabinetGroup
-            {
-                get { return columnCabinetGroup; }
-            }
-
-            public static string ColumnLine
-            {
-                get { return columnLine; }
-            }
-            //public static string TypeMotor
-            //{
-            //    get { return filterMotor; }
-            //}
-            //public static string TypeRollerMill
-            //{
-            //    get { return filterRollerMill; }
-            //}
+            }   
             #endregion
             static AI()
             {
-                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_AI}.";
-                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_AI}.";            
                 string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
                 try
                 {
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        {$"{keyColumns}Name",value => columnName= value },
-                        {$"{keyColumns}Desc", value => columnDesc= value },
-                        {$"{keyColumns}Power", value => columnPower= value },
-                        {$"{keyColumns}Floor", value => columnFloor = value },
-                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
-                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyColumns}Line",value => columnLine= value },
                         {$"{keyPath}Path",value => bmlPath = value },
                     };
                     Dictionary<string, string> keyValueRead;
@@ -1109,17 +992,10 @@ namespace GcproExtensionApp
                 }
             }
         }
-
-        public static class Roll8Stand
+        public static class DPSlave
         {
             #region Fields for properties
             private static string bmlPath;
-            private static string columnName;
-            private static string columnDesc;
-            public static string  columnType;
-            private static string columnFloor;
-            private static string columnLine;
-            private static string filterMDDx;
             #endregion
 
             #region Properties 
@@ -1128,49 +1004,94 @@ namespace GcproExtensionApp
                 get { return bmlPath; }
                 set { bmlPath = value; }
             }
-            public static string ColumnName
-            {
-                get { return columnName; }
-            }
-
-            public static string ColumnDesc
-            {
-                get { return columnDesc; }
-            }
-            public static string ColumnType
-            {
-                get { return columnType; }
-            }
-
-            public static string ColumnFloor
-            {
-                get { return columnFloor; }
-            }
-            public static string ColumnLine
-            {
-                get { return columnLine; }
-            }
-            public static string TypeMDDx
-            {
-                get { return filterMDDx; }
-            }
-
             #endregion
-            static Roll8Stand()
+            static DPSlave()
             {
-                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_ROLL8STAND}.";
-                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DPSLAVE}.";             
+                try
+                {
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        public static class MA_Roll8Stand
+        {
+            #region Fields for properties
+            private static string bmlPath;
+            #endregion
+
+            #region Properties 
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
+            #endregion
+            static MA_Roll8Stand()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_ROLL8STAND}.";            
                 string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
                 try
                 {
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        {$"{keyColumns}Name",value => columnName= value },
-                        {$"{keyColumns}Desc", value => columnDesc= value },
-                        {$"{keyColumns}Type", value => columnType= value },
-                        {$"{keyColumns}Floor", value => columnFloor = value },
-                        {$"{keyColumns}Line",value => columnLine= value },
-                        {$"{keyFilter}MDDx",value => filterMDDx= value },
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        public static class MA_MDDYZPhoenix
+        {
+            #region Fields for properties
+            private static string bmlPath;
+            #endregion
+
+            #region Properties 
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
+            #endregion
+            static MA_MDDYZPhoenix()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDYZPHOENIX}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
+                try
+                {
+                    var keys = new Dictionary<string, Action<string>>
+                    {
                         {$"{keyPath}Path",value => bmlPath = value },
                     };
                     Dictionary<string, string> keyValueRead;
