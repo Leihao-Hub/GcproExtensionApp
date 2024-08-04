@@ -1,9 +1,7 @@
 ﻿using GcproExtensionLibrary.FileHandle;
-using System.Collections.Generic;
 using System;
-using System.Data.SqlTypes;
+using System.Collections.Generic;
 using System.Text;
-using System.Xml.Linq;
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     public class VFCAdapter : Element, IGcpro
@@ -53,7 +51,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private VFCTelegram telegram3;
         private VFCTelegram telegram4;
         private VFCTelegram telegram5;
-   
+
         public override string FilePath
         {
             get { return filePath; }
@@ -118,7 +116,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             get { return page; }
             set { page = value; }
-        }      
+        }
         public override string Value10
         {
             get { return value10; }
@@ -240,7 +238,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public VFCTelegram Telegram3
         {
             get { return telegram3; }
-            set { telegram3= value; }
+            set { telegram3 = value; }
         }
         public VFCTelegram Telegram4
         {
@@ -287,10 +285,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             telegram5 = new VFCTelegram { ParPNO = LibGlobalSource.NOCHILD, ParUnitsPerDigit = LibGlobalSource.NOCHILD };
             SetOTypeProperty(OTypeCollection.EL_VFCAdapter);
             pType = LibGlobalSource.NOCHILD;
-            hornCode= LibGlobalSource.NOCHILD;
+            hornCode = LibGlobalSource.NOCHILD;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             Rule.slaveIndexInc = "1";
-            Rule.ioByteInc= "12";
+            Rule.ioByteInc = "12";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + ".Txt";
         }
         public VFCAdapter(string filePath = null) : this()
@@ -302,7 +300,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             TextFileHandle textFileHandle = new TextFileHandle();
             textFileHandle.FilePath = this.filePath;
-            isNew = "False";          
+            isNew = "False";
             StringBuilder objFields = new StringBuilder();
 
             ///<summary>

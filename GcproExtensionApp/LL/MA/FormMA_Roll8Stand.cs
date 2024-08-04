@@ -238,7 +238,8 @@ namespace GcproExtensionApp
         }
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtDescription.Text, false);
+           
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, txtDescription.Text);
         }
         private void txtSymbolRule_TextChanged(object sender, EventArgs e)
         {

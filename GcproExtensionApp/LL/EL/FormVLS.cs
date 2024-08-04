@@ -12,9 +12,6 @@ using GcproExtensionLibrary.Gcpro.GCObject;
 using GcproExtensionLibrary.FileHandle;
 using GcproExtensionLibrary;
 using GcproExtensionLibrary.Gcpro;
-using System.Windows.Documents;
-using System.Xml.Linq;
-using System.Security.Cryptography;
 #endregion
 namespace GcproExtensionApp
 {

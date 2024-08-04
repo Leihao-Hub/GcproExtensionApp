@@ -1,13 +1,7 @@
-﻿using GcproExtensionLibrary.Gcpro.GCObject;
+﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using static GcproExtensionLibrary.Gcpro.GcproTable;
-using System.Xml.Linq;
-using GcproExtensionLibrary.Gcpro;
-using GcproExtensionLibrary.FileHandle;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
@@ -113,7 +107,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
-        }    
+        }
         public override string IsNew
         {
             get { return isNew; }
@@ -162,7 +156,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { filePath = value; }
         }
         #endregion
-   
+
         #region Readonly property
         public static string Profibus { get; } = "Profibus";
         public static string Profinet { get; } = "Profinet";
@@ -175,7 +169,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public DPSlave()
         {
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-            Rule.IPAddressInc=Rule.SlaveNoInc = "1";
+            Rule.IPAddressInc = Rule.SlaveNoInc = "1";
             ipAddr = "192.168.1.2";
             updateTime = 1;
             slaveNo = 3;
@@ -189,13 +183,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             dpNode1 = string.Empty;
             value10 = "0";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + dpSlaveFileName + ".Txt";
-          //  this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_Relation.Txt";
-           // this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_FindConnector.Txt";
+            //  this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_Relation.Txt";
+            // this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_FindConnector.Txt";
         }
         public DPSlave(string filePath = null) : this()
         {
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                                        LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + dpSlaveFileName + ".Txt" : filePath + dpSlaveFileName + ".Txt");          
+                                        LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + dpSlaveFileName + ".Txt" : filePath + dpSlaveFileName + ".Txt");
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件
@@ -223,7 +217,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                    .Append(slaveNo).Append(LibGlobalSource.TAB)
                    .Append(updateTime).Append(LibGlobalSource.TAB)
                    .Append(watchDogFactor).Append(LibGlobalSource.TAB)
-                   .Append(watchDogTime);                 
+                   .Append(watchDogTime);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
@@ -290,7 +284,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "WatchDogTime" },
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name }
 
-            });      
+            });
             #endregion
             bool result = insertMultipleRecords(tableName, impExpList);
             impExpList.Clear();

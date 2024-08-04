@@ -11,7 +11,7 @@ using static GcproExtensionLibrary.Gcpro.GCObject.Roll8Stand;
 namespace GcproExtensionApp
 {
     public static class GcObjectInfo
-    {     
+    {
         public class General
         {
             public class IOSuffix
@@ -21,7 +21,7 @@ namespace GcproExtensionApp
             private static IOSuffix suffixIO = new IOSuffix();
             private static string delimiterSymbol;
             private static string prefixName;
-         //   private static string prefixLocalPanel;
+            //   private static string prefixLocalPanel;
             private static string commonSection;
             private static string preCleaningSection;
             private static string cleaningSection;
@@ -30,7 +30,7 @@ namespace GcproExtensionApp
             private static string flourSection;
             private static string stackingSection;
             private static string outloadSection;
-            private static string byproductSection;        
+            private static string byproductSection;
             private static string addInfoSymbol;
             private static string addInfoCabinet;
             private static string addInfoElevation;
@@ -128,7 +128,7 @@ namespace GcproExtensionApp
             static General()
             {
                 string keyGeneral = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_GENERAL}.";
-                string keyPrefix= $"{keyGeneral}{AppGlobal.JS_PREFIX}.";
+                string keyPrefix = $"{keyGeneral}{AppGlobal.JS_PREFIX}.";
                 string keySuffix = $"{keyGeneral}{AppGlobal.JS_SUFFIX}.";
                 string keySuffixIO = $"{keySuffix}{AppGlobal.JS_IO}.";
                 string keyDelimiter = $"{keyGeneral}{AppGlobal.JS_DELIMITER}.";
@@ -137,7 +137,7 @@ namespace GcproExtensionApp
                 string keyAddInfoToDesc = $"{keyGeneral}{AppGlobal.JS_ADDINFO_TO_DESC}.";
                 try
                 {
-                   
+
                     var keys = new Dictionary<string, Action<string>>
                         {
                             { $"{keyPrefix}Name",value => prefixName= value },
@@ -178,7 +178,7 @@ namespace GcproExtensionApp
                     MessageBox.Show(ex.ToString(), $"{keyGeneral} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-    }
+        }
         public class Bin
         {
             private static string binPrefix;
@@ -212,8 +212,8 @@ namespace GcproExtensionApp
             {
                 string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_BIN}.";
                 string keySeparator = $"{keyPath}{AppGlobal.JS_IDENT_DESC_SEPARATOR}.";
-                string keyPathNameNumberRule = $"{keyPath}{AppGlobal.JS_NAME_NUMBER_RULE}.";         
-                   return new Dictionary<string, Action<string>>
+                string keyPathNameNumberRule = $"{keyPath}{AppGlobal.JS_NAME_NUMBER_RULE}.";
+                return new Dictionary<string, Action<string>>
                     {
                         {$"{keyPath}Prefix",value => binPrefix= value },
                         {$"{keyPath}IdentDescSeparator",value => identDescSeparator= value },
@@ -631,7 +631,7 @@ namespace GcproExtensionApp
             public static string SuffixName
             {
                 get { return suffixName; }
-                set { suffixName= value; }
+                set { suffixName = value; }
             }
             public static string SuffixInpValue
             {
@@ -673,7 +673,7 @@ namespace GcproExtensionApp
                 try
                 {
                     var keys = new Dictionary<string, Action<string>>
-                    { 
+                    {
                         { $"{keyPathSuffix}AI", value => suffixName = value },
                         { $"{keyPathSuffix}InpValue", value => suffixInpValue = value },
                         { $"{keyPathSuffix}InpFaultDev", value => suffixInpFaultDev = value },
@@ -713,10 +713,10 @@ namespace GcproExtensionApp
                 string keyPathSuffix = $"{keyPath}{AppGlobal.JS_SUFFIX}.";
                 try
                 {
-                   
+
                     var keys = new Dictionary<string, Action<string>>
                     {
-                        { $"{keyPathSuffix}MDDx", value => suffixMDDx = value },             
+                        { $"{keyPathSuffix}MDDx", value => suffixMDDx = value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -741,7 +741,7 @@ namespace GcproExtensionApp
         {
             private static string suffixMDDx;
             private static string suffixCurrent;
-            private static RollermillSide suffixSide1 ;
+            private static RollermillSide suffixSide1;
             private static RollermillSide suffixSide2;
             public static string SuffixMDDx
             {
@@ -771,7 +771,7 @@ namespace GcproExtensionApp
                 {
                     suffixSide1 = new RollermillSide();
                     suffixSide2 = new RollermillSide();
-                
+
                     var keys = new Dictionary<string, Action<string>>
                     {
                         { $"{keyPathSuffix}MDDx", value => suffixMDDx = value },
@@ -819,7 +819,7 @@ namespace GcproExtensionApp
                 {
                     MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-              
+
             }
 
         }
@@ -903,7 +903,78 @@ namespace GcproExtensionApp
                 }
 
             }
+        }
+        public static class MA_MotorWithBypass
+        {
+            private static string suffixTempeatureSensor;
+            private static string suffixOscillationSensor;
+            private static string suffixMotor;
+            private static string suffixSeal;
+            private static string suffixVLS1;
+            private static string suffixMon1;
+            public static string SuffixMotor
+            {
+                get { return suffixMotor; }
+                set { suffixMotor = value; }
+            }
+            public static string SuffixSeal
+            {
+                get { return suffixSeal; }
+                set { suffixSeal = value; }
+            }
+            public static string SuffixVLS1
+            {
+                get { return suffixVLS1; }
+                set { suffixVLS1 = value; }
+            }
+            public static string SuffixMon1
+            {
+                get { return suffixMon1; }
+                set { suffixMon1 = value; }
+            }
+            public static string SuffixTempeatureSensor
+            {
+                get { return suffixTempeatureSensor; }
+                set { suffixTempeatureSensor = value; }
+            }
+            public static string SuffixOscillationSensor
+            {
+                get { return suffixOscillationSensor; }
+                set { suffixOscillationSensor = value; }
+            }
+   
+            static MA_MotorWithBypass()
+            {
+                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_MOTOR_WITH_BYPASS}.";
+                string keyPathSuffix = $"{keyPath}{AppGlobal.JS_SUFFIX}.";
+                try
+                {    
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        { $"{keyPathSuffix}OscillationSensor", value => suffixOscillationSensor = value },
+                        { $"{keyPathSuffix}TempeatureSensor", value => suffixTempeatureSensor= value },
+                        { $"{keyPathSuffix}Motor", value => suffixMotor= value },
+                        { $"{keyPathSuffix}Seal", value => suffixSeal = value },
+                        { $"{keyPathSuffix}VLS1", value => suffixVLS1 = value },
+                        { $"{keyPathSuffix}Mon1", value => suffixMon1 = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
 
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
         public static class Section
         {

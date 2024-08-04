@@ -1,19 +1,17 @@
 ﻿using GcproExtensionLibrary.FileHandle;
-using static OfficeOpenXml.ExcelErrorValue;
-using System.Text;
-using System.Collections.Generic;
-using System.Security.Cryptography.Xml;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class Bin:GcObject
+    public class Bin : GcObject
     {
         public struct BinRule
         {
             public GcBaseRule Common;
-        
-        }       
+
+        }
         public static BinRule Rule;
         private string name;
         private string description;
@@ -165,7 +163,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return inFillLevelRemote; }
             set { inFillLevelRemote = value; }
         }
-        public  string Value24
+        public string Value24
         {
             get { return value24; }
             set { value24 = value; }
@@ -220,13 +218,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             middleLevel = string.Empty;
             lowLevel = string.Empty;
             analogLevel = string.Empty;
-            highLevelRemote= LibGlobalSource.NOCHILD;
-            middleLevelRemote= LibGlobalSource.NOCHILD;
-            lowLevelRemote= LibGlobalSource.NOCHILD;
+            highLevelRemote = LibGlobalSource.NOCHILD;
+            middleLevelRemote = LibGlobalSource.NOCHILD;
+            lowLevelRemote = LibGlobalSource.NOCHILD;
             inFillLevelRemote = LibGlobalSource.NOCHILD;
             value24 = "4";
             value30 = LibGlobalSource.NOCHILD;
-            value31 = "4";          
+            value31 = "4";
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + ".Txt";
             this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + "_Relation.Txt";
             this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + "_FindConnector.Txt";
@@ -445,7 +443,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "AnalogLevel"},
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name}
 
-            });  
+            });
             #endregion
             bool result = insertMultipleRecords(tableName, impExpList);
             impExpList.Clear();

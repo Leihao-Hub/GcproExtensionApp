@@ -23,6 +23,12 @@ namespace GcproExtensionApp
         public string SpeedLimitMin { get; set; } = "0";
         public bool ParPZDConsistent { get; set; } = false;
     }
+    public class GetStoppingTime
+    {
+        public string PlanSifter { get; set; } = "1500";
+        public string Purifier { get; set; } = "1200";
+        public string LAAB { get; set; } = "1800";
+    }
     public class MachineType
     {
         private string feederRollerMiller;
@@ -36,6 +42,10 @@ namespace GcproExtensionApp
         private string branFinisher;
         private string detacher;
         private string fan;
+        private string purifier;
+        private string planSifter;
+        private string laab;
+        private GetStoppingTime stoppingTime;
         #region Properties
         public string Elevator
         {
@@ -81,13 +91,31 @@ namespace GcproExtensionApp
         {
             get { return feederRollerMiller; }
         }
+        public string PlanSifter
+        {
+            get { return planSifter; }
+        }
+        public string Purifier
+        {
+            get { return purifier; }
+        }
+        public string LAAB
+        {
+            get { return laab; }
+        }
+        public GetStoppingTime StoppingTime
+        { 
+            get { return stoppingTime; }
+            set { stoppingTime = value; }
+        }
         #endregion Properties
         public MachineType()
         {
+            stoppingTime =new GetStoppingTime();    
             string keyMachines = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MACHINE}.";
+            string keyStoppingTime = $"{keyMachines}{AppGlobal.JS_STOPPING_TIME}.";
             try
-            {
-            
+            {         
                 var keys = new Dictionary<string, Action<string>>
                  {
                     {$"{keyMachines}Elevator",value => elevator = value },
@@ -101,6 +129,12 @@ namespace GcproExtensionApp
                     {$"{keyMachines}Fan",value => fan = value },
                     {$"{keyMachines}RollerMiller",value => rollerMiller = value },
                     {$"{keyMachines}FeederRollerMiller",value => feederRollerMiller = value },
+                    {$"{keyMachines}PlanSifter",value => planSifter = value },
+                    {$"{keyMachines}Purifier",value => purifier = value },
+                    {$"{keyMachines}LAAB",value => laab = value },
+                    {$"{keyStoppingTime}PlanSifter",value => StoppingTime.PlanSifter = value },
+                    {$"{keyStoppingTime}Purifier",value => StoppingTime.Purifier = value },
+                    {$"{keyStoppingTime}LAAB",value => StoppingTime.LAAB = value },
                  };
                 Dictionary<string, string> keyValueRead;
                 keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());

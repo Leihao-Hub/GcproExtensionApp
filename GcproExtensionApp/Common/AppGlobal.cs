@@ -34,6 +34,7 @@ namespace GcproExtensionApp
         public const string ENTER_NUMERIC = "请输入一个数字类型";
         public const string UPDATE_AI_UNITSMAXDIGITS = "自动更新模拟量输入点[UnitsByMaxDigits]值";
         public const string FIELDS_SEPARATOR = "   |";
+        public const string DESC_SEPARATOR = LibGlobalSource.DESC_SEPARATOR;
         public const string CREATE_IMPORT_RULE = "创建导入规则";
         public const string CONNECT_IO = "关联IO";
         public const string CONNECT_CONNECTOR = "关联对象";
@@ -59,6 +60,8 @@ namespace GcproExtensionApp
         public const string MSG_RULE_NOT_CORRECT = "规则不正确或者未设置:";
         public const string MSG_CREATE_WILL_TERMINATE = "新建进程将终止";
         public const string MSG_RULE_CREATE_SUCESSFULL = "规则创建成功";
+        public const string MSG_STRING_CONVERT_TO = "字符串转换为";
+        public const string MSG_FAILURE = "失败";
         public const string MSG_RULE_ALREADY_EXITS = "规则已经存在，需要重新创建吗";
         public const string EX_FILE_NOT_FOUND = "文件未找到，请确保文件路径正确并且文件存在。";
         public const string EX_IO_ERROR = "发生I/O错误";
@@ -82,6 +85,7 @@ namespace GcproExtensionApp
         public const string JS_MDDX = "MDDx";
         public const string JS_ROLL8STAND = "MA_Roll8Stand";
         public const string JS_MDDYZPHOENIX = "MA_MDDYZPhoenix";
+        public const string JS_MOTOR_WITH_BYPASS= "MA_MotorWithBypass";
         public const string JS_DPSLAVE= "DPSlave";
         public const string JS_GENERAL= "General";
         public const string JS_NAME_NUMBER_RULE="NameNumberRule";
@@ -97,6 +101,7 @@ namespace GcproExtensionApp
         public const string JS_FILTER = "Filter";
         public const string JS_DELIMITER = "Delimiter";
         public const string JS_IO = "IO";
+        public const string JS_STOPPING_TIME= "StoppingTime";
         #endregion<-----Sub struct----->
 
         #region<-----Engineer----->

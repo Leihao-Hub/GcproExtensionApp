@@ -1,12 +1,8 @@
-﻿using GcproExtensionLibrary;
-using GcproExtensionLibrary.FileHandle;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using static GcproExtensionLibrary.Gcpro.GcproTable;
 namespace GcproExtensionLibrary
 {
     public class OleDb
@@ -14,7 +10,7 @@ namespace GcproExtensionLibrary
         private string connectionString;
         private string dataSource;
         private bool isNewOLEDBDriver;
-
+        public static string ParPlaceholder { get; } = "?";
         public string DataSource
         {
             get
@@ -68,10 +64,13 @@ namespace GcproExtensionLibrary
                               $"Data Source={dataSource}";
 
             string fieldList = string.Join(", ", fields);
-            string query = $"SELECT {fieldList}  " +
-                           $"FROM [{tableName}]  " +
-                           $"{(string.IsNullOrWhiteSpace(whereClause) ? string.Empty : $"WHERE {whereClause}")} " +
-                           $"{(string.IsNullOrWhiteSpace(sortBy) ? string.Empty : $"ORDER BY {sortBy}")}; ";
+            string query = string.Format(
+                "SELECT {0} FROM [{1}] {2} {3};",
+                fieldList,
+                tableName,
+                string.IsNullOrWhiteSpace(whereClause) ? string.Empty : string.Format("WHERE {0}", whereClause),
+                string.IsNullOrWhiteSpace(sortBy) ? string.Empty : string.Format("ORDER BY {0}", sortBy)
+                );
 
             DataTable results = new DataTable();
 
@@ -81,9 +80,9 @@ namespace GcproExtensionLibrary
                 {
                     if (parameters != null)
                     {
-                        foreach (var param in parameters)
+                        foreach (var param in parameters.Values)
                         {
-                            command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                            command.Parameters.AddWithValue("?", param ?? DBNull.Value);
                         }
                     }
                     try
@@ -130,11 +129,17 @@ namespace GcproExtensionLibrary
             }
 
             string fieldList = string.Join(", ", fields);
-            string query = $"SELECT {fieldList} " +
-                           $"FROM {tableName} " +
-                           $"{(string.IsNullOrWhiteSpace(whereClause) ? string.Empty : $"WHERE {whereClause}")} " +
-                           $"{(string.IsNullOrWhiteSpace(sortBy) ? string.Empty : $"ORDER BY {sortBy}")};";
-
+            //string query = $"SELECT {fieldList} " +
+            //               $"FROM {tableName} " +
+            //               $"{(string.IsNullOrWhiteSpace(whereClause) ? string.Empty : $"WHERE {whereClause}")} " +
+            //               $"{(string.IsNullOrWhiteSpace(sortBy) ? string.Empty : $"ORDER BY {sortBy}")};";
+            string query = string.Format(
+                "SELECT {0} FROM [{1}] {2} {3};",
+                fieldList,
+                tableName,
+                string.IsNullOrWhiteSpace(whereClause) ? string.Empty : string.Format("WHERE {0}", whereClause),
+                string.IsNullOrWhiteSpace(sortBy) ? string.Empty : string.Format("ORDER BY {0}", sortBy)
+            );
             DataTable results = new DataTable();
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
@@ -143,9 +148,9 @@ namespace GcproExtensionLibrary
                 {
                     if (parameters != null)
                     {
-                        foreach (var param in parameters)
+                        foreach (var param in parameters.Values)
                         {
-                            command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                            command.Parameters.AddWithValue("?", param ?? DBNull.Value);
                         }
                     }
 
@@ -198,10 +203,10 @@ namespace GcproExtensionLibrary
 
             return columnsData;
         }
-    
-    #endregion
-    #region Insert method
-    public bool InsertRecord(string tableName, List<Gcpro.DbParameter> parameters)
+
+        #endregion
+        #region Insert method
+        public bool InsertRecord(string tableName, List<Gcpro.DbParameter> parameters)
         {
             if (string.IsNullOrWhiteSpace(tableName))
             {
@@ -213,8 +218,10 @@ namespace GcproExtensionLibrary
             string columnNames = string.Join(", ", parameters.Select(p => $"[{p.Name}]"));
             string valueParameters = string.Join(", ", parameters.Select(p => "?"));
 
-            string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) " +
-                $"VALUES ({valueParameters})";
+            //string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({ valueParameters})";
+
+            string insertQuery = string.Format("INSERT INTO[{0}] ({1}) VALUES ({2})", tableName, columnNames, valueParameters);
+
 
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
@@ -235,11 +242,11 @@ namespace GcproExtensionLibrary
                         transaction.Commit();
                         return true;
                     }
-                    catch 
+                    catch
                     {
                         try
                         {
-                            transaction.Rollback(); // 如有错误则回滚事务
+                            transaction.Rollback();
                         }
                         catch
                         {
@@ -266,8 +273,8 @@ namespace GcproExtensionLibrary
                         {
                             string columnNames = string.Join(", ", parameters.Select(p => $"[{p.Name}]"));
                             string valueParameters = string.Join(", ", parameters.Select(p => "?"));
-                            string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({valueParameters})";
-
+                            //  string insertQuery = $"INSERT INTO [{tableName}] ({columnNames}) VALUES ({valueParameters})";
+                            string insertQuery = string.Format("INSERT INTO[{0}] ({1}) VALUES ({2})", tableName, columnNames, valueParameters);
                             using (OleDbCommand command = new OleDbCommand(insertQuery, connection, transaction))
                             {
                                 foreach (var param in parameters)
@@ -379,28 +386,33 @@ namespace GcproExtensionLibrary
         /// <param name="parameters"></param>
         /// <param name="whereClause"></param>
         /// <returns></returns>
-        public bool UpdateRecord(string tableName, List<Gcpro.DbParameter> parameters, string whereClause)
+        public bool UpdateRecord(string tableName, List<Gcpro.DbParameter> setList, string whereClause)
 
         {
             connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
                         $"Data Source={dataSource}";
             var setClauseParts = new List<string>();
-            foreach (var param in parameters)
+            foreach (var param in setList)
             {
                 setClauseParts.Add($"[{param.Name}] = ?");
             }
             var setClause = string.Join(", ", setClauseParts);
-            string updateQuery =
-                $"UPDATE [{tableName}] " +
-                $"SET {setClause} " +
-                $"WHERE {whereClause}";
+            //string updateQuery =
+            //    $"UPDATE [{tableName}] " +
+            //    $"SET {setClause} " +
+            //    $"WHERE {whereClause}";
+            string updateQuery = string.Format("UPDATE [{0}] SET {1} WHERE {2}",
+                tableName,
+                setClause,
+                whereClause
+                );
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
                     OleDbCommand command = new OleDbCommand(updateQuery, connection);
-                    foreach (Gcpro.DbParameter param in parameters)
+                    foreach (Gcpro.DbParameter param in setList)
                     {
                         command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
                     }
@@ -423,36 +435,56 @@ namespace GcproExtensionLibrary
         /// <param name="subTableName"></param>
         /// <param name="subTableCondition"></param>
         /// <returns></returns>
-        public bool UpdateRecordWithSubQuery(string tableName, List<Gcpro.DbParameter> parameters, string whereClause, string subQuery = null)
+        public bool UpdateRecordWithSubQuery(string tableName, List<Gcpro.DbParameter> setList, string whereClause, IDictionary<string, object> parameters ,string subQuery = null)
         {
-            connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) +
-                $"Data Source={dataSource}";
+            connectionString = (isNewOLEDBDriver ? LibGlobalSource.OLEDB_PROVIDER_ACCDB : LibGlobalSource.OLEDB_PROVIDER_MDB) + $"Data Source={dataSource}";
 
             var setClauseParts = new List<string>();
-            foreach (var param in parameters)
+            foreach (var setClause in setList)
             {
-                setClauseParts.Add($"[{param.Name}] = ?");
+                setClauseParts.Add($"[{setClause.Name}] = ?");
             }
-            var setClause = string.Join(", ", setClauseParts);
-            string updateQuery = $@"UPDATE [{tableName}] AS MainTable SET {setClause} WHERE {whereClause} " +
-                                 $"{(string.IsNullOrWhiteSpace(subQuery) ? "" : $"AND EXISTS ({subQuery})")}";
-
+            string setClauses = string.Join(", ", setClauseParts);
+            //string updateQuery = $@"UPDATE [{tableName}] AS MainTable SET {setClause} WHERE {whereClause} " +
+            //                     $"{(string.IsNullOrWhiteSpace(subQuery) ? "" : $"AND EXISTS ({subQuery})")}";     
+            string updateQuery = string.Format(
+                  "UPDATE [{0}] AS MainTable SET {1} WHERE {2} {3}",
+                  tableName,
+                  setClauses,
+                  whereClause,
+                  string.IsNullOrWhiteSpace(subQuery) ? "" : $"AND EXISTS ({subQuery})"
+              );
+            Console.WriteLine("Executing SQL: " + updateQuery);
             using (OleDbConnection connection = new OleDbConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-                    OleDbCommand command = new OleDbCommand(updateQuery, connection);
-                    foreach (Gcpro.DbParameter param in parameters)
+                    using (OleDbCommand command = new OleDbCommand(updateQuery, connection)) 
                     {
-                        command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                        foreach (Gcpro.DbParameter param in setList)
+                        {
+                            command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                        }
+
+                        if (parameters != null)
+                        {
+                            foreach (var param in parameters)
+                            {
+                                command.Parameters.AddWithValue("?", param.Value ?? DBNull.Value);
+                            }
+                        }
+                        foreach (OleDbParameter parameter in command.Parameters)
+                        {
+                            Console.WriteLine($"Parameter: {parameter.Value}");
+                        }
+                        int affectedRows = command.ExecuteNonQuery();
+                        return affectedRows > 0;
                     }
-                    int affectedRows = command.ExecuteNonQuery();
-                    return affectedRows > 0;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("An error occurred: " + ex.Message);
                     return false;
                 }
             }
@@ -485,9 +517,15 @@ namespace GcproExtensionLibrary
                             }
                             var setClause = string.Join(", ", setClauseParts);
 
-                            string updateQuery = $"UPDATE [{tableName}] " +
-                                $"SET {setClause}" +
-                                $" WHERE {whereClause}";
+                            //string updateQuery = $"UPDATE [{tableName}] " +
+                            //    $"SET {setClause}" +
+                            //    $" WHERE {whereClause}";
+                            string updateQuery = string.Format(
+                                "UPDATE [{0}] SET {1} WHERE {2}",
+                                tableName,
+                                setClause,
+                                whereClause
+                            );
 
                             using (OleDbCommand command = new OleDbCommand(updateQuery, connection, transaction))
                             {

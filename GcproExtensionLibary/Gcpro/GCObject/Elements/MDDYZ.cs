@@ -1,11 +1,7 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static GcproExtensionLibrary.Gcpro.GcproTable;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
@@ -141,7 +137,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return value21; }
             set { value21 = value; }
         }
- 
+
         public override string IsNew
         {
             get { return isNew; }
@@ -182,7 +178,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public MDDYZ()
         {
             value10 = "96";
-            value21 ="100";
+            value21 = "100";
             SetOTypeProperty(OTypeCollection.EL_MDDYZ);
             side1Top = new MYTARef("", 1);
             side1Bottom = new MYTARef("", 2);
@@ -254,7 +250,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="insertMultipleRecords">传入一个Oledb类中InsertMultipleRecords方法的委托</param>
         /// <returns></returns>
         public bool CreateImpExpDef(Func<string, List<List<Gcpro.DbParameter>>, bool> insertMultipleRecords)
-        {       
+        {
             List<List<Gcpro.DbParameter>> impExpList = new List<List<Gcpro.DbParameter>>();
             string tableName = GcproTable.ImpExpDef.TableName;
             base.CreateImpExpDef(impExpList, ImpExpRuleName);

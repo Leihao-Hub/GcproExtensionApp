@@ -1,10 +1,7 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
 
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
@@ -107,9 +104,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { value10 = value; }
         }
         public RollermillSide Side1
-        { 
-          get { return side1; }
-          set { side1 = value; } 
+        {
+            get { return side1; }
+            set { side1 = value; }
         }
         public RollermillSide Side2
         {
@@ -147,7 +144,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             side1 = new RollermillSide();
             side2 = new RollermillSide();
-            pType =P2757.ToString();
+            pType = P2757.ToString();
             value10 = "96";
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.MA_Roll8Stand);
@@ -211,7 +208,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD);    
+                    .Append(LibGlobalSource.NOCHILD);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
@@ -248,8 +245,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
                new Relation(name ,lc_COM, GcproTable.ObjData.Value41.Name),
             };
-             CreateRelations(relations, this.fileRelationPath, encoding);
-    } 
+            CreateRelations(relations, this.fileRelationPath, encoding);
+        }
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();
@@ -325,7 +322,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value43.Name}
 
             });
- 
+
             impExpList.Add(new List<Gcpro.DbParameter>
             {
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
@@ -417,7 +414,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
             });
 
-  
+
             impExpList.Add(new List<Gcpro.DbParameter>
             {
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
@@ -425,7 +422,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value45.Name}
 
             });
-    
+
             impExpList.Add(new List<Gcpro.DbParameter>
             {
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },

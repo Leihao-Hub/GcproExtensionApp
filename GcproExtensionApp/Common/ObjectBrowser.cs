@@ -2,17 +2,20 @@
 using GcproExtensionLibrary.Gcpro;
 using OfficeOpenXml.Table.PivotTable;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
+using static GcproExtensionLibrary.Gcpro.GcproTable;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace GcproExtensionApp
 {
     public partial class ObjectBrowser : Form
     {
+        IDictionary<string, Object> queryParameters = new Dictionary<string, Object>();
         private string oType;
         private string otherAdditionalFiled;
         private string updateFiled;
@@ -140,9 +143,60 @@ namespace GcproExtensionApp
             selectedItem=comboOType.SelectedItem.ToString();
             oType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
         }
-        private void QueryObj()
+        private void SetFiledValue(Type type, (string Name, string Value) field)
         {
 
+         
+        }
+        private void SetCmdParameterFiledValue(Type type, (string Name, string Value) field, IDictionary<string, Object> CmdParameter)
+        {
+            if (type == typeof(string))
+            {
+                CmdParameter.Add(field.Name, field.Value);
+            }
+            else if (type == typeof(double))
+            {
+                CmdParameter.Add(field.Name, Convert.ToDouble(field.Value));
+            }
+            else if (type == typeof(long))
+            {
+                CmdParameter.Add(field.Name, Convert.ToInt64(field.Value));
+            }
+            else if (type == typeof(int))
+            {
+                CmdParameter.Add(field.Name, Convert.ToInt32(field.Value));
+            }
+            else if (type == typeof(bool))
+            {
+                CmdParameter.Add(field.Name, Convert.ToBoolean(field.Value));
+            }
+        }
+        private void SetCmdParameterFiledValue(Type type, (string Name, string Value) field, List<GcproExtensionLibrary.Gcpro.DbParameter> CmdParameter)
+        {
+            if (type == typeof(string))
+            {
+                CmdParameter.Add(new GcproExtensionLibrary.Gcpro.DbParameter { Name = field.Name, Value = field.Value });          
+            }
+            else if (type == typeof(double))
+            {
+                CmdParameter.Add(new GcproExtensionLibrary.Gcpro.DbParameter { Name = field.Name, Value = Convert.ToDouble(field.Value) });     
+            }
+            else if (type == typeof(long))
+            {
+                CmdParameter.Add(new GcproExtensionLibrary.Gcpro.DbParameter { Name = field.Name, Value = Convert.ToInt64(field.Value) });          
+            }
+            else if (type == typeof(int))
+            {
+                CmdParameter.Add(new GcproExtensionLibrary.Gcpro.DbParameter { Name = field.Name, Value = Convert.ToInt32(field.Value) });               
+            }
+            else if (type == typeof(bool))
+            {
+                CmdParameter.Add(new GcproExtensionLibrary.Gcpro.DbParameter { Name = field.Name, Value = Convert.ToBoolean(field.Value) });
+            }
+        }
+        private void QueryObj()
+        {
+            queryParameters.Clear(); 
             int _oType = 0;
             if (AppGlobal.ParseInt(oType, out _oType))
             {
@@ -150,13 +204,32 @@ namespace GcproExtensionApp
                 DataTable dataTable = new DataTable();
                 oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 oledb.IsNewOLEDBDriver = false;
-               //string parten = "^(?=.*\b(AND | OR)\b)(? !(.*\bAND\b){ 2,}| (.*\bOR\b){ 2,}|.*\bAND\b.*\bOR\b.*|.*\bOR\b.*\bAND\b.*).+$";
+                string subFilter;
+                string filter = $"{GcproTable.ObjData.OType.Name} = {OleDb.ParPlaceholder}";
+                subFilter = $"{GcproTable.ObjData.OType.Name} = {_oType}";
+                queryParameters.Add(GcproTable.ObjData.OType.Name, (double)_oType);
+               //参数化查询，涉及文本字段的比较不需要使用单引号；
+                if (!string.IsNullOrEmpty(subType))
+                {
+                    filter = $@"{filter} AND {GcproTable.ObjData.SubType.Name} = {OleDb.ParPlaceholder}";
+                    subFilter = $@"{filter} AND {GcproTable.ObjData.SubType.Name} = {subType}";
+                    queryParameters.Add(GcproTable.ObjData.SubType.Name, subType);
+                }
 
-                string filter = $"{GcproTable.ObjData.OType.Name} = {_oType}";
-                filter = string.IsNullOrEmpty(subType) ? filter : $@"{filter} AND {GcproTable.ObjData.SubType.Name} = '{subType}'";
+                if (!string.IsNullOrEmpty(txtFilterName.Text))
+                {
+                    filter = $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE {OleDb.ParPlaceholder}";
+                    subFilter = $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtFilterName.Text}%'";
+                    queryParameters.Add(GcproTable.ObjData.Text0.Name, $"%{txtFilterName.Text}%"); 
+                }
+
+                if (!string.IsNullOrEmpty(txtFilterDescription.Text))
+                {
+                    filter = $@"{filter} AND {GcproTable.ObjData.Text1.Name} LIKE {OleDb.ParPlaceholder}";
+                    queryParameters.Add(GcproTable.ObjData.Text1.Name, $"%{txtFilterDescription.Text}%"); 
+                }
                 filter = string.IsNullOrEmpty(txtUserDefinedFilter.Text) ? filter : $@"{filter} AND {txtUserDefinedFilter.Text}";
-                filter = string.IsNullOrEmpty(txtFilterName.Text) ? filter : $@"{filter} AND Text0 LIKE '%{txtFilterName.Text}%'";
-                filter = string.IsNullOrEmpty(txtFilterDescription.Text) ? filter : $@"{filter} AND Text1 LIKE '%{txtFilterDescription.Text}%'";                      
+                subFilter = string.IsNullOrEmpty(txtUserDefinedFilter.Text) ? subFilter : $@"{subFilter} AND {txtUserDefinedFilter.Text}";
                 List<string> fields = new List<string>();
                 fields.Add(GcproTable.ObjData.Text0.Name);
                 fields.Add(GcproTable.ObjData.Text1.Name);
@@ -170,11 +243,11 @@ namespace GcproExtensionApp
                 fieldsArray = fields.ToArray();
                 try
                 {
-                    string fieldList = string.Join(", ", fieldsArray);
-                    subQuery = $@"SELECT 1 FROM [{GcproTable.ObjData.TableName}] WHERE {filter}";
-
+                    //  string fieldList = string.Join(", ", fieldsArray);
+                    // subQuery = $@"SELECT 1 FROM [{GcproTable.ObjData.TableName}] WHERE {filter}";
+                    subQuery = $@"SELECT 1 FROM [{GcproTable.ObjData.TableName}] WHERE {subFilter}";
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter,
-                    null, $"{GcproTable.ObjData.Text0.Name} ASC", fieldsArray);
+                    queryParameters, $"{GcproTable.ObjData.Text0.Name} ASC", fieldsArray);
 
                     dataGridObjData.DataSource = dataTable;
 
@@ -198,7 +271,6 @@ namespace GcproExtensionApp
                 }
             }
         }
-
         private void btnQuery_Click(object sender, EventArgs e)
         {
             QueryObj();
@@ -207,7 +279,7 @@ namespace GcproExtensionApp
         {
 
         }
-
+  
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             OleDb oledb = new OleDb();
@@ -215,11 +287,16 @@ namespace GcproExtensionApp
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = false;
             List<GcproExtensionLibrary.Gcpro.DbParameter> updateFields = new List<GcproExtensionLibrary.Gcpro.DbParameter>();
+            //  IDictionary<string, Object> updateparameters = new Dictionary<string, Object>(parameters);
+            IDictionary<string, Object> updateparameters = new Dictionary<string, Object>();
             try
-            {              
+            {
+                Type objPropertyValueType;         
                 if (!string.IsNullOrEmpty(comboUpdateField.Text))
-                {                   
-                    updateFields.Add(new GcproExtensionLibrary.Gcpro.DbParameter { Name = comboUpdateField.Text, Value = txtFieldNewVale.Text });
+                {
+                    objPropertyValueType = GcproTable.ObjData.GetPropertyValueType(comboUpdateField.Text);
+                    SetCmdParameterFiledValue(objPropertyValueType, (comboUpdateField.Text, txtFieldNewVale.Text), updateFields);
+                //    updateFields.Add(new GcproExtensionLibrary.Gcpro.DbParameter { Name = comboUpdateField.Text, Value = txtFieldNewVale.Text });
                     string whereClause = string.Empty;
                     string filter1, Operator1, filter2, Operator2, filterLogic;
                     string filter1Name, filter2Name;             
@@ -231,12 +308,17 @@ namespace GcproExtensionApp
                     filter2 = filter2Name;
                     Operator2 = Convert.ToString(comboOperator2.SelectedItem);
                     filterLogic = Convert.ToString(comboFilterLogic.SelectedItem);
+
                     if (!string.IsNullOrEmpty(filter1) &&
                         !string.IsNullOrEmpty(Operator1) &&
                         !string.IsNullOrEmpty(txtFilterField1Text.Text))
                     {
-                        string filter = filter1 + " " + Operator1; ;
-                        whereClause = filter1Name.StartsWith("Text")? filter + $"'{txtFilterField1Text.Text}'":filter + txtFilterField1Text.Text;
+                        string filter = $@"{filter1}{" "}{Operator1}";
+                        whereClause = $@"{filter}{" "}{OleDb.ParPlaceholder}";
+                        objPropertyValueType = GcproTable.ObjData.GetPropertyValueType(filter1Name);
+                        SetCmdParameterFiledValue(objPropertyValueType, (filter1Name, txtFilterField1Text.Text), updateparameters);
+                      //  string filter = filter1 + " " + Operator1; ;
+                       // whereClause = filter1Name.StartsWith("Text") ? filter + $"'{txtFilterField1Text.Text}'" : filter + txtFilterField1Text.Text;
                     }
                     if (!string.IsNullOrEmpty(filter2) &&
                        !string.IsNullOrEmpty(Operator2) &&
@@ -244,17 +326,31 @@ namespace GcproExtensionApp
                        !string.IsNullOrEmpty(filterLogic))
                       
                     {
-                        string filter= filter2 + " " + Operator2;  
-                        filter= filter2Name.StartsWith("Text")? filter + $"'{txtFilterField2Text.Text}'": filter + txtFilterField2Text.Text;
-                        whereClause = string.IsNullOrEmpty(whereClause)? filter: $@"{whereClause} {filterLogic} {filter}";
+                        string filter = $@"{filter2}{" "}{Operator2}";
+                        whereClause = $@"{whereClause} {filterLogic} {filter}{" "}{OleDb.ParPlaceholder}";
+                        objPropertyValueType = GcproTable.ObjData.GetPropertyValueType(filter2Name);
+                        SetCmdParameterFiledValue(objPropertyValueType, (filter2Name, txtFilterField2Text.Text), updateparameters);
+                        //string filter = filter2 + " " + Operator2;
+                        //filter = filter2Name.StartsWith("Text") ? filter + $"'{txtFilterField2Text.Text}'" : filter + txtFilterField2Text.Text;
+                        //whereClause = string.IsNullOrEmpty(whereClause) ? filter : $@"{whereClause} {filterLogic} {filter}";
                     }
                     whereClause = string.IsNullOrEmpty(txtUpdateFilter.Text) ? whereClause : $@"{whereClause} {txtUpdateFilter.Text}";
                     string _tableName, _oType, _name;
                     _tableName = GcproTable.ObjData.TableName;
                     _oType = GcproTable.ObjData.OType.Name;
                     _name= GcproTable.ObjData.Text0.Name;
-                    string _subQuery=$@"{subQuery} AND [{_tableName}].{_oType}= MainTable.{_oType} AND [{_tableName}].{_name}= MainTable.{_name} ";
-                    oledb.UpdateRecordWithSubQuery(_tableName, updateFields, whereClause, _subQuery);
+                    // string _subQuery=$@"{subQuery} AND [{_tableName}].{_oType}= MainTable.{_oType} AND [{_tableName}].{_name} = MainTable.{_name} ";
+                   // subQuery = "SELECT 1 FROM[ObjData] WHERE OType = 1019";
+                    string _subQuery = $@"{subQuery} AND [{_tableName}].{_name} = MainTable.{_name}";
+                    //foreach ( var subPar in queryParameters)
+                    //{
+                    //    if (!updateparameters.ContainsKey(subPar.Key))
+                    //    {
+                    //        updateparameters[subPar.Key] = subPar.Value;
+                    //    }
+                    //}
+
+                    oledb.UpdateRecordWithSubQuery(_tableName, updateFields, whereClause, updateparameters, _subQuery);
                 }
             }
             catch 
@@ -266,6 +362,8 @@ namespace GcproExtensionApp
                 dataTable = null;
                 oledb = null;
                 updateFields.Clear();
+                updateparameters.Clear();   
+
             }
         }
 

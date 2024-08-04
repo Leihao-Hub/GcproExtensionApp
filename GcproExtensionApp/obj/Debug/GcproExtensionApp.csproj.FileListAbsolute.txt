@@ -146,6 +146,13 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe.config
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.AppStart.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormAI.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMDDx.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormRollStandPhoenix.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormDPSlave.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMA_MDDYZPhoenix.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMA_MotorWithBypass.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMA_Roll8Stand.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormBin.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormDI.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMotor.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormVFCAdapter.resources
@@ -157,9 +164,3 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExt.9C27A94B.Up2Date
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.pdb
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormBin.resources
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMA_Roll8Stand.resources
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMDDx.resources
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormDPSlave.resources
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormRollStandPhoenix.resources
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormMA_MDDYZPhoenix.resources

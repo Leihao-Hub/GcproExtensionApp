@@ -26,9 +26,9 @@ namespace GcproExtensionLibrary.FileHandle
         }
         public ExcelFileHandle()
         {
-          
+
         }
-        public ExcelFileHandle(string filePath):this()
+        public ExcelFileHandle(string filePath) : this()
         {
             this.filePath = filePath;
         }
@@ -150,7 +150,7 @@ namespace GcproExtensionLibrary.FileHandle
                 throw new ArgumentException("Error reading file: " + ex.Message);
             }
         }
-        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string filter, string filterColumn, string sortColumn = null, bool ascending = true,string filePath = null, string workSheetName = null)
+        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string filter, string filterColumn, string sortColumn = null, bool ascending = true, string filePath = null, string workSheetName = null)
         {
             try
             {
@@ -212,8 +212,8 @@ namespace GcproExtensionLibrary.FileHandle
                 throw new ArgumentException(LibGlobalSource.EX_READING_FILE + $"： {ex.Message}");
             }
 
-        }      
-        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string[] filter, string[] filterColumn, string sortColumn = null, bool ascending = true,string filePath = null, string workSheetName = null)
+        }
+        public DataTable ReadAsDataTable(int startRow, string[] columnsToRead, string[] filter, string[] filterColumn, string sortColumn = null, bool ascending = true, string filePath = null, string workSheetName = null)
         {
             try
             {
@@ -232,7 +232,7 @@ namespace GcproExtensionLibrary.FileHandle
 
                     int rowCount = worksheet.Dimension?.Rows ?? 0;
                     int[] filterColumnIndexes = filterColumn.Select(ConvertColumnNameToNumber).ToArray();
-                   
+
                     for (int i = 0; i < columnsToRead.Length; i++)
                     {
                         dataTable.Columns.Add($"Column {i + 1}");
@@ -259,7 +259,7 @@ namespace GcproExtensionLibrary.FileHandle
                         }
                         dataTable.Rows.Add(dataRow);
                     }
-                  
+
                     if (!string.IsNullOrEmpty(sortColumn))
                     {
                         int sortIndex = Array.IndexOf(columnsToRead, sortColumn);
@@ -337,7 +337,7 @@ namespace GcproExtensionLibrary.FileHandle
             int index = 0;
             return ParseExpression(tokens, ref index, cellValue);
         }
-    
+
 
         // 解析表达式
         private bool ParseExpression(List<string> tokens, ref int index, string cellValue)
@@ -358,7 +358,7 @@ namespace GcproExtensionLibrary.FileHandle
             }
             return value;
         }
-       
+
 
         // 解析术语
         private bool ParseTerm(List<string> tokens, ref int index, string cellValue)
@@ -379,7 +379,7 @@ namespace GcproExtensionLibrary.FileHandle
             }
             return value;
         }
-    
+
 
         // 解析因子
         private bool ParseFactor(List<string> tokens, ref int index, string cellValue)
@@ -442,7 +442,7 @@ namespace GcproExtensionLibrary.FileHandle
                                          .Replace("_", ".") + "$";
             return Regex.IsMatch(input, regexPattern, RegexOptions.IgnoreCase);
         }
- 
+
         internal static int ConvertColumnNameToNumber(string columnName)
         {
             int columnNumber = 0;

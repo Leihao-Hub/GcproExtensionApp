@@ -1,15 +1,11 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Security.Cryptography.Xml;
 using System.Text;
-using System.Xml.Linq;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class DI:Element, IGcpro
+    public class DI : Element, IGcpro
     {
         public struct DIRule
         {
@@ -40,7 +36,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string inHWStop;
         private string outpFaultReset;
         private string outpPowerOff;
-        private string outpLamp;      
+        private string outpLamp;
         private string delayChange;
         private string delayTrue;
         private string delayFalse;
@@ -119,7 +115,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         #endregion
         #region Application properties
-        public  string Value9
+        public string Value9
         {
             get { return value9; }
             set { value9 = value; }
@@ -186,10 +182,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public string RefSpecial
         {
-            get { return refSpecial ; }
+            get { return refSpecial; }
             set { refSpecial = value; }
         }
-   
+
         public string RefMRMAMixer
         {
             get { return refMRMAMixer; }
@@ -294,7 +290,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             name = "-BLH01";
             description = "EL_DI";
             subType = "DIC";
-            processFct = string.Empty;          
+            processFct = string.Empty;
             building = "--";
             elevation = "--";
             fieldBusNode = string.Empty;
@@ -371,7 +367,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
-           
+
 
             var relations = new List<Relation>
             {
@@ -379,8 +375,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Relation(name,refSpecial, GcproTable.ObjData.Value46.Name),
                 new Relation(name,refMRMAMixer, GcproTable.ObjData.Value31.Name),
             };
-           CreateRelations(relations,this.fileRelationPath,encoding);           
-        }     
+            CreateRelations(relations, this.fileRelationPath, encoding);
+        }
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();

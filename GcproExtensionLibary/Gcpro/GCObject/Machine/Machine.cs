@@ -9,6 +9,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
     {
         public abstract string PType { get; set; }
         public abstract string Value10 { get; set; }
+
         public Machine()
         {
         }
@@ -40,5 +41,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter { Name = ImpExpDef.FieldFieldName.Name, Value = ObjData.Value10.Name }
             });
         }
+
     }
 }

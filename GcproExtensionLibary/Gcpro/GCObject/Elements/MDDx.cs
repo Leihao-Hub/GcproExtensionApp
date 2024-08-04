@@ -1,10 +1,7 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Security.Cryptography.Xml;
 using System.Text;
-using System.Xml.Linq;
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     public class MDDx : Element, IGcpro
@@ -16,7 +13,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static MDDxRule Rule;
         private string filePath;
         private string fileRelationPath;
-     //   private string fileConnectorPath;
+        //   private string fileConnectorPath;
         private static string mddxFileName = $@"\{OTypeCollection.EL_MDDx}";
         private string name;
         private string description;
@@ -259,7 +256,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Relation(name,side2Top.MYTA, GcproTable.ObjData.Value34.Name),
                 new Relation(name,side2Bottom.MYTA, GcproTable.ObjData.Value35.Name),
             };
-            CreateRelations(relations, this.fileRelationPath, encoding);       
+            CreateRelations(relations, this.fileRelationPath, encoding);
         }
         public void Clear()
         {
@@ -380,5 +377,5 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             return result;
         }
     }
- 
+
 }

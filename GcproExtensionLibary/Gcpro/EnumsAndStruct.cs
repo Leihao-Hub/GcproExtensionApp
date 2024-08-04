@@ -145,12 +145,8 @@
         public string Name, Description;
         public string NameRule, DescriptionRule;
         public string NameRuleInc, DescriptionRuleInc;
-    }
-    public struct VFCT
-    {
-        public string Name, Description;
-        public string NameRule, DescriptionRule;
-        public string NameRuleInc, DescriptionRuleInc;
+        public string Cabinet, Power;
+        public string DescLine, DescFloor, DescName, DescObject;
     }
 
     /// <summary>

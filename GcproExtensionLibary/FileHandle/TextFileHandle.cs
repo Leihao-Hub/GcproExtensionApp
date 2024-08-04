@@ -62,7 +62,7 @@ namespace GcproExtensionLibrary.FileHandle
         public bool SaveFileAs(string title)
         {
             bool result = false;
-            result= BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, title+LibGlobalSource.FILE_SAVE_AS);
+            result = BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, title + LibGlobalSource.FILE_SAVE_AS);
             return result;
         }
     }

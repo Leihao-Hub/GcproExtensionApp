@@ -45,14 +45,7 @@
         }
       },
       "frameworks": {
-        "net462": {
-          "dependencies": {
-            "EPPlus": {
-              "target": "Package",
-              "version": "[7.1.3, )"
-            }
-          }
-        }
+        "net462": {}
       },
       "runtimes": {
         "win": {
@@ -111,6 +104,10 @@
             "EPPlus": {
               "target": "Package",
               "version": "[7.1.3, )"
+            },
+            "ILMerge": {
+              "target": "Package",
+              "version": "[3.0.40, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

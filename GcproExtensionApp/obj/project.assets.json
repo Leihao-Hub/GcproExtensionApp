@@ -53,6 +53,12 @@
           "lib/net462/EPPlus.System.Drawing.dll": {}
         }
       },
+      "ILMerge/3.0.40": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -473,6 +479,7 @@
         "framework": ".NETFramework,Version=v4.6.2",
         "dependencies": {
           "EPPlus": "7.1.3",
+          "ILMerge": "3.0.40",
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
@@ -535,6 +542,12 @@
           "lib/net462/EPPlus.System.Drawing.dll": {}
         }
       },
+      "ILMerge/3.0.40": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -955,6 +968,7 @@
         "framework": ".NETFramework,Version=v4.6.2",
         "dependencies": {
           "EPPlus": "7.1.3",
+          "ILMerge": "3.0.40",
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
@@ -1017,6 +1031,12 @@
           "lib/net462/EPPlus.System.Drawing.dll": {}
         }
       },
+      "ILMerge/3.0.40": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -1437,6 +1457,7 @@
         "framework": ".NETFramework,Version=v4.6.2",
         "dependencies": {
           "EPPlus": "7.1.3",
+          "ILMerge": "3.0.40",
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
@@ -1499,6 +1520,12 @@
           "lib/net462/EPPlus.System.Drawing.dll": {}
         }
       },
+      "ILMerge/3.0.40": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -1919,6 +1946,7 @@
         "framework": ".NETFramework,Version=v4.6.2",
         "dependencies": {
           "EPPlus": "7.1.3",
+          "ILMerge": "3.0.40",
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
@@ -1981,6 +2009,12 @@
           "lib/net462/EPPlus.System.Drawing.dll": {}
         }
       },
+      "ILMerge/3.0.40": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -2401,6 +2435,7 @@
         "framework": ".NETFramework,Version=v4.6.2",
         "dependencies": {
           "EPPlus": "7.1.3",
+          "ILMerge": "3.0.40",
           "Newtonsoft.Json": "13.0.3"
         },
         "compile": {
@@ -2480,6 +2515,22 @@
         "lib/netstandard2.1/EPPlus.System.Drawing.dll",
         "license.md",
         "readme.md"
+      ]
+    },
+    "ILMerge/3.0.40": {
+      "sha512": "L6nrRiBmIWp2rPMYFSzsHDYL4eTd8/WyiQ5DSBGonGdngutZ6js7dsCLPSgSwdbZ7j3n7210dMTHwuHmfQHEYQ==",
+      "type": "package",
+      "path": "ilmerge/3.0.40",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/ILMerge.props",
+        "docs/ilmerge-manual.md",
+        "ilmerge.3.0.40.nupkg.sha512",
+        "ilmerge.nuspec",
+        "tools/net452/ILMerge.exe",
+        "tools/net452/System.Compiler.dll"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
@@ -3286,7 +3337,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.6.2": [
-      "EPPlus >= 7.1.3",
       "GcproExtensionLibrary >= 1.0.0"
     ]
   },
@@ -3335,14 +3385,7 @@
       }
     },
     "frameworks": {
-      "net462": {
-        "dependencies": {
-          "EPPlus": {
-            "target": "Package",
-            "version": "[7.1.3, )"
-          }
-        }
-      }
+      "net462": {}
     },
     "runtimes": {
       "win": {

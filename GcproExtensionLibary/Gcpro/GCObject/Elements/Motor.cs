@@ -1,10 +1,7 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlTypes;
 using System.Text;
-using System.Xml.Linq;
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     ///  <summary>
@@ -134,7 +131,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
 
         #region Application properties
-        public  string DPNode2
+        public string DPNode2
         {
             get { return dpNode2; }
             set { dpNode2 = value; }
@@ -385,7 +382,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// </summary>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding,bool onlyRelation=false)
+        public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
@@ -445,7 +442,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);
             }
         }
-    
+
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();
@@ -766,5 +763,5 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
     }
 
- 
+
 }

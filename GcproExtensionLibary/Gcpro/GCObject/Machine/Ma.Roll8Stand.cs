@@ -1,16 +1,14 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
 using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
- 
-    public class Roll8Stand:Machine
+
+    public class Roll8Stand : Machine
     {
         public struct Roll8StandRule
         {
@@ -108,9 +106,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { value10 = value; }
         }
         public RollermillSide Side1
-        { 
-          get { return side1; }
-          set { side1 = value; } 
+        {
+            get { return side1; }
+            set { side1 = value; }
         }
         public RollermillSide Side2
         {
@@ -146,12 +144,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string ImpExpRuleName { get; } = "IE_MA_Roll8Stand";
         public static int OTypeValue { get; } = (int)OTypeCollection.MA_Roll8Stand;
         #endregion
- 
+
         public Roll8Stand()
         {
             side1 = new RollermillSide();
             side2 = new RollermillSide();
-            pType =P2046.ToString();
+            pType = P2046.ToString();
             value10 = "786656";
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.MA_Roll8Stand);
@@ -260,8 +258,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
                new Relation(name ,MDDx , GcproTable.ObjData.Value41.Name),
             };
-             CreateRelations(relations, this.fileRelationPath, encoding);
-    } 
+            CreateRelations(relations, this.fileRelationPath, encoding);
+        }
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();
@@ -512,7 +510,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value41.Name}
 
             });
-   
+
             #endregion
             bool result = insertMultipleRecords(tableName, impExpList);
             impExpList.Clear();

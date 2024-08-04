@@ -261,7 +261,8 @@ namespace GcproExtensionApp
         }
         private void btnAddMotorWithBypass_Click(object sender, EventArgs e)
         {
-
+            FormMA_MotorWithBypass formMA_MotorWithBypass = new FormMA_MotorWithBypass();
+            formMA_MotorWithBypass.Show();
         }
 
         private void btnAddMADischarger_Click(object sender, EventArgs e)
@@ -274,6 +275,14 @@ namespace GcproExtensionApp
         private void btnAddDischargerVertex_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnQuery_Click(object sender, EventArgs e)
+        {
+            ObjectBrowser objectBrowser = new ObjectBrowser();
+            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Key.Name;
+            objectBrowser.OType = Convert.ToString(Motor.OTypeValue);
+            objectBrowser.Show();
         }
     }
         #endregion

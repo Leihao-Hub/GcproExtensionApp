@@ -1375,9 +1375,9 @@ namespace GcproExtensionApp
             this.lblVFCPrefixBML.AutoSize = true;
             this.lblVFCPrefixBML.Location = new System.Drawing.Point(367, 27);
             this.lblVFCPrefixBML.Name = "lblVFCPrefixBML";
-            this.lblVFCPrefixBML.Size = new System.Drawing.Size(53, 13);
+            this.lblVFCPrefixBML.Size = new System.Drawing.Size(55, 13);
             this.lblVFCPrefixBML.TabIndex = 29;
-            this.lblVFCPrefixBML.Text = "BML前缀";
+            this.lblVFCPrefixBML.Text = "变频前缀";
             // 
             // btnReadBML
             // 

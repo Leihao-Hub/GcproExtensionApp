@@ -1,14 +1,11 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Text;
-using System.Xml.Linq;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class AI:Element, IGcpro
+    public class AI : Element, IGcpro
     {
         public struct AIRule
         {
@@ -294,7 +291,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string AIMT { get; } = "AIMT";
         public static string AIWT { get; } = "AIWT";
         public static string AVG { get; } = "AVG";
-        public static string SEL { get; } = "SEL"; 
+        public static string SEL { get; } = "SEL";
         public static float P7252 { get; } = 7252;
         public static float P7253 { get; } = 7253;
         public static float P7254 { get; } = 7254;
@@ -323,7 +320,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             name = "-AI";
             description = "EL_AI";
             subType = "AIT";
-            processFct = string.Empty;          
+            processFct = string.Empty;
             building = "--";
             elevation = "--";
             fieldBusNode = string.Empty;
@@ -343,12 +340,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             monTimeLow = "10.0";
             monTimeMiddle = "10.0";
             monTimeHigh = "10.0";
-            monTimeHighHigh= "20.0";
+            monTimeHighHigh = "20.0";
             inpValue = string.Empty;
-            inpLowLow = string.Empty;  
+            inpLowLow = string.Empty;
             inpLow = string.Empty;
-            inpHigh = string.Empty;  
-            inpHighHigh = string.Empty;  
+            inpHigh = string.Empty;
+            inpHighHigh = string.Empty;
             inpFaultDev = string.Empty;
             inHWStop = string.Empty;
             reference = string.Empty;
@@ -426,7 +423,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Relation(name,reference, GcproTable.ObjData.Value39.Name),
             };
             CreateRelations(relations, this.fileRelationPath, encoding);
-        }     
+        }
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle();
@@ -622,7 +619,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Reference"},
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value39.Name}
 
-            });   
+            });
             #endregion
             bool result = insertMultipleRecords(tableName, impExpList);
             impExpList.Clear();

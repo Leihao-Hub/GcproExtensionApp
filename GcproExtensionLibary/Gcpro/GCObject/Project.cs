@@ -1,19 +1,10 @@
-﻿using GcproExtensionLibrary.Gcpro;
-using GcproExtensionLibrary.Gcpro.GCObject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static GcproExtensionLibrary.Gcpro.GcproTable;
-using System.Xml.Linq;
-
+﻿
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class Project: GcObject
+    public class Project : GcObject
 
     {
-       // private string filePath;
+        // private string filePath;
         private string isNew;
         private string name;
         private string description;

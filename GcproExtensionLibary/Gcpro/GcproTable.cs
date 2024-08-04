@@ -1,4 +1,6 @@
-﻿namespace GcproExtensionLibrary.Gcpro
+﻿using System;
+
+namespace GcproExtensionLibrary.Gcpro
 {
     public class DbParameter
     {
@@ -206,16 +208,16 @@
                 objCnt = new DbParameter { Name = "ObjCnt", Value = (int)0 };
                 nameS7 = new DbParameter { Name = "NameS7", Value = string.Empty };
                 isNew = new DbParameter { Name = "IsNew", Value = (bool)false };
-                dpnode1 = new DbParameter { Name = "DPNode1", Value = (int)0 };
-                dpnode2 = new DbParameter { Name = "DPNode2", Value = (int)0 };
+                dpnode1 = new DbParameter { Name = "DPNode1", Value = (double)0.0 };
+                dpnode2 = new DbParameter { Name = "DPNode2", Value = (double)0.0 };
                 processFct = new DbParameter { Name = "ProcessFct", Value = string.Empty };
                 s5Otype = new DbParameter { Name = "S5OType", Value = (long)0 };
                 text3 = new DbParameter { Name = "Text3", Value = string.Empty };
                 subProject = new DbParameter { Name = "SubProject", Value = (long)0 };
                 pageName = new DbParameter { Name = "PageName", Value = string.Empty };
                 diagramNo = new DbParameter { Name = "DiagramNo", Value = (long)0 };
-                aeproNo = new DbParameter { Name = "DiagramNo", Value = (long)0 };
-                masterCopy = new DbParameter { Name = "MasterCopy", Value = string.Empty };
+                aeproNo = new DbParameter { Name = "AEPRONo", Value = (long)0 };
+                masterCopy = new DbParameter { Name = "MasterCopy", Value = (bool)false };
                 masterCopyName = new DbParameter { Name = "MasterCopyName", Value = string.Empty };
                 value51 = new DbParameter { Name = "Value51", Value = (double)0.0 };
                 value52 = new DbParameter { Name = "Value52", Value = (double)0.0 };
@@ -237,13 +239,13 @@
                 value68 = new DbParameter { Name = "Value68", Value = (double)0.0 };
                 value69 = new DbParameter { Name = "Value69", Value = (double)0.0 };
                 value70 = new DbParameter { Name = "Value70", Value = (double)0.0 };
-                singleInstanceDB = new DbParameter { Name = "SingleInstanceDB", Value = string.Empty };
+                singleInstanceDB = new DbParameter { Name = "SingleInstanceDB", Value = (bool)false };
                 status = new DbParameter { Name = "Status", Value = (int)0 };
                 memo1 = new DbParameter { Name = "Memo1", Value = string.Empty };
                 memo2 = new DbParameter { Name = "Memo2", Value = string.Empty };
-                isVirtual = new DbParameter { Name = "IsVirtual", Value = string.Empty };
+                isVirtual = new DbParameter { Name = "IsVirtual", Value = (bool) false};
                 communication = new DbParameter { Name = "Communication", Value = (long)0 };
-                notUsed = new DbParameter { Name = "NotUsed", Value = string.Empty };
+                notUsed = new DbParameter { Name = "NotUsed", Value = (bool) false };
                 fieldbusNode = new DbParameter { Name = "FieldbusNode", Value = (int)0 };
             }
             #region Public  properties
@@ -830,6 +832,53 @@
                 set { fieldbusNode.Value = value.Value; }
             }
             #endregion
+            public static Type GetPropertyValueType(string propertyName)
+            {
+      
+                var prop = typeof(ObjData).GetProperty(propertyName);
+
+                if (prop == null)
+                {
+                    throw new ArgumentException($@"属性：{propertyName}在{typeof(ObjData)}不存在");
+                }
+
+                //if (propertyName.StartsWith("Text"))
+                //{
+                //    return System.String;
+                //}
+                //else if (propertyName.StartsWith(value0.Name.Substring(0,5)) || propertyName.StartsWith(idaepro.Name.Substring(0,2)) || propertyName.Equals(otype.Name) ||
+                //   propertyName.Equals(oindex.Name) || propertyName.StartsWith(dpnode1.Name.Substring(0,6)) || propertyName.Equals(fieldbusNode.Name))
+                //{
+                //    return "Double";
+                //}
+                //else if (propertyName.Equals(key.Name) || propertyName.Equals("Owner") || propertyName.Equals("Alarm_Area") ||
+                //    propertyName.Equals("Revision") || )
+                //{
+                //    return "Long";
+                //}
+                //else if (propertyName.Equals("Valide") || propertyName.Equals("ObjCnt") || )
+                //{
+                //    return "Int";
+                //}
+                //else if (propertyName.Equals("IsNew") || propertyName.Equals("SingleInstanceDB") || propertyName.Equals("IsVirtual") ||
+                //    propertyName.Equals("NotUsed"))
+                //{
+                //    return "Bool";
+                //}
+                
+                //else
+                //{
+                //    return prop.PropertyType.Name;
+                //}
+
+                var dbParameter = prop.GetValue(null) as DbParameter; 
+                if (dbParameter != null && dbParameter.Value != null)
+                {
+                    return dbParameter.Value.GetType();
+                }
+
+                return typeof(object); 
+            }
         }
         public static class ImpExpDef
         {

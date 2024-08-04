@@ -40,11 +40,11 @@
             this.lblUserDefinedFilter = new System.Windows.Forms.Label();
             this.txtUserDefinedFilter = new System.Windows.Forms.TextBox();
             this.grpDataQuery = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblUserDefinedFilterAnd = new System.Windows.Forms.Label();
+            this.lblDescLike = new System.Windows.Forms.Label();
+            this.lblNameLike = new System.Windows.Forms.Label();
             this.BtnConfirm = new System.Windows.Forms.Button();
-            this.lblAnd = new System.Windows.Forms.Label();
+            this.lblFilterNameAnd = new System.Windows.Forms.Label();
             this.txtFilterName = new System.Windows.Forms.TextBox();
             this.lblFilterName = new System.Windows.Forms.Label();
             this.txtUpdateFilter = new System.Windows.Forms.TextBox();
@@ -169,11 +169,11 @@
             // 
             // grpDataQuery
             // 
-            this.grpDataQuery.Controls.Add(this.label3);
-            this.grpDataQuery.Controls.Add(this.label2);
-            this.grpDataQuery.Controls.Add(this.label1);
+            this.grpDataQuery.Controls.Add(this.lblUserDefinedFilterAnd);
+            this.grpDataQuery.Controls.Add(this.lblDescLike);
+            this.grpDataQuery.Controls.Add(this.lblNameLike);
             this.grpDataQuery.Controls.Add(this.BtnConfirm);
-            this.grpDataQuery.Controls.Add(this.lblAnd);
+            this.grpDataQuery.Controls.Add(this.lblFilterNameAnd);
             this.grpDataQuery.Controls.Add(this.txtFilterName);
             this.grpDataQuery.Controls.Add(this.lblFilterName);
             this.grpDataQuery.Controls.Add(this.LblOType);
@@ -192,35 +192,35 @@
             this.grpDataQuery.TabStop = false;
             this.grpDataQuery.Text = "数据库查询";
             // 
-            // label3
+            // lblUserDefinedFilterAnd
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.Color.Blue;
-            this.label3.Location = new System.Drawing.Point(301, 59);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
-            this.label3.TabIndex = 58;
-            this.label3.Text = "AND";
+            this.lblUserDefinedFilterAnd.AutoSize = true;
+            this.lblUserDefinedFilterAnd.ForeColor = System.Drawing.Color.Blue;
+            this.lblUserDefinedFilterAnd.Location = new System.Drawing.Point(301, 59);
+            this.lblUserDefinedFilterAnd.Name = "lblUserDefinedFilterAnd";
+            this.lblUserDefinedFilterAnd.Size = new System.Drawing.Size(30, 13);
+            this.lblUserDefinedFilterAnd.TabIndex = 58;
+            this.lblUserDefinedFilterAnd.Text = "AND";
             // 
-            // label2
+            // lblDescLike
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.Blue;
-            this.label2.Location = new System.Drawing.Point(598, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 57;
-            this.label2.Text = "LIKE";
+            this.lblDescLike.AutoSize = true;
+            this.lblDescLike.ForeColor = System.Drawing.Color.Blue;
+            this.lblDescLike.Location = new System.Drawing.Point(598, 26);
+            this.lblDescLike.Name = "lblDescLike";
+            this.lblDescLike.Size = new System.Drawing.Size(30, 13);
+            this.lblDescLike.TabIndex = 57;
+            this.lblDescLike.Text = "LIKE";
             // 
-            // label1
+            // lblNameLike
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(301, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 56;
-            this.label1.Text = "LIKE";
+            this.lblNameLike.AutoSize = true;
+            this.lblNameLike.ForeColor = System.Drawing.Color.Blue;
+            this.lblNameLike.Location = new System.Drawing.Point(301, 26);
+            this.lblNameLike.Name = "lblNameLike";
+            this.lblNameLike.Size = new System.Drawing.Size(30, 13);
+            this.lblNameLike.TabIndex = 56;
+            this.lblNameLike.Text = "LIKE";
             // 
             // BtnConfirm
             // 
@@ -237,15 +237,15 @@
             this.BtnConfirm.UseVisualStyleBackColor = false;
             this.BtnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
             // 
-            // lblAnd
+            // lblFilterNameAnd
             // 
-            this.lblAnd.AutoSize = true;
-            this.lblAnd.ForeColor = System.Drawing.Color.Blue;
-            this.lblAnd.Location = new System.Drawing.Point(498, 26);
-            this.lblAnd.Name = "lblAnd";
-            this.lblAnd.Size = new System.Drawing.Size(30, 13);
-            this.lblAnd.TabIndex = 39;
-            this.lblAnd.Text = "AND";
+            this.lblFilterNameAnd.AutoSize = true;
+            this.lblFilterNameAnd.ForeColor = System.Drawing.Color.Blue;
+            this.lblFilterNameAnd.Location = new System.Drawing.Point(498, 26);
+            this.lblFilterNameAnd.Name = "lblFilterNameAnd";
+            this.lblFilterNameAnd.Size = new System.Drawing.Size(30, 13);
+            this.lblFilterNameAnd.TabIndex = 39;
+            this.lblFilterNameAnd.Text = "AND";
             // 
             // txtFilterName
             // 
@@ -489,12 +489,12 @@
         private System.Windows.Forms.ComboBox comboOperator2;
         private System.Windows.Forms.ComboBox comboFilterField2;
         internal System.Windows.Forms.Label lblFilterField2;
-        internal System.Windows.Forms.Label lblAnd;
+        internal System.Windows.Forms.Label lblFilterNameAnd;
         private System.Windows.Forms.GroupBox grpUpdate;
         private System.Windows.Forms.ComboBox comboFilterLogic;
         internal System.Windows.Forms.Button BtnConfirm;
-        internal System.Windows.Forms.Label label2;
-        internal System.Windows.Forms.Label label1;
-        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.Label lblDescLike;
+        internal System.Windows.Forms.Label lblNameLike;
+        internal System.Windows.Forms.Label lblUserDefinedFilterAnd;
     }
 }

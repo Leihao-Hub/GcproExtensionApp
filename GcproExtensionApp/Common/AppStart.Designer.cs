@@ -94,6 +94,7 @@
             this.lblCompanyName = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
+            this.btnQuery = new System.Windows.Forms.Button();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grpBoxTempPath.SuspendLayout();
@@ -219,6 +220,7 @@
             // 
             // GcproDB
             // 
+            this.GcproDB.Controls.Add(this.btnQuery);
             this.GcproDB.Controls.Add(this.BtnOpenProjectDB);
             this.GcproDB.Controls.Add(this.comboProjectType);
             this.GcproDB.Controls.Add(this.lblProjectType);
@@ -901,6 +903,21 @@
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
             // 
+            // btnQuery
+            // 
+            this.btnQuery.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
+            this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQuery.Image = global::GcproExtensionApp.Properties.Resources.Access;
+            this.btnQuery.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQuery.Location = new System.Drawing.Point(544, 86);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(88, 27);
+            this.btnQuery.TabIndex = 114;
+            this.btnQuery.Text = "查询数据";
+            this.btnQuery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
+            // 
             // AppStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1003,5 +1020,6 @@
         private System.Windows.Forms.Label lblCopyright;
         private System.Windows.Forms.Label lblCompanyName;
         private System.Windows.Forms.TextBox txtDescription;
+        internal System.Windows.Forms.Button btnQuery;
     }
 }

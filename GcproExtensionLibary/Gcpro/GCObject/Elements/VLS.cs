@@ -1,10 +1,7 @@
 ﻿using GcproExtensionLibrary.FileHandle;
-using GcproExtensionLibrary.Gcpro;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
@@ -252,10 +249,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { isNew = value; }
         }
 
-       
+
         #endregion
         #region Readonly property
-        public static string VCO{ get; }="VCO";
+        public static string VCO { get; } = "VCO";
         public static string VMF { get; } = "VMF";
         public static string VPO { get; } = "VPO";
         public static string VPOM { get; } = "VPOM";
@@ -306,10 +303,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             startDelay = "0";
             hwStop = LibGlobalSource.NOCHILD;
             refRcvLN = LibGlobalSource.NOCHILD;
-            refRcvHN= LibGlobalSource.NOCHILD;
-            refSndBin= LibGlobalSource.NOCHILD;
-            refAsp= LibGlobalSource.NOCHILD;
- 
+            refRcvHN = LibGlobalSource.NOCHILD;
+            refSndBin = LibGlobalSource.NOCHILD;
+            refAsp = LibGlobalSource.NOCHILD;
+
             this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + ".Txt";
             this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + "_Relation.Txt";
             this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + "_FindConnector.Txt";
@@ -369,7 +366,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 CreateRelation(name, inpLN, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
                 CreateRelation(name, outpLN, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
                 CreateRelation(name, inpHN, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, outpHN, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);    
+                CreateRelation(name, outpHN, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
                 if (subType == VPOM)
                 {
                     CreateRelation(name, inpRunRev, GcproTable.ObjData.Value15.Name, this.fileRelationPath, encoding);
@@ -562,7 +559,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Aspiration"},
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value34.Name}
 
-            });   
+            });
             #endregion
             bool result = insertMultipleRecords(tableName, impExpList);
             impExpList.Clear();

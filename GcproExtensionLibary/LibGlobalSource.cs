@@ -1,18 +1,14 @@
 ﻿using GcproExtensionLibrary.Gcpro;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Windows.Forms;
-using System.Configuration;
 using System.IO;
-using OfficeOpenXml.Packaging.Ionic.Zlib;
-using System.Reflection;
-using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 namespace GcproExtensionLibrary
 {
     public static class LibGlobalSource
@@ -21,7 +17,6 @@ namespace GcproExtensionLibrary
         public const string TAB = "\t";
         public const string NOCHILD = "0";
         public const string DEFAULT_GCPRO_WORK_TEMP_PATH = @"C:\temp";
-        public const string MOTOR_FILE_NAME = @"\Motor.Txt";
         public const string SELECT_A_FOLDER = "选择一个文件夹";
         public const string FILE_SAVE_AS = "文件另存为";
         public const string CREATE_OBJECT = "创建对象:";
@@ -35,6 +30,7 @@ namespace GcproExtensionLibrary
         public const string EX_UNKNOW = "未知错误";
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
         public const string EX_SPECIFIED_COLUMN = "未指定读取列。";
+        public const string DESC_SEPARATOR = ",";
         public const int NO_OWNER = 1;
         public const int NO_PARENT = 0;
         #endregion
@@ -45,16 +41,31 @@ namespace GcproExtensionLibrary
                 string[] result = source.Split(new string[] { rule }, StringSplitOptions.RemoveEmptyEntries);
                 return result;
             }
+            //  StringBuilder result =  new StringBuilder();
+            ////  string result = string.Empty;
+            //  if (ruleSubPos.StartPos)
+            //  { result = rule + source[0]; }
+            //  else if (ruleSubPos.EndPos)
+            //  { result = source[0] + rule; }
+            //  else if (ruleSubPos.PosInString > 0)
+            //  { result = source[0] + rule + source[1]; }
+            //  return result;
             public static string GenerateObjectName(string[] source, RuleSubPos ruleSubPos, string rule)
             {
-                string result = string.Empty;
+                StringBuilder result = new StringBuilder();
                 if (ruleSubPos.StartPos)
-                { result = rule + source[0]; }
+                {
+                     result.Append(rule).Append(source[0]);                
+                }
                 else if (ruleSubPos.EndPos)
-                { result = source[0] + rule; }
+                {
+                    result.Append(source[0]).Append(rule);                
+                }
                 else if (ruleSubPos.PosInString > 0)
-                { result = source[0] + rule + source[1]; }
-                return result;
+                {
+                    result.Append(source[0]).Append(rule).Append(source[1]);                  
+                }
+                return result.ToString();
             }
             public static RuleSubPos RuleSubPos(string source, string rule)
             {
@@ -70,20 +81,12 @@ namespace GcproExtensionLibrary
                 };
                 return ruleSubPos;
             }
-            //public static string RemoveSubstring(string mainString, string subStringToRemove)
-            //{
-            //    if (string.IsNullOrEmpty(mainString) || string.IsNullOrEmpty(subStringToRemove))
-            //    {
-            //        return mainString;
-            //    }
-            //    string pattern = Regex.Escape(subStringToRemove);
-            //    return Regex.Replace(mainString, pattern, "", RegexOptions.None, TimeSpan.FromMilliseconds(100));
-            //}
+    
             public static string ExtractStringPart(string pattern, string stringTobeExtract)
             {
                 string result;
                 if (!string.IsNullOrEmpty(stringTobeExtract))
-                {                   
+                {
                     Match match = Regex.Match(stringTobeExtract, pattern);
                     result = match.Success ? match.Value : string.Empty;
                     return result;
@@ -95,17 +98,17 @@ namespace GcproExtensionLibrary
             }
             public static string ExtractNumericPart(string stringTobeExtract, bool withSign)
             {
-                string result;                         
+                string result;
                 string pattern = withSign ? @"[+-]?\d+(\.\d+)?" : @"\d+(\.\d+)?";
                 result = ExtractStringPart(pattern, stringTobeExtract);
-                return result;         
+                return result;
             }
             public static string ExtractLetterAndNumeric(string stringTobeExtract)
             {
-                string result;      
-                string pattern =  @"^[a-zA-A0-9-]+$";
+                string result;
+                string pattern = @"^[a-zA-A0-9-]+$";
                 result = ExtractStringPart(pattern, stringTobeExtract);
-                return result;  
+                return result;
             }
             /*
             static string RemoveParts(string input, string[] partsToRemove,bool removeSpace)
@@ -179,7 +182,7 @@ namespace GcproExtensionLibrary
                 return str1.Substring(endIndexStr1 - longestLength, longestLength);
             }   
             */
-            public static string FindContinuousAndSameSubstring(string str1, string str2,int minLen=0,int maxLen=0)
+            public static string FindContinuousAndSameSubstring(string str1, string str2, int minLen = 0, int maxLen = 0)
             {
                 int[,] lcs = new int[str1.Length + 1, str2.Length + 1];
                 int length = 0;
@@ -262,11 +265,11 @@ namespace GcproExtensionLibrary
             /// <param name="minLen">返回字符串最小长度</param>
             /// <param name="maxLen">返回字符串最大长度</param>
             /// <returns></returns>
-            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataTable dataTable, string columnName,int minLen=0,int maxLen=0)
+            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataTable dataTable, string columnName, int minLen = 0, int maxLen = 0)
             {
                 List<string> columnValues = dataTable.AsEnumerable().Select(row => row.Field<string>(columnName)).ToList();
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
-                int timeLimit = columnValues.Count * 5; 
+                int timeLimit = columnValues.Count * 5;
                 DateTime startTime = DateTime.Now;
                 while (columnValues.Count > 0)
                 {
@@ -277,13 +280,13 @@ namespace GcproExtensionLibrary
                     Dictionary<string, int> substringWithCount = new Dictionary<string, int>();
                     for (int i = 0; i < columnValues.Count; i++)
                     {
-                        for (int j = i+1; j < columnValues.Count; j++)
+                        for (int j = i + 1; j < columnValues.Count; j++)
                         {
                             string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j], minLen, maxLen);
                             if (!string.IsNullOrEmpty(commonSubstring))
                             {
-                                 for (int k = minLen; k <= commonSubstring.Length; k++)
-                                   {
+                                for (int k = minLen; k <= commonSubstring.Length; k++)
+                                {
                                     string prefix = commonSubstring.Substring(0, k);
                                     //string prefix = commonSubstring;
                                     if (!string.IsNullOrEmpty(prefix))
@@ -318,21 +321,21 @@ namespace GcproExtensionLibrary
                         .OrderByDescending(x => x.Key.Length)
                         .ThenByDescending(x => x.Value)
                         .FirstOrDefault();
-                       bestPrefix = StringHelper.ExtendPrefixToSeparator(bestMatch.Key, columnValues);
-                       count = columnValues.Count(value => value.StartsWith(bestPrefix));
+                        bestPrefix = StringHelper.ExtendPrefixToSeparator(bestMatch.Key, columnValues);
+                        count = columnValues.Count(value => value.StartsWith(bestPrefix));
                     }
                     finalResults.Add(new KeyValuePair<string, int>(bestPrefix, count));
                     columnValues.RemoveAll(value => value.StartsWith(bestPrefix));
                 }
                 return finalResults;
             }
-            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataGridView dataGridView, string columnName,int minLen=0,int maxLen=0)
+            public static List<KeyValuePair<string, int>> ExtractUniqueCommonSubstringsWithCount(DataGridView dataGridView, string columnName, int minLen = 0, int maxLen = 0)
             {
                 List<string> columnValues = dataGridView.Rows
                     .Cast<DataGridViewRow>()
                     .Where(row => row.Cells[columnName].Value != null)
                     .Select(row => row.Cells[columnName].Value.ToString())
-                    .ToList();     
+                    .ToList();
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
                 int timeLimit = columnValues.Count * 5;
                 DateTime startTime = DateTime.Now;
@@ -347,7 +350,7 @@ namespace GcproExtensionLibrary
                     {
                         for (int j = i + 1; j < columnValues.Count; j++)
                         {
-                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j],minLen,maxLen);
+                            string commonSubstring = StringHelper.FindContinuousAndSameSubstring(columnValues[i], columnValues[j], minLen, maxLen);
                             if (!string.IsNullOrEmpty(commonSubstring))
                             {
                                 for (int k = minLen; k <= commonSubstring.Length; k++)
@@ -369,13 +372,13 @@ namespace GcproExtensionLibrary
                     ///非手动闸门等设备名称字符串通常情况下至少出现2次
                     ///</summary>               
                     var bestMatch = substringWithCount
-                        .Where(x => x.Value >= 2 && x.Value<=10) 
+                        .Where(x => x.Value >= 2 && x.Value <= 10)
                         .OrderByDescending(x => x.Key.Length)
-                        .ThenByDescending(x => x.Value) 
+                        .ThenByDescending(x => x.Value)
                         .FirstOrDefault();
 
                     if (bestMatch.Key == null) break;
-                 
+
                     string bestPrefix = StringHelper.ExtendPrefixToSeparator(bestMatch.Key, columnValues);
                     int count = columnValues.Count(value => value.StartsWith(bestPrefix));
                     ///<summary>
@@ -404,7 +407,7 @@ namespace GcproExtensionLibrary
                 List<string> columnValues = dataTable.AsEnumerable().Select(row => row.Field<string>(columnName)).ToList();
                 List<KeyValuePair<string, int>> finalResults = new List<KeyValuePair<string, int>>();
                 int timeLimit = columnValues.Count * 5;
-                DateTime startTime = DateTime.Now;              
+                DateTime startTime = DateTime.Now;
                 Dictionary<string, int> substringWithCount = new Dictionary<string, int>();
                 for (int i = 0; i < columnValues.Count; i++)
                 {
@@ -513,12 +516,12 @@ namespace GcproExtensionLibrary
 
                 return values;
             }
-/// <summary>
-/// Write the Value to key
-/// </summary>
-/// <param name="filePath">The Json file name</param>
-/// <param name="key">The key name</param>
-/// <param name="value">The value to be write</param>
+            /// <summary>
+            /// Write the Value to key
+            /// </summary>
+            /// <param name="filePath">The Json file name</param>
+            /// <param name="key">The key name</param>
+            /// <param name="value">The value to be write</param>
             public static void WriteKeyValue(string filePath, string key, JToken value)
             {
                 JObject jObject = ReadConfig(filePath);
@@ -595,11 +598,9 @@ namespace GcproExtensionLibrary
                 WriteConfig(filePath, jObject);
             }
         }
-      
     }
     public interface IGcpro
     {
-        void CreateObject(Encoding encoding,bool onlyRelation=false);
-
+        void CreateObject(Encoding encoding, bool onlyRelation = false);
     }
 }

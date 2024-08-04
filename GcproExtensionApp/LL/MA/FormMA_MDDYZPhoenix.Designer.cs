@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMA_MDDYZPhoenix));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -1243,7 +1243,7 @@ namespace GcproExtensionApp
             this.grpAddInfoToDesc.Size = new System.Drawing.Size(360, 39);
             this.grpAddInfoToDesc.TabIndex = 147;
             this.grpAddInfoToDesc.TabStop = false;
-            this.grpAddInfoToDesc.Text = "附加信息到描述";
+            this.grpAddInfoToDesc.Text = "附加信息到描述(BML)";
             // 
             // chkAddUserSectionToDesc
             // 
@@ -1267,6 +1267,7 @@ namespace GcproExtensionApp
             this.chkNameOnlyNumber.TabIndex = 125;
             this.chkNameOnlyNumber.Text = "编号仅含数字";
             this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
+            this.chkNameOnlyNumber.CheckedChanged += new System.EventHandler(this.chkNameOnlyNumber_CheckedChanged);
             // 
             // chkAddSectionToDesc
             // 
@@ -1292,6 +1293,7 @@ namespace GcproExtensionApp
             this.chkAddNameToDesc.TabIndex = 119;
             this.chkAddNameToDesc.Text = "编号";
             this.chkAddNameToDesc.UseVisualStyleBackColor = true;
+            this.chkAddNameToDesc.CheckedChanged += new System.EventHandler(this.chkAddNameToDesc_CheckedChanged);
             // 
             // chkAddFloorToDesc
             // 
@@ -1302,6 +1304,7 @@ namespace GcproExtensionApp
             this.chkAddFloorToDesc.TabIndex = 121;
             this.chkAddFloorToDesc.Text = "楼层";
             this.chkAddFloorToDesc.UseVisualStyleBackColor = true;
+            this.chkAddFloorToDesc.CheckedChanged += new System.EventHandler(this.chkAddFloorToDesc_CheckedChanged);
             // 
             // lblSymbol
             // 
@@ -1534,8 +1537,8 @@ namespace GcproExtensionApp
             // dataGridBML
             // 
             this.dataGridBML.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
