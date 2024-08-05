@@ -146,6 +146,7 @@ namespace GcproExtensionApp
             objDefaultInfo.Description = myMotorWithBypass.EncodingDesc(
                 baseRule: ref objDefaultInfo,
                 namePrefix :GcObjectInfo.General.PrefixName,
+                nameRule: Engineering.PatternNameWithoutTypeLL,
                 withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
                 withFloorInfo: chkAddFloorToDesc.Checked,
                 withNameInfo: chkAddNameToDesc.Checked,
@@ -281,6 +282,7 @@ namespace GcproExtensionApp
             MotorWithBypass.Rule.Common.Description = myMotorWithBypass.EncodingDesc(
             baseRule: ref MotorWithBypass.Rule.Common,
             namePrefix: GcObjectInfo.General.PrefixName,
+            nameRule: Engineering.PatternNameWithoutTypeLL,
             withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
             withFloorInfo: chkAddFloorToDesc.Checked,
             withNameInfo: chkAddNameToDesc.Checked,
@@ -390,7 +392,8 @@ namespace GcproExtensionApp
         }
         private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
-
+            if (String.IsNullOrEmpty(txtDescriptionRule.Text))
+            { return; }
             if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
             {
                 MotorWithBypass.Rule.Common.DescriptionRule = txtDescriptionRule.Text;

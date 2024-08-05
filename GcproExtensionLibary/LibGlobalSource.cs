@@ -103,12 +103,9 @@ namespace GcproExtensionLibrary
                 result = ExtractStringPart(pattern, stringTobeExtract);
                 return result;
             }
-            public static string ExtractLetterAndNumeric(string stringTobeExtract)
+            public static string ExtractOnlyString(string stringTobeExtract)
             {
-                string result;
-                string pattern = @"^[a-zA-A0-9-]+$";
-                result = ExtractStringPart(pattern, stringTobeExtract);
-                return result;
+                return stringTobeExtract.Replace(ExtractNumericPart(stringTobeExtract, false), string.Empty);
             }
             /*
             static string RemoveParts(string input, string[] partsToRemove,bool removeSpace)

@@ -160,8 +160,6 @@ namespace GcproExtensionApp
             }
 
         }
-
-
         private void TxtProjectPath_DoubleClick(object sender, EventArgs e)
         {
             BtnOpenProjectDB_Click(sender, e);

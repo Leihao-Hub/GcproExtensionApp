@@ -12,6 +12,8 @@ using GcproExtensionLibrary.Gcpro.GCObject;
 using GcproExtensionLibrary.FileHandle;
 using GcproExtensionLibrary;
 using GcproExtensionLibrary.Gcpro;
+using System.Net.NetworkInformation;
+using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
@@ -25,15 +27,15 @@ namespace GcproExtensionApp
         #region Public object in this class
         VLS myVLS = new VLS(AppGlobal.GcproDBInfo.GcproTempPath);
         ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-
+        //  string vlsSuffixGroup = GcObjectInfo.VLS.Suffix;
+        string vlsSuffixGroup= $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_VLS}.{AppGlobal.JS_SUFFIX}.";
         System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
-
-        private string DEMO_NAME_VLS = "=A-1001-01/02";
-        private string DEMO_NAME_RULE_VLS = "1001";
-        private string DEMO_DESCRIPTION_VLS = "100号毛麦仓下闸门/或者空白";
-        private string DEMO_DESCRIPTION_RULE_VLS = "100/或者空白";
+        private string DEMO_NAME_VLS = "=A-1201-01/02";
+        private string DEMO_NAME_RULE_VLS = "1201";
+        private string DEMO_DESCRIPTION_VLS = "101号筒仓出仓闸门/或者空白";
+        private string DEMO_DESCRIPTION_RULE_VLS = "101/或者空白";
         private string namePrefix=string.Empty;
         #endregion
        // private int value9 = 0;
@@ -43,7 +45,8 @@ namespace GcproExtensionApp
         private float tempFloat = (float)0.0;
         private bool tempBool = false;
         private int nameLen = 0;
-        List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
+       
+        private GcBaseRule objDefaultInfo;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
@@ -156,10 +159,46 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
+
+            objDefaultInfo.NameRule = "1201";
+            objDefaultInfo.DescLine = "倒仓A线";
+            objDefaultInfo.DescFloor = "1楼";
+            objDefaultInfo.Name = "=A-1201-01/02";
+            objDefaultInfo.DescObject = "101号筒仓出仓闸门";
+            objDefaultInfo.NameRuleInc = VLS.Rule.Common.NameRuleInc;
+            objDefaultInfo.DescriptionRuleInc = VLS.Rule.Common.DescriptionRuleInc;
+            VLS.Rule.Common.Cabinet = VLS.Rule.Common.Power = string.Empty;
+            objDefaultInfo.Description = myVLS.EncodingDesc(
+               baseRule: ref objDefaultInfo,
+               nameRule: Engineering.PatternNameWithoutTypeLL,
+               namePrefix: GcObjectInfo.General.PrefixName,
+               withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+               withFloorInfo: chkAddFloorToDesc.Checked,
+               withNameInfo: chkAddNameToDesc.Checked,
+               withCabinet: chkAddCabinetToDesc.Checked,
+               withPower: false,
+               nameOnlyWithNumber: chkNameOnlyNumber.Checked);
+            if (String.IsNullOrEmpty(VLS.Rule.Common.Description))
+            { VLS.Rule.Common.Description = objDefaultInfo.Description; }
+
+            if (String.IsNullOrEmpty(VLS.Rule.Common.Name))
+            { VLS.Rule.Common.Name = objDefaultInfo.Name; }
+
+            if (String.IsNullOrEmpty(VLS.Rule.Common.DescLine))
+            { VLS.Rule.Common.DescLine = objDefaultInfo.DescLine; }
+
+            if (String.IsNullOrEmpty(VLS.Rule.Common.DescFloor))
+            { VLS.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
+
+            if (String.IsNullOrEmpty(VLS.Rule.Common.DescObject))
+            { VLS.Rule.Common.DescObject = objDefaultInfo.DescObject; }
+
             txtSymbolRule.Text = VLS.Rule.Common.NameRule;
             txtSymbolIncRule.Text = VLS.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = VLS.Rule.Common.DescriptionRule;
-            txtDescriptionIncRule.Text = VLS.Rule.Common.DescriptionRuleInc;          
+            txtDescriptionIncRule.Text = VLS.Rule.Common.DescriptionRuleInc;
+            txtSymbol.Text = VLS.Rule.Common.Name;
+            txtDescription.Text = VLS.Rule.Common.Description;
         }
         public void CreateTips()
         {
@@ -195,7 +234,6 @@ namespace GcproExtensionApp
             { 
                 CreateVLSImpExp(oledb); 
             }
-
         }
         public void Default()
         {
@@ -215,8 +253,7 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
-            ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;          
-            myVLS.Value9 = "0";           
+            ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;                    
             ComboEquipmentSubType.SelectedIndex = 2;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
@@ -227,7 +264,6 @@ namespace GcproExtensionApp
         #endregion
         private void CreateVLSImpExp(OleDb oledb)
         {
-
             bool result = myVLS.CreateImpExpDef((tableName, impExpList) =>
             {
                 return oledb.InsertMultipleRecords(tableName, impExpList);
@@ -254,8 +290,35 @@ namespace GcproExtensionApp
         #region <---Rule and autosearch part--->
 
         #region <------Check and store rule event------>
+        private void UpdateDesc()
+        {
+            VLS.Rule.Common.Description = myVLS.EncodingDesc(
+                       baseRule: ref VLS.Rule.Common,
+                       namePrefix: GcObjectInfo.General.PrefixName,
+                       nameRule: Engineering.PatternNameWithoutTypeLL,
+                       withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+                       withFloorInfo: chkAddFloorToDesc.Checked,
+                       withNameInfo: chkAddNameToDesc.Checked,
+                       withCabinet: chkAddCabinetToDesc.Checked,
+                       withPower: false,
+                       nameOnlyWithNumber: chkNameOnlyNumber.Checked
+                       );
+            txtDescription.Text = VLS.Rule.Common.Description;
+        }
+        private void TxtSymbol_TextChanged(object sender, EventArgs e)
+        {
+            txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
+            NamePrefix();
+            NameSubElements(namePrefix);
+            myVLS.Name = txtSymbol.Text;
+            VLS.Rule.Common.Name = txtSymbol.Text;
+            UpdateDesc();
+        }
+
         private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtSymbolRule.Text))
+            { return; }
             if (AppGlobal.CheckNumericString(txtSymbolRule.Text))
             {
                 VLS.Rule.Common.NameRule = txtSymbolRule.Text;
@@ -265,6 +328,39 @@ namespace GcproExtensionApp
                 AppGlobal.MessageNotNumeric();
             }
         }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+            //  txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtDescription.Text, false);
+   
+            if (!VLS.Rule.Common.Description.Equals(txtDescription.Text))
+            {
+                VLS.Rule.Common.Description = txtDescription.Text;
+            }
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(VLS.Rule.Common.DescObject, false);
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
+     
+        }
+
+        private void txtDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    VLS.Rule.Common.Description = txtDescription.Text;
+                    myVLS.DecodingDesc(ref VLS.Rule.Common, AppGlobal.DESC_SEPARATOR);
+                    UpdateDesc();
+                }
+                catch 
+                {
+                }
+            }
+        }
+
         private void txtRcvLN_TextChanged(object sender, EventArgs e)
         {
             txtRcvLNRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtRcvLN.Text, false);
@@ -288,7 +384,6 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-
                 if (AppGlobal.CheckNumericString(txtSymbolIncRule.Text))
                 {
                     VLS.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
@@ -301,16 +396,27 @@ namespace GcproExtensionApp
         }
         private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (string.IsNullOrEmpty(txtDescriptionRule.Text))
+            { return; }
+
+
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
+            if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
             {
-                if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
+                string descObjectNumber = LibGlobalSource.StringHelper.ExtractNumericPart(VLS.Rule.Common.DescObject, false);
+                if (!string.IsNullOrEmpty(descObjectNumber))
                 {
                     VLS.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                    VLS.Rule.Common.DescObject = VLS.Rule.Common.DescObject.Replace(descObjectNumber, VLS.Rule.Common.DescriptionRule);
+                    UpdateDesc();
                 }
-                else
-                {
-                    AppGlobal.MessageNotNumeric();
-                }
+            }
+            else
+            {
+                AppGlobal.MessageNotNumeric();
             }
         }
         private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
@@ -365,7 +471,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpLNSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.InpLN", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{vlsSuffixGroup}InpLN", newJsonKeyValue);
                 GcObjectInfo.VLS.SuffixInpLN = newJsonKeyValue;
 
             }
@@ -379,7 +485,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpLNSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.OutpLN", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{vlsSuffixGroup}OutpLN", newJsonKeyValue);
                 GcObjectInfo.VLS.SuffixOutpLN = newJsonKeyValue;
                
             }
@@ -401,7 +507,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpHNSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.InpHN", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{vlsSuffixGroup}InpHN", newJsonKeyValue);
                 GcObjectInfo.VLS.SuffixInpHN = newJsonKeyValue;
 
             }
@@ -415,7 +521,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpHNSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.OutpHN", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{vlsSuffixGroup}OutpHN", newJsonKeyValue);
                 GcObjectInfo.VLS.SuffixOutpHN = newJsonKeyValue;              
             }
         }
@@ -433,7 +539,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpRunRevSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.InpRunRev", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{vlsSuffixGroup}InpRunRev", newJsonKeyValue);
                 GcObjectInfo.VLS.SuffixInpRunRev = newJsonKeyValue;
             }
         }
@@ -450,7 +556,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpRunFwdSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.InpRunFwd", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{vlsSuffixGroup}InpRunFwd", newJsonKeyValue);
                 GcObjectInfo.VLS.SuffixInpRunFwd = newJsonKeyValue;
             }
         }
@@ -547,7 +653,6 @@ namespace GcproExtensionApp
             txtValue10.Text = myVLS.Value10;
         }
         #endregion
-
         #region <------Field in database display
         private void TxtSymbol_MouseEnter(object sender, EventArgs e)
         {
@@ -707,17 +812,7 @@ namespace GcproExtensionApp
             objectBrowser.OType = Convert.ToString(VLS.OTypeValue);
             objectBrowser.Show();
         }
-        private void TxtSymbol_TextChanged(object sender, EventArgs e)
-        {
-            txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
-            NamePrefix();
-            NameSubElements(namePrefix);
-            myVLS.Name = txtSymbol.Text;
-        }
-        private void txtDescription_TextChanged(object sender, EventArgs e)
-        {
-            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtDescription.Text, false);
-        }
+    
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
@@ -790,7 +885,8 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtVLSSuffixBML.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.VLS", newJsonKeyValue);
+               // LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.VLS.Suffix.VLS", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_VLS}.{AppGlobal.JS_SUFFIX}.{AppGlobal.JS_VLS}", newJsonKeyValue);
                 GcObjectInfo.VLS.SuffixVLS = newJsonKeyValue;
             }
         }
@@ -800,7 +896,8 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtLocalPanelPrefix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.Prefix.LocalPanel", newJsonKeyValue);
+            //    LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.Prefix.LocalPanel", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_BML}.{AppGlobal.JS_PREFIX}.LocalPanel", newJsonKeyValue);      
                 BML.PrefixLocalPanel = newJsonKeyValue;
             }
         }
@@ -848,7 +945,8 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.VLS.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.VLS.Path", BML.VLS.BMLPath);
+          //  LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.VLS.Path", BML.VLS.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_BML}.{AppGlobal.JS_VLS}.{AppGlobal.JS_PATH}", BML.VLS.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -903,43 +1001,44 @@ namespace GcproExtensionApp
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text = BML.VLS.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.VLS.ColumnName; 
-            nameColumn.Name = nameof(BML.VLS.ColumnName);                                              
+            nameColumn.HeaderText = BML.ColumnName; 
+            nameColumn.Name = nameof(BML.ColumnName);                                              
             dataGridBML.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.VLS.ColumnDesc;
-            descColumn.Name = nameof(BML.VLS.ColumnDesc);
+            descColumn.HeaderText = BML.ColumnDesc;
+            descColumn.Name = nameof(BML.ColumnDesc);
             dataGridBML.Columns.Add(descColumn);
 
             DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.VLS.ColumnFloor;
-            floorColumn.Name = nameof(BML.VLS.ColumnFloor);
+            floorColumn.HeaderText = BML.ColumnFloor;
+            floorColumn.Name = nameof(BML.ColumnFloor);
             dataGridBML.Columns.Add(floorColumn);
 
             DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.VLS.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.VLS.ColumnCabinet);
+            cabinetColumn.HeaderText = BML.ColumnCabinet;
+            cabinetColumn.Name = nameof(BML.ColumnCabinet);
             dataGridBML.Columns.Add(cabinetColumn);
 
             DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.VLS.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.VLS.ColumnCabinetGroup);
+            cabinetColumnGroup.HeaderText = BML.ColumnCabinetGroup;
+            cabinetColumnGroup.Name = nameof(BML.ColumnCabinetGroup);
             dataGridBML.Columns.Add(cabinetColumnGroup);
 
             DataGridViewTextBoxColumn ioRemarkColumn = new DataGridViewTextBoxColumn();
-            ioRemarkColumn.HeaderText = BML.VLS.ColumnIORemark;
-            ioRemarkColumn.Name = nameof(BML.VLS.ColumnIORemark);
+            ioRemarkColumn.HeaderText = BML.ColumnIORemark;
+            ioRemarkColumn.Name = nameof(BML.ColumnIORemark);
             dataGridBML.Columns.Add(ioRemarkColumn);
 
             DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.VLS.ColumnLine;
-            lineColumn.Name = nameof(BML.VLS.ColumnLine);
+            lineColumn.HeaderText = BML.ColumnLine;
+            lineColumn.Name = nameof(BML.ColumnLine);
             dataGridBML.Columns.Add(lineColumn);
         }
 
         private void btnReadBML_Click(object sender, EventArgs e)
         {
+            List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
             string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text,comboIORemarkBML.Text,comboLineBML.Text};
             DataTable dataTable = new DataTable();
@@ -952,19 +1051,63 @@ namespace GcproExtensionApp
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
-            dataGridBML.Columns[nameof(BML.VLS.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.VLS.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.VLS.ColumnFloor)].DataPropertyName = dataTable.Columns[2].ColumnName;
-            dataGridBML.Columns[nameof(BML.VLS.ColumnCabinet)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.VLS.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.VLS.ColumnIORemark)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            dataGridBML.Columns[nameof(BML.VLS.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[2].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnIORemark)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
             listBMLName = LibGlobalSource.BMLHelper.ExtractUniqueCommonSubstringsWithCount(dataTable, dataTable.Columns[0].ColumnName);
             TxtQuantity.Text = listBMLName.Count.ToString();
             listBMLName.Clear();
         }
         #endregion
         #region Common used
+        private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddSectionToDesc.Checked)
+            { chkAddUserSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddUserSectionToDesc.Checked)
+            { chkAddSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+       
+        private void chkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkAddPowerToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void ComboPanel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ComboPanel.Text))
+            {
+                VLS.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{ComboPanel.Text}";
+                UpdateDesc();
+            }
+        }
         #region Genate elements name
 
         private void SubtypeChanged()
@@ -991,9 +1134,12 @@ namespace GcproExtensionApp
         }
         private void NamePrefix()
         {
-           // namePrefix = txtSymbol.Text.Substring(0, txtSymbol.Text.IndexOf(txtSymbolRule.Text)) + txtSymbolRule.Text + GcObjectInfo.General.DelimiterSymbol;
-            namePrefix= txtSymbol.Text.Replace(LibGlobalSource.StringHelper.ExtractStringPart($@"{GcObjectInfo.VLS.SuffixVLSPattern}", txtSymbol.Text),"");
-            nameLen= namePrefix.Length;
+            string svlsSuffix = LibGlobalSource.StringHelper.ExtractStringPart($@"{GcObjectInfo.VLS.SuffixVLSPattern}", txtSymbol.Text);
+            if (String.IsNullOrEmpty(svlsSuffix))
+            {
+                namePrefix = txtSymbol.Text.Replace(svlsSuffix, string.Empty);
+                nameLen = namePrefix.Length;
+            }
         }
         private void InpSubElements(string _namePrefix)
         {
@@ -1072,8 +1218,7 @@ namespace GcproExtensionApp
                 LblQuantity.Visible = true;
                 TxtQuantity.Visible = true;
                 GrpSymbolRule.Visible = true;
-                LblSymbol.Text = AppGlobal.NAME;
-                txtSymbol.Text = DEMO_NAME_VLS;
+                LblSymbol.Text = AppGlobal.NAME;       
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
                
             }
@@ -1155,7 +1300,7 @@ namespace GcproExtensionApp
             }
         }
         private void BtnConnectIO_Click(object sender, EventArgs e)
-        {
+        {           
             if (MessageBox.Show(AppGlobal.CONNECT_IO, AppGlobal.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
@@ -1315,69 +1460,727 @@ namespace GcproExtensionApp
                 AppGlobal.ReGenerateDPNode(oledb);
             }
         }
-        void AppendInfoToBuilder(CheckBox checkBox, string info, StringBuilder builder)
+  
+        private void CreateObjectCommon(VLS objVLS)
         {
-            if (checkBox.Checked)
+            #region Prepare export ai file
+            ///<OType>is set when object generated</OType>
+            ///<Name>Value is set in TxtSymbol text changed event</Name>
+            ///<Description></Description>
+            objVLS.Description = txtDescription.Text;
+            ///<ProcessFct></ProcessFct>
+            string selectedProcessFct = string.Empty;
+            if (ComboProcessFct.SelectedItem != null)
             {
-                builder.Append(info);
+                selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
+                objVLS.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            ///<Building></Building>
+            string selectedBudling = "--";
+            if (ComboBuilding.SelectedItem != null)
+            {
+                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                objVLS.Building = selectedBudling;
+            }
+            ///<Diagram></Diagram>
+            string selectedDiagram;
+            if (ComboDiagram.SelectedItem != null)
+            {
+                selectedDiagram = ComboDiagram.SelectedItem.ToString();
+                objVLS.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            ///<Page></Page>
+            objVLS.Page = txtPage.Text;
+            ///<HornCode></HornCode>
+            objVLS.HornCode = "00";
+            ///<ParMonTime></ParMonTime>
+            objVLS.MonTime = AppGlobal.ParseFloat(txtMonTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "200.0";
+            ///<ParpulseTimeLN></ParpulseTimeLN>
+            objVLS.PulseTimeLN = AppGlobal.ParseFloat(txtPulseTimeLN.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "5.0";
+            ///<ParpulseTimeHN></ParpulseTimeHN>
+            objVLS.PulseTimeHN = AppGlobal.ParseFloat(txtPulseTimeHN.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "5.0";
+            ///<ParIdlingTime></ParIdlingTime>
+            objVLS.IdlingTime = AppGlobal.ParseFloat(txtIdlingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<ParFaultDelayTime></ParFaultDelayTime>
+            objVLS.FaultDelay = AppGlobal.ParseFloat(txtFaultDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "30.0";
+            ///<ParStartDelay></ParStartDelay>
+            objVLS.StartDelay = AppGlobal.ParseFloat(txtStartDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            ///<Value10>Value is set when corresponding check box's check state changed</Value10>
+            ///                       
+            ///<InpLN></InpLN>
+            objVLS.InpLN = LibGlobalSource.NOCHILD;
+            ///<OutpFwd></OutFwd>
+            objVLS.OutpLN = LibGlobalSource.NOCHILD;
+            ///<InpRHN></InpHN>
+            objVLS.InpHN = LibGlobalSource.NOCHILD;
+            ///<OutpHN</OutpHN>
+            objVLS.OutpHN = LibGlobalSource.NOCHILD;
+            ///<InpFaultDev></InpFaultDev>
+            objVLS.InpRunRev = txtInpFaultDev.Text;
+            ///<InpRunRev></InpRunRev>
+            objVLS.InpRunFwd = LibGlobalSource.NOCHILD;
+            ///<InpRunRev></InpRunRev>
+            objVLS.InpRunRev = LibGlobalSource.NOCHILD;
+            ///<InHWStop></InHWStop>
+            objVLS.HwStop = string.Empty;
+            ///<RefRcvLN></RefRcvLN>
+            objVLS.RefRcvLN = string.Empty;
+            ///<RefRcvHN></RefRcvHN>
+            objVLS.RefRcvHN = string.Empty;
+            ///<RefSndBin></RefSndBin>
+            objVLS.RefSndBin = string.Empty;
+            ///<RefAsp></RefAsp>
+            objVLS.RefAsp = string.Empty;
+            #endregion
+        }
+        public void CreatObjectBML(DataGridView dataFromBML, VLS objVLS,
+       (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+       out (int Value, int Max) processValue)
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();     
+            StringBuilder descBuilder = new StringBuilder();
+            string commName;
+            int noOfSubIO = 0;
+            int IO =  dataFromBML.Rows.Count;
+            bool[] objChecked = new bool[dataFromBML.Rows.Count];
+            string vlsDesc = string.Empty;
+            string vlsType = string.Empty;
+            string cabinet = string.Empty;
+            string cabinetGroup = string.Empty;
+            string vlsIORemark = string.Empty;
+            string vlsElevation = string.Empty;
+            string _nameNumberString = string.Empty;
+            string userDefinedSection = string.Empty;   
+            string vlsRcvLN, vlsRcvHN, vlsAsp, vlsSndBin;
+            vlsRcvLN = vlsRcvHN = vlsAsp = vlsSndBin = string.Empty;
+            DataGridViewCell cell;
+            listBMLName = LibGlobalSource.BMLHelper.ExtractUniqueCommonSubstringsWithCount(dataFromBML, nameof(BML.ColumnName));
+            int quantityNeedToBeCreate = listBMLName.Count;
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
+            bool moreThanOne = quantityNeedToBeCreate > 1;
+            bool onlyOne = quantityNeedToBeCreate == 1;
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
+            VLS.Rule.Common =objDefaultInfo;
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
+            {
+                commName = Convert.ToString(listBMLName[i].Key.ToString());
+                noOfSubIO = (int)listBMLName[i].Value;
+                int noOfSubChecked = 0;
+                if (String.IsNullOrEmpty(commName))
+                {
+                    continue;
+                }
+
+                for (int row = 0; row < dataFromBML.Rows.Count; row++)
+                {
+                    if (objChecked[row])
+                    { continue; }
+                    if (noOfSubChecked >= noOfSubIO)
+                    { break; }
+                    cell =  dataFromBML.Rows[row].Cells[nameof(BML.ColumnName)];
+                    string bmlObjName = Convert.ToString(cell.Value);
+                    if (bmlObjName.StartsWith(commName))
+                    {
+                        noOfSubChecked += 1;
+                        objChecked[row] = true;
+                        cell =  dataFromBML.Rows[row].Cells[nameof(BML.ColumnDesc)];
+                        vlsType = Convert.ToString(cell.Value);
+                        vlsDesc = Convert.ToString(cell.Value);
+                        userDefinedSection = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value);
+                        ///<Summary>
+                        ///Select Subtype
+                        ///Select PType
+                        ///</Summary>
+                        if (vlsType.Equals(BML.VLS.ManualFlap))
+                        {
+                            objVLS.SubType = VLS.VMF;
+                            objVLS.PType = VLS.P7082.ToString();
+                            //chkContValve.Checked = false;
+                            //chkPulseValve.Checked = false;
+                            //chkManualFlap.Checked = true;
+                        }
+                        else if (vlsType.Equals(BML.VLS.PneFlap))
+                        {
+                            switch (noOfSubIO)
+                            {
+                                case 3:
+                                    objVLS.SubType = VLS.VCO;
+                                    break;
+                                case 4:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                                default:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                            }
+                            objVLS.PType = VLS.P7082.ToString();
+                        }
+                        else if (vlsType.Equals(BML.VLS.ManualSlideGate))
+                        {
+                            objVLS.SubType = VLS.VMF;
+                            objVLS.PType = VLS.P7081.ToString();
+                        }
+                        else if (vlsType.Equals(BML.VLS.PneSlideGate))
+                        {
+                            switch (noOfSubIO)
+                            {
+                                case 3:
+                                    objVLS.SubType = VLS.VCO;
+                                    break;
+                                case 4:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                                default:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                            }
+                            objVLS.PType = VLS.P7081.ToString();
+                        }
+                        else if (vlsType.Equals(BML.VLS.PneTwoWayValve))
+                        {
+                            switch (noOfSubIO)
+                            {
+                                case 3:
+                                    objVLS.SubType = VLS.VCO;
+                                    break;
+                                case 4:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                                default:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                            }
+                            objVLS.PType = VLS.P7082.ToString();
+                        }
+                        else if (vlsType.Equals(BML.VLS.PneShutOffValve))
+                        {
+                            switch (noOfSubIO)
+                            {
+                                case 3:
+                                    objVLS.SubType = VLS.VCO;
+                                    break;
+                                case 4:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                                default:
+                                    objVLS.SubType = VLS.VCO;
+                                    break;
+                            }
+                            objVLS.PType = VLS.P7081.ToString();
+                        }
+                        else if (vlsType.Equals(BML.VLS.PneAspValve))
+                        {
+                            switch (noOfSubIO)
+                            {
+                                case 3:
+                                    objVLS.SubType = VLS.VCO;
+                                    break;
+                                case 4:
+                                    objVLS.SubType = VLS.VPO;
+                                    break;
+                                default:
+                                    objVLS.SubType = VLS.VCO;
+                                    break;
+                            }
+                            objVLS.PType = VLS.P7081.ToString();
+                        }
+                        if (noOfSubChecked == 1)
+                        {
+                            cell =  dataFromBML.Rows[row].Cells[nameof(BML.ColumnCabinet)];
+                            cabinet = Convert.ToString(cell.Value);
+                            cell =  dataFromBML.Rows[row].Cells[nameof(BML.ColumnCabinetGroup)];
+                            cabinetGroup = Convert.ToString(cell.Value);
+                            cell =  dataFromBML.Rows[row].Cells[nameof(BML.ColumnFloor)];
+                            vlsElevation = Convert.ToString(cell.Value);
+                        }
+                        string bmlObjNameSuffix = bmlObjName.Replace(commName, "");
+                        if (bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixOutpLN.Replace(":O", ""), StringComparison.InvariantCultureIgnoreCase)
+                            || bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixInpLN.Replace(":I", ""), StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            cell =  dataFromBML.Rows[row].Cells[nameof(BML.ColumnIORemark)];
+                            vlsIORemark = Convert.ToString(cell.Value);
+                            if (!string.IsNullOrEmpty(vlsIORemark))
+                            {
+                                vlsRcvLN = BML.VLS.ParseIORemark(vlsIORemark);
+                            }
+                        }
+                        else if (bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixOutpHN.Replace(":O", ""), StringComparison.InvariantCultureIgnoreCase)
+                            || bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixInpHN.Replace(":I", ""), StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            cell =  dataFromBML.Rows[row].Cells[nameof(BML.ColumnIORemark)];
+                            vlsIORemark = Convert.ToString(cell.Value);
+                            if (!string.IsNullOrEmpty(vlsIORemark))
+                            {
+                                vlsRcvHN = BML.VLS.ParseIORemark(vlsIORemark);
+                            }
+                        }
+                    }
+                }
+
+                commName = objVLS.SubType == VLS.VMF ? LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNamePrefix, commName) : commName;
+                objVLS.Name = commName + GcObjectInfo.VLS.SuffixVLS;
+                NameSubElements(commName);
+                SubtypeChanged();
+                objVLS.InpLN = String.IsNullOrEmpty(TxtInpLN.Text) ? LibGlobalSource.NOCHILD : TxtInpLN.Text;
+                objVLS.OutpLN = String.IsNullOrEmpty(TxtOutpLN.Text) ? LibGlobalSource.NOCHILD : TxtOutpLN.Text;
+                objVLS.InpHN = String.IsNullOrEmpty(TxtInpHN.Text) ? LibGlobalSource.NOCHILD : TxtInpHN.Text;
+                objVLS.OutpHN = String.IsNullOrEmpty(TxtOutpHN.Text) ? LibGlobalSource.NOCHILD : TxtOutpHN.Text;
+                objVLS.InpRunRev = String.IsNullOrEmpty(txtInpRunRev.Text) ? LibGlobalSource.NOCHILD : txtInpRunRev.Text;
+                objVLS.InpRunFwd = String.IsNullOrEmpty(txtInpRunFwd.Text) ? LibGlobalSource.NOCHILD : txtInpRunFwd.Text;
+                ///<AdditionInfoToDesc>
+                ///</AdditionInfoToDesc>       
+                if (addtionToDesc.Section)
+                {
+                    _nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, objVLS.Name);
+                    if (!string.IsNullOrEmpty(_nameNumberString))
+                    {
+                        if (AppGlobal.ParseInt(_nameNumberString.Substring(0, 4), out tempInt))
+                        {
+                            VLS.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
+                        }
+                    }
+                }
+                else if (addtionToDesc.UserDefSection)
+                {
+                    VLS.Rule.Common.DescLine = userDefinedSection ;
+                }
+                VLS.Rule.Common.Name = objVLS.Name;
+                VLS.Rule.Common.DescFloor = objVLS.Elevation;
+                VLS.Rule.Common.DescObject = vlsDesc;
+                VLS.Rule.Common.Cabinet = descBuilder.Append($"{GcObjectInfo.General.AddInfoCabinet}{objVLS.Panel_ID}").ToString();
+                descBuilder.Clear();
+
+                objVLS.Description = objVLS.EncodingDesc(
+                   baseRule: ref VLS.Rule.Common,
+                   namePrefix: GcObjectInfo.General.PrefixName,
+                   nameRule: Engineering.PatternNameWithoutTypeLL,
+                   withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                   withFloorInfo: addtionToDesc.Elevation,
+                   withNameInfo: addtionToDesc.IdentNumber,
+                   withCabinet: addtionToDesc.Cabinet,
+                   withPower: addtionToDesc.Power,
+                   nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                );     
+                objVLS.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
+                objVLS.Elevation = vlsElevation;
+                objVLS.RefRcvLN = vlsRcvLN;
+                objVLS.RefRcvHN = vlsRcvHN;
+                objVLS.RefAsp = vlsAsp;
+                objVLS.RefSndBin = vlsSndBin;
+                objVLS.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
+            }
+            VLS.Rule.Common = objDefaultInfo;
+            processValue.Value = processValue.Max;
+            listBMLName.Clear();
+        }
+        private void CreatObjectRule(VLS objVLS,(bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+        ref (int Value, int Max) processValue)
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            #region common used variables declaration
+            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
+            string desc=string.Empty;
+            bool moreThanOne = quantityNeedToBeCreate > 1;
+            bool onlyOne = quantityNeedToBeCreate == 1;
+            StringBuilder descTotalBuilder = new StringBuilder();
+            RuleSubDataSet description, name, dpNode1;
+            description = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            name = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            dpNode1 = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            #endregion       
+            ///<Elevation></Elevation>                 
+            if (ComboElevation.SelectedItem != null)
+            {
+                string selectedElevation;
+                selectedElevation = ComboElevation.SelectedItem.ToString();
+                objVLS.Elevation = selectedElevation;
+            }
+            ///<Panel_ID></Panel_ID>                   
+            if (ComboPanel.SelectedItem != null)
+            {
+                string selectedPanel_ID;
+                selectedPanel_ID = ComboPanel.SelectedItem.ToString();
+                objVLS.Panel_ID = selectedPanel_ID;
+            }
+            ///<IsNew>is set when object generated,Default value is "No"</IsNew>
+            ///<SubType></SubType>                  
+            if (ComboEquipmentSubType.SelectedItem != null)
+            {
+                string selectedSubTypeItem;
+                selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
+                objVLS.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            else
+            {
+                objVLS.SubType = VLS.VCO;
+            }
+            ///<PType></PType>                
+            if (ComboEquipmentInfoType.SelectedItem != null)
+            {
+                string selectedPTypeItem;
+                selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
+                objVLS.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            else
+            {
+                objVLS.PType = VLS.P7081.ToString();
+            }
+            ///<FieldBusNode></FieldBusNode>
+            objVLS.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            ///<DPNode1></DPNode1>                 
+            if (ComboDPNode1.SelectedItem != null)
+            {
+                string selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
+                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                objVLS.DPNode1 = AppGlobal.FindDPNodeNo(oledb, selectDPNode1);
+                int dpnode1 = 0;
+                objVLS.FieldBusNode = AppGlobal.ParseInt(objVLS.DPNode1, out dpnode1) ? AppGlobal.FindFieldbusNodeKey(oledb, dpnode1) : LibGlobalSource.NOCHILD;
+            }
+            #region Parse rules
+            ///<ParseRule> </ParseRule>
+            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{LblSymbolIncRule.Text})");
+                    return;
+                }
+            }
+            ///<NameRule>准备生成名称规则</NameRule>
+            name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
+            if (name.PosInfo.Len == -1)
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    return;
+                }
+            }
+            else
+            {
+                name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
+            }
+            ///<DescRule>准备生成描述规则</DescRule>
+            desc = VLS.Rule.Common.DescObject;
+            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            {
+                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
+                if (description.PosInfo.Len == -1)
+                {
+                    if (moreThanOne)
+                    {
+                        AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    }
+                }
+                else
+                {
+                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(desc, txtDescriptionRule.Text);
+                }
+            }
+            #endregion
+      
+            ///<CreateObj>
+            ///Search IO key,DPNode
+            ///</CreateObj>
+            int symbolInc, symbolRule, descriptionInc;
+            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            objDefaultInfo = VLS.Rule.Common;
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
+            {
+                name.Inc = i * symbolInc;
+                name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
+                objVLS.HwStop = String.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
+                if (!String.IsNullOrEmpty(desc))
+                {
+                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
+                        && (description.PosInfo.Len != -1))
+                    {
+                        description.Inc = i * descriptionInc;
+                        description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
+                    }
+                    else
+                    {
+                        description.Name = desc;
+                    }
+                }
+                else
+                {
+                    description.Name = "阀门";
+                }
+                objVLS.Name = name.Name;
+                VLS.Rule.Common.Name = name.Name;
+                VLS.Rule.Common.DescObject = description.Name;
+                objVLS.Description = objVLS.EncodingDesc(
+                    baseRule: ref VLS.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternNameWithoutTypeLL,
+                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                    withFloorInfo: addtionToDesc.Elevation,
+                    withNameInfo: addtionToDesc.IdentNumber,
+                    withCabinet: addtionToDesc.Cabinet,
+                    withPower: addtionToDesc.Power,
+                    nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                 );
+
+                string _nameSuffix = LibGlobalSource.StringHelper.ExtractStringPart($@"{GcObjectInfo.VLS.SuffixVLSPattern}", name.Name);
+                if (!string.IsNullOrEmpty(_nameSuffix))
+                {
+                    string _name = name.Name.Replace(_nameSuffix, string.Empty);
+                    ///<InpLN></InpLN>
+                    objVLS.InpLN = _name + txtInpLNSuffix.Text;
+                    ///<OutpFwd></OutFwd>
+                    objVLS.OutpLN = _name + txtOutpLNSuffix.Text;
+                    ///<InpHN></InpHN>
+                    objVLS.InpHN = _name + txtInpHNSuffix.Text;
+                    ///<OutpHN</OutpHN>
+                    objVLS.OutpHN = _name + txtOutpHNSuffix.Text;
+                    ///<InpFaultDev></InpFaultDev>
+                    objVLS.InpRunRev = _name + txtInpFaultDevSuffix.Text;
+                    ///<InpRunRev></InpRunRev>
+                    objVLS.InpRunFwd = _name + txtInpRunFwdSuffix.Text;
+                    ///<InpRunRev></InpRunRev>
+                    objVLS.InpRunRev = _name + txtInpRunRevSuffix.Text;
+                    ///<InHWStop></InHWStop>
+                    objVLS.HwStop = txtInHWStop.Text;
+                }
+                ///<RefSndBin></RefSndBin>
+                if (!string.IsNullOrEmpty(txtSndBin.Text))
+                {
+                    RuleSubDataSet sndBin;
+                    int sndBinInc, sndBinRule;
+                    tempBool = AppGlobal.ParseInt(txtSndBinIncRule.Text, out sndBinInc);
+                    sndBin.Inc = tempBool ? i * sndBinInc : 0;
+                    tempBool = AppGlobal.ParseInt(txtSndBinRule.Text, out sndBinRule);
+                    objVLS.RefSndBin = tempBool ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + sndBin.Inc) : txtSndBin.Text;
+                }
+                ///<RefAsp></RefAsp>
+                objVLS.RefAsp = txtAsp.Text;
+                objVLS.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
+            }
+            VLS.Rule.Common = objDefaultInfo;
+            processValue.Value = processValue.Max;
+        }
+
+        private void CreatObjectAutoSearch(VLS objVLS, ref (int Value, int Max) processValue)
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            #region common used variables declaration
+            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            bool moreThanOne = quantityNeedToBeCreate > 1;
+            bool onlyOne = quantityNeedToBeCreate == 1;
+            StringBuilder descTotalBuilder = new StringBuilder();
+            RuleSubDataSet description, name, dpNode1;
+            description = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            name = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            dpNode1 = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            //未完成
+            List<Dictionary<string, string>> objSubList = new List<Dictionary<string, string>>();
+            List<GcObjectInfo.VLS.SimpleInfo> obj = new List<GcObjectInfo.VLS.SimpleInfo>();
+            List<GcObjectInfo.VLS.SimpleInfo> objOut = new List<GcObjectInfo.VLS.SimpleInfo>();
+            string filter = $@"({GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DOC} OR {GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC}) " +
+                            $@"AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND ({GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpLN}%' " +
+                            $@"{GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpHN}%' OR {GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixOutpLN}%' " +
+                            $@"{GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixOutpHN}%' OR {GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpRunFwd}%' " +
+                            $@"{GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpRunRev}%'";
+
+            filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
+            objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
+            for (int listIndex = 0; listIndex <= objSubList.Count - 1; listIndex++)
+            {
+
+                var dictionary = objSubList[listIndex];
+                var keys = new List<string>(dictionary.Keys);
+                byte _count = 0;
+                byte _countOutp = 0;
+                byte _countInp = 0;
+
+                string _nameInp = AppGlobal.GetObjectSymbolFromPattern(dictionary[keys[0]], GcObjectInfo.VLS.SuffixInpPattern);
+                string _nameOutp = AppGlobal.GetObjectSymbolFromPattern(dictionary[keys[0]], GcObjectInfo.VLS.SuffixOutpPattern);
+                string _nameMotorValve = AppGlobal.GetObjectSymbolFromPattern(dictionary[keys[0]], GcObjectInfo.VLS.SuffixOutpRunPattern);
+                bool isMotorValve = string.IsNullOrEmpty(_nameMotorValve) ? false : true;
+                if (!string.IsNullOrEmpty(_nameInp))
+                { }
+                string _name = string.IsNullOrEmpty(_nameMotorValve) ? _nameMotorValve : _nameInp;
+                if (listIndex == 0)
+                {
+                    obj.Add(new GcObjectInfo.VLS.SimpleInfo(_name, isMotorValve, _count, _countInp, _countOutp));
+                }
+                else if (listIndex > 0)
+                {
+                    bool found = false;
+                    for (int listIndexPrev = 0; listIndexPrev <= listIndex - 1; listIndexPrev++)
+                    {
+                        var dictionaryPrev = objSubList[listIndexPrev];
+                        var keysPrev = new List<string>(dictionaryPrev.Keys);
+                        var dictionaryOutPrev = objSubList[listIndexPrev];
+                        var keysOutPrev = new List<string>(dictionaryPrev.Keys);
+                        string _nameOutpPrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]]);
+                        string _nameMotorValvePrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.Motor.SuffixMotor);
+                        string _namePrev = string.IsNullOrEmpty(_nameOutpPrev) ? _nameMotorValvePrev : _nameOutpPrev;
+
+                        if (_name.Equals(_namePrev))
+                        {
+                            found = true;
+                            for (int indexObj = 0; indexObj <= obj.Count - 1; indexObj++)
+                            {
+                                GcObjectInfo.VLS.SimpleInfo updatedItem = obj[indexObj];
+                                if (updatedItem.Name.Equals(_name))
+                                {
+                                    updatedItem.Count += 1;
+                                    obj[indexObj] = updatedItem;
+
+                                }
+                            }
+                            continue;
+                        }
+
+                    }
+                    if (!found)
+                    {
+                        obj.Add(new GcObjectInfo.VLS.SimpleInfo(_name, isMotorValve, _count, _countInp, _countOutp));
+                    }
+                }
+
+                processValue.Max = quantityNeedToBeCreate - 1;
+                processValue.Value = 0;
+                ///<DescRule>生成描述规则</DescRule>
+                if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+                {
+                    description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
+                    if (description.PosInfo.Len == -1)
+                    {
+                        if (moreThanOne)
+                        {
+                            AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                            // return;
+                        }
+                    }
+                    else
+                    { description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
+                }
+                for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
+                {
+                    objVLS.CreateObject(Encoding.Unicode);
+                    processValue.Value = i;
+                }
+                processValue.Value = processValue.Max;
             }
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             try
             {
+                myVLS.Elevation = ComboElevation.Text;
+                AppGlobal.AdditionDesc.Section = chkAddSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.UserDefSection = chkAddUserSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.Elevation = chkAddFloorToDesc.Checked;
+                AppGlobal.AdditionDesc.IdentNumber = chkAddNameToDesc.Checked;
+                AppGlobal.AdditionDesc.Cabinet = chkAddCabinetToDesc.Checked;
+                AppGlobal.AdditionDesc.Power = false;
+                AppGlobal.AdditionDesc.OnlyNumber = chkNameOnlyNumber.Checked;
+                AppGlobal.ProcessValue.Value = ProgressBar.Value = 0;
                 OleDb oledb = new OleDb();
                 oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
                 oledb.IsNewOLEDBDriver = isNewOledbDriver;
                 DataTable dataTable = new DataTable();
-                #region common used variables declaration
-                int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-                bool moreThanOne = quantityNeedToBeCreate > 1;
-                bool onlyOne = quantityNeedToBeCreate == 1;
-                bool additionInfToDesc = false;
-                StringBuilder descTotalBuilder = new StringBuilder();
-                RuleSubDataSet description, name, dpNode1;
-                description = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                name = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                dpNode1 = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
+        
                 #endregion
-                #region Prepare export motor file
+                #region Prepare export VLS file
                 ///<OType>is set when object generated</OType>
                 ///<Name>Value is set in TxtSymbol text changed event</Name>
                 ///<Description></Description>
@@ -1446,508 +2249,43 @@ namespace GcproExtensionApp
                 ///<RefAsp></RefAsp>
                 myVLS.RefAsp = string.Empty;
                 #endregion
+                CreateObjectCommon(myVLS);
                 if (createMode.BML)
                 {
-                    string commName;
-                    int noOfSubIO = 0;
-                    int IO = dataGridBML.Rows.Count;
-                    bool[] objChecked = new bool[dataGridBML.Rows.Count];
-                    string vlsDesc = string.Empty;
-                    string vlsType = string.Empty;
-                    string cabinet = string.Empty;
-                    string cabinetGroup = string.Empty;
-                    string vlsIORemark = string.Empty;
-                    string vlsElevation = string.Empty;
-                    string _nameNumberString = string.Empty;
-                    string vlsRcvLN, vlsRcvHN, vlsAsp, vlsSndBin;
-                    vlsRcvLN = vlsRcvHN = vlsAsp = vlsSndBin = string.Empty;
-                    DataGridViewCell cell;
-                    listBMLName = LibGlobalSource.BMLHelper.ExtractUniqueCommonSubstringsWithCount(dataGridBML, nameof(BML.VLS.ColumnName));
-                    ProgressBar.Maximum = quantityNeedToBeCreate - 1;
-                    ProgressBar.Value = 0;
-                    for (int i = 0; i < quantityNeedToBeCreate; i++)
-                    {
-                        commName = Convert.ToString(listBMLName[i].Key.ToString());
-                        noOfSubIO = (int)listBMLName[i].Value;
-                        int noOfSubChecked = 0;
-                        //cell = dataGridBML.Rows[i].Cells[nameof(BML.VLS.ColumnName)];
-                        if (String.IsNullOrEmpty(commName))
-                        {
-                            continue;
-                        }
-                      
-                        for (int row = 0; row < dataGridBML.Rows.Count; row++)
-                        {
-                            if (objChecked[row])
-                            { continue; }
-                            if (noOfSubChecked >= noOfSubIO)
-                            { break; }
-                            cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnName)];
-                            string bmlObjName = Convert.ToString(cell.Value);
-                            if (bmlObjName.StartsWith(commName))
-                            {
-                                noOfSubChecked += 1;
-                                objChecked[row] = true;
-                                cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnDesc)];
-                                vlsType = Convert.ToString(cell.Value);
-                                vlsDesc = Convert.ToString(cell.Value);
-                                ///<Summary>
-                                ///Select Subtype
-                                ///Select PType
-                                ///</Summary>
-                                if (vlsType.Equals(BML.VLS.ManualFlap))
-                                {
-                                    myVLS.SubType = VLS.VMF;
-                                    myVLS.PType = VLS.P7082.ToString();
-                                    chkContValve.Checked = false;
-                                    chkPulseValve.Checked = false;
-                                    chkManualFlap.Checked = true;
-                                }
-                                else if (vlsType.Equals(BML.VLS.PneFlap))
-                                {
-                                    switch (noOfSubIO)
-                                    {
-                                        case 3:
-                                            myVLS.SubType = VLS.VCO;
-                                            break;
-                                        case 4:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                        default:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                    }
-                                    myVLS.PType = VLS.P7082.ToString();
-                                }
-                                else if (vlsType.Equals(BML.VLS.ManualSlideGate))
-                                {
-                                    myVLS.SubType = VLS.VMF;
-                                    myVLS.PType = VLS.P7081.ToString();
-                                }
-                                else if (vlsType.Equals(BML.VLS.PneSlideGate))
-                                {
-                                    switch (noOfSubIO)
-                                    {
-                                        case 3:
-                                            myVLS.SubType = VLS.VCO;
-                                            break;
-                                        case 4:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                        default:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                    }
-                                    myVLS.PType = VLS.P7081.ToString();
-                                }
-                                else if (vlsType.Equals(BML.VLS.PneTwoWayValve))
-                                {
-                                    switch (noOfSubIO)
-                                    {
-                                        case 3:
-                                            myVLS.SubType = VLS.VCO;
-                                            break;
-                                        case 4:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                        default:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                    }
-                                    myVLS.PType = VLS.P7082.ToString();
-                                }
-                                else if (vlsType.Equals(BML.VLS.PneShutOffValve))
-                                {
-                                    switch (noOfSubIO)
-                                    {
-                                        case 3:
-                                            myVLS.SubType = VLS.VCO;
-                                            break;
-                                        case 4:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                        default:
-                                            myVLS.SubType = VLS.VCO;
-                                            break;
-                                    }
-                                    myVLS.PType = VLS.P7081.ToString();
-                                }
-                                else if (vlsType.Equals(BML.VLS.PneAspValve))
-                                {
-                                    switch (noOfSubIO)
-                                    {
-                                        case 3:
-                                            myVLS.SubType = VLS.VCO;
-                                            break;
-                                        case 4:
-                                            myVLS.SubType = VLS.VPO;
-                                            break;
-                                        default:
-                                            myVLS.SubType = VLS.VCO;
-                                            break;
-                                    }
-                                    myVLS.PType = VLS.P7081.ToString();
-                                }
-                                if (noOfSubChecked == 1)
-                                {
-                                    cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnCabinet)];
-                                    cabinet = Convert.ToString(cell.Value);
-                                    cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnCabinetGroup)];
-                                    cabinetGroup = Convert.ToString(cell.Value);
-                                    cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnFloor)];
-                                    vlsElevation = Convert.ToString(cell.Value);
-                                }
-                                string bmlObjNameSuffix = bmlObjName.Replace(commName, "");
-                                if (bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixOutpLN.Replace(":O", ""), StringComparison.InvariantCultureIgnoreCase)
-                                    || bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixInpLN.Replace(":I", ""), StringComparison.InvariantCultureIgnoreCase))
-                                {
-                                    cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnIORemark)];
-                                    vlsIORemark = Convert.ToString(cell.Value);
-                                    if (!string.IsNullOrEmpty(vlsIORemark))
-                                    {
-                                        vlsRcvLN = BML.VLS.ParseIORemark(vlsIORemark);
-                                    }
-                                }
-                                else if (bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixOutpHN.Replace(":O", ""), StringComparison.InvariantCultureIgnoreCase)
-                                    || bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixInpHN.Replace(":I", ""), StringComparison.InvariantCultureIgnoreCase))
-                                {
-                                    cell = dataGridBML.Rows[row].Cells[nameof(BML.VLS.ColumnIORemark)];
-                                    vlsIORemark = Convert.ToString(cell.Value);
-                                    if (!string.IsNullOrEmpty(vlsIORemark))
-                                    {
-                                        vlsRcvHN = BML.VLS.ParseIORemark(vlsIORemark);
-                                    }
-                                }
-                            }
-                        }
-
-                        commName = myVLS.SubType==VLS.VMF? LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNamePrefix,commName):commName;
-                        myVLS.Name= commName + txtVLSSuffixBML.Text;
-                        NameSubElements(commName);
-                        SubtypeChanged();
-                        myVLS.InpLN = String.IsNullOrEmpty(TxtInpLN.Text) ? LibGlobalSource.NOCHILD : TxtInpLN.Text;
-                        myVLS.OutpLN = String.IsNullOrEmpty(TxtOutpLN.Text) ? LibGlobalSource.NOCHILD : TxtOutpLN.Text;
-                        myVLS.InpHN = String.IsNullOrEmpty(TxtInpHN.Text) ? LibGlobalSource.NOCHILD : TxtInpHN.Text;
-                        myVLS.OutpHN = String.IsNullOrEmpty(TxtOutpHN.Text) ? LibGlobalSource.NOCHILD : TxtOutpHN.Text;
-                        myVLS.InpRunRev = String.IsNullOrEmpty(txtInpRunRev.Text) ? LibGlobalSource.NOCHILD : txtInpRunRev.Text;
-                        myVLS.InpRunFwd = String.IsNullOrEmpty(txtInpRunFwd.Text) ? LibGlobalSource.NOCHILD : txtInpRunFwd.Text;
-                    
-                        ///<AdditionInfoToDesc>
-                        ///</AdditionInfoToDesc>
-                        descTotalBuilder.Clear();
-
-                        additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
-                            chkAddCabinetToDesc.Checked;
-                        if (chkAddSectionToDesc.Checked)
-                        {
-                             _nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, myVLS.Name);
-                            if (!string.IsNullOrEmpty(_nameNumberString))
-                            {
-                                if (AppGlobal.ParseInt(_nameNumberString.Substring(0,4), out tempInt))
-                                {
-                                    descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
-                                }
-                            }
-                        }
-                        if (additionInfToDesc)
-                        {
-                            AppendInfoToBuilder(chkAddFloorToDesc, $"{myVLS.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
-                            string descName = chkNameOnlyNumber.Checked ? _nameNumberString : LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myVLS.Name);
-                            descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
-                            AppendInfoToBuilder(chkAddNameToDesc, $"({descName})", descTotalBuilder);
-                        }
-                        descTotalBuilder.Append($"{vlsDesc}");
-                        if (additionInfToDesc)
-                        {
-                            descTotalBuilder.Append("[");
-                           // AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myVLS.Name)}", descTotalBuilder);
-                           // AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myVLS.Elevation}", descTotalBuilder);
-                            AppendInfoToBuilder(chkAddCabinetToDesc, $"{GcObjectInfo.General.AddInfoCabinet}{myVLS.Panel_ID}", descTotalBuilder);                          
-                            descTotalBuilder.Append("]");
-                        }
-
-                        myVLS.Description = descTotalBuilder.ToString();
-                      //  myVLS.Description = vlsDesc;
-                        myVLS.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
-                        myVLS.Elevation = vlsElevation;
-                        myVLS.RefRcvLN = vlsRcvLN;
-                        myVLS.RefRcvHN = vlsRcvHN;
-                        myVLS.RefAsp = vlsAsp;
-                        myVLS.RefSndBin = vlsSndBin;
-                        myVLS.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i;
-                    }
-                    listBMLName.Clear();
+                    CreatObjectBML(
+                        dataFromBML:dataGridBML,
+                        objVLS:myVLS,
+                        addtionToDesc:AppGlobal.AdditionDesc,
+                        processValue:out AppGlobal.ProcessValue
+                        );
                 }
                 else if (createMode.AutoSearch)
                 {
-                    //未完成
-                    List<Dictionary<string, string>> objSubList = new List<Dictionary<string, string>>();
-                    List<GcObjectInfo.VLS.SimpleInfo> obj = new List<GcObjectInfo.VLS.SimpleInfo>();
-                    List<GcObjectInfo.VLS.SimpleInfo> objOut = new List<GcObjectInfo.VLS.SimpleInfo>();
-                    string filter = $@"({GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DOC} OR {GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC}) " +
-                                    $@"AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND ({GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpLN}%' " +
-                                    $@"{GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpHN}%' OR {GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixOutpLN}%' " +
-                                    $@"{GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixOutpHN}%' OR {GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpRunFwd}%' " +
-                                    $@"{GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.VLS.SuffixInpRunRev}%'";
-
-                    filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
-                    objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
-                    for (int listIndex = 0; listIndex <= objSubList.Count - 1; listIndex++)
-                    {
-
-                        var dictionary = objSubList[listIndex];
-                        var keys = new List<string>(dictionary.Keys);
-                        byte _count = 0;
-                        byte _countOutp = 0;
-                        byte _countInp = 0;
-                       
-                        string _nameInp = AppGlobal.GetObjectSymbolFromPattern(dictionary[keys[0]], GcObjectInfo.VLS.SuffixInpPattern);
-                        string _nameOutp= AppGlobal.GetObjectSymbolFromPattern(dictionary[keys[0]], GcObjectInfo.VLS.SuffixOutpPattern);
-                        string _nameMotorValve = AppGlobal.GetObjectSymbolFromPattern(dictionary[keys[0]], GcObjectInfo.VLS.SuffixOutpRunPattern);
-                        bool isMotorValve = string.IsNullOrEmpty(_nameMotorValve) ? false : true;
-                        if(!string.IsNullOrEmpty(_nameInp))
-                        { }
-                        string _name = string.IsNullOrEmpty(_nameMotorValve) ? _nameMotorValve : _nameInp;          
-                        if (listIndex == 0)
-                        {
-                            obj.Add(new GcObjectInfo.VLS.SimpleInfo(_name, isMotorValve, _count, _countInp, _countOutp));                         
-                        }
-                        else if (listIndex > 0)
-                        {
-                            bool found = false;
-                            for (int listIndexPrev = 0; listIndexPrev <= listIndex - 1; listIndexPrev++)
-                            {
-                                var dictionaryPrev = objSubList[listIndexPrev];
-                                var keysPrev = new List<string>(dictionaryPrev.Keys);
-                                var dictionaryOutPrev = objSubList[listIndexPrev];
-                                var keysOutPrev = new List<string>(dictionaryPrev.Keys);
-                                string _nameOutpPrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]]);
-                                string _nameMotorValvePrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.Motor.SuffixVFC);
-                                string _namePrev = string.IsNullOrEmpty(_nameOutpPrev) ? _nameMotorValvePrev : _nameOutpPrev;
-
-                                if (_name.Equals(_namePrev))
-                                {
-                                    found = true;
-                                    for (int indexObj = 0; indexObj <= obj.Count - 1; indexObj++)
-                                    {
-                                        GcObjectInfo.VLS.SimpleInfo updatedItem = obj[indexObj];
-                                        if (updatedItem.Name.Equals(_name))
-                                        {
-                                            updatedItem.Count += 1;
-                                            obj[indexObj] = updatedItem;
-
-                                        }
-                                    }
-                                    continue;
-                                }
-
-                            }
-                            if (!found)
-                            {
-                                obj.Add(new GcObjectInfo.VLS.SimpleInfo(_name, isMotorValve, _count, _countInp, _countOutp));
-                            }
-                        }
-
-                        ProgressBar.Maximum = quantityNeedToBeCreate - 1;
-                        ProgressBar.Value = 0;
-                        ///<DescRule>生成描述规则</DescRule>
-                        if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                        {
-                            description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                            if (description.PosInfo.Len == -1)
-                            {
-                                if (moreThanOne)
-                                {
-                                    AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                                    // return;
-                                }
-                            }
-                            else
-                            { description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
-                        }
-                        for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
-                        {
-                            myVLS.CreateObject(Encoding.Unicode);
-                            ProgressBar.Value = i;
-                        }
-                        ProgressBar.Value = ProgressBar.Maximum;
-                    }
+                    CreatObjectAutoSearch(
+                          objVLS: myVLS,
+                          processValue: ref AppGlobal.ProcessValue
+                          );
                 }
                 else if (createMode.Rule)
                 {
-                    ///<Elevation></Elevation>                 
-                    if (ComboElevation.SelectedItem != null)
-                    {
-                        string selectedElevation;
-                        selectedElevation = ComboElevation.SelectedItem.ToString();
-                        myVLS.Elevation = selectedElevation;
-                    }
-                    ///<Panel_ID></Panel_ID>                   
-                    if (ComboPanel.SelectedItem != null)
-                    {
-                        string selectedPanel_ID;
-                        selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                        myVLS.Panel_ID = selectedPanel_ID;
-                    }
-                    ///<IsNew>is set when object generated,Default value is "No"</IsNew>
-                    ///<SubType></SubType>                  
-                    if (ComboEquipmentSubType.SelectedItem != null)
-                    {
-                        string selectedSubTypeItem;
-                        selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                        myVLS.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                    }
-                    else
-                    {
-                        myVLS.SubType = VLS.VCO;
-                    }
-                    ///<PType></PType>                
-                    if (ComboEquipmentInfoType.SelectedItem != null)
-                    {
-                        string selectedPTypeItem;
-                        selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                        myVLS.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                    }
-                    else
-                    {
-                        myVLS.PType = VLS.P7081.ToString();
-                    }
-                    ///<FieldBusNode></FieldBusNode>
-                    myVLS.FieldBusNode = LibGlobalSource.NOCHILD; ;
-                    ///<DPNode1></DPNode1>                 
-                    if (ComboDPNode1.SelectedItem != null)
-                    {
-                        string selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
-                        oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                        oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                        myVLS.DPNode1 = AppGlobal.FindDPNodeNo(oledb, selectDPNode1);
-                        int dpnode1 = 0;
-                        myVLS.FieldBusNode = AppGlobal.ParseInt(myVLS.DPNode1, out dpnode1) ? AppGlobal.FindFieldbusNodeKey(oledb, dpnode1) : LibGlobalSource.NOCHILD;
-                    }
-                    #region Parse rules
-                    ///<ParseRule> </ParseRule>
-                    if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
-                    {
-                        if (moreThanOne)
-                        {
-                            AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{LblSymbolIncRule.Text})");
-                            return;
-                        }
-                    }
-                    ///<NameRule>准备生成名称规则</NameRule>
-                    name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
-                    if (name.PosInfo.Len == -1)
-                    {
-                        if (moreThanOne)
-                        {
-                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
-                    }
-                    ///<DescRule>准备生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                    {
-                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                        if (description.PosInfo.Len == -1)
-                        {
-                            if (moreThanOne)
-                            {
-                                AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                            }
-                        }
-                        else
-                        {
-                            description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
-                        }
-                    }
-                    #endregion
-                    ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
-                    ProgressBar.Value = 0;
-                    ///<CreateObj>
-                    ///Search IO key,DPNode
-                    ///</CreateObj>
-                    int symbolInc, symbolRule, descriptionInc;
-                    tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-                    tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-                    tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-                    for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
-                    {
-                        name.Inc = i * symbolInc;
-                        name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-                        myVLS.HwStop = String.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
-                        if (!String.IsNullOrEmpty(txtDescription.Text))
-                        {
-                            if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
-                                && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
-                                && (description.PosInfo.Len != -1))
-                            {
-                                description.Inc = i * descriptionInc;
-                                description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
-                            }
-                            else
-                            {
-                                description.Name = txtDescription.Text;
-                            }
-                        }
-                        else
-                        {
-                            description.Name = "阀门";
-                        }
-                        myVLS.Name = name.Name;
-                        myVLS.Description = description.Name;
-
-                        string _nameSuffix = LibGlobalSource.StringHelper.ExtractStringPart($@"{GcObjectInfo.VLS.SuffixVLSPattern}", name.Name);
-                        if (!string.IsNullOrEmpty(_nameSuffix))
-                        {
-                            string _name = name.Name.Replace(_nameSuffix, string.Empty);
-                            ///<InpLN></InpLN>
-                            myVLS.InpLN = _name + txtInpLNSuffix.Text;
-                            ///<OutpFwd></OutFwd>
-                            myVLS.OutpLN = _name + txtOutpLNSuffix.Text;
-                            ///<InpHN></InpHN>
-                            myVLS.InpHN = _name + txtInpHNSuffix.Text;
-                            ///<OutpHN</OutpHN>
-                            myVLS.OutpHN = _name + txtOutpHNSuffix.Text;
-                            ///<InpFaultDev></InpFaultDev>
-                            myVLS.InpRunRev = _name + txtInpFaultDevSuffix.Text;
-                            ///<InpRunRev></InpRunRev>
-                            myVLS.InpRunFwd = _name + txtInpRunFwdSuffix.Text;
-                            ///<InpRunRev></InpRunRev>
-                            myVLS.InpRunRev = _name + txtInpRunRevSuffix.Text;
-                            ///<InHWStop></InHWStop>
-                            myVLS.HwStop = txtInHWStop.Text;
-                        }
-                        ///<RefSndBin></RefSndBin>
-                        if (!string.IsNullOrEmpty(txtSndBin.Text))
-                        {
-                            RuleSubDataSet sndBin;
-                            int sndBinInc, sndBinRule;
-                            tempBool = AppGlobal.ParseInt(txtSndBinIncRule.Text, out sndBinInc);
-                            sndBin.Inc = tempBool ? i * sndBinInc : 0;
-                            tempBool = AppGlobal.ParseInt(txtSndBinRule.Text, out sndBinRule);
-                            myVLS.RefSndBin = tempBool ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + sndBin.Inc) : txtSndBin.Text;
-                        }
-                        ///<RefAsp></RefAsp>
-                        myVLS.RefAsp = txtAsp.Text;
-                        myVLS.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i ;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    CreatObjectRule(
+                        objVLS: myVLS,
+                        addtionToDesc: AppGlobal.AdditionDesc,
+                        processValue: ref AppGlobal.ProcessValue
+                        );
                 }
+                ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
+                ProgressBar.Value = AppGlobal.ProcessValue.Value;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion     
+
+        #endregion
+
+      
     }
 }

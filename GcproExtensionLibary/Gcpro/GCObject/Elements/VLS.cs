@@ -282,7 +282,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             panel_ID = string.Empty;
             diagram = string.Empty;
             page = string.Empty;
-
             pType = P7081.ToString();
             hornCode = LibGlobalSource.NOCHILD;
             dpNode1 = LibGlobalSource.NOCHILD;

@@ -19,7 +19,6 @@ namespace GcproExtensionApp
 
     public partial class FormMotor : Form, IGcForm
     {
-
         public FormMotor()
         {
             InitializeComponent();
@@ -36,8 +35,8 @@ namespace GcproExtensionApp
         //private string CONNECT_AO = "关联AO";
         private string DEMO_NAME_MOTOR = "=A-2001-MXZ01";
         private string DEMO_NAME_RULE_MOTOR = "2001";
-        private string DEMO_DESCRIPTION_MOTOR = "100号基粉仓活化器/或者空白";
-        private string DEMO_DESCRIPTION_RULE_MOTOR = "100/或者空白";
+        private string DEMO_DESCRIPTION_MOTOR = "清理线A线1楼(2001)出仓刮板机";
+        private string DEMO_DESCRIPTION_RULE_MOTOR = "";
         #endregion
         private int value9 = 2;
         private int value10 = 2;
@@ -175,10 +174,14 @@ namespace GcproExtensionApp
             objDefaultInfo.DescFloor = "1楼";
             objDefaultInfo.Name = "=A-2001-MXZ01";
             objDefaultInfo.DescObject = "刮板机";
+            objDefaultInfo.DescriptionRuleInc = Motor.Rule.Common.DescriptionRuleInc;
+            objDefaultInfo.NameRuleInc = Motor.Rule.Common.NameRuleInc;
             Motor.Rule.Common.Cabinet = Motor.Rule.Common.Power = string.Empty;
+          
             objDefaultInfo.Description = myMotor.EncodingDesc(
                 baseRule: ref objDefaultInfo,
                 namePrefix :GcObjectInfo.General.PrefixName,
+                nameRule: Engineering.PatternNameWithoutTypeLL,
                 withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
                 withFloorInfo: chkAddFloorToDesc.Checked,
                 withNameInfo: chkAddNameToDesc.Checked,
@@ -282,8 +285,7 @@ namespace GcproExtensionApp
             toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
             this.Text = "电机导入文件 " + " " + myMotor.FilePath;
         }
-        #endregion
-     
+        #endregion    
         private void CreateMotorImpExp(OleDb oledb)
         {
             bool result = myMotor.CreateImpExpDef((tableName, impExpList) =>
@@ -347,9 +349,20 @@ namespace GcproExtensionApp
         {
             if (string.IsNullOrEmpty(txtDescriptionRule.Text))
             { return; }
+
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
             if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
             {
-                Motor.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                string descObjectNumber = LibGlobalSource.StringHelper.ExtractNumericPart(Motor.Rule.Common.DescObject, false);
+                if (!string.IsNullOrEmpty(descObjectNumber))
+                {
+                    Motor.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                    Motor.Rule.Common.DescObject = Motor.Rule.Common.DescObject.Replace(descObjectNumber, Motor.Rule.Common.DescriptionRule);
+                    UpdateDesc();
+                }
             }
             else
             {
@@ -608,6 +621,7 @@ namespace GcproExtensionApp
             Motor.Rule.Common.Description = myMotor.EncodingDesc(
             baseRule: ref Motor.Rule.Common,
             namePrefix: GcObjectInfo.General.PrefixName,
+            nameRule:Engineering.PatternNameWithoutTypeLL,
             withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
             withFloorInfo: chkAddFloorToDesc.Checked,
             withNameInfo: chkAddNameToDesc.Checked,
@@ -643,19 +657,29 @@ namespace GcproExtensionApp
         }
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtDescription.Text, false);
             if (!Motor.Rule.Common.Description.Equals(txtDescription.Text))
             {
-                Motor.Rule.Common.Description = txtDescription.Text;        
+                Motor.Rule.Common.Description = txtDescription.Text;
             }
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(Motor.Rule.Common.DescObject, false);
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
         }
         private void txtDescription_KeyDown(object sender, KeyEventArgs e)
-        {
-           if (e.KeyCode == Keys.Enter)
+        {         
+            if (e.KeyCode == Keys.Enter)
             {
-                Motor.Rule.Common.Description = txtDescription.Text;
-                myMotor.DecodingDesc(ref Motor.Rule.Common, AppGlobal.DESC_SEPARATOR);
-                UpdateDesc();
+                try
+                {
+                    Motor.Rule.Common.Description = txtDescription.Text;
+                    myMotor.DecodingDesc(ref Motor.Rule.Common, AppGlobal.DESC_SEPARATOR);
+                    UpdateDesc();
+                }
+                catch
+                {
+                }
             }
         }
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1014,7 +1038,6 @@ namespace GcproExtensionApp
         }
         #endregion
         #region Common used
-
         private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAddSectionToDesc.Checked)
@@ -1461,84 +1484,77 @@ namespace GcproExtensionApp
                 AppGlobal.ReGenerateDPNode(oledb);
             }
         }
-        void AppendInfoToBuilder(CheckBox checkBox, string info, StringBuilder builder)
-        {
-            if (checkBox.Checked)
-            {
-                builder.Append(info);
-            }
-        }
-        private void CreateObjectCommon()
+        private void CreateObjectCommon(Motor objMotor)
         {
             ///<ParMonTime></ParMonTime>
-            myMotor.ParMonTime = AppGlobal.ParseFloat(TxtMonTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objMotor.ParMonTime = AppGlobal.ParseFloat(TxtMonTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
             ///<ParStartDelay></ParStartDelay>
-            myMotor.ParStartDelay = AppGlobal.ParseFloat(TxtStartDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objMotor.ParStartDelay = AppGlobal.ParseFloat(TxtStartDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
             ///<ParStartingTime></ParStartingTime>
-            myMotor.ParStartingTime = AppGlobal.ParseFloat(TxtStartingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objMotor.ParStartingTime = AppGlobal.ParseFloat(TxtStartingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
             ///<ParStoppingTime></ParStoppingTime>
-            myMotor.ParStoppingTime = AppGlobal.ParseFloat(TxtStoppingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objMotor.ParStoppingTime = AppGlobal.ParseFloat(TxtStoppingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
             ///<ParIdlingTime></ParIdlingTime>
-            myMotor.ParIdlingTime = AppGlobal.ParseFloat(TxtIdlingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objMotor.ParIdlingTime = AppGlobal.ParseFloat(TxtIdlingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
             ///<ParFaultDelayTime></ParFaultDelayTime>
-            myMotor.ParFaultDelayTime = AppGlobal.ParseFloat(TxtFaultDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objMotor.ParFaultDelayTime = AppGlobal.ParseFloat(TxtFaultDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
 
             string selectedProcessFct = string.Empty;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                myMotor.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMotor.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Diagram></Diagram>
             string selectedDiagram;
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myMotor.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMotor.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Unit></Unit>
             string selectedUnit;
             if (comboUnit.SelectedItem != null)
             {
                 selectedUnit = comboUnit.SelectedItem.ToString();
-                myMotor.Unit = selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMotor.Unit = selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Page></Page>
-            myMotor.Page = txtPage.Text;
+            objMotor.Page = txtPage.Text;
             ///<Building></Building>
             string selectedBudling = "--";
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
-                myMotor.Building = selectedBudling;
+                objMotor.Building = selectedBudling;
             }
             ///<Elevation></Elevation>
             string selectedElevation;
             if (ComboElevation.SelectedItem != null)
             {
                 selectedElevation = ComboElevation.SelectedItem.ToString();
-                myMotor.Elevation = selectedElevation;
+                objMotor.Elevation = selectedElevation;
             }
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
             {
                 selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                myMotor.Panel_ID = selectedPanel_ID;
+                objMotor.Panel_ID = selectedPanel_ID;
             }
             ///<InpFwd></InpFwd>
-            myMotor.InpFwd = LibGlobalSource.NOCHILD;
+            objMotor.InpFwd = LibGlobalSource.NOCHILD;
             ///<OutpFwd></OutFwd>
-            myMotor.OutpFwd = LibGlobalSource.NOCHILD;
+            objMotor.OutpFwd = LibGlobalSource.NOCHILD;
             ///<InpRev></InpRev>
-            myMotor.InpRev = LibGlobalSource.NOCHILD;
+            objMotor.InpRev = LibGlobalSource.NOCHILD;
             ///<OutpRev></OutpRev>
-            myMotor.OutpRev = LibGlobalSource.NOCHILD;
+            objMotor.OutpRev = LibGlobalSource.NOCHILD;
             ///<InpContactor></InpContactor>
-            myMotor.InpContactor = txtInpContactor.Text;
+            objMotor.InpContactor = txtInpContactor.Text;
             ///<InHWStop></InHWStop>
             ///<Adapter></Adapter>
-            myMotor.Adapter = LibGlobalSource.NOCHILD;
+            objMotor.Adapter = LibGlobalSource.NOCHILD;
             ///<PowerApp></PowerApp>
             ///<AO></AO>
         }
@@ -1651,15 +1667,17 @@ namespace GcproExtensionApp
                 {
                     Motor.Rule.Common.DescLine = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value); ;
                 }
+              
                 Motor.Rule.Common.Name = objMotor.Name;
                 Motor.Rule.Common.DescFloor = objMotor.Elevation;
                 Motor.Rule.Common.DescObject = desc;            
                 Motor.Rule.Common.Cabinet = descBuilder.Append($"{GcObjectInfo.General.AddInfoCabinet}{objMotor.Panel_ID}").ToString();
                 descBuilder.Clear();
                 Motor.Rule.Common.Power = descBuilder.Append($"{GcObjectInfo.General.AddInfoPower}{objMotor.ParPowerNominal}").ToString();
-                myMotor.Description = myMotor.EncodingDesc(
+                objMotor.Description = objMotor.EncodingDesc(
                     baseRule: ref Motor.Rule.Common,
                     namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternNameWithoutTypeLL,
                     withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
                     withFloorInfo: addtionToDesc.Elevation,
                     withNameInfo: addtionToDesc.IdentNumber,
@@ -1675,7 +1693,7 @@ namespace GcproExtensionApp
                 Motor.Rule.Common = objDefaultInfo;
                 processValue.Value = processValue.Max;
         }
-        private void CreatObjectRule((bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+        private void CreatObjectRule(Motor objMotor,(bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
          ref (int Value, int Max) processValue)
         {
 
@@ -1883,34 +1901,34 @@ namespace GcproExtensionApp
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                 if (!motorWithVFC)
                 {
-                    if (myMotor.SubType == Motor.M11)
+                    if (objMotor.SubType == Motor.M11)
                     {
-                        myMotor.InpFwd = $"{name.Name}{txtInpFwdSuffix.Text}";
-                        myMotor.OutpFwd = $"{name.Name}{txtOutpFwdSuffix.Text}";
+                        objMotor.InpFwd = $"{name.Name}{txtInpFwdSuffix.Text}";
+                        objMotor.OutpFwd = $"{name.Name}{txtOutpFwdSuffix.Text}";
                     }
-                    else if (myMotor.SubType == Motor.M12)
+                    else if (objMotor.SubType == Motor.M12)
                     {
-                        myMotor.InpFwd = $"{name.Name}{txtInpFwdSuffix.Text}";
-                        myMotor.OutpFwd = $"{name.Name}{txtOutpFwdSuffix.Text}";
-                        myMotor.InpRev = $"{name.Name}{txtInpRevSuffix.Text}";
-                        myMotor.OutpRev = $"{name.Name}{txtOutpRevSuffix.Text}";
+                        objMotor.InpFwd = $"{name.Name}{txtInpFwdSuffix.Text}";
+                        objMotor.OutpFwd = $"{name.Name}{txtOutpFwdSuffix.Text}";
+                        objMotor.InpRev = $"{name.Name}{txtInpRevSuffix.Text}";
+                        objMotor.OutpRev = $"{name.Name}{txtOutpRevSuffix.Text}";
                     }
                 }
                 else
                 {
-                    myMotor.Adapter = $"{name.Name}{txtVFCSuffix.Text}";
+                    objMotor.Adapter = $"{name.Name}{txtVFCSuffix.Text}";
                 }
-                myMotor.PowerApp = String.IsNullOrEmpty(txtPowerApp.Text) ? string.Empty : $"{name.Name}{txtPowerAppSuffix.Text}";
-                myMotor.AO = String.IsNullOrEmpty(txtAO.Text) ? string.Empty : $"{name.Name}{txtAOSuffix.Text}";
-                myMotor.HWStop = String.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
+                objMotor.PowerApp = String.IsNullOrEmpty(txtPowerApp.Text) ? string.Empty : $"{name.Name}{txtPowerAppSuffix.Text}";
+                objMotor.AO = String.IsNullOrEmpty(txtAO.Text) ? string.Empty : $"{name.Name}{txtAOSuffix.Text}";
+                objMotor.HWStop = String.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
 
                 if (needDPNodeChanged && moreThanOne)
                 {
                     dpNode1.Inc = i * symbolInc;
                     dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    myMotor.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
+                    objMotor.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
                     int dpnode1 = 0;
-                    myMotor.FieldBusNode = AppGlobal.ParseInt(myMotor.DPNode1, out dpnode1) ? AppGlobal.FindFieldbusNodeKey(oledb, dpnode1) : LibGlobalSource.NOCHILD;
+                    objMotor.FieldBusNode = AppGlobal.ParseInt(objMotor.DPNode1, out dpnode1) ? AppGlobal.FindFieldbusNodeKey(oledb, dpnode1) : LibGlobalSource.NOCHILD;
                 }
 
                 if (!String.IsNullOrEmpty(desc))
@@ -1932,14 +1950,15 @@ namespace GcproExtensionApp
                 {
                     description.Name = "电机";
                 }
-                myMotor.Name = name.Name;
+                objMotor.Name = name.Name;
             
 
                 Motor.Rule.Common.Name = name.Name;
                 Motor.Rule.Common.DescObject = description.Name;
-                myMotor.Description = myMotor.EncodingDesc(
+                objMotor.Description = objMotor.EncodingDesc(
                     baseRule: ref Motor.Rule.Common,
                     namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternNameWithoutTypeLL,
                     withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
                     withFloorInfo: addtionToDesc.Elevation,
                     withNameInfo: addtionToDesc.IdentNumber,
@@ -1950,13 +1969,110 @@ namespace GcproExtensionApp
 
                 //  myMotor.Description = description.Name;
 
-                myMotor.CreateObject(Encoding.Unicode);
+                objMotor.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }
             Motor.Rule.Common = objDefaultInfo;
             processValue.Value = processValue.Max;
         }
+        private void CreateObjectAutoSearch(Motor objMotor,ref (int Value, int Max) processValue)
+        {
+            List<Dictionary<string, string>> objSubList = new List<Dictionary<string, string>>();
+            List<GcObjectInfo.Motor.SimpleInfo> obj = new List<GcObjectInfo.Motor.SimpleInfo>();
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            string filter = $@"({GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DOC} OR {GcproTable.ObjData.OType.Name} = {VFCAdapter.OTypeValue}) " +
+                            $@"AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND {GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.Motor.SuffixMotor}%'";
+            filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
+            objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
 
+            for (int listIndex = 0; listIndex < objSubList.Count; listIndex++)
+            {
+                var dictionary = objSubList[listIndex];
+                var keys = new List<string>(dictionary.Keys);
+                bool isVFC = dictionary[keys[1]] == VFCAdapter.OTypeValue.ToString() ? true : false;
+                string _nameIO = AppGlobal.GetObjectSymbolFromIO(dictionary[keys[0]]);
+                string _nameVFC = AppGlobal.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.Motor.SuffixVFC);
+                string _name = string.IsNullOrEmpty(_nameIO) ? _nameVFC : _nameIO;
+                byte _count = 1;
+                if (listIndex == 0)
+                {
+                    obj.Add(new GcObjectInfo.Motor.SimpleInfo(_name, isVFC, _count));
+
+                }
+                else if (listIndex > 0)
+                {
+                    bool found = false;
+                    for (int listIndexPrev = 0; listIndexPrev < listIndex; listIndexPrev++)
+                    {
+                        var dictionaryPrev = objSubList[listIndexPrev];
+                        var keysPrev = new List<string>(dictionaryPrev.Keys);
+                        string _nameIOPrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]]);
+                        string _nameVFCPrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.Motor.SuffixVFC);
+                        string _namePrev = string.IsNullOrEmpty(_nameIOPrev) ? _nameVFCPrev : _nameIOPrev;
+
+                        if (_name.Equals(_namePrev))
+                        {
+                            found = true;
+                            for (int indexObj = 0; indexObj <= obj.Count - 1; indexObj++)
+                            {
+                                GcObjectInfo.Motor.SimpleInfo updatedItem = obj[indexObj];
+                                if (updatedItem.Name.Equals(_name))
+                                {
+                                    updatedItem.Count += 1;
+                                    obj[indexObj] = updatedItem;
+                                }
+                            }
+                            continue;
+                        }
+                    }
+                    if (!found)
+                    {
+                        obj.Add(new GcObjectInfo.Motor.SimpleInfo(_name, isVFC, _count));
+                    }
+                }
+            }
+            processValue.Max= obj.Count;
+            processValue.Value = 0;
+       
+            for (int i = 0; i <= obj.Count - 1; i++)
+            {
+                GcObjectInfo.Motor.SimpleInfo updatedItem = obj[i];
+                objMotor.Name = obj[i].Name;
+                objMotor.Description = txtDescription.Text; 
+                if (obj[i].IsVFC)
+                {
+                    objMotor.SubType = Motor.M1VFC;
+                    objMotor.PType = Motor.P7042.ToString();
+                    objMotor.Adapter = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixVFC}";
+                }
+                else if (obj[i].Count == 2)
+                {
+                    objMotor.SubType = Motor.M12;
+                    objMotor.PType = Motor.P7056.ToString();
+                    objMotor.OutpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunFwd}1";
+                    objMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}1";
+                    objMotor.OutpRev = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunRev}";
+                    objMotor.InpRev = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunRev}";
+                }
+                else
+                {
+                    objMotor.SubType = Motor.M11;
+                    objMotor.PType = Motor.P7053.ToString();
+                    objMotor.OutpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunFwd}";
+                    objMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}";
+                }
+
+                objMotor.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
+            }
+            processValue.Value = processValue.Max;
+        }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             try
@@ -1968,6 +2084,7 @@ namespace GcproExtensionApp
                 AppGlobal.AdditionDesc.IdentNumber = chkAddNameToDesc.Checked;
                 AppGlobal.AdditionDesc.Cabinet = chkAddCabinetToDesc.Checked;
                 AppGlobal.AdditionDesc.Power = chkAddPowerToDesc.Checked;
+                AppGlobal.AdditionDesc.OnlyNumber = chkNameOnlyNumber.Checked;
                 AppGlobal.ProcessValue.Value = ProgressBar.Value = 0;
                 OleDb oledb = new OleDb();
                 oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
@@ -2153,7 +2270,7 @@ namespace GcproExtensionApp
 
                 ///<AO></AO>
                 #endregion
-                CreateObjectCommon();
+                CreateObjectCommon(myMotor);
                 if (createMode.BML)
                 {
                     CreatObjectBML(
@@ -2163,121 +2280,19 @@ namespace GcproExtensionApp
                         addtionToDesc:AppGlobal.AdditionDesc, 
                         processValue: out AppGlobal.ProcessValue
                         );
-
                 }
                 else if (createMode.AutoSearch)
                 {
-                    List<Dictionary<string,string>> objSubList = new List<Dictionary<string,string>>();                  
-                    List<GcObjectInfo.Motor.SimpleInfo> obj = new List<GcObjectInfo.Motor.SimpleInfo>();
-            
-                    string filter = $@"({GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DOC} OR {GcproTable.ObjData.OType.Name} = {VFCAdapter.OTypeValue}) " + 
-                                    $@"AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND {GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.Motor.SuffixMotor}%'";
-                    filter = string.IsNullOrEmpty(txtSymbol.Text)?filter:$@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
-                    objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);            
-                    for (int listIndex = 0; listIndex <= objSubList.Count - 1; listIndex++)
-                    {
-                        var dictionary = objSubList[listIndex];
-                        var keys = new List<string>(dictionary.Keys);          
-                        bool isVFC= dictionary[keys[1]]==VFCAdapter.OTypeValue.ToString()?true:false;  
-                        string _nameIO= AppGlobal.GetObjectSymbolFromIO(dictionary[keys[0]]);
-                        string _nameVFC = AppGlobal.GetObjectSymbolFromIO(dictionary[keys[0]],GcObjectInfo.Motor.SuffixVFC);
-                        string _name = string.IsNullOrEmpty(_nameIO)? _nameVFC: _nameIO;
-                        byte _count = 1;
-                        if (listIndex == 0)
-                        {
-                            obj.Add(new GcObjectInfo.Motor.SimpleInfo(_name, isVFC, _count));
-                           
-                        }                   
-                        else if(listIndex > 0)
-                        {
-                            bool found = false;
-                            for (int listIndexPrev = 0; listIndexPrev <= listIndex - 1; listIndexPrev++)
-                            {
-                                var dictionaryPrev = objSubList[listIndexPrev];
-                                var keysPrev = new List<string>(dictionaryPrev.Keys);
-                                string _nameIOPrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]]);
-                                string _nameVFCPrev = AppGlobal.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.Motor.SuffixVFC);
-                                string _namePrev = string.IsNullOrEmpty(_nameIOPrev) ? _nameVFCPrev : _nameIOPrev;
-                               
-                                if (_name.Equals(_namePrev))
-                                {
-                                    found = true;
-                                    for (int indexObj=0; indexObj<= obj.Count-1; indexObj++)
-                                    {
-                                        GcObjectInfo.Motor.SimpleInfo updatedItem = obj[indexObj];
-                                        if (updatedItem.Name.Equals(_name))
-                                        {
-                                            updatedItem.Count += 1;
-                                            obj[indexObj] = updatedItem;
-                                           
-                                        }
-                                    }
-                                    continue;
-                                }
-                              
-                            }
-                           if (!found)
-                            {
-                                obj.Add(new GcObjectInfo.Motor.SimpleInfo(_name, isVFC, _count));
-                            }
-                        }                 
-                    }                
-                    ProgressBar.Maximum = obj.Count-1;
-                    ProgressBar.Value = 0;
-                    ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                    {
-                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                        if (description.PosInfo.Len == -1)
-                        {
-                            if (moreThanOne)
-                            {
-                                AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                                // return;
-                            }
-                        }
-                        else
-                        { description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
-                    }
-                    for (int i = 0; i <= obj.Count-1; i++)
-                    {
-                        GcObjectInfo.Motor.SimpleInfo updatedItem = obj[i];
-                        myMotor.Name = obj[i].Name;
-                        if  (obj[i].IsVFC)
-                        {
-                            myMotor.SubType = Motor.M1VFC;
-                            myMotor.PType = Motor.P7042.ToString();
-                            myMotor.Adapter = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixVFC}";
-                        }
-                        else if(obj[i].Count==2)
-                        {
-                            myMotor.SubType = Motor.M12;
-                            myMotor.PType = Motor.P7056.ToString();
-                            myMotor.OutpFwd= $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunFwd}1";
-                            myMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}1";
-                            myMotor.OutpRev = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunRev}";
-                            myMotor.InpRev = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunRev}";
-                        }
-                        else
-                        {
-                            myMotor.SubType = Motor.M11;
-                            myMotor.PType = Motor.P7053.ToString();
-                            myMotor.OutpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunFwd}";
-                            myMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}";
-                        }
- 
-                        myMotor.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                    CreateObjectAutoSearch(
+                         objMotor: myMotor,
+                         processValue: ref AppGlobal.ProcessValue
+                         );
                 }
                 else if (createMode.Rule)
                 {
                     AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreatObjectRule(
+                        objMotor: myMotor,
                         addtionToDesc: AppGlobal.AdditionDesc,
                         processValue: ref AppGlobal.ProcessValue
                         );
@@ -2290,8 +2305,9 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         #endregion
 
-  
+      
     }  
 }

@@ -203,10 +203,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="withNameInfo">描述内包含名称信息</param>
         /// <param name="nameOnlyWithNumber">名称仅包含数字部分</param>
         /// <returns></returns>
-        public string EncodingDesc(ref GcBaseRule baseRule, string namePrefix, bool withLineInfo = true, bool withFloorInfo = true, bool withNameInfo = true, bool withCabinet = false,bool withPower =false ,bool nameOnlyWithNumber = true,bool removeNamePrefix = true)
+        public string EncodingDesc(ref GcBaseRule baseRule, string namePrefix,string nameRule, bool withLineInfo = true, bool withFloorInfo = true, bool withNameInfo = true, bool withCabinet = false,bool withPower =false ,bool nameOnlyWithNumber = true,bool removeNamePrefix = true)
         {
             StringBuilder desc = new StringBuilder();
+            string nameWithoutSuffix;
             baseRule.NameRule = LibGlobalSource.StringHelper.ExtractNumericPart(baseRule.Name, false);
+            nameWithoutSuffix = LibGlobalSource.StringHelper.ExtractStringPart(nameRule,baseRule.Name);
             if (withLineInfo)
             {
                 desc.Append(baseRule.DescLine);
@@ -217,32 +219,39 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             }
             if (withNameInfo)
             {
-                string name = baseRule.Name;
+                string name = nameWithoutSuffix;           
                 if (removeNamePrefix)
-                { name = name.Contains(namePrefix) ? name.Replace(namePrefix, string.Empty) : name; }              
+                { name = name.Contains(namePrefix) ? name.Replace(namePrefix, string.Empty) : name; }
                 baseRule.DescName = nameOnlyWithNumber ? $"({baseRule.NameRule})" : $"({name})";
                 desc.Append(baseRule.DescName);
-            }
 
+            }
             desc.Append(baseRule.DescObject);
-            if (withCabinet && !String.IsNullOrEmpty(baseRule.Cabinet) || withPower && String.IsNullOrEmpty(baseRule.Power))
+            bool _withCabinet, _withPower;
+            _withCabinet = withCabinet && !String.IsNullOrEmpty(baseRule.Cabinet);
+            _withPower = withPower && !String.IsNullOrEmpty(baseRule.Power);
+            if (_withCabinet || _withPower)
             {
                 desc.Append("[");
-                if (withCabinet)
+                if (_withCabinet)
                 {
                     desc.Append($"{baseRule.Cabinet}");
                 }
-                if (withPower)
+                if (_withPower)
                 {
                     desc.Append(" ");
-                    desc.Append(baseRule.Power);
+                    desc.Append($"{baseRule.Power}kW");
                 }
                 desc.Append("]");
             }
         
             baseRule.Description = desc.ToString();
             return baseRule.Description;
-        } 
+        }
+
+        public void GetObjDescFromDesc(ref GcBaseRule baseRule, bool withLineInfo = true, bool withFloorInfo = true, bool withNameInfo = true, bool withCabinet = false, bool withPower = false)
+        {       
+        }
         public void DecodingDesc(ref GcBaseRule baseRule, string descSeparator)
         {
     
