@@ -29,24 +29,26 @@ namespace GcproExtensionApp
         {
             InitializeComponent();
         }
- 
+
         #region Public object in this class
         AI myAI = new AI(AppGlobal.GcproDBInfo.GcproTempPath);
         ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         CreateMode createMode = new CreateMode();
+
         private bool isNewOledbDriver;
-        private string DEMO_NAME_AI = "=A-1001-BPS01";
-        private string DEMO_NAME_RULE_AI = "1001";
-        private string DEMO_DESCRIPTION_AI = "XXX压力/或者空白";
-        private string DEMO_DESCRIPTION_RULE_AI = "xxx/或者空白";
+        private string DEMO_NAME_AI = "=A-4020-MXZ01AI";
+        private string DEMO_NAME_RULE_AI = "4020";
+        private string DEMO_DESCRIPTION_AI = "制粉A线2楼(4020)磨粉机电流/或者空白";
+        private string DEMO_DESCRIPTION_RULE_AI = "4020/或者空白";
         #endregion
         private int value9 = 32;
         private int value10 = 32;
         private int tempInt = 0;
-      //  private long tempLong = 0;
+        //  private long tempLong = 0;
         private float tempFloat = 0.0f;
         private bool tempBool = false;
+        private GcBaseRule objDefaultInfo;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
@@ -72,7 +74,7 @@ namespace GcproExtensionApp
                 ComboEquipmentSubType.Items.Add(itemInfo);
 
             }
-          
+
             ComboEquipmentSubType.SelectedIndex = 1;
             ///<Unit>Read [unit] </Unit>
             dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_UnitCfg}%'",
@@ -129,7 +131,7 @@ namespace GcproExtensionApp
             foreach (var column in list)
             {
                 ComboDPNode1.Items.Add(column.ToString());
-               
+
             }
             ///<Elevation> Read [Elevation]</Elevation>
             dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_Elevation}'",
@@ -170,16 +172,49 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
+            objDefaultInfo.NameRule = "4020";
+            objDefaultInfo.DescLine = "制粉A线";
+            objDefaultInfo.DescFloor = "2楼";
+            objDefaultInfo.Name = "=A-4020-MXZ01AI";
+            objDefaultInfo.DescObject = "磨粉机电流";
+            AI.Rule.Common.Cabinet = AI.Rule.Common.Power = string.Empty;
+            objDefaultInfo.Description = AI.EncodingDesc(
+                baseRule: ref objDefaultInfo,
+                namePrefix: GcObjectInfo.General.PrefixName,
+                nameRule: Engineering.PatternMachineName,
+                withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+                withFloorInfo: chkAddFloorToDesc.Checked,
+                withNameInfo: chkAddNameToDesc.Checked,
+                withCabinet: chkAddCabinetToDesc.Checked,
+                withPower: false,
+                nameOnlyWithNumber: chkNameOnlyNumber.Checked);
+
+            if (String.IsNullOrEmpty(AI.Rule.Common.Description))
+            { AI.Rule.Common.Description = objDefaultInfo.Description; }
+
+            if (String.IsNullOrEmpty(AI.Rule.Common.Name))
+            { AI.Rule.Common.Name = objDefaultInfo.Name; }
+
+            if (String.IsNullOrEmpty(AI.Rule.Common.DescLine))
+            { AI.Rule.Common.DescLine = objDefaultInfo.DescLine; }
+
+            if (String.IsNullOrEmpty(AI.Rule.Common.DescFloor))
+            { AI.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
+
+            if (String.IsNullOrEmpty(AI.Rule.Common.DescObject))
+            { AI.Rule.Common.DescObject = objDefaultInfo.DescObject; }
+
             txtSymbolRule.Text = AI.Rule.Common.NameRule;
             txtSymbolIncRule.Text = AI.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = AI.Rule.Common.DescriptionRule;
             txtDescriptionIncRule.Text = AI.Rule.Common.DescriptionRuleInc;
-
+            txtSymbol.Text = AI.Rule.Common.Name;
+            txtDescription.Text = AI.Rule.Common.Description;
         }
         public void CreateTips()
         {
             toolTip.SetToolTip(BtnNewImpExpDef, AppGlobal.CREATE_IMPORT_RULE + AI.OType);
-            toolTip.SetToolTip(BtnConnectIO, AppGlobal.CONNECT_CONNECTOR);  
+            toolTip.SetToolTip(BtnConnectIO, AppGlobal.CONNECT_CONNECTOR);
             toolTip.SetToolTip(txtSymbol, AppGlobal.DEMO_NAME + DEMO_NAME_AI);
             toolTip.SetToolTip(txtSymbolRule, AppGlobal.DEMO_NAME_RULE + DEMO_NAME_RULE_AI);
             toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_AI);
@@ -192,9 +227,9 @@ namespace GcproExtensionApp
             OleDb oledb = new OleDb();
             DataTable dataTable = new DataTable();
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;          
-            dataTable=oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{AI.ImpExpRuleName}'",
-            null, null, GcproTable.ImpExpDef.FieldType.Name);         
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{AI.ImpExpRuleName}'",
+            null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
             {
                 if (MessageBox.Show(AppGlobal.MSG_RULE_ALREADY_EXITS, AppGlobal.INFO,
@@ -204,13 +239,13 @@ namespace GcproExtensionApp
                     CreateAIImpExp(oledb);
                 }
                 else
-                { 
-                    return; 
+                {
+                    return;
                 }
             }
             else
-            { 
-                CreateAIImpExp(oledb); 
+            {
+                CreateAIImpExp(oledb);
             }
 
         }
@@ -223,7 +258,7 @@ namespace GcproExtensionApp
             txtSuffixInpLow.Text = GcObjectInfo.AI.SuffixInpLow;
             txtSuffixInpHigh.Text = GcObjectInfo.AI.SuffixInpHigh;
             txtSuffixInpHighHigh.Text = GcObjectInfo.AI.SuffixInpHighHigh;
-            txtInpValue.Text = txtSymbol.Text + txtInpValeSuffix.Text;            
+           // txtInpValue.Text = txtSymbol.Text + txtInpValeSuffix.Text;
             txtSymbolIncRule.Text = AI.Rule.Common.NameRuleInc;
             txtDescriptionIncRule.Text = AI.Rule.Common.DescriptionRuleInc;
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
@@ -231,22 +266,22 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
-            txtDelayTimeUp.Text=myAI.DelayTimeUp;
-            txtDelayTimeDown.Text = myAI.DelayTimeDown;
-            txtDelayTimeFault.Text = myAI.DelayFaultTime;
-            txtMonTimeLowLow.Text = myAI.MonTimeLowLow; 
-            txtMonTimeLow.Text = myAI.MonTimeLowLow;    
-            txtMonTimeMiddle.Text = myAI.MonTimeMiddle; 
-            txtMonTimeHigh.Text = myAI.MonTimeHigh;
-            txtMonTimeHighHigh.Text = myAI.MonTimeHighHigh;
+            //txtDelayTimeUp.Text = myAI.DelayTimeUp;
+            //txtDelayTimeDown.Text = myAI.DelayTimeDown;
+            //txtDelayTimeFault.Text = myAI.DelayFaultTime;
+            //txtMonTimeLowLow.Text = myAI.MonTimeLowLow;
+            //txtMonTimeLow.Text = myAI.MonTimeLowLow;
+            //txtMonTimeMiddle.Text = myAI.MonTimeMiddle;
+            //txtMonTimeHigh.Text = myAI.MonTimeHigh;
+            //txtMonTimeHighHigh.Text = myAI.MonTimeHighHigh;
             txtValue9.Text = myAI.Value10;
-            txtValue10.Text =myAI.Value9 ;                
+            txtValue10.Text = myAI.Value9;
             ComboEquipmentSubType.SelectedIndex = 0;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
             toolStripMenuReload.Click += new EventHandler(toolStripMenuReload_Click);
             toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
-            this.Text = "AI导入文件 " + " " + myAI.FilePath;         
+            this.Text = "AI导入文件 " + " " + myAI.FilePath;
         }
 
         #endregion
@@ -284,7 +319,7 @@ namespace GcproExtensionApp
             {
                 string newJsonKeyValue = txtInpValeSuffix.Text;
                 LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.AI.Suffix.InpValue", newJsonKeyValue);
-                GcObjectInfo.AI.SuffixInpValue= newJsonKeyValue;
+                GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
         private void txtSuffixInpLowLow_KeyDown(object sender, KeyEventArgs e)
@@ -366,6 +401,8 @@ namespace GcproExtensionApp
 
         private void txtSymbolRule_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtSymbolRule.Text))
+            { return; }
             if (AppGlobal.CheckNumericString(txtSymbolRule.Text))
             {
                 AI.Rule.Common.NameRule = txtSymbolRule.Text;
@@ -394,7 +431,27 @@ namespace GcproExtensionApp
 
         private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtDescriptionRule.Text))
+            { return; }
 
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
+            if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
+            {
+                string descObjectNumber = LibGlobalSource.StringHelper.ExtractNumericPart(AI.Rule.Common.DescObject, false);
+                if (!string.IsNullOrEmpty(descObjectNumber))
+                {
+                    AI.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                    AI.Rule.Common.DescObject =AI.Rule.Common.DescObject.Replace(descObjectNumber, AI.Rule.Common.DescriptionRule);
+                    UpdateDesc();
+                }
+            }
+            else
+            {
+                AppGlobal.MessageNotNumeric();
+            }
         }
         private void txtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
         {
@@ -410,7 +467,7 @@ namespace GcproExtensionApp
                 }
             }
         }
-     
+
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -430,7 +487,7 @@ namespace GcproExtensionApp
         }
         #endregion
         #region <------Check and unchek "Value9" and "Value10------>"    
-  
+
         private void chkInterlocking_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
@@ -762,7 +819,7 @@ namespace GcproExtensionApp
         private void txtInpValue_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value11";
-        } 
+        }
         private void txtInHWStop_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value47";
@@ -976,13 +1033,29 @@ namespace GcproExtensionApp
         }
 
         #endregion
-
+        private void UpdateDesc()
+        {
+            AI.Rule.Common.Description = AI.EncodingDesc(
+            baseRule: ref AI.Rule.Common,
+            namePrefix: GcObjectInfo.General.PrefixName,
+            nameRule: Engineering.PatternMachineName,
+            withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+            withFloorInfo: chkAddFloorToDesc.Checked,
+            withNameInfo: chkAddNameToDesc.Checked,
+            withCabinet: chkAddCabinetToDesc.Checked,
+            withPower: false,
+            nameOnlyWithNumber: chkNameOnlyNumber.Checked
+            );
+            txtDescription.Text = AI.Rule.Common.Description;
+        }
         private void txtSymbol_TextChanged(object sender, EventArgs e)
         {
             txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
-            txtInpValue.Text = (txtSymbol.Text.Contains(GcObjectInfo.AI.SuffixName)?txtSymbol.Text.Replace(GcObjectInfo.AI.SuffixName,string.Empty): txtSymbol.Text)
+            txtInpValue.Text = (txtSymbol.Text.Contains(GcObjectInfo.AI.SuffixName) ? txtSymbol.Text.Replace(GcObjectInfo.AI.SuffixName, string.Empty) : txtSymbol.Text)
                 + txtInpValeSuffix.Text;
             myAI.Name = txtSymbol.Text;
+            AI.Rule.Common.Name = txtSymbol.Text;
+            UpdateDesc();
         }
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -992,11 +1065,27 @@ namespace GcproExtensionApp
             objectBrowser.Show();
         }
         private void txtDescription_TextChanged(object sender, EventArgs e)
-        {
-            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtDescription.Text, false);
-            myAI.Description = txtDescription.Text;
+        {   
+            if (!AI.Rule.Common.Description.Equals(txtDescription.Text))
+            {
+                AI.Rule.Common.Description = txtDescription.Text;
+            }
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(AI.Rule.Common.DescObject, false);
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
         }
 
+        private void txtDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AI.Rule.Common.Description = txtDescription.Text;
+                AI.DecodingDesc(ref AI.Rule.Common, AppGlobal.DESC_SEPARATOR);                
+                UpdateDesc();
+            }
+        }
         void SubTypeChanged(string subType)
         {
             if (subType == AI.AIT)
@@ -1010,8 +1099,7 @@ namespace GcproExtensionApp
                 //value9 = 4;
                 //value10 = 0;
             }
-        
-       
+
         }
         void GetValue10BitValue(int value)
         {
@@ -1052,7 +1140,7 @@ namespace GcproExtensionApp
                     myAI.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
                 SubTypeChanged(myAI.SubType);
-                if (myAI.SubType == AI.AIT )
+                if (myAI.SubType == AI.AIT)
                 {
                     foreach (var item in ComboEquipmentInfoType.Items)
                     {
@@ -1061,7 +1149,7 @@ namespace GcproExtensionApp
                             ComboEquipmentInfoType.SelectedItem = item;
                             break;
                         }
-                    }                
+                    }
                 }
                 else if (myAI.SubType == AI.AIMF)
                     foreach (var item in ComboEquipmentInfoType.Items)
@@ -1099,15 +1187,13 @@ namespace GcproExtensionApp
                             break;
                         }
                     }
-          
+
                 GetValue9BitValue(value9);
                 GetValue10BitValue(value10);
             }
             catch (Exception ex)
-            { MessageBox.Show(ex.Message+"错误源:ComboEquipmentSubType_SelectedIndexChanged", AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            { MessageBox.Show(ex.Message + "错误源:ComboEquipmentSubType_SelectedIndexChanged", AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
-    
-
         #endregion
 
         #region <---BML part--->
@@ -1145,7 +1231,7 @@ namespace GcproExtensionApp
             TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
             excelFileHandle.FilePath = TxtExcelPath.Text;
             AddWorkSheets();
-           
+
         }
         private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
         {
@@ -1166,9 +1252,9 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (! String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
-                btnReadBML.Enabled= true;   
+                btnReadBML.Enabled = true;
             }
         }
         private void CreateBMLDefault()
@@ -1191,7 +1277,7 @@ namespace GcproExtensionApp
                 comboTypeBML.SelectedItem = "C";
                 comboFloorBML.SelectedItem = "L";
                 comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";       
+                comboSectionBML.SelectedItem = "Q";
                 comboLineBML.SelectedItem = "X";
             }
             for (int i = 1; i <= 20; i++)
@@ -1200,24 +1286,24 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text=BML.AI.BMLPath;
+            TxtExcelPath.Text = BML.AI.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName; 
-            nameColumn.Name = nameof(BML.ColumnName);                                                
+            nameColumn.HeaderText = BML.ColumnName;
+            nameColumn.Name = nameof(BML.ColumnName);
             dataGridBML.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
             descColumn.HeaderText = BML.ColumnDesc;
             descColumn.Name = nameof(BML.ColumnDesc);
             dataGridBML.Columns.Add(descColumn);
-           
+
             DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
             powerColumn.HeaderText = BML.ColumnPower;
             powerColumn.Name = nameof(BML.ColumnPower);
             dataGridBML.Columns.Add(powerColumn);
             dataGridBML.Columns[2].Width = 100;
 
-           DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
             floorColumn.HeaderText = BML.ColumnFloor;
             floorColumn.Name = nameof(BML.ColumnFloor);
             dataGridBML.Columns.Add(floorColumn);
@@ -1247,8 +1333,8 @@ namespace GcproExtensionApp
             StringBuilder sbDescFilters = new StringBuilder();
             sbDescFilters.Append($@"Value LIKE ""%{BML.MachineType.RollerMiller}""");
             DataTable dataTable = new DataTable();
-            string[] filters = {sbPowerFilters .ToString(), sbDescFilters.ToString()};
-            string[] filterColumns = { comboPowerBML.Text ,comboDescBML.Text};
+            string[] filters = { sbPowerFilters.ToString(), sbDescFilters.ToString() };
+            string[] filterColumns = { comboPowerBML.Text, comboDescBML.Text };
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
 
             dataGridBML.DataSource = dataTable;
@@ -1265,6 +1351,55 @@ namespace GcproExtensionApp
         #endregion
 
         #region Common used
+        private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddSectionToDesc.Checked)
+            { chkAddUserSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddUserSectionToDesc.Checked)
+            { chkAddSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void ComboElevation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AI.Rule.Common.DescFloor = ComboElevation.Text;
+            UpdateDesc();
+        }
+        private void ComboPanel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ComboPanel.Text))
+            {
+                AI.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{ComboPanel.Text}";
+                UpdateDesc();
+            }
+        }
+        private void ComboPanel_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ComboPanel.Text))
+            {
+                AI.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{ComboPanel.Text}";
+                UpdateDesc();
+            }
+        }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.Rule)
@@ -1279,9 +1414,9 @@ namespace GcproExtensionApp
                 TxtQuantity.Visible = true;
                 GrpSymbolRule.Visible = true;
                 lblSymbol.Text = AppGlobal.NAME;
-                txtSymbol.Text = DEMO_NAME_AI;
+                //     txtSymbol.Text = DEMO_NAME_AI;
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
-               
+
             }
             else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.AutoSearch)
             {
@@ -1294,9 +1429,9 @@ namespace GcproExtensionApp
                 LblQuantity.Visible = false;
                 TxtQuantity.Visible = false;
                 GrpSymbolRule.Visible = false;
-                lblSymbol.Text = AppGlobal.KEY_WORD_AUTOSEARCH;
-               tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
-                
+                //   lblSymbol.Text = AppGlobal.KEY_WORD_AUTOSEARCH;
+                tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
+
             }
 
             else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.BML)
@@ -1304,26 +1439,26 @@ namespace GcproExtensionApp
                 createMode.Rule = false;
                 createMode.BML = true;
                 createMode.AutoSearch = false;
-                tabCreateMode.SelectedTab = tabBML;         
+                tabCreateMode.SelectedTab = tabBML;
             }
         }
         private void tabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabCreateMode.SelectedTab == tabRule)
 
-            { 
-                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule; 
+            {
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             }
             else
-            { 
+            {
                 ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
             }
         }
         private void toolStripMenuClearList_Click(object sender, EventArgs e)
         {
-            DataTable dataTable=null;
+            DataTable dataTable = null;
             dataGridBML.DataSource = dataTable;
-            
+
         }
         private void toolStripMenuReload_Click(object sender, EventArgs e)
         {
@@ -1331,8 +1466,8 @@ namespace GcproExtensionApp
         }
         private void toolStripMenuDelete_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow row in dataGridBML.SelectedRows)
-            {             
+            foreach (DataGridViewRow row in dataGridBML.SelectedRows)
+            {
                 dataGridBML.Rows.RemoveAt(row.Index);
             }
             dataGridBML.ClearSelection();
@@ -1342,7 +1477,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
-                { 
+                {
                     AppGlobal.MessageNotNumeric();
                 }
             }
@@ -1350,8 +1485,8 @@ namespace GcproExtensionApp
         private void TxtQuantity_TextChanged(object sender, EventArgs e)
         {
             if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
-            { 
-                AppGlobal.MessageNotNumeric(); 
+            {
+                AppGlobal.MessageNotNumeric();
             }
         }
         private void BtnConnectIO_Click(object sender, EventArgs e)
@@ -1361,15 +1496,15 @@ namespace GcproExtensionApp
             {
                 try
                 {
-                    bool all=!chkOnlyFree.Checked;
+                    bool all = !chkOnlyFree.Checked;
                     string objName = String.Empty;
                     string objSubType = String.Empty;
-                    OleDb oledb= new OleDb();
+                    OleDb oledb = new OleDb();
                     DataTable dataTable = new DataTable();
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                     oledb.IsNewOLEDBDriver = isNewOledbDriver;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={AI.OTypeValue}", null,
-                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name);         
+                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name);
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
                     AI.Clear(myAI.FileConnectorPath);
@@ -1377,21 +1512,21 @@ namespace GcproExtensionApp
                     {
                         objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
                         objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
-                            string inpValue=objName +txtInpValeSuffix.Text;
-                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name)==0 || all)
-                            {
-                                AI.CreateRelation(objName, inpValue, GcproTable.ObjData.Value11.Name, myAI.FileConnectorPath, Encoding.Unicode);
-                            }                                                
-                                                                                            
-                        ProgressBar.Value=count;
+                        string inpValue = objName + txtInpValeSuffix.Text;
+                        if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
+                        {
+                            AI.CreateRelation(objName, inpValue, GcproTable.ObjData.Value11.Name, myAI.FileConnectorPath, Encoding.Unicode);
+                        }
+
+                        ProgressBar.Value = count;
                     }
                     AI.SaveFileAs(myAI.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     dataTable.Clear();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("寻找IO与关联过程出错:"+ex, AppGlobal.INFO+":"+AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+                    MessageBox.Show("寻找IO与关联过程出错:" + ex, AppGlobal.INFO + ":" + AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
         }
@@ -1402,7 +1537,7 @@ namespace GcproExtensionApp
 
             {
                 myAI.Clear();
-                ProgressBar.Value = 0;  
+                ProgressBar.Value = 0;
             }
         }
         private void BtnSaveAs_Click(object sender, EventArgs e)
@@ -1423,23 +1558,58 @@ namespace GcproExtensionApp
                 OleDb oledb = new OleDb();
                 oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                AppGlobal.ReGenerateDPNode(oledb);
+                AI.ReGenerateDPNode(oledb);
             }
         }
-        void AppendInfoToBuilder(CheckBox checkBox, string info, StringBuilder builder)
+  
+        private void CreateObjectCommon(AI objAI)
         {
-            if (checkBox.Checked)
+            ///<UnitsBy100</UnitsBy100>
+            objAI.UnitsBy100 = AppGlobal.ParseFloat(txtUnitsBy100.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F0") : "100";
+            ///<OffsetUnits</OffsetUnits>
+            objAI.OffsetUnits = AppGlobal.ParseFloat(txtOffsetUnits.Text, out tempFloat) ? (tempFloat).ToString("F0") : "0.0";
+            ///<DelayTimeDown></DelayTimeDown>
+            objAI.DelayTimeDown = AppGlobal.ParseFloat(txtDelayTimeDown.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<DelayTimeUp></DelayTimeUp>
+            objAI.DelayTimeUp = AppGlobal.ParseFloat(txtDelayTimeUp.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<DelayFaultTime ></DelayFaultTime >
+            objAI.DelayFaultTime = AppGlobal.ParseFloat(txtDelayTimeFault.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<Unit ></Unit >
+            string selectedUnit;
+            if (comboUnit.SelectedItem != null)
             {
-                builder.Append(info);
+                selectedUnit = comboUnit.SelectedItem.ToString();
+                objAI.Unit = selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
+            ///<ParLimitLowLow></ParLimitLowLow>
+            objAI.LimitLowLow = AppGlobal.ParseFloat(txtParLimitLowLow.Text, out tempFloat) ? (tempFloat).ToString("F0") : "0";
+            ///<ParLimitLow></ParLimitLow>
+            objAI.LimitLowLow = AppGlobal.ParseFloat(txtParLimitLow.Text, out tempFloat) ? (tempFloat).ToString("F0") : "1";
+            ///<ParLimitHigh></ParLimitHigh>
+            objAI.LimitHigh = AppGlobal.ParseFloat(txtParLimitHigh.Text, out tempFloat) ? (tempFloat).ToString("F0") : "5";
+            ///<ParLimitHighHigh></ParLimitHighHigh>
+            objAI.LimitHighHigh = AppGlobal.ParseFloat(txtParLimitHighHigh.Text, out tempFloat) ? (tempFloat).ToString("F0") : "10";
+            ///<ParMonTimeLowLow></ParMonTimeLowLow>
+            objAI.MonTimeLowLow = AppGlobal.ParseFloat(txtMonTimeLowLow.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<ParMonTimeLow></ParMonTimeLow>
+            objAI.MonTimeLow = AppGlobal.ParseFloat(txtMonTimeLow.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<ParMonTimeMiddle></ParMonTimeMiddle>
+            objAI.MonTimeMiddle = AppGlobal.ParseFloat(txtMonTimeMiddle.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<ParMonTimeHigh></ParMonTimeHigh>
+            objAI.MonTimeHigh = AppGlobal.ParseFloat(txtMonTimeHigh.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            ///<ParMonTimeHighHigh></ParMonTimeHighHigh>
+            objAI.MonTimeHighHigh = AppGlobal.ParseFloat(txtMonTimeHighHigh.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
         }
-        private void CreatObjectRule()
+        private void CreateObjectRule(AI objAI,
+            (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc, 
+            ref (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb();
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();   
-           // StringBuilder descTotalBuilder = new StringBuilder();
+            DataTable dataTable = new DataTable();
+            string desc = string.Empty;
+            // StringBuilder descTotalBuilder = new StringBuilder();
             int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -1487,90 +1657,101 @@ namespace GcproExtensionApp
             #region Prepare export motor file
             ///<OType>is set when object generated</OType>
             ///<SubType></SubType>
-                string selectedSubTypeItem;
+            string selectedSubTypeItem;
             if (ComboEquipmentSubType.SelectedItem != null)
             {
                 selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                myAI.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objAI.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
 
             }
             else
             {
-                myAI.SubType = AI.AIT;
+                objAI.SubType = AI.AIT;
             }
             ///<PType></PType>
             string selectedPTypeItem;
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myAI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objAI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             else
             {
-                myAI.PType = AI.P7252.ToString();
+                objAI.PType = AI.P7252.ToString();
             }
 
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
-            myAI.Description = txtDescription.Text;
+            objAI.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
             string selectedProcessFct = string.Empty;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                myAI.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objAI.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Diagram></Diagram>
             string selectedDiagram;
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myAI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objAI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
 
             ///<Page></Page>
-            myAI.Page = txtPage.Text;
+            objAI.Page = txtPage.Text;
             ///<Building></Building>
             string selectedBudling = "--";
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
-                myAI.Building = selectedBudling;
+                objAI.Building = selectedBudling;
             }
             ///<Elevation></Elevation>
             string selectedElevation;
             if (ComboElevation.SelectedItem != null)
             {
                 selectedElevation = ComboElevation.SelectedItem.ToString();
-                myAI.Elevation = selectedElevation;
+                objAI.Elevation = selectedElevation;
             }
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
             {
                 selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                myAI.Panel_ID = selectedPanel_ID;
+                objAI.Panel_ID = selectedPanel_ID;
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myAI.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            objAI.FieldBusNode = LibGlobalSource.NOCHILD; ;
             ///<DPNode1></DPNode1>
             string selectDPNode1 = String.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
                 oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                myAI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, selectDPNode1);
-                int dpnode1 = int.Parse(myAI.DPNode1);
-                myAI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
+                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;          
+                objAI.DPNode1 = AI.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                {
+                    return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                }, selectDPNode1);
+
+                if (String.IsNullOrEmpty(objAI.DPNode1))
+                { objAI.FieldBusNode = string.Empty; }
+                else
+                {
+                    objAI.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    {
+                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                    }, int.Parse(objAI.DPNode1));
+                }
             }
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                myAI.HornCode = hornCode.Substring(0, 2);
+                objAI.HornCode = hornCode.Substring(0, 2);
             }
             #endregion
 
@@ -1628,9 +1809,10 @@ namespace GcproExtensionApp
                 dpNode1.Name = string.Empty;
             }
             ///<DescRule>生成描述规则</DescRule>
+            desc = AI.Rule.Common.DescObject;
             if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
             {
-                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
+                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
                 {
                     if (moreThanOne)
@@ -1641,12 +1823,12 @@ namespace GcproExtensionApp
                 }
                 else
                 {
-                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
+                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(desc, txtDescriptionRule.Text);
                 }
             }
             #endregion
-            ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
-            ProgressBar.Value = 0;
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
             ///<CreateObj>
             ///DPNode
             ///</CreateObj>
@@ -1654,23 +1836,32 @@ namespace GcproExtensionApp
             tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
             tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
             tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
+            objDefaultInfo = AI.Rule.Common;
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-
-                //   myAI.HWStop = String.IsNullOrEmpty(txtInHWStop.Text)?string.Empty:txtInHWStop.Text;
-
                 if (needDPNodeChanged && moreThanOne)
                 {
                     dpNode1.Inc = i * symbolInc;
-                    dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    myAI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
-                    int dpnode1 = int.Parse(myAI.DPNode1);
-                    myAI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
+                    dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());         
+                    objAI.DPNode1 = AI.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    {
+                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                    }, dpNode1.Name);
+
+                    if (String.IsNullOrEmpty(objAI.DPNode1))
+                    { objAI.FieldBusNode = string.Empty; }
+                    else
+                    {
+                        objAI.FieldBusNode = AI.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
+                        {
+                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                        }, int.Parse(objAI.DPNode1));
+                    }
                 }
 
-                if (!String.IsNullOrEmpty(txtDescription.Text))
+                if (!String.IsNullOrEmpty(desc))
                 {
                     if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
@@ -1681,45 +1872,59 @@ namespace GcproExtensionApp
                     }
                     else
                     {
-                        description.Name = txtDescription.Text;
+                        description.Name = desc;
                     }
-
                 }
                 else
                 {
                     description.Name = "电流";
                 }
-                myAI.Name = name.Name;
-                if (myAI.SubType == AI.AIT)
+                objAI.Name = name.Name;
+                if (objAI.SubType == AI.AIT)
                 {
-                    myAI.InpValue = (myAI.Name.Contains(GcObjectInfo.AI.SuffixName) ? myAI.Name.Replace(GcObjectInfo.AI.SuffixName, string.Empty) : myAI.Name)
+                    objAI.InpValue = (objAI.Name.Contains(GcObjectInfo.AI.SuffixName) ? objAI.Name.Replace(GcObjectInfo.AI.SuffixName, string.Empty) : objAI.Name)
                                 + txtInpValeSuffix.Text;
 
                 }
-                else if (myAI.SubType == AI.AIDI)
+                else if (objAI.SubType == AI.AIDI)
                 {
-                    myAI.InpLowLow = myAI.Name + txtSuffixInpLowLow.Text;
-                    myAI.InpLow = myAI.Name + txtSuffixInpLow.Text;
-                    myAI.InpHigh = myAI.Name + txtSuffixInpHigh.Text;
-                    myAI.InpHighHigh = myAI.Name + txtSuffixInpHighHigh.Text;
+                    objAI.InpLowLow = objAI.Name + txtSuffixInpLowLow.Text;
+                    objAI.InpLow = objAI.Name + txtSuffixInpLow.Text;
+                    objAI.InpHigh = objAI.Name + txtSuffixInpHigh.Text;
+                    objAI.InpHighHigh = objAI.Name + txtSuffixInpHighHigh.Text;
                 }
+                AI.Rule.Common.Name = objAI.Name;
+                AI.Rule.Common.DescFloor = $"{objAI.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                AI.Rule.Common.DescObject = $"{desc}电流";
+                AI.Rule.Common.Cabinet =$"{GcObjectInfo.General.AddInfoCabinet}{objAI.Panel_ID}";
 
-                myAI.Description = description.Name;
-                myAI.CreateObject(Encoding.Unicode);
-                ProgressBar.Value = i;
+                objAI.Description = AI.EncodingDesc(
+                    baseRule: ref AI.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                    withFloorInfo: addtionToDesc.Elevation,
+                    withNameInfo: addtionToDesc.IdentNumber,
+                    withCabinet: addtionToDesc.Cabinet,
+                    withPower: addtionToDesc.Power,
+                    nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                 );
+                objAI.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
             }
-            ProgressBar.Value = ProgressBar.Maximum;
+            AI.Rule.Common = objDefaultInfo;
+            processValue.Value = processValue.Max;
         }
-        private void CreatObjectBML()
+        private void CreateObjectBML(DataGridView dataFromBML, AI objAI,
+       (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+       out (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb();
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             DataTable dataTable = new DataTable();
-            StringBuilder descTotalBuilder = new StringBuilder();
-         //   int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-            ProgressBar.Maximum = dataGridBML.Rows.Count - 1;
-            ProgressBar.Value = 0;
+            processValue.Max= dataFromBML.Rows.Count;
+            processValue.Value = 0;
             SuffixObject suffixObject = new SuffixObject();
             string cabinet, cabinetGroup;
             string nameNumberString = string.Empty;
@@ -1729,22 +1934,21 @@ namespace GcproExtensionApp
             (float rateCurrent, float ctRatio) motorCurrent = (0.0f, 0.0f);
             Dictionary<string, (float, float)> motorPowerInfo = new Dictionary<string, (float, float)>();
             MotorHelper motorHelper = new MotorHelper();
-            for (int i = 0; i < dataGridBML.Rows.Count; i++)
+            objDefaultInfo = AI.Rule.Common;
+            for (int i = 0; i < dataFromBML.Rows.Count; i++)
             {
                 DataGridViewCell cell;
-                cell = dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)];
+                cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
                 if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
-                nameMotor = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
-                myAI.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
-                motorPower = (float)Convert.ToDouble(dataGridBML.Rows[i].Cells[nameof(BML.ColumnPower)].Value);
+                nameMotor = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
+                objAI.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
+                motorPower = (float)Convert.ToDouble(dataFromBML.Rows[i].Cells[nameof(BML.ColumnPower)].Value);
                 motorPowerStr = motorPower.ToString();
-                cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
-                cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
-                myAI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
-                string desc = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
-                descTotalBuilder.Clear();
-
+                cabinet = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
+                cabinetGroup = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
+                objAI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
+                string desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);        
                 if (motorPowerInfo == null || !motorPowerInfo.ContainsKey(motorPowerStr))
                 {
                     if (motorHelper.GetConfig(motorPowerStr))
@@ -1766,47 +1970,51 @@ namespace GcproExtensionApp
                 }
                 ///<AdditionInfoToDesc>
                 ///</AdditionInfoToDesc>
-                bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
-                chkAddCabinetToDesc.Checked;
-                if (chkAddSectionToDesc.Checked)
+                if (addtionToDesc.Section)
                 {
-                    nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, nameMotor);
+                    nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, nameMotor);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
                         if (AppGlobal.ParseInt(nameNumberString, out tempInt))
                         {
-                            descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
+                            AI.Rule.Common.DescLine=GcObjectInfo.Section.ReturnSection(tempInt);
                         }
                     }
                 }
-                if (additionInfToDesc)
+                else if (addtionToDesc.UserDefSection)
                 {
-                    AppendInfoToBuilder(chkAddFloorToDesc, $"{myAI.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
-                    string descName = chkNameOnlyNumber.Checked ? nameNumberString : LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myAI.Name);
-                    descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
-                    AppendInfoToBuilder(chkAddNameToDesc, $"({descName})", descTotalBuilder);
+                    AI.Rule.Common.DescLine = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value); ;
                 }
-                descTotalBuilder.Append($"{desc}电流");
-                if (additionInfToDesc)
-                {
-                    descTotalBuilder.Append("[");
-                    // AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myAI.Name)}", descTotalBuilder);
-                    //  AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myAI.Elevation}", descTotalBuilder);
-                    AppendInfoToBuilder(chkAddCabinetToDesc, $"{GcObjectInfo.General.AddInfoCabinet}{myAI.Panel_ID}", descTotalBuilder);
-                    descTotalBuilder.Append("]");
-                }
-                myAI.Description = descTotalBuilder.ToString();
-                myAI.Name = $"{nameMotor}{GcObjectInfo.AI.SuffixName}";
-                myAI.PType = AI.P7408_1.ToString();
-                myAI.InpValue = $"{nameMotor}{GcObjectInfo.AI.SuffixInpValue}";
-                myAI.UnitsBy100 = motorCurrent.rateCurrent.ToString("F1");
-                myAI.Unit = "11";//A
-                myAI.LimitLowLow = (motorCurrent.rateCurrent * 0.1f).ToString("F0");
-                myAI.LimitLow = (motorCurrent.rateCurrent * 0.3f).ToString("F0");
-                myAI.LimitHigh = (motorCurrent.rateCurrent * 0.9f).ToString("F0");
-                myAI.LimitHighHigh = (motorCurrent.rateCurrent * 1.1f).ToString("F0");
-                myAI.MonTimeHighHigh = (Motor.GetStartingTime(motorCurrent.rateCurrent) * 10).ToString();
-                myAI.CreateObject(Encoding.Unicode);
+
+                AI.Rule.Common.Name = objAI.Name;
+                AI.Rule.Common.DescFloor = $"{objAI.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                AI.Rule.Common.DescObject = $"{desc}电流";
+                AI.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{myAI.Panel_ID}";
+
+                objAI.Description = AI.EncodingDesc(
+                    baseRule: ref AI.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                    withFloorInfo: addtionToDesc.Elevation,
+                    withNameInfo: addtionToDesc.IdentNumber,
+                    withCabinet: addtionToDesc.Cabinet,
+                    withPower: addtionToDesc.Power,
+                    nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                 );
+
+             //   objAI.Description = descTotalBuilder.ToString();
+                objAI.Name = $"{nameMotor}{GcObjectInfo.AI.SuffixName}";
+                objAI.PType = AI.P7408_1.ToString();
+                objAI.InpValue = $"{nameMotor}{GcObjectInfo.AI.SuffixInpValue}";
+                objAI.UnitsBy100 = motorCurrent.rateCurrent.ToString("F1");
+                objAI.Unit = "11";//A
+                objAI.LimitLowLow = (motorCurrent.rateCurrent * 0.1f).ToString("F0");
+                objAI.LimitLow = (motorCurrent.rateCurrent * 0.3f).ToString("F0");
+                objAI.LimitHigh = (motorCurrent.rateCurrent * 0.9f).ToString("F0");
+                objAI.LimitHighHigh = (motorCurrent.rateCurrent * 1.1f).ToString("F0");
+                objAI.MonTimeHighHigh = (Motor.GetStartingTime(motorCurrent.rateCurrent) * 10).ToString();
+                objAI.CreateObject(Encoding.Unicode);
                 ///<UpdateFiled>
                 ///Update Value22 for Analog input
                 ///</UpdateFiled>
@@ -1830,11 +2038,12 @@ namespace GcproExtensionApp
                         oledb.UpdateRecord(GcproTable.ObjData.TableName, updateField, filterInpValue);
                     }
                 }
-                ProgressBar.Value = i;
+                processValue.Value = i;
             }
-            ProgressBar.Value = ProgressBar.Maximum;
+            processValue.Value = processValue.Max;
+            AI.Rule.Common = objDefaultInfo;
         }
-        private void CreatObjectAutoSearch()
+        private void CreatObjectAutoSearch(AI objAI,ref (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb();
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
@@ -1847,89 +2056,74 @@ namespace GcproExtensionApp
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
-
-            // objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
             objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
             objDescList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text1.Name);
-            for (int i = 0; i <= objList.Count - 1; i++)
+            for (int i = 0; i <objList.Count; i++)
             {
-                objList[i] = AppGlobal.GetObjectSymbolFromIO(objList[i]);
+                objList[i] = GcObject.GetObjectSymbolFromIO(objList[i], GcObjectInfo.General.SuffixIO.Delimiter);
             }
-            ProgressBar.Maximum = objList.Count - 1;
-            ProgressBar.Value = 0;        
-            for (int i = 0; i <= objList.Count - 1; i++)
+            processValue.Max = objList.Count;
+            processValue.Value = 0;
+            for (int i = 0; i < objList.Count; i++)
             {
-                myAI.Name = AppGlobal.GetObjectSymbolFromIO(objList[i]);
-                myAI.InpValue = objList[i];
-                myAI.Description = objDescList[i];
-                myAI.CreateObject(Encoding.Unicode);
-                ProgressBar.Value = i;
+                objAI.Name = GcObject.GetObjectSymbolFromIO(objList[i], GcObjectInfo.General.SuffixIO.Delimiter);
+                objAI.InpValue = objList[i];
+                objAI.Description = objDescList[i];
+                objAI.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
             }
-            ProgressBar.Value = ProgressBar.Maximum;
+            processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             try
-            {               
+            {
+                AppGlobal.AdditionDesc.Section = chkAddSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.UserDefSection = chkAddUserSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.Elevation = chkAddFloorToDesc.Checked;
+                AppGlobal.AdditionDesc.IdentNumber = chkAddNameToDesc.Checked;
+                AppGlobal.AdditionDesc.Cabinet = chkAddCabinetToDesc.Checked;
+                AppGlobal.AdditionDesc.Power = false;
+                AppGlobal.AdditionDesc.OnlyNumber = chkNameOnlyNumber.Checked;
+                AppGlobal.ProcessValue.Value = ProgressBar.Value = 0;
                 if (createMode.Rule || createMode.AutoSearch)
                 {
-                    ///<UnitsBy100</UnitsBy100>
-                    myAI.UnitsBy100 = AppGlobal.ParseFloat(txtUnitsBy100.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F0") : "100";
-                    ///<OffsetUnits</OffsetUnits>
-                    myAI.OffsetUnits = AppGlobal.ParseFloat(txtOffsetUnits.Text, out tempFloat) ? (tempFloat).ToString("F0") : "0.0";
-                    ///<DelayTimeDown></DelayTimeDown>
-                    myAI.DelayTimeDown = AppGlobal.ParseFloat(txtDelayTimeDown.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
-                    ///<DelayTimeUp></DelayTimeUp>
-                    myAI.DelayTimeUp = AppGlobal.ParseFloat(txtDelayTimeUp.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
-                    ///<DelayFaultTime ></DelayFaultTime >
-                    myAI.DelayFaultTime = AppGlobal.ParseFloat(txtDelayTimeFault.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
-                    ///<Unit ></Unit >
-                    string selectedUnit;
-                    if (comboUnit.SelectedItem != null)
-                    {
-                        selectedUnit = comboUnit.SelectedItem.ToString();
-                        myAI.Unit = selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                    }
-                    ///<ParLimitLowLow></ParLimitLowLow>
-                    myAI.LimitLowLow = AppGlobal.ParseFloat(txtParLimitLowLow.Text, out tempFloat) ? (tempFloat).ToString("F0") : "0";
-                    ///<ParLimitLow></ParLimitLow>
-                    myAI.LimitLowLow = AppGlobal.ParseFloat(txtParLimitLow.Text, out tempFloat) ? (tempFloat).ToString("F0") : "1";
-                    ///<ParLimitHigh></ParLimitHigh>
-                    myAI.LimitHigh = AppGlobal.ParseFloat(txtParLimitHigh.Text, out tempFloat) ? (tempFloat).ToString("F0") : "5";
-                    ///<ParLimitHighHigh></ParLimitHighHigh>
-                    myAI.LimitHighHigh = AppGlobal.ParseFloat(txtParLimitHighHigh.Text, out tempFloat) ? (tempFloat).ToString("F0") : "10";
-                    ///<ParMonTimeLowLow></ParMonTimeLowLow>
-                    myAI.MonTimeLowLow = AppGlobal.ParseFloat(txtMonTimeLowLow.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
-                    ///<ParMonTimeLow></ParMonTimeLow>
-                    myAI.MonTimeLow = AppGlobal.ParseFloat(txtMonTimeLow.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
-                    ///<ParMonTimeMiddle></ParMonTimeMiddle>
-                    myAI.MonTimeMiddle = AppGlobal.ParseFloat(txtMonTimeMiddle.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
-                    ///<ParMonTimeHigh></ParMonTimeHigh>
-                    myAI.MonTimeHigh = AppGlobal.ParseFloat(txtMonTimeHigh.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
-                    ///<ParMonTimeHighHigh></ParMonTimeHighHigh>
-                    myAI.MonTimeHighHigh = AppGlobal.ParseFloat(txtMonTimeHighHigh.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+                    CreateObjectCommon(myAI);             
                 }
                 if (createMode.BML)
                 {
-                    CreatObjectBML();
+                    CreateObjectBML(
+                        dataFromBML:dataGridBML,
+                        objAI:myAI,
+                        addtionToDesc:AppGlobal.AdditionDesc,
+                        processValue:out AppGlobal.ProcessValue
+                        );
                 }
                 else if (createMode.AutoSearch)
                 {
-                    CreatObjectAutoSearch();
+                    CreatObjectAutoSearch(
+                        objAI:myAI,
+                        processValue: ref AppGlobal.ProcessValue
+                         );
                 }
                 else if (createMode.Rule)
                 {
-                    CreatObjectRule();
+                    CreateObjectRule(
+                       objAI: myAI,
+                       addtionToDesc: AppGlobal.AdditionDesc,
+                       processValue: ref AppGlobal.ProcessValue
+                       );
                 }
+                ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
+                ProgressBar.Value = AppGlobal.ProcessValue.Value;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         #endregion
 
-       
-    } 
+     
+    }
 }

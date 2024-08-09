@@ -241,7 +241,7 @@ namespace GcproExtensionApp
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
             MDDYZPhoenix.Rule.Common.Description = txtDescription.Text;
-            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, txtDescription.Text);
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, txtDescription.Text);
         }
         private void SubElementsName_Changed(object sender, EventArgs e)
         {
@@ -904,7 +904,7 @@ namespace GcproExtensionApp
         }
         private void dataGridBML_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternNameWithoutTypeLL);
+            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
             TxtQuantity.Text = listBMLName.Count.ToString();
         }
         private void CreateBMLDefault()
@@ -995,7 +995,7 @@ namespace GcproExtensionApp
             var uniquePrefixes = rowsContainingMDDx
                 .Select(row => {
                     string name = row.Field<string>(0);          
-                    return LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL,name);
+                    return LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternMachineName, name);
                 })
                 .Distinct()
                 .ToList();
@@ -1008,7 +1008,7 @@ namespace GcproExtensionApp
                 dataTable.Rows.Remove(row);
             }  
             dataGridBML.DataSource = dataTable;
-            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataTable, dataTable.Columns[0].ColumnName, Engineering.PatternNameWithoutTypeLL);
+            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataTable, dataTable.Columns[0].ColumnName, Engineering.PatternMachineName);
             TxtQuantity.Text = listBMLName.Count.ToString();
             listBMLName.Clear();
         }
@@ -1111,7 +1111,7 @@ namespace GcproExtensionApp
                 dataGridBML.Rows.RemoveAt(row.Index);
             }
             dataGridBML.ClearSelection();
-            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternNameWithoutTypeLL);
+            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
             TxtQuantity.Text = listBMLName.Count.ToString();
         }
         private void TxtQuantity_KeyDown(object sender, KeyEventArgs e)
@@ -1188,17 +1188,7 @@ namespace GcproExtensionApp
         {
             CreateImpExp();
         }
-        private void BtnRegenerateDPNode_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
-                == DialogResult.OK)
-            {
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                AppGlobal.ReGenerateDPNode(oledb);
-            }
-        }
+   
         private void AppendInfoToBuilder(CheckBox checkBox, string info, StringBuilder builder)
         {
             if (checkBox.Checked)
@@ -1221,7 +1211,7 @@ namespace GcproExtensionApp
             StringBuilder descTotalBuilder = new StringBuilder();
             List<KeyValuePair<string, int>> listName = new List<KeyValuePair<string, int>>();
             int noOfSubElements = 0;
-            listName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(datafromBML, nameof(BML.ColumnName), Engineering.PatternNameWithoutTypeLL);
+            listName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(datafromBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
             int quantityNeedToBeCreate = listName.Count;
         //    int subElements = datafromBML.Rows.Count;     
             processValue.Max = quantityNeedToBeCreate;
@@ -1538,7 +1528,7 @@ namespace GcproExtensionApp
             objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
             for (int i = 0; i <= objList.Count - 1; i++)
             {
-                objList[i] = AppGlobal.GetObjectSymbolFromIO(objList[i]);
+                objList[i] = GcObject.GetObjectSymbolFromIO(objList[i], GcObjectInfo.General.SuffixIO.Delimiter);
             }
             quantityNeedToBeCreate = objList.Count;
             ProgressBar.Maximum= quantityNeedToBeCreate;

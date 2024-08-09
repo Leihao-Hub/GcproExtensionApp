@@ -250,7 +250,7 @@ namespace GcproExtensionApp
         }
         public static class VFCAdapter
         {
-            public static string BMLPath { get; set; }
+         //   public static string BMLPath { get; set; }
             public static class TypeEnmu
             {
                 public static string ATV320 { get; } = "ATV320";
@@ -451,6 +451,20 @@ namespace GcproExtensionApp
                             par.SpeedLimitMin = "0";
                             par.ParPZDConsistent = false;
                         }
+                        else
+                        {
+                            par.LenPKW = "8";
+                            par.LenPZD = "12";
+                            par.LenPZDInp = "0";
+                            par.UnitsPerDigits = "0.1";
+                            par.SpeedMaxDigits = "500";
+                            par.SpeedUnitsByMaxDigits = "100";
+                            par.SpeedUnitsByZeroDigits = "0";
+                            par.SpeedLimitMax = "100";
+                            par.SpeedLimitMin = "0";
+                            par.ParPZDConsistent = false;
+                        }
+
                     }
                 }
                 #endregion
@@ -462,14 +476,6 @@ namespace GcproExtensionApp
             private static string bmlPath;
             private static string typeOutput;
             private static string typeInput;
-            private static string columnName;
-            private static string columnDesc;
-            private static string columnFloor;
-            private static string columnCabinet;
-            private static string columnCabinetGroup;
-            private static string columnMachine;
-            private static string columnIORemark;
-            private static string columnLine;
             private static string manualFlap;
             private static string pneFlap;
             private static string pneSlideGate;
@@ -504,44 +510,7 @@ namespace GcproExtensionApp
             {
                 get { return typeInput; }
             }
-            public static string ColumnName
-            {
-                get { return columnName; }
-            }
-
-            public static string ColumnDesc
-            {
-                get { return columnDesc; }
-            }
-
-            public static string ColumnFloor
-            {
-                get { return columnFloor; }
-            }
-
-            public static string ColumnCabinet
-            {
-                get { return columnCabinet; }
-            }
-
-            public static string ColumnCabinetGroup
-            {
-                get { return columnCabinetGroup; }
-            }
-
-            public static string ColumnMachine
-            {
-                get { return columnMachine; }
-            }
-
-            public static string ColumnIORemark
-            {
-                get { return columnIORemark; }
-            }
-            public static string ColumnLine
-            {
-                get { return columnLine; }
-            }
+   
             public static string ManualFlap
             {
                 get { return manualFlap; }
@@ -601,15 +570,7 @@ namespace GcproExtensionApp
                   
                     string[] ioRemarks = new string[7];
                     var keys = new Dictionary<string, Action<string>>
-                    {
-                        {$"{keyColumns}Name",value => columnName= value },
-                        {$"{keyColumns}Desc", value => columnDesc= value },
-                        {$"{keyColumns}Floor", value => columnFloor = value },
-                        {$"{keyColumns}Cabinet", value => columnCabinet = value },
-                        {$"{keyColumns}CabinetGroup", value => columnCabinetGroup = value },
-                        {$"{keyColumns}Machine",value => columnMachine = value },
-                        {$"{keyColumns}IORemark",value => columnIORemark = value },
-                        {$"{keyColumns}Line",value => columnLine= value },
+                    {                       
                         {$"{keyFilter}ManualFlap",value => manualFlap= value },
                         {$"{keyFilter}PneFlap",value => pneFlap = value },
                         {$"{keyFilter}ManualSlideGate",value => manualSlideGate = value },
@@ -689,7 +650,7 @@ namespace GcproExtensionApp
                     else if (input.IndexOf(dirTo, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         string nameString = input;
-                        nameString = StringHelper.ExtractStringPart($@"{Engineering.PatternNameWithoutTypeLL}(-[A-Za-z]{{3}}\\d{{1,3}})?", nameString);
+                        nameString = StringHelper.ExtractStringPart($@"{Engineering.PatternMachineName}(-[A-Za-z]{{3}}\\d{{1,3}})?", nameString);
                         nameString = string.IsNullOrEmpty(nameString) ? string.Empty : (nameString.StartsWith(prefixName) ? nameString : prefixName + nameString);
                         return nameString;
                     }

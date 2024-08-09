@@ -31,6 +31,8 @@ namespace GcproExtensionLibrary
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
         public const string EX_SPECIFIED_COLUMN = "未指定读取列。";
         public const string DESC_SEPARATOR = ",";
+        public const int MIN_IO_SYMBOL_LENGTH = 3;
+        public const string MSG_INVALID_IO_SYMBOL = "无效的IO名称！";
         public const int NO_OWNER = 1;
         public const int NO_PARENT = 0;
         #endregion
@@ -40,16 +42,7 @@ namespace GcproExtensionLibrary
             {
                 string[] result = source.Split(new string[] { rule }, StringSplitOptions.RemoveEmptyEntries);
                 return result;
-            }
-            //  StringBuilder result =  new StringBuilder();
-            ////  string result = string.Empty;
-            //  if (ruleSubPos.StartPos)
-            //  { result = rule + source[0]; }
-            //  else if (ruleSubPos.EndPos)
-            //  { result = source[0] + rule; }
-            //  else if (ruleSubPos.PosInString > 0)
-            //  { result = source[0] + rule + source[1]; }
-            //  return result;
+            }   
             public static string GenerateObjectName(string[] source, RuleSubPos ruleSubPos, string rule)
             {
                 StringBuilder result = new StringBuilder();

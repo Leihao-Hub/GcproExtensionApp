@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMotor));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -670,7 +670,6 @@ namespace GcproExtensionApp
             this.GrpDescriptionRule.TabIndex = 74;
             this.GrpDescriptionRule.TabStop = false;
             this.GrpDescriptionRule.Text = "描述规则";
-  
             // 
             // LblDescriptionRule
             // 
@@ -1543,6 +1542,7 @@ namespace GcproExtensionApp
             this.txtVFCPrefixBML.Size = new System.Drawing.Size(56, 13);
             this.txtVFCPrefixBML.TabIndex = 19;
             this.txtVFCPrefixBML.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVFCPrefixBML.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVFCPrefixBML_KeyDown);
             // 
             // lblVFCPrefixBML
             // 
@@ -1551,7 +1551,7 @@ namespace GcproExtensionApp
             this.lblVFCPrefixBML.Name = "lblVFCPrefixBML";
             this.lblVFCPrefixBML.Size = new System.Drawing.Size(55, 13);
             this.lblVFCPrefixBML.TabIndex = 29;
-            this.lblVFCPrefixBML.Text = "变频前缀";
+            this.lblVFCPrefixBML.Text = "变频筛选";
             // 
             // btnReadBML
             // 
@@ -1572,8 +1572,8 @@ namespace GcproExtensionApp
             // dataGridBML
             // 
             this.dataGridBML.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1904,6 +1904,7 @@ namespace GcproExtensionApp
             this.ComboElevation.Name = "ComboElevation";
             this.ComboElevation.Size = new System.Drawing.Size(182, 21);
             this.ComboElevation.TabIndex = 48;
+            this.ComboElevation.SelectedIndexChanged += new System.EventHandler(this.ComboElevation_SelectedIndexChanged);
             // 
             // LblDiagram
             // 

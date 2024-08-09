@@ -814,7 +814,7 @@ namespace GcproExtensionApp
                 OleDb oledb = new OleDb();
                 oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                AppGlobal.ReGenerateDPNode(oledb);
+                DPSlave.ReGenerateDPNode(oledb);
             }
         }
         void AppendInfoToBuilder(CheckBox checkBox, string info, StringBuilder builder)

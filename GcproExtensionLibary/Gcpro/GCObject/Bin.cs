@@ -317,7 +317,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             //textFileHandle.ClearContents();
         }
         /// <summary>
-        /// 向数据库ImpExpDef中插入对向的导入定义
+        /// 向数据库ImpExpDef中插入对象的导入定义
         /// </summary>
         /// <param name="insertMultipleRecords">传入一个Oledb类中InsertMultipleRecords方法的委托</param>
         /// <returns></returns>

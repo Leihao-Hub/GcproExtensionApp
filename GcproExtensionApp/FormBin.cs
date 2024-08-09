@@ -357,21 +357,25 @@ namespace GcproExtensionApp
         private void txtHighLevel_TextChanged(object sender, EventArgs e)
         {
             txtHighLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtHighLevel.Text, false);
+            chkReadHighLevel.Checked = !String.IsNullOrEmpty(txtHighLevelRule.Text) && !String.IsNullOrEmpty(txtHighLevel.Text);
         }
 
         private void txtMiddleLevel_TextChanged(object sender, EventArgs e)
         {
             txtMiddleLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtMiddleLevel.Text, false);
+            chkReadRefillLevel.Checked = !String.IsNullOrEmpty(txtMiddleLevelRule.Text) && !String.IsNullOrEmpty(txtMiddleLevel.Text);
         }
 
         private void txtLowLevel_TextChanged(object sender, EventArgs e)
         {
             txtLowLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtLowLevel.Text, false);
+            chkWithLL.Checked = chkReadLowLevel.Checked = !String.IsNullOrEmpty(txtLowLevelRule.Text) && !String.IsNullOrEmpty(txtLowLevel.Text);
         }
 
         private void txtAnalogLevel_TextChanged(object sender, EventArgs e)
         {
-            txtAnalogLevel.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtAnalogLevel.Text, false);
+            txtAnalogLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtAnalogLevel.Text, false);
+            chkReadInFillLevel.Checked = !String.IsNullOrEmpty(txtAnalogLevelRule.Text) && !String.IsNullOrEmpty(txtAnalogLevel.Text);
         }
         private void txtBinNo_TextChanged(object sender, EventArgs e)
         {
@@ -1826,6 +1830,6 @@ namespace GcproExtensionApp
             }
         }
         #endregion
-  
+
     }
 }

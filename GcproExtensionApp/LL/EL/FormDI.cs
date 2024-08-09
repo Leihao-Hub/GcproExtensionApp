@@ -16,6 +16,8 @@ using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Linq;
+using System.Xml.Linq;
+using System.Net;
 #endregion
 namespace GcproExtensionApp
 {
@@ -27,17 +29,19 @@ namespace GcproExtensionApp
         {
             InitializeComponent();
         }
- 
+
         #region Public object in this class
         DI myDI = new DI(AppGlobal.GcproDBInfo.GcproTempPath);
         ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
-        private string DEMO_NAME_DI = "=A-1001-BLH01";
-        private string DEMO_NAME_RULE_DI = "1001";
-        private string DEMO_DESCRIPTION_DI = "100号基粉仓高料位/或者空白";
-        private string DEMO_DESCRIPTION_RULE_DI = "100/或者空白";
+        private string DEMO_NAME_DI = "=A-4201-BLH01";
+        private string DEMO_NAME_RULE_DI = "4201";
+        private string DEMO_DESCRIPTION_DI = "401号基粉仓高料位/或者空白";
+        private string DEMO_DESCRIPTION_RULE_DI = "401/或者空白";
+        private string diSuffux = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DI}.{AppGlobal.JS_SUFFIX}.";
+        private GcBaseRule objDefaultInfo;
         #endregion
         private int value9 = 0;
         private int value10 = 0;
@@ -69,7 +73,7 @@ namespace GcproExtensionApp
                 ComboEquipmentSubType.Items.Add(itemInfo);
 
             }
-          
+
             ComboEquipmentSubType.SelectedIndex = 0;
             ///<ProcessFct> Read [ProcessFct] </ProcessFct>
             dataTable = oledb.QueryDataTable(GcproTable.ProcessFct.TableName, $"{GcproTable.ProcessFct.FieldOType.Name} = {DI.OTypeValue}",
@@ -114,7 +118,7 @@ namespace GcproExtensionApp
             foreach (var column in list)
             {
                 ComboDPNode1.Items.Add(column.ToString());
-               
+
             }
             ///<Elevation> Read [Elevation]</Elevation>
             dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_Elevation}'",
@@ -157,16 +161,50 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
+            objDefaultInfo.NameRule = "4201";
+            objDefaultInfo.DescLine = "制粉A线";
+            objDefaultInfo.DescFloor = "6楼";
+            objDefaultInfo.Name = "=A-4201-BLH01";
+            objDefaultInfo.DescObject = "401号基粉仓高料位";
+            objDefaultInfo.DescriptionRuleInc = DI.Rule.Common.DescriptionRuleInc;
+            objDefaultInfo.NameRuleInc = DI.Rule.Common.NameRuleInc;
+            DI.Rule.Common.Cabinet = DI.Rule.Common.Power = string.Empty;
+
+            objDefaultInfo.Description = DI.EncodingDesc(
+                baseRule: ref objDefaultInfo,
+                namePrefix: GcObjectInfo.General.PrefixName,
+                nameRule: Engineering.PatternMachineName,
+                withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+                withFloorInfo: chkAddFloorToDesc.Checked,
+                withNameInfo: chkAddNameToDesc.Checked,
+                withCabinet: chkAddCabinetToDesc.Checked,
+                withPower: false,
+                nameOnlyWithNumber: chkNameOnlyNumber.Checked);
+            if (String.IsNullOrEmpty(DI.Rule.Common.Description))
+            { DI.Rule.Common.Description = objDefaultInfo.Description; }
+
+            if (String.IsNullOrEmpty(DI.Rule.Common.Name))
+            { DI.Rule.Common.Name = objDefaultInfo.Name; }
+
+            if (String.IsNullOrEmpty(DI.Rule.Common.DescLine))
+            { DI.Rule.Common.DescLine = objDefaultInfo.DescLine; }
+
+            if (String.IsNullOrEmpty(DI.Rule.Common.DescFloor))
+            { DI.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
+
+            if (String.IsNullOrEmpty(DI.Rule.Common.DescObject))
+            { DI.Rule.Common.DescObject = objDefaultInfo.DescObject; }
             txtSymbolRule.Text = DI.Rule.Common.NameRule;
             txtSymbolIncRule.Text = DI.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = DI.Rule.Common.DescriptionRule;
             txtDescriptionIncRule.Text = DI.Rule.Common.DescriptionRuleInc;
-
+            txtSymbol.Text = DI.Rule.Common.Name;
+            txtDescription.Text = DI.Rule.Common.Description;
         }
         public void CreateTips()
         {
             toolTip.SetToolTip(BtnNewImpExpDef, AppGlobal.CREATE_IMPORT_RULE + DI.OType);
-            toolTip.SetToolTip(BtnConnectIO, AppGlobal.CONNECT_CONNECTOR);  
+            toolTip.SetToolTip(BtnConnectIO, AppGlobal.CONNECT_CONNECTOR);
             toolTip.SetToolTip(txtSymbol, AppGlobal.DEMO_NAME + DEMO_NAME_DI);
             toolTip.SetToolTip(txtSymbolRule, AppGlobal.DEMO_NAME_RULE + DEMO_NAME_RULE_DI);
             toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_DI);
@@ -178,9 +216,9 @@ namespace GcproExtensionApp
             OleDb oledb = new OleDb();
             DataTable dataTable = new DataTable();
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;          
-            dataTable=oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DI.ImpExpRuleName}'",
-            null, null, GcproTable.ImpExpDef.FieldType.Name);         
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DI.ImpExpRuleName}'",
+            null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
             {
                 if (MessageBox.Show(AppGlobal.MSG_RULE_ALREADY_EXITS, AppGlobal.INFO,
@@ -190,13 +228,13 @@ namespace GcproExtensionApp
                     CreateDIImpExp(oledb);
                 }
                 else
-                { 
-                    return; 
+                {
+                    return;
                 }
             }
             else
-            { 
-                CreateDIImpExp(oledb); 
+            {
+                CreateDIImpExp(oledb);
             }
 
         }
@@ -209,7 +247,7 @@ namespace GcproExtensionApp
             txtOutpPowerOffSuffix.Text = GcObjectInfo.DI.SuffixOutpPowerOff;
             txtOutpLampSuffix.Text = GcObjectInfo.DI.SuffixOutpLamp;
             txtInpTrue.Text = txtSymbol.Text + txtInpTrueSuffix.Text;
-              
+
             txtSymbolIncRule.Text = "1";
             txtDescriptionIncRule.Text = "1";
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
@@ -220,13 +258,13 @@ namespace GcproExtensionApp
             txtValue9.Text = "1";
             myDI.Value9 = "1";
             txtValue10.Text = "0";
-            myDI.Value10 = "0";            
+            myDI.Value10 = "0";
             ComboEquipmentSubType.SelectedIndex = 0;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
             toolStripMenuReload.Click += new EventHandler(toolStripMenuReload_Click);
             toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
-            this.Text = "DI导入文件 " + " " + myDI.FilePath;         
+            this.Text = "DI导入文件 " + " " + myDI.FilePath;
         }
         #endregion
         private void CreateDIImpExp(OleDb oledb)
@@ -263,8 +301,8 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpTrueSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.DI.Suffix.InpTrue", newJsonKeyValue);
-                GcObjectInfo.DI.SuffixInpTrue= newJsonKeyValue;
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}InpTrue", newJsonKeyValue);
+                GcObjectInfo.DI.SuffixInpTrue = newJsonKeyValue;
             }
         }
 
@@ -273,7 +311,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpFaultDevSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.DI.Suffix.InpFaultDev", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}InpFaultDev", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixInpFaultDev = newJsonKeyValue;
             }
         }
@@ -283,7 +321,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpFaultResetSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.DI.Suffix.OutpFaultReset", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}OutpFaultReset", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixOutpFaultReset = newJsonKeyValue;
             }
         }
@@ -293,7 +331,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpPowerOffSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.DI.Suffix.OutpPowerOff", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}.OutpPowerOff", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixOutpPowerOff = newJsonKeyValue;
             }
         }
@@ -303,12 +341,14 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpLampSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.DI.Suffix.OutpLamp", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}OutpLamp", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixOutpLamp = newJsonKeyValue;
             }
         }
         private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
         {
+            if (createMode.AutoSearch)
+            { return; }
             if (AppGlobal.CheckNumericString(txtSymbolRule.Text))
             {
                 DI.Rule.Common.NameRule = txtSymbolRule.Text;
@@ -319,11 +359,26 @@ namespace GcproExtensionApp
             }
         }
 
+        private void TxtSymbol_TextChanged(object sender, EventArgs e)
+        {
+            txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
+            txtInpTrue.Text = txtSymbol.Text + txtInpTrueSuffix.Text;
+            myDI.Name = txtSymbol.Text;
+            myDI.Name = txtSymbol.Text;
+            DI.Rule.Common.Name = txtSymbol.Text;
+            UpdateDesc();
+        }
+        private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ObjectBrowser objectBrowser = new ObjectBrowser();
+            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
+            objectBrowser.OType = Convert.ToString(DI.OTypeValue);
+            objectBrowser.Show();
+        }
         private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-
                 if (AppGlobal.CheckNumericString(txtSymbolIncRule.Text))
                 {
                     DI.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
@@ -335,18 +390,57 @@ namespace GcproExtensionApp
             }
         }
 
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+            if (!DI.Rule.Common.Description.Equals(txtDescription.Text))
+            {
+                DI.Rule.Common.Description = txtDescription.Text;
+            }
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(DI.Rule.Common.DescObject, false);
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
+        }
+        private void txtDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    DI.Rule.Common.Description = txtDescription.Text;
+                    DI.DecodingDesc(ref DI.Rule.Common, AppGlobal.DESC_SEPARATOR);
+                    UpdateDesc();
+                }
+                catch
+                {
+                }
+            }
+
+        }
         private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtDescriptionRule.Text))
+            { return; }
 
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
             if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
             {
-                DI.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                string descObjectNumber = LibGlobalSource.StringHelper.ExtractNumericPart(DI.Rule.Common.DescObject, false);
+                if (!string.IsNullOrEmpty(descObjectNumber))
+                {
+                    DI.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                    DI.Rule.Common.DescObject = DI.Rule.Common.DescObject.Replace(descObjectNumber, DI.Rule.Common.DescriptionRule);
+                    UpdateDesc();
+                }
             }
             else
             {
                 AppGlobal.MessageNotNumeric();
             }
-
         }
         private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
         {
@@ -361,6 +455,14 @@ namespace GcproExtensionApp
                     AppGlobal.MessageNotNumeric();
                 }
             }
+        }
+        private void txtInpTrueSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtInpTrue.Text = txtSymbol.Text + txtInpTrueSuffix.Text;
+        }
+        private void txtOutRevSuffix_TextChanged(object sender, EventArgs e)
+        {
+            txtOutpPowerOff.Text = txtSymbol.Text + txtOutpPowerOffSuffix.Text;
         }
         private void txtParDelayChange_TextChanged(object sender, EventArgs e)
         {
@@ -558,7 +660,7 @@ namespace GcproExtensionApp
         private void txtInpTrue_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value11";
-        } 
+        }
         private void txtInHWStop_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value47";
@@ -644,107 +746,109 @@ namespace GcproExtensionApp
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit6";
         }
         #endregion
-        private void TxtSymbol_TextChanged(object sender, EventArgs e)
+
+        private void UpdateDesc()
         {
-            txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
-            txtInpTrue.Text = txtSymbol.Text + txtInpTrueSuffix.Text;
-            myDI.Name = txtSymbol.Text;
-        }
-        private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
-            objectBrowser.OType = Convert.ToString(DI.OTypeValue);
-            objectBrowser.Show();
+            DI.Rule.Common.Description = DI.EncodingDesc(
+            baseRule: ref DI.Rule.Common,
+            namePrefix: GcObjectInfo.General.PrefixName,
+            nameRule: Engineering.PatternMachineName,
+            withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+            withFloorInfo: chkAddFloorToDesc.Checked,
+            withNameInfo: chkAddNameToDesc.Checked,
+            withCabinet: chkAddCabinetToDesc.Checked,
+            withPower: false,
+            nameOnlyWithNumber: chkNameOnlyNumber.Checked
+            );
+            txtDescription.Text = DI.Rule.Common.Description;
         }
         void SubTypeChanged(string subType)
         {
             if (subType == DI.MON2BS)
             {
                 myDI.PType = DI.P7163.ToString();
-                myDI.DelayChange =txtDelayChange.Text= "0.0";
-                myDI.DelayTrue =txtDelayTrue.Text= "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text="0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text= "50.0";
-                myDI.TimeoutFalse =txtTimeoutFalse.Text= "0.0";
+                txtDelayChange.Text = "0.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "5.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 4;
                 value10 = 0;
             }
             else if (subType == DI.MON1MVC)
             {
                 myDI.PType = DI.P7171.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "0.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "0.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 4;
                 value10 = 0;
             }
             else if (subType == DI.MON1M_LS)
             {
                 myDI.PType = DI.P7167.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "0.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "0.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 5;
                 value10 = 0;
             }
             else if (subType == DI.HLBIN)
             {
                 myDI.PType = DI.P7146.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "20.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "150.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "2.0";
+                txtDelayTrue.Text = "15.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 2;
                 value10 = 16;
             }
             else if (subType == DI.LLBIN)
             {
                 myDI.PType = DI.P7145.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "20.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "300.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "50.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "2.0";
+                txtDelayTrue.Text = "30.0";
+                txtDelayFalse.Text = "5.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 4098;
                 value10 = 16;
             }
             else if (subType == DI.HLMA)
             {
                 myDI.PType = DI.P7165.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "20.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "30.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "2.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "3.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 8195;
                 value10 = 0;
             }
             else if (subType == DI.MON1MPH)
             {
-                myDI.SubType = DI.MON1MPH;
                 myDI.PType = DI.P7143.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "10.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "1.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 5;
                 value10 = 0;
             }
             else if (subType == DI.DIC)
             {
                 myDI.PType = DI.P7154.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "20.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "2.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 0;
                 value10 = 0;
             }
@@ -752,47 +856,52 @@ namespace GcproExtensionApp
             {
                 myDI.SubType = DI.MON2SSP;
                 myDI.PType = DI.P7159.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "0.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "0.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "50.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "10.0";
+                txtDelayChange.Text = "0.0";
+                txtDelayTrue.Text = "0.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "5.0";
+                txtTimeoutFalse.Text = "1.0";
                 value9 = 4;
                 value10 = 2;
             }
             else if (subType == DI.MON1M_TS)
             {
                 myDI.PType = DI.P7131.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "0.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "0.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "0.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "0.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 4;
                 value10 = 0;
             }
             else if (subType == DI.MON2PRLSS)
             {
                 myDI.PType = DI.P7156.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "0.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "0.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "10.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "0.0";
+                txtDelayTrue.Text = "0.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "1.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 4;
                 value10 = 0;
             }
             else if (subType == DI.MON2SS)
             {
                 myDI.PType = DI.P7135.ToString();
-                myDI.DelayChange = txtDelayChange.Text = "0.0";
-                myDI.DelayTrue = txtDelayTrue.Text = "10.0";
-                myDI.DelayFalse = txtDelayFalse.Text = "0.0";
-                myDI.TimeoutTrue = txtTimeoutTrue.Text = "50.0";
-                myDI.TimeoutFalse = txtTimeoutFalse.Text = "0.0";
+                txtDelayChange.Text = "0.0";
+                txtDelayTrue.Text = "1.0";
+                txtDelayFalse.Text = "0.0";
+                txtTimeoutTrue.Text = "5.0";
+                txtTimeoutFalse.Text = "0.0";
                 value9 = 4;
                 value10 = 0;
-            }      
+            }
+            myDI.DelayChange = AppGlobal.ParseFloat(txtDelayChange.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
+            myDI.DelayTrue = AppGlobal.ParseFloat(txtDelayTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
+            myDI.DelayFalse = AppGlobal.ParseFloat(txtDelayFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            myDI.TimeoutTrue = AppGlobal.ParseFloat(txtTimeoutTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "5.0";
+            myDI.TimeoutFalse = AppGlobal.ParseFloat(txtTimeoutFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
         }
         void GetValue10BitValue(int value)
         {
@@ -831,7 +940,7 @@ namespace GcproExtensionApp
                             ComboEquipmentInfoType.SelectedItem = item;
                             break;
                         }
-                    }                
+                    }
                 }
                 else if (myDI.SubType == DI.HLBIN)
                     foreach (var item in ComboEquipmentInfoType.Items)
@@ -930,14 +1039,7 @@ namespace GcproExtensionApp
             catch (Exception ex)
             { MessageBox.Show(ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
-        private void txtInpTrueSuffix_TextChanged(object sender, EventArgs e)
-        {
-            txtInpTrue.Text = txtSymbol.Text + txtInpTrueSuffix.Text;
-        }
-        private void txtOutRevSuffix_TextChanged(object sender, EventArgs e)
-        {
-            txtOutpPowerOff.Text = txtSymbol.Text + txtOutpPowerOffSuffix.Text;
-        }
+
         #endregion <---Rule and autosearch part---> 
         #region <---BML part--->
         private void AddWorkSheets()
@@ -974,7 +1076,7 @@ namespace GcproExtensionApp
             TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
             excelFileHandle.FilePath = TxtExcelPath.Text;
             AddWorkSheets();
-           
+
         }
         private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
         {
@@ -995,9 +1097,9 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (! String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
-                btnReadBML.Enabled= true;   
+                btnReadBML.Enabled = true;
             }
         }
         private void dataGridBML_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
@@ -1035,10 +1137,10 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text=BML.DI.BMLPath;
+            TxtExcelPath.Text = BML.DI.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName; 
-            nameColumn.Name = nameof(BML.ColumnName);                                                
+            nameColumn.HeaderText = BML.ColumnName;
+            nameColumn.Name = nameof(BML.ColumnName);
             dataGridBML.Columns.Add(nameColumn);
 
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
@@ -1082,7 +1184,7 @@ namespace GcproExtensionApp
         {
             string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboTypeBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text,comboIORemarkBML.Text,comboLineBML.Text};
-           StringBuilder sbFilters = new StringBuilder();
+            StringBuilder sbFilters = new StringBuilder();
             sbFilters.Append($@"Value LIKE ""%{BML.DI.BeltMonitor}"" || ").Append($@"Value LIKE ""%{BML.DI.EmergencyStop}"" || ").Append($@"Value LIKE ""%{BML.DI.Explosion}"" || ")
                  .Append($@"Value LIKE ""%{BML.DI.HighLevel}"" || ").Append($@"Value LIKE ""%{BML.DI.LimitSwitch}"" || ").Append($@"Value LIKE ""%{BML.DI.LowLevel}"" || ")
                  .Append($@"Value LIKE ""%{BML.DI.MiddleLevel}"" || ").Append($@"Value LIKE ""%{BML.DI.Overflow}"" ||").Append($@"Value LIKE ""%{BML.DI.PSw}"" || ")
@@ -1093,8 +1195,8 @@ namespace GcproExtensionApp
            .Append($@"Value NOT LIKE ""%{BML.VLS.PneSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.ManualSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneShutOffValve}"" && ")
            .Append($@"Value NOT LIKE ""%{BML.VLS.PneAspValve}""");
             DataTable dataTable = new DataTable();
-            string[] filters = {sbFilters .ToString(), sbValveFilters.ToString()};
-            string[] filterColumns = { comboTypeBML.Text ,comboDescBML.Text};
+            string[] filters = { sbFilters.ToString(), sbValveFilters.ToString() };
+            string[] filterColumns = { comboTypeBML.Text, comboDescBML.Text };
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
 
             dataGridBML.DataSource = dataTable;
@@ -1111,6 +1213,58 @@ namespace GcproExtensionApp
         }
         #endregion
         #region Common used
+        private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddSectionToDesc.Checked)
+            { chkAddUserSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddUserSectionToDesc.Checked)
+            { chkAddSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkAddPowerToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkNameOnlyNumber_CheckedChanged_1(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void ComboPanel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ComboPanel.Text))
+            {
+                DI.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{ComboPanel.Text}";
+                UpdateDesc();
+            }
+        }
+        private void ComboElevation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DI.Rule.Common.DescFloor = ComboElevation.Text;
+            UpdateDesc();
+        }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.Rule)
@@ -1125,9 +1279,9 @@ namespace GcproExtensionApp
                 TxtQuantity.Visible = true;
                 GrpSymbolRule.Visible = true;
                 LblSymbol.Text = AppGlobal.NAME;
-                txtSymbol.Text = DEMO_NAME_DI;
+                // txtSymbol.Text = DEMO_NAME_DI;
                 tabRule.Text = CreateMode.ObjectCreateMode.Rule;
-               
+
             }
             else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.AutoSearch)
             {
@@ -1141,9 +1295,9 @@ namespace GcproExtensionApp
                 TxtQuantity.Visible = false;
                 GrpSymbolRule.Visible = false;
                 LblSymbol.Text = AppGlobal.KEY_WORD_AUTOSEARCH;
-               
+
                 tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
-                
+
             }
 
             else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.BML)
@@ -1151,7 +1305,7 @@ namespace GcproExtensionApp
                 createMode.Rule = false;
                 createMode.BML = true;
                 createMode.AutoSearch = false;
-                tabCreateMode.SelectedTab = tabBML;         
+                tabCreateMode.SelectedTab = tabBML;
             }
 
         }
@@ -1159,20 +1313,20 @@ namespace GcproExtensionApp
         {
             if (tabCreateMode.SelectedTab == tabRule)
 
-            { 
-                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule; 
+            {
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             }
             else
-            { 
+            {
                 ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
             }
         }
         private void toolStripMenuClearList_Click(object sender, EventArgs e)
         {
             //dataTable.Clear();
-            DataTable dataTable=null;
+            DataTable dataTable = null;
             dataGridBML.DataSource = dataTable;
-            
+
         }
         private void toolStripMenuReload_Click(object sender, EventArgs e)
         {
@@ -1181,8 +1335,8 @@ namespace GcproExtensionApp
 
         private void toolStripMenuDelete_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow row in dataGridBML.SelectedRows)
-            {             
+            foreach (DataGridViewRow row in dataGridBML.SelectedRows)
+            {
                 dataGridBML.Rows.RemoveAt(row.Index);
             }
             dataGridBML.ClearSelection();
@@ -1193,7 +1347,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
-                { 
+                {
                     AppGlobal.MessageNotNumeric();
                 }
             }
@@ -1202,8 +1356,8 @@ namespace GcproExtensionApp
         private void TxtQuantity_TextChanged(object sender, EventArgs e)
         {
             if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
-            { 
-                AppGlobal.MessageNotNumeric(); 
+            {
+                AppGlobal.MessageNotNumeric();
             }
         }
         private void BtnConnectIO_Click(object sender, EventArgs e)
@@ -1213,10 +1367,10 @@ namespace GcproExtensionApp
             {
                 try
                 {
-                    bool all=!chkOnlyFree.Checked;
+                    bool all = !chkOnlyFree.Checked;
                     string objName = String.Empty;
                     string objSubType = String.Empty;
-                    OleDb oledb= new OleDb();
+                    OleDb oledb = new OleDb();
                     DataTable dataTable = new DataTable();
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                     oledb.IsNewOLEDBDriver = isNewOledbDriver;
@@ -1231,35 +1385,35 @@ namespace GcproExtensionApp
                     {
                         objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
                         objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
-                            string inpTrue;
-                            inpTrue = objName + txtInpTrueSuffix.Text;
-                            if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name)==0 || all)
-                            {
-                                DI.CreateRelation(objName, inpTrue, GcproTable.ObjData.Value11.Name, myDI.FileConnectorPath, Encoding.Unicode);
-                            }                                                
-                                                          
+                        string inpTrue;
+                        inpTrue = objName + txtInpTrueSuffix.Text;
+                        if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
+                        {
+                            DI.CreateRelation(objName, inpTrue, GcproTable.ObjData.Value11.Name, myDI.FileConnectorPath, Encoding.Unicode);
+                        }
+
                         if (!String.IsNullOrEmpty(txtInHWStop.Text))
                         {
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
                             {
-                                string InHWStop= objName + txtInHWStop.Text; ;
+                                string InHWStop = objName + txtInHWStop.Text; ;
                                 DI.CreateRelation(objName, InHWStop, GcproTable.ObjData.Value47.Name, myDI.FileConnectorPath, Encoding.Unicode);
                             }
                         }
-                     
+
                         if (!String.IsNullOrEmpty(txtOutpLamp.Text))
                         {
-                                                   
+
                         }
-                        ProgressBar.Value=count;
+                        ProgressBar.Value = count;
                     }
                     DI.SaveFileAs(myDI.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     dataTable.Clear();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("寻找IO与关联过程出错:"+ex, AppGlobal.INFO+":"+AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+                    MessageBox.Show("寻找IO与关联过程出错:" + ex, AppGlobal.INFO + ":" + AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
         }
@@ -1270,7 +1424,7 @@ namespace GcproExtensionApp
 
             {
                 myDI.Clear();
-                ProgressBar.Value = 0;  
+                ProgressBar.Value = 0;
             }
         }
         private void BtnSaveAs_Click(object sender, EventArgs e)
@@ -1292,561 +1446,658 @@ namespace GcproExtensionApp
                 OleDb oledb = new OleDb();
                 oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                AppGlobal.ReGenerateDPNode(oledb);
+                DI.ReGenerateDPNode(oledb);
             }
         }
-        void AppendInfoToBuilder(CheckBox checkBox, string info, StringBuilder builder)
+    
+        public void CreateObjectCommon(DI objDI)
         {
-            if (checkBox.Checked)
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            #region Prepare export DI file
+            ///<OType>is set when object generated</OType>
+            ///<SubType></SubType>
+            string selectedSubTypeItem;
+            if (ComboEquipmentSubType.SelectedItem != null)
             {
-                builder.Append(info);
+                selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
+                objDI.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+
             }
+            else
+            {
+                objDI.SubType = DI.DIC;
+            }
+            ///<PType></PType>
+            string selectedPTypeItem;
+            if (ComboEquipmentInfoType.SelectedItem != null)
+            {
+                selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
+                objDI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            else
+            {
+                objDI.PType = DI.P7154.ToString();
+            }
+            ///<DelayChange</DelayChange>
+            objDI.DelayChange = AppGlobal.ParseFloat(txtDelayChange.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            ///<DelayTrue></DelayTrue>
+            objDI.DelayTrue = AppGlobal.ParseFloat(txtDelayTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            ///<DelayFalse></DelayFalse>
+            objDI.DelayFalse = AppGlobal.ParseFloat(txtDelayFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            ///<TimeoutTrue></TimeoutTrue>
+            objDI.TimeoutTrue = AppGlobal.ParseFloat(txtTimeoutTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            ///<TimeoutFalse></TimeoutFalse>
+            objDI.TimeoutFalse = AppGlobal.ParseFloat(txtTimeoutFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            ///<Value9>Value is set when corresponding check box's check state changed</Value9>
+            ///<Value10>Value is set when corresponding check box's check state changed</Value10>
+            ///<Name>Value is set in TxtSymbol text changed event</Name>
+            ///<Description></Description>
+            objDI.Description = txtDescription.Text;
+            ///<ProcessFct></ProcessFct>
+            string selectedProcessFct = string.Empty;
+            if (ComboProcessFct.SelectedItem != null)
+            {
+                selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
+                objDI.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            ///<Diagram></Diagram>
+            string selectedDiagram;
+            if (ComboDiagram.SelectedItem != null)
+            {
+                selectedDiagram = ComboDiagram.SelectedItem.ToString();
+                objDI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+
+            ///<Page></Page>
+            objDI.Page = txtPage.Text;
+            ///<Building></Building>
+            string selectedBudling = "--";
+            if (ComboBuilding.SelectedItem != null)
+            {
+                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                objDI.Building = selectedBudling;
+            }
+            ///<Elevation></Elevation>
+            string selectedElevation;
+            if (ComboElevation.SelectedItem != null)
+            {
+                selectedElevation = ComboElevation.SelectedItem.ToString();
+                objDI.Elevation = selectedElevation;
+            }
+            ///<Panel_ID></Panel_ID>
+            string selectedPanel_ID;
+            if (ComboPanel.SelectedItem != null)
+            {
+                selectedPanel_ID = ComboPanel.SelectedItem.ToString();
+                objDI.Panel_ID = selectedPanel_ID;
+            }
+            ///<IsNew>is set when object generated,Default value is "No"</IsNew>
+            ///<FieldBusNode></FieldBusNode>
+            objDI.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            ///<DPNode1></DPNode1>
+            string selectDPNode1 = String.Empty;
+            if (ComboDPNode1.SelectedItem != null)
+            {
+                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
+                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+                objDI.DPNode1 = DI.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                {
+                    return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                }, selectDPNode1);
+
+                if (String.IsNullOrEmpty(objDI.DPNode1))
+                { objDI.FieldBusNode = string.Empty; }
+                else
+                {
+                    objDI.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    {
+                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                    }, int.Parse(objDI.DPNode1));
+                }
+            }
+            if (ComboHornCode.SelectedItem != null)
+            {
+                string hornCode = ComboHornCode.SelectedItem.ToString();
+                objDI.HornCode = hornCode.Substring(0, 2);
+            }
+            ///<InpTrue></InpTrue>
+            objDI.InpTrue = LibGlobalSource.NOCHILD;
+            ///<InpFaultDev></InpFaultDev>
+            objDI.InpFaultDev = LibGlobalSource.NOCHILD;
+            ///<InHWStop></InHWStop>
+            objDI.InHWStop = LibGlobalSource.NOCHILD;
+            ///<OutpFaultReset ></OutpFaultReset >
+            objDI.OutpFaultReset = LibGlobalSource.NOCHILD;
+            ///<OutpLamp></OutpLamp>
+            objDI.OutpLamp = string.Empty;
+            ///<OutpPowerOff ></OutpPowerOff >
+            objDI.OutpPowerOff = string.Empty;
+            #endregion
+        }
+        public void CreateObjectBML(DataGridView dataFromBML, DI objDI,
+            (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+            out (int Value, int Max) processValue)
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            #region common used variables declaration       
+            StringBuilder descToBuilder = new StringBuilder();
+            int quantityNeedToBeCreate = dataFromBML.Rows.Count;
+            #endregion
+            #region Prepare export DI file     
+            string selectedBudling = "--";
+            if (ComboBuilding.SelectedItem != null)
+            {
+                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                objDI.Building = selectedBudling;
+            }
+            ///<IsNew>is set when object generated,Default value is "No"</IsNew>
+            ///<FieldBusNode></FieldBusNode>
+            objDI.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            if (ComboHornCode.SelectedItem != null)
+            {
+                string hornCode = ComboHornCode.SelectedItem.ToString();
+                objDI.HornCode = hornCode.Substring(0, 2);
+            }
+            #endregion
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
+            SuffixObject suffixObject = new SuffixObject();
+            string cabinet, cabinetGroup;
+            string stringNumber = string.Empty;
+            string remark;
+            objDefaultInfo = DI.Rule.Common;
+            Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
+            {
+                DataGridViewCell cell;
+                cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
+                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                { continue; }
+                string _subType = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDIType)].Value);
+                string desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
+
+                if (_subType == BML.DI.SpeedMonitor && desc == BML.MachineType.Elevator)
+                { continue; }
+                objDI.Name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
+                ///<AdditionInfoToDesc></AdditionInfoToDesc>   
+                descToBuilder.Clear();
+                string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
+
+                if (!(myDI.Name.Contains(suffixObject.GetKey("BLH")) || objDI.Name.Contains(suffixObject.GetKey("BLL"))))
+                {
+                    descToBuilder.Append(desc);
+                }
+
+                if (addtionToDesc.Section)
+                {
+                    stringNumber = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objDI.Name);
+                    if (!string.IsNullOrEmpty(stringNumber))
+                    {
+                        if (AppGlobal.ParseInt(stringNumber.Substring(0, 4), out tempInt))
+                        {
+                            DI.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
+                        }
+                    }
+                }
+                else if (addtionToDesc.UserDefSection)
+                {
+                    DI.Rule.Common.DescLine = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value); ;
+                }
+
+                objDI.InpTrue = $"{objDI.Name}{GcObjectInfo.DI.SuffixInpTrue}";    
+                cabinet = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
+                cabinetGroup = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
+                objDI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
+                objDI.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
+
+                #region Subtype and PType           
+                if (myDI.Name.Contains(suffixObject.GetKey("BZA")))
+                {
+                    objDI.SubType = DI.MON2BS;
+                    objDI.Value9 = "4";
+                    objDI.Value10 = "0";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BZA"]}");
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("SHE")))
+                {
+                    objDI.SubType = DI.MON1MVC;
+                    objDI.Value9 = "4";
+                    objDI.Value10 = "0";
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("FYX")))
+                {
+                    objDI.SubType = DI.MON1M_LS;
+                    objDI.Value9 = "5";
+                    objDI.Value10 = "0";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["FYX"]}");
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("BZS")))
+                {
+                    objDI.SubType = DI.MON1M_LS;
+                    objDI.Value9 = "5";
+                    objDI.Value10 = "0";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BZS"]}");
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("QYS")))
+                {
+                    objDI.SubType = DI.MON1M_LS;
+                    objDI.Value9 = "5";
+                    objDI.Value10 = "0";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["QYS"]}");
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("BLH")))
+                {
+                    objDI.SubType = DI.HLBIN;
+                    objDI.Value9 = "2";
+                    objDI.Value10 = "16";
+                    remark = BML.DI.ParseIORemark(ioRemark);
+                    if (!string.IsNullOrEmpty(remark))
+                    {
+                        stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
+                        if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                        {
+                            descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
+
+                        }
+                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value2.Name, _bin.FileRelationPath, Encoding.Unicode);
+                    }
+                    else
+                    {
+                        descToBuilder.Append(ioRemark);
+                    }
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BLH"]}");
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("BLL")) || _subType == BML.DI.MiddleLevel)
+                {
+                    objDI.SubType = DI.LLBIN;
+                    objDI.Value9 = "4098";
+                    objDI.Value10 = "16";
+                    remark = BML.DI.ParseIORemark(ioRemark);
+                    if (!string.IsNullOrEmpty(remark))
+                    {
+                        stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
+                        if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                        {
+                            descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
+                        }
+
+                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value3.Name, _bin.FileRelationPath, Encoding.Unicode);
+                    }
+                    else
+                    {
+                        descToBuilder.Append(ioRemark);
+                    }
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BLL"]}");
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("BQS")))
+                {
+                    objDI.SubType = DI.HLMA;
+                    objDI.Value9 = "8195";
+                    objDI.Value10 = "0";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BQS"]}");
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("BPS")))
+                {
+                    objDI.SubType = DI.MON1MPH;
+                    objDI.Value9 = "5";
+                    objDI.Value10 = "0";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BPS"]}");
+                }
+                else if (_subType == BML.DI.PushButton)
+                {
+                    objDI.SubType = DI.DIC;
+                    objDI.Value9 = "0";
+                    objDI.Value10 = "0";
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("BST")))
+                {
+                    objDI.SubType = DI.MON2SSP;
+
+                    objDI.Value9 = "4";
+                    objDI.Value10 = "2";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BST"]}");
+                }
+                else if (_subType == BML.DI.TemperatureSwitch)
+                {
+                    objDI.SubType = DI.MON1M_TS;
+                    objDI.PType = DI.P7131.ToString();
+                    objDI.Value9 = "4";
+                    objDI.Value10 = "0";
+                }
+                else if (_subType == BML.DI.VibrationSwitch)
+                {
+                    objDI.SubType = DI.DIC;
+                    objDI.Value9 = "5";
+                    objDI.Value10 = "0";
+                }
+                else if (myDI.Name.Contains(suffixObject.GetKey("BSA")))
+                {
+                    objDI.SubType = DI.MON2SS;
+                    objDI.Value9 = "4";
+                    objDI.Value10 = "0";
+                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BSA"]}");
+                }
+                SubTypeChanged(myDI.SubType);
+                #endregion
+                desc = descToBuilder.ToString();
+                DI.Rule.Common.Name = objDI.Name;
+                DI.Rule.Common.DescFloor = $"{objDI.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                DI.Rule.Common.DescObject = desc;
+                DI.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{objDI.Panel_ID}";
+                objDI.Description = DI.EncodingDesc(
+                    baseRule: ref DI.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                    withFloorInfo: addtionToDesc.Elevation,
+                    withNameInfo: addtionToDesc.IdentNumber,
+                    withCabinet: addtionToDesc.Cabinet,
+                    withPower: addtionToDesc.Power,
+                    nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                 );
+                objDI.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
+            }
+            DI.Rule.Common = objDefaultInfo;
+            processValue.Value = processValue.Max;
+        }
+        private void CreateObjectRule(DI objDI, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+         ref (int Value, int Max) processValue)
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            #region common used variables declaration       
+            bool needDPNodeChanged = false;
+            StringBuilder descToBuilder = new StringBuilder();
+            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            processValue.Max = quantityNeedToBeCreate;
+            bool moreThanOne = quantityNeedToBeCreate > 1;
+            bool onlyOne = quantityNeedToBeCreate == 1;
+            objDefaultInfo = DI.Rule.Common;
+            string desc = string.Empty;
+            RuleSubDataSet description, name, dpNode1;
+            description = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            name = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            dpNode1 = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            #endregion
+            #region Parse rules
+            ///<ParseRule> </ParseRule>
+            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{LblSymbolIncRule.Text})");
+                    return;
+                }
+            }
+            ///<NameRule>生成名称规则</NameRule>
+            name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
+            if (name.PosInfo.Len == -1)
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    return;
+                }
+            }
+            else
+            {
+                name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
+            }
+
+            string selectedDPNode1Item = string.Empty;
+            if (ComboDPNode1.SelectedItem != null)
+            {
+
+                selectedDPNode1Item = ComboDPNode1.SelectedItem.ToString();
+            }
+            else
+            {
+                needDPNodeChanged = false;
+            }
+            if (needDPNodeChanged)
+            {
+                dpNode1.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
+                if (dpNode1.PosInfo.Len == -1)
+                {
+                    AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    return;
+                }
+                else
+                {
+                    dpNode1.Name = selectedDPNode1Item;
+                    dpNode1.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(dpNode1.Name, txtSymbolRule.Text);
+                }
+            }
+            else
+            {
+                dpNode1.Name = string.Empty;
+            }
+            ///<DescRule>生成描述规则</DescRule>
+            desc = DI.Rule.Common.DescObject;
+            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            {
+                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
+                if (description.PosInfo.Len == -1)
+                {
+                    if (moreThanOne)
+                    {
+                        AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    }
+                }
+                else
+                {
+                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(desc, txtDescriptionRule.Text);
+                }
+            }
+            #endregion
+
+            processValue.Value = 0;
+            ///<CreateObj>
+            ///Search IO key,DPNode
+            ///</CreateObj>
+            int symbolInc, symbolRule, descriptionInc;
+            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
+            {
+                name.Inc = i * symbolInc;
+                name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
+
+                if (needDPNodeChanged && moreThanOne)
+                {
+                    dpNode1.Inc = i * symbolInc;
+                    dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
+                    objDI.DPNode1 = DI.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    {
+                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                    }, dpNode1.Name);
+
+                    if (String.IsNullOrEmpty(objDI.DPNode1))
+                    { objDI.FieldBusNode = string.Empty; }
+                    else
+                    {
+                        objDI.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
+                        {
+                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
+                        }, int.Parse(objDI.DPNode1));
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(desc))
+                {
+                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                        && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
+                        && (description.PosInfo.Len != -1))
+                    {
+                        description.Inc = i * descriptionInc;
+                        description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
+                    }
+                    else
+                    {
+                        description.Name = desc;
+                    }
+
+                }
+                else
+                {
+                    description.Name = "--";
+                }
+                objDI.Name = name.Name;
+                objDI.InpTrue = $"{name.Name}{GcObjectInfo.DI.SuffixInpTrue}"; 
+                DI.Rule.Common.Name = name.Name;
+                DI.Rule.Common.DescObject = description.Name;
+                //  DI.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{objDI.Panel_ID}";
+                objDI.Description = DI.EncodingDesc(
+                    baseRule: ref DI.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                    withFloorInfo: addtionToDesc.Elevation,
+                    withNameInfo: addtionToDesc.IdentNumber,
+                    withCabinet: addtionToDesc.Cabinet,
+                    withPower: addtionToDesc.Power,
+                    nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                 );
+
+                objDI.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
+            }
+            processValue.Value = processValue.Max;
+            DI.Rule.Common = objDefaultInfo;
+        }
+        private void CreateObjectAutoSearch(DI objDI, ref (int Value, int Max) processValue)
+        {
+            OleDb oledb = new OleDb();
+            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable = new DataTable();
+            List<string> objList = new List<string>();
+            // List<int> objOutpKeyList = new List<int>();
+            List<string> objInpKeyList = new List<string>();
+            string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER}";
+            filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
+            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name);
+
+            // objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
+            objInpKeyList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
+            int quantityNeedToBeCreate = objInpKeyList.Count;
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
+            {
+                //objList[i] = objDI.GetObjectSymbolFromIO(objInpKeyList[i], GcObjectInfo.General.SuffixIO.Delimiter);
+                objList.Add(GcObject.GetObjectSymbolFromIO(objInpKeyList[i], GcObjectInfo.General.SuffixIO.Delimiter));
+            }
+
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
+
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
+            {
+                myDI.Name = objList[i];
+                myDI.InpTrue = objInpKeyList[i];
+                myDI.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
+            }
+            processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             try
             {
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                DataTable dataTable = new DataTable();
-                #region common used variables declaration       
-                bool needDPNodeChanged = false;
-                StringBuilder descTotalBuilder = new StringBuilder();
-                int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-                bool moreThanOne = quantityNeedToBeCreate > 1;
-                bool onlyOne = quantityNeedToBeCreate == 1;
-                RuleSubDataSet description, name, dpNode1;
-                description = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                name = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                dpNode1 = new RuleSubDataSet
-                {
-                    Sub = new string[] { },
-                    Inc = 0,
-                    PosInfo = new RuleSubPos
-                    {
-                        StartPos = false,
-                        MidPos = false,
-                        EndPos = false,
-                        PosInString = 0,
-                        Len = 0,
-                    }
-                };
-                #endregion
-                #region Prepare export DI file
-                ///<OType>is set when object generated</OType>
-                ///<SubType></SubType>
-                string selectedSubTypeItem;
-                if (ComboEquipmentSubType.SelectedItem != null)
-                {
-                    selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                    myDI.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                 
-                }
-                else
-                {
-                    myDI.SubType = DI.DIC;
-                }
-                ///<PType></PType>
-                string selectedPTypeItem;
-                if (ComboEquipmentInfoType.SelectedItem != null)
-                {
-                    selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                    myDI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                }
-                else
-                {
-                    myDI.PType = DI.P7154.ToString();
-                }
-                ///<DelayChange</DelayChange>
-                myDI.DelayChange= AppGlobal.ParseFloat(txtDelayChange.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
-                ///<DelayTrue></DelayTrue>
-                myDI.DelayTrue = AppGlobal.ParseFloat(txtDelayTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
-                ///<DelayFalse></DelayFalse>
-                myDI.DelayFalse = AppGlobal.ParseFloat(txtDelayFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
-                ///<TimeoutTrue></TimeoutTrue>
-                myDI.TimeoutTrue = AppGlobal.ParseFloat(txtTimeoutTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
-                ///<TimeoutFalse></TimeoutFalse>
-                myDI.TimeoutFalse = AppGlobal.ParseFloat(txtTimeoutFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
-                ///<Value9>Value is set when corresponding check box's check state changed</Value9>
-                ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-                ///<Name>Value is set in TxtSymbol text changed event</Name>
-                ///<Description></Description>
-                myDI.Description = txtDescription.Text;
-                ///<ProcessFct></ProcessFct>
-                string selectedProcessFct = string.Empty;
-                if (ComboProcessFct.SelectedItem != null)
-                {
-                    selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                    myDI.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                }
-                ///<Diagram></Diagram>
-                string selectedDiagram;
-                if (ComboDiagram.SelectedItem != null)
-                {
-                    selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                    myDI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                }
-         
-                ///<Page></Page>
-                myDI.Page = txtPage.Text;
-                ///<Building></Building>
-                string selectedBudling = "--";
-                if (ComboBuilding.SelectedItem != null)
-                {
-                    selectedBudling = ComboBuilding.SelectedItem.ToString();
-                    myDI.Building = selectedBudling;
-                }
-                ///<Elevation></Elevation>
-                string selectedElevation;
-                if (ComboElevation.SelectedItem != null)
-                {
-                    selectedElevation = ComboElevation.SelectedItem.ToString();
-                    myDI.Elevation = selectedElevation;
-                }
-                ///<Panel_ID></Panel_ID>
-                string selectedPanel_ID;
-                if (ComboPanel.SelectedItem != null)
-                {
-                    selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                    myDI.Panel_ID = selectedPanel_ID;
-                }
-                ///<IsNew>is set when object generated,Default value is "No"</IsNew>
-                ///<FieldBusNode></FieldBusNode>
-                myDI.FieldBusNode = LibGlobalSource.NOCHILD; ;
-                ///<DPNode1></DPNode1>
-                string selectDPNode1 = String.Empty;
-                if (ComboDPNode1.SelectedItem != null)
-                {
-                    selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    myDI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, selectDPNode1);
-                    int dpnode1 = int.Parse(myDI.DPNode1);
-                    myDI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
-                }            
-                if (ComboHornCode.SelectedItem != null)
-                {
-                    string hornCode = ComboHornCode.SelectedItem.ToString();
-                    myDI.HornCode = hornCode.Substring(0, 2);
-                }
-                ///<InpTrue></InpTrue>
-                myDI.InpTrue = LibGlobalSource.NOCHILD;
-                ///<InpFaultDev></InpFaultDev>
-                myDI.InpFaultDev = LibGlobalSource.NOCHILD;
-                ///<InHWStop></InHWStop>
-                myDI.InHWStop = LibGlobalSource.NOCHILD;
-                ///<OutpFaultReset ></OutpFaultReset >
-                myDI.OutpFaultReset = LibGlobalSource.NOCHILD;
-                ///<OutpLamp></OutpLamp>
-                myDI.OutpLamp = string.Empty;
-                ///<OutpPowerOff ></OutpPowerOff >
-                myDI.OutpPowerOff = string.Empty;
-                #endregion
+                myDI.Elevation = ComboElevation.Text;
+                AppGlobal.AdditionDesc.Section = chkAddSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.UserDefSection = chkAddUserSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.Elevation = chkAddFloorToDesc.Checked;
+                AppGlobal.AdditionDesc.IdentNumber = chkAddNameToDesc.Checked;
+                AppGlobal.AdditionDesc.Cabinet = chkAddCabinetToDesc.Checked;
+                AppGlobal.AdditionDesc.Power = false;
+                AppGlobal.AdditionDesc.OnlyNumber = chkNameOnlyNumber.Checked;
+                AppGlobal.ProcessValue.Value = ProgressBar.Value = 0;
+
+                CreateObjectCommon(myDI);
                 if (createMode.BML)
                 {
-                    ProgressBar.Maximum = dataGridBML.Rows.Count - 1;
-                    ProgressBar.Value = 0;
-                    SuffixObject suffixObject = new SuffixObject();
-                    string cabinet,cabinetGroup;
-                    string stringNumber= string.Empty;
-                    string remark;
-                    Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
-                    for (int i = 0; i < dataGridBML.Rows.Count; i++)
-                    {
-                        DataGridViewCell cell;
-                        cell = dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                        if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
-                        { continue; }
-                        string _subType = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnDIType)].Value);
-                        string desc = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
-
-                        if (_subType == BML.DI.SpeedMonitor && desc == BML.MachineType.Elevator)
-                        { continue; }
-                        myDI.Name = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
-                        ///<AdditionInfoToDesc></AdditionInfoToDesc>
-                        bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked ||
-                        chkAddCabinetToDesc.Checked;
-                        descTotalBuilder.Clear();
-                     
-                        string ioRemark = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
-                        if (chkAddSectionToDesc.Checked)
-                        {
-                            stringNumber = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, myDI.Name);
-                            if (!string.IsNullOrEmpty(stringNumber))
-                            {
-                                if (AppGlobal.ParseInt(stringNumber, out tempInt))
-                                {
-                                    descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
-                                }
-                            }
-                        }
-                        if (additionInfToDesc)
-                        {
-                            AppendInfoToBuilder(chkAddFloorToDesc, $"{myDI.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
-                            string descName = chkNameOnlyNumber.Checked ? stringNumber : LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myDI.Name);
-                            descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
-                            AppendInfoToBuilder(chkAddNameToDesc, $"({descName})", descTotalBuilder);
-                        }
-                        if (!(myDI.Name.Contains(suffixObject.GetKey("BLH")) || myDI.Name.Contains(suffixObject.GetKey("BLL"))))
-                        {
-                            descTotalBuilder.Append(desc);
-                        }
-
-                        myDI.InpTrue = myDI.Name + txtInpTrueSuffix.Text;
-                        cabinet = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
-                        cabinetGroup = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
-                        myDI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
-                        myDI.Elevation = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
-                       
-                        #region Subtype and PType           
-                        if (myDI.Name.Contains(suffixObject.GetKey("BZA")))
-                        {
-                            myDI.SubType = DI.MON2BS;
-                            myDI.Value9 = "4";
-                            myDI.Value10= "0";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BZA"]}");
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("SHE")))
-                        {
-                            myDI.SubType = DI.MON1MVC;
-                            myDI.Value9 = "4";
-                            myDI.Value10 = "0";                         
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("FYX")))
-                        {
-                            myDI.SubType = DI.MON1M_LS;
-                            myDI.Value9 = "5";
-                            myDI.Value10 = "0";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["FYX"]}");
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("BZS")))
-                        {
-                            myDI.SubType = DI.MON1M_LS;
-                            myDI.Value9 = "5";
-                            myDI.Value10 = "0";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BZS"]}");
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("QYS")))
-                        {
-                            myDI.SubType = DI.MON1M_LS;
-                            myDI.Value9 = "5";
-                            myDI.Value10 = "0";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["QYS"]}");
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("BLH")))
-                        {
-                            myDI.SubType = DI.HLBIN;
-                            myDI.Value9 = "2";
-                            myDI.Value10 = "16";
-                            remark=BML.DI.ParseIORemark(ioRemark);
-                            if (!string.IsNullOrEmpty(remark))
-                            {
-                                stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
-                                if (AppGlobal.ParseInt(stringNumber, out tempInt))
-                                {
-                                    descTotalBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
-                                  
-                                }
-                           
-                                Bin.CreateRelation(remark, myDI.Name, GcproTable.ObjData.Value2.Name, _bin.FileRelationPath, Encoding.Unicode);
-                            }
-                            else
-                            {
-                                descTotalBuilder.Append(ioRemark);
-                            }
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BLH"]}");
-                        }                   
-                        else if (myDI.Name.Contains(suffixObject.GetKey("BLL")) || _subType == BML.DI.MiddleLevel)
-                        {
-                            myDI.SubType = DI.LLBIN;
-                            myDI.Value9 = "4098";
-                            myDI.Value10 = "16";
-                            remark = BML.DI.ParseIORemark(ioRemark);
-                            if (!string.IsNullOrEmpty(remark))
-                            {
-                                stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
-                                if (AppGlobal.ParseInt(stringNumber, out tempInt))
-                                {
-                                    descTotalBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
-                                }
-                              
-                                Bin.CreateRelation(remark, myDI.Name, GcproTable.ObjData.Value3.Name, _bin.FileRelationPath, Encoding.Unicode);
-                            }
-                            else
-                            {
-                                descTotalBuilder.Append(ioRemark);
-                            }
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BLL"]}");
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("BQS")))
-                        {
-                            myDI.SubType = DI.HLMA;                         
-                            myDI.Value9 = "8195";
-                            myDI.Value10 = "0";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BQS"]}");
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("BPS")))
-                        {
-                            myDI.SubType = DI.MON1MPH;               
-                            myDI.Value9 = "5";
-                            myDI.Value10 = "0";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BPS"]}");
-                        }
-                        else if (_subType == BML.DI.PushButton)
-                        {
-                            myDI.SubType = DI.DIC;                 
-                            myDI.Value9 = "0";
-                            myDI.Value10 = "0";
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("BST")))
-                        {
-                            myDI.SubType = DI.MON2SSP;
-                                  
-                            myDI.Value9 = "4";
-                            myDI.Value10 = "2";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BST"]}");
-                        }
-                        else if (_subType == BML.DI.TemperatureSwitch)
-                        {
-                            myDI.SubType = DI.MON1M_TS;
-                            myDI.PType = DI.P7131.ToString();
-                            myDI.Value9 = "4";
-                            myDI.Value10 = "0";
-                        }
-                        else if (_subType == BML.DI.VibrationSwitch)
-                        {
-                            myDI.SubType = DI.DIC;
-                            myDI.Value9 = "5";
-                            myDI.Value10 = "0";
-                        }
-                        else if (myDI.Name.Contains(suffixObject.GetKey("BSA")))
-                        {
-                            myDI.SubType = DI.MON2SS;
-                            myDI.Value9 = "4";
-                            myDI.Value10 = "0";
-                            descTotalBuilder.Append($"{suffixObject.SuffixObjectType["BSA"]}");
-                        }
-                        SubTypeChanged(myDI.SubType);
-                        #endregion
-                        ///<AdditionInfoToDesc>
-                        ///</AdditionInfoToDesc>
-                        if (additionInfToDesc)
-                        {
-                            descTotalBuilder.Append("[");
-                           // AppendInfoToBuilder(chkAddNameToDesc, $"{GcObjectInfo.General.AddInfoSymbol}{LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameWithoutTypeLL, myDI.Name)}", descTotalBuilder);
-                            //AppendInfoToBuilder(chkAddFloorToDesc, $" {GcObjectInfo.General.AddInfoElevation}{myDI.Elevation}", descTotalBuilder);
-                            AppendInfoToBuilder(chkAddCabinetToDesc, $"{GcObjectInfo.General.AddInfoCabinet}{myDI.Panel_ID}", descTotalBuilder);
-                            descTotalBuilder.Append("]");
-                        }                                        
-                        myDI.Description = descTotalBuilder.ToString();                     
-                        myDI.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                    CreateObjectBML(
+                         dataFromBML: dataGridBML,
+                         objDI: myDI,
+                         addtionToDesc: AppGlobal.AdditionDesc,
+                         processValue: out AppGlobal.ProcessValue
+                         );
                 }
                 else if (createMode.AutoSearch)
                 {
-                    List<string> objList = new List<string>();
-                   // List<int> objOutpKeyList = new List<int>();
-                  //  List<int> objInpKeyList = new List<int>();
-                    string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER}";
-                    filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name);
-
-                   // objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
-                    objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
-                    for (int i = 0; i <= objList.Count - 1; i++)
-                    {
-                        objList[i] = AppGlobal.GetObjectSymbolFromIO(objList[i]);
-                    }
-                    quantityNeedToBeCreate = objList.Count;
-                    ProgressBar.Maximum = quantityNeedToBeCreate - 1;
-                    ProgressBar.Value = 0;
-                    ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                    {
-                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                        if (description.PosInfo.Len == -1)
-                        {
-                            if (moreThanOne)
-                            {
-                                AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                                // return;
-                            }
-                        }
-                        else
-                        { description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text); }
-                    }
-                    for (int i = 0; i < quantityNeedToBeCreate; i++)
-                    {
-                        myDI.Name = objList[i];
-                        myDI.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                    CreateObjectAutoSearch(
+                         objDI: myDI,
+                         processValue: ref AppGlobal.ProcessValue
+                         );
                 }
                 else if (createMode.Rule)
                 {
-                    #region Parse rules
-                    ///<ParseRule> </ParseRule>
-                    if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
-                    {
-                        if (moreThanOne)
-                        {
-                            AppGlobal.MessageNotNumeric($"({GrpSymbolRule.Text}.{LblSymbolIncRule.Text})");
-                            return;
-                        }
-                    }
-                    ///<NameRule>生成名称规则</NameRule>
-                    name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
-                    if (name.PosInfo.Len == -1)
-                    {
-                        if (moreThanOne)
-                        {
-                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
-                    }
-
-                    string selectedDPNode1Item = string.Empty;
-                    if (ComboDPNode1.SelectedItem != null)
-                    {
-                    
-                        selectedDPNode1Item = ComboDPNode1.SelectedItem.ToString();
-                    }
-                    else
-                    {
-                        needDPNodeChanged = false;
-                    }
-                    if (needDPNodeChanged)
-                    {
-                        dpNode1.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(selectedDPNode1Item, txtSymbolRule.Text);
-                        if (dpNode1.PosInfo.Len == -1)
-                        {
-                            AppGlobal.RuleNotSetCorrect($"{GrpSymbolRule.Text}.{LblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                            return;
-                        }
-                        else
-                        {
-                            dpNode1.Name = selectedDPNode1Item;
-                            dpNode1.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(dpNode1.Name, txtSymbolRule.Text);
-                        }
-                    }
-                    else
-                    {
-                        dpNode1.Name = string.Empty;
-                    }
-                    ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
-                    {
-                        description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
-                        if (description.PosInfo.Len == -1)
-                        {
-                            if (moreThanOne)
-                            {
-                                AppGlobal.RuleNotSetCorrect($"{GrpDescriptionRule.Text}.{LblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                                // return;
-                            }
-                        }
-                        else
-                        {
-                            description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
-                        }
-                    }
-                    #endregion
-
-                    ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
-                    ProgressBar.Value = 0;
-                    ///<CreateObj>
-                    ///Search IO key,DPNode
-                    ///</CreateObj>
-                    int symbolInc, symbolRule, descriptionInc;
-                    tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-                    tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-                    tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-                    for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
-                    {
-                        name.Inc = i * symbolInc;
-                        name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-                                                                                                         
-                     //   myDI.HWStop = String.IsNullOrEmpty(txtInHWStop.Text)?string.Empty:txtInHWStop.Text;
-
-                        if (needDPNodeChanged && moreThanOne)
-                        {
-                            dpNode1.Inc = i * symbolInc;
-                            dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                            myDI.DPNode1 = AppGlobal.FindDPNodeNo(oledb, dpNode1.Name);
-
-                            int dpnode1 = int.Parse(myDI.DPNode1);
-                            myDI.FieldBusNode = AppGlobal.FindFieldbusNodeKey(oledb, dpnode1);
-                        }
-
-                        if (!String.IsNullOrEmpty(txtDescription.Text))
-                        {
-                            if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
-                                && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
-                                && (description.PosInfo.Len != -1))
-                            {
-                                description.Inc = i * descriptionInc;
-                                description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
-                            }
-                            else
-                            {
-                                description.Name = txtDescription.Text;
-                            }
-
-                        }
-                        else
-                        {
-                            description.Name = "--";
-                        }
-                        myDI.Name = name.Name;
-                        myDI.Description = description.Name;
-                        myDI.CreateObject(Encoding.Unicode);
-                        ProgressBar.Value = i;
-                    }
-                    ProgressBar.Value = ProgressBar.Maximum;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    CreateObjectRule(
+                        objDI: myDI,
+                        addtionToDesc: AppGlobal.AdditionDesc,
+                        processValue: ref AppGlobal.ProcessValue
+                        );
                 }
+                ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
+                ProgressBar.Value = AppGlobal.ProcessValue.Value;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         #endregion
 
-     
-    } 
+
+    }
 }

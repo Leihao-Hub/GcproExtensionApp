@@ -134,6 +134,7 @@ namespace GcproExtensionApp
             this.label31 = new System.Windows.Forms.Label();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
+            this.chkAddUserSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkNameOnlyNumber = new System.Windows.Forms.CheckBox();
             this.chkAddSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddFloorToDesc = new System.Windows.Forms.CheckBox();
@@ -799,7 +800,7 @@ namespace GcproExtensionApp
             this.grpReference.Size = new System.Drawing.Size(453, 93);
             this.grpReference.TabIndex = 62;
             this.grpReference.TabStop = false;
-            this.grpReference.Text = "Renerences";
+            this.grpReference.Text = "References";
             // 
             // checkBox14
             // 
@@ -1352,6 +1353,7 @@ namespace GcproExtensionApp
             // 
             // grpAddInfoToDesc
             // 
+            this.grpAddInfoToDesc.Controls.Add(this.chkAddUserSectionToDesc);
             this.grpAddInfoToDesc.Controls.Add(this.chkNameOnlyNumber);
             this.grpAddInfoToDesc.Controls.Add(this.chkAddSectionToDesc);
             this.grpAddInfoToDesc.Controls.Add(this.chkAddFloorToDesc);
@@ -1364,17 +1366,29 @@ namespace GcproExtensionApp
             this.grpAddInfoToDesc.TabStop = false;
             this.grpAddInfoToDesc.Text = "附加信息到描述";
             // 
+            // chkAddUserSectionToDesc
+            // 
+            this.chkAddUserSectionToDesc.AutoSize = true;
+            this.chkAddUserSectionToDesc.Location = new System.Drawing.Point(63, 17);
+            this.chkAddUserSectionToDesc.Name = "chkAddUserSectionToDesc";
+            this.chkAddUserSectionToDesc.Size = new System.Drawing.Size(86, 17);
+            this.chkAddUserSectionToDesc.TabIndex = 126;
+            this.chkAddUserSectionToDesc.Text = "自定义工段";
+            this.chkAddUserSectionToDesc.UseVisualStyleBackColor = true;
+            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddUserSectionToDesc_CheckedChanged);
+            // 
             // chkNameOnlyNumber
             // 
             this.chkNameOnlyNumber.AutoSize = true;
             this.chkNameOnlyNumber.Checked = true;
             this.chkNameOnlyNumber.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNameOnlyNumber.Location = new System.Drawing.Point(321, 17);
+            this.chkNameOnlyNumber.Location = new System.Drawing.Point(323, 17);
             this.chkNameOnlyNumber.Name = "chkNameOnlyNumber";
             this.chkNameOnlyNumber.Size = new System.Drawing.Size(98, 17);
             this.chkNameOnlyNumber.TabIndex = 125;
             this.chkNameOnlyNumber.Text = "编号仅含数字";
             this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
+            this.chkNameOnlyNumber.CheckedChanged += new System.EventHandler(this.chkNameOnlyNumber_CheckedChanged);
             // 
             // chkAddSectionToDesc
             // 
@@ -1387,42 +1401,46 @@ namespace GcproExtensionApp
             this.chkAddSectionToDesc.TabIndex = 123;
             this.chkAddSectionToDesc.Text = "工段";
             this.chkAddSectionToDesc.UseVisualStyleBackColor = true;
+            this.chkAddSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddSectionToDesc_CheckedChanged);
             // 
             // chkAddFloorToDesc
             // 
             this.chkAddFloorToDesc.AutoSize = true;
             this.chkAddFloorToDesc.Checked = true;
             this.chkAddFloorToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddFloorToDesc.Location = new System.Drawing.Point(169, 17);
+            this.chkAddFloorToDesc.Location = new System.Drawing.Point(155, 17);
             this.chkAddFloorToDesc.Name = "chkAddFloorToDesc";
             this.chkAddFloorToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddFloorToDesc.TabIndex = 121;
             this.chkAddFloorToDesc.Text = "楼层";
             this.chkAddFloorToDesc.UseVisualStyleBackColor = true;
+            this.chkAddFloorToDesc.CheckedChanged += new System.EventHandler(this.chkAddFloorToDesc_CheckedChanged);
             // 
             // chkAddNameToDesc
             // 
             this.chkAddNameToDesc.AutoSize = true;
             this.chkAddNameToDesc.Checked = true;
             this.chkAddNameToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddNameToDesc.Location = new System.Drawing.Point(88, 17);
+            this.chkAddNameToDesc.Location = new System.Drawing.Point(211, 17);
             this.chkAddNameToDesc.Name = "chkAddNameToDesc";
             this.chkAddNameToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddNameToDesc.TabIndex = 119;
             this.chkAddNameToDesc.Text = "编号";
             this.chkAddNameToDesc.UseVisualStyleBackColor = true;
+            this.chkAddNameToDesc.CheckedChanged += new System.EventHandler(this.chkAddNameToDesc_CheckedChanged);
             // 
             // chkAddCabinetToDesc
             // 
             this.chkAddCabinetToDesc.AutoSize = true;
             this.chkAddCabinetToDesc.Checked = true;
             this.chkAddCabinetToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAddCabinetToDesc.Location = new System.Drawing.Point(250, 17);
+            this.chkAddCabinetToDesc.Location = new System.Drawing.Point(267, 17);
             this.chkAddCabinetToDesc.Name = "chkAddCabinetToDesc";
             this.chkAddCabinetToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddCabinetToDesc.TabIndex = 120;
             this.chkAddCabinetToDesc.Text = "电柜";
             this.chkAddCabinetToDesc.UseVisualStyleBackColor = true;
+            this.chkAddCabinetToDesc.CheckedChanged += new System.EventHandler(this.chkAddCabinetToDesc_CheckedChanged);
             // 
             // lblInpRunFwdSuffix
             // 
@@ -1810,6 +1828,7 @@ namespace GcproExtensionApp
             this.txtDescription.Size = new System.Drawing.Size(346, 13);
             this.txtDescription.TabIndex = 3;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
+            this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescription_KeyDown);
             this.txtDescription.MouseEnter += new System.EventHandler(this.TxtDescription_MouseEnter);
             // 
             // lblInpRevSuffix
@@ -2325,6 +2344,7 @@ namespace GcproExtensionApp
             this.ComboPanel.Name = "ComboPanel";
             this.ComboPanel.Size = new System.Drawing.Size(128, 21);
             this.ComboPanel.TabIndex = 50;
+            this.ComboPanel.SelectedIndexChanged += new System.EventHandler(this.ComboPanel_SelectedIndexChanged);
             // 
             // ComboElevation
             // 
@@ -2335,6 +2355,7 @@ namespace GcproExtensionApp
             this.ComboElevation.Name = "ComboElevation";
             this.ComboElevation.Size = new System.Drawing.Size(182, 21);
             this.ComboElevation.TabIndex = 48;
+            this.ComboElevation.SelectedIndexChanged += new System.EventHandler(this.ComboElevation_SelectedIndexChanged);
             // 
             // LblDiagram
             // 
@@ -2822,6 +2843,7 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.ComboBox comboLineBML;
         private System.Windows.Forms.Label lblLineBML;
         internal System.Windows.Forms.CheckBox chkNameOnlyNumber;
+        internal System.Windows.Forms.CheckBox chkAddUserSectionToDesc;
     }
 }
 

@@ -47,7 +47,7 @@ namespace GcproExtensionApp
         private string laab;
         private GetStoppingTime stoppingTime;
         #region Properties
-        public string Elevator
+        public  string Elevator
         {
             get { return elevator; }
         }
@@ -59,7 +59,7 @@ namespace GcproExtensionApp
         {
             get { return highLevel; }
         }
-        public string LowLevel
+        public  string LowLevel
         {
             get { return lowLevel; }
         }
@@ -67,19 +67,19 @@ namespace GcproExtensionApp
         {
             get { return chainConveyor; }
         }
-        public string AirLock
+        public  string AirLock
         {
             get { return airLock; }
         }
-        public string BranFinisher
+        public  string BranFinisher
         {
             get { return branFinisher; }
         }
-        public string Detacher
+        public  string Detacher
         {
             get { return detacher; }
         }
-        public string Fan
+        public  string Fan
         {
             get { return fan; }
         }
@@ -87,15 +87,15 @@ namespace GcproExtensionApp
         {
             get { return rollerMiller; }
         }
-        public string FeederRollerMiller
+        public  string FeederRollerMiller
         {
             get { return feederRollerMiller; }
         }
-        public string PlanSifter
+        public  string PlanSifter
         {
             get { return planSifter; }
         }
-        public string Purifier
+        public  string Purifier
         {
             get { return purifier; }
         }

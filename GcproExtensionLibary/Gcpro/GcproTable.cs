@@ -840,37 +840,7 @@ namespace GcproExtensionLibrary.Gcpro
                 if (prop == null)
                 {
                     throw new ArgumentException($@"属性：{propertyName}在{typeof(ObjData)}不存在");
-                }
-
-                //if (propertyName.StartsWith("Text"))
-                //{
-                //    return System.String;
-                //}
-                //else if (propertyName.StartsWith(value0.Name.Substring(0,5)) || propertyName.StartsWith(idaepro.Name.Substring(0,2)) || propertyName.Equals(otype.Name) ||
-                //   propertyName.Equals(oindex.Name) || propertyName.StartsWith(dpnode1.Name.Substring(0,6)) || propertyName.Equals(fieldbusNode.Name))
-                //{
-                //    return "Double";
-                //}
-                //else if (propertyName.Equals(key.Name) || propertyName.Equals("Owner") || propertyName.Equals("Alarm_Area") ||
-                //    propertyName.Equals("Revision") || )
-                //{
-                //    return "Long";
-                //}
-                //else if (propertyName.Equals("Valide") || propertyName.Equals("ObjCnt") || )
-                //{
-                //    return "Int";
-                //}
-                //else if (propertyName.Equals("IsNew") || propertyName.Equals("SingleInstanceDB") || propertyName.Equals("IsVirtual") ||
-                //    propertyName.Equals("NotUsed"))
-                //{
-                //    return "Bool";
-                //}
-                
-                //else
-                //{
-                //    return prop.PropertyType.Name;
-                //}
-
+                }    
                 var dbParameter = prop.GetValue(null) as DbParameter; 
                 if (dbParameter != null && dbParameter.Value != null)
                 {
@@ -1030,7 +1000,6 @@ namespace GcproExtensionLibrary.Gcpro
             }
             #endregion
         }
-
         public static class TranslationCbo
         {
             #region Private fields for properties 

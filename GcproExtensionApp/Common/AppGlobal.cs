@@ -47,12 +47,13 @@ namespace GcproExtensionApp
         public const string KEY_WORD_AUTOSEARCH = "搜寻关键字";
         public const string FILE_SAVE_AS_FAILURE = "文件保存失败";
         public const string MOTOR_WITHOUT_VFC = "非变频控制";
+        public const string VFC= "变频器";
         public const string NAME = "名称";
         public const string NULL = "null";
         public const string DEFAULT_GCPRO_TEMP_PATH = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH;
         public const string OBJECT_FIELD = "数据库字段: ";
 
-        public const string MSG_INVALID_IO_SYMBOL = "无效的IO名称！";
+        public const string MSG_INVALID_IO_SYMBOL = LibGlobalSource.MSG_INVALID_IO_SYMBOL;
         public const string INFO = "信息提示";
         public const string MSG_NOT_VALID_IP = "非法IP地址";
         public const string MSG_REGENERATE_DPNODE = "确定要重新生成DPNode翻译？";
@@ -67,7 +68,7 @@ namespace GcproExtensionApp
         public const string EX_IO_ERROR = "发生I/O错误";
         public const string EX_UNKNOW = "未知错误";
         public const string EX_UNAUTHORIZED_ACCESS = "没有权限访问文件。请检查文件权限。";
-        public const int MIN_IO_SYMBOL_LENGTH = 3;
+        public const int MIN_IO_SYMBOL_LENGTH = LibGlobalSource.MIN_IO_SYMBOL_LENGTH;
         public const string PATTERN_IP = @"^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)$";
         #region<---Appsetting struct--->
         public const string JS_BML = "BML";
@@ -311,151 +312,6 @@ namespace GcproExtensionApp
             return propertyNames;
         }
 
-        #region Find info form database when create object
-        /// <summary>
-        /// Return the Field [Key] in table [ObjData]
-        /// </summary>
-        /// <param name="dataSource">数据源</param>
-        /// <param name="objIOName">IO符号名称[Text0]字段</param>
-        /// <returns></returns>
-        public static string FindIOKey(OleDb dataSource, string objIOName)
-        {
-            string key = string.Empty;
-            DataTable data;
-            data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Text0.Name} LIKE'{objIOName}%'", null, null,
-                           GcproTable.ObjData.Key.Name);
-            if (data.Rows.Count != 0)
-            { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
-            else
-            { key = string.Empty; }
-            return key;
-        }
-        /// <summary>
-        /// Return the DPNodeNo in table [TranslationCbo]
-        /// </summary>
-        /// <param name="dataSource">数据源</param>
-        /// <param name="nodeName">DPNode名称[FieldText]字段</param>
-        /// <returns></returns>
-        public static string FindDPNodeNo(OleDb dataSource, string nodeName)
-        {
-            string key = string.Empty;
-            DataTable data;
-            data = dataSource.QueryDataTable(GcproTable.TranslationCbo.TableName, $@"{GcproTable.TranslationCbo.FieldText.Name} LIKE '{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name} = '{GcproTable.TranslationCbo.Class_ASWInDPFault}'",
-                          null, null, $"{GcproTable.TranslationCbo.FieldValue.Name}");
-            if (data.Rows.Count != 0)
-            { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name).ToString(); }
-            else
-            { key = string.Empty; }
-            return key;
-        }
-        /// <summary>
-        /// Return the FieldbusNode
-        /// </summary>
-        /// <param name="dataSource"></param>
-        /// <param name="nodeNo"></param>
-        /// <returns></returns>
-        public static string FindFieldbusNodeKey(OleDb dataSource, int nodeNo)
-        {
-            string key = string.Empty;
-            DataTable data;
-            data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}",
-                         null, null, GcproTable.ObjData.Key.Name);
-            if (data.Rows.Count != 0)
-            { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
-            else
-            { key = string.Empty; }
-            return key;
-        }
-        /// <summary>
-        /// Regerate DP node in table "GcproTable.TranslationCbo"
-        /// </summary>
-        /// <param name="dataSource"></param>
-        public static void ReGenerateDPNode(OleDb oledb)
-        {
-            oledb.DeleteRecord(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name}='{GcproTable.TranslationCbo.Class_ASWInDPFault}'", null);
-            DataTable data = new DataTable();
-            data = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={DPSlave.OTypeValue}", null, null,
-                GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.DPNode1.Name);
-            string description = string.Empty;
-            string symbol = string.Empty;
-            double dpNode1 = 0;
-            List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>();
-            for (int i = 0; i < data.Rows.Count; i++)
-            {
-                if (i <= data.Rows.Count - 1)
-                {
-                    symbol = data.Rows[i].Field<string>(GcproTable.ObjData.Text0.Name);
-                    description = data.Rows[i].Field<string>(GcproTable.ObjData.Text1.Name);
-                    dpNode1 = data.Rows[i].Field<double>(GcproTable.ObjData.DPNode1.Name);
-                }
-                List<GcproExtensionLibrary.Gcpro.DbParameter> recordParameters = new List<GcproExtensionLibrary.Gcpro.DbParameter>();
-                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
-                { Name = GcproTable.TranslationCbo.FieldClass.Name, Value = GcproTable.TranslationCbo.Class_ASWInDPFault });
-                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
-                { Name = GcproTable.TranslationCbo.FieldValue.Name, Value = dpNode1 });
-                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
-                { Name = GcproTable.TranslationCbo.FieldText.Name, Value = symbol });
-                recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
-                { Name = GcproTable.TranslationCbo.FieldDescription.Name, Value = description });
-                recordList.Add(recordParameters);
-            }
-            oledb.InsertMultipleRecords(GcproTable.TranslationCbo.TableName, recordList);
-
-        }
-        #endregion
-       /// <summary>
-       /// 根据IO与符号名分隔符提取名称；
-       /// 比如分隔符为":",输入名称"=A-1001-MXZ01:I"
-       /// 返回字符串为"=A-1001-"
-       /// </summary>
-       /// <param name="input">输入源字符串</param>
-       /// <returns></returns>
-        public static string GetObjectSymbolFromIO(string input)
-        {
-            string ret = string.Empty;
-            if (input.Length >= MIN_IO_SYMBOL_LENGTH)
-            {
-                int index = input.IndexOf(GcObjectInfo.General.SuffixIO.Delimiter);
-                ret = index>=0?input.Substring(0, index): string.Empty; 
-            }
-            else
-            { ret = MSG_INVALID_IO_SYMBOL; }
-            return ret;
-        }
-        /// <summary>
-        /// 自定义分隔符提取名称；
-        /// 比如分隔符为"-VFC",输入名称"=A-1001-MXZ01-VFC"
-        /// 返回字符串为"=A-1001-MXZ01"
-        /// </summary>
-        /// <param name="input">输入源字符串</param>
-        /// <param name="delimiter">自定义分隔符</param>
-        /// <returns></returns>
-        public static string GetObjectSymbolFromIO(string input, string delimiter )
-        {
-            string ret = string.Empty;
-            if (input.Length >= MIN_IO_SYMBOL_LENGTH)
-            {
-                int index = input.IndexOf(delimiter);
-                ret = index >= 0 ? input.Substring(0, index) : string.Empty;
-            }
-            else
-            { ret = MSG_INVALID_IO_SYMBOL; }
-            return ret;
-        }
-        /// <summary>
-        /// 根据正则表达式，提取符号名
-        /// 返回除正则表达式外的字符串
-        /// </summary>
-        /// <param name="input">输入源字符串</param>
-        /// <param name="pattern">正则表达式</param>
-        /// <returns></returns>
-        public static string GetObjectSymbolFromPattern(string input, string pattern)
-        {
-            string match = LibGlobalSource.StringHelper.ExtractStringPart(pattern, input);
-            string ret= string.IsNullOrEmpty(match)?String.Empty:match.Replace(pattern,"");
-            return ret; 
-        }
-    
         #region Operate bit 
         /// <summary>
         /// 返回一个整形数上指定位的值
@@ -525,8 +381,152 @@ namespace GcproExtensionApp
             sourceValue = (ushort)(sourceValue & mask);
 
         }
-        #endregion
-       
+        #endregion Operate bit 
+
+        #region Generate info  when create object
+        /// <summary>
+        /// Return the Field [Key] in table [ObjData]
+        /// </summary>
+        /// <param name="dataSource">数据源</param>
+        /// <param name="objIOName">IO符号名称[Text0]字段</param>
+        /// <returns></returns>
+        //public static string FindIOKey(OleDb dataSource, string objIOName)
+        //{
+        //    string key = string.Empty;
+        //    DataTable data;
+        //    data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Text0.Name} LIKE'{objIOName}%'", null, null,
+        //                   GcproTable.ObjData.Key.Name);
+        //    if (data.Rows.Count != 0)
+        //    { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
+        //    else
+        //    { key = string.Empty; }
+        //    return key;
+        //}
+        /// <summary>
+        /// Return the DPNodeNo in table [TranslationCbo]
+        /// </summary>
+        /// <param name="dataSource">数据源</param>
+        /// <param name="nodeName">DPNode名称[FieldText]字段</param>
+        /// <returns></returns>
+        //public static string FindDPNodeNo(OleDb dataSource, string nodeName)
+        //{
+        //    string key = string.Empty;
+        //    DataTable data;
+        //    data = dataSource.QueryDataTable(GcproTable.TranslationCbo.TableName, $@"{GcproTable.TranslationCbo.FieldText.Name} LIKE '{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name} = '{GcproTable.TranslationCbo.Class_ASWInDPFault}'",
+        //                  null, null, $"{GcproTable.TranslationCbo.FieldValue.Name}");
+        //    if (data.Rows.Count != 0)
+        //    { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name).ToString(); }
+        //    else
+        //    { key = string.Empty; }
+        //    return key;
+        //}
+        /// <summary>
+        /// Return the FieldbusNode
+        /// </summary>
+        /// <param name="dataSource"></param>
+        /// <param name="nodeNo"></param>
+        /// <returns></returns>
+        //public static string FindFieldbusNodeKey(OleDb dataSource, int nodeNo)
+        //{
+        //    string key = string.Empty;
+        //    DataTable data;
+        //    data = dataSource.QueryDataTable(GcproTable.ObjData.TableName, $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}",
+        //                 null, null, GcproTable.ObjData.Key.Name);
+        //    if (data.Rows.Count != 0)
+        //    { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
+        //    else
+        //    { key = string.Empty; }
+        //    return key;
+        //}
+        /// <summary>
+        /// Regerate DP node in table "GcproTable.TranslationCbo"
+        /// </summary>
+        /// <param name="dataSource"></param>
+        //public static void ReGenerateDPNode(OleDb oledb)
+        //{
+        //    oledb.DeleteRecord(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name}='{GcproTable.TranslationCbo.Class_ASWInDPFault}'", null);
+        //    DataTable data = new DataTable();
+        //    data = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={DPSlave.OTypeValue}", null, null,
+        //        GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.DPNode1.Name);
+        //    string description = string.Empty;
+        //    string symbol = string.Empty;
+        //    double dpNode1 = 0;
+        //    List<List<GcproExtensionLibrary.Gcpro.DbParameter>> recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>();
+        //    for (int i = 0; i < data.Rows.Count; i++)
+        //    {
+        //        if (i <= data.Rows.Count - 1)
+        //        {
+        //            symbol = data.Rows[i].Field<string>(GcproTable.ObjData.Text0.Name);
+        //            description = data.Rows[i].Field<string>(GcproTable.ObjData.Text1.Name);
+        //            dpNode1 = data.Rows[i].Field<double>(GcproTable.ObjData.DPNode1.Name);
+        //        }
+        //        List<GcproExtensionLibrary.Gcpro.DbParameter> recordParameters = new List<GcproExtensionLibrary.Gcpro.DbParameter>();
+        //        recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
+        //        { Name = GcproTable.TranslationCbo.FieldClass.Name, Value = GcproTable.TranslationCbo.Class_ASWInDPFault });
+        //        recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
+        //        { Name = GcproTable.TranslationCbo.FieldValue.Name, Value = dpNode1 });
+        //        recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
+        //        { Name = GcproTable.TranslationCbo.FieldText.Name, Value = symbol });
+        //        recordParameters.Add(new GcproExtensionLibrary.Gcpro.DbParameter
+        //        { Name = GcproTable.TranslationCbo.FieldDescription.Name, Value = description });
+        //        recordList.Add(recordParameters);
+        //    }
+        //    oledb.InsertMultipleRecords(GcproTable.TranslationCbo.TableName, recordList);
+
+        //}
+        /// <summary>
+        /// 根据IO与符号名分隔符提取名称；
+        /// 比如分隔符为":",输入名称"=A-1001-MXZ01:I"
+        /// 返回字符串为"=A-1001-"
+        /// </summary>
+        /// <param name="input">输入源字符串</param>
+        /// <returns></returns>
+        //public static string GetObjectSymbolFromIO(string input)
+        //{
+        //    string ret = string.Empty;
+        //    if (input.Length >= MIN_IO_SYMBOL_LENGTH)
+        //    {
+        //        int index = input.IndexOf(GcObjectInfo.General.SuffixIO.Delimiter);
+        //        ret = index>=0?input.Substring(0, index): string.Empty; 
+        //    }
+        //    else
+        //    { ret = MSG_INVALID_IO_SYMBOL; }
+        //    return ret;
+        //}
+        /// <summary>
+        /// 自定义分隔符提取名称；
+        /// 比如分隔符为"-VFC",输入名称"=A-1001-MXZ01-VFC"
+        /// 返回字符串为"=A-1001-MXZ01"
+        /// </summary>
+        /// <param name="input">输入源字符串</param>
+        /// <param name="delimiter">自定义分隔符</param>
+        /// <returns></returns>
+        //public static string GetObjectSymbolFromIO(string input, string delimiter )
+        //{
+        //    string ret = string.Empty;
+        //    if (input.Length >= MIN_IO_SYMBOL_LENGTH)
+        //    {
+        //        int index = input.IndexOf(delimiter);
+        //        ret = index >= 0 ? input.Substring(0, index) : string.Empty;
+        //    }
+        //    else
+        //    { ret = MSG_INVALID_IO_SYMBOL; }
+        //    return ret;
+        //}
+        /// <summary>
+        /// 根据正则表达式，提取符号名
+        /// 返回除正则表达式外的字符串
+        /// </summary>
+        /// <param name="input">输入源字符串</param>
+        /// <param name="pattern">正则表达式</param>
+        /// <returns></returns>
+        //public static string GetObjectSymbolFromPattern(string input, string pattern)
+        //{
+        //    string match = LibGlobalSource.StringHelper.ExtractStringPart(pattern, input);
+        //    string ret= string.IsNullOrEmpty(match)?String.Empty:match.Replace(pattern,"");
+        //    return ret; 
+        //}
+        #endregion Generate info  when create object
     }
     public class CreateMode
     {
@@ -554,7 +554,6 @@ namespace GcproExtensionApp
             objectCreateMode.BML = "BML导入";
             objectCreateMode.AutoSearch = "IO搜寻";
         }
-
     }
     public interface IGcForm
     {

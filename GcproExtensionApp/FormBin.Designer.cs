@@ -405,7 +405,7 @@ namespace GcproExtensionApp
             // txtHighLevel
             // 
             this.txtHighLevel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHighLevel.Location = new System.Drawing.Point(74, 22);
+            this.txtHighLevel.Location = new System.Drawing.Point(77, 22);
             this.txtHighLevel.Name = "txtHighLevel";
             this.txtHighLevel.Size = new System.Drawing.Size(96, 13);
             this.txtHighLevel.TabIndex = 21;
@@ -444,7 +444,7 @@ namespace GcproExtensionApp
             // txtMiddleLevel
             // 
             this.txtMiddleLevel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMiddleLevel.Location = new System.Drawing.Point(74, 40);
+            this.txtMiddleLevel.Location = new System.Drawing.Point(77, 40);
             this.txtMiddleLevel.Name = "txtMiddleLevel";
             this.txtMiddleLevel.Size = new System.Drawing.Size(96, 13);
             this.txtMiddleLevel.TabIndex = 23;
@@ -482,7 +482,7 @@ namespace GcproExtensionApp
             // txtLowLevel
             // 
             this.txtLowLevel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLowLevel.Location = new System.Drawing.Point(74, 58);
+            this.txtLowLevel.Location = new System.Drawing.Point(77, 58);
             this.txtLowLevel.Name = "txtLowLevel";
             this.txtLowLevel.Size = new System.Drawing.Size(96, 13);
             this.txtLowLevel.TabIndex = 25;
@@ -521,7 +521,7 @@ namespace GcproExtensionApp
             // txtAnalogLevel
             // 
             this.txtAnalogLevel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtAnalogLevel.Location = new System.Drawing.Point(74, 76);
+            this.txtAnalogLevel.Location = new System.Drawing.Point(77, 76);
             this.txtAnalogLevel.Name = "txtAnalogLevel";
             this.txtAnalogLevel.Size = new System.Drawing.Size(96, 13);
             this.txtAnalogLevel.TabIndex = 27;
