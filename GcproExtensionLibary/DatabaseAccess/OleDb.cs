@@ -96,7 +96,8 @@ namespace GcproExtensionLibrary
                     }
                     catch (Exception ex)
                     {
-                        throw new ArgumentException(ex.Message);
+                       
+                        throw new ArgumentException(ex.Message);               
                     }
                 }
             }

@@ -177,7 +177,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
         public MDDYZ()
         {
-            value10 = "96";
+            value10 = "80";
             value21 = "100";
             SetOTypeProperty(OTypeCollection.EL_MDDYZ);
             side1Top = new MYTARef("", 1);

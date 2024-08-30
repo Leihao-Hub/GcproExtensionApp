@@ -108,10 +108,6 @@ namespace GcproExtensionApp
         {
             get { return columnLine; }
         }
-        //public static string Type
-        //{
-        //    get { return type; }
-        //}
         public static string ColumnType
         {
             get { return columnType; }
@@ -181,7 +177,8 @@ namespace GcproExtensionApp
                 MessageBox.Show(ex.ToString(), $"{AppGlobal.JS_BML} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public static int StartRow { get; } = 7;     
+        public static int StartRow { get; } = 7;
+        public static int StartRowUser { get; } = 4;
         public static class Motor
         {
             #region Fields for properties
@@ -255,6 +252,7 @@ namespace GcproExtensionApp
             {
                 public static string ATV320 { get; } = "ATV320";
                 public static string ATV930 { get; } = "ATV930";
+                public static string ATV955 { get; } = "ATV955";
                 public static string ATV61 { get; } = "ATV61";
                 public static string ATV71 { get; } = "ATV71";
                 public static string NORD { get; } = "NORD";
@@ -321,7 +319,7 @@ namespace GcproExtensionApp
                             par.SpeedLimitMin = "0";
                             par.ParPZDConsistent = false;
                         }
-                        else if (name == TypeEnmu.ATV930 || name == TypeEnmu.ATV61 || name == TypeEnmu.ATV71)
+                        else if (name == TypeEnmu.ATV930 || name == TypeEnmu.ATV955 || name == TypeEnmu.ATV61 || name == TypeEnmu.ATV71)
                         {
                             par.LenPKW = "8";
                             par.LenPZD = "16";

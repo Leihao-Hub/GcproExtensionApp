@@ -38,6 +38,7 @@
             this.pictureBoxBuhlerCode = new System.Windows.Forms.PictureBox();
             this.BtnOpenGcsLibraryDB = new System.Windows.Forms.Button();
             this.GcproDB = new System.Windows.Forms.GroupBox();
+            this.btnQuery = new System.Windows.Forms.Button();
             this.BtnOpenProjectDB = new System.Windows.Forms.Button();
             this.comboProjectType = new System.Windows.Forms.ComboBox();
             this.lblProjectType = new System.Windows.Forms.Label();
@@ -46,7 +47,10 @@
             this.LblGcproLibaryPath = new System.Windows.Forms.Label();
             this.LblGcproProjectPath = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpEngineer = new System.Windows.Forms.GroupBox();
+            this.txtDemo = new System.Windows.Forms.TextBox();
+            this.txtRegexNamePrefix = new System.Windows.Forms.TextBox();
+            this.lblRegexNamePrefix = new System.Windows.Forms.Label();
             this.txtRegexNameOnlyWithNumberTypeLL = new System.Windows.Forms.TextBox();
             this.lblRegexNameOnlyWithNumberTypeLL = new System.Windows.Forms.Label();
             this.txtRegexNameWithoutTypeLL = new System.Windows.Forms.TextBox();
@@ -94,14 +98,13 @@
             this.lblCompanyName = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
-            this.btnQuery = new System.Windows.Forms.Button();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grpBoxTempPath.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuhlerCode)).BeginInit();
             this.GcproDB.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpEngineer.SuspendLayout();
             this.grpBoxOther.SuspendLayout();
             this.grpMachine.SuspendLayout();
             this.grpBoxElement.SuspendLayout();
@@ -236,6 +239,21 @@
             this.GcproDB.TabStop = false;
             this.GcproDB.Text = "GCRPO项目信息";
             // 
+            // btnQuery
+            // 
+            this.btnQuery.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
+            this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnQuery.Image = global::GcproExtensionApp.Properties.Resources.Access;
+            this.btnQuery.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQuery.Location = new System.Drawing.Point(544, 86);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(88, 27);
+            this.btnQuery.TabIndex = 114;
+            this.btnQuery.Text = "查询数据";
+            this.btnQuery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
+            // 
             // BtnOpenProjectDB
             // 
             this.BtnOpenProjectDB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -317,7 +335,7 @@
             // 
             this.tabPage2.AutoScroll = true;
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.grpEngineer);
             this.tabPage2.Controls.Add(this.grpBoxOther);
             this.tabPage2.Controls.Add(this.grpMachine);
             this.tabPage2.Controls.Add(this.grpBoxElement);
@@ -328,41 +346,82 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "新建对象";
             // 
-            // groupBox1
+            // grpEngineer
             // 
-            this.groupBox1.Controls.Add(this.txtRegexNameOnlyWithNumberTypeLL);
-            this.groupBox1.Controls.Add(this.lblRegexNameOnlyWithNumberTypeLL);
-            this.groupBox1.Controls.Add(this.txtRegexNameWithoutTypeLL);
-            this.groupBox1.Controls.Add(this.lblNameWithoutTypeLL);
-            this.groupBox1.Location = new System.Drawing.Point(6, 267);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(810, 81);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "开发者选项";
+            this.grpEngineer.Controls.Add(this.txtDemo);
+            this.grpEngineer.Controls.Add(this.txtRegexNamePrefix);
+            this.grpEngineer.Controls.Add(this.lblRegexNamePrefix);
+            this.grpEngineer.Controls.Add(this.txtRegexNameOnlyWithNumberTypeLL);
+            this.grpEngineer.Controls.Add(this.lblRegexNameOnlyWithNumberTypeLL);
+            this.grpEngineer.Controls.Add(this.txtRegexNameWithoutTypeLL);
+            this.grpEngineer.Controls.Add(this.lblNameWithoutTypeLL);
+            this.grpEngineer.Location = new System.Drawing.Point(6, 267);
+            this.grpEngineer.Name = "grpEngineer";
+            this.grpEngineer.Size = new System.Drawing.Size(810, 81);
+            this.grpEngineer.TabIndex = 5;
+            this.grpEngineer.TabStop = false;
+            this.grpEngineer.Text = "开发者选项";
+            // 
+            // txtDemo
+            // 
+            this.txtDemo.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtDemo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDemo.Location = new System.Drawing.Point(512, 50);
+            this.txtDemo.Multiline = true;
+            this.txtDemo.Name = "txtDemo";
+            this.txtDemo.Size = new System.Drawing.Size(294, 24);
+            this.txtDemo.TabIndex = 14;
+            this.txtDemo.Text = "示例: 1:[=A1-1001a.1]  2:[=A1-1001a.1-]  3:[1001a.1]";
+            // 
+            // txtRegexNamePrefix
+            // 
+            this.txtRegexNamePrefix.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRegexNamePrefix.Location = new System.Drawing.Point(171, 49);
+            this.txtRegexNamePrefix.Multiline = true;
+            this.txtRegexNamePrefix.Name = "txtRegexNamePrefix";
+            this.txtRegexNamePrefix.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtRegexNamePrefix.Size = new System.Drawing.Size(326, 26);
+            this.txtRegexNamePrefix.TabIndex = 13;
+            this.txtRegexNamePrefix.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNamePrefix_KeyDown);
+            // 
+            // lblRegexNamePrefix
+            // 
+            this.lblRegexNamePrefix.AutoSize = true;
+            this.lblRegexNamePrefix.Location = new System.Drawing.Point(6, 53);
+            this.lblRegexNamePrefix.Name = "lblRegexNamePrefix";
+            this.lblRegexNamePrefix.Size = new System.Drawing.Size(156, 13);
+            this.lblRegexNamePrefix.TabIndex = 12;
+            this.lblRegexNamePrefix.Text = "2.Element名称前缀(含分隔符)";
             // 
             // txtRegexNameOnlyWithNumberTypeLL
             // 
-            this.txtRegexNameOnlyWithNumberTypeLL.Location = new System.Drawing.Point(166, 46);
+            this.txtRegexNameOnlyWithNumberTypeLL.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRegexNameOnlyWithNumberTypeLL.Location = new System.Drawing.Point(645, 15);
+            this.txtRegexNameOnlyWithNumberTypeLL.Multiline = true;
             this.txtRegexNameOnlyWithNumberTypeLL.Name = "txtRegexNameOnlyWithNumberTypeLL";
-            this.txtRegexNameOnlyWithNumberTypeLL.Size = new System.Drawing.Size(326, 20);
+            this.txtRegexNameOnlyWithNumberTypeLL.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtRegexNameOnlyWithNumberTypeLL.Size = new System.Drawing.Size(159, 26);
             this.txtRegexNameOnlyWithNumberTypeLL.TabIndex = 11;
             this.txtRegexNameOnlyWithNumberTypeLL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRegexNameOnlyWithNumberTypeLL_KeyDown);
             // 
             // lblRegexNameOnlyWithNumberTypeLL
             // 
             this.lblRegexNameOnlyWithNumberTypeLL.AutoSize = true;
-            this.lblRegexNameOnlyWithNumberTypeLL.Location = new System.Drawing.Point(6, 49);
+            this.lblRegexNameOnlyWithNumberTypeLL.Location = new System.Drawing.Point(509, 23);
             this.lblRegexNameOnlyWithNumberTypeLL.Name = "lblRegexNameOnlyWithNumberTypeLL";
-            this.lblRegexNameOnlyWithNumberTypeLL.Size = new System.Drawing.Size(157, 13);
+            this.lblRegexNameOnlyWithNumberTypeLL.Size = new System.Drawing.Size(88, 13);
             this.lblRegexNameOnlyWithNumberTypeLL.TabIndex = 10;
-            this.lblRegexNameOnlyWithNumberTypeLL.Text = "设备编号提取规则(仅含数字)";
+            this.lblRegexNameOnlyWithNumberTypeLL.Text = "3.设备编号规则";
             // 
             // txtRegexNameWithoutTypeLL
             // 
-            this.txtRegexNameWithoutTypeLL.Location = new System.Drawing.Point(166, 20);
+            this.txtRegexNameWithoutTypeLL.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtRegexNameWithoutTypeLL.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtRegexNameWithoutTypeLL.Location = new System.Drawing.Point(171, 15);
+            this.txtRegexNameWithoutTypeLL.Multiline = true;
             this.txtRegexNameWithoutTypeLL.Name = "txtRegexNameWithoutTypeLL";
-            this.txtRegexNameWithoutTypeLL.Size = new System.Drawing.Size(326, 20);
+            this.txtRegexNameWithoutTypeLL.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtRegexNameWithoutTypeLL.Size = new System.Drawing.Size(326, 26);
             this.txtRegexNameWithoutTypeLL.TabIndex = 9;
             this.txtRegexNameWithoutTypeLL.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textRegexNameWithoutTypeLL_KeyDown);
             // 
@@ -371,9 +430,9 @@
             this.lblNameWithoutTypeLL.AutoSize = true;
             this.lblNameWithoutTypeLL.Location = new System.Drawing.Point(6, 23);
             this.lblNameWithoutTypeLL.Name = "lblNameWithoutTypeLL";
-            this.lblNameWithoutTypeLL.Size = new System.Drawing.Size(157, 13);
+            this.lblNameWithoutTypeLL.Size = new System.Drawing.Size(105, 13);
             this.lblNameWithoutTypeLL.TabIndex = 8;
-            this.lblNameWithoutTypeLL.Text = "设备名称提取规则(不含后缀)";
+            this.lblNameWithoutTypeLL.Text = "1.Machine名称规则";
             // 
             // grpBoxOther
             // 
@@ -903,21 +962,6 @@
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
             // 
-            // btnQuery
-            // 
-            this.btnQuery.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowFrame;
-            this.btnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuery.Image = global::GcproExtensionApp.Properties.Resources.Access;
-            this.btnQuery.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnQuery.Location = new System.Drawing.Point(544, 86);
-            this.btnQuery.Name = "btnQuery";
-            this.btnQuery.Size = new System.Drawing.Size(88, 27);
-            this.btnQuery.TabIndex = 114;
-            this.btnQuery.Text = "查询数据";
-            this.btnQuery.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnQuery.UseVisualStyleBackColor = true;
-            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
-            // 
             // AppStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -938,8 +982,8 @@
             this.GcproDB.ResumeLayout(false);
             this.GcproDB.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpEngineer.ResumeLayout(false);
+            this.grpEngineer.PerformLayout();
             this.grpBoxOther.ResumeLayout(false);
             this.grpBoxOther.PerformLayout();
             this.grpMachine.ResumeLayout(false);
@@ -1010,7 +1054,7 @@
         internal System.Windows.Forms.Button BtnOpenProjectDB;
         private System.Windows.Forms.TextBox txtRegexNameWithoutTypeLL;
         private System.Windows.Forms.Label lblNameWithoutTypeLL;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpEngineer;
         private System.Windows.Forms.TextBox txtRegexNameOnlyWithNumberTypeLL;
         private System.Windows.Forms.Label lblRegexNameOnlyWithNumberTypeLL;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
@@ -1021,5 +1065,8 @@
         private System.Windows.Forms.Label lblCompanyName;
         private System.Windows.Forms.TextBox txtDescription;
         internal System.Windows.Forms.Button btnQuery;
+        private System.Windows.Forms.TextBox txtRegexNamePrefix;
+        private System.Windows.Forms.Label lblRegexNamePrefix;
+        private System.Windows.Forms.TextBox txtDemo;
     }
 }

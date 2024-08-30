@@ -457,7 +457,6 @@ namespace GcproExtensionApp
         {
         
         }
-     
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -560,6 +559,7 @@ namespace GcproExtensionApp
                 dataGridBML.Columns[nameof(BML.ColumnSlaveNo)].HeaderText = BML.ColumnControlMethod;
                 dataGridBML.Columns[nameof(BML.ColumnSlaveNo)].Name = nameof(BML.ColumnControlMethod);
             }
+            comboStartRow.SelectedItem = chkUserDifinedExcel.Checked ? BML.StartRowUser : BML.StartRow;
             BMLColumName();
             if (dataGridBML.Rows.Count > 0 && !string.IsNullOrEmpty(comboWorkSheetsBML.Text))
 
@@ -614,7 +614,7 @@ namespace GcproExtensionApp
             {
                 comboStartRow.Items.Add(i);
             }
-            comboStartRow.SelectedItem = BML.StartRow;
+            comboStartRow.SelectedItem = chkUserDifinedExcel.Checked?BML.StartRowUser: BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text=BML.DPSlave.BMLPath;
             DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
@@ -830,6 +830,7 @@ namespace GcproExtensionApp
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             DataTable dataTable = new DataTable();
+            ProgressBar.Maximum = dataGridBML.Rows.Count-1;
             for (int i = 0; i < dataGridBML.Rows.Count; i++)
             {
                 DataGridViewCell cell;
@@ -1084,14 +1085,6 @@ namespace GcproExtensionApp
             }
         }
 
-
-
-
-
-
-
-        #endregion
-
-       
+        #endregion  
     } 
 }

@@ -10,23 +10,23 @@ namespace GcproExtensionApp
 {
     public static class Engineering
     {
-        private static string patternNameWithoutTypeLL;
-        private static string patternNameOnlyWithNumber;
-        private static string patternNamePrefix;
-        public static string PatternNameWithoutTypeLL
+        private static string patternMachineName;
+        private static string patternNameNumber;
+        private static string patternElementNamePrefix;
+        public static string PatternMachineName
         {
-            get { return patternNameWithoutTypeLL; }
-            set { patternNameWithoutTypeLL = value; }
+            get { return patternMachineName; }
+            set { patternMachineName = value; }
         }
-        public static string PatternNameOnlyWithNumber
+        public static string PatternNameNumber
         {
-            get { return patternNameOnlyWithNumber; }
-            set { patternNameOnlyWithNumber = value; }
+            get { return patternNameNumber; }
+            set { patternNameNumber = value; }
         }
-        public static string PatternNamePrefix
+        public static string PatternElementNamePrefix
         {
-            get { return patternNamePrefix; }
-            set { patternNamePrefix = value; }
+            get { return patternElementNamePrefix; }
+            set { patternElementNamePrefix = value; }
         }
         static Engineering()
         {
@@ -36,9 +36,9 @@ namespace GcproExtensionApp
                 
                 var keys = new Dictionary<string, Action<string>>
                     {
-                        { $"{keyPattern}NameWithoutTypeLL", value => patternNameWithoutTypeLL = value },
-                        { $"{keyPattern}NameOnlyWithNumber", value => patternNameOnlyWithNumber = value },
-                        { $"{keyPattern}NamePrefix", value => patternNamePrefix = value },
+                        { $"{keyPattern}MachineName", value => patternMachineName = value },
+                        { $"{keyPattern}NameNumber", value => patternNameNumber = value },
+                        { $"{keyPattern}ElementNamePrefix", value => patternElementNamePrefix = value },
                     };
                 Dictionary<string, string> keyValueRead;
                 keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());

@@ -1595,7 +1595,7 @@ namespace GcproExtensionApp
             string _nameNumberString = string.Empty;
             bool numeric, motorWithVFC;
             bool isMDDxFeeder = false;
-            bool planSifter, purifier, laab;
+            bool planSifter, purifier, laab, hm;
             float power;
             string desc = string.Empty;
             int tmpInt;
@@ -1632,14 +1632,15 @@ namespace GcproExtensionApp
                 else
                 {
                     objMotor.ParMonTime = "50.0";
-                    objMotor.ParStartingTime =  "20.0";
+                    objMotor.ParStartingTime = "20.0";
                     objMotor.ParPowerNominal = string.Empty;
                 }
                 //List need stopping time machines
                 planSifter = desc.Contains(BML.MachineType.PlanSifter);
                 purifier = desc.Contains(BML.MachineType.Purifier);
                 laab = desc.Contains(BML.MachineType.LAAB);
-                if (planSifter || purifier || laab)
+                hm = desc.Contains(BML.MachineType.HammerMill);
+                if (planSifter || purifier || laab || hm)
                 {
                     AppGlobal.SetBit(ref parValue10, (byte)2);
                     if (planSifter)
@@ -1657,6 +1658,15 @@ namespace GcproExtensionApp
                         numeric = AppGlobal.ParseInt(machines.StoppingTime.LAAB, out tmpInt);
                         objMotor.ParStoppingTime = numeric ? (tmpInt * 10.0).ToString("F1") : "1800.0";
                     }
+                    else if (hm)
+                    {
+                        numeric = AppGlobal.ParseInt(machines.StoppingTime.Hammermill, out tmpInt);
+                        objMotor.ParStoppingTime = numeric ? (tmpInt * 10.0).ToString("F1") : "3000.0";
+                    }
+                }
+                else
+                {
+                    objMotor.ParStoppingTime = "10.0";
                 }
                 objMotor.Value9 = parValue9;
                 objMotor.Value10 = parValue10.ToString();

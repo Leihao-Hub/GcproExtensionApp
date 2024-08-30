@@ -1705,6 +1705,11 @@ namespace GcproExtensionApp
                     vfc.Name = BML.VFCAdapter.TypeEnmu.ATV930;
 
                 }
+                else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV955))
+                {
+                    vfc.Name = BML.VFCAdapter.TypeEnmu.ATV955;
+
+                }
                 ///<ParSpeedLimitMin></ParSpeedLimitMin>
                 objVFCAdapter.SpeedLimitMin = vfc.Par.SpeedLimitMin;
                 ///<ParSpeedLimitMax></ParSpeedLimitMax>

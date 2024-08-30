@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Linq;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
@@ -360,45 +361,54 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
                 objFields = null;
             }
+            var relations = new List<Relation>();
+            Relation inpLNRel = new Relation (name, inpLN, GcproTable.ObjData.Value11.Name);
+            Relation outpLNRel = new Relation(name, outpLN, GcproTable.ObjData.Value12.Name);
+            Relation inpHNRel = new Relation(name, inpHN, GcproTable.ObjData.Value13.Name);
+            Relation outpHNRel = new Relation(name, outpHN, GcproTable.ObjData.Value14.Name);
+          
             if (subType == VPO || subType == VPOM || subType == VPOR)
-            {
-                CreateRelation(name, inpLN, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, outpLN, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, inpHN, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, outpHN, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
+            {            
+                relations.Add(inpLNRel);
+                relations.Add(outpLNRel);
+                relations.Add(inpHNRel);
+                relations.Add(outpHNRel);
                 if (subType == VPOM)
                 {
-                    CreateRelation(name, inpRunRev, GcproTable.ObjData.Value15.Name, this.fileRelationPath, encoding);
-                    CreateRelation(name, inpRunFwd, GcproTable.ObjData.Value16.Name, this.fileRelationPath, encoding);
+                    relations.Add(new Relation(name, inpHN, GcproTable.ObjData.Value15.Name));
+                    relations.Add(new Relation(name, outpHN, GcproTable.ObjData.Value16.Name));
                 }
             }
             else if (subType == VCO)
             {
-                CreateRelation(name, inpLN, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, inpHN, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, outpHN, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
+
+                relations.Add(inpLNRel);
+                relations.Add(inpHNRel);
+                relations.Add(outpHNRel);
             }
             else if (subType == VMF)
             {
-                CreateRelation(name, inpLN, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, inpHN, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
+                relations.Add(inpLNRel);
+                relations.Add(inpHNRel);
             }
             if (!string.IsNullOrEmpty(refRcvLN))
             {
-                CreateRelation(name, refRcvLN, GcproTable.ObjData.Value30.Name, this.fileRelationPath, encoding);
+                relations.Add( new Relation (name, refRcvLN, GcproTable.ObjData.Value30.Name));
             }
             if (!string.IsNullOrEmpty(refRcvHN))
             {
-                CreateRelation(name, refRcvHN, GcproTable.ObjData.Value31.Name, this.fileRelationPath, encoding);
+                relations.Add(new Relation(name, refRcvHN, GcproTable.ObjData.Value31.Name));
             }
             if (!string.IsNullOrEmpty(refSndBin))
             {
-                CreateRelation(name, refSndBin, GcproTable.ObjData.Value32.Name, this.fileRelationPath, encoding);
+                relations.Add(new Relation(name, refSndBin, GcproTable.ObjData.Value32.Name));
             }
             if (!string.IsNullOrEmpty(refAsp))
             {
-                CreateRelation(name, refAsp, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);
+                relations.Add(new Relation(name, refAsp, GcproTable.ObjData.Value34.Name));
+        
             }
+            CreateRelations(relations, this.fileRelationPath, encoding);
         }
         public void Clear()
         {

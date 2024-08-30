@@ -273,21 +273,25 @@ namespace GcproExtensionApp
             int separatorIndex = description.IndexOf(GcObjectInfo.Bin.IdentDescSeparator);
             return separatorIndex >= 0 ? description.Substring(0, separatorIndex) : string.Empty;
         }
-        private string GetDescriptionRule(string description,string binIdentPrefix)
-        {
-            string descriptionRule;
-            descriptionRule = string.IsNullOrEmpty(binIdentPrefix) ? LibGlobalSource.StringHelper.ExtractNumericPart(description, false) :
-                               LibGlobalSource.StringHelper.ExtractNumericPart(description.Replace(binIdentPrefix, ""), false);
-            return descriptionRule;
-        }
+        //private string GetDescriptionRule(string description,string binIdentPrefix)
+        //{
+        //    string descriptionRule;
+        //    descriptionRule = string.IsNullOrEmpty(binIdentPrefix) ? LibGlobalSource.StringHelper.ExtractNumericPart(description, false) :
+        //                       LibGlobalSource.StringHelper.ExtractNumericPart(description.Replace(binIdentPrefix, ""), false);
+        //    return descriptionRule;
+        //}
         private void txtDescription_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 descPrefixPart = GetBinIdentPrefix(txtDescription.Text);
                 descPrefixRule = string.IsNullOrEmpty(descPrefixPart) ? string.Empty : LibGlobalSource.StringHelper.ExtractNumericPart(descPrefixPart, false);
-                txtDescriptionRule.Text = GetDescriptionRule(txtDescription.Text, descPrefixPart);
-                descPart = string.IsNullOrEmpty(descPrefixPart) ? txtDescription.Text : txtDescription.Text.Replace(descPrefixPart, "");
+
+                descPart = string.IsNullOrEmpty(descPrefixPart) ? txtDescription.Text :txtDescription.Text.Remove(0, descPrefixPart.Length);
+             
+             //   txtDescriptionRule.Text = GetDescriptionRule(txtDescription.Text, descPrefixPart);
+                txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(descPart, false).ToString();
+          
             }
         }
         private void txtDescriptionRule_TextChanged(object sender, EventArgs e)

@@ -83,8 +83,9 @@ namespace GcproExtensionApp
             TxtProjectPath.Text = AppGlobal.GcproDBInfo.ProjectDBPath;
             TxtGcsLibraryPath.Text = AppGlobal.GcproDBInfo.GcsLibaryPath;
             txtGcproTempPath.Text = AppGlobal.GcproDBInfo.GcproTempPath;
-            txtRegexNameWithoutTypeLL.Text = Engineering.PatternNameWithoutTypeLL;
-            txtRegexNameOnlyWithNumberTypeLL.Text=Engineering.PatternNameOnlyWithNumber;     
+            txtRegexNameWithoutTypeLL.Text = Engineering.PatternMachineName;
+            txtRegexNameOnlyWithNumberTypeLL.Text=Engineering.PatternNameNumber;     
+            txtRegexNamePrefix.Text = Engineering.PatternElementNamePrefix;    
             if (!string.IsNullOrEmpty(TxtProjectPath.Text))
             {
                 try
@@ -174,13 +175,14 @@ namespace GcproExtensionApp
         {
             BtnOpenGcproTempPath_Click(sender, e);
         }
+        #region Engineering
         private void textRegexNameWithoutTypeLL_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtRegexNameWithoutTypeLL.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.NameWithoutTypeLL", newJsonKeyValue);
-                Engineering.PatternNameWithoutTypeLL = newJsonKeyValue;
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.MachineName", newJsonKeyValue);
+                Engineering.PatternMachineName = newJsonKeyValue;
             }
         }
         private void txtRegexNameOnlyWithNumberTypeLL_KeyDown(object sender, KeyEventArgs e)
@@ -188,10 +190,22 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtRegexNameOnlyWithNumberTypeLL.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.NameOnlyWithNumber", newJsonKeyValue);
-                Engineering.PatternNameOnlyWithNumber = newJsonKeyValue;
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.NameNumber", newJsonKeyValue);
+                Engineering.PatternNameNumber = newJsonKeyValue;
             }
         }
+        private void txtNamePrefix_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string newJsonKeyValue = txtRegexNamePrefix.Text;
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ENGINEERING}.{AppGlobal.JS_PATTERN}.ElementNamePrefix", newJsonKeyValue);
+                Engineering.PatternElementNamePrefix = newJsonKeyValue;
+            }
+        }
+    
+        #endregion Engineering
+
         #region Open form
         private void btnAddMotor_Click(object sender, EventArgs e)
         {
@@ -282,6 +296,8 @@ namespace GcproExtensionApp
             objectBrowser.OType = Convert.ToString(Motor.OTypeValue);
             objectBrowser.Show();
         }
+
+      
     }
         #endregion
 }

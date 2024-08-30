@@ -28,6 +28,8 @@ namespace GcproExtensionApp
         public string PlanSifter { get; set; } = "1500";
         public string Purifier { get; set; } = "1200";
         public string LAAB { get; set; } = "1800";
+
+        public string Hammermill { get; set; } = "3000";
     }
     public class MachineType
     {
@@ -45,6 +47,7 @@ namespace GcproExtensionApp
         private string purifier;
         private string planSifter;
         private string laab;
+        private string hammerMill;
         private GetStoppingTime stoppingTime;
         #region Properties
         public  string Elevator
@@ -103,6 +106,10 @@ namespace GcproExtensionApp
         {
             get { return laab; }
         }
+        public string HammerMill
+        {
+            get { return hammerMill; }
+        }
         public GetStoppingTime StoppingTime
         { 
             get { return stoppingTime; }
@@ -132,9 +139,11 @@ namespace GcproExtensionApp
                     {$"{keyMachines}PlanSifter",value => planSifter = value },
                     {$"{keyMachines}Purifier",value => purifier = value },
                     {$"{keyMachines}LAAB",value => laab = value },
-                    {$"{keyStoppingTime}PlanSifter",value => StoppingTime.PlanSifter = value },
-                    {$"{keyStoppingTime}Purifier",value => StoppingTime.Purifier = value },
-                    {$"{keyStoppingTime}LAAB",value => StoppingTime.LAAB = value },
+                    {$"{keyMachines}HammerMill",value => hammerMill = value },
+                    {$"{keyStoppingTime}PlanSifter",value => stoppingTime.PlanSifter = value },
+                    {$"{keyStoppingTime}Purifier",value => stoppingTime.Purifier = value },
+                    {$"{keyStoppingTime}LAAB",value => stoppingTime.LAAB = value },
+                    {$"{keyStoppingTime}HammerMill",value => stoppingTime.Hammermill = value },
                  };
                 Dictionary<string, string> keyValueRead;
                 keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());

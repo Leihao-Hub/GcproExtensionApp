@@ -4,7 +4,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
     public class Project : GcObject
 
     {
-        // private string filePath;
         private string isNew;
         private string name;
         private string description;
