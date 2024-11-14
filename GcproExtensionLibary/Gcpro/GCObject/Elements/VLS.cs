@@ -346,8 +346,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(monTime).Append(LibGlobalSource.TAB)
                   .Append(pulseTimeHN).Append(LibGlobalSource.TAB)
                   .Append(pulseTimeLN).Append(LibGlobalSource.TAB)
