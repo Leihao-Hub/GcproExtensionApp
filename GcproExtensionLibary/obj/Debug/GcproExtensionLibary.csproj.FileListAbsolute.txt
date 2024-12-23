@@ -1,6 +1,0 @@
-Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibary.dll
-Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibary.pdb
-Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.csproj.AssemblyReference.cache
-Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.csproj.CoreCompileInputs.cache
-Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.dll
-Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.pdb
