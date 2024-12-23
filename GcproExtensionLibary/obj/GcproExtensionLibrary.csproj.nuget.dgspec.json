@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "restore": {
+    "d:\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj": {}
+  },
+  "projects": {
+    "d:\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "d:\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
+        "projectName": "GcproExtensionLibrary",
+        "projectPath": "d:\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\GcproExtensionLibrary.csproj",
+        "packagesPath": "C:\\Users\\X10367\\.nuget\\packages\\",
+        "outputPath": "d:\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\X10367\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net462"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net462": {
+            "projectReferences": {}
+          }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net462": {
+          "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.1.3, )"
+            },
+            "ILMerge": {
+              "target": "Package",
+              "version": "[3.0.40, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          }
+        }
+      }
+    }
+  }
+}
