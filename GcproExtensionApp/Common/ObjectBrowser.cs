@@ -20,7 +20,7 @@ namespace GcproExtensionApp
         private string otherAdditionalFiled;
         private string updateFiled;
         private string subType=string.Empty;
-        private string subQuery;
+        private string subQuery = string.Empty;
         private string returnedItem;
         private static ToolTip toolTip=new ToolTip();
 

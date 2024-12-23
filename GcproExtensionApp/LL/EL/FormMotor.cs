@@ -616,7 +616,7 @@ namespace GcproExtensionApp
             ObjectBrowser objectBrowser = new ObjectBrowser();
             objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
             objectBrowser.OType = Convert.ToString(Motor.OTypeValue);
-
+            objectBrowser.SubType = myMotor.SubType;
             objectBrowser.Show();
         }
         private void UpdateDesc()
