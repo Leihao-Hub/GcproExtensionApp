@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8DB3B22C-2A75-491F-89B0-359B12B4968F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>GcproExtensionApp</RootNamespace>
+    <AssemblyName>GcproExtensionApp</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Common\Coorperatin2.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AppStart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\AppStart.Designer.cs">
+      <DependentUpon>AppStart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\AppGlobal.cs" />
+    <Compile Include="CretaeObjHelper\BML.cs" />
+    <Compile Include="CretaeObjHelper\BMLAndGcObjectCommon.cs" />
+    <Compile Include="CretaeObjHelper\Engineering.cs" />
+    <Compile Include="LL\EL\FormAI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormAI.Designer.cs">
+      <DependentUpon>FormAI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormDI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormDI.Designer.cs">
+      <DependentUpon>FormDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormMDDx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormMDDx.Designer.cs">
+      <DependentUpon>FormMDDx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormMotor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormMotor.Designer.cs">
+      <DependentUpon>FormMotor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormRollStandPhoenix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormRollStandPhoenix.Designer.cs">
+      <DependentUpon>FormRollStandPhoenix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormVFCAdapter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormVFCAdapter.Designer.cs">
+      <DependentUpon>FormVFCAdapter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormVLS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormVLS.Designer.cs">
+      <DependentUpon>FormVLS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CretaeObjHelper\GcObjectInfo.cs" />
+    <Compile Include="LL\FormDPSlave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\FormDPSlave.Designer.cs">
+      <DependentUpon>FormDPSlave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_MDDYZPhoenix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_MDDYZPhoenix.Designer.cs">
+      <DependentUpon>FormMA_MDDYZPhoenix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_MotorWithBypass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_MotorWithBypass.Designer.cs">
+      <DependentUpon>FormMA_MotorWithBypass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_Roll8Stand.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\MA\FormMA_Roll8Stand.Designer.cs">
+      <DependentUpon>FormMA_Roll8Stand.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ObjectBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ObjectBrowser.Designer.cs">
+      <DependentUpon>ObjectBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FormBin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBin.Designer.cs">
+      <DependentUpon>FormBin.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Common\AppStart.resx">
+      <DependentUpon>AppStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormAI.resx">
+      <DependentUpon>FormAI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormMDDx.resx">
+      <DependentUpon>FormMDDx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormRollStandPhoenix.resx">
+      <DependentUpon>FormRollStandPhoenix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\FormDPSlave.resx">
+      <DependentUpon>FormDPSlave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\MA\FormMA_MDDYZPhoenix.resx">
+      <DependentUpon>FormMA_MDDYZPhoenix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\MA\FormMA_MotorWithBypass.resx">
+      <DependentUpon>FormMA_MotorWithBypass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\MA\FormMA_Roll8Stand.resx">
+      <DependentUpon>FormMA_Roll8Stand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBin.resx">
+      <DependentUpon>FormBin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormDI.resx">
+      <DependentUpon>FormDI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormMotor.resx">
+      <DependentUpon>FormMotor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormVFCAdapter.resx">
+      <DependentUpon>FormVFCAdapter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormVLS.resx">
+      <DependentUpon>FormVLS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\ObjectBrowser.resx">
+      <DependentUpon>ObjectBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\Coorperatin2.ico" />
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\dataBase.ico" />
+    <None Include="Resources\RollerMill.ico" />
+    <None Include="Resources\Value.JPG" />
+    <None Include="Resources\Motor.png" />
+    <None Include="Resources\Motor.JPG" />
+    <None Include="Resources\Excel.png" />
+    <None Include="Resources\Excel.jpeg" />
+    <None Include="Resources\Folder.ico" />
+    <None Include="Resources\NewTextFile.ico" />
+    <None Include="Resources\parameter-horizontalSmall.png" />
+    <None Include="Resources\linkSmall.png" />
+    <None Include="Resources\valve.ico" />
+    <None Include="Resources\StInfoDPfault.ico" />
+    <None Include="Resources\Shield.ico" />
+    <None Include="Resources\ScaleMonitorData.ico" />
+    <None Include="Resources\Save.ico" />
+    <None Include="Resources\RecycleBoxEmpty.ico" />
+    <None Include="Resources\RecycleBox.ico" />
+    <None Include="Resources\Recycle.ico" />
+    <None Include="Resources\Puls+.ico" />
+    <None Include="Resources\Printer03.ico" />
+    <None Include="Resources\Printer02.ico" />
+    <None Include="Resources\Printer01.ico" />
+    <None Include="Resources\Pin1.ico" />
+    <None Include="Resources\Penicl.ico" />
+    <None Include="Resources\OpenFolder.ico" />
+    <None Include="Resources\NoteBook1.ico" />
+    <None Include="Resources\NetworkGrey.ico" />
+    <None Include="Resources\NetworkBlue.ico" />
+    <None Include="Resources\motor.ico" />
+    <None Include="Resources\imageres_5325.ico" />
+    <None Include="Resources\imageres_1043.ico" />
+    <None Include="Resources\imageres_1024.ico" />
+    <None Include="Resources\imageres_1013.ico" />
+    <None Include="Resources\imageres_110.ico" />
+    <None Include="Resources\imageres_109.ico" />
+    <None Include="Resources\imageres_99.ico" />
+    <None Include="Resources\imageres_81.ico" />
+    <None Include="Resources\imageres_25.ico" />
+    <None Include="Resources\imageres_20.ico" />
+    <None Include="Resources\IESmall.ico" />
+    <None Include="Resources\IE.ico" />
+    <None Include="Resources\HardDiskDriverAndNetwork.ico" />
+    <None Include="Resources\HardDiskAndDriver.ico" />
+    <None Include="Resources\Gcpro.ico" />
+    <None Include="Resources\FireWall_1.ico" />
+    <None Include="Resources\FirefoxSmall.ico" />
+    <None Include="Resources\Firefox.ico" />
+    <None Include="Resources\Find.ico" />
+    <None Include="Resources\ErrorRed.ico" />
+    <None Include="Resources\DP Salve.ico" />
+    <None Include="Resources\DP Salve_backup.ico" />
+    <None Include="Resources\DischargerVertex.ico" />
+    <None Include="Resources\DischargerManagement.ico" />
+    <None Include="Resources\CrossX2.ico" />
+    <None Include="Resources\CrossX1.ico" />
+    <None Include="Resources\Coorperatin3.ico" />
+    <None Include="Resources\Coorperatin2.ico" />
+    <None Include="Resources\Confirm3.ico" />
+    <None Include="Resources\Confirm2.ico" />
+    <None Include="Resources\Confirm1.ico" />
+    <None Include="Resources\ComputerBoxAndWindows.ico" />
+    <None Include="Resources\ComputerBoxAndNetwork.ico" />
+    <None Include="Resources\ComputerBox.ico" />
+    <None Include="Resources\Computer3.ico" />
+    <None Include="Resources\Computer2.ico" />
+    <None Include="Resources\Computer1.ico" />
+    <None Include="Resources\Compass.ico" />
+    <None Include="Resources\CommandBypass.ico" />
+    <None Include="Resources\Cloud.ico" />
+    <None Include="Resources\ChromeSmall.ico" />
+    <None Include="Resources\Chrome.ico" />
+    <None Include="Resources\Canacel.ico" />
+    <None Include="Resources\252.ico" />
+    <None Include="Resources\113.ico" />
+    <None Include="Resources\106.ico" />
+    <None Include="Resources\21.ico" />
+    <None Include="Resources\1.ico" />
+    <None Include="Resources\1 %28203%29.ico" />
+    <None Include="Resources\1 %28202%29.ico" />
+    <None Include="Resources\1 %28200%29.ico" />
+    <None Include="Resources\1 %28196%29.ico" />
+    <None Include="Resources\1 %28195%29.ico" />
+    <None Include="Resources\1 %28194%29.ico" />
+    <None Include="Resources\1 %28193%29.ico" />
+    <None Include="Resources\1 %28192%29.ico" />
+    <None Include="Resources\1 %28191%29.ico" />
+    <None Include="Resources\1 %28190%29.ico" />
+    <None Include="Resources\1 %28189%29.ico" />
+    <None Include="Resources\1 %28188%29.ico" />
+    <None Include="Resources\1 %28187%29.ico" />
+    <None Include="Resources\1 %28185%29.ico" />
+    <None Include="Resources\1 %28184%29.ico" />
+    <None Include="Resources\1 %28183%29.ico" />
+    <None Include="Resources\1 %28182%29.ico" />
+    <None Include="Resources\1 %28181%29.ico" />
+    <None Include="Resources\1 %28180%29.ico" />
+    <None Include="Resources\1 %28179%29.ico" />
+    <None Include="Resources\1 %28173%29.ico" />
+    <None Include="Resources\1 %28172%29.ico" />
+    <None Include="Resources\1 %28171%29.ico" />
+    <None Include="Resources\1 %28170%29.ico" />
+    <None Include="Resources\1 %28169%29.ico" />
+    <None Include="Resources\1 %28168%29.ico" />
+    <None Include="Resources\1 %28167%29.ico" />
+    <None Include="Resources\1 %28166%29.ico" />
+    <None Include="Resources\1 %28165%29.ico" />
+    <None Include="Resources\1 %28161%29.ico" />
+    <None Include="Resources\1 %28160%29.ico" />
+    <None Include="Resources\1 %28159%29.ico" />
+    <None Include="Resources\1 %28158%29.ico" />
+    <None Include="Resources\1 %28157%29.ico" />
+    <None Include="Resources\1 %28156%29.ico" />
+    <None Include="Resources\1 %28155%29.ico" />
+    <None Include="Resources\1 %28154%29.ico" />
+    <None Include="Resources\1 %28153%29.ico" />
+    <None Include="Resources\1 %28152%29.ico" />
+    <None Include="Resources\1 %28150%29.ico" />
+    <None Include="Resources\1 %28147%29.ico" />
+    <None Include="Resources\1 %28141%29.ico" />
+    <None Include="Resources\1 %28140%29.ico" />
+    <None Include="Resources\1 %28139%29.ico" />
+    <None Include="Resources\1 %28138%29.ico" />
+    <None Include="Resources\1 %28137%29.ico" />
+    <None Include="Resources\1 %28136%29.ico" />
+    <None Include="Resources\1 %28135%29.ico" />
+    <None Include="Resources\1 %28133%29.ico" />
+    <None Include="Resources\1 %28132%29.ico" />
+    <None Include="Resources\1 %28131%29.ico" />
+    <None Include="Resources\1 %28128%29.ico" />
+    <None Include="Resources\1 %28127%29.ico" />
+    <None Include="Resources\1 %28126%29.ico" />
+    <None Include="Resources\1 %28125%29.ico" />
+    <None Include="Resources\1 %28124%29.ico" />
+    <None Include="Resources\1 %28122%29.ico" />
+    <None Include="Resources\1 %28120%29.ico" />
+    <None Include="Resources\1 %28112%29.ico" />
+    <None Include="Resources\1 %28111%29.ico" />
+    <None Include="Resources\1 %28110%29.ico" />
+    <None Include="Resources\1 %28109%29.ico" />
+    <None Include="Resources\1 %28108%29.ico" />
+    <None Include="Resources\1 %28107%29.ico" />
+    <None Include="Resources\1 %28106%29.ico" />
+    <None Include="Resources\1 %28105%29.ico" />
+    <None Include="Resources\1 %28104%29.ico" />
+    <None Include="Resources\1 %28103%29.ico" />
+    <None Include="Resources\1 %28102%29.ico" />
+    <None Include="Resources\1 %28101%29.ico" />
+    <None Include="Resources\1 %28100%29.ico" />
+    <None Include="Resources\1 %2899%29.ico" />
+    <None Include="Resources\1 %2898%29.ico" />
+    <None Include="Resources\1 %2896%29.ico" />
+    <None Include="Resources\1 %2895%29.ico" />
+    <None Include="Resources\1 %2894%29.ico" />
+    <None Include="Resources\1 %2893%29.ico" />
+    <None Include="Resources\1 %2892%29.ico" />
+    <None Include="Resources\1 %2891%29.ico" />
+    <None Include="Resources\1 %2890%29.ico" />
+    <None Include="Resources\1 %2889%29.ico" />
+    <None Include="Resources\1 %2888%29.ico" />
+    <None Include="Resources\1 %2887%29.ico" />
+    <None Include="Resources\1 %2886%29.ico" />
+    <None Include="Resources\1 %2885%29.ico" />
+    <None Include="Resources\1 %2884%29.ico" />
+    <None Include="Resources\1 %2883%29.ico" />
+    <None Include="Resources\1 %2882%29.ico" />
+    <None Include="Resources\1 %2880%29.ico" />
+    <None Include="Resources\1 %2879%29.ico" />
+    <None Include="Resources\1 %2878%29.ico" />
+    <None Include="Resources\1 %2877%29.ico" />
+    <None Include="Resources\1 %2876%29.ico" />
+    <None Include="Resources\1 %2875%29.ico" />
+    <None Include="Resources\1 %2874%29.ico" />
+    <None Include="Resources\1 %2873%29.ico" />
+    <None Include="Resources\1 %2872%29.ico" />
+    <None Include="Resources\1 %2871%29.ico" />
+    <None Include="Resources\1 %2870%29.ico" />
+    <None Include="Resources\1 %2869%29.ico" />
+    <None Include="Resources\1 %2868%29.ico" />
+    <None Include="Resources\1 %2867%29.ico" />
+    <None Include="Resources\1 %2866%29.ico" />
+    <None Include="Resources\1 %2865%29.ico" />
+    <None Include="Resources\1 %2864%29.ico" />
+    <None Include="Resources\1 %2863%29.ico" />
+    <None Include="Resources\1 %2862%29.ico" />
+    <None Include="Resources\1 %2861%29.ico" />
+    <None Include="Resources\1 %2860%29.ico" />
+    <None Include="Resources\1 %2859%29.ico" />
+    <None Include="Resources\1 %2858%29.ico" />
+    <None Include="Resources\1 %2857%29.ico" />
+    <None Include="Resources\1 %2856%29.ico" />
+    <None Include="Resources\1 %2855%29.ico" />
+    <None Include="Resources\1 %2854%29.ico" />
+    <None Include="Resources\1 %2853%29.ico" />
+    <None Include="Resources\1 %2852%29.ico" />
+    <None Include="Resources\1 %2851%29.ico" />
+    <None Include="Resources\1 %2850%29.ico" />
+    <None Include="Resources\1 %2849%29.ico" />
+    <None Include="Resources\1 %2848%29.ico" />
+    <None Include="Resources\1 %2847%29.ico" />
+    <None Include="Resources\1 %2846%29.ico" />
+    <None Include="Resources\1 %2845%29.ico" />
+    <None Include="Resources\1 %2844%29.ico" />
+    <None Include="Resources\1 %2843%29.ico" />
+    <None Include="Resources\1 %2842%29.ico" />
+    <None Include="Resources\1 %2841%29.ico" />
+    <None Include="Resources\1 %2840%29.ico" />
+    <None Include="Resources\1 %2839%29.ico" />
+    <None Include="Resources\1 %2838%29.ico" />
+    <None Include="Resources\1 %2837%29.ico" />
+    <None Include="Resources\1 %2836%29.ico" />
+    <None Include="Resources\1 %2835%29.ico" />
+    <None Include="Resources\1 %2834%29.ico" />
+    <None Include="Resources\1 %2833%29.ico" />
+    <None Include="Resources\1 %2832%29.ico" />
+    <None Include="Resources\1 %2831%29.ico" />
+    <None Include="Resources\1 %2830%29.ico" />
+    <None Include="Resources\1 %2829%29.ico" />
+    <None Include="Resources\1 %2828%29.ico" />
+    <None Include="Resources\1 %2827%29.ico" />
+    <None Include="Resources\1 %2826%29.ico" />
+    <None Include="Resources\1 %2825%29.ico" />
+    <None Include="Resources\1 %2824%29.ico" />
+    <None Include="Resources\1 %2823%29.ico" />
+    <None Include="Resources\1 %2822%29.ico" />
+    <None Include="Resources\1 %2821%29.ico" />
+    <None Include="Resources\1 %2820%29.ico" />
+    <None Include="Resources\1 %2819%29.ico" />
+    <None Include="Resources\1 %2816%29.ico" />
+    <None Include="Resources\1 %2815%29.ico" />
+    <None Include="Resources\1 %2814%29.ico" />
+    <None Include="Resources\1 %2813%29.ico" />
+    <None Include="Resources\1 %2812%29.ico" />
+    <None Include="Resources\1 %2811%29.ico" />
+    <None Include="Resources\1 %2810%29.ico" />
+    <None Include="Resources\1 %289%29.ico" />
+    <None Include="Resources\1 %288%29.ico" />
+    <None Include="Resources\1 %287%29.ico" />
+    <None Include="Resources\1 %286%29.ico" />
+    <None Include="Resources\zoom-out.png" />
+    <None Include="Resources\zoom-in.png" />
+    <None Include="Resources\zero-gap.png" />
+    <None Include="Resources\yield.png" />
+    <None Include="Resources\workspace.png" />
+    <None Include="Resources\workplace.png" />
+    <None Include="Resources\wizard.png" />
+    <None Include="Resources\witheringandcuring.png" />
+    <None Include="Resources\window-medium.png" />
+    <None Include="Resources\window-large.png" />
+    <None Include="Resources\window-fullscreen-off.png" />
+    <None Include="Resources\window-fullscreen.png" />
+    <None Include="Resources\wincos-4.png" />
+    <None Include="Resources\wincos-3.png" />
+    <None Include="Resources\wincos-2.png" />
+    <None Include="Resources\wincos-1.png" />
+    <None Include="Resources\wincos.png" />
+    <None Include="Resources\visible.png" />
+    <None Include="Resources\user-interaction.png" />
+    <None Include="Resources\user-engineer.png" />
+    <None Include="Resources\upload.png" />
+    <None Include="Resources\tick.png" />
+    <None Include="Resources\system-monitor.png" />
+    <None Include="Resources\suspended.png" />
+    <None Include="Resources\storages.png" />
+    <None Include="Resources\storage-is-not-empty.png" />
+    <None Include="Resources\storage-is-empty.png" />
+    <None Include="Resources\storage.png" />
+    <None Include="Resources\stop-feeder.png" />
+    <None Include="Resources\stop-cu.png" />
+    <None Include="Resources\stateinfo-warning.png" />
+    <None Include="Resources\stateinfo-reserve.png" />
+    <None Include="Resources\stateinfo-print.png" />
+    <None Include="Resources\stateinfo-manual.png" />
+    <None Include="Resources\stateinfo-local.png" />
+    <None Include="Resources\stateinfo-inputs.png" />
+    <None Include="Resources\stateinfo-hw-stop.png" />
+    <None Include="Resources\stateinfo-forced.png" />
+    <None Include="Resources\stateinfo-dp-fault.png" />
+    <None Include="Resources\stateinfo-check-recipe.png" />
+    <None Include="Resources\sound-off.png" />
+    <None Include="Resources\sound-mute.png" />
+    <None Include="Resources\set-level-to-not-empty.png" />
+    <None Include="Resources\set-level-to-empty.png" />
+    <None Include="Resources\set-dry-level-done.png" />
+    <None Include="Resources\sender.png" />
+    <None Include="Resources\select-arrow.png" />
+    <None Include="Resources\section.png" />
+    <None Include="Resources\scheduler-enabled.png" />
+    <None Include="Resources\scheduler-disabled.png" />
+    <None Include="Resources\scale.png" />
+    <None Include="Resources\sampler-management.png" />
+    <None Include="Resources\rollermill.png" />
+    <None Include="Resources\restore.png" />
+    <None Include="Resources\reload.png" />
+    <None Include="Resources\recipe-template.png" />
+    <None Include="Resources\recipe-step.png" />
+    <None Include="Resources\receiver.png" />
+    <None Include="Resources\products.png" />
+    <None Include="Resources\product-deassign.png" />
+    <None Include="Resources\product-assign.png" />
+    <None Include="Resources\product.png" />
+    <None Include="Resources\prepstate-info.png" />
+    <None Include="Resources\pre-alarm-on.png" />
+    <None Include="Resources\pre-alarm-off.png" />
+    <None Include="Resources\pin-unpin.png" />
+    <None Include="Resources\pin-pinned.png" />
+    <None Include="Resources\pin.png" />
+    <None Include="Resources\parameter-vertical.png" />
+    <None Include="Resources\parameter-horizontal.png" />
+    <None Include="Resources\ok.png" />
+    <None Include="Resources\not-found.png" />
+    <None Include="Resources\new.png" />
+    <None Include="Resources\mute.png" />
+    <None Include="Resources\MSBA_3d_3rs.png" />
+    <None Include="Resources\motor-stop.png" />
+    <None Include="Resources\motor-left.png" />
+    <None Include="Resources\more-vertical.png" />
+    <None Include="Resources\more-horizontal.png" />
+    <None Include="Resources\minus.png" />
+    <None Include="Resources\mercury-report.png" />
+    <None Include="Resources\mercury-loader.png" />
+    <None Include="Resources\menu.png" />
+    <None Include="Resources\mechanical-fault.png" />
+    <None Include="Resources\master-items.png" />
+    <None Include="Resources\map-pin.png" />
+    <None Include="Resources\map.png" />
+    <None Include="Resources\manual-addition.png" />
+    <None Include="Resources\malting.png" />
+    <None Include="Resources\low-level.png" />
+    <None Include="Resources\lot.png" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\login.png" />
+    <None Include="Resources\locked-filling.png" />
+    <None Include="Resources\locked-discharging.png" />
+    <None Include="Resources\loading.png" />
+    <None Include="Resources\list-bullets.png" />
+    <None Include="Resources\list.png" />
+    <None Include="Resources\link.png" />
+    <None Include="Resources\line.png" />
+    <None Include="Resources\layer-tracing.png" />
+    <None Include="Resources\jobs.png" />
+    <None Include="Resources\joblog.png" />
+    <None Include="Resources\job.png" />
+    <None Include="Resources\invisible.png" />
+    <None Include="Resources\high-level.png" />
+    <None Include="Resources\heat.png" />
+    <None Include="Resources\GcproAssitant.png" />
+    <None Include="Resources\extended-shelf-life.png" />
+    <None Include="Resources\event-log-system-warning.png" />
+    <None Include="Resources\event-log-system-information.png" />
+    <None Include="Resources\event-log-system-error.png" />
+    <None Include="Resources\event-log-process-warning.png" />
+    <None Include="Resources\event-log-process-info.png" />
+    <None Include="Resources\event-log-process-auditlog.png" />
+    <None Include="Resources\event-log-process-alarm.png" />
+    <None Include="Resources\event-list.png" />
+    <None Include="Resources\end-of-job.png" />
+    <None Include="Resources\empty-list.png" />
+    <None Include="Resources\empty.png" />
+    <None Include="Resources\emergency-gap.png" />
+    <None Include="Resources\edit-list.png" />
+    <None Include="Resources\DP Salve.png" />
+    <None Include="Resources\deassign.png" />
+    <None Include="Resources\date-time.png" />
+    <None Include="Resources\correction-component.png" />
+    <None Include="Resources\confirm-manual-addition.png" />
+    <None Include="Resources\components.png" />
+    <None Include="Resources\component.png" />
+    <None Include="Resources\cmd-teach.png" />
+    <None Include="Resources\cmd-takeover.png" />
+    <None Include="Resources\cmd-start-empty-job.png" />
+    <None Include="Resources\cmd-set-level.png" />
+    <None Include="Resources\cmd-sequence-stop.png" />
+    <None Include="Resources\cmd-sample.png" />
+    <None Include="Resources\cmd-rest-discharge-on.png" />
+    <None Include="Resources\cmd-rest-discharge-off.png" />
+    <None Include="Resources\cmd-rest-discharge.png" />
+    <None Include="Resources\cmd-reset-job.png" />
+    <None Include="Resources\cmd-register.png" />
+    <None Include="Resources\cmd-read-register.png" />
+    <None Include="Resources\cmd-print-on.png" />
+    <None Include="Resources\cmd-print-off.png" />
+    <None Include="Resources\cmd-override-hl-on.png" />
+    <None Include="Resources\cmd-override-hl-off.png" />
+    <None Include="Resources\cmd-next-storage.png" />
+    <None Include="Resources\cmd-next-component.png" />
+    <None Include="Resources\cmd-new-value.png" />
+    <None Include="Resources\cmd-new-job.png" />
+    <None Include="Resources\cmd-new-batch.png" />
+    <None Include="Resources\cmd-move-to-other-scale.png" />
+    <None Include="Resources\cmd-modify-job.png" />
+    <None Include="Resources\cmd-modify-bin.png" />
+    <None Include="Resources\cmd-manual-register-weight.png" />
+    <None Include="Resources\cmd-low-number.png" />
+    <None Include="Resources\cmd-log-on.png" />
+    <None Include="Resources\cmd-log-off.png" />
+    <None Include="Resources\cmd-limit-on.png" />
+    <None Include="Resources\cmd-limit-off.png" />
+    <None Include="Resources\cmd-interrupt-reset.png" />
+    <None Include="Resources\cmd-interrupt.png" />
+    <None Include="Resources\cmd-ingredient-next.png" />
+    <None Include="Resources\cmd-ingredient-moved.png" />
+    <None Include="Resources\cmd-ingredient-abort.png" />
+    <None Include="Resources\cmd-high-number.png" />
+    <None Include="Resources\cmd-heater-on.png" />
+    <None Include="Resources\cmd-heater-off.png" />
+    <None Include="Resources\cmd-force-on.png" />
+    <None Include="Resources\cmd-force-off.png" />
+    <None Include="Resources\cmd-fan-on.png" />
+    <None Include="Resources\cmd-fan-off.png" />
+    <None Include="Resources\cmd-fan.png" />
+    <None Include="Resources\cmd-execute-correction.png" />
+    <None Include="Resources\cmd-enable.png" />
+    <None Include="Resources\cmd-disable-vibro-on.png" />
+    <None Include="Resources\cmd-disable-vibro-off.png" />
+    <None Include="Resources\cmd-disable.png" />
+    <None Include="Resources\cmd-correction-mode.png" />
+    <None Include="Resources\cmd-cooler-on.png" />
+    <None Include="Resources\cmd-cooler-off.png" />
+    <None Include="Resources\cmd-clear-total-value.png" />
+    <None Include="Resources\cmd-clear-min-max.png" />
+    <None Include="Resources\cmd-check-job.png" />
+    <None Include="Resources\cmd-bottle-change.png" />
+    <None Include="Resources\cmd-automatic.png" />
+    <None Include="Resources\cmd-all-corrections-done.png" />
+    <None Include="Resources\cmd-airlock-on-off.png" />
+    <None Include="Resources\cmd-accept-weight.png" />
+    <None Include="Resources\buhlerCode.PNG" />
+    <None Include="Resources\Buhler.png" />
+    <None Include="Resources\buehler-logo1.png" />
+    <None Include="Resources\buehler-logo.png" />
+    <None Include="Resources\bool-unchecked.png" />
+    <None Include="Resources\bool-checked.png" />
+    <None Include="Resources\blend-on.png" />
+    <None Include="Resources\blend-off.png" />
+    <None Include="Resources\batch.png" />
+    <None Include="Resources\aut-process.png" />
+    <None Include="Resources\audit-management.png" />
+    <None Include="Resources\audit.png" />
+    <None Include="Resources\assigndeassign.png" />
+    <None Include="Resources\alarm-viewed.png" />
+    <None Include="Resources\alarm-gone.png" />
+    <None Include="Resources\aggregation-sum.png" />
+    <None Include="Resources\aggregation-min.png" />
+    <None Include="Resources\aggregation-max.png" />
+    <None Include="Resources\aggregation-count.png" />
+    <None Include="Resources\aggregation-avg.png" />
+    <None Include="Resources\AccessSmall.jpg" />
+    <None Include="Resources\Access1.png" />
+    <None Include="Resources\Access.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GcproExtensionLibary\GcproExtensionLibrary.csproj">
+      <Project>{12705553-fd01-4e57-8194-1a82a5244448}</Project>
+      <Name>GcproExtensionLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework">
+      <Version>3.1.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
