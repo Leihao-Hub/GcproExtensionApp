@@ -3743,7 +3743,8 @@
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.6.2": [
       "GcproExtensionLibrary >= 1.0.0",
-      "MSTest.TestFramework >= 3.1.1"
+      "MSTest.TestFramework >= 3.1.1",
+      "Newtonsoft.Json >= 13.0.3"
     ]
   },
   "packageFolders": {
@@ -3797,6 +3798,10 @@
           "MSTest.TestFramework": {
             "target": "Package",
             "version": "[3.1.1, )"
+          },
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.3, )"
           }
         }
       }
