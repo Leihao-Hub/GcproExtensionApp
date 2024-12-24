@@ -204,7 +204,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="withNameInfo">描述内包含名称信息</param>
         /// <param name="nameOnlyWithNumber">名称仅包含数字部分</param>
         /// <returns></returns>
-        public static string EncodingDesc(ref GcBaseRule baseRule, string namePrefix,string nameRule, bool withLineInfo = true, bool withFloorInfo = true, bool withNameInfo = true, bool withCabinet = false,bool withPower =false ,bool nameOnlyWithNumber = true,bool removeNamePrefix = true)
+        public static string EncodingDesc(ref GcBaseRule baseRule, string namePrefix,string nameRule, 
+            bool withLineInfo = true, bool withFloorInfo = true, bool withNameInfo = true, bool withCabinet = false,
+            bool withPower =false ,bool nameOnlyWithNumber = true,bool removeNamePrefix = true)
         {
             StringBuilder desc = new StringBuilder();
             string nameWithoutSuffix;

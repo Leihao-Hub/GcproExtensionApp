@@ -979,7 +979,6 @@ namespace GcproExtensionApp
             // 
             this.txtInpTrue.BackColor = System.Drawing.Color.LightGray;
             this.txtInpTrue.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtInpTrue.Enabled = false;
             this.txtInpTrue.Location = new System.Drawing.Point(8, 79);
             this.txtInpTrue.Name = "txtInpTrue";
             this.txtInpTrue.Size = new System.Drawing.Size(100, 13);

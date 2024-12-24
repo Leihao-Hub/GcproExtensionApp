@@ -1612,6 +1612,8 @@ namespace GcproExtensionApp
             string cabinet, cabinetGroup;
             string stringNumber = string.Empty;
             string remark;
+            bool descUserDef = false;
+            bool descUserDefConfirm = false;
             objDefaultInfo = DI.Rule.Common;
             Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
@@ -1629,13 +1631,22 @@ namespace GcproExtensionApp
                 ///<AdditionInfoToDesc></AdditionInfoToDesc>   
                 descToBuilder.Clear();
                 string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
-
-                if (!(myDI.Name.Contains(suffixObject.GetKey("BLH")) || objDI.Name.Contains(suffixObject.GetKey("BLL"))))
+                if (!descUserDefConfirm)
+                {
+                    descUserDef = (MessageBox.Show(AppGlobal.USER_DEFINED_DESC, AppGlobal.INFO, MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes) ?
+                    true : false;
+                }
+                descUserDefConfirm = true;
+                if (descUserDef)
                 {
                     descToBuilder.Append(desc);
                 }
-
-                if (addtionToDesc.Section)
+                if (!(myDI.Name.Contains(suffixObject.GetKey("BLH")) || objDI.Name.Contains(suffixObject.GetKey("BLL"))) && !descUserDef)
+                {
+                    descToBuilder.Append(desc);
+                }
+           
+                if (addtionToDesc.Section && !descUserDef)
                 {
                     stringNumber = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objDI.Name);
                     if (!string.IsNullOrEmpty(stringNumber))
@@ -1646,7 +1657,7 @@ namespace GcproExtensionApp
                         }
                     }
                 }
-                else if (addtionToDesc.UserDefSection)
+                else if (addtionToDesc.UserDefSection && !descUserDef)
                 {
                     DI.Rule.Common.DescLine = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value); ;
                 }
@@ -1663,7 +1674,11 @@ namespace GcproExtensionApp
                     objDI.SubType = DI.MON2BS;
                     objDI.Value9 = "4";
                     objDI.Value10 = "0";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BZA"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BZA"]}");
+                     
+                    };
                 }
                 else if (myDI.Name.Contains(suffixObject.GetKey("SHE")))
                 {
@@ -1676,79 +1691,100 @@ namespace GcproExtensionApp
                     objDI.SubType = DI.MON1M_LS;
                     objDI.Value9 = "5";
                     objDI.Value10 = "0";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["FYX"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["FYX"]}");
+                    };
                 }
                 else if (myDI.Name.Contains(suffixObject.GetKey("BZS")))
                 {
                     objDI.SubType = DI.MON1M_LS;
                     objDI.Value9 = "5";
                     objDI.Value10 = "0";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BZS"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BZS"]}");
+                    };
                 }
                 else if (myDI.Name.Contains(suffixObject.GetKey("QYS")))
                 {
                     objDI.SubType = DI.MON1M_LS;
                     objDI.Value9 = "5";
                     objDI.Value10 = "0";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["QYS"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["QYS"]}");
+                    };
                 }
                 else if (myDI.Name.Contains(suffixObject.GetKey("BLH")))
                 {
                     objDI.SubType = DI.HLBIN;
                     objDI.Value9 = "2";
                     objDI.Value10 = "16";
-                    remark = BML.DI.ParseIORemark(ioRemark);
-                    if (!string.IsNullOrEmpty(remark))
-                    {
-                        stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
-                        if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                    if (!descUserDef)
+                    {                                        
+                        remark = BML.DI.ParseIORemark(ioRemark);
+                        if (!string.IsNullOrEmpty(remark))
                         {
-                            descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
+                            stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
+                            if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                            {
+                                descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
 
+                            }
+                            Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value2.Name, _bin.FileRelationPath, Encoding.Unicode);
                         }
-                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value2.Name, _bin.FileRelationPath, Encoding.Unicode);
-                    }
-                    else
-                    {
-                        descToBuilder.Append(ioRemark);
-                    }
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BLH"]}");
+                        else
+                        {
+                            descToBuilder.Append(ioRemark);
+                        }
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BLH"]}");
+                    };
                 }
                 else if (myDI.Name.Contains(suffixObject.GetKey("BLL")) || _subType == BML.DI.MiddleLevel)
                 {
                     objDI.SubType = DI.LLBIN;
                     objDI.Value9 = "4098";
                     objDI.Value10 = "16";
-                    remark = BML.DI.ParseIORemark(ioRemark);
-                    if (!string.IsNullOrEmpty(remark))
+                    if (!descUserDef)
                     {
-                        stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
-                        if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                        remark = BML.DI.ParseIORemark(ioRemark);
+                        if (!string.IsNullOrEmpty(remark))
                         {
-                            descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
-                        }
+                            stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
+                            if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                            {
+                                descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
+                            }
 
-                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value3.Name, _bin.FileRelationPath, Encoding.Unicode);
+                            Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value3.Name, _bin.FileRelationPath, Encoding.Unicode);
+                        }
+                        else
+                        {
+                            descToBuilder.Append(ioRemark);
+                        }
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BLL"]}");
                     }
-                    else
-                    {
-                        descToBuilder.Append(ioRemark);
-                    }
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BLL"]}");
                 }
                 else if (myDI.Name.Contains(suffixObject.GetKey("BQS")))
                 {
                     objDI.SubType = DI.HLMA;
                     objDI.Value9 = "8195";
                     objDI.Value10 = "0";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BQS"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BQS"]}");
+                    }
                 }
                 else if (myDI.Name.Contains(suffixObject.GetKey("BPS")))
                 {
                     objDI.SubType = DI.MON1MPH;
                     objDI.Value9 = "5";
                     objDI.Value10 = "0";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BPS"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BPS"]}");
+                    }
                 }
                 else if (_subType == BML.DI.PushButton)
                 {
@@ -1762,7 +1798,10 @@ namespace GcproExtensionApp
 
                     objDI.Value9 = "4";
                     objDI.Value10 = "2";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BST"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BST"]}");
+                    }
                 }
                 else if (_subType == BML.DI.TemperatureSwitch)
                 {
@@ -1782,7 +1821,10 @@ namespace GcproExtensionApp
                     objDI.SubType = DI.MON2SS;
                     objDI.Value9 = "4";
                     objDI.Value10 = "0";
-                    descToBuilder.Append($"{suffixObject.SuffixObjectType["BSA"]}");
+                    if (!descUserDef)
+                    {
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BSA"]}");
+                    }
                 }
                 SubTypeChanged(myDI.SubType);
                 #endregion
@@ -1795,11 +1837,11 @@ namespace GcproExtensionApp
                     baseRule: ref DI.Rule.Common,
                     namePrefix: GcObjectInfo.General.PrefixName,
                     nameRule: Engineering.PatternMachineName,
-                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
-                    withFloorInfo: addtionToDesc.Elevation,
-                    withNameInfo: addtionToDesc.IdentNumber,
-                    withCabinet: addtionToDesc.Cabinet,
-                    withPower: addtionToDesc.Power,
+                    withLineInfo: (addtionToDesc.Section || addtionToDesc.UserDefSection) && !descUserDef,
+                    withFloorInfo: addtionToDesc.Elevation && !descUserDef,
+                    withNameInfo: addtionToDesc.IdentNumber && !descUserDef,
+                    withCabinet: addtionToDesc.Cabinet && !descUserDef,
+                    withPower: addtionToDesc.Power && !descUserDef,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
                 objDI.CreateObject(Encoding.Unicode);

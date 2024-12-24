@@ -52,7 +52,7 @@ namespace GcproExtensionApp
         public const string NULL = "null";
         public const string DEFAULT_GCPRO_TEMP_PATH = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH;
         public const string OBJECT_FIELD = "数据库字段: ";
-
+        public const string USER_DEFINED_DESC = "使用用户自定义描述？";
         public const string MSG_INVALID_IO_SYMBOL = LibGlobalSource.MSG_INVALID_IO_SYMBOL;
         public const string INFO = "信息提示";
         public const string MSG_NOT_VALID_IP = "非法IP地址";

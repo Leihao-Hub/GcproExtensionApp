@@ -1592,7 +1592,7 @@ namespace GcproExtensionApp
                         ///Select Subtype
                         ///Select PType
                         ///</Summary>
-                        if (vlsType.Equals(BML.VLS.ManualFlap))
+                        if (vlsType.Contains(BML.VLS.ManualFlap))
                         {
                             objVLS.SubType = VLS.VMF;
                             objVLS.PType = VLS.P7082.ToString();
@@ -1600,7 +1600,7 @@ namespace GcproExtensionApp
                             //chkPulseValve.Checked = false;
                             //chkManualFlap.Checked = true;
                         }
-                        else if (vlsType.Equals(BML.VLS.PneFlap))
+                        else if (vlsType.Contains(BML.VLS.PneFlap))
                         {
                             switch (noOfSubIO)
                             {
@@ -1616,12 +1616,12 @@ namespace GcproExtensionApp
                             }
                             objVLS.PType = VLS.P7082.ToString();
                         }
-                        else if (vlsType.Equals(BML.VLS.ManualSlideGate))
+                        else if (vlsType.Contains(BML.VLS.ManualSlideGate))
                         {
                             objVLS.SubType = VLS.VMF;
                             objVLS.PType = VLS.P7081.ToString();
                         }
-                        else if (vlsType.Equals(BML.VLS.PneSlideGate))
+                        else if (vlsType.Contains(BML.VLS.PneSlideGate))
                         {
                             switch (noOfSubIO)
                             {
@@ -1637,7 +1637,7 @@ namespace GcproExtensionApp
                             }
                             objVLS.PType = VLS.P7081.ToString();
                         }
-                        else if (vlsType.Equals(BML.VLS.PneTwoWayValve))
+                        else if (vlsType.Contains(BML.VLS.PneTwoWayValve))
                         {
                             switch (noOfSubIO)
                             {
@@ -1653,7 +1653,7 @@ namespace GcproExtensionApp
                             }
                             objVLS.PType = VLS.P7082.ToString();
                         }
-                        else if (vlsType.Equals(BML.VLS.PneShutOffValve))
+                        else if (vlsType.Contains(BML.VLS.PneShutOffValve))
                         {
                             switch (noOfSubIO)
                             {
@@ -1669,7 +1669,7 @@ namespace GcproExtensionApp
                             }
                             objVLS.PType = VLS.P7081.ToString();
                         }
-                        else if (vlsType.Equals(BML.VLS.PneAspValve))
+                        else if (vlsType.Contains(BML.VLS.PneAspValve))
                         {
                             switch (noOfSubIO)
                             {
