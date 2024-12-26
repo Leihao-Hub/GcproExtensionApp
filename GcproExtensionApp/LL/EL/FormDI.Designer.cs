@@ -1432,7 +1432,6 @@ namespace GcproExtensionApp
             this.comboControlBML.Name = "comboControlBML";
             this.comboControlBML.Size = new System.Drawing.Size(66, 21);
             this.comboControlBML.TabIndex = 29;
-            this.comboControlBML.Visible = false;
             // 
             // lblIORemarkBML
             // 
@@ -1451,7 +1450,6 @@ namespace GcproExtensionApp
             this.lblControlBML.Size = new System.Drawing.Size(67, 13);
             this.lblControlBML.TabIndex = 28;
             this.lblControlBML.Text = "控制类型：";
-            this.lblControlBML.Visible = false;
             // 
             // comboStartRow
             // 

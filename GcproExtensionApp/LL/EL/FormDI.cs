@@ -18,6 +18,7 @@ using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Linq;
 using System.Xml.Linq;
 using System.Net;
+using Microsoft.Extensions.Primitives;
 #endregion
 namespace GcproExtensionApp
 {
@@ -1183,7 +1184,7 @@ namespace GcproExtensionApp
         private void btnReadBML_Click(object sender, EventArgs e)
         {
             string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboTypeBML.Text,comboFloorBML.Text,
-                comboCabinetBML.Text ,comboSectionBML.Text,comboIORemarkBML.Text,comboLineBML.Text};
+                comboCabinetBML.Text ,comboSectionBML.Text,comboIORemarkBML.Text,comboLineBML.Text,comboControlBML.Text };
             StringBuilder sbFilters = new StringBuilder();
             sbFilters.Append($@"Value LIKE ""%{BML.DI.BeltMonitor}"" || ").Append($@"Value LIKE ""%{BML.DI.EmergencyStop}"" || ").Append($@"Value LIKE ""%{BML.DI.Explosion}"" || ")
                  .Append($@"Value LIKE ""%{BML.DI.HighLevel}"" || ").Append($@"Value LIKE ""%{BML.DI.LimitSwitch}"" || ").Append($@"Value LIKE ""%{BML.DI.LowLevel}"" || ")
@@ -1195,10 +1196,16 @@ namespace GcproExtensionApp
            .Append($@"Value NOT LIKE ""%{BML.VLS.PneSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.ManualSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneShutOffValve}"" && ")
            .Append($@"Value NOT LIKE ""%{BML.VLS.PneAspValve}""");
             DataTable dataTable = new DataTable();
-            string[] filters = { sbFilters.ToString(), sbValveFilters.ToString() };
-            string[] filterColumns = { comboTypeBML.Text, comboDescBML.Text };
+            string[] filters = new string[2];
+            string[] filterColumns;
+            filters = new string[] { sbFilters.ToString(), sbValveFilters.ToString() };       
+            filterColumns = new string[] { comboTypeBML.Text, comboDescBML.Text};
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
-
+            sbFilters.Clear();
+            sbFilters.Append($@"Value LIKE ""%{BML.Motor.FCFan}%""");
+            filters = new string[] { sbFilters.ToString()};
+            filterColumns = new string[] {comboControlBML.Text};
+            dataTable.Merge(excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true));
             dataGridBML.DataSource = dataTable;
             dataGridBML.AutoGenerateColumns = false;
             dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
@@ -1669,7 +1676,7 @@ namespace GcproExtensionApp
                 objDI.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
 
                 #region Subtype and PType           
-                if (myDI.Name.Contains(suffixObject.GetKey("BZA")))
+                if (objDI.Name.Contains(suffixObject.GetKey("BZA")))
                 {
                     objDI.SubType = DI.MON2BS;
                     objDI.Value9 = "4";
@@ -1680,13 +1687,13 @@ namespace GcproExtensionApp
                      
                     };
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("SHE")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("SHE")))
                 {
                     objDI.SubType = DI.MON1MVC;
                     objDI.Value9 = "4";
                     objDI.Value10 = "0";
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("FYX")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("FYX")))
                 {
                     objDI.SubType = DI.MON1M_LS;
                     objDI.Value9 = "5";
@@ -1696,7 +1703,7 @@ namespace GcproExtensionApp
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["FYX"]}");
                     };
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("BZS")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("BZS")))
                 {
                     objDI.SubType = DI.MON1M_LS;
                     objDI.Value9 = "5";
@@ -1706,7 +1713,7 @@ namespace GcproExtensionApp
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BZS"]}");
                     };
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("QYS")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("QYS")))
                 {
                     objDI.SubType = DI.MON1M_LS;
                     objDI.Value9 = "5";
@@ -1716,7 +1723,7 @@ namespace GcproExtensionApp
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["QYS"]}");
                     };
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("BLH")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("BLH")))
                 {
                     objDI.SubType = DI.HLBIN;
                     objDI.Value9 = "2";
@@ -1741,7 +1748,7 @@ namespace GcproExtensionApp
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BLH"]}");
                     };
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("BLL")) || _subType == BML.DI.MiddleLevel)
+                else if (objDI.Name.Contains(suffixObject.GetKey("BLL")) || _subType == BML.DI.MiddleLevel)
                 {
                     objDI.SubType = DI.LLBIN;
                     objDI.Value9 = "4098";
@@ -1766,7 +1773,7 @@ namespace GcproExtensionApp
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BLL"]}");
                     }
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("BQS")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("BQS")))
                 {
                     objDI.SubType = DI.HLMA;
                     objDI.Value9 = "8195";
@@ -1776,7 +1783,7 @@ namespace GcproExtensionApp
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BQS"]}");
                     }
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("BPS")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("BPS")))
                 {
                     objDI.SubType = DI.MON1MPH;
                     objDI.Value9 = "5";
@@ -1792,7 +1799,7 @@ namespace GcproExtensionApp
                     objDI.Value9 = "0";
                     objDI.Value10 = "0";
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("BST")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("BST")))
                 {
                     objDI.SubType = DI.MON2SSP;
 
@@ -1816,7 +1823,7 @@ namespace GcproExtensionApp
                     objDI.Value9 = "5";
                     objDI.Value10 = "0";
                 }
-                else if (myDI.Name.Contains(suffixObject.GetKey("BSA")))
+                else if (objDI.Name.Contains(suffixObject.GetKey("BSA")))
                 {
                     objDI.SubType = DI.MON2SS;
                     objDI.Value9 = "4";
@@ -1826,7 +1833,23 @@ namespace GcproExtensionApp
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BSA"]}");
                     }
                 }
-                SubTypeChanged(myDI.SubType);
+                else if (objDI.Name.Contains(suffixObject.GetKey("MXZ")))
+                {
+                    objDI.SubType = DI.DIC;
+                    objDI.Value9 = "4";
+                    objDI.Value10 = "0";
+                    if (!descUserDef && !desc.Contains(AppGlobal.FC_FAN))
+                    {
+                        descToBuilder.Append(AppGlobal.FC_FAN);
+                    }
+                }
+                SubTypeChanged(objDI.SubType);
+                //当输入类型为风扇监控时,重写以下参数
+                if (objDI.Name.Contains(suffixObject.GetKey("MXZ")))
+                {  
+                    objDI.PType = DI.P7162.ToString();
+                    objDI.TimeoutTrue = "50.0";
+                }
                 #endregion
                 desc = descToBuilder.ToString();
                 DI.Rule.Common.Name = objDI.Name;

@@ -29,6 +29,7 @@ namespace GcproExtensionApp
         private static string columnMachine;
         private static string columnIORemark;
         private static string columnIsVFC;
+        private static string columnIsFCFan;
         private static string columnDIType;
         private static string columnIPAddr;
         private static string columnSlaveNo;
@@ -55,6 +56,12 @@ namespace GcproExtensionApp
         {
             get { return columnIsVFC; }
         }
+
+        public static string ColumnIsFCFan
+        {
+            get { return columnIsFCFan; }
+        }
+
         public static string ColumnName
         {
             get { return columnName; }
@@ -138,6 +145,7 @@ namespace GcproExtensionApp
                     {$"{keyColumns}DIType",value => columnDIType = value },
                     {$"{keyColumns}Type",value => columnType= value },
                     {$"{keyColumns}IsVFC",value => columnIsVFC= value },
+                    {$"{keyColumns}IsFCFan",value => columnIsFCFan= value },
                     {$"{keyColumns}IPAddr",value => columnIPAddr= value },
                     {$"{keyColumns}SlaveNo",value => columnSlaveNo= value },
                     {$"{keyColumns}Line",value => columnLine= value },
@@ -188,6 +196,7 @@ namespace GcproExtensionApp
             private static string type;
             //  private static string ioRemarkString;
             private static string prefixVFC;
+            private static string fcFan;
             #endregion
             #region Properties
             public static string BMLPath
@@ -210,6 +219,10 @@ namespace GcproExtensionApp
                 get { return prefixVFC; }
                 set { prefixVFC = value; }
             }
+            public static string FCFan
+            {
+                get { return fcFan; }
+            }
             public static string Type
             {
                 get { return type; }
@@ -225,6 +238,7 @@ namespace GcproExtensionApp
                     {
                         {$"{keyFilter}VFC",value => prefixVFC= value },
                         {$"{keyFilter}Motor",value => type= value },
+                        {$"{keyFilter}FCFan",value => fcFan = value },
                         {$"{keyPath}Path",value => bmlPath = value },
                     };
                     Dictionary<string, string> keyValueRead;
@@ -683,6 +697,7 @@ namespace GcproExtensionApp
             private static string temperatureSwitch;
             private static string vibrationSwitch;
             private static string zeroSpeedMonitor;
+
             private static string binOf;
             #endregion
             #region Properties
@@ -762,6 +777,7 @@ namespace GcproExtensionApp
             {
                 get { return zeroSpeedMonitor; }
             }
+
             public static string BinOf
             {
                 get { return binOf; }

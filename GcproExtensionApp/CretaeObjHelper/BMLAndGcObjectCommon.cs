@@ -48,6 +48,8 @@ namespace GcproExtensionApp
         private string planSifter;
         private string laab;
         private string hammerMill;
+        private string destoner;
+        private string vibroDischarger;
         private GetStoppingTime stoppingTime;
         #region Properties
         public  string Elevator
@@ -110,6 +112,14 @@ namespace GcproExtensionApp
         {
             get { return hammerMill; }
         }
+        public string Destoner
+        {
+            get { return destoner; }
+        }
+        public string VibroDischarger
+        {
+            get { return vibroDischarger; }
+        }
         public GetStoppingTime StoppingTime
         { 
             get { return stoppingTime; }
@@ -140,6 +150,8 @@ namespace GcproExtensionApp
                     {$"{keyMachines}Purifier",value => purifier = value },
                     {$"{keyMachines}LAAB",value => laab = value },
                     {$"{keyMachines}HammerMill",value => hammerMill = value },
+                    {$"{keyMachines}Destoner",value => destoner = value },
+                    {$"{keyMachines}VibroDischarger",value => vibroDischarger = value },
                     {$"{keyStoppingTime}PlanSifter",value => stoppingTime.PlanSifter = value },
                     {$"{keyStoppingTime}Purifier",value => stoppingTime.Purifier = value },
                     {$"{keyStoppingTime}LAAB",value => stoppingTime.LAAB = value },
@@ -410,6 +422,14 @@ namespace GcproExtensionApp
         public string GetKey(string key)
         {
             return suffixObjectType.ContainsKey(key) ? key : null;
+        }
+        public string GetValue(string key)
+        {
+            if (suffixObjectType.TryGetValue(key, out string keyValue))
+            {
+                return keyValue;
+            }
+            return null;
         }
     }
     public class MotorCurrent
