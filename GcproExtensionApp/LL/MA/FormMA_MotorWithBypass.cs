@@ -259,7 +259,7 @@ namespace GcproExtensionApp
                 MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        private void FormMA_Roller8Stand_Load(object sender, EventArgs e)
+        private void FormMA_MotorWithBypass_Load(object sender, EventArgs e)
         {
             isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
 
@@ -269,7 +269,7 @@ namespace GcproExtensionApp
             CreateTips();
             Default();
         }
-        private void FormMA_Roller8Stand_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormMA_MotorWithBypassClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
         }

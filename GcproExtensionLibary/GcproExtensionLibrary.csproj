@@ -55,6 +55,7 @@
     <Compile Include="Gcpro\GCObject\Elements\VLS.cs" />
     <Compile Include="Gcpro\GCObject\Elements\Motor.cs" />
     <Compile Include="Gcpro\GCObject\Elements\VFCAdapter.cs" />
+    <Compile Include="Gcpro\GCObject\Machine\Ma.Discharger.cs" />
     <Compile Include="Gcpro\GCObject\Machine\RollermillSide.cs" />
     <Compile Include="Gcpro\GCObject\Machine\Ma.MotorWithBypass.cs" />
     <Compile Include="Gcpro\GCObject\Machine\Ma.MDDYZPhoenix.cs" />

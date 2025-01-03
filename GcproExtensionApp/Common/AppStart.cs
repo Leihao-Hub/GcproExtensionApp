@@ -279,7 +279,8 @@ namespace GcproExtensionApp
 
         private void btnAddMADischarger_Click(object sender, EventArgs e)
         {
-
+            FormMA_Discharger formMA_Discharger = new FormMA_Discharger();
+            formMA_Discharger.Show();
         }
 
    

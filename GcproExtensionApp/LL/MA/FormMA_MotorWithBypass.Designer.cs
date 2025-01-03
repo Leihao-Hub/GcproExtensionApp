@@ -2030,8 +2030,8 @@ namespace GcproExtensionApp
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMA_MotorWithBypass";
             this.Text = "MA_MotorWithBypass";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMA_Roller8Stand_FormClosed);
-            this.Load += new System.EventHandler(this.FormMA_Roller8Stand_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMA_MotorWithBypassClosed);
+            this.Load += new System.EventHandler(this.FormMA_MotorWithBypass_Load);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.tabCreateMode.ResumeLayout(false);

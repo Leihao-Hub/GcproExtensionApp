@@ -49,6 +49,7 @@ namespace GcproExtensionApp
         public const string MOTOR_WITHOUT_VFC = "非变频控制";
         public const string VFC= "变频器";
         public const string NAME = "名称";
+        public const string FC_FAN = "风扇";
         public const string NULL = "null";
         public const string DEFAULT_GCPRO_TEMP_PATH = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH;
         public const string OBJECT_FIELD = "数据库字段: ";
@@ -87,6 +88,7 @@ namespace GcproExtensionApp
         public const string JS_ROLL8STAND = "MA_Roll8Stand";
         public const string JS_MDDYZPHOENIX = "MA_MDDYZPhoenix";
         public const string JS_MOTOR_WITH_BYPASS= "MA_MotorWithBypass";
+        public const string JS_DISCHARGER = "MA_Discharger";
         public const string JS_DPSLAVE= "DPSlave";
         public const string JS_GENERAL= "General";
         public const string JS_NAME_NUMBER_RULE="NameNumberRule";

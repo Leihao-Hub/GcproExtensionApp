@@ -197,8 +197,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             value9 = "0";
             parCleaningTime = "600.0";
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-            Rule.Mon1RuleInc = Rule.Mon1RuleInc = "1";
-            Rule.Mon2RuleInc = Rule.Mon2RuleInc = "1";
+            Rule.Mon1RuleInc =  "1";
+            Rule.Mon2RuleInc =  "1";
             Rule.VLS1RuleInc = Rule.VLS2RuleInc = "1";
             Rule.AIRuleInc = "1";
             Rule.SealRuleInc = "1";

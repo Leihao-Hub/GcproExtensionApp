@@ -986,7 +986,6 @@ namespace GcproExtensionApp
             nameColumn.Name = nameof(BML.ColumnName); // 列的唯一名称，方便查找                                                 
             dataGridBML.Columns.Add(nameColumn);
 
-
             DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
             descColumn.HeaderText = BML.ColumnDesc;
             descColumn.Name = nameof(BML.ColumnDesc);
@@ -996,6 +995,11 @@ namespace GcproExtensionApp
             isVFC.HeaderText = BML.ColumnIsVFC;
             isVFC.Name = nameof(BML.ColumnIsVFC);
             dataGridBML.Columns.Add(isVFC);
+
+            DataGridViewCheckBoxColumn isFCFan = new DataGridViewCheckBoxColumn();
+            isFCFan.HeaderText = BML.ColumnIsFCFan;
+            isFCFan.Name = nameof(BML.ColumnIsFCFan);
+            dataGridBML.Columns.Add(isFCFan);
 
             DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
             powerColumn.HeaderText = BML.ColumnPower;
@@ -1026,7 +1030,7 @@ namespace GcproExtensionApp
         private void btnReadBML_Click(object sender, EventArgs e)
         {
             // List<List<object>> allData = new List<List<object>>();
-            string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboControlBML.Text,comboPowerBML.Text,comboFloorBML.Text,
+            string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboControlBML.Text,"ZZ",comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text,comboLineBML.Text};
             DataTable dataTable = new DataTable();
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.Type, comboTypeBML.Text);
@@ -1035,18 +1039,21 @@ namespace GcproExtensionApp
             dataGridBML.AutoGenerateColumns = false;
             dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
             dataGridBML.Columns[nameof(BML.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnPower)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[6].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[7].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnPower)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[6].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[7].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[8].ColumnName;
             TxtQuantity.Text = dataTable.Rows.Count.ToString();
             foreach (DataRow row in dataTable.Rows)
             {
-                bool startsWithCondition = row[2].ToString().StartsWith(!String.IsNullOrEmpty(txtVFCPrefixBML.Text) ? txtVFCPrefixBML.Text : BML.Motor.PrefixVFC);
+                bool vfc = row[2].ToString().StartsWith(!String.IsNullOrEmpty(txtVFCPrefixBML.Text) ? txtVFCPrefixBML.Text : BML.Motor.PrefixVFC);
+                bool fcFan = row[2].ToString().Contains(BML.Motor.FCFan);
                 int rowIndex = dataTable.Rows.IndexOf(row);
                 DataGridViewRow dataGridViewRow = dataGridBML.Rows[rowIndex];
-                dataGridViewRow.Cells[nameof(BML.ColumnIsVFC)].Value = startsWithCondition;
+                dataGridViewRow.Cells[nameof(BML.ColumnIsVFC)].Value = vfc;
+                dataGridViewRow.Cells[nameof(BML.ColumnIsFCFan)].Value = fcFan;
+
             }
         }
         #endregion
@@ -1590,10 +1597,11 @@ namespace GcproExtensionApp
             out (int Value, int Max) processValue)
         {
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
+            SuffixObject suffixObject = new SuffixObject();
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
             string _nameNumberString = string.Empty;
-            bool numeric, motorWithVFC;
+            bool numeric, motorWithVFC,fcFan;
             bool isMDDxFeeder = false;
             bool planSifter, purifier, laab, hm;
             float power;
@@ -1609,15 +1617,20 @@ namespace GcproExtensionApp
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 parValue10 = 130;
-                //   descBuilder.Clear();    
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
                 if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
-                    continue;
+                { continue; }             
+                fcFan = Convert.ToBoolean(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIsFCFan)].Value);
+                if (fcFan)
+                { continue; }
+                desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
+                if (desc.Contains(suffixObject.GetValue("KCL")))
+                 { continue; }
+                motorWithVFC = Convert.ToBoolean(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIsVFC)].Value);
                 objMotor.InpFwd = LibGlobalSource.NOCHILD;
                 objMotor.OutpFwd = LibGlobalSource.NOCHILD;
                 objMotor.Name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
-                desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
-                motorWithVFC = Convert.ToBoolean(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIsVFC)].Value);
+              
                 objMotor.SubType = motorWithVFC ? Motor.M1VFC : Motor.M11;
                 objMotor.PType = motorWithVFC ? Motor.P7042.ToString() : Motor.P7053.ToString();
                 columnPower = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnPower)].Value);
