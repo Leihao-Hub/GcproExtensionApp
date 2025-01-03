@@ -37,7 +37,6 @@ namespace GcproExtensionApp
         
         #endregion
         private int value10 ;
-        private int value9;
         private int tempInt = 0;
         private bool tempBool = false;
         #region Public interfaces
@@ -1223,7 +1222,6 @@ namespace GcproExtensionApp
             RuleSubDataSet discharger, vibro;
             RuleSubDataSet llBin, lsFlow;
             RuleSubDataSet receiver, senderBin;
-            RuleSubDataSet ai;
             description = new RuleSubDataSet
             {
                 Sub = new string[] { },

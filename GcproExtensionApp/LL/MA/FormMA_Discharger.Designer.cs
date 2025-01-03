@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMA_Discharger));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -889,6 +889,7 @@ namespace GcproExtensionApp
             this.chkOnlyFree.TabIndex = 62;
             this.chkOnlyFree.Text = "仅关联丢失连接";
             this.chkOnlyFree.UseVisualStyleBackColor = true;
+            this.chkOnlyFree.Visible = false;
             // 
             // grpGeneral
             // 
@@ -1167,6 +1168,7 @@ namespace GcproExtensionApp
             this.BtnConnectIO.Size = new System.Drawing.Size(36, 30);
             this.BtnConnectIO.TabIndex = 98;
             this.BtnConnectIO.UseVisualStyleBackColor = false;
+            this.BtnConnectIO.Visible = false;
             this.BtnConnectIO.Click += new System.EventHandler(this.BtnConnectIO_Click);
             // 
             // tabBML
@@ -1216,8 +1218,8 @@ namespace GcproExtensionApp
             // dataGridBML
             // 
             this.dataGridBML.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
