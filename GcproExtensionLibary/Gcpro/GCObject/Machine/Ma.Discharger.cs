@@ -210,12 +210,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             string commonDefaultFilePath, commonUserFilePath;
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerFileName}";
             commonUserFilePath = $"{filePath}{dischargerFileName}";
-            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
-            this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
-            this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
-                $"{commonDefaultFilePath}._FindConnector.Txt" : $"{commonUserFilePath}._FindConnector.Txt");
+            bool defaultPath = string.IsNullOrWhiteSpace(filePath);
+            this.filePath = defaultPath ?
+                $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt";
+            this.fileRelationPath = defaultPath ?
+                $"{commonDefaultFilePath}_Relation.Txt" : $"{commonUserFilePath}_Relation.Txt";
+            this.fileConnectorPath = defaultPath ?
+                $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件

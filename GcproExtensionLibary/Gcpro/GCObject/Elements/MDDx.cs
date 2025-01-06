@@ -214,10 +214,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             string commonDefaultFilePath, commonUserFilePath;
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddxFileName}";
             commonUserFilePath = $"{filePath}{mddxFileName}";
-            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-            $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
-            this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
+            bool defaultPath = string.IsNullOrWhiteSpace(filePath);
+            this.filePath = defaultPath ?
+                $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt";
+            this.fileRelationPath = defaultPath ?
+                $"{commonDefaultFilePath}_Relation.Txt" : $"{commonUserFilePath}_Relation.Txt";     
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件
