@@ -714,8 +714,8 @@ namespace GcproExtensionApp
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
-            excelFileHandle.FilePath = TxtExcelPath.Text;
-            AddWorkSheets();
+            //excelFileHandle.FilePath = TxtExcelPath.Text;
+            //AddWorkSheets();
         }
         private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
         {

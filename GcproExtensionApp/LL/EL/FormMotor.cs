@@ -934,7 +934,7 @@ namespace GcproExtensionApp
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
-            AddWorkSheets();
+            //AddWorkSheets();
         }
         private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
         {
