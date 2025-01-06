@@ -642,15 +642,17 @@ namespace GcproExtensionApp
         #region <---BML part--->
         private void AddWorkSheets()
         {
-            comboWorkSheetsBML.Items.Clear();
+         
             try
             {
                 List<string> workSheets = new List<string>();
                 workSheets = excelFileHandle.GetWorkSheets();
+                comboWorkSheetsBML.Items.Clear();
                 foreach (string sheet in workSheets)
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
+                comboWorkSheetsBML.SelectedIndex = 0;
             }
             catch (FileNotFoundException)
             {

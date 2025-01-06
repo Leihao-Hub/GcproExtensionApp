@@ -31,8 +31,8 @@ namespace GcproExtensionApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAI));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -123,6 +123,7 @@ namespace GcproExtensionApp
             this.txtSuffixInpLowLow = new System.Windows.Forms.TextBox();
             this.lblSuffixInpDigital = new System.Windows.Forms.Label();
             this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
+            this.chkAddUserSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkNameOnlyNumber = new System.Windows.Forms.CheckBox();
             this.chkAddSectionToDesc = new System.Windows.Forms.CheckBox();
             this.chkAddFloorToDesc = new System.Windows.Forms.CheckBox();
@@ -213,7 +214,8 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
-            this.chkAddUserSectionToDesc = new System.Windows.Forms.CheckBox();
+            this.chkCreateTempAndPreBML = new System.Windows.Forms.CheckBox();
+            this.btnCreateTempAndPre = new System.Windows.Forms.Button();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
@@ -1069,6 +1071,7 @@ namespace GcproExtensionApp
             // 
             // grpGeneral
             // 
+            this.grpGeneral.Controls.Add(this.btnCreateTempAndPre);
             this.grpGeneral.Controls.Add(this.txtSuffixInpHighHigh);
             this.grpGeneral.Controls.Add(this.txtSuffixInpHigh);
             this.grpGeneral.Controls.Add(this.txtSuffixInpLow);
@@ -1257,6 +1260,17 @@ namespace GcproExtensionApp
             this.grpAddInfoToDesc.TabIndex = 122;
             this.grpAddInfoToDesc.TabStop = false;
             this.grpAddInfoToDesc.Text = "附加信息到描述";
+            // 
+            // chkAddUserSectionToDesc
+            // 
+            this.chkAddUserSectionToDesc.AutoSize = true;
+            this.chkAddUserSectionToDesc.Location = new System.Drawing.Point(83, 17);
+            this.chkAddUserSectionToDesc.Name = "chkAddUserSectionToDesc";
+            this.chkAddUserSectionToDesc.Size = new System.Drawing.Size(86, 17);
+            this.chkAddUserSectionToDesc.TabIndex = 177;
+            this.chkAddUserSectionToDesc.Text = "自定义工段";
+            this.chkAddUserSectionToDesc.UseVisualStyleBackColor = true;
+            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddUserSectionToDesc_CheckedChanged);
             // 
             // chkNameOnlyNumber
             // 
@@ -1680,6 +1694,7 @@ namespace GcproExtensionApp
             // 
             // grpBoxExcelData
             // 
+            this.grpBoxExcelData.Controls.Add(this.chkCreateTempAndPreBML);
             this.grpBoxExcelData.Controls.Add(this.chkUpdateUnitsByMaxDigits);
             this.grpBoxExcelData.Controls.Add(this.btnReadBML);
             this.grpBoxExcelData.Controls.Add(this.dataGridBML);
@@ -1697,7 +1712,7 @@ namespace GcproExtensionApp
             this.chkUpdateUnitsByMaxDigits.AutoSize = true;
             this.chkUpdateUnitsByMaxDigits.Checked = true;
             this.chkUpdateUnitsByMaxDigits.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpdateUnitsByMaxDigits.Location = new System.Drawing.Point(422, 26);
+            this.chkUpdateUnitsByMaxDigits.Location = new System.Drawing.Point(422, 31);
             this.chkUpdateUnitsByMaxDigits.Name = "chkUpdateUnitsByMaxDigits";
             this.chkUpdateUnitsByMaxDigits.Size = new System.Drawing.Size(154, 17);
             this.chkUpdateUnitsByMaxDigits.TabIndex = 177;
@@ -1723,8 +1738,8 @@ namespace GcproExtensionApp
             // dataGridBML
             // 
             this.dataGridBML.AllowUserToAddRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -2257,16 +2272,32 @@ namespace GcproExtensionApp
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "Page";
             // 
-            // chkAddUserSectionToDesc
+            // chkCreateTempAndPreBML
             // 
-            this.chkAddUserSectionToDesc.AutoSize = true;
-            this.chkAddUserSectionToDesc.Location = new System.Drawing.Point(83, 17);
-            this.chkAddUserSectionToDesc.Name = "chkAddUserSectionToDesc";
-            this.chkAddUserSectionToDesc.Size = new System.Drawing.Size(86, 17);
-            this.chkAddUserSectionToDesc.TabIndex = 177;
-            this.chkAddUserSectionToDesc.Text = "自定义工段";
-            this.chkAddUserSectionToDesc.UseVisualStyleBackColor = true;
-            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddUserSectionToDesc_CheckedChanged);
+            this.chkCreateTempAndPreBML.AutoSize = true;
+            this.chkCreateTempAndPreBML.Checked = true;
+            this.chkCreateTempAndPreBML.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCreateTempAndPreBML.Location = new System.Drawing.Point(422, 11);
+            this.chkCreateTempAndPreBML.Name = "chkCreateTempAndPreBML";
+            this.chkCreateTempAndPreBML.Size = new System.Drawing.Size(146, 17);
+            this.chkCreateTempAndPreBML.TabIndex = 178;
+            this.chkCreateTempAndPreBML.Text = "创建除尘器温度与压差";
+            this.chkCreateTempAndPreBML.UseVisualStyleBackColor = true;
+            // 
+            // btnCreateTempAndPre
+            // 
+            this.btnCreateTempAndPre.BackColor = System.Drawing.SystemColors.Control;
+            this.btnCreateTempAndPre.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateTempAndPre.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateTempAndPre.Image")));
+            this.btnCreateTempAndPre.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateTempAndPre.Location = new System.Drawing.Point(590, 181);
+            this.btnCreateTempAndPre.Name = "btnCreateTempAndPre";
+            this.btnCreateTempAndPre.Size = new System.Drawing.Size(95, 26);
+            this.btnCreateTempAndPre.TabIndex = 105;
+            this.btnCreateTempAndPre.Text = "查询除尘";
+            this.btnCreateTempAndPre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCreateTempAndPre.UseVisualStyleBackColor = false;
+            this.btnCreateTempAndPre.Click += new System.EventHandler(this.btnCreateTempAndPre_Click);
             // 
             // FormAI
             // 
@@ -2503,6 +2534,8 @@ namespace GcproExtensionApp
         private System.Windows.Forms.Label lblPower;
         internal System.Windows.Forms.CheckBox chkUpdateUnitsByMaxDigits;
         internal System.Windows.Forms.CheckBox chkAddUserSectionToDesc;
+        internal System.Windows.Forms.CheckBox chkCreateTempAndPreBML;
+        internal System.Windows.Forms.Button btnCreateTempAndPre;
     }
 }
 

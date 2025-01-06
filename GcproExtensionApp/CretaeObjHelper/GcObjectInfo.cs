@@ -618,6 +618,74 @@ namespace GcproExtensionApp
 
             }
         }
+        public static class DO
+        {
+            private static string suffixInpRun;
+            private static string suffixInpFaultDev;
+            private static string suffixOutpFaultReset;
+            private static string suffixOutpRun;
+            private static string suffixOutpLamp;
+            #region Properties
+            public static string SuffixInpRun
+            {
+                get { return suffixInpRun; }
+                set { suffixInpRun = value; }
+            }
+            public static string SuffixInpFaultDev
+            {
+                get { return suffixInpFaultDev; }
+                set { suffixInpFaultDev = value; }
+            }
+            public static string SuffixOutpFaultReset
+            {
+                get { return suffixOutpFaultReset; }
+                set { suffixOutpFaultReset = value; }
+            }
+
+            public static string SuffixOutpRun
+            {
+                get { return suffixOutpRun; }
+                set { suffixOutpRun = value; }
+            }
+
+            public static string SuffixOutpLamp
+            {
+                get { return suffixOutpLamp; }
+                set { suffixOutpLamp = value; }
+            }
+            #endregion Properties
+            static DO()
+            {
+                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DO}.";
+                string keyPathSuffix = $"{keyPath}{AppGlobal.JS_SUFFIX}.";
+                try
+                {
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        { $"{keyPathSuffix}InpRun", value => suffixInpRun = value },
+                        { $"{keyPathSuffix}InpFaultDev", value => suffixInpFaultDev = value },
+                        { $"{keyPathSuffix}OutpFaultReset", value => suffixOutpFaultReset = value },
+                        { $"{keyPathSuffix}OutpRun", value => suffixOutpRun = value },
+                        { $"{keyPathSuffix}OutpLamp", value => suffixOutpLamp = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
         public static class AI
         {
             private static string suffixName;
@@ -627,6 +695,13 @@ namespace GcproExtensionApp
             private static string suffixInpLow;
             private static string suffixInpHigh;
             private static string suffixInpHighHigh;
+            private static string suffixTemperature;
+            private static string suffixPressure;
+            private static string suffixCurrent;
+            private static string suffixDescTemperature;
+            private static string suffixDescPressure;
+            private static string suffixDescCurrent;
+      
             #region Propeeties
             public static string SuffixName
             {
@@ -665,6 +740,36 @@ namespace GcproExtensionApp
                 get { return suffixInpHighHigh; }
                 set { suffixInpHighHigh = value; }
             }
+            public static string SuffixTemperature
+            {
+                get { return suffixTemperature; }
+                set { suffixTemperature = value; }
+            }
+            public static string SuffixPressure
+            {
+                get { return suffixPressure; }
+                set { suffixPressure = value; }
+            }
+            public static string SuffixCurrent
+            {
+                get { return suffixCurrent; }
+                set { suffixCurrent = value; }
+            }
+            public static string SuffixDescCurrent
+            {
+                get { return suffixDescCurrent; }
+                set { suffixDescCurrent = value; }
+            }
+            public static string SuffixDescTemperature
+            {
+                get { return suffixDescTemperature; }
+                set { suffixDescTemperature = value; }
+            }
+            public static string SuffixDescPressure
+            {
+                get { return suffixDescPressure; }
+                set { suffixDescPressure = value; }
+            }
             #endregion Propeeties
             static AI()
             {
@@ -681,6 +786,12 @@ namespace GcproExtensionApp
                         { $"{keyPathSuffix}InpLow", value => suffixInpLow = value },
                         { $"{keyPathSuffix}InpHigh", value => suffixInpHigh = value },
                         { $"{keyPathSuffix}InpHighHigh", value => suffixInpHighHigh = value },
+                        { $"{keyPathSuffix}Temperature", value => suffixTemperature = value },
+                        { $"{keyPathSuffix}Pressure", value => suffixPressure = value },
+                        { $"{keyPathSuffix}Current", value => suffixCurrent = value },
+                        { $"{keyPathSuffix}DescTemperature", value => suffixDescTemperature = value },
+                        { $"{keyPathSuffix}DescPressure", value => suffixDescPressure = value },
+                        { $"{keyPathSuffix}DescCurrent", value => suffixDescCurrent = value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -957,6 +1068,57 @@ namespace GcproExtensionApp
                         { $"{keyPathSuffix}Seal", value => suffixSeal = value },
                         { $"{keyPathSuffix}VLS1", value => suffixVLS1 = value },
                         { $"{keyPathSuffix}Mon1", value => suffixMon1 = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public static class MA_Discharger
+        {
+            private static string suffixMotor;
+            private static string suffixLSFlow;
+            private static string suffixLLBin;
+            public static string SuffixMotor
+            {
+                get { return suffixMotor; }
+                set { suffixMotor = value; }
+            }
+            public static string SuffixLSFlow
+            {
+                get { return suffixLSFlow; }
+                set { suffixLSFlow = value; }
+            }
+            public static string SuffixLLBin
+            {
+                get { return suffixLLBin; }
+                set { suffixLLBin = value; }
+            }
+            static MA_Discharger()
+            {
+                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DISCHARGER}.";
+                string keyPathSuffix = $"{keyPath}{AppGlobal.JS_SUFFIX}.";
+                try
+                {
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        { $"{keyPathSuffix}Motor", value => suffixMotor= value },
+                        { $"{keyPathSuffix}LLBin", value => suffixLLBin = value },
+                        { $"{keyPathSuffix}LSFlow", value => suffixLSFlow = value },
                     };
                     Dictionary<string, string> keyValueRead;
                     keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());

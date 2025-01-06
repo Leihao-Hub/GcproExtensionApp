@@ -850,6 +850,69 @@ namespace GcproExtensionApp
                 }
             }
         }
+
+        public static class DO
+        {
+            #region Fields for properties
+            private static string bmlPath;
+            private static string prefixName;    
+            private static string alarmhorn;
+            private static string filterController;
+            #endregion
+            #region Properties
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
+            public static string PrefixName
+            {
+                get { return prefixName; }
+                set { prefixName = value; }
+            }
+       
+            public static string Alarmhorn
+            {
+                get { return alarmhorn; }
+            }
+            public static string FilterController
+            {
+                get { return filterController; }
+            }      
+            #endregion
+            static DO()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DO}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
+  
+                try
+                {
+                    string[] ioRemarks = new string[7];
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        {$"{keyFilter}Alarmhorn",value => alarmhorn= value },
+                        {$"{keyFilter}FilterController",value => filterController = value },                            
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    //   ioRemarkString = string.Join(", ", ioRemarks);
+                    keyValueRead = null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
         public static class MDDx
         {
             #region Fields for properties
