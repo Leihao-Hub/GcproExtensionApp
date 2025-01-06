@@ -1145,6 +1145,13 @@ namespace GcproExtensionApp
                 null, $"{GcproTable.ObjData.Text0.Name} ASC",
                 GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Panel_ID.Name, GcproTable.ObjData.Elevation.Name);
             ProgressBar.Maximum= dataTable.Rows.Count-1;
+            ///<Building></Building>
+            string selectedBudling = "--";
+            if (ComboBuilding.SelectedItem != null)
+            {
+                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                myAI.Building = selectedBudling;
+            }
             for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
             {
                 string nameFilterController = string.Empty, desc = string.Empty;
@@ -1477,8 +1484,7 @@ namespace GcproExtensionApp
         {
             GetAdditionDesc();
             string objName;
-            objName = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternMachineName, nameFilterController);  
-            
+            objName = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternMachineName, nameFilterController);         
             AI.Rule.Common.DescFloor = string.IsNullOrEmpty(objAI.Elevation)?string.Empty: $"{objAI.Elevation}{GcObjectInfo.General.AddInfoElevation}";         
             AI.Rule.Common.Cabinet = string.IsNullOrEmpty(objAI.Panel_ID) ? string.Empty : $"{GcObjectInfo.General.AddInfoCabinet}{objAI.Panel_ID}";
             if (createTempature)
@@ -1710,6 +1716,13 @@ namespace GcproExtensionApp
             {
                 selectedUnit = comboUnit.SelectedItem.ToString();
                 objAI.Unit = selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+            ///<Building></Building>
+           string selectedBudling = "--";
+            if (ComboBuilding.SelectedItem != null)
+            {
+                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                objAI.Building = selectedBudling;
             }
             ///<ParLimitLowLow></ParLimitLowLow>
             objAI.LimitLowLow = AppGlobal.ParseFloat(txtParLimitLowLow.Text, out tempFloat) ? (tempFloat).ToString("F0") : "0";
@@ -1967,6 +1980,7 @@ namespace GcproExtensionApp
             tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
             tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = AI.Rule.Common;
+      
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 name.Inc = i * symbolInc;
@@ -2088,7 +2102,7 @@ namespace GcproExtensionApp
                     motorPowerStr = motorPower.ToString();
                 }
                 
-                objAI.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);               
+                objAI.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);         
                 cabinet = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
                 cabinetGroup = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
                 objAI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
@@ -2236,6 +2250,12 @@ namespace GcproExtensionApp
                 if (createMode.Rule || createMode.AutoSearch)
                 {
                     CreateObjectCommon(myAI);             
+                }
+                string selectedBudling = "--";
+                if (ComboBuilding.SelectedItem != null)
+                {
+                    selectedBudling = ComboBuilding.SelectedItem.ToString();
+                    myAI.Building = selectedBudling;
                 }
                 if (createMode.BML)
                 {
