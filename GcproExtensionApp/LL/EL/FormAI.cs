@@ -1167,9 +1167,7 @@ namespace GcproExtensionApp
                     {
                         AI.Rule.Common.DescLine = string.Empty;
                     }
-                }
-                AI.Rule.Common.DescFloor = $"{myAI.Elevation}{GcObjectInfo.General.AddInfoElevation}";
-                AI.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{myAI.Panel_ID}";                           
+                }                                
                 ///<CreateTemperature>Create temperature </CreateTemperature>
                 CreateTempAndPreForFilter(myAI, nameFilterController, desc, AppGlobal.AdditionDesc, true);
                 ///<CreatePressure >Create pressure </CreatePressure >
@@ -1250,13 +1248,13 @@ namespace GcproExtensionApp
             try
             {
                 List<string> workSheets = new List<string>();
-                workSheets = excelFileHandle.GetWorkSheets();
+                workSheets = excelFileHandle.GetWorkSheets();                                             
                 comboWorkSheetsBML.Items.Clear();
                 foreach (string sheet in workSheets)
                 {
-                    comboWorkSheetsBML.Items.Add(sheet);
+                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                comboWorkSheetsBML.SelectedIndex = 0;              
             }
             catch (FileNotFoundException)
             {
@@ -1295,7 +1293,7 @@ namespace GcproExtensionApp
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
-            AddWorkSheets();
+           // AddWorkSheets();
         }
         private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2075,6 +2073,7 @@ namespace GcproExtensionApp
                 if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
                 name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
+                objAI.Name = name;
                 string desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
                 if (desc.Contains(BML.MachineType.Filter))
                 {
@@ -2119,7 +2118,7 @@ namespace GcproExtensionApp
                 ///</AdditionInfoToDesc>
                 if (addtionToDesc.Section)
                 {
-                    nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, nameMotor);
+                    nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, name);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
                         if (AppGlobal.ParseInt(nameNumberString, out tempInt))
