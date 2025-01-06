@@ -183,14 +183,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             dpNode1 = string.Empty;
             value10 = "0";
             SetOTypeProperty(OTypeCollection.DP_Slave);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + dpSlaveFileName + ".Txt";
-            //  this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_Relation.Txt";
-            // this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_FindConnector.Txt";
+            this.filePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dpSlaveFileName}.Txt";
         }
         public DPSlave(string filePath = null) : this()
         {
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                                        LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + dpSlaveFileName + ".Txt" : filePath + dpSlaveFileName + ".Txt");
+                            $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dpSlaveFileName}.Txt" : $"{filePath}{dpSlaveFileName}.Txt");
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件

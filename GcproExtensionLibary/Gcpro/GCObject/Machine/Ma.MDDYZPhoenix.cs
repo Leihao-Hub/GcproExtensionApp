@@ -15,7 +15,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string filePath;
         private string fileRelationPath;
         private string fileConnectorPath;
-        private static string roll8StandFileName = $@"\{OTypeCollection.MA_MDDYZPhoenix}";
+        private static string mddyzPhoenix = $@"\{OTypeCollection.MA_MDDYZPhoenix}";
         public static MDDYZPhoenixRule Rule;
         private string name;
         private string description;
@@ -142,24 +142,29 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         public MDDYZPhoenix()
         {
+            string commonDefaultFilePath;
             side1 = new RollermillSide();
             side2 = new RollermillSide();
             pType = P2757.ToString();
             value10 = "96";
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.MA_Roll8Stand);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + ".Txt";
-            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + "_Relation.Txt";
-            this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + "_FindConnector.Txt";
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddyzPhoenix}";
+            this.filePath = $"{commonDefaultFilePath}.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_FindConnector.Txt";
         }
         public MDDYZPhoenix(string filePath = null) : this()
         {
+            string commonDefaultFilePath, commonUserFilePath;
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddyzPhoenix}";
+            commonUserFilePath = $"{filePath}{mddyzPhoenix}";
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + ".Txt" : filePath + roll8StandFileName + ".Txt");
+            $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + "_Relation.Txt" : filePath + roll8StandFileName + "_Relation.Txt");
+                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
-                LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + roll8StandFileName + "_FindConnector.Txt" : filePath + roll8StandFileName + "_FindConnector.Txt");
+                $"{commonDefaultFilePath}._FindConnector.Txt" : $"{commonUserFilePath}._FindConnector.Txt");          
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件

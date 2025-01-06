@@ -226,18 +226,22 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             value30 = LibGlobalSource.NOCHILD;
             value31 = "4";
             SetOTypeProperty(OTypeCollection.Bin);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + ".Txt";
-            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + "_Relation.Txt";
-            this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + "_FindConnector.Txt";
+            string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{binFileName}";
+            this.filePath = $"{commonDefaultFilePath}.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_FindConnector.Txt";
         }
         public Bin(string filePath = null) : this()
         {
+            string commonDefaultFilePath, commonUserFilePath;
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{binFileName}";
+            commonUserFilePath = $"{filePath}{binFileName}";
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + ".Txt" : filePath + binFileName + ".Txt");
+            $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                          LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + "_Relation.Txt" : filePath + binFileName + "_Relation.Txt");
+                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
-                     LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + binFileName + "_FindConnector.Txt" : filePath + binFileName + "_FindConnector.Txt");
+                $"{commonDefaultFilePath}._FindConnector.Txt" : $"{commonUserFilePath}._FindConnector.Txt");       
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件

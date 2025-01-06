@@ -313,19 +313,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion  
         public Motor()
         {
-            /// < StandardFileds >
-            /// string Name;
-            /// string Description;
-            /// string SubType;
-            /// string ProcessFct;
-            /// string Building;
-            /// string Elevation;
-            /// string FieldBusNode;
-            /// string Panel_ID;
-            /// string Diagram;
-            /// string Page;
-            /// </ StandardFileds >
-          
+            string commonDefaultFilePath;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             name = "-MXZ01";
             description = "Motor";
@@ -364,19 +352,23 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             parSpeedService = "20";
             unit = "2";
             SetOTypeProperty(OTypeCollection.EL_Motor);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + ".Txt";
-            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_Relation.Txt";
-            this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_FindConnector.Txt";
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{motorFileName}";
+            this.filePath = $"{commonDefaultFilePath}.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_FindConnector.Txt";
         }
         public Motor(string filePath = null) : this()
         {
-            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + ".Txt" : filePath + motorFileName + ".Txt");
 
+            string commonDefaultFilePath, commonUserFilePath;
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{motorFileName}";
+            commonUserFilePath = $"{filePath}{motorFileName}";
+            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
+                $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                          LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_Relation.Txt" : filePath + motorFileName + "_Relation.Txt");
+                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
-                     LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + motorFileName + "_FindConnector.Txt" : filePath + motorFileName + "_FindConnector.Txt");
+                $"{commonDefaultFilePath}._FindConnector.Txt" : $"{commonUserFilePath}._FindConnector.Txt");
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件

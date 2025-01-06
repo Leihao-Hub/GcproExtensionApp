@@ -289,12 +289,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             Rule.slaveIndexInc = "1";
             Rule.ioByteInc = "12";
             SetOTypeProperty(OTypeCollection.EL_VFCAdapter);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + ".Txt";
+            this.filePath =$"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{vfcFileName}.Txt";
         }
         public VFCAdapter(string filePath = null) : this()
         {
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vfcFileName + ".Txt" : filePath + vfcFileName + ".Txt");
+                            $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{vfcFileName}.Txt" : $"{ filePath}{ vfcFileName}.Txt");
         }
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {

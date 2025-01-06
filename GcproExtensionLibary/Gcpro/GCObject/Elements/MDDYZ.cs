@@ -177,9 +177,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
         public MDDYZ()
         {
+            string commonDefaultFilePath;
             value10 = "80";
             value21 = "100";
-
             side1Top = new MYTARef("", 1);
             side1Bottom = new MYTARef("", 2);
             side2Top = new MYTARef("", 3);
@@ -188,15 +188,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             hornCode = LibGlobalSource.NOCHILD;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.EL_MDDYZ);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddyzFileName + ".Txt";
-            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddyzFileName + "_Relation.Txt";
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddyzFileName}";
+            this.filePath = $"{commonDefaultFilePath}.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
         }
         public MDDYZ(string filePath = null) : this()
         {
+            string commonDefaultFilePath, commonUserFilePath;
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddyzFileName}";
+            commonUserFilePath = $"{filePath}{mddyzFileName}";
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddyzFileName + ".Txt" : filePath + mddyzFileName + ".Txt");
+            $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                        LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + mddyzFileName + ".Txt" : filePath + mddyzFileName + "_Relation.Txt");
+                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件

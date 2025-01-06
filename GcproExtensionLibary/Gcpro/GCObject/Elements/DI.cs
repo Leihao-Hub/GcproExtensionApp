@@ -286,7 +286,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
         public DI()
         {
-
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             name = "-BLH01";
             description = "EL_DI";
@@ -317,19 +316,22 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             refSpecial = string.Empty;
             refMRMAMixer = string.Empty;
             SetOTypeProperty(OTypeCollection.EL_DI);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + ".Txt";
-            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_Relation.Txt";
-            this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_FindConnector.Txt";
+            string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{diFileName}";
+            this.filePath = $"{commonDefaultFilePath}.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_FindConnector.Txt";
         }
         public DI(string filePath = null) : this()
         {
+            string commonDefaultFilePath, commonUserFilePath;
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{diFileName}";
+            commonUserFilePath = $"{filePath}{diFileName}";
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + ".Txt" : filePath + diFileName + ".Txt");
-
+            $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                          LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_Relation.Txt" : filePath + diFileName + "_Relation.Txt");
+                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
-                     LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + diFileName + "_FindConnector.Txt" : filePath + diFileName + "_FindConnector.Txt");
+                $"{commonDefaultFilePath}._FindConnector.Txt" : $"{commonUserFilePath}._FindConnector.Txt");
         }
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件

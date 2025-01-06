@@ -271,6 +271,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
         public VLS()
         {
+            string commonDefaultFilePath;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             name = "-01/02";
             description = "VLS";
@@ -307,19 +308,22 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             refSndBin = LibGlobalSource.NOCHILD;
             refAsp = LibGlobalSource.NOCHILD;
             SetOTypeProperty(OTypeCollection.EL_VLS);
-            this.filePath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + ".Txt";
-            this.fileRelationPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + "_Relation.Txt";
-            this.fileConnectorPath = LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + "_FindConnector.Txt";
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{vlsFileName}";
+            this.filePath = $"{commonDefaultFilePath}.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_FindConnector.Txt";
         }
         public VLS(string filePath = null) : this()
         {
+            string commonDefaultFilePath, commonUserFilePath;
+            commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{vlsFileName}";
+            commonUserFilePath = $"{filePath}{vlsFileName}";
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + ".Txt" : filePath + vlsFileName + ".Txt");
-
+            $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt");
             this.fileRelationPath = (string.IsNullOrWhiteSpace(filePath) ?
-                          LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + "_Relation.Txt" : filePath + vlsFileName + "_Relation.Txt");
+                $"{commonDefaultFilePath}._Relation.Txt" : $"{commonUserFilePath}._Relation.Txt");
             this.fileConnectorPath = (string.IsNullOrWhiteSpace(filePath) ?
-                     LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH + vlsFileName + "_FindConnector.Txt" : filePath + vlsFileName + "_FindConnector.Txt");
+                $"{commonDefaultFilePath}._FindConnector.Txt" : $"{commonUserFilePath}._FindConnector.Txt");
         }
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
