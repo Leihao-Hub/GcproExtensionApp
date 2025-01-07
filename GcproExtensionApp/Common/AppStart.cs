@@ -227,7 +227,11 @@ namespace GcproExtensionApp
             FormDI formDI = new FormDI();
             formDI.Show();
         }
-
+        private void btnAddDO_Click(object sender, EventArgs e)
+        {
+            FormDO formDO = new FormDO();
+            formDO.Show();
+        }
         private void btnAddAI_Click(object sender, EventArgs e)
         {
             FormAI formAI = new FormAI();
@@ -298,7 +302,7 @@ namespace GcproExtensionApp
             objectBrowser.Show();
         }
 
-      
+
     }
         #endregion
 }

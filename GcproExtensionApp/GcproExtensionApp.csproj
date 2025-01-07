@@ -56,9 +56,9 @@
       <DependentUpon>AppStart.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\AppGlobal.cs" />
-    <Compile Include="CretaeObjHelper\BML.cs" />
-    <Compile Include="CretaeObjHelper\BMLAndGcObjectCommon.cs" />
-    <Compile Include="CretaeObjHelper\Engineering.cs" />
+    <Compile Include="CreateObjHelper\BML.cs" />
+    <Compile Include="CreateObjHelper\BMLAndGcObjectCommon.cs" />
+    <Compile Include="CreateObjHelper\Engineering.cs" />
     <Compile Include="LL\EL\FormAI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +70,12 @@
     </Compile>
     <Compile Include="LL\EL\FormDI.Designer.cs">
       <DependentUpon>FormDI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormDO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormDO.Designer.cs">
+      <DependentUpon>FormDO.cs</DependentUpon>
     </Compile>
     <Compile Include="LL\EL\FormMDDx.cs">
       <SubType>Form</SubType>
@@ -101,7 +107,7 @@
     <Compile Include="LL\EL\FormVLS.Designer.cs">
       <DependentUpon>FormVLS.cs</DependentUpon>
     </Compile>
-    <Compile Include="CretaeObjHelper\GcObjectInfo.cs" />
+    <Compile Include="CreateObjHelper\GcObjectInfo.cs" />
     <Compile Include="LL\FormDPSlave.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -179,6 +185,9 @@
     <EmbeddedResource Include="LL\EL\FormDI.resx">
       <DependentUpon>FormDI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormDO.resx">
+      <DependentUpon>FormDO.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LL\EL\FormMotor.resx">
       <DependentUpon>FormMotor.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,7 +205,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

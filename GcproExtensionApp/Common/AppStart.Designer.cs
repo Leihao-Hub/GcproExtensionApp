@@ -98,6 +98,8 @@
             this.lblCompanyName = new System.Windows.Forms.Label();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
+            this.btnAddDO = new System.Windows.Forms.Button();
+            this.lblDO = new System.Windows.Forms.Label();
             this.tabMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.grpBoxTempPath.SuspendLayout();
@@ -624,6 +626,8 @@
             // 
             // grpBoxElement
             // 
+            this.grpBoxElement.Controls.Add(this.btnAddDO);
+            this.grpBoxElement.Controls.Add(this.lblDO);
             this.grpBoxElement.Controls.Add(this.btnAddRollStandPhoenix);
             this.grpBoxElement.Controls.Add(this.lblRollStandPhoenix);
             this.grpBoxElement.Controls.Add(this.btnAddFBAL);
@@ -962,6 +966,28 @@
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
             // 
+            // btnAddDO
+            // 
+            this.btnAddDO.BackgroundImage = global::GcproExtensionApp.Properties.Resources._new;
+            this.btnAddDO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddDO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddDO.Location = new System.Drawing.Point(318, 50);
+            this.btnAddDO.Name = "btnAddDO";
+            this.btnAddDO.Size = new System.Drawing.Size(30, 21);
+            this.btnAddDO.TabIndex = 19;
+            this.btnAddDO.UseVisualStyleBackColor = true;
+            this.btnAddDO.Click += new System.EventHandler(this.btnAddDO_Click);
+            // 
+            // lblDO
+            // 
+            this.lblDO.AutoSize = true;
+            this.lblDO.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDO.Location = new System.Drawing.Point(245, 52);
+            this.lblDO.Name = "lblDO";
+            this.lblDO.Size = new System.Drawing.Size(53, 16);
+            this.lblDO.TabIndex = 18;
+            this.lblDO.Text = "EL_DO:";
+            // 
             // AppStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1068,5 +1094,7 @@
         private System.Windows.Forms.TextBox txtRegexNamePrefix;
         private System.Windows.Forms.Label lblRegexNamePrefix;
         private System.Windows.Forms.TextBox txtDemo;
+        private System.Windows.Forms.Button btnAddDO;
+        private System.Windows.Forms.Label lblDO;
     }
 }

@@ -41,7 +41,7 @@ namespace GcproExtensionApp
         private string DEMO_NAME_RULE_DI = "4201";
         private string DEMO_DESCRIPTION_DI = "401号基粉仓高料位/或者空白";
         private string DEMO_DESCRIPTION_RULE_DI = "401/或者空白";
-        private string diSuffux = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DI}.{AppGlobal.JS_SUFFIX}.";
+        private string diSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DI}.{AppGlobal.JS_SUFFIX}.";
         private GcBaseRule objDefaultInfo;
         #endregion
         private int value9 = 0;
@@ -302,7 +302,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpTrueSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}InpTrue", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffix}InpTrue", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixInpTrue = newJsonKeyValue;
             }
         }
@@ -312,7 +312,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpFaultDevSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}InpFaultDev", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffix}InpFaultDev", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixInpFaultDev = newJsonKeyValue;
             }
         }
@@ -322,7 +322,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpFaultResetSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}OutpFaultReset", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffix}OutpFaultReset", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixOutpFaultReset = newJsonKeyValue;
             }
         }
@@ -332,7 +332,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpPowerOffSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}.OutpPowerOff", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffix}.OutpPowerOff", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixOutpPowerOff = newJsonKeyValue;
             }
         }
@@ -342,7 +342,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpLampSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffux}OutpLamp", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffix}OutpLamp", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixOutpLamp = newJsonKeyValue;
             }
         }
@@ -1384,7 +1384,7 @@ namespace GcproExtensionApp
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                     oledb.IsNewOLEDBDriver = isNewOledbDriver;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={DI.OTypeValue}", null,
-                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name,
+                        $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Value11.Name,
                         GcproTable.ObjData.Value13.Name, GcproTable.ObjData.Value19.Name, GcproTable.ObjData.Value14.Name,
                         GcproTable.ObjData.Value47.Name, GcproTable.ObjData.Value42.Name);
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
@@ -1562,7 +1562,7 @@ namespace GcproExtensionApp
                 { objDI.FieldBusNode = string.Empty; }
                 else
                 {
-                    objDI.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    objDI.FieldBusNode = DI.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                     {
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, int.Parse(objDI.DPNode1));
@@ -2030,7 +2030,7 @@ namespace GcproExtensionApp
                     { objDI.FieldBusNode = string.Empty; }
                     else
                     {
-                        objDI.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
+                        objDI.FieldBusNode = DI.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                         {
                             return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                         }, int.Parse(objDI.DPNode1));

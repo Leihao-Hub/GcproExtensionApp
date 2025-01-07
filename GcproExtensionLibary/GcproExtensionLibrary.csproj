@@ -48,6 +48,7 @@
     <Compile Include="Gcpro\GCObject\Bin.cs" />
     <Compile Include="Gcpro\GCObject\DPSlave.cs" />
     <Compile Include="Gcpro\GCObject\Elements\AI.cs" />
+    <Compile Include="Gcpro\GCObject\Elements\DO.cs" />
     <Compile Include="Gcpro\GCObject\Elements\DI.cs" />
     <Compile Include="Gcpro\GCObject\Elements\MDDx.cs" />
     <Compile Include="Gcpro\GCObject\Elements\MDDYZ.cs" />
