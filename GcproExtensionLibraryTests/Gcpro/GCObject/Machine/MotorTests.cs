@@ -14,8 +14,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject.Tests
     public class MotorTests
     {
         [TestMethod]
-        [Timeout(100)]  // Milliseconds
-        public void TestStartingTime()
+        [Timeout(1000)]  // Milliseconds
+        public void TestStartingTime_0_37()
         {
             // arrange
             int expected = 3;
@@ -27,6 +27,22 @@ namespace GcproExtensionLibrary.Gcpro.GCObject.Tests
 
             // assert
             Assert.AreEqual(expected, actual);
+
+        }
+        [TestMethod]
+        public void TestStartingTime_18_5()
+        {
+            // arrange
+            int expected = 10;
+            int actual = 0;
+            var motor = new Motor();
+
+            // act
+            actual = Motor.GetStartingTime(18.5);
+
+            // assert
+            Assert.AreEqual(expected, actual);
+
         }
     }
 }

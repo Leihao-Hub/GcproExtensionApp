@@ -1450,8 +1450,9 @@ namespace GcproExtensionApp
                 string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
                 if (!descUserDefConfirm)
                 {
-                    descUserDef = (MessageBox.Show(AppGlobal.USER_DEFINED_DESC, AppGlobal.INFO, MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes) ?
-                    true : false;
+                    //descUserDef = (MessageBox.Show(AppGlobal.USER_DEFINED_DESC, AppGlobal.INFO, MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes) ?
+                    //true : false;
+                     descUserDef = false;
                 }
                 descUserDefConfirm = true;
                 if (descUserDef)
@@ -1509,7 +1510,8 @@ namespace GcproExtensionApp
                     objDO.Value10 = "70";
                 }
                 #endregion
-              //  desc = descToBuilder.ToString();
+                SubTypeChanged(objDO.SubType);
+                //  desc = descToBuilder.ToString();
                 DO.Rule.Common.Name = objDO.Name;
                 DO.Rule.Common.DescFloor = $"{objDO.Elevation}{GcObjectInfo.General.AddInfoElevation}";
                 DO.Rule.Common.DescObject = desc;
@@ -1877,10 +1879,6 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-        #endregion
-
-       
+        #endregion      
     }
 }
