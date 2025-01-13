@@ -8,6 +8,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using static GcproExtensionLibrary.LibGlobalSource;
 using GcproExtensionLibrary.Gcpro.GCObject;
+using GcproExtensionLibrary.Gcpro;
+using System.Data;
 
 namespace GcproExtensionApp
 {
@@ -627,7 +629,7 @@ namespace GcproExtensionApp
                     MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            public static string ParseIORemark(string input)
+            public static string ParseIORemark(string input, DataTable data = null)
             {
                 if (string.IsNullOrEmpty(input))
                 {
@@ -637,12 +639,24 @@ namespace GcproExtensionApp
                 {
                     if (input.IndexOf(dirToBin, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        return GcObjectInfo.Bin.BinPrefix + Regex.Replace(input, Regex.Escape(dirToBin), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        string binIdent = Regex.Replace(input, Regex.Escape(dirToBin), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        bool startWithBinPrefix = binIdent.StartsWith(GcObjectInfo.Bin.BinPrefix);
+                        if (startWithBinPrefix)
+                        {
+                            return $"{GcObjectInfo.Bin.BinPrefix}{binIdent}";
+                        }
+                        else if (data !=null)                
+                        {
+                            return OleDb.GetValueBaseOtherColumn(data, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Text0.Name, binIdent);                         
+                        }
+                        else
+                        { 
+                            return string.Empty; 
+                        }
                     }
                     else if (input.IndexOf(dirToValve, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        string nameString = Regex.Replace(input, Regex.Escape(dirToValve), "", RegexOptions.IgnoreCase).Replace(" ", "");
-                        // nameString = (nameString.EndsWith(nameDelimiter) ? prefixName + nameString : prefixName + nameString + nameDelimiter) +suffixVLS;
+                        string nameString = Regex.Replace(input, Regex.Escape(dirToValve), "", RegexOptions.IgnoreCase).Replace(" ", "");                
                         nameString = (nameString.StartsWith(prefixName) ? nameString : prefixName + nameString);
                         nameString = (nameString.EndsWith(nameDelimiter) ? nameString : nameString + nameDelimiter) + suffixVLS;
                         return nameString;
@@ -657,7 +671,20 @@ namespace GcproExtensionApp
                     }
                     else if (input.IndexOf(binOf, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        return GcObjectInfo.Bin.BinPrefix + Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        string binIdent = Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        bool startWithBinPrefix = binIdent.StartsWith(GcObjectInfo.Bin.BinPrefix);
+                        if (startWithBinPrefix)
+                        {
+                            return $"{GcObjectInfo.Bin.BinPrefix}{binIdent}";
+                        }
+                        else if (data != null)
+                        {
+                            return OleDb.GetValueBaseOtherColumn(data, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Text0.Name, binIdent);
+                        }
+                        else
+                        {
+                            return string.Empty;
+                        }
                     }
                     else if (input.IndexOf(dirTo, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
@@ -850,7 +877,6 @@ namespace GcproExtensionApp
                 }
             }
         }
-
         public static class DO
         {
             #region Fields for properties

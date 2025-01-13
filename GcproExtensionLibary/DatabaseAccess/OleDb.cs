@@ -202,7 +202,59 @@ namespace GcproExtensionLibrary
 
             return columnsData;
         }
+        /// <summary>
+        ///在集合中根据筛选出的数据,根据[comparedColumn]列中类容是否以[startsWith]开头
+        ///满足调节，则返回[expectedcolumn]的值。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data">数据库筛选出的存于该集合中的数据</param>
+        /// <param name="comparedColumn">用与筛选比较的列名称</param>
+        /// <param name="expectedcolumn">满足筛选列的集合中期望列名称</param>
+        /// <param name="startsWith">筛选列的开头部分</param>
+        /// <returns></returns>
+        public static string GetValueBaseOtherColumn<T>(List<Dictionary<string, T>> data, string comparedColumn, string expectedcolumn, string startsWith)
+        {
+            var result = string.Empty;
 
+            foreach (var row in data)
+            {
+                if (row.ContainsKey(comparedColumn) && row[comparedColumn] != null &&
+                    row[comparedColumn].ToString().StartsWith(startsWith))
+                {
+                    if (row.ContainsKey(expectedcolumn) && row[expectedcolumn] != null)
+                    {
+                        result = row[expectedcolumn].ToString();
+                    }
+                }
+            }
+
+            return result;
+        }
+        /// <summary>
+        ///在数据表中根据筛选出的数据,根据[comparedColumn]列中类容是否以[startsWith]开头
+        ///满足调节，则返回[expectedcolumn]的值。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data">数据库筛选出的存于该集合中的数据</param>
+        /// <param name="comparedColumn">用与筛选比较的列名称</param>
+        /// <param name="expectedcolumn">满足筛选列的集合中期望列名称</param>
+        /// <param name="startsWith">筛选列的开头部分</param>
+        /// <returns></returns>
+        public static string GetValueBaseOtherColumn(DataTable dataTable, string comparedColumn, string expectedColumn, string startsWith)
+        {
+            foreach (DataRow row in dataTable.Rows)
+            {
+                if (row[comparedColumn] != DBNull.Value && row[comparedColumn].ToString().StartsWith(startsWith))
+                {
+                    if (row[expectedColumn] != DBNull.Value)
+                    {
+                        return row[expectedColumn].ToString();
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
         #endregion
         #region Insert method
         public bool InsertRecord(string tableName, List<Gcpro.DbParameter> parameters)

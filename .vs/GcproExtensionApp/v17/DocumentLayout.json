@@ -30,8 +30,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 331,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
@@ -56,7 +60,7 @@
               "RelativeDocumentMoniker": "GcproExtensionApp\\LL\\EL\\FormVLS.cs",
               "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\LL\\EL\\FormVLS.cs",
               "RelativeToolTip": "GcproExtensionApp\\LL\\EL\\FormVLS.cs",
-              "ViewState": "AgIAAJMGAAAAAAAAAAAAwKoGAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAJYGAAAAAAAAAAAAwK0GAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-13T06:21:50.505Z",
               "EditorCaption": ""

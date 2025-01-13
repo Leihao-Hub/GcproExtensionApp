@@ -1536,9 +1536,13 @@ namespace GcproExtensionApp
        out (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             DataTable dataTable = new DataTable();
+            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}",
+               null, $"{GcproTable.ObjData.Text0.Name} ASC",
+               GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+            
             List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
             StringBuilder descBuilder = new StringBuilder();
             string commName;
@@ -1556,7 +1560,6 @@ namespace GcproExtensionApp
             string vlsRcvLN, vlsRcvHN, vlsAsp, vlsSndBin;
             vlsRcvLN = vlsRcvHN = vlsAsp = vlsSndBin = string.Empty;
             DataGridViewCell cell;
-            //listBMLName = LibGlobalSource.BMLHelper.ExtractUniqueCommonSubstringsWithCount(dataFromBML, nameof(BML.ColumnName));
             listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataFromBML, nameof(BML.ColumnName), Engineering.PatternElementNamePrefix);
             int quantityNeedToBeCreate = listBMLName.Count;
             processValue.Max = quantityNeedToBeCreate;
@@ -1598,9 +1601,6 @@ namespace GcproExtensionApp
                         {
                             objVLS.SubType = VLS.VMF;
                             objVLS.PType = VLS.P7082.ToString();
-                            //chkContValve.Checked = false;
-                            //chkPulseValve.Checked = false;
-                            //chkManualFlap.Checked = true;
                         }
                         else if (vlsType.Contains(BML.VLS.PneFlap))
                         {
@@ -1704,7 +1704,11 @@ namespace GcproExtensionApp
                             vlsIORemark = Convert.ToString(cell.Value);
                             if (!string.IsNullOrEmpty(vlsIORemark))
                             {
-                                vlsRcvLN = BML.VLS.ParseIORemark(vlsIORemark);
+                                vlsRcvLN = BML.VLS.ParseIORemark(vlsIORemark, dataTable);
+                            }
+                            else
+                            {
+                                vlsRcvLN = string.Empty;
                             }
                         }
                         else if (bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixOutpHN.Replace(":O", ""), StringComparison.InvariantCultureIgnoreCase)
@@ -1712,9 +1716,14 @@ namespace GcproExtensionApp
                         {
                             cell = dataFromBML.Rows[row].Cells[nameof(BML.ColumnIORemark)];
                             vlsIORemark = Convert.ToString(cell.Value);
+
                             if (!string.IsNullOrEmpty(vlsIORemark))
                             {
-                                vlsRcvHN = BML.VLS.ParseIORemark(vlsIORemark);
+                                vlsRcvHN = BML.VLS.ParseIORemark(vlsIORemark, dataTable);
+                            }
+                            else
+                            {
+                                vlsRcvHN = string.Empty;
                             }
                         }
                     }
