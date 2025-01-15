@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 #endregion
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class FormDPSlave : Form, IGcForm
     {
         public FormDPSlave()
@@ -27,15 +28,15 @@ namespace GcproExtensionApp
         }
 
         #region Public object in this class
-        DPSlave myDPSlave = new DPSlave(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly DPSlave myDPSlave = new DPSlave(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
-        private string DEMO_NAME_DPSlave = "=A-4001-MXZ03U1";
-        private string DEMO_NAME_RULE_DPSlave = "4001";
-        private string DEMO_DESCRIPTION_DPSlave = "4001磨机喂料辊";
-        private string DEMO_DESCRIPTION_RULE_DPSlave = "";
+        private readonly string DEMO_NAME_DPSlave = "=A-4001-MXZ03U1";
+        private readonly string DEMO_NAME_RULE_DPSlave = "4001";
+        private readonly string DEMO_DESCRIPTION_DPSlave = "4001磨机喂料辊";
+        private readonly string DEMO_DESCRIPTION_RULE_DPSlave = "";
         #endregion
   
        // private int value10 = 0;
@@ -44,16 +45,18 @@ namespace GcproExtensionApp
         private (string ipAddrPrevSegment, string ipRule) ip;
         // private long tempLong = 0;
         //  private float tempFloat = 0.0f;
-        private bool tempBool = false;
+       private bool tempBool = false;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             ///<ReaFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReafoFromGcsLibrary>
@@ -167,10 +170,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;          
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;       
             dataTable=oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DPSlave.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);         
             if (dataTable.Rows.Count > 0)
@@ -443,9 +448,11 @@ namespace GcproExtensionApp
         #endregion
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.OIndex.Name;
-            objectBrowser.OType = Convert.ToString(DPSlave.OTypeValue);
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.OIndex.Name,
+                OType = Convert.ToString(DPSlave.OTypeValue)
+            };
             objectBrowser.Show();
         }
         void SubTypeChanged(string subType)
@@ -453,10 +460,7 @@ namespace GcproExtensionApp
             txtIPAddress.Enabled = subType != DPSlave.Profibus;
         }
     
-        void GetValue31BitValue(long value)
-        {
-        
-        }
+    
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -619,15 +623,18 @@ namespace GcproExtensionApp
             comboStartRow.SelectedItem = chkUserDifinedExcel.Checked?BML.StartRowUser: BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text=BML.DPSlave.BMLPath;
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText =BML.ColumnName; 
-            nameColumn.Name = nameof(BML.ColumnName);                                                
-            dataGridBML.Columns.Add(nameColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnName,
+                Name = nameof(BML.ColumnName)
+            });
 
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.ColumnDesc;
-            descColumn.Name = nameof(BML.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
+
             DataGridViewTextBoxColumn type_IPColumn = new DataGridViewTextBoxColumn();
             DataGridViewTextBoxColumn control_SlaveNoColumn = new DataGridViewTextBoxColumn();
             if (chkUserDifinedExcel.Checked)
@@ -670,7 +677,7 @@ namespace GcproExtensionApp
             string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboType_IPAddrBML.Text, comboControl_SlaveNoBML.Text };
             StringBuilder sbNameFilters = new StringBuilder();
             sbNameFilters.Append($@"Value NOT LIKE ""{string.Empty}""");
-            DataTable dataTable = new DataTable();
+            DataTable dataTable;
             string[] filters = { sbNameFilters.ToString()};
             string[] filterColumns = { comboNameBML.Text };
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);      
@@ -686,7 +693,6 @@ namespace GcproExtensionApp
             dataGridBML.AutoGenerateColumns = false;
             TxtQuantity.Text = dataGridBML.Rows.Count.ToString();
             dataTable.Dispose();
-            dataTable = null;
         }
         #endregion
         #region Common used
@@ -813,9 +819,11 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                OleDb oledb = new OleDb
+                {
+                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                    IsNewOLEDBDriver = isNewOledbDriver
+                };
                 DPSlave.ReGenerateDPNode(oledb);
             }
         }
@@ -828,10 +836,7 @@ namespace GcproExtensionApp
         }
         private void CreateObjectBML()
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
+          
             ProgressBar.Maximum = dataGridBML.Rows.Count-1;
             for (int i = 0; i < dataGridBML.Rows.Count; i++)
             {
@@ -853,10 +858,11 @@ namespace GcproExtensionApp
         }
         private void CreateObjectRule()
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
+            //OleDb oledb = new OleDb
+            //{
+            //    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+            //    IsNewOLEDBDriver = isNewOledbDriver
+            //};
             //   bool needDPNodeChanged = false;
             StringBuilder descTotalBuilder = new StringBuilder();
             int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
@@ -921,7 +927,7 @@ namespace GcproExtensionApp
             ///<Description></Description>
             myDPSlave.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
-            string selectedProcessFct = string.Empty;
+            string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);

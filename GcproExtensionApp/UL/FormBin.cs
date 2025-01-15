@@ -23,7 +23,7 @@ using System.Net.NetworkInformation;
 #endregion
 namespace GcproExtensionApp
 {
-
+    #pragma warning disable IDE1006
     public partial class FormBin : Form, IGcForm
     {
         public FormBin()
@@ -32,15 +32,15 @@ namespace GcproExtensionApp
         }
 
         #region Public object in this class
-        Bin myBin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly Bin myBin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
-        private string DEMO_NAME_BIN = "BIN401";
-        private string DEMO_NAME_RULE_BIN = "401";
-        private string DEMO_DESCRIPTION_BIN = "F401:401号基粉仓";
-        private string DEMO_DESCRIPTION_RULE_BIN = "401";
+        private readonly string DEMO_NAME_BIN = "BIN401";
+        private readonly string DEMO_NAME_RULE_BIN = "401";
+        private readonly string DEMO_DESCRIPTION_BIN = "F401:401号基粉仓";
+        private readonly string DEMO_DESCRIPTION_RULE_BIN = "401";
         #endregion
         private int value24 = 0;
         private int value30 = 0;
@@ -56,10 +56,12 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -323,34 +325,44 @@ namespace GcproExtensionApp
         }
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value1.Name;
-            objectBrowser.OType = Convert.ToString(Bin.OTypeValue);
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value1.Name,
+                OType = Convert.ToString(Bin.OTypeValue)
+            };
             objectBrowser.Show();
         }
         private void txtHighLevel_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value22.Name;
-            objectBrowser.OType = Convert.ToString(DI.OTypeValue);
-            objectBrowser.SubType = DI.HLBIN;
+            ObjectBrowser objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value22.Name,
+                OType = Convert.ToString(DI.OTypeValue),
+                SubType = DI.HLBIN
+            };
+       
             objectBrowser.ShowDialog();
             txtHighLevel.Text = objectBrowser.ReturnedItem;
         }
         private void txtMiddleLevel_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value22.Name;
-            objectBrowser.OType = Convert.ToString(DI.OTypeValue);
+            ObjectBrowser objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value22.Name,
+                OType = Convert.ToString(DI.OTypeValue),
+                SubType = DI.HLBIN
+            };
             objectBrowser.ShowDialog();
             txtMiddleLevel.Text = objectBrowser.ReturnedItem;
         }
         private void txtLowLevel_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
-            objectBrowser.OType = Convert.ToString(DI.OTypeValue);
-            objectBrowser.SubType = DI.LLBIN;
+            ObjectBrowser objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value21.Name,
+                OType = Convert.ToString(DI.OTypeValue),
+                SubType = DI.HLBIN
+            };
             objectBrowser.ShowDialog();
             txtLowLevel.Text = objectBrowser.ReturnedItem;
         }
@@ -1379,7 +1391,7 @@ namespace GcproExtensionApp
                 int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                 bool moreThanOne = quantityNeedToBeCreate > 1;
                 bool onlyOne = quantityNeedToBeCreate == 1;
-                int binNo = 0;
+                int binNo;
                 string descTotal = txtDescription.Text;
                 RuleSubDataSet description, name, descPrefix, highLevel, lowLevel, middleLevel, analogLevel;
                 description = new RuleSubDataSet
@@ -1627,7 +1639,7 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<HighLevel>高料位</HighLevel>
-                    chkReadHighLevel.Checked = String.IsNullOrEmpty(txtHighLevel.Text) ? false : true;
+                    chkReadHighLevel.Checked = !String.IsNullOrEmpty(txtHighLevel.Text);
                     if (!String.IsNullOrEmpty(txtHighLevel.Text))
                     {
                         highLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtHighLevel.Text, txtHighLevelRule.Text);
@@ -1644,7 +1656,7 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<MiddleLevel>中料位</MiddleLevel>
-                    chkReadRefillLevel.Checked = String.IsNullOrEmpty(txtMiddleLevel.Text) ? false : true;
+                    chkReadRefillLevel.Checked = !String.IsNullOrEmpty(txtMiddleLevel.Text);
                     if (!String.IsNullOrEmpty(txtMiddleLevel.Text))
                     {
                         middleLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtMiddleLevel.Text, txtMiddleLevelRule.Text);
@@ -1661,7 +1673,7 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<LowLevel>低料位</LowLevel>
-                    chkWithLL.Checked = chkReadLowLevel.Checked = String.IsNullOrEmpty(txtLowLevel.Text) ? false : true;
+                    chkWithLL.Checked = chkReadLowLevel.Checked = !String.IsNullOrEmpty(txtLowLevel.Text);
                     if (!String.IsNullOrEmpty(txtLowLevel.Text))
                     {
                         lowLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtLowLevel.Text, txtLowLevelRule.Text);
@@ -1678,7 +1690,7 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<AnalogLevel>模拟量料位</AnalogLevel>
-                    chkReadInFillLevel.Checked = String.IsNullOrEmpty(txtAnalogLevel.Text) ? false : true;
+                    chkReadInFillLevel.Checked = !String.IsNullOrEmpty(txtAnalogLevel.Text);
                     if (!String.IsNullOrEmpty(txtAnalogLevel.Text))
                     {
                         analogLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtAnalogLevel.Text, txtAnalogLevelRule.Text);

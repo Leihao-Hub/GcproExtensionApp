@@ -20,6 +20,7 @@ using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class FormMA_Discharger : Form, IGcForm
     {
         public FormMA_Discharger()
@@ -27,12 +28,12 @@ namespace GcproExtensionApp
             InitializeComponent();
         }
         #region Public object in this class
-        Discharger myDischarger= new Discharger(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly Discharger myDischarger= new Discharger(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
-        private bool isNewOledbDriver = false;
+        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
         private GcBaseRule objDefaultInfo;
         
         #endregion
@@ -44,10 +45,12 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -190,10 +193,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Discharger.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -698,9 +703,11 @@ namespace GcproExtensionApp
 
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value10.Name;
-            objectBrowser.OType = Convert.ToString(Discharger.OTypeValue);
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value10.Name,
+                OType = Convert.ToString(Discharger.OTypeValue)
+            };
             objectBrowser.Show();
         }
  
@@ -718,7 +725,7 @@ namespace GcproExtensionApp
                 checkBox.Checked = !string.IsNullOrEmpty(textBox.Text);
             }                
         }
-        void SetElementsName(string subType,string name)
+        void SetElementsName(string name)
         {
             myDischarger.DischargerChild = txtDischarger.Text = $"{name}{GcObjectInfo.MA_Discharger.SuffixMotor}";
         }
@@ -738,7 +745,7 @@ namespace GcproExtensionApp
            
             SetElementsEnbale(subType);
             SetValue10AndElements();
-            SetElementsName(subType, txtSymbol.Text);
+            SetElementsName(txtSymbol.Text);
         }
         void SubTypeChanged()
         {
@@ -1357,7 +1364,7 @@ namespace GcproExtensionApp
             ///<Description></Description>
             myDischarger.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
-            string selectedProcessFct = string.Empty;
+            string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);

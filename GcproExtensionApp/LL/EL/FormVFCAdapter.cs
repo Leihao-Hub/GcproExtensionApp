@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 #endregion
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class FormVFCAdapter : Form, IGcForm
     {
         public FormVFCAdapter()
@@ -24,18 +25,18 @@ namespace GcproExtensionApp
             InitializeComponent();
         }
         #region Public object in this class
-        VFCAdapter myVFCAdapter = new VFCAdapter(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
-        private bool isNewOledbDriver;
+        readonly VFCAdapter myVFCAdapter = new VFCAdapter(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
+        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
         //private string CONNECT_VFC = "关联VFC";
         //private string CONNECT_AO = "关联AO";
-        private string DEMO_NAME_VFC = "=A-4001-MXZ03-VFC";
+        private readonly string DEMO_NAME_VFC = "=A-4001-MXZ03-VFC";
         //private string DEMO_NAME_VFC_SUFFIX = "-VFC";
-        private string DEMO_NAME_RULE_VFC = "4001";
-        private string DEMO_DESCRIPTION_VFC = "磨粉机喂料辊变频器/或者空白";
-        private string DEMO_DESCRIPTION_RULE_VFC = "";
+        private readonly string DEMO_NAME_RULE_VFC = "4001";
+        private readonly string DEMO_DESCRIPTION_VFC = "磨粉机喂料辊变频器/或者空白";
+        private readonly string DEMO_DESCRIPTION_RULE_VFC = "";
         private int value10 = 1;
         private int tempInt = 0;
         private float tempFloat = (float)0.0;
@@ -287,11 +288,12 @@ namespace GcproExtensionApp
         }
 
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
-            objectBrowser.OType = Convert.ToString(VFCAdapter.OTypeValue);
-
+        { 
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value21.Name,
+                OType = Convert.ToString(VFCAdapter.OTypeValue)
+            };
             objectBrowser.Show();
         }
         private void TxtSymbol_TextChanged(object sender, EventArgs e)
@@ -729,51 +731,55 @@ namespace GcproExtensionApp
         private void CreateBMLDefault()
         {
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.Motor.BMLPath;
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName;
-            nameColumn.Name = nameof(BML.ColumnName);
-            dataGridBML.Columns.Add(nameColumn);
+            TxtExcelPath.Text = BML.Motor.BMLPath;         
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnName,
+                Name = nameof(BML.ColumnName)
+            });
 
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.ColumnDesc;
-            descColumn.Name = nameof(BML.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
 
-            DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
-            powerColumn.HeaderText = BML.ColumnPower;
-            powerColumn.Name = nameof(BML.ColumnPower);
-            dataGridBML.Columns.Add(powerColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnPower,
+                Name = nameof(BML.ColumnPower)
+            });
 
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnFloor,
+                Name = nameof(BML.ColumnFloor)
+            });
 
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.ColumnFloor;
-            floorColumn.Name = nameof(BML.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinet,
+                Name = nameof(BML.ColumnCabinet)
+            });
 
-            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.ColumnCabinet);
-            dataGridBML.Columns.Add(cabinetColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinetGroup,
+                Name = nameof(BML.ColumnCabinetGroup)
+            });
 
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnControlMethod,
+                Name = nameof(BML.ColumnControlMethod)
+            });
 
-            DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.ColumnCabinetGroup);
-            dataGridBML.Columns.Add(cabinetColumnGroup);
-
-
-            DataGridViewTextBoxColumn controlMethod = new DataGridViewTextBoxColumn();
-            controlMethod.HeaderText = BML.ColumnControlMethod;
-            controlMethod.Name = nameof(BML.ColumnControlMethod);
-            dataGridBML.Columns.Add(controlMethod);
-
-            dataGridBML.Columns[descColumn.Name].Width = 126;
-            dataGridBML.Columns[powerColumn.Name].Width = 56;
-            dataGridBML.Columns[floorColumn.Name].Width = 56;
-            dataGridBML.Columns[cabinetColumnGroup.Name].Width = 66;
-            dataGridBML.Columns[cabinetColumn.Name].Width = 66;
-            dataGridBML.Columns[controlMethod.Name].Width = 188;
+            dataGridBML.Columns[nameof(BML.ColumnDesc)].Width = 126;
+            dataGridBML.Columns[nameof(BML.ColumnPower)].Width = 56;
+            dataGridBML.Columns[nameof(BML.ColumnFloor)].Width = 56;
+            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].Width = 66;
+            dataGridBML.Columns[nameof(BML.ColumnCabinet)].Width = 66;
+            dataGridBML.Columns[nameof(BML.ColumnControlMethod)].Width = 188;
             txtVFCSufffixBML.Text = GcObjectInfo.Motor.SuffixVFC;
             txtVFCPrefixBML.Text = BML.Motor.PrefixVFC;
         }
@@ -804,9 +810,8 @@ namespace GcproExtensionApp
         #region  <---Common used--->
         private string GetIOByteLen(string lenPKW,string lenPZD)
         {
-            int _lenPKW, _lenPZD;
-            AppGlobal.ParseInt(lenPKW, out _lenPKW);
-            AppGlobal.ParseInt(lenPZD, out _lenPZD);
+            AppGlobal.ParseInt(lenPKW, out int _lenPKW);
+            AppGlobal.ParseInt(lenPZD, out int _lenPZD);
             return (_lenPKW + _lenPZD).ToString();
         }
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1267,9 +1272,11 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                OleDb oledb = new OleDb
+                {
+                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                    IsNewOLEDBDriver = isNewOledbDriver
+                };
                 VFCAdapter.ReGenerateDPNode(oledb);
             }
         }
@@ -1278,11 +1285,11 @@ namespace GcproExtensionApp
           ref (int Value, int Max) processValue)
         {
             #region common used variables declaration
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            //   DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
             bool needDPNodeChanged = false;
@@ -1625,10 +1632,11 @@ namespace GcproExtensionApp
              out (int Value, int Max) processValue)
         {
             #region common used variables declaration
-            OleDb oledb = new OleDb();
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            //DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             int slaveIndexInc = AppGlobal.ParseInt(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
             int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
@@ -1727,7 +1735,7 @@ namespace GcproExtensionApp
                 ioByteInc = Convert.ToInt32(GetIOByteLen(vfc.Par.LenPKW, vfc.Par.LenPZD));
                 // objVFCAdapter.IoByteNo = Convert.ToString(ioByte + i * ioByteInc);
                 objVFCAdapter.IoByteNo = Convert.ToString(nextIOByte);
-                nextIOByte = nextIOByte + ioByteInc;
+                nextIOByte += ioByteInc;
                 ///<DPNode1>   </DPNode1>                                    
                 objVFCAdapter.DPNode1 = VFCAdapter.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
@@ -1809,8 +1817,9 @@ namespace GcproExtensionApp
             {
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        #endregion <---Common used--->
+        }  
+        
+      #endregion <---Common used--->
     }
 
 }

@@ -20,6 +20,7 @@ using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class FormMA_Roll8Stand : Form, IGcForm
     {
         public FormMA_Roll8Stand()
@@ -27,29 +28,31 @@ namespace GcproExtensionApp
             InitializeComponent();
         }
         #region Public object in this class
-        Roll8Stand myRoll8Stand = new Roll8Stand(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly Roll8Stand myRoll8Stand = new Roll8Stand(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
         private bool isNewOledbDriver = false;
-        private string DEMO_NAME_ROLL8STAND = "=A-4001";
-        private string DEMO_NAME_RULE_ROLL8STAND = "4001";
-        private string DEMO_DESCRIPTION_ROLL8STAND = "XXX磨粉机/或者空白";
-        private string DEMO_DESCRIPTION_RULE_ROLL8STAND = "xxx/或者空白";
+        private readonly string DEMO_NAME_ROLL8STAND = "=A-4001";
+        private readonly string DEMO_NAME_RULE_ROLL8STAND = "4001";
+        private readonly string DEMO_DESCRIPTION_ROLL8STAND = "XXX磨粉机/或者空白";
+        private readonly string DEMO_DESCRIPTION_RULE_ROLL8STAND = "xxx/或者空白";
         #endregion
         private int value10 ;
         private int tempInt = 0;
-        private bool tempBool = false;
+        private bool tempBool;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -151,10 +154,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Roll8Stand.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -731,9 +736,11 @@ namespace GcproExtensionApp
 
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value10.Name;
-            objectBrowser.OType = Convert.ToString(Roll8Stand.OTypeValue);
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value10.Name,
+                OType = Convert.ToString(Roll8Stand.OTypeValue)
+            };
             objectBrowser.Show();
         }
 
@@ -825,14 +832,14 @@ namespace GcproExtensionApp
             {
                 bool roll4 = subType == Roll8Stand.ROLL4;
                 chkParWithMDDx.Checked = false;
-                chkPar4Rolls.Checked = roll4 ? true : false;
+                chkPar4Rolls.Checked = roll4;
 
-                txtMotorUpS1.Enabled = roll4 ? false : true;
-                txtMotorUpS2.Enabled = roll4 ? false : true;
-                txtHLBackupLeftS1.Enabled = roll4 ? false : true;
-                txtHLBackupLeftS2.Enabled = roll4 ? false : true;
-                txtHLBackupRightS1.Enabled = roll4 ? false : true;
-                txtHLBackupRightS2.Enabled = roll4 ? false : true;
+                txtMotorUpS1.Enabled = !roll4;
+                txtMotorUpS2.Enabled = !roll4;
+                txtHLBackupLeftS1.Enabled = !roll4;
+                txtHLBackupLeftS2.Enabled = !roll4;
+                txtHLBackupRightS1.Enabled = !roll4;
+                txtHLBackupRightS2.Enabled = !roll4;
                 txtHLInletS1.Enabled = true;
                 txtHLInletS2.Enabled = true;
                 txtHLInletS1Div.Enabled = false;
@@ -860,18 +867,18 @@ namespace GcproExtensionApp
             else if (subType == Roll8Stand.ROLL4M || subType == Roll8Stand.ROLL8M2M)
             {
                 bool roll4m = subType == Roll8Stand.ROLL4M;
-                chkPar4Rolls.Checked = roll4m ? true : false;
+                chkPar4Rolls.Checked = roll4m;
                 chkParWithMDDx.Checked = true;
                 txtMotorUpS1.Enabled = false;
                 txtMotorUpS2.Enabled = false;
-                txtHLBackupLeftS1.Enabled = roll4m ? false : true;
-                txtHLBackupLeftS2.Enabled = roll4m ? false : true;
-                txtHLBackupRightS1.Enabled = roll4m ? false : true;
-                txtHLBackupRightS2.Enabled = roll4m ? false : true;
+                txtHLBackupLeftS1.Enabled = !roll4m;
+                txtHLBackupLeftS2.Enabled = !roll4m;
+                txtHLBackupRightS1.Enabled = !roll4m;
+                txtHLBackupRightS2.Enabled = !roll4m;
                 txtHLInletS1.Enabled = true;
                 txtHLInletS2.Enabled = true;
-                txtHLInletS1Div.Enabled = roll4m ? true : false;
-                txtHLInletS2Div.Enabled = roll4m ? true : false;
+                txtHLInletS1Div.Enabled = roll4m;
+                txtHLInletS2Div.Enabled = roll4m;
                 txtSMS1.Enabled = false;
                 txtSMS2.Enabled = false;
                 txtHLOutlet3S1.Enabled = true;
@@ -880,8 +887,8 @@ namespace GcproExtensionApp
                 txtInpPressureS2.Enabled = false;
                 txtFeedrollS1.Enabled = true;
                 txtFeedrollS2.Enabled = true;
-                txtFeedrollS1Div.Enabled = roll4m ? true : false;
-                txtFeedrollS2Div.Enabled = roll4m ? true : false;
+                txtFeedrollS1Div.Enabled = roll4m;
+                txtFeedrollS2Div.Enabled = roll4m;
                 txtHLOutlet1S1.Enabled = true;
                 txtHLOutlet2S1.Enabled = true;
                 txtHLOutlet1S2.Enabled = true;
@@ -1076,36 +1083,39 @@ namespace GcproExtensionApp
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text = BML.MA_Roll8Stand.BMLPath;
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName;
-            nameColumn.Name = nameof(BML.ColumnName);
-            dataGridBML.Columns.Add(nameColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnName,
+                Name = nameof(BML.ColumnName)
+            });
 
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.ColumnDesc;
-            descColumn.Name = nameof(BML.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
 
-            DataGridViewTextBoxColumn typeColumn = new DataGridViewTextBoxColumn();
-            typeColumn.HeaderText = BML.ColumnType;
-            typeColumn.Name = nameof(BML.ColumnType);
-            dataGridBML.Columns.Add(typeColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnType,
+                Name = nameof(BML.ColumnType)
+            });
 
-            DataGridViewTextBoxColumn controlColumn = new DataGridViewTextBoxColumn();
-            controlColumn.HeaderText = BML.ColumnControlMethod;
-            controlColumn.Name = nameof(BML.ColumnControlMethod);
-            dataGridBML.Columns.Add(controlColumn);
-
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.ColumnFloor;
-            floorColumn.Name = nameof(BML.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
-
-            DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.ColumnLine;
-            lineColumn.Name = nameof(BML.ColumnLine);
-            dataGridBML.Columns.Add(lineColumn);
-
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnControlMethod,
+                Name = nameof(BML.ColumnControlMethod)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnFloor,
+                Name = nameof(BML.ColumnFloor)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnLine,
+                Name = nameof(BML.ColumnLine)
+            });  
         }
 
         private void btnReadBML_Click(object sender, EventArgs e)
@@ -1321,13 +1331,13 @@ namespace GcproExtensionApp
         private void CreatObjectBML()
         {
             StringBuilder descTotalBuilder = new StringBuilder();
-            int noOfSubElements = 0;
+            int noOfSubElements;
             int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;           
             listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
             ProgressBar.Maximum = quantityNeedToBeCreate;
             ProgressBar.Value = 0;       
-            string _nameNumberString=string.Empty;
-            string subTypePrev=string.Empty;
+            string _nameNumberString = string.Empty;
+            string subTypePrev =string.Empty;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 // DataGridViewCell cell;
@@ -1459,7 +1469,7 @@ namespace GcproExtensionApp
             ///<Description></Description>
             myRoll8Stand.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
-            string selectedProcessFct = string.Empty;
+            string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
@@ -1524,7 +1534,7 @@ namespace GcproExtensionApp
                 name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
             }
 
-            string selectedDPNode1Item = string.Empty;
+         //   string selectedDPNode1Item = string.Empty;
 
             ///<DescRule>生成描述规则</DescRule>
             if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
@@ -1593,11 +1603,12 @@ namespace GcproExtensionApp
         private void CreatObjectAutoSearch()
         {
             OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
+            DataTable dataTable ;
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             #region common used variables declaration       
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+         ;
+            AppGlobal.ParseInt(TxtQuantity.Text, out int quantityNeedToBeCreate);
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {
@@ -1627,9 +1638,9 @@ namespace GcproExtensionApp
             };
             #endregion
 
-            List<string> objList = new List<string>();
-            List<string> objVFC = new List<string>();
-            List<int> objSubs = new List<int>();
+            List<string> objList;
+            List<string> objVFC;
+            List<int> objSubs;
             bool isVfc = false;
             int noOfSubElements = 0;
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.EL_MDDx} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER}";

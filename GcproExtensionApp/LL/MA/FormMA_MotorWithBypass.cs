@@ -20,6 +20,7 @@ using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class FormMA_MotorWithBypass : Form, IGcForm
     {
         public FormMA_MotorWithBypass()
@@ -27,13 +28,12 @@ namespace GcproExtensionApp
             InitializeComponent();
         }
         #region Public object in this class
-        MotorWithBypass myMotorWithBypass= new MotorWithBypass(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly MotorWithBypass myMotorWithBypass= new MotorWithBypass(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
-        private bool isNewOledbDriver = false;
-
+        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
         private const string MON1 = "Mon1";
         private const string OSILLATION_SENSOR= "OscillationSensor";
         private const string AI= "AI";
@@ -50,10 +50,12 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -199,10 +201,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{MotorWithBypass.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -906,9 +910,11 @@ namespace GcproExtensionApp
 
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value10.Name;
-            objectBrowser.OType = Convert.ToString(MotorWithBypass.OTypeValue);
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value10.Name,
+                OType = Convert.ToString(MotorWithBypass.OTypeValue)
+            };
             objectBrowser.Show();
         }
  
@@ -1598,7 +1604,7 @@ namespace GcproExtensionApp
             ///<Description></Description>
             myMotorWithBypass.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
-            string selectedProcessFct = string.Empty;
+            string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);

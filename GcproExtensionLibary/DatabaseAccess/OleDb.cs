@@ -565,10 +565,6 @@ namespace GcproExtensionLibrary
                                 setClauseParts.Add($"[{param.Name}] = ?");
                             }
                             var setClause = string.Join(", ", setClauseParts);
-
-                            //string updateQuery = $"UPDATE [{tableName}] " +
-                            //    $"SET {setClause}" +
-                            //    $" WHERE {whereClause}";
                             string updateQuery = string.Format(
                                 "UPDATE [{0}] SET {1} WHERE {2}",
                                 tableName,

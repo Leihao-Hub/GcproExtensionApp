@@ -22,7 +22,7 @@ using Microsoft.Extensions.Primitives;
 #endregion
 namespace GcproExtensionApp
 {
-
+    #pragma warning disable IDE1006
     public partial class FormDI : Form, IGcForm
     {
 
@@ -32,32 +32,34 @@ namespace GcproExtensionApp
         }
 
         #region Public object in this class
-        DI myDI = new DI(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly DI myDI = new DI(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
-        private string DEMO_NAME_DI = "=A-4201-BLH01";
-        private string DEMO_NAME_RULE_DI = "4201";
-        private string DEMO_DESCRIPTION_DI = "401号基粉仓高料位/或者空白";
-        private string DEMO_DESCRIPTION_RULE_DI = "401/或者空白";
-        private string diSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DI}.{AppGlobal.JS_SUFFIX}.";
+        private readonly string DEMO_NAME_DI = "=A-4201-BLH01";
+        private readonly string DEMO_NAME_RULE_DI = "4201";
+        private readonly string DEMO_DESCRIPTION_DI = "401号基粉仓高料位/或者空白";
+        private readonly string DEMO_DESCRIPTION_RULE_DI = "401/或者空白";
+        private readonly string diSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DI}.{AppGlobal.JS_SUFFIX}.";
         private GcBaseRule objDefaultInfo;
         #endregion
         private int value9 = 0;
         private int value10 = 0;
         private int tempInt = 0;
         private float tempFloat = (float)0.0;
-        private bool tempBool = false;
+        private bool tempBool;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -214,10 +216,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable ;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DI.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -370,10 +374,12 @@ namespace GcproExtensionApp
             UpdateDesc();
         }
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
-            objectBrowser.OType = Convert.ToString(DI.OTypeValue);
+        {          
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value21.Name,
+                OType = Convert.ToString(DI.OTypeValue)
+            };
             objectBrowser.Show();
         }
         private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
@@ -1140,47 +1146,49 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.DI.BMLPath;
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName;
-            nameColumn.Name = nameof(BML.ColumnName);
-            dataGridBML.Columns.Add(nameColumn);
+            TxtExcelPath.Text = BML.DI.BMLPath;     
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+               HeaderText = BML.ColumnName,
+               Name = nameof(BML.ColumnName)
+            });
 
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.ColumnDesc;
-            descColumn.Name = nameof(BML.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDIType,
+                Name = nameof(BML.ColumnDIType)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnFloor,
+                Name = nameof(BML.ColumnFloor)
+            });
 
-            DataGridViewTextBoxColumn diTypeColumn = new DataGridViewTextBoxColumn();
-            diTypeColumn.HeaderText = BML.ColumnDIType;
-            diTypeColumn.Name = nameof(BML.ColumnDIType);
-            dataGridBML.Columns.Add(diTypeColumn);
-
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.ColumnFloor;
-            floorColumn.Name = nameof(BML.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
-
-            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.ColumnCabinet);
-            dataGridBML.Columns.Add(cabinetColumn);
-
-            DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.ColumnCabinetGroup);
-            dataGridBML.Columns.Add(cabinetColumnGroup);
-
-            DataGridViewTextBoxColumn ioRemarkColumn = new DataGridViewTextBoxColumn();
-            ioRemarkColumn.HeaderText = BML.ColumnIORemark;
-            ioRemarkColumn.Name = nameof(BML.ColumnIORemark);
-            dataGridBML.Columns.Add(ioRemarkColumn);
-
-            DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.ColumnLine;
-            lineColumn.Name = nameof(BML.ColumnLine);
-            dataGridBML.Columns.Add(lineColumn);
-
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinet,
+                Name = nameof(BML.ColumnCabinet)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinetGroup,
+                Name = nameof(BML.ColumnCabinetGroup)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnIORemark,
+                Name = nameof(BML.ColumnIORemark)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnLine,
+                Name = nameof(BML.ColumnLine)
+            });
         }
 
         private void btnReadBML_Click(object sender, EventArgs e)
@@ -1197,8 +1205,8 @@ namespace GcproExtensionApp
             sbValveFilters.Append($@"Value NOT LIKE ""%{BML.VLS.ManualFlap}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneFlap}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneTwoWayValve}"" && ")
            .Append($@"Value NOT LIKE ""%{BML.VLS.PneSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.ManualSlideGate}"" && ").Append($@"Value NOT LIKE ""%{BML.VLS.PneShutOffValve}"" && ")
            .Append($@"Value NOT LIKE ""%{BML.VLS.PneAspValve}""");
-            DataTable dataTable = new DataTable();
-            string[] filters = new string[2];
+            DataTable dataTable;
+            string[] filters;
             string[] filterColumns;
             filters = new string[] { sbFilters.ToString(), sbValveFilters.ToString() };       
             filterColumns = new string[] { comboTypeBML.Text, comboDescBML.Text};
@@ -1452,19 +1460,23 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                OleDb oledb = new OleDb
+                {
+                    DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                    IsNewOLEDBDriver = isNewOledbDriver
+                };
                 DI.ReGenerateDPNode(oledb);
             }
         }
     
         public void CreateObjectCommon(DI objDI)
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+         //   DataTable dataTable = new DataTable();
             #region Prepare export DI file
             ///<OType>is set when object generated</OType>
             ///<SubType></SubType>
@@ -1591,10 +1603,15 @@ namespace GcproExtensionApp
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
             out (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
+            DataTable dataTable ;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}",
+               null, $"{GcproTable.ObjData.Text0.Name} ASC",
+               GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
             #region common used variables declaration       
             StringBuilder descToBuilder = new StringBuilder();
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
@@ -1619,7 +1636,7 @@ namespace GcproExtensionApp
             processValue.Value = 0;
             SuffixObject suffixObject = new SuffixObject();
             string cabinet, cabinetGroup;
-            string stringNumber = string.Empty;
+            string stringNumber;
             string remark;
             bool descUserDef = false;
             bool descUserDefConfirm = false;
@@ -1642,8 +1659,8 @@ namespace GcproExtensionApp
                 string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
                 if (!descUserDefConfirm)
                 {
-                    descUserDef = (MessageBox.Show(AppGlobal.USER_DEFINED_DESC, AppGlobal.INFO, MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes) ?
-                    true : false;
+                    descUserDef = MessageBox.Show(AppGlobal.USER_DEFINED_DESC, AppGlobal.INFO, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+               
                 }
                 descUserDefConfirm = true;
                 if (descUserDef)
@@ -1730,43 +1747,47 @@ namespace GcproExtensionApp
                     objDI.SubType = DI.HLBIN;
                     objDI.Value9 = "2";
                     objDI.Value10 = "16";
+                    remark = BML.DI.ParseIORemark(ioRemark, dataTable);
+                    if (!string.IsNullOrEmpty(remark))
+                    {
+                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value2.Name, _bin.FileRelationPath, Encoding.Unicode);
+                    }
                     if (!descUserDef)
-                    {                                        
-                        remark = BML.DI.ParseIORemark(ioRemark);
+                    {
                         if (!string.IsNullOrEmpty(remark))
                         {
                             stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
                             if (AppGlobal.ParseInt(stringNumber, out tempInt))
                             {
                                 descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
-
                             }
-                            Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value2.Name, _bin.FileRelationPath, Encoding.Unicode);
                         }
                         else
                         {
                             descToBuilder.Append(ioRemark);
                         }
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BLH"]}");
-                    };
+                    }
                 }
                 else if (objDI.Name.Contains(suffixObject.GetKey("BLL")) || _subType == BML.DI.MiddleLevel)
                 {
                     objDI.SubType = DI.LLBIN;
                     objDI.Value9 = "4098";
                     objDI.Value10 = "16";
-                    if (!descUserDef)
+                    remark = BML.DI.ParseIORemark(ioRemark, dataTable);
+                    if (!string.IsNullOrEmpty(remark))
                     {
-                        remark = BML.DI.ParseIORemark(ioRemark);
+                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value3.Name, _bin.FileRelationPath, Encoding.Unicode);
+                    }
+                    if (!descUserDef)
+                    {                     
                         if (!string.IsNullOrEmpty(remark))
                         {
                             stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
                             if (AppGlobal.ParseInt(stringNumber, out tempInt))
                             {
                                 descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
-                            }
-
-                            Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value3.Name, _bin.FileRelationPath, Encoding.Unicode);
+                            }                        
                         }
                         else
                         {
@@ -1878,10 +1899,12 @@ namespace GcproExtensionApp
         private void CreateObjectRule(DI objDI, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
          ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            //  DataTable dataTable ;
             #region common used variables declaration       
             bool needDPNodeChanged = false;
             StringBuilder descToBuilder = new StringBuilder();
@@ -2081,21 +2104,17 @@ namespace GcproExtensionApp
         }
         private void CreateObjectAutoSearch(DI objDI, ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb
+            {
+               DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };         
+            DataTable dataTable ;
             List<string> objList = new List<string>();
-            // List<int> objOutpKeyList = new List<int>();
-            List<string> objInpKeyList = new List<string>();
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER}";
             filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name);
-
-            // objInpKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
-            objInpKeyList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
+            List<string> objInpKeyList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
             int quantityNeedToBeCreate = objInpKeyList.Count;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {

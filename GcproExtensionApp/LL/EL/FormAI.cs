@@ -24,7 +24,7 @@ using System.Net.NetworkInformation;
 #endregion
 namespace GcproExtensionApp
 {
-
+    #pragma warning disable IDE1006
     public partial class FormAI : Form, IGcForm
     {
 
@@ -34,34 +34,36 @@ namespace GcproExtensionApp
         }
 
         #region Public object in this class
-        AI myAI = new AI(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly AI myAI = new AI(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
 
         private bool isNewOledbDriver;
-        private string DEMO_NAME_AI = "=A-4020-MXZ01AI";
-        private string DEMO_NAME_RULE_AI = "4020";
-        private string DEMO_DESCRIPTION_AI = "制粉A线2楼(4020)磨粉机电流/或者空白";
-        private string DEMO_DESCRIPTION_RULE_AI = "4020/或者空白";
-        private string MSG_CREATE_TEMP_AND_PRE_VIA_FILTER = "搜寻数据库中除尘器并创建温度与压差";
+        private readonly string DEMO_NAME_AI = "=A-4020-MXZ01AI";
+        private readonly string DEMO_NAME_RULE_AI = "4020";
+        private readonly string DEMO_DESCRIPTION_AI = "制粉A线2楼(4020)磨粉机电流/或者空白";
+        private readonly string DEMO_DESCRIPTION_RULE_AI = "4020/或者空白";
+        private readonly string MSG_CREATE_TEMP_AND_PRE_VIA_FILTER = "搜寻数据库中除尘器并创建温度与压差";
         #endregion
         private int value9 = 32;
         private int value10 = 32;
         private int tempInt = 0;
         //  private long tempLong = 0;
         private float tempFloat = 0.0f;
-        private bool tempBool = false;
+        private bool tempBool;
         private GcBaseRule objDefaultInfo;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable ;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -229,10 +231,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            DataTable dataTable ;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{AI.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -1064,9 +1068,11 @@ namespace GcproExtensionApp
         }
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value27.Name;
-            objectBrowser.OType = Convert.ToString(AI.OTypeValue);
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value27.Name,
+                OType = Convert.ToString(AI.OTypeValue)
+            };
             objectBrowser.Show();
         }
         private void txtDescription_TextChanged(object sender, EventArgs e)
@@ -1137,10 +1143,12 @@ namespace GcproExtensionApp
         }
         private void btnCreateTempAndPre_Click(object sender, EventArgs e)
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;  
+            DataTable dataTable ;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.SubType.Name} = 'DOCFilter'",
                 null, $"{GcproTable.ObjData.Text0.Name} ASC",
                 GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Panel_ID.Name, GcproTable.ObjData.Elevation.Name);
@@ -1154,7 +1162,7 @@ namespace GcproExtensionApp
             }
             for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
             {
-                string nameFilterController = string.Empty, desc = string.Empty;
+                string nameFilterController , desc ;
                 nameFilterController = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
                 desc = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text1.Name);
                 myAI.Panel_ID = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Panel_ID.Name);
@@ -1340,42 +1348,49 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.AI.BMLPath;
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName;
-            nameColumn.Name = nameof(BML.ColumnName);
-            dataGridBML.Columns.Add(nameColumn);
+            TxtExcelPath.Text = BML.AI.BMLPath;         
+            dataGridBML.Columns.Add( new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnName,
+                Name = nameof(BML.ColumnName)
+            });
 
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.ColumnDesc;
-            descColumn.Name = nameof(BML.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
 
-            DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
-            powerColumn.HeaderText = BML.ColumnPower;
-            powerColumn.Name = nameof(BML.ColumnPower);
-            dataGridBML.Columns.Add(powerColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnPower,
+                Name = nameof(BML.ColumnPower)
+            });
             dataGridBML.Columns[2].Width = 100;
 
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.ColumnFloor;
-            floorColumn.Name = nameof(BML.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnFloor,
+                Name = nameof(BML.ColumnFloor)
+            });
 
-            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.ColumnCabinet);
-            dataGridBML.Columns.Add(cabinetColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinet,
+                Name = nameof(BML.ColumnCabinet)
+            });
 
-            DataGridViewTextBoxColumn cabinetColumnGroup = new DataGridViewTextBoxColumn();
-            cabinetColumnGroup.HeaderText = BML.ColumnCabinetGroup;
-            cabinetColumnGroup.Name = nameof(BML.ColumnCabinetGroup);
-            dataGridBML.Columns.Add(cabinetColumnGroup);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinetGroup,
+                Name = nameof(BML.ColumnCabinetGroup)
+            });
 
-            DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.ColumnLine;
-            lineColumn.Name = nameof(BML.ColumnLine);
-            dataGridBML.Columns.Add(lineColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnLine,
+                Name = nameof(BML.ColumnLine)
+            });
         }
 
         private void btnReadBML_Click(object sender, EventArgs e)
@@ -1386,7 +1401,7 @@ namespace GcproExtensionApp
             sbPowerFilters.Append(@"Value > ""0.37""");
             StringBuilder sbDescFilters = new StringBuilder();
             sbDescFilters.Append($@"Value LIKE ""%{BML.MachineType.RollerMiller}""");
-            DataTable dataTable = new DataTable();
+            DataTable dataTable;
             string[] filters = { sbPowerFilters.ToString(), sbDescFilters.ToString() };
             string[] filterColumns = { comboPowerBML.Text, comboDescBML.Text };
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
@@ -1635,10 +1650,12 @@ namespace GcproExtensionApp
                     bool all = !chkOnlyFree.Checked;
                     string objName = String.Empty;
                     string objSubType = String.Empty;
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                    DataTable dataTable ;
+                    OleDb oledb = new OleDb
+                    {
+                        DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                        IsNewOLEDBDriver = isNewOledbDriver
+                    };          
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={AI.OTypeValue}", null,
                         $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name);
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
@@ -1691,10 +1708,12 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                AI.ReGenerateDPNode(oledb);
+                OleDb oleDb = new OleDb
+                {
+                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                    IsNewOLEDBDriver = isNewOledbDriver
+                };
+                AI.ReGenerateDPNode(oleDb);
             }
         }
   
@@ -1747,9 +1766,11 @@ namespace GcproExtensionApp
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc, 
             ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             DataTable dataTable = new DataTable();
             string desc = string.Empty;
             // StringBuilder descTotalBuilder = new StringBuilder();
@@ -1980,7 +2001,7 @@ namespace GcproExtensionApp
             tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
             tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = AI.Rule.Common;
-      
+
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 name.Inc = i * symbolInc;
@@ -2063,22 +2084,25 @@ namespace GcproExtensionApp
        (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
        out (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             processValue.Max= dataFromBML.Rows.Count;
             processValue.Value = 0;
-            SuffixObject suffixObject = new SuffixObject();
+            //SuffixObject suffixObject = new SuffixObject();
             string cabinet, cabinetGroup;
-            string nameNumberString = string.Empty;
-            string name = string.Empty,nameMotor=string.Empty,nameFilterController=string.Empty;
+            string nameNumberString;
+            string name,nameMotor=string.Empty,nameFilterController=string.Empty;
             float motorPower = 0.0f;
             string motorPowerStr= string.Empty;
-            bool isFilterController = false;
+            bool isFilterController;
             (float rateCurrent, float ctRatio) motorCurrent = (0.0f, 0.0f);
             Dictionary<string, (float, float)> motorPowerInfo = new Dictionary<string, (float, float)>();
             MotorHelper motorHelper = new MotorHelper();
+          
             objDefaultInfo = AI.Rule.Common;
             for (int i = 0; i < dataFromBML.Rows.Count; i++)
             {
@@ -2191,8 +2215,7 @@ namespace GcproExtensionApp
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name);
                     if (dataTable.Rows.Count > 0)
                     {
-                        List<int> inpValueKeyList = new List<int>();
-                        inpValueKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
+                        List<int> inpValueKeyList = OleDb.GetColumnData<int>(dataTable, GcproTable.ObjData.Key.Name);
                         string filterInpValue = $@"{GcproTable.ObjData.Key.Name} = {inpValueKeyList[0]}";
                         List<GcproExtensionLibrary.Gcpro.DbParameter> updateField = new List<GcproExtensionLibrary.Gcpro.DbParameter>
                                     {
@@ -2212,19 +2235,17 @@ namespace GcproExtensionApp
         }
         private void CreatObjectAutoSearch(AI objAI,ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            DataTable dataTable = new DataTable();
-            List<string> objList = new List<string>();
-            List<string> objDescList = new List<string>();
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.AIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} ";
             filter = String.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
-            objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
-            objDescList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text1.Name);
+            List<string> objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
+            List<string> objDescList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text1.Name);
             for (int i = 0; i <objList.Count; i++)
             {
                 objList[i] = GcObject.GetObjectSymbolFromIO(objList[i], GcObjectInfo.General.SuffixIO.Delimiter);

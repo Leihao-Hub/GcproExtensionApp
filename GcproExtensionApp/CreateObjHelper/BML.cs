@@ -16,9 +16,9 @@ namespace GcproExtensionApp
     public class BML
     {
         private static string prefixLocalPanel;
-        private static MachineType machineType = new MachineType();
-        private static Sections sections = new Sections();
-        private static Bins bins = new Bins();
+        private static readonly MachineType machineType = new MachineType();
+        private static readonly Sections sections = new Sections();
+        private static readonly Bins bins = new Bins();
         private static string columnName;
         private static string columnDesc;
         private static string columnPower;
@@ -497,7 +497,7 @@ namespace GcproExtensionApp
             private static string pneTwoWayValve;
             private static string pneShutOffValve;
             private static string pneAspValve;
-            private static string ioRemarkString;
+           private static readonly string ioRemarkString;
             private static string suffixVLS;
             private static string prefixName;
             private static string nameDelimiter;
@@ -858,7 +858,7 @@ namespace GcproExtensionApp
                 }
             }
            
-            public static string ParseIORemark(string input)
+            public static string ParseIORemark(string input,DataTable data = null)
             {
                 if (string.IsNullOrEmpty(input))
                 {
@@ -866,10 +866,16 @@ namespace GcproExtensionApp
                 }
                 else
                 {
-                    if (input.IndexOf(binOf, StringComparison.OrdinalIgnoreCase) >= 0)
+                    string binIdent = Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                    bool startWithBinPrefix = binIdent.StartsWith(GcObjectInfo.Bin.BinPrefix);
+                    if (startWithBinPrefix)
                     {
-                        return GcObjectInfo.Bin.BinPrefix + Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        return $"{GcObjectInfo.Bin.BinPrefix}{binIdent}";
                     }
+                    else if (data != null)
+                    {
+                        return OleDb.GetValueBaseOtherColumn(data, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Text0.Name, binIdent);
+                    }                  
                     else
                     {
                         return string.Empty;

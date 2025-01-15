@@ -20,6 +20,7 @@ using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class FormMA_MDDYZPhoenix : Form, IGcForm
     {
         public FormMA_MDDYZPhoenix()
@@ -27,16 +28,16 @@ namespace GcproExtensionApp
             InitializeComponent();
         }
         #region Public object in this class
-        MDDYZPhoenix myMDDYZPhoenix = new MDDYZPhoenix(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly MDDYZPhoenix myMDDYZPhoenix = new MDDYZPhoenix(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
-        private bool isNewOledbDriver = false;
-        private string DEMO_NAME_MDDYZPhoenix = "=A-4001";
-        private string DEMO_NAME_RULE_MDDYZPhoenix = "4001";
-        private string DEMO_DESCRIPTION_MDDYZPhoenix= "制粉A线2楼(4001)磨粉机";
-        private string DEMO_DESCRIPTION_RULE_MDDYZPhoenix = "4001";
+        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
+        private readonly string DEMO_NAME_MDDYZPhoenix = "=A-4001";
+        private readonly string DEMO_NAME_RULE_MDDYZPhoenix = "4001";
+        private readonly string DEMO_DESCRIPTION_MDDYZPhoenix = "制粉A线2楼(4001)磨粉机";
+        private readonly string DEMO_DESCRIPTION_RULE_MDDYZPhoenix = "4001";
    
         #endregion
         private int value10 ;
@@ -47,10 +48,12 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -58,8 +61,6 @@ namespace GcproExtensionApp
             dataTable = oledb.QueryDataTable(GcproTable.SubType.TableName, $"{GcproTable.SubType.FieldOType.Name}={MDDYZPhoenix.OTypeValue}",
                 null, $"{GcproTable.SubType.FieldSub_Type_Desc.Name} ASC",
                 GcproTable.SubType.FieldSubType.Name, GcproTable.SubType.FieldSub_Type_Desc.Name);
-            // List<string> list = OleDb.GetColumnData<string>(dataTable, "SubType");
-
             for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
             {
                 itemInfo = dataTable.Rows[count].Field<string>(GcproTable.SubType.TableName) + AppGlobal.FIELDS_SEPARATOR +
@@ -156,10 +157,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{MDDYZPhoenix.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -681,10 +684,12 @@ namespace GcproExtensionApp
         #endregion
 
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value10.Name;
-            objectBrowser.OType = Convert.ToString(MDDYZPhoenix.OTypeValue);
+        {       
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value10.Name,
+                OType = Convert.ToString(MDDYZPhoenix.OTypeValue)
+            };
             objectBrowser.Show();
         }    
         void SetValue10AndElements()
@@ -939,36 +944,37 @@ namespace GcproExtensionApp
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text =BML. MA_MDDYZPhoenix.BMLPath;
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName;
-            nameColumn.Name = nameof(BML.ColumnName);
-            dataGridBML.Columns.Add(nameColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnName,
+                Name = nameof(BML.ColumnName)
+            });
 
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.ColumnDesc;
-            descColumn.Name = nameof(BML.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
-
-            DataGridViewTextBoxColumn typeColumn = new DataGridViewTextBoxColumn();
-            typeColumn.HeaderText = BML.ColumnType;
-            typeColumn.Name = nameof(BML.ColumnType);
-            dataGridBML.Columns.Add(typeColumn);
-
-            DataGridViewTextBoxColumn controlColumn = new DataGridViewTextBoxColumn();
-            controlColumn.HeaderText = BML.ColumnControlMethod;
-            controlColumn.Name = nameof(BML.ColumnControlMethod);
-            dataGridBML.Columns.Add(controlColumn);
-
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.ColumnFloor;
-            floorColumn.Name = nameof(BML.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
-
-            DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.ColumnLine;
-            lineColumn.Name = nameof(BML.ColumnLine);
-            dataGridBML.Columns.Add(lineColumn);
-
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnType,
+                Name = nameof(BML.ColumnType)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnControlMethod,
+                Name = nameof(BML.ColumnControlMethod)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnFloor,
+                Name = nameof(BML.ColumnFloor)
+            });
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnLine,
+                Name = nameof(BML.ColumnLine)
+            });
         }
 
         private void btnReadBML_Click(object sender, EventArgs e)
@@ -977,7 +983,7 @@ namespace GcproExtensionApp
 
             StringBuilder sbDescs = new StringBuilder();
             sbDescs.Append($@"Value LIKE ""%{BML.MachineType.RollerMiller}"" || ").Append($@"Value LIKE ""%{BML.MachineType.FeederRollerMiller}""");
-            DataTable dataTable = new DataTable();
+            DataTable dataTable ;
             string[] filters = { sbDescs.ToString() };
             string[] filterColumns = { comboDescBML.Text };
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
@@ -1211,14 +1217,13 @@ namespace GcproExtensionApp
             out (int Value, int Max) processValue)
         {
             StringBuilder descTotalBuilder = new StringBuilder();
-            List<KeyValuePair<string, int>> listName = new List<KeyValuePair<string, int>>();
-            int noOfSubElements = 0;
-            listName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(datafromBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
+            int noOfSubElements;
+            List<KeyValuePair<string, int>> listName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(datafromBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
             int quantityNeedToBeCreate = listName.Count;
         //    int subElements = datafromBML.Rows.Count;     
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
-            string numberString=string.Empty;
+            string numberString;
           //  string subTypePrev=string.Empty;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
@@ -1346,7 +1351,7 @@ namespace GcproExtensionApp
             ///<Description></Description>
             myMDDYZPhoenix.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
-            string selectedProcessFct = string.Empty;
+            string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
@@ -1411,7 +1416,7 @@ namespace GcproExtensionApp
                 name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
             }
 
-            string selectedDPNode1Item = string.Empty;
+         //   string selectedDPNode1Item = string.Empty;
 
             ///<DescRule>生成描述规则</DescRule>
             if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
@@ -1483,12 +1488,14 @@ namespace GcproExtensionApp
         }
         private void CreatObjectAutoSearch()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             #region common used variables declaration       
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            AppGlobal.ParseInt(TxtQuantity.Text, out int quantityNeedToBeCreate);
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {
@@ -1518,11 +1525,11 @@ namespace GcproExtensionApp
             };
             #endregion
 
-            List<string> objList = new List<string>();
-            List<string> objVFC = new List<string>();
-            List<int> objSubs = new List<int>();
+            List<string> objList ;
+            List<string> objVFC ;
+            List<int> objSubs;
             bool isVfc = false;
-            int noOfSubElements = 0;
+            int noOfSubElements;
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.EL_MDDx} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER}";
             filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
 

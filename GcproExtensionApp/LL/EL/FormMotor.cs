@@ -16,7 +16,7 @@ using System.Xml.Linq;
 #endregion
 namespace GcproExtensionApp
 {
-
+    #pragma warning disable IDE1006
     public partial class FormMotor : Form, IGcForm
     {
         public FormMotor()
@@ -24,21 +24,19 @@ namespace GcproExtensionApp
             InitializeComponent();
         }
         #region Public object in this class
-        Motor myMotor = new Motor(AppGlobal.GcproDBInfo.GcproTempPath);
-        ExcelFileHandle excelFileHandle = new ExcelFileHandle();
-        //OleDb oledb = new OleDb();
-        // DataTable dataTable = new DataTable();
-        System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        CreateMode createMode = new CreateMode();
+        readonly Motor myMotor = new Motor(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
         //private string CONNECT_VFC = "关联VFC";
         //private string CONNECT_AO = "关联AO";
-        private string DEMO_NAME_MOTOR = "=A-2001-MXZ01";
-        private string DEMO_NAME_RULE_MOTOR = "2001";
-        private string DEMO_DESCRIPTION_MOTOR = "清理线A线1楼(2001)出仓刮板机";
-        private string DEMO_DESCRIPTION_RULE_MOTOR = "";
-        private string motorSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_MOTOR}.{AppGlobal.JS_SUFFIX}.";
-        private string motorBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MOTOR}.";
+        private readonly  string DEMO_NAME_MOTOR = "=A-2001-MXZ01";
+        private readonly string DEMO_NAME_RULE_MOTOR = "2001";
+        private readonly string DEMO_DESCRIPTION_MOTOR = "清理线A线1楼(2001)出仓刮板机";
+        private readonly string DEMO_DESCRIPTION_RULE_MOTOR = "";
+        private readonly string motorSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_MOTOR}.{AppGlobal.JS_SUFFIX}.";
+        private readonly string motorBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MOTOR}.";
         private int value9 = 2;
         private int value10 = 2;
         private int tempInt = 0;
@@ -53,10 +51,12 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -228,10 +228,12 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Motor.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -613,10 +615,11 @@ namespace GcproExtensionApp
         #endregion
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Value21.Name;
-            objectBrowser.OType = Convert.ToString(Motor.OTypeValue);
-
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value21.Name,
+                OType = Convert.ToString(Motor.OTypeValue)
+            };
             objectBrowser.Show();
         }
         private void UpdateDesc()
@@ -982,59 +985,67 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.Motor.BMLPath;
-            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn();
-            nameColumn.HeaderText = BML.ColumnName; // 列头的名称
-            nameColumn.Name = nameof(BML.ColumnName); // 列的唯一名称，方便查找                                                 
-            dataGridBML.Columns.Add(nameColumn);
+            TxtExcelPath.Text = BML.Motor.BMLPath;                                               
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnName, 
+                Name = nameof(BML.ColumnName) 
+            });
 
-            DataGridViewTextBoxColumn descColumn = new DataGridViewTextBoxColumn();
-            descColumn.HeaderText = BML.ColumnDesc;
-            descColumn.Name = nameof(BML.ColumnDesc);
-            dataGridBML.Columns.Add(descColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
 
-            DataGridViewCheckBoxColumn isVFC = new DataGridViewCheckBoxColumn();
-            isVFC.HeaderText = BML.ColumnIsVFC;
-            isVFC.Name = nameof(BML.ColumnIsVFC);
-            dataGridBML.Columns.Add(isVFC);
+            dataGridBML.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                HeaderText = BML.ColumnIsVFC,
+                Name = nameof(BML.ColumnIsVFC)
+            });
 
-            DataGridViewCheckBoxColumn isFCFan = new DataGridViewCheckBoxColumn();
-            isFCFan.HeaderText = BML.ColumnIsFCFan;
-            isFCFan.Name = nameof(BML.ColumnIsFCFan);
-            dataGridBML.Columns.Add(isFCFan);
+            dataGridBML.Columns.Add(new DataGridViewCheckBoxColumn
+            {
+                HeaderText = BML.ColumnIsFCFan,
+                Name = nameof(BML.ColumnIsFCFan)
+            });
 
-            DataGridViewTextBoxColumn powerColumn = new DataGridViewTextBoxColumn();
-            powerColumn.HeaderText = BML.ColumnPower;
-            powerColumn.Name = nameof(BML.ColumnPower);
-            dataGridBML.Columns.Add(powerColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnPower,
+                Name = nameof(BML.ColumnPower)
+            });
 
-            DataGridViewTextBoxColumn floorColumn = new DataGridViewTextBoxColumn();
-            floorColumn.HeaderText = BML.ColumnFloor;
-            floorColumn.Name = nameof(BML.ColumnFloor);
-            dataGridBML.Columns.Add(floorColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnFloor,
+                Name = nameof(BML.ColumnFloor)
+            });
 
-            DataGridViewTextBoxColumn cabinetColumn = new DataGridViewTextBoxColumn();
-            cabinetColumn.HeaderText = BML.ColumnCabinet;
-            cabinetColumn.Name = nameof(BML.ColumnCabinet);
-            dataGridBML.Columns.Add(cabinetColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinet,
+                Name = nameof(BML.ColumnCabinet)
+            });
 
-            DataGridViewTextBoxColumn cabinetGroupColumn = new DataGridViewTextBoxColumn();
-            cabinetGroupColumn.HeaderText = BML.ColumnCabinetGroup;
-            cabinetGroupColumn.Name = nameof(BML.ColumnCabinetGroup);
-            dataGridBML.Columns.Add(cabinetGroupColumn);
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinetGroup,
+                Name = nameof(BML.ColumnCabinetGroup)
+            });
 
-            DataGridViewTextBoxColumn lineColumn = new DataGridViewTextBoxColumn();
-            lineColumn.HeaderText = BML.ColumnLine;
-            lineColumn.Name = nameof(BML.ColumnLine);
-            dataGridBML.Columns.Add(lineColumn);
-
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnLine,
+                Name = nameof(BML.ColumnLine)
+            });
         }
         private void btnReadBML_Click(object sender, EventArgs e)
         {
             // List<List<object>> allData = new List<List<object>>();
             string[] columnList = { comboNameBML.Text, comboDescBML.Text, comboControlBML.Text,"ZZ",comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text,comboLineBML.Text};
-            DataTable dataTable = new DataTable();
+            DataTable dataTable;
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, BML.Motor.Type, comboTypeBML.Text);
 
             dataGridBML.DataSource = dataTable;
@@ -1176,24 +1187,24 @@ namespace GcproExtensionApp
                 VFCSubElements(namePrefix);
             }
         }
-        private void NameSubElements(string _namePrefix)
-        {
-            // NamePrefix();
-            if (myMotor.SubType == Motor.M11)
-            {
+        //private void NameSubElements(string _namePrefix)
+        //{
+        //    // NamePrefix();
+        //    if (myMotor.SubType == Motor.M11)
+        //    {
 
-            }
-            else if (myMotor.SubType == Motor.M12)
-            {
-
-
-            }
-            else if (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)
-            {
+        //    }
+        //    else if (myMotor.SubType == Motor.M12)
+        //    {
 
 
-            }
-        }
+        //    }
+        //    else if (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC)
+        //    {
+
+
+        //    }
+        //}
         #endregion Genate elements name
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1505,9 +1516,11 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                OleDb oledb = new OleDb
+                {
+                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                    IsNewOLEDBDriver = isNewOledbDriver
+                };
                 Motor.ReGenerateDPNode(oledb);
 
             }
@@ -1527,7 +1540,7 @@ namespace GcproExtensionApp
             ///<ParFaultDelayTime></ParFaultDelayTime>
             objMotor.ParFaultDelayTime = AppGlobal.ParseFloat(TxtFaultDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
 
-            string selectedProcessFct = string.Empty;
+            string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
@@ -1602,14 +1615,15 @@ namespace GcproExtensionApp
             SuffixObject suffixObject = new SuffixObject();
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
-            string _nameNumberString = string.Empty;
+           
             bool numeric, motorWithVFC,fcFan;
-            bool isMDDxFeeder = false;
+            bool isMDDxFeeder;
             bool planSifter, purifier, laab, hm;
             float power;
-            string desc = string.Empty;
             int tmpInt;
             int parValue10 = 130;
+            string _nameNumberString;
+            string desc;
             string columnPower;
             string strParValue10 = parValue10.ToString();
             DataGridViewCell cell;
@@ -1755,9 +1769,11 @@ namespace GcproExtensionApp
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             string desc = string.Empty;
-            OleDb oledb = new OleDb();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             //  DataTable dataTable = new DataTable();
             #region common used variables declaration
             bool motorWithVFC = false;
@@ -1814,7 +1830,7 @@ namespace GcproExtensionApp
             {
                 selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
                 myMotor.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-                motorWithVFC = (myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC) ? true : false;
+                motorWithVFC = myMotor.SubType == Motor.M1VFC || myMotor.SubType == Motor.M2VFC;
             }
             else
             {
@@ -2058,24 +2074,25 @@ namespace GcproExtensionApp
         }
         private void CreateObjectAutoSearch(Motor objMotor, ref (int Value, int Max) processValue)
         {
-            List<Dictionary<string, string>> objSubList = new List<Dictionary<string, string>>();
             List<GcObjectInfo.Motor.SimpleInfo> obj = new List<GcObjectInfo.Motor.SimpleInfo>();
-            OleDb oledb = new OleDb();
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
+            DataTable dataTable ;
             string filter = $@"({GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DOC} OR {GcproTable.ObjData.OType.Name} = {VFCAdapter.OTypeValue}) " +
                             $@"AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} AND {GcproTable.ObjData.Text0.Name} LIKE '%{GcObjectInfo.Motor.SuffixMotor}%'";
             filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
 
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
-            objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
+            List<Dictionary<string, string>> objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
 
             for (int listIndex = 0; listIndex < objSubList.Count; listIndex++)
             {
                 var dictionary = objSubList[listIndex];
                 var keys = new List<string>(dictionary.Keys);
-                bool isVFC = dictionary[keys[1]] == VFCAdapter.OTypeValue.ToString() ? true : false;
+                bool isVFC = dictionary[keys[1]] == VFCAdapter.OTypeValue.ToString();
                 string _nameIO = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.General.SuffixIO.Delimiter);
                 string _nameVFC = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.Motor.SuffixVFC);
                 string _name = string.IsNullOrEmpty(_nameIO) ? _nameVFC : _nameIO;
@@ -2166,10 +2183,7 @@ namespace GcproExtensionApp
                 AppGlobal.AdditionDesc.Power = chkAddPowerToDesc.Checked;
                 AppGlobal.AdditionDesc.OnlyNumber = chkNameOnlyNumber.Checked;
                 AppGlobal.ProcessValue.Value = ProgressBar.Value = 0;
-                OleDb oledb = new OleDb();
-                oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                DataTable dataTable = new DataTable();
+       
                 CreateObjectCommon(myMotor);
                 if (createMode.BML)
                 {
