@@ -8,8 +8,6 @@ Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\bin\Debug
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExt.CCE0ECD5.Up2Date
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.dll
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibary.pdb
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.AssemblyReference.cache
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.CoreCompileInputs.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibrary.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\GcproExtensionLibrary.pdb
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\EPPlus.dll
@@ -147,6 +145,8 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\De
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\System.Xml.XmlSerializer.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\System.Xml.XPath.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\bin\Debug\System.Xml.XPath.XDocument.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.AssemblyReference.cache
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.csproj.CoreCompileInputs.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExt.CCE0ECD5.Up2Date
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionLibary\obj\Debug\GcproExtensionLibrary.pdb

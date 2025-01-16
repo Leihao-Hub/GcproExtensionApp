@@ -14,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 331,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,10 +33,6 @@
               "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "AI.cs",
@@ -44,7 +40,7 @@
               "RelativeDocumentMoniker": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\AI.cs",
               "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\AI.cs",
               "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\AI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-16T00:51:11.521Z",
               "EditorCaption": ""

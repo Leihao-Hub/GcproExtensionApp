@@ -62,6 +62,254 @@
           }
         }
       }
+    },
+    ".NETFramework,Version=v4.6.2/win": {
+      "MSTest.TestFramework/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "resource": {
+          "lib/net462/cs/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net462/de/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net462/es/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net462/fr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net462/it/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net462/ja/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net462/ko/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net462/pl/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net462/pt-BR/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net462/ru/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net462/tr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net462/zh-Hans/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net462/zh-Hant/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6.2/win-arm64": {
+      "MSTest.TestFramework/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "resource": {
+          "lib/net462/cs/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net462/de/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net462/es/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net462/fr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net462/it/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net462/ja/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net462/ko/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net462/pl/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net462/pt-BR/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net462/ru/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net462/tr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net462/zh-Hans/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net462/zh-Hant/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6.2/win-x64": {
+      "MSTest.TestFramework/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "resource": {
+          "lib/net462/cs/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net462/de/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net462/es/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net462/fr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net462/it/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net462/ja/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net462/ko/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net462/pl/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net462/pt-BR/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net462/ru/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net462/tr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net462/zh-Hans/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net462/zh-Hant/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.6.2/win-x86": {
+      "MSTest.TestFramework/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {
+            "related": ".Extensions.xml;.xml"
+          }
+        },
+        "resource": {
+          "lib/net462/cs/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net462/de/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net462/es/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net462/fr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net462/it/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net462/ja/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net462/ko/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net462/pl/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net462/pt-BR/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net462/ru/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net462/tr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net462/zh-Hans/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net462/zh-Hant/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      }
     }
   },
   "libraries": {
@@ -220,6 +468,20 @@
             "version": "[3.1.1, )"
           }
         }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-arm64": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
       }
     }
   }
