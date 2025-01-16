@@ -45,17 +45,13 @@ namespace GcproExtensionApp
         private (string ipAddrPrevSegment, string ipRule) ip;
         // private long tempLong = 0;
         //  private float tempFloat = 0.0f;
-       private bool tempBool = false;
+       //private bool tempBool = false;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             DataTable dataTable ;
             ///<ReaFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
@@ -170,11 +166,7 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable;       
             dataTable=oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DPSlave.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);         
@@ -1025,13 +1017,13 @@ namespace GcproExtensionApp
             int symbolInc, symbolRule, descriptionInc;
             int slaveNoInc,slaveNoStart;
             int ipRuleInc, _ipRule;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            tempBool = AppGlobal.ParseInt(txtIPAddressIncRule.Text, out ipRuleInc);
-            tempBool = AppGlobal.ParseInt(ip.ipRule, out _ipRule);
-            tempBool = AppGlobal.ParseInt(txtParSlaveNoIncRule.Text, out slaveNoInc);
-            tempBool = AppGlobal.ParseInt(txtParSlaveNo.Text, out slaveNoStart);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtIPAddressIncRule.Text, out ipRuleInc);
+            AppGlobal.ParseInt(ip.ipRule, out _ipRule);
+            AppGlobal.ParseInt(txtParSlaveNoIncRule.Text, out slaveNoInc);
+            AppGlobal.ParseInt(txtParSlaveNo.Text, out slaveNoStart);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;

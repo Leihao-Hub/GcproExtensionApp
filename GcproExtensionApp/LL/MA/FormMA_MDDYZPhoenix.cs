@@ -33,7 +33,7 @@ namespace GcproExtensionApp
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
-        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
+        private bool isNewOledbDriver ;
         private readonly string DEMO_NAME_MDDYZPhoenix = "=A-4001";
         private readonly string DEMO_NAME_RULE_MDDYZPhoenix = "4001";
         private readonly string DEMO_DESCRIPTION_MDDYZPhoenix = "制粉A线2楼(4001)磨粉机";
@@ -42,17 +42,13 @@ namespace GcproExtensionApp
         #endregion
         private int value10 ;
         private int tempInt = 0;
-        private bool tempBool = false;
+       //private bool tempBool = false;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
@@ -157,11 +153,7 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable ;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{MDDYZPhoenix.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
@@ -1443,9 +1435,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;

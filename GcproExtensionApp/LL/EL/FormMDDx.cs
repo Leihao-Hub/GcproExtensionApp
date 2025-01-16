@@ -47,7 +47,7 @@ namespace GcproExtensionApp
         private int tempInt = 0;
         // private long tempLong = 0;
         //  private float tempFloat = 0.0f;
-        private bool tempBool = false;
+      //  private bool tempBool = false;
         private GcBaseRule objDefaultInfo;
         #endregion
 
@@ -57,11 +57,7 @@ namespace GcproExtensionApp
             string itemInfo;
             List<string> list;
             DataTable dataTable;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             ///<ReaMDDxnfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReaMDDxnfoFromGcsLibrary>
@@ -230,11 +226,7 @@ namespace GcproExtensionApp
         public void CreateImpExp()
         {
             DataTable dataTable;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{MDDx.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -1272,11 +1264,7 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb
-                {
-                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                    IsNewOLEDBDriver = isNewOledbDriver
-                };
+                OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                 MDDx.ReGenerateDPNode(oledb);
             }
         }   
@@ -1284,11 +1272,7 @@ namespace GcproExtensionApp
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
             out (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
@@ -1375,11 +1359,7 @@ namespace GcproExtensionApp
       ref (int Value, int Max) processValue)
         {
             #region common used variables declaration 
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             bool needDPNodeChanged = false;
             StringBuilder descTotalBuilder = new StringBuilder();
             int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
@@ -1615,9 +1595,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = MDDx.Rule.Common;
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
@@ -1719,12 +1699,6 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
-
-
-
-
         #endregion <---Common used--->
 
        

@@ -33,7 +33,7 @@ namespace GcproExtensionApp
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
-        private bool isNewOledbDriver = false;
+        private bool isNewOledbDriver;
         private readonly string DEMO_NAME_ROLL8STAND = "=A-4001";
         private readonly string DEMO_NAME_RULE_ROLL8STAND = "4001";
         private readonly string DEMO_DESCRIPTION_ROLL8STAND = "XXX磨粉机/或者空白";
@@ -41,17 +41,12 @@ namespace GcproExtensionApp
         #endregion
         private int value10 ;
         private int tempInt = 0;
-        private bool tempBool;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
@@ -1271,10 +1266,8 @@ namespace GcproExtensionApp
                     bool all = !chkOnlyFree.Checked;
                     string objName = String.Empty;
                     string objSubType = String.Empty;
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                    OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+                    DataTable dataTable;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Roll8Stand.OTypeValue}", null,
                         $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name,
                         GcproTable.ObjData.Value13.Name, GcproTable.ObjData.Value19.Name, GcproTable.ObjData.Value14.Name,
@@ -1561,9 +1554,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;

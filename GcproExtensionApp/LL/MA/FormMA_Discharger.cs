@@ -33,7 +33,7 @@ namespace GcproExtensionApp
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
-        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
+        private bool isNewOledbDriver;
         private GcBaseRule objDefaultInfo;
         
         #endregion
@@ -45,11 +45,7 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
@@ -193,11 +189,7 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable ;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Discharger.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
@@ -619,7 +611,7 @@ namespace GcproExtensionApp
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
             GetValue10BitValue(value10);
-            tempBool = AppGlobal.ParseInt(txtValue10.Text, out value10);
+            AppGlobal.ParseInt(txtValue10.Text, out value10);
         }
         #endregion
         #region <------Field in database display
@@ -1083,10 +1075,8 @@ namespace GcproExtensionApp
                     bool all = !chkOnlyFree.Checked;
                     string objName = String.Empty;
                     string objSubType = String.Empty;
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                    OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+                    DataTable dataTable ;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Discharger.OTypeValue}", null,
                         $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name,
                         GcproTable.ObjData.Value12.Name, GcproTable.ObjData.Value13.Name, GcproTable.ObjData.Value14.Name,
@@ -1545,15 +1535,15 @@ namespace GcproExtensionApp
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc, dischargerInc, vibroInc, llBinInc, lsFlowInc, receiverInc, senderBinInc;
             int vibroOnTime, vibroOffTime,restDischargeTime;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            tempBool = AppGlobal.ParseInt(txtDischargerIncRule.Text, out dischargerInc);
-            tempBool = AppGlobal.ParseInt(txtDischargerIncRule.Text, out vibroInc);
-            tempBool = AppGlobal.ParseInt(txtLLBinIncRule.Text, out llBinInc);
-            tempBool = AppGlobal.ParseInt(txtLSFlowIncRule.Text, out lsFlowInc);
-            tempBool = AppGlobal.ParseInt(txtReceiverIncRule.Text, out receiverInc);
-            tempBool = AppGlobal.ParseInt(txtSenderBinIncRule.Text, out senderBinInc);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtDischargerIncRule.Text, out dischargerInc);
+            AppGlobal.ParseInt(txtDischargerIncRule.Text, out vibroInc);
+            AppGlobal.ParseInt(txtLLBinIncRule.Text, out llBinInc);
+            AppGlobal.ParseInt(txtLSFlowIncRule.Text, out lsFlowInc);
+            AppGlobal.ParseInt(txtReceiverIncRule.Text, out receiverInc);
+            AppGlobal.ParseInt(txtSenderBinIncRule.Text, out senderBinInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;

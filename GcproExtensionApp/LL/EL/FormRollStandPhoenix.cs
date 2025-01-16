@@ -33,7 +33,7 @@ namespace GcproExtensionApp
         readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
-        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
+        private bool isNewOledbDriver;
         private readonly string DEMO_NAME_MDDYZ = "=A-4001-KCL30";
         private readonly string DEMO_NAME_RULE_MDDYZ = "4001";
         private readonly string DEMO_DESCRIPTION_MDDYZ = "制粉A线2楼磨粉机现场控制箱/或者空白";
@@ -42,7 +42,7 @@ namespace GcproExtensionApp
         private int value10 = 80;
         private int tempInt = 0;
         private float tempFloat;
-        private bool tempBool = false;
+     //   private bool tempBool = false;
         private GcBaseRule objDefaultInfo;
         #endregion
     
@@ -1271,9 +1271,9 @@ namespace GcproExtensionApp
             }
             #endregion
             int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = MDDYZ.Rule.Common;
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {

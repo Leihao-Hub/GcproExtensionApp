@@ -29,7 +29,7 @@ namespace GcproExtensionApp
         readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
-        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
+        private bool isNewOledbDriver;
         //private string CONNECT_VFC = "关联VFC";
         //private string CONNECT_AO = "关联AO";
         private readonly string DEMO_NAME_VFC = "=A-4001-MXZ03-VFC";
@@ -40,7 +40,7 @@ namespace GcproExtensionApp
         private int value10 = 1;
         private int tempInt = 0;
         private float tempFloat = (float)0.0;
-        private bool tempBool = false;
+     //   private bool tempBool = false;
         private GcBaseRule objDefaultInfo;
         #endregion Public object in this class
 
@@ -49,10 +49,8 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
+            DataTable dataTable ;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -192,10 +190,8 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath,isNewOledbDriver);
+            DataTable dataTable;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{VFCAdapter.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -1272,11 +1268,7 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb
-                {
-                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                    IsNewOLEDBDriver = isNewOledbDriver
-                };
+                OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);          
                 VFCAdapter.ReGenerateDPNode(oledb);
             }
         }
@@ -1285,11 +1277,7 @@ namespace GcproExtensionApp
           ref (int Value, int Max) processValue)
         {
             #region common used variables declaration
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);    
             int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
             bool needDPNodeChanged = false;
@@ -1558,10 +1546,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1632,11 +1619,7 @@ namespace GcproExtensionApp
              out (int Value, int Max) processValue)
         {
             #region common used variables declaration
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);       
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             int slaveIndexInc = AppGlobal.ParseInt(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
             int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
@@ -1817,8 +1800,7 @@ namespace GcproExtensionApp
             {
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }  
-        
+        }          
       #endregion <---Common used--->
     }
 

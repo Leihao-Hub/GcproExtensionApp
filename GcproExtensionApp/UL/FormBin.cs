@@ -47,7 +47,7 @@ namespace GcproExtensionApp
         private int value31 = 0;
         private int tempInt = 0;
         //private float tempFloat = 0.0f;
-        private bool tempBool = false;
+        //private bool tempBool = false;
         private string descPrefixRule = string.Empty;
         private string descPrefixPart = string.Empty;
         private string descPart= string.Empty;
@@ -56,11 +56,7 @@ namespace GcproExtensionApp
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
@@ -1190,12 +1186,10 @@ namespace GcproExtensionApp
                   //  List<Dictionary<string, double>> binListD = new List<Dictionary<string, double>>();
                     List<Dictionary<string, string>> binLLList = new List<Dictionary<string, string>>();
                     List<Dictionary<string, string>> binHLList = new List<Dictionary<string, string>> ();
-                   // List<Dictionary<string, string>> binMLList = new List<Dictionary<string, string>>();
-                 //   List<Dictionary<string, string>> binALList = new List<Dictionary<string, string>>();
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;                  
+                    // List<Dictionary<string, string>> binMLList = new List<Dictionary<string, string>>();
+                    //   List<Dictionary<string, string>> binALList = new List<Dictionary<string, string>>();
+                    OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+                    DataTable dataTable;               
                     if (connectLLWithDesc)
                     {
                         dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {DI.OTypeValue} AND {GcproTable.ObjData.SubType.Name } = '{DI.LLBIN}'",
@@ -1384,7 +1378,7 @@ namespace GcproExtensionApp
         {
             try
             {
-                OleDb oledb = new OleDb();
+               // OleDb oledb = new OleDb();
                 //  DataTable dataTable = new DataTable();
                 #region common used variables declaration       
                 StringBuilder descTotalBuilder = new StringBuilder();
@@ -1509,7 +1503,7 @@ namespace GcproExtensionApp
                 ///<ParRestdischargeWeight></ParRestdischargeWeight>
                 myBin.ParRestdischargeWeight = AppGlobal.ParseInt(txtRestdischargeWeight.Text, out tempInt) ? (tempInt).ToString("F0") : "0";
                 ///<ParBinNo>Value is set when corresponding check box's check state changed</ParBinNo>
-                tempBool = AppGlobal.ParseInt(txtBinNo.Text, out binNo);
+                AppGlobal.ParseInt(txtBinNo.Text, out binNo);
                 ///<value31>Value is set when corresponding check box's check state changed</value31>
                 ///<Value30>Value is set when corresponding check box's check state changed</Value30>
                 ///<Value24>Value is set when corresponding check box's check state changed</Value24>
@@ -1713,9 +1707,9 @@ namespace GcproExtensionApp
                     ///<CreateObj>
                     ///</CreateObj>
                     int symbolInc, symbolRule, descriptionInc;
-                    tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-                    tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-                    tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+                    AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+                    AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+                    AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
                         name.Inc = i * symbolInc;
@@ -1765,7 +1759,7 @@ namespace GcproExtensionApp
                                 && (highLevel.PosInfo.Len != -1))
                             {
                                 int highInc;
-                                tempBool = AppGlobal.ParseInt(txtHighLevelIncRule.Text, out highInc);
+                                AppGlobal.ParseInt(txtHighLevelIncRule.Text, out highInc);
                                 highLevel.Inc = i * highInc;
                                 highLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(highLevel.Sub, highLevel.PosInfo, (int.Parse(txtHighLevelRule.Text) + highLevel.Inc).ToString());
                             }
@@ -1783,7 +1777,7 @@ namespace GcproExtensionApp
                                 && (lowLevel.PosInfo.Len != -1))
                             {
                                 int lowInc;
-                                tempBool = AppGlobal.ParseInt(txtLowLevelIncRule.Text, out lowInc);
+                                AppGlobal.ParseInt(txtLowLevelIncRule.Text, out lowInc);
                                 lowLevel.Inc = i * lowInc;
                                 lowLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(lowLevel.Sub, lowLevel.PosInfo, (int.Parse(txtLowLevelRule.Text) + lowLevel.Inc).ToString());
                             }
@@ -1801,7 +1795,7 @@ namespace GcproExtensionApp
                                 && (middleLevel.PosInfo.Len != -1))
                             {
                                 int middleInc;
-                                tempBool = AppGlobal.ParseInt(txtMiddleLevelIncRule.Text, out middleInc);
+                                AppGlobal.ParseInt(txtMiddleLevelIncRule.Text, out middleInc);
                                 middleLevel.Inc = i * middleInc;
                                 middleLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(middleLevel.Sub, middleLevel.PosInfo, (int.Parse(txtMiddleLevelRule.Text) + middleLevel.Inc).ToString());
                             }
@@ -1819,7 +1813,7 @@ namespace GcproExtensionApp
                                 && (analogLevel.PosInfo.Len != -1))
                             {
                                 int analogInc;
-                                tempBool = AppGlobal.ParseInt(txtAnalogLevelIncRule.Text, out analogInc);
+                                AppGlobal.ParseInt(txtAnalogLevelIncRule.Text, out analogInc);
                                 analogLevel.Inc = i * analogInc;
                                 analogLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(analogLevel.Sub, analogLevel.PosInfo, (int.Parse(txtAnalogLevelRule.Text) + analogLevel.Inc).ToString());
                             }

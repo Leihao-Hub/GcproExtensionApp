@@ -55,11 +55,7 @@ namespace GcproExtensionApp
             string itemInfo;
             List<string> list;
             DataTable dataTable ;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -218,11 +214,7 @@ namespace GcproExtensionApp
         public void CreateImpExp()
         {
             DataTable dataTable ;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DO.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -1248,23 +1240,15 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oledb = new OleDb
-                {
-                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                    IsNewOLEDBDriver = isNewOledbDriver
-                };
+                OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                 DO.ReGenerateDPNode(oledb);
             }
         }
     
         public void CreateObjectCommon(DO objDO)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
-        //    DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            //    DataTable dataTable = new DataTable();
             #region Prepare export DO file
             ///<OType>is set when object generated</OType>
             ///<SubType></SubType>
@@ -1353,8 +1337,6 @@ namespace GcproExtensionApp
             if (comboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = comboDPNode1.SelectedItem.ToString();
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 objDO.DPNode1 = DO.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
@@ -1375,8 +1357,6 @@ namespace GcproExtensionApp
             if (comboDPNode2.SelectedItem != null)
             {
                 selectDPNode2 = comboDPNode1.SelectedItem.ToString();
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                 objDO.DPNode2 = DO.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
@@ -1448,7 +1428,6 @@ namespace GcproExtensionApp
             bool descUserDef = false;
             bool descUserDefConfirm = false;
             objDefaultInfo = DO.Rule.Common;
-          //  Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 DataGridViewCell cell;
@@ -1550,12 +1529,8 @@ namespace GcproExtensionApp
         private void CreateObjectRule(DO objDO, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
          ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
-           // DataTable dataTable = new DataTable();
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            // DataTable dataTable = new DataTable();
             #region common used variables declaration       
             bool needDPNodeChanged = false;
             StringBuilder descToBuilder = new StringBuilder();
@@ -1814,11 +1789,7 @@ namespace GcproExtensionApp
         }
         private void CreateObjectAutoSearch(DO objDO, ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable ;
             List<string> objList = new List<string>();
             // List<int> objOutpKeyList = new List<int>();

@@ -51,7 +51,7 @@ namespace GcproExtensionApp
         private int tempInt = 0;
         //  private long tempLong = 0;
         private float tempFloat = 0.0f;
-        private bool tempBool;
+     //   private bool tempBool;
         private GcBaseRule objDefaultInfo;
         #region Public interfaces
         public void GetInfoFromDatabase()
@@ -59,11 +59,7 @@ namespace GcproExtensionApp
             string itemInfo;
             List<string> list;
             DataTable dataTable ;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);      
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
             ///</ReadInfoFromGcsLibrary>
@@ -232,11 +228,7 @@ namespace GcproExtensionApp
         public void CreateImpExp()
         {
             DataTable dataTable ;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{AI.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
             if (dataTable.Rows.Count > 0)
@@ -1144,11 +1136,7 @@ namespace GcproExtensionApp
         private void btnCreateTempAndPre_Click(object sender, EventArgs e)
         {
             DataTable dataTable ;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.SubType.Name} = 'DOCFilter'",
                 null, $"{GcproTable.ObjData.Text0.Name} ASC",
                 GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Panel_ID.Name, GcproTable.ObjData.Elevation.Name);
@@ -1651,11 +1639,7 @@ namespace GcproExtensionApp
                     string objName = String.Empty;
                     string objSubType = String.Empty;
                     DataTable dataTable ;
-                    OleDb oledb = new OleDb
-                    {
-                        DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                        IsNewOLEDBDriver = isNewOledbDriver
-                    };          
+                    OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);                    
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={AI.OTypeValue}", null,
                         $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name);
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
@@ -1708,12 +1692,8 @@ namespace GcproExtensionApp
             if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                OleDb oleDb = new OleDb
-                {
-                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                    IsNewOLEDBDriver = isNewOledbDriver
-                };
-                AI.ReGenerateDPNode(oleDb);
+                OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+                AI.ReGenerateDPNode(oledb);
             }
         }
   
@@ -1766,11 +1746,7 @@ namespace GcproExtensionApp
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc, 
             ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);   
             DataTable dataTable = new DataTable();
             string desc = string.Empty;
             // StringBuilder descTotalBuilder = new StringBuilder();
@@ -1997,9 +1973,9 @@ namespace GcproExtensionApp
             ///DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = AI.Rule.Common;
 
             for (int i = 0; i < quantityNeedToBeCreate; i++)
@@ -2084,11 +2060,7 @@ namespace GcproExtensionApp
        (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
        out (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable ;
             processValue.Max= dataFromBML.Rows.Count;
             processValue.Value = 0;
@@ -2235,11 +2207,7 @@ namespace GcproExtensionApp
         }
         private void CreatObjectAutoSearch(AI objAI,ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable;
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.AIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} ";
             filter = String.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";

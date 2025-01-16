@@ -33,7 +33,7 @@ namespace GcproExtensionApp
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
-        private bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
+        private bool isNewOledbDriver;
         private const string MON1 = "Mon1";
         private const string OSILLATION_SENSOR= "OscillationSensor";
         private const string AI= "AI";
@@ -44,17 +44,13 @@ namespace GcproExtensionApp
         private int value10 ;
         private int value9;
         private int tempInt = 0;
-        private bool tempBool = false;
+      //  private bool tempBool = false;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
             string itemInfo;
             List<string> list;
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.GcsLibaryPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
             DataTable dataTable;
             ///<ReadInfoFromGcsLibrary> 
             ///Read [SubType],[ProcessFct]from GcsLibrary 
@@ -201,11 +197,7 @@ namespace GcproExtensionApp
         }
         public void CreateImpExp()
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{MotorWithBypass.ImpExpRuleName}'",
             null, null, GcproTable.ImpExpDef.FieldType.Name);
@@ -775,7 +767,7 @@ namespace GcproExtensionApp
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
             GetValue10BitValue(value10);
-            tempBool = AppGlobal.ParseInt(txtValue10.Text, out value10);
+            AppGlobal.ParseInt(txtValue10.Text, out value10);
         }
         #endregion
         #region <------Field in database display
@@ -1309,10 +1301,8 @@ namespace GcproExtensionApp
                     bool all = !chkOnlyFree.Checked;
                     string objName = String.Empty;
                     string objSubType = String.Empty;
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = isNewOledbDriver;
+                    OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+                    DataTable dataTable;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={MotorWithBypass.OTypeValue}", null,
                         $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Value11.Name,
                         GcproTable.ObjData.Value13.Name, GcproTable.ObjData.Value19.Name, GcproTable.ObjData.Value14.Name,
@@ -1798,16 +1788,16 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc,mon1Inc,mon2Inc,vls1Inc,vls2Inc,sealInc,pressureInc,aiInc,cleaningTime;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            tempBool = AppGlobal.ParseInt(txtMon1IncRule.Text, out mon1Inc);
-            tempBool = AppGlobal.ParseInt(txtMon2IncRule.Text, out mon2Inc);
-            tempBool = AppGlobal.ParseInt(txtVLS1IncRule.Text, out vls1Inc);
-            tempBool = AppGlobal.ParseInt(txtVLS2IncRule.Text, out vls2Inc);
-            tempBool = AppGlobal.ParseInt(txtSealIncRule.Text, out sealInc);
-            tempBool = AppGlobal.ParseInt(txtPressureIncRule.Text, out pressureInc);
-            tempBool = AppGlobal.ParseInt(txtAIIncRule.Text, out aiInc);
+            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseInt(txtMon1IncRule.Text, out mon1Inc);
+            AppGlobal.ParseInt(txtMon2IncRule.Text, out mon2Inc);
+            AppGlobal.ParseInt(txtVLS1IncRule.Text, out vls1Inc);
+            AppGlobal.ParseInt(txtVLS2IncRule.Text, out vls2Inc);
+            AppGlobal.ParseInt(txtSealIncRule.Text, out sealInc);
+            AppGlobal.ParseInt(txtPressureIncRule.Text, out pressureInc);
+            AppGlobal.ParseInt(txtAIIncRule.Text, out aiInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1984,7 +1974,7 @@ namespace GcproExtensionApp
                 myMotorWithBypass.Value10 = txtValue10.Text;
                 myMotorWithBypass.Value9 = txtValue9.Text;
 
-                tempBool = AppGlobal.ParseInt(txtCleaningTime.Text, out cleaningTime);
+                bool tempBool = AppGlobal.ParseInt(txtCleaningTime.Text, out cleaningTime);
                 myMotorWithBypass.ParCleaningTime = tempBool ? (cleaningTime * 10.0 ).ToString("F1") : "600.0";
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         
