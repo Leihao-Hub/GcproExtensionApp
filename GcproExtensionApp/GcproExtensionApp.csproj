@@ -37,6 +37,9 @@
     <ApplicationIcon>Common\Coorperatin2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GcproExtension">
+      <HintPath>..\GcproExtensionLibary\bin\Debug\output\GcproExtension.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -683,12 +686,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\GcproExtensionLibary\GcproExtensionLibrary.csproj">
-      <Project>{12705553-fd01-4e57-8194-1a82a5244448}</Project>
-      <Name>GcproExtensionLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest.TestFramework">
       <Version>3.1.1</Version>

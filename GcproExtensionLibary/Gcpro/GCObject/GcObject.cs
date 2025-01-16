@@ -32,8 +32,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="filePath"></param>
         public static void Clear(string filePath)
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = filePath
+            };
             textFileHandle.ClearContents();
         }
         /// <summary>
@@ -44,18 +46,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <returns></returns>
         public static bool SaveFileAs(string sourceFilePath, string title)
         {
-            bool result;
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = sourceFilePath;
-            result = textFileHandle.SaveFileAs(title);
-            return result;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = sourceFilePath
+            };
+            return textFileHandle.SaveFileAs(title);      
         }
         /// <summary>
         /// 创建对象标准部分字符串
         /// </summary>
-        /// <param name="encoding"></param>
         /// <returns></returns>
-        public string CreateObjectStandardPart(Encoding encoding)
+        public string CreateObjectStandardPart()
         {
             StringBuilder objFields = new StringBuilder();
             objFields.Append(IsNew).Append(LibGlobalSource.TAB)
@@ -81,8 +82,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="encoding"></param>
         public static void CreateRelation(string parent, string child, string connectedFiled, string filePath, Encoding encoding)
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = filePath
+            };
             string output = parent + LibGlobalSource.TAB + child + LibGlobalSource.TAB + connectedFiled;
             textFileHandle.WriteToTextFile(output, encoding);
         }
@@ -314,9 +317,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static void ReGenerateDPNode(OleDb oledb)
         {
             oledb.DeleteRecord(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name}='{GcproTable.TranslationCbo.Class_ASWInDPFault}'", null);
-            DataTable data = new DataTable();
+            DataTable data ;
             data = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={DPSlave.OTypeValue}", null, null,
                 GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.DPNode1.Name);
+
+            /* ------------------old code
             string description = string.Empty;
             string symbol = string.Empty;
             double dpNode1 = 0;
@@ -340,6 +345,41 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 { Name = GcproTable.TranslationCbo.FieldDescription.Name, Value = description });
                 recordList.Add(recordParameters);
             }
+           ------------------old code */
+            var recordList = new List<List<GcproExtensionLibrary.Gcpro.DbParameter>>();
+
+            foreach (DataRow row in data.Rows)
+            {
+                var symbol = row.Field<string>(GcproTable.ObjData.Text0.Name);
+                var description = row.Field<string>(GcproTable.ObjData.Text1.Name);
+                var dpNode1 = row.Field<double>(GcproTable.ObjData.DPNode1.Name);
+                var recordParameters = new List<GcproExtensionLibrary.Gcpro.DbParameter>
+                {
+                    new GcproExtensionLibrary.Gcpro.DbParameter
+                    {
+                        Name = GcproTable.TranslationCbo.FieldClass.Name,
+                        Value = GcproTable.TranslationCbo.Class_ASWInDPFault
+                    },
+                    new GcproExtensionLibrary.Gcpro.DbParameter
+                    {
+                        Name = GcproTable.TranslationCbo.FieldValue.Name,
+                        Value = dpNode1
+                    },
+                    new GcproExtensionLibrary.Gcpro.DbParameter
+                    {
+                        Name = GcproTable.TranslationCbo.FieldText.Name,
+                        Value = symbol
+                    },
+                    new GcproExtensionLibrary.Gcpro.DbParameter
+                    {
+                        Name = GcproTable.TranslationCbo.FieldDescription.Name,
+                        Value = description
+                    }
+                };
+
+                recordList.Add(recordParameters);
+            }
+
             oledb.InsertRecords(GcproTable.TranslationCbo.TableName, recordList);
 
         }
@@ -352,7 +392,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <returns></returns>
         public static string FindIOKey(Func<string, string, IDictionary<string, object>, string, string[], DataTable> queryDataTable, string objIOName)
         {
-            string key = string.Empty;
+            string key ;
             DataTable data;
             string tableName, whereClause;
             tableName = GcproTable.ObjData.TableName;
@@ -406,7 +446,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <returns></returns>
         public static string FindFieldbusNodeKey(Func<string, string, IDictionary<string,object>, string, string[], DataTable> queryDataTable, int nodeNo)
         {
-            string key = string.Empty;
+            string key ;
             DataTable data;    
             //data = oleDb.QueryDataTable(GcproTable.ObjData.TableName, $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}",
             //             null, null, GcproTable.ObjData.Key.Name);
@@ -430,7 +470,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <returns></returns>
         public static string FindDPNodeNo(Func<string, string, IDictionary<string, object>, string, string[], DataTable> queryDataTable, string nodeName)
         {
-            string key = string.Empty;
+            string key ;
             DataTable data;          
             string tableName, whereClause;
             tableName = GcproTable.TranslationCbo.TableName;

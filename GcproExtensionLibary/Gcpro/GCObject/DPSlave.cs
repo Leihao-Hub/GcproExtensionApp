@@ -17,7 +17,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string filePath;
         //private string fileRelationPath;
         //private string fileConnectorPath;
-        private static string dpSlaveFileName = $@"\{OTypeCollection.DP_Slave}";
+        private readonly static string dpSlaveFileName = $@"\{OTypeCollection.DP_Slave}";
         public static DPSlaveRule Rule;
         private string name;
         private string description;
@@ -199,15 +199,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle();
-                textFileHandle.FilePath = this.filePath;
+                TextFileHandle textFileHandle = new TextFileHandle
+                {
+                    FilePath = this.filePath
+                };
                 isNew = "false";
                 StringBuilder objFields = new StringBuilder();
                 ///<summary>
                 ///生产Standard字符串部分-使用父类中方法实现
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
+                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>   
@@ -218,13 +220,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                    .Append(watchDogFactor).Append(LibGlobalSource.TAB)
                    .Append(watchDogTime);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-                objFields = null;
+             
             }
         }
         public void Clear()
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
             textFileHandle.ClearContents();
         }
         /// <summary>

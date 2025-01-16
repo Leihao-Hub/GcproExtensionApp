@@ -20,9 +20,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             public string PowerAppRuleInc;
         }
         private string filePath;
-        private string fileRelationPath;
-        private string fileConnectorPath;
-        private static string motorFileName = $@"\{OTypeCollection.EL_Motor}";
+        private readonly string fileRelationPath;
+        private readonly string fileConnectorPath;
+        private readonly static string motorFileName = $@"\{OTypeCollection.EL_Motor}";
         private string hornCode;
         private string pType;
         private string value9;
@@ -380,15 +380,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle();
-                textFileHandle.FilePath = this.filePath;
+                TextFileHandle textFileHandle = new TextFileHandle
+                {
+                    FilePath = this.filePath
+                };
                 isNew = "False";
                 StringBuilder objFields = new StringBuilder();
                 ///<summary>
                 ///生产Standard字符串部分
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                    .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
+                    .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>         
@@ -413,7 +415,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     .Append(parSpeedService).Append(LibGlobalSource.TAB)
                     .Append(unit);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-                objFields = null;
             }
             if (subType == M11)
             {
@@ -439,8 +440,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         public void Clear()
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
             textFileHandle.ClearContents();
             textFileHandle.FilePath = this.fileRelationPath;
             textFileHandle.ClearContents();
@@ -449,7 +452,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public static int GetStartingTime(float power)
         {
-            int time = 0;
+            int time;
             if (power < 3.0)
             {
                 time = 3;
@@ -498,7 +501,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public static int GetStartingTime(double power)
         {
-            int time = 0;
+            int time;
             if (power < 3.0)
             {
                 time = 3;

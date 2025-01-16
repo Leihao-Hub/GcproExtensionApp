@@ -13,7 +13,4 @@
     <SourceRoot Include="C:\Users\Operator\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
-  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgILMerge Condition=" '$(PkgILMerge)' == '' ">C:\Users\Operator\.nuget\packages\ilmerge\3.0.40</PkgILMerge>
-  </PropertyGroup>
 </Project>

@@ -12,9 +12,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public static MDDxRule Rule;
         private string filePath;
-        private string fileRelationPath;
+        private readonly string fileRelationPath;
         //   private string fileConnectorPath;
-        private static string mddxFileName = $@"\{OTypeCollection.EL_MDDx}";
+        private readonly static string mddxFileName = $@"\{OTypeCollection.EL_MDDx}";
         private string name;
         private string description;
         private string subType;
@@ -35,10 +35,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string value27;
         private string value28;
         private string ioByteNo;
-        private MYTARef side1Top;
-        private MYTARef side1Bottom;
-        private MYTARef side2Top;
-        private MYTARef side2Bottom;
+        private readonly MYTARef side1Top;
+        private readonly MYTARef side1Bottom;
+        private readonly MYTARef side2Top;
+        private readonly MYTARef side2Bottom;
 
         public override string FilePath
         {
@@ -227,15 +227,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
             isNew = "False";
             StringBuilder objFields = new StringBuilder();
             ///<summary>
             ///生产Standard字符串部分-使用父类中方法实现
             ///</summary> 
             objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
+              .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
             ///<summary>
             ///生成Application字符串部分-子类中自身完成
             ///</summary>  
@@ -253,8 +255,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
              .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
              .Append(Convert.ToString(side2Bottom.PassageNo));
             textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-            objFields = null;
-
             var relations = new List<Relation>
             {
                 new Relation(name,side1Top.MYTA, GcproTable.ObjData.Value32.Name),
@@ -266,8 +266,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public void Clear()
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
             textFileHandle.ClearContents();
         }
         /// <summary>

@@ -26,9 +26,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string isNew;
 
         private string filePath;
-        private string fileRelationPath;
-        private string fileConnectorPath;
-        private static string binFileName = $@"\{OTypeCollection.Bin}";
+        private readonly string fileRelationPath;
+        private readonly string fileConnectorPath;
+        private readonly static string binFileName = $@"\{OTypeCollection.Bin}";
         private string parBinNo;
         private string parEmptyingTime;
         private string parOverfillingWeight;
@@ -253,15 +253,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle();
-                textFileHandle.FilePath = this.filePath;
+                TextFileHandle textFileHandle = new TextFileHandle
+                {
+                    FilePath = this.filePath
+                };
                 isNew = "false";
                 StringBuilder objFields = new StringBuilder();
                 ///<summary>
                 ///生产Standard字符串部分
                 ///</summary> 
                 objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
+                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>
@@ -282,7 +284,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-                objFields = null;
             }
 
             var relations = new List<Relation>
@@ -314,8 +315,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         public void Clear()
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
             textFileHandle.ClearContents();
             textFileHandle.FilePath = this.fileRelationPath;
             textFileHandle.ClearContents();

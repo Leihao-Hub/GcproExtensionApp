@@ -15,6 +15,7 @@ using System.Collections.Generic;
 
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class AppStart : Form
     {
         public AppStart()
@@ -296,9 +297,11 @@ namespace GcproExtensionApp
 
         private void btnQuery_Click(object sender, EventArgs e)
         {
-            ObjectBrowser objectBrowser = new ObjectBrowser();
-            objectBrowser.OtherAdditionalFiled = GcproTable.ObjData.Key.Name;
-            objectBrowser.OType = Convert.ToString(Motor.OTypeValue);
+            ObjectBrowser objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Key.Name,
+                OType = Convert.ToString(Motor.OTypeValue)
+            };         
             objectBrowser.Show();
         }
 

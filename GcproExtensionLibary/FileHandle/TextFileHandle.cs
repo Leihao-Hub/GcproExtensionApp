@@ -6,7 +6,7 @@ namespace GcproExtensionLibrary.FileHandle
     public class TextFileHandle
     {
         public static string FileFilter = @"Text File   (*.txt)|*.txt|All Files (*.*)|*.*";
-        private static string fileType = "Text 文本文件";
+        private readonly static string fileType = "Text 文本文件";
         private string filePath;
         public string FilePath
         {
@@ -61,9 +61,7 @@ namespace GcproExtensionLibrary.FileHandle
         }
         public bool SaveFileAs(string title)
         {
-            bool result = false;
-            result = BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, title + LibGlobalSource.FILE_SAVE_AS);
-            return result;
+            return BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, title + LibGlobalSource.FILE_SAVE_AS);
         }
     }
 

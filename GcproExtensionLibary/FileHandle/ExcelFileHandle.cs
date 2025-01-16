@@ -11,7 +11,7 @@ namespace GcproExtensionLibrary.FileHandle
     {
 
         public static string FileFilter = @"Excel File   (*.xlsx)|*.xlsx|Excel File   (*.xls)|CSV File   (*.CSV)|*.CSV|*.xls|All Files (*.*)|*.*";
-        private static string fileType = "Excel 文件";
+        private readonly static string fileType = "Excel 文件";
         private string filePath = string.Empty;
         private string workSheet = string.Empty;
         public string FilePath
@@ -118,11 +118,8 @@ namespace GcproExtensionLibrary.FileHandle
                 using (ExcelPackage package = new ExcelPackage(fileInfo))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[effectiveWorksheetName];
-                    if (worksheet == null)
-                    {
-                        throw new ArgumentException("Worksheet not found: " + effectiveWorksheetName, nameof(workSheetName));
-                    }
-
+                    if (worksheet == null) throw new ArgumentException("Worksheet not found: " + effectiveWorksheetName, nameof(workSheetName));
+           
                     int rowCount = worksheet.Dimension?.Rows ?? 0;
                     int[] filterColumnIndexes = filterColumn.Select(ConvertColumnNameToNumber).ToArray();
 

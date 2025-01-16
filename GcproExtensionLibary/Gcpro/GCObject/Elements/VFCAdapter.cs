@@ -14,7 +14,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public static VFCAdapterRule Rule;
         private string filePath;
-        private static string vfcFileName = $@"\{OTypeCollection.EL_VFCAdapter}";
+        private readonly static string vfcFileName = $@"\{OTypeCollection.EL_VFCAdapter}";
         private string name;
         private string description;
         private string subType;
@@ -298,8 +298,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
             isNew = "False";
             StringBuilder objFields = new StringBuilder();
 
@@ -307,7 +309,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             ///生产Standard字符串部分
             ///</summary> 
             objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(base.CreateObjectStandardPart(encoding)).Append(LibGlobalSource.TAB);
+              .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
 
             ///<summary>
             ///生成Application 字符串部分
@@ -338,14 +340,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
               .Append(refCurrent).Append(LibGlobalSource.TAB)
               .Append(refTorque).Append(LibGlobalSource.TAB)
               .Append(refPower);
-
             textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-            objFields = null;
         }
         public void Clear()
         {
-            TextFileHandle textFileHandle = new TextFileHandle();
-            textFileHandle.FilePath = this.filePath;
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
             textFileHandle.ClearContents();
         }
         /// <summary>

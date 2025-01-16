@@ -162,7 +162,7 @@
         public string ProjectType;
     }
 
-    public struct Relation
+    public readonly struct Relation
     {
         public string Parent { get; }
         public string Child { get; }

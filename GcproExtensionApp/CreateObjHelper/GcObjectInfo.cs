@@ -183,15 +183,15 @@ namespace GcproExtensionApp
         {
             private static string binPrefix;
             private static string identDescSeparator;
-            private static AppGlobal.Range silo = new AppGlobal.Range(001, 199);
-            private static AppGlobal.Range rawWheatBin = new AppGlobal.Range(201, 259);
-            private static AppGlobal.Range temperingBin = new AppGlobal.Range(260, 299);
-            private static AppGlobal.Range screeningsBin = new AppGlobal.Range(301, 399);
-            private static AppGlobal.Range baseFlourBin = new AppGlobal.Range(401, 499);
-            private static AppGlobal.Range mixingBin = new AppGlobal.Range(501, 599);
-            private static AppGlobal.Range baggingBin = new AppGlobal.Range(601, 699);
-            private static AppGlobal.Range outloadBin = new AppGlobal.Range(701, 799);
-            private static AppGlobal.Range byproductBin = new AppGlobal.Range(801, 899);
+            private readonly static AppGlobal.Range silo = new AppGlobal.Range(001, 199);
+            private readonly static AppGlobal.Range rawWheatBin = new AppGlobal.Range(201, 259);
+            private readonly static AppGlobal.Range temperingBin = new AppGlobal.Range(260, 299);
+            private readonly static AppGlobal.Range screeningsBin = new AppGlobal.Range(301, 399);
+            private readonly static AppGlobal.Range baseFlourBin = new AppGlobal.Range(401, 499);
+            private readonly static AppGlobal.Range mixingBin = new AppGlobal.Range(501, 599);
+            private readonly static AppGlobal.Range baggingBin = new AppGlobal.Range(601, 699);
+            private readonly static AppGlobal.Range outloadBin = new AppGlobal.Range(701, 799);
+            private readonly static AppGlobal.Range byproductBin = new AppGlobal.Range(801, 899);
             private static Bins bins = new Bins();
             public static string BinPrefix
             {
@@ -1162,7 +1162,7 @@ namespace GcproExtensionApp
             private static AppGlobal.Range stackingSection = new AppGlobal.Range(6801, 6999);
             private static AppGlobal.Range outloadSection = new AppGlobal.Range(7001, 7999);
             private static AppGlobal.Range byproductSection = new AppGlobal.Range(8001, 8999);  
-            private static Sections sections =new Sections();         
+            private readonly static Sections sections =new Sections();         
             #region Properties
             public static AppGlobal.Range CommonSection
             {

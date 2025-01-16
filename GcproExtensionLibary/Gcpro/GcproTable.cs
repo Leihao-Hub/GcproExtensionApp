@@ -12,122 +12,122 @@ namespace GcproExtensionLibrary.Gcpro
         public static class ObjData
         {
             #region Private fields for properties 
-            private static DbParameter key;
-            private static DbParameter idold;
-            private static DbParameter idaepro;
-            private static DbParameter otype;
-            private static DbParameter owner;
-            private static DbParameter subtype;
-            private static DbParameter oindex;
-            private static DbParameter valide;
-            private static DbParameter multipleUsed;
-            private static DbParameter building;
-            private static DbParameter elevation;
-            private static DbParameter alarm_area;
-            private static DbParameter panel_id;
-            private static DbParameter revision;
-            private static DbParameter text0;
-            private static DbParameter text1;
-            private static DbParameter text2;
-            private static DbParameter text4;
-            private static DbParameter text5;
-            private static DbParameter text6;
-            private static DbParameter text7;
-            private static DbParameter text8;
-            private static DbParameter text9;
-            private static DbParameter value0;
-            private static DbParameter value1;
-            private static DbParameter value2;
-            private static DbParameter value3;
-            private static DbParameter value4;
-            private static DbParameter value5;
-            private static DbParameter value6;
-            private static DbParameter value7;
-            private static DbParameter value8;
-            private static DbParameter value9;
-            private static DbParameter value10;
-            private static DbParameter value11;
-            private static DbParameter value12;
-            private static DbParameter value13;
-            private static DbParameter value14;
-            private static DbParameter value15;
-            private static DbParameter value16;
-            private static DbParameter value17;
-            private static DbParameter value18;
-            private static DbParameter value19;
-            private static DbParameter value20;
-            private static DbParameter value21;
-            private static DbParameter value22;
-            private static DbParameter value23;
-            private static DbParameter value24;
-            private static DbParameter value25;
-            private static DbParameter value26;
-            private static DbParameter value27;
-            private static DbParameter value28;
-            private static DbParameter value29;
-            private static DbParameter value30;
-            private static DbParameter value31;
-            private static DbParameter value32;
-            private static DbParameter value33;
-            private static DbParameter value34;
-            private static DbParameter value35;
-            private static DbParameter value36;
-            private static DbParameter value37;
-            private static DbParameter value38;
-            private static DbParameter value39;
-            private static DbParameter value40;
-            private static DbParameter value41;
-            private static DbParameter value42;
-            private static DbParameter value43;
-            private static DbParameter value44;
-            private static DbParameter value45;
-            private static DbParameter value46;
-            private static DbParameter value47;
-            private static DbParameter value48;
-            private static DbParameter value49;
-            private static DbParameter value50;
-            private static DbParameter objCnt;
-            private static DbParameter nameS7;
-            private static DbParameter isNew;
-            private static DbParameter dpnode1;
-            private static DbParameter dpnode2;
-            private static DbParameter processFct;
-            private static DbParameter s5Otype;
-            private static DbParameter text3;
-            private static DbParameter subProject;
-            private static DbParameter pageName;
-            private static DbParameter diagramNo;
-            private static DbParameter aeproNo;
-            private static DbParameter masterCopy;
-            private static DbParameter masterCopyName;
-            private static DbParameter value51;
-            private static DbParameter value52;
-            private static DbParameter value53;
-            private static DbParameter value54;
-            private static DbParameter value55;
-            private static DbParameter value56;
-            private static DbParameter value57;
-            private static DbParameter value58;
-            private static DbParameter value59;
-            private static DbParameter value60;
-            private static DbParameter value61;
-            private static DbParameter value62;
-            private static DbParameter value63;
-            private static DbParameter value64;
-            private static DbParameter value65;
-            private static DbParameter value66;
-            private static DbParameter value67;
-            private static DbParameter value68;
-            private static DbParameter value69;
-            private static DbParameter value70;
-            private static DbParameter singleInstanceDB;
-            private static DbParameter status;
-            private static DbParameter memo1;
-            private static DbParameter memo2;
-            private static DbParameter isVirtual;
-            private static DbParameter communication;
-            private static DbParameter notUsed;
-            private static DbParameter fieldbusNode;
+            private readonly static DbParameter key;
+            private readonly static DbParameter idold;
+            private readonly static DbParameter idaepro;
+            private readonly static DbParameter otype;
+            private readonly static DbParameter owner;
+            private readonly static DbParameter subtype;
+            private readonly static DbParameter oindex;
+            private readonly static DbParameter valide;
+            private readonly static DbParameter multipleUsed;
+            private readonly static DbParameter building;
+            private readonly static DbParameter elevation;
+            private readonly static DbParameter alarm_area;
+            private readonly static DbParameter panel_id;
+            private readonly static DbParameter revision;
+            private readonly static DbParameter text0;
+            private readonly static DbParameter text1;
+            private readonly static DbParameter text2;
+            private readonly static DbParameter text4;
+            private readonly static DbParameter text5;
+            private readonly static DbParameter text6;
+            private readonly static DbParameter text7;
+            private readonly static DbParameter text8;
+            private readonly static DbParameter text9;
+            private readonly static DbParameter value0;
+            private readonly static DbParameter value1;
+            private readonly static DbParameter value2;
+            private readonly static DbParameter value3;
+            private readonly static DbParameter value4;
+            private readonly static DbParameter value5;
+            private readonly static DbParameter value6;
+            private readonly static DbParameter value7;
+            private readonly static DbParameter value8;
+            private readonly static DbParameter value9;
+            private readonly static DbParameter value10;
+            private readonly static DbParameter value11;
+            private readonly static DbParameter value12;
+            private readonly static DbParameter value13;
+            private readonly static DbParameter value14;
+            private readonly static DbParameter value15;
+            private readonly static DbParameter value16;
+            private readonly static DbParameter value17;
+            private readonly static DbParameter value18;
+            private readonly static DbParameter value19;
+            private readonly static DbParameter value20;
+            private readonly static DbParameter value21;
+            private readonly static DbParameter value22;
+            private readonly static DbParameter value23;
+            private readonly static DbParameter value24;
+            private readonly static DbParameter value25;
+            private readonly static DbParameter value26;
+            private readonly static DbParameter value27;
+            private readonly static DbParameter value28;
+            private readonly static DbParameter value29;
+            private readonly static DbParameter value30;
+            private readonly static DbParameter value31;
+            private readonly static DbParameter value32;
+            private readonly static DbParameter value33;
+            private readonly static DbParameter value34;
+            private readonly static DbParameter value35;
+            private readonly static DbParameter value36;
+            private readonly static DbParameter value37;
+            private readonly static DbParameter value38;
+            private readonly static DbParameter value39;
+            private readonly static DbParameter value40;
+            private readonly static DbParameter value41;
+            private readonly static DbParameter value42;
+            private readonly static DbParameter value43;
+            private readonly static DbParameter value44;
+            private readonly static DbParameter value45;
+            private readonly static DbParameter value46;
+            private readonly static DbParameter value47;
+            private readonly static DbParameter value48;
+            private readonly static DbParameter value49;
+            private readonly static DbParameter value50;
+            private readonly static DbParameter objCnt;
+            private readonly static DbParameter nameS7;
+            private readonly static DbParameter isNew;
+            private readonly static DbParameter dpnode1;
+            private readonly static DbParameter dpnode2;
+            private readonly static DbParameter processFct;
+            private readonly static DbParameter s5Otype;
+            private readonly static DbParameter text3;
+            private readonly static DbParameter subProject;
+            private readonly static DbParameter pageName;
+            private readonly static DbParameter diagramNo;
+            private readonly static DbParameter aeproNo;
+            private readonly static DbParameter masterCopy;
+            private readonly static DbParameter masterCopyName;
+            private readonly static DbParameter value51;
+            private readonly static DbParameter value52;
+            private readonly static DbParameter value53;
+            private readonly static DbParameter value54;
+            private readonly static DbParameter value55;
+            private readonly static DbParameter value56;
+            private readonly static DbParameter value57;
+            private readonly static DbParameter value58;
+            private readonly static DbParameter value59;
+            private readonly static DbParameter value60;
+            private readonly static DbParameter value61;
+            private readonly static DbParameter value62;
+            private readonly static DbParameter value63;
+            private readonly static DbParameter value64;
+            private readonly static DbParameter value65;
+            private readonly static DbParameter value66;
+            private readonly static DbParameter value67;
+            private readonly static DbParameter value68;
+            private readonly static DbParameter value69;
+            private readonly static DbParameter value70;
+            private readonly static DbParameter singleInstanceDB;
+            private readonly static DbParameter status;
+            private readonly static DbParameter memo1;
+            private readonly static DbParameter memo2;
+            private readonly static DbParameter isVirtual;
+            private readonly static DbParameter communication;
+            private readonly static DbParameter notUsed;
+            private readonly static DbParameter fieldbusNode;
             #endregion
             static ObjData()
             {
@@ -835,17 +835,23 @@ namespace GcproExtensionLibrary.Gcpro
             public static Type GetPropertyValueType(string propertyName)
             {
       
-                var prop = typeof(ObjData).GetProperty(propertyName);
+                //var prop = typeof(ObjData).GetProperty(propertyName);
 
-                if (prop == null)
-                {
-                    throw new ArgumentException($@"属性：{propertyName}在{typeof(ObjData)}不存在");
-                }    
-                var dbParameter = prop.GetValue(null) as DbParameter; 
+                //if (prop == null) throw new ArgumentException($@"属性：{propertyName}在{typeof(ObjData)}不存在");
+
+                var prop = typeof(ObjData).GetProperty(propertyName)
+                            ?? throw new ArgumentException($"属性：{propertyName}在{typeof(ObjData)}不存在");
+
+                var dbParameter = prop.GetValue(null) as DbParameter;
                 if (dbParameter != null && dbParameter.Value != null)
                 {
                     return dbParameter.Value.GetType();
                 }
+
+                //if (prop.GetValue(null) is DbParameter dbParameter && dbParameter.Value is not null)
+                //{
+                //    return dbParameter.Value.GetType();
+                //}
 
                 return typeof(object); 
             }
@@ -853,13 +859,13 @@ namespace GcproExtensionLibrary.Gcpro
         public static class ImpExpDef
         {
             #region Private fields for properties 
-            private static DbParameter id;
-            private static DbParameter type;
-            private static DbParameter description;
-            private static DbParameter fieldName;
-            private static DbParameter level;
-            private static DbParameter width;
-            private static DbParameter position;
+            private readonly static DbParameter id;
+            private readonly static DbParameter type;
+            private readonly static DbParameter description;
+            private readonly static DbParameter fieldName;
+            private readonly static DbParameter level;
+            private readonly static DbParameter width;
+            private readonly static DbParameter position;
             #endregion
             static ImpExpDef()
             {
@@ -928,13 +934,13 @@ namespace GcproExtensionLibrary.Gcpro
         public static class SubType
         {
             #region Private fields for properties 
-            private static DbParameter otype;
-            private static DbParameter subType;
-            private static DbParameter revision;
-            private static DbParameter sub_type_desc;
-            private static DbParameter asw;
-            private static DbParameter instancefb;
-            private static DbParameter favorit;
+            private readonly static DbParameter otype;
+            private readonly static DbParameter subType;
+            private readonly static DbParameter revision;
+            private readonly static DbParameter sub_type_desc;
+            private readonly static DbParameter asw;
+            private readonly static DbParameter instancefb;
+            private readonly static DbParameter favorit;
             #endregion
             static SubType()
             {
@@ -1003,10 +1009,10 @@ namespace GcproExtensionLibrary.Gcpro
         public static class TranslationCbo
         {
             #region Private fields for properties 
-            private static DbParameter fieldClass;
-            private static DbParameter fieldValue;
-            private static DbParameter text;
-            private static DbParameter description;
+            private readonly static DbParameter fieldClass;
+            private readonly static DbParameter fieldValue;
+            private readonly static DbParameter text;
+            private readonly static DbParameter description;
             #endregion
             static TranslationCbo()
             {
@@ -1069,13 +1075,13 @@ namespace GcproExtensionLibrary.Gcpro
         public static class ProcessFct
         {
             #region Private fields for properties 
-            private static DbParameter id;
-            private static DbParameter oType;
-            private static DbParameter processFct;
-            private static DbParameter fct_desc;
-            private static DbParameter projectType;
-            private static DbParameter asw;
-            private static DbParameter subForm;
+            private readonly static DbParameter id;
+            private readonly static DbParameter oType;
+            private readonly static DbParameter processFct;
+            private readonly static DbParameter fct_desc;
+            private readonly static DbParameter projectType;
+            private readonly static DbParameter asw;
+            private readonly static DbParameter subForm;
             #endregion
             static ProcessFct()
             {

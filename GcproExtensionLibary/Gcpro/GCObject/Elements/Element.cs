@@ -15,13 +15,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
 
         }
-        public new string CreateObjectStandardPart(Encoding encoding)
+        public new string CreateObjectStandardPart()
         {
             StringBuilder objFields = new StringBuilder();
             ///<summary>
             ///生产Standard字符串部分
             ///</summary> 
-            string baseObject = base.CreateObjectStandardPart(encoding);
+            string baseObject = base.CreateObjectStandardPart();
             objFields.Append(baseObject).Append(LibGlobalSource.TAB)
               .Append(PType).Append(LibGlobalSource.TAB)
               .Append(HornCode).Append(LibGlobalSource.TAB)

@@ -324,7 +324,7 @@ namespace GcproExtensionApp
     }
     public class SuffixObject
     {
-        private Dictionary<string, string> suffixObjectType = new Dictionary<string, string>();
+        readonly private Dictionary<string, string> suffixObjectType = new Dictionary<string, string>();
         public SuffixObject()
         {
             string keySuffixObjectType = $"{AppGlobal.JS_BML}.{AppGlobal.JS_SUFFIX}.{AppGlobal.JS_OBJECT_TYPE}.";
@@ -532,7 +532,7 @@ namespace GcproExtensionApp
                 }
                 else
                 {
-                    return ParseCurrent(actValueMotorPower)?true:false;
+                    return ParseCurrent(actValueMotorPower);
                 }          
             }
             catch

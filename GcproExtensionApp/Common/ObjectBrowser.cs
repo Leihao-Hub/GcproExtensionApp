@@ -1,4 +1,5 @@
 ﻿using GcproExtensionLibrary;
+using GcproExtensionLibrary.FileHandle;
 using GcproExtensionLibrary.Gcpro;
 using OfficeOpenXml.Table.PivotTable;
 using System;
@@ -13,17 +14,18 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace GcproExtensionApp
 {
+    #pragma warning disable IDE1006
     public partial class ObjectBrowser : Form
     {
-        IDictionary<string, Object> queryParameters = new Dictionary<string, Object>();
+        readonly IDictionary<string, Object> queryParameters = new Dictionary<string, Object>();
         private string oType;
         private string otherAdditionalFiled;
         private string updateFiled;
         private string subType=string.Empty;
         private string subQuery;
         private string returnedItem;
-        private static ToolTip toolTip=new ToolTip();
-
+        readonly private static ToolTip toolTip=new ToolTip();
+        private readonly bool isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
         public string OType
         {
             get {  return oType; }
@@ -58,25 +60,28 @@ namespace GcproExtensionApp
 
             toolTip.SetToolTip(BtnConfirm, "返回表格中选择项");
             dataGridObjData.AutoGenerateColumns = false;
-            DataGridViewTextBoxColumn nameField = new DataGridViewTextBoxColumn();
-            nameField.HeaderText = "[Text0-名称]";
-            nameField.Name = nameof(GcproTable.ObjData.Text0.Name);           
-            dataGridObjData.Columns.Add(nameField);
+            dataGridObjData.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "[Text0-名称]",
+                Name = nameof(GcproTable.ObjData.Text0.Name)
+            });
             dataGridObjData.Columns[0].Width = 136;
-            dataGridObjData.Columns[0].ReadOnly = true; 
+            dataGridObjData.Columns[0].ReadOnly = true;
 
-            DataGridViewTextBoxColumn descField = new DataGridViewTextBoxColumn();      
-            descField.HeaderText = "[Text1-描述]";
-            descField.Name = nameof(GcproTable.ObjData.Text1.Name);
-            dataGridObjData.Columns.Add(descField);
+            dataGridObjData.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "[Text1-描述]",
+                Name = nameof(GcproTable.ObjData.Text1.Name)
+            });
+         
             dataGridObjData.Columns[1].Width = 300;
             dataGridObjData.Columns[1].ReadOnly = true;
 
-            DataGridViewTextBoxColumn otherFiled = new DataGridViewTextBoxColumn();
-            otherFiled.HeaderText = $"[{OtherAdditionalFiled}]";
-            otherFiled.Name = nameof(otherAdditionalFiled);
-            dataGridObjData.Columns.Add(otherFiled);
-
+            dataGridObjData.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = $"[{OtherAdditionalFiled}]",
+                Name = nameof(otherAdditionalFiled)
+            });       
             comboOType.Items.Clear();
             int membersEnum = OTypeCollection.EL_Motor.GetEnumMemberCount();
             string[] enumNames = Enum.GetNames(typeof(OTypeCollection));
@@ -143,11 +148,7 @@ namespace GcproExtensionApp
             selectedItem=comboOType.SelectedItem.ToString();
             oType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
         }
-        private void SetFiledValue(Type type, (string Name, string Value) field)
-        {
-
-         
-        }
+    
         private void SetCmdParameterFiledValue(Type type, (string Name, string Value) field, IDictionary<string, Object> CmdParameter)
         {
             if (type == typeof(string))
@@ -197,13 +198,14 @@ namespace GcproExtensionApp
         private void QueryObj()
         {
             queryParameters.Clear(); 
-            int _oType = 0;
-            if (AppGlobal.ParseInt(oType, out _oType))
+            if (AppGlobal.ParseInt(oType, out int _oType))
             {
-                OleDb oledb = new OleDb();
-                DataTable dataTable = new DataTable();
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                oledb.IsNewOLEDBDriver = false;
+                OleDb oledb = new OleDb
+                {
+                    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                    IsNewOLEDBDriver = isNewOledbDriver
+                };
+                DataTable dataTable ;
                 string subFilter;
                 string filter = $"{GcproTable.ObjData.OType.Name} = {OleDb.ParPlaceholder}";
                 subFilter = $"{GcproTable.ObjData.OType.Name} = {_oType}";
@@ -230,9 +232,11 @@ namespace GcproExtensionApp
                 }
                 filter = string.IsNullOrEmpty(txtUserDefinedFilter.Text) ? filter : $@"{filter} AND {txtUserDefinedFilter.Text}";
                 subFilter = string.IsNullOrEmpty(txtUserDefinedFilter.Text) ? subFilter : $@"{subFilter} AND {txtUserDefinedFilter.Text}";
-                List<string> fields = new List<string>();
-                fields.Add(GcproTable.ObjData.Text0.Name);
-                fields.Add(GcproTable.ObjData.Text1.Name);
+                List<string> fields = new List<string>
+                {
+                    GcproTable.ObjData.Text0.Name,
+                    GcproTable.ObjData.Text1.Name
+                };
                 bool _hasAddidtionFiled = false;
                 if (!String.IsNullOrEmpty(comboAdditionalField.SelectedItem.ToString()))
                 {
@@ -265,8 +269,8 @@ namespace GcproExtensionApp
                 }
                 finally
                 {
-                    dataTable = null;
-                    oledb = null;
+                    //dataTable = null;
+                    //oledb = null;
                     fields.Clear();
                 }
             }
@@ -282,10 +286,11 @@ namespace GcproExtensionApp
   
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = false;
+            OleDb oledb = new OleDb
+            {
+                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
+                IsNewOLEDBDriver = isNewOledbDriver
+            };
             List<GcproExtensionLibrary.Gcpro.DbParameter> updateFields = new List<GcproExtensionLibrary.Gcpro.DbParameter>();
             //  IDictionary<string, Object> updateparameters = new Dictionary<string, Object>(parameters);
             IDictionary<string, Object> updateparameters = new Dictionary<string, Object>();
@@ -359,8 +364,8 @@ namespace GcproExtensionApp
             }
             finally
             {
-                dataTable = null;
-                oledb = null;
+                //dataTable = null;
+                //oledb = null;
                 updateFields.Clear();
                 updateparameters.Clear();   
 

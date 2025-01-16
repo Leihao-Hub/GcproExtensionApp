@@ -5,7 +5,7 @@ namespace GcproExtensionLibrary.FileHandle
 
     {
         public static string FileFilter = @"Access Database (*.mdb)|*.mdb|Access Database (*.accdb)|*.accdb|All Files (*.*)|*.*";
-        private static string fileType = "Access 数据库文件";
+        private readonly static string fileType = "Access 数据库文件";
         private string filePath;
         public string FilePath
         {
