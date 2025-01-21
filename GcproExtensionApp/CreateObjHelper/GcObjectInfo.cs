@@ -179,6 +179,152 @@ namespace GcproExtensionApp
                 }
             }
         }
+        public static class Section
+        {
+            private static AppGlobal.Range commonSection = new AppGlobal.Range(9001, 9999);
+            private static AppGlobal.Range preCleaningSection = new AppGlobal.Range(1001, 1999);
+            private static AppGlobal.Range cleaningSection = new AppGlobal.Range(2001, 2999);
+            private static AppGlobal.Range screeningsSection = new AppGlobal.Range(3001, 3999);
+            private static AppGlobal.Range millingSection = new AppGlobal.Range(4001, 4999);
+            private static AppGlobal.Range flourSection = new AppGlobal.Range(6001, 6800);
+            private static AppGlobal.Range stackingSection = new AppGlobal.Range(6801, 6999);
+            private static AppGlobal.Range outloadSection = new AppGlobal.Range(7001, 7999);
+            private static AppGlobal.Range byproductSection = new AppGlobal.Range(8001, 8999);
+            private readonly static Sections sections = new Sections();
+            #region Properties
+            public static AppGlobal.Range CommonSection
+            {
+                get { return commonSection; }
+                set { commonSection = value; }
+            }
+            public static AppGlobal.Range PreCleaningSection
+            {
+                get { return preCleaningSection; }
+                set { preCleaningSection = value; }
+            }
+
+            public static AppGlobal.Range CleaningSection
+            {
+                get { return cleaningSection; }
+                set { cleaningSection = value; }
+            }
+
+            public static AppGlobal.Range ScreeningsSection
+            {
+                get { return screeningsSection; }
+                set { screeningsSection = value; }
+            }
+
+            public static AppGlobal.Range MillingSection
+            {
+                get { return millingSection; }
+                set { millingSection = value; }
+            }
+
+            public static AppGlobal.Range FlourSection
+            {
+                get { return flourSection; }
+                set { flourSection = value; }
+            }
+
+            public static AppGlobal.Range StackingSection
+            {
+                get { return stackingSection; }
+                set { stackingSection = value; }
+            }
+
+            public static AppGlobal.Range OutloadSection
+            {
+                get { return outloadSection; }
+                set { outloadSection = value; }
+            }
+
+            public static AppGlobal.Range ByproductSection
+            {
+                get { return byproductSection; }
+                set { byproductSection = value; }
+            }
+            #endregion
+
+            private static Dictionary<string, Action<string>> GetKeyValueDictionary()
+            {
+                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_GENERAL}.{AppGlobal.JS_NAME_NUMBER_RULE}.{AppGlobal.JS_SECTION}.";
+                return new Dictionary<string, Action<string>>
+                {
+                    { $"{keyPath}Common", value => sections.Common = value },
+                    { $"{keyPath}PreCleaning", value => sections.PreCleaning = value },
+                    { $"{keyPath}Cleaning", value => sections.Cleaning= value },
+                    { $"{keyPath}Screenings", value => sections.Screenings= value },
+                    { $"{keyPath}Milling", value => sections.Milling = value },
+                    { $"{keyPath}Flour", value => sections.Flour = value },
+                    { $"{keyPath}Stacking", value => sections.Stacking = value },
+                    { $"{keyPath}Outload", value => sections.Outload = value },
+                    { $"{keyPath}Byproduct", value => sections.Byproduct = value }
+                };
+            }
+            private static void ParseAllRanges()
+            {
+                commonSection.ParseRange(sections.Common);
+                preCleaningSection.ParseRange(sections.PreCleaning);
+                cleaningSection.ParseRange(sections.Cleaning);
+                screeningsSection.ParseRange(sections.Screenings);
+                millingSection.ParseRange(sections.Milling);
+                flourSection.ParseRange(sections.Flour);
+                stackingSection.ParseRange(sections.Stacking);
+                outloadSection.ParseRange(sections.Outload);
+                byproductSection.ParseRange(sections.Byproduct);
+            }
+            static Section()
+            {
+                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_GENERAL}.{AppGlobal.JS_NAME_NUMBER_RULE}.{AppGlobal.JS_SECTION}.";
+                try
+                {
+                    var keySections = GetKeyValueDictionary();
+                    Dictionary<string, string> keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keySections.Keys.ToArray());
+                    foreach (var key in keySections)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    ParseAllRanges();
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            private static readonly Dictionary<AppGlobal.Range, string> RangeToSectionMap = new Dictionary<AppGlobal.Range, string>
+            {
+                { commonSection, BML.Sections.Common },
+                { preCleaningSection, BML.Sections.PreCleaning },
+                { cleaningSection, BML.Sections.Cleaning },
+                { screeningsSection, BML.Sections.Screenings },
+                { millingSection, BML.Sections.Milling },
+                { flourSection, BML.Sections.Flour },
+                { stackingSection, BML.Sections.Stacking},
+                { outloadSection, BML.Sections.Outload},
+                { byproductSection, BML.Sections.Byproduct },
+            };
+            /// <summary>
+            /// 根据设备名称，返回所属的工段名称
+            /// </summary>
+            /// <param name="NameNumber">设备名称包含的数字</param>
+            public static string ReturnSection(int nameNumber)
+            {
+                foreach (var entry in RangeToSectionMap)
+                {
+                    if (entry.Key.IsInRange(nameNumber))
+                    {
+                        return entry.Value;
+                    }
+                }
+                return string.Empty;
+            }
+        }
+
         public class Bin
         {
             private static string binPrefix;
@@ -1100,7 +1246,6 @@ namespace GcproExtensionApp
                 }
             }
         }
-
         public static class MA_Discharger
         {
             private static string suffixMotor;
@@ -1149,151 +1294,6 @@ namespace GcproExtensionApp
                 {
                     MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-        }
-        public static class Section
-        {
-            private static AppGlobal.Range commonSection = new AppGlobal.Range(9001, 9999);
-            private static AppGlobal.Range preCleaningSection = new AppGlobal.Range(1001, 1999);
-            private static AppGlobal.Range cleaningSection = new AppGlobal.Range(2001, 2999);
-            private static AppGlobal.Range screeningsSection = new AppGlobal.Range(3001, 3999);
-            private static AppGlobal.Range millingSection = new AppGlobal.Range(4001, 4999);
-            private static AppGlobal.Range flourSection = new AppGlobal.Range(6001, 6800);
-            private static AppGlobal.Range stackingSection = new AppGlobal.Range(6801, 6999);
-            private static AppGlobal.Range outloadSection = new AppGlobal.Range(7001, 7999);
-            private static AppGlobal.Range byproductSection = new AppGlobal.Range(8001, 8999);  
-            private readonly static Sections sections =new Sections();         
-            #region Properties
-            public static AppGlobal.Range CommonSection
-            {
-                get { return commonSection; }
-                set { commonSection = value; }
-            }
-            public static AppGlobal.Range PreCleaningSection
-            {
-                get { return preCleaningSection; }
-                set { preCleaningSection = value; }
-            }
-
-            public static AppGlobal.Range CleaningSection
-            {
-                get { return cleaningSection; }
-                set { cleaningSection = value; }
-            }
-
-            public static AppGlobal.Range ScreeningsSection
-            {
-                get { return screeningsSection; }
-                set { screeningsSection = value; }
-            }
-
-            public static AppGlobal.Range MillingSection
-            {
-                get { return millingSection; }
-                set { millingSection = value; }
-            }
-
-            public static AppGlobal.Range FlourSection
-            {
-                get { return flourSection; }
-                set { flourSection = value; }
-            }
-
-            public static AppGlobal.Range StackingSection
-            {
-                get { return stackingSection; }
-                set { stackingSection = value; }
-            }
-
-            public static AppGlobal.Range OutloadSection
-            {
-                get { return outloadSection; }
-                set { outloadSection = value; }
-            }
-
-            public static AppGlobal.Range ByproductSection
-            {
-                get { return byproductSection; }
-                set { byproductSection = value; }
-            }
-            #endregion
-
-            private static Dictionary<string, Action<string>> GetKeyValueDictionary()
-            {              
-                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_GENERAL}.{AppGlobal.JS_NAME_NUMBER_RULE}.{AppGlobal.JS_SECTION}.";
-                return new Dictionary<string, Action<string>>
-                {
-                    { $"{keyPath}Common", value => sections.Common = value },
-                    { $"{keyPath}PreCleaning", value => sections.PreCleaning = value },
-                    { $"{keyPath}Cleaning", value => sections.Cleaning= value },
-                    { $"{keyPath}Screenings", value => sections.Screenings= value },
-                    { $"{keyPath}Milling", value => sections.Milling = value },
-                    { $"{keyPath}Flour", value => sections.Flour = value },
-                    { $"{keyPath}Stacking", value => sections.Stacking = value },
-                    { $"{keyPath}Outload", value => sections.Outload = value },
-                    { $"{keyPath}Byproduct", value => sections.Byproduct = value }
-                };
-            }
-            private static void ParseAllRanges()
-            {
-                commonSection.ParseRange(sections.Common);
-                preCleaningSection.ParseRange(sections.PreCleaning);
-                cleaningSection.ParseRange(sections.Cleaning );
-                screeningsSection.ParseRange(sections.Screenings);
-                millingSection.ParseRange(sections.Milling);
-                flourSection.ParseRange(sections.Flour);
-                stackingSection.ParseRange(sections.Stacking);
-                outloadSection.ParseRange(sections.Outload);
-                byproductSection.ParseRange(sections.Byproduct);       
-            }
-            static Section()
-            {
-                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_GENERAL}.{AppGlobal.JS_NAME_NUMBER_RULE}.{AppGlobal.JS_SECTION}.";
-                try
-                {
-                    var keySections = GetKeyValueDictionary();
-                    Dictionary<string, string> keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keySections.Keys.ToArray());
-                    foreach (var key in keySections)
-                    {
-                        if (keyValueRead.TryGetValue(key.Key, out var value))
-                        {
-                            key.Value(value);
-                        }
-                    }
-                    ParseAllRanges();
-                }
-
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            private static readonly Dictionary<AppGlobal.Range, string> RangeToSectionMap = new Dictionary<AppGlobal.Range, string>
-            {
-                { commonSection, BML.Sections.Common },
-                { preCleaningSection, BML.Sections.PreCleaning },
-                { cleaningSection, BML.Sections.Cleaning },
-                { screeningsSection, BML.Sections.Screenings },
-                { millingSection, BML.Sections.Milling },
-                { flourSection, BML.Sections.Flour },
-                { stackingSection, BML.Sections.Stacking},
-                { outloadSection, BML.Sections.Outload},
-                { byproductSection, BML.Sections.Byproduct },
-            };
-            /// <summary>
-            /// 根据设备名称，返回所属的工段名称
-            /// </summary>
-            /// <param name="NameNumber">设备名称包含的数字</param>
-            public static string ReturnSection(int nameNumber)
-            {
-                foreach (var entry in RangeToSectionMap)
-                {
-                    if (entry.Key.IsInRange(nameNumber))
-                    {
-                        return entry.Value;
-                    }
-                }
-                return string.Empty;
             }
         }
     }

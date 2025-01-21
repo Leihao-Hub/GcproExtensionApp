@@ -24,7 +24,7 @@ using System.Net.NetworkInformation;
 #endregion
 namespace GcproExtensionApp
 {
-    #pragma warning disable IDE1006
+   // #pragma warning disable IDE1006
     public partial class FormAI : Form, IGcForm
     {
 
@@ -279,9 +279,9 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value9;
             ComboEquipmentSubType.SelectedIndex = 0;
             CreateBMLDefault();
-            toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
-            toolStripMenuReload.Click += new EventHandler(toolStripMenuReload_Click);
-            toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
+            toolStripMenuClearList.Click += new EventHandler(ToolStripMenuClearList_Click);
+            toolStripMenuReload.Click += new EventHandler(ToolStripMenuReload_Click);
+            toolStripMenuDelete.Click += new EventHandler(ToolStripMenuDelete_Click);
             this.Text = "AI导入文件 " + " " + myAI.FilePath;
         }
 
@@ -314,7 +314,7 @@ namespace GcproExtensionApp
         }
         #region <---Rule and autosearch part--->
         #region <------Check and store rule event------>
-        private void txtInpValueSuffix_KeyDown(object sender, KeyEventArgs e)
+        private void TxtInpValueSuffix_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -323,7 +323,7 @@ namespace GcproExtensionApp
                 GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
-        private void txtSuffixInpLowLow_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSuffixInpLowLow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -333,7 +333,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void txtSuffixInpLow_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSuffixInpLow_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -343,7 +343,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void txtSuffixInpHigh_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSuffixInpHigh_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -353,7 +353,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void txtSuffixInpHighHigh_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSuffixInpHighHigh_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -362,7 +362,7 @@ namespace GcproExtensionApp
                 GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
-        private void txtInpFaultDevSuffix_KeyDown(object sender, KeyEventArgs e)
+        private void TxtInpFaultDevSuffix_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -371,36 +371,36 @@ namespace GcproExtensionApp
                 GcObjectInfo.AI.SuffixInpFaultDev = newJsonKeyValue;
             }
         }
-        private void txtInpFaultDevSuffix_TextChanged(object sender, EventArgs e)
+        private void TxtInpFaultDevSuffix_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void txtSuffixInpHighHigh_TextChanged(object sender, EventArgs e)
+        private void TxtSuffixInpHighHigh_TextChanged(object sender, EventArgs e)
         {
             txtInpHighHigh.Text = txtSymbol.Text + txtSuffixInpHighHigh.Text;
         }
 
-        private void txtSuffixInpHigh_TextChanged(object sender, EventArgs e)
+        private void TxtSuffixInpHigh_TextChanged(object sender, EventArgs e)
         {
             txtInpHigh.Text = txtSymbol.Text + txtSuffixInpHigh.Text;
         }
 
-        private void txtSuffixInpLow_TextChanged(object sender, EventArgs e)
+        private void TxtSuffixInpLow_TextChanged(object sender, EventArgs e)
         {
             txtInpLow.Text = txtSymbol.Text + txtSuffixInpLow.Text;
         }
 
-        private void txtSuffixInpLowLow_TextChanged(object sender, EventArgs e)
+        private void TxtSuffixInpLowLow_TextChanged(object sender, EventArgs e)
         {
             txtInpLowLow.Text = txtSymbol.Text + txtSuffixInpLowLow.Text;
         }
-        private void txtInpTrueSuffix_TextChanged(object sender, EventArgs e)
+        private void TxtInpTrueSuffix_TextChanged(object sender, EventArgs e)
         {
             txtInpValue.Text = txtSymbol.Text + txtInpValeSuffix.Text;
         }
 
-        private void txtSymbolRule_TextChanged(object sender, EventArgs e)
+        private void TxtSymbolRule_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtSymbolRule.Text))
             { return; }
@@ -414,7 +414,7 @@ namespace GcproExtensionApp
             }
 
         }
-        private void txtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
+        private void TxtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -430,7 +430,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
+        private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtDescriptionRule.Text))
             { return; }
@@ -454,7 +454,7 @@ namespace GcproExtensionApp
                 AppGlobal.MessageNotNumeric();
             }
         }
-        private void txtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
+        private void TxtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -469,7 +469,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void txtValue10_KeyDown(object sender, KeyEventArgs e)
+        private void TxtValue10_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -478,7 +478,7 @@ namespace GcproExtensionApp
             }
         }
 
-        private void txtValue9_KeyDown(object sender, KeyEventArgs e)
+        private void TxtValue9_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -489,7 +489,7 @@ namespace GcproExtensionApp
         #endregion
         #region <------Check and unchek "Value9" and "Value10------>"    
 
-        private void chkInterlocking_CheckedChanged(object sender, EventArgs e)
+        private void ChkInterlocking_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkInterlocking.Checked)
@@ -503,7 +503,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkMonNotLowLow_CheckedChanged(object sender, EventArgs e)
+        private void ChkMonNotLowLow_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotLowLow.Checked)
@@ -517,7 +517,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkMonNotLow_CheckedChanged(object sender, EventArgs e)
+        private void ChkMonNotLow_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotLow.Checked)
@@ -531,7 +531,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkMonNotMiddle_CheckedChanged(object sender, EventArgs e)
+        private void ChkMonNotMiddle_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotMiddle.Checked)
@@ -545,7 +545,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkMonNotHigh_CheckedChanged(object sender, EventArgs e)
+        private void ChkMonNotHigh_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotHigh.Checked)
@@ -559,7 +559,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkMonNotHighHigh_CheckedChanged(object sender, EventArgs e)
+        private void ChkMonNotHighHigh_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotHighHigh.Checked)
@@ -573,7 +573,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkInDisable_CheckedChanged(object sender, EventArgs e)
+        private void ChkInDisable_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkInDisable.Checked)
@@ -587,7 +587,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkWinCC_CheckedChanged(object sender, EventArgs e)
+        private void ChkWinCC_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkWinCC.Checked)
@@ -600,7 +600,7 @@ namespace GcproExtensionApp
             myAI.Value9 = value9.ToString();
             txtValue9.Text = myAI.Value9;
         }
-        private void chkOutValueUnits_CheckedChanged(object sender, EventArgs e)
+        private void ChkOutValueUnits_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkOutValueUnits.Checked)
@@ -614,7 +614,7 @@ namespace GcproExtensionApp
             txtValue9.Text = myAI.Value9;
         }
 
-        private void chkOutValueRel_CheckedChanged(object sender, EventArgs e)
+        private void ChkOutValueRel_CheckedChanged(object sender, EventArgs e)
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkOutValueRel.Checked)
@@ -627,7 +627,7 @@ namespace GcproExtensionApp
             myAI.Value9 = value9.ToString();
             txtValue9.Text = myAI.Value9;
         }
-        private void chkParLogOff_CheckedChanged(object sender, EventArgs e)
+        private void ChkParLogOff_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParLogOff.Checked)
@@ -641,7 +641,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value9;
         }
 
-        private void chkParLimitsRel_CheckedChanged(object sender, EventArgs e)
+        private void ChkParLimitsRel_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParLimitsRel.Checked)
@@ -655,7 +655,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value9;
         }
 
-        private void chkParNoHornByWarning_CheckedChanged(object sender, EventArgs e)
+        private void ChkParNoHornByWarning_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParNoHornByWarning.Checked)
@@ -668,7 +668,7 @@ namespace GcproExtensionApp
             myAI.Value10 = value10.ToString();
             txtValue10.Text = myAI.Value10;
         }
-        private void chkParWarningLowLow_CheckedChanged(object sender, EventArgs e)
+        private void ChkParWarningLowLow_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningLowLow.Checked)
@@ -682,7 +682,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParWarningLow_CheckedChanged(object sender, EventArgs e)
+        private void ChkParWarningLow_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningLow.Checked)
@@ -696,7 +696,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParWarningMiddle_CheckedChanged(object sender, EventArgs e)
+        private void ChkParWarningMiddle_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningMiddle.Checked)
@@ -710,7 +710,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParWarningHigh_CheckedChanged(object sender, EventArgs e)
+        private void ChkParWarningHigh_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningHigh.Checked)
@@ -724,7 +724,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParWarningHighHigh_CheckedChanged(object sender, EventArgs e)
+        private void ChkParWarningHighHigh_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningHighHigh.Checked)
@@ -738,7 +738,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParPreAlarmLowLow_CheckedChanged(object sender, EventArgs e)
+        private void ChkParPreAlarmLowLow_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmLowLow.Checked)
@@ -752,7 +752,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParPreAlarmLow_CheckedChanged(object sender, EventArgs e)
+        private void ChkParPreAlarmLow_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmLow.Checked)
@@ -766,7 +766,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParPreAlarmMiddle_CheckedChanged(object sender, EventArgs e)
+        private void ChkParPreAlarmMiddle_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmMiddle.Checked)
@@ -780,7 +780,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParPreAlarmHigh_CheckedChanged(object sender, EventArgs e)
+        private void ChkParPreAlarmHigh_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmHigh.Checked)
@@ -794,7 +794,7 @@ namespace GcproExtensionApp
             txtValue10.Text = myAI.Value10;
         }
 
-        private void chkParPreAlarmHighHigh_CheckedChanged(object sender, EventArgs e)
+        private void ChkParPreAlarmHighHigh_CheckedChanged(object sender, EventArgs e)
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmHighHigh.Checked)
@@ -809,19 +809,19 @@ namespace GcproExtensionApp
         }
         #endregion
         #region <------Field in database display
-        private void txtSymbol_MouseEnter(object sender, EventArgs e)
+        private void TxtSymbol_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text0";
         }
-        private void txtDescription_MouseEnter(object sender, EventArgs e)
+        private void TxtDescription_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text1";
         }
-        private void txtInpValue_MouseEnter(object sender, EventArgs e)
+        private void TxtInpValue_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value11";
         }
-        private void txtInHWStop_MouseEnter(object sender, EventArgs e)
+        private void TxtInHWStop_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value47";
         }
@@ -838,197 +838,197 @@ namespace GcproExtensionApp
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "DPNode1";
         }
 
-        private void txtInpFaultDev_MouseEnter(object sender, EventArgs e)
+        private void TxtInpFaultDev_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value19";
         }
 
-        private void txtInHWStop_MouseDown(object sender, MouseEventArgs e)
+        private void TxtInHWStop_MouseDown(object sender, MouseEventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value47";
         }
 
-        private void txtInpLowLow_MouseEnter(object sender, EventArgs e)
+        private void TxtInpLowLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value12";
         }
 
-        private void txtInpLow_MouseEnter(object sender, EventArgs e)
+        private void TxtInpLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value13";
         }
 
-        private void txtInpHigh_MouseEnter(object sender, EventArgs e)
+        private void TxtInpHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value14";
         }
 
-        private void txtInpHighHigh_MouseEnter(object sender, EventArgs e)
+        private void TxtInpHighHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value15";
         }
 
-        private void txtUnitsBy100_MouseEnter(object sender, EventArgs e)
+        private void TxtUnitsBy100_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value23";
         }
 
-        private void txtOffsetUnits_MouseEnter(object sender, EventArgs e)
+        private void TxtOffsetUnits_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value41";
         }
 
-        private void txtDelayTimeDown_MouseEnter(object sender, EventArgs e)
+        private void TxtDelayTimeDown_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value33";
         }
 
-        private void txtDelayTimeUp_MouseEnter(object sender, EventArgs e)
+        private void TxtDelayTimeUp_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value34";
         }
 
-        private void txtDelayTimeFault_MouseEnter(object sender, EventArgs e)
+        private void TxtDelayTimeFault_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value35";
         }
 
-        private void txtParLimitLowLow_MouseEnter(object sender, EventArgs e)
+        private void TxtParLimitLowLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value24";
         }
 
-        private void txtParLimitLow_MouseEnter(object sender, EventArgs e)
+        private void TxtParLimitLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value25";
         }
 
-        private void txtParLimitHigh_MouseEnter(object sender, EventArgs e)
+        private void TxtParLimitHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value26";
         }
 
-        private void txtParLimitHighHigh_MouseEnter(object sender, EventArgs e)
+        private void TxtParLimitHighHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value27";
         }
 
-        private void comboUnit_MouseEnter(object sender, EventArgs e)
+        private void ComboUnit_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value38";
         }
 
-        private void chkParLogOff_MouseEnter(object sender, EventArgs e)
+        private void ChkParLogOff_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit0";
         }
 
-        private void chkParLimitsRel_MouseEnter(object sender, EventArgs e)
+        private void ChkParLimitsRel_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit3";
         }
 
-        private void chkParNoHornByWarning_MouseEnter(object sender, EventArgs e)
+        private void ChkParNoHornByWarning_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit5";
         }
 
-        private void chkParWarningLowLow_MouseEnter(object sender, EventArgs e)
+        private void ChkParWarningLowLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit6";
         }
 
-        private void chkParWarningLow_MouseEnter(object sender, EventArgs e)
+        private void ChkParWarningLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit7";
         }
 
-        private void chkParWarningMiddle_MouseEnter(object sender, EventArgs e)
+        private void ChkParWarningMiddle_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit8";
         }
 
-        private void chkParWarningHigh_MouseEnter(object sender, EventArgs e)
+        private void ChkParWarningHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit9";
         }
 
-        private void chkParWarningHighHigh_MouseEnter(object sender, EventArgs e)
+        private void ChkParWarningHighHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit10";
         }
 
-        private void chkParPreAlarmLowLow_MouseEnter(object sender, EventArgs e)
+        private void ChkParPreAlarmLowLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit11";
         }
 
-        private void chkParPreAlarmLow_MouseEnter(object sender, EventArgs e)
+        private void ChkParPreAlarmLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit12";
         }
 
-        private void chkParPreAlarmMiddle_MouseEnter(object sender, EventArgs e)
+        private void ChkParPreAlarmMiddle_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit13";
         }
 
-        private void chkParPreAlarmHigh_MouseEnter(object sender, EventArgs e)
+        private void ChkParPreAlarmHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit14";
         }
 
-        private void chkParPreAlarmHighHigh_MouseEnter(object sender, EventArgs e)
+        private void ChkParPreAlarmHighHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value10.Bit15";
         }
 
-        private void chkInterlocking_MouseEnter(object sender, EventArgs e)
+        private void ChkInterlocking_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit0";
         }
 
-        private void chkMonNotLowLow_MouseEnter(object sender, EventArgs e)
+        private void ChkMonNotLowLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit1";
         }
 
-        private void chkMonNotLow_MouseEnter(object sender, EventArgs e)
+        private void ChkMonNotLow_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit2";
         }
 
-        private void chkMonNotMiddle_MouseEnter(object sender, EventArgs e)
+        private void ChkMonNotMiddle_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit3";
         }
 
-        private void chkMonNotHigh_MouseEnter(object sender, EventArgs e)
+        private void ChkMonNotHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit4";
         }
 
-        private void chkMonNotHighHigh_MouseEnter(object sender, EventArgs e)
+        private void ChkMonNotHighHigh_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit5";
         }
 
-        private void chkInDisable_MouseEnter(object sender, EventArgs e)
+        private void ChkInDisable_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit6";
         }
 
-        private void chkWinCC_MouseEnter(object sender, EventArgs e)
+        private void ChkWinCC_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit7";
         }
 
-        private void chkOutValueUnits_MouseEnter(object sender, EventArgs e)
+        private void ChkOutValueUnits_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit16";
         }
 
-        private void chkOutValueRel_MouseEnter(object sender, EventArgs e)
+        private void ChkOutValueRel_MouseEnter(object sender, EventArgs e)
         {
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value9.Bit17";
         }
@@ -1049,7 +1049,7 @@ namespace GcproExtensionApp
             );
             txtDescription.Text = AI.Rule.Common.Description;
         }
-        private void txtSymbol_TextChanged(object sender, EventArgs e)
+        private void TxtSymbol_TextChanged(object sender, EventArgs e)
         {
             txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
             txtInpValue.Text = (txtSymbol.Text.Contains(GcObjectInfo.AI.SuffixName) ? txtSymbol.Text.Replace(GcObjectInfo.AI.SuffixName, string.Empty) : txtSymbol.Text)
@@ -1058,7 +1058,7 @@ namespace GcproExtensionApp
             AI.Rule.Common.Name = txtSymbol.Text;
             UpdateDesc();
         }
-        private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void TxtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var objectBrowser = new ObjectBrowser
             {
@@ -1067,7 +1067,7 @@ namespace GcproExtensionApp
             };
             objectBrowser.Show();
         }
-        private void txtDescription_TextChanged(object sender, EventArgs e)
+        private void TxtDescription_TextChanged(object sender, EventArgs e)
         {   
             if (!AI.Rule.Common.Description.Equals(txtDescription.Text))
             {
@@ -1080,7 +1080,7 @@ namespace GcproExtensionApp
             { txtDescription.BackColor = Color.White; }
         }
 
-        private void txtDescription_KeyDown(object sender, KeyEventArgs e)
+        private void TxtDescription_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -1133,7 +1133,7 @@ namespace GcproExtensionApp
             chkOutValueUnits.Checked = AppGlobal.GetBitValue(value, 16);
             chkOutValueRel.Checked = AppGlobal.GetBitValue(value, 17);
         }
-        private void btnCreateTempAndPre_Click(object sender, EventArgs e)
+        private void BtnCreateTempAndPre_Click(object sender, EventArgs e)
         {
             DataTable dataTable ;
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
@@ -1294,11 +1294,11 @@ namespace GcproExtensionApp
             BML.AI.BMLPath = excelFileHandle.FilePath;
             LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.AI.Path", BML.AI.BMLPath);
         }
-        private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
+        private void ComboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
            // AddWorkSheets();
         }
-        private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
@@ -1381,7 +1381,7 @@ namespace GcproExtensionApp
             });
         }
 
-        private void btnReadBML_Click(object sender, EventArgs e)
+        private void BtnReadBML_Click(object sender, EventArgs e)
         {
             string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text,comboLineBML.Text,comboTypeBML.Text };
@@ -1415,31 +1415,31 @@ namespace GcproExtensionApp
         #endregion
 
         #region Common used
-        private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAddSectionToDesc.Checked)
             { chkAddUserSectionToDesc.Checked = false; }
             UpdateDesc();
         }
-        private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAddUserSectionToDesc.Checked)
             { chkAddSectionToDesc.Checked = false; }
             UpdateDesc();
         }
-        private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
-        private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
-        private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
+        private void ChkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
-        private void chkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
@@ -1581,7 +1581,7 @@ namespace GcproExtensionApp
                 tabCreateMode.SelectedTab = tabBML;
             }
         }
-        private void tabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabCreateMode.SelectedTab == tabRule)
 
@@ -1593,17 +1593,17 @@ namespace GcproExtensionApp
                 ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
             }
         }
-        private void toolStripMenuClearList_Click(object sender, EventArgs e)
+        private void ToolStripMenuClearList_Click(object sender, EventArgs e)
         {
             DataTable dataTable = null;
             dataGridBML.DataSource = dataTable;
 
         }
-        private void toolStripMenuReload_Click(object sender, EventArgs e)
+        private void ToolStripMenuReload_Click(object sender, EventArgs e)
         {
-            btnReadBML_Click(sender, e);
+            BtnReadBML_Click(sender, e);
         }
-        private void toolStripMenuDelete_Click(object sender, EventArgs e)
+        private void ToolStripMenuDelete_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow row in dataGridBML.SelectedRows)
             {

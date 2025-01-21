@@ -308,7 +308,7 @@ namespace GcproExtensionApp
             this.tabCreateMode.SelectedIndex = 0;
             this.tabCreateMode.Size = new System.Drawing.Size(731, 606);
             this.tabCreateMode.TabIndex = 107;
-            this.tabCreateMode.SelectedIndexChanged += new System.EventHandler(this.tabCreateMode_SelectedIndexChanged);
+            this.tabCreateMode.SelectedIndexChanged += new System.EventHandler(this.TabCreateMode_SelectedIndexChanged);
             // 
             // contextMenuStripBML
             // 
@@ -447,8 +447,8 @@ namespace GcproExtensionApp
             this.chkOutValueRel.TabIndex = 42;
             this.chkOutValueRel.Text = "OutValueRel";
             this.chkOutValueRel.UseVisualStyleBackColor = true;
-            this.chkOutValueRel.CheckedChanged += new System.EventHandler(this.chkOutValueRel_CheckedChanged);
-            this.chkOutValueRel.MouseEnter += new System.EventHandler(this.chkOutValueRel_MouseEnter);
+            this.chkOutValueRel.CheckedChanged += new System.EventHandler(this.ChkOutValueRel_CheckedChanged);
+            this.chkOutValueRel.MouseEnter += new System.EventHandler(this.ChkOutValueRel_MouseEnter);
             // 
             // chkOutValueUnits
             // 
@@ -459,8 +459,8 @@ namespace GcproExtensionApp
             this.chkOutValueUnits.TabIndex = 41;
             this.chkOutValueUnits.Text = "OutValueUnits";
             this.chkOutValueUnits.UseVisualStyleBackColor = true;
-            this.chkOutValueUnits.CheckedChanged += new System.EventHandler(this.chkOutValueUnits_CheckedChanged);
-            this.chkOutValueUnits.MouseEnter += new System.EventHandler(this.chkOutValueUnits_MouseEnter);
+            this.chkOutValueUnits.CheckedChanged += new System.EventHandler(this.ChkOutValueUnits_CheckedChanged);
+            this.chkOutValueUnits.MouseEnter += new System.EventHandler(this.ChkOutValueUnits_MouseEnter);
             // 
             // lblOffsetUnits
             // 
@@ -479,7 +479,7 @@ namespace GcproExtensionApp
             this.txtOffsetUnits.Size = new System.Drawing.Size(56, 13);
             this.txtOffsetUnits.TabIndex = 175;
             this.txtOffsetUnits.Text = "0";
-            this.txtOffsetUnits.MouseEnter += new System.EventHandler(this.txtOffsetUnits_MouseEnter);
+            this.txtOffsetUnits.MouseEnter += new System.EventHandler(this.TxtOffsetUnits_MouseEnter);
             // 
             // txtParLimitHighHigh
             // 
@@ -489,7 +489,7 @@ namespace GcproExtensionApp
             this.txtParLimitHighHigh.Size = new System.Drawing.Size(56, 13);
             this.txtParLimitHighHigh.TabIndex = 173;
             this.txtParLimitHighHigh.Text = "0";
-            this.txtParLimitHighHigh.MouseEnter += new System.EventHandler(this.txtParLimitHighHigh_MouseEnter);
+            this.txtParLimitHighHigh.MouseEnter += new System.EventHandler(this.TxtParLimitHighHigh_MouseEnter);
             // 
             // lblParLimitHighHigh
             // 
@@ -508,7 +508,7 @@ namespace GcproExtensionApp
             this.txtParLimitHigh.Size = new System.Drawing.Size(56, 13);
             this.txtParLimitHigh.TabIndex = 171;
             this.txtParLimitHigh.Text = "0";
-            this.txtParLimitHigh.MouseEnter += new System.EventHandler(this.txtParLimitHigh_MouseEnter);
+            this.txtParLimitHigh.MouseEnter += new System.EventHandler(this.TxtParLimitHigh_MouseEnter);
             // 
             // lblParLimitHigh
             // 
@@ -527,7 +527,7 @@ namespace GcproExtensionApp
             this.txtParLimitLow.Size = new System.Drawing.Size(56, 13);
             this.txtParLimitLow.TabIndex = 169;
             this.txtParLimitLow.Text = "0";
-            this.txtParLimitLow.MouseEnter += new System.EventHandler(this.txtParLimitLow_MouseEnter);
+            this.txtParLimitLow.MouseEnter += new System.EventHandler(this.TxtParLimitLow_MouseEnter);
             // 
             // lblParLimitLow
             // 
@@ -546,7 +546,7 @@ namespace GcproExtensionApp
             this.txtParLimitLowLow.Size = new System.Drawing.Size(56, 13);
             this.txtParLimitLowLow.TabIndex = 167;
             this.txtParLimitLowLow.Text = "0";
-            this.txtParLimitLowLow.MouseEnter += new System.EventHandler(this.txtParLimitLowLow_MouseEnter);
+            this.txtParLimitLowLow.MouseEnter += new System.EventHandler(this.TxtParLimitLowLow_MouseEnter);
             // 
             // lblParLimitLowLow
             // 
@@ -566,8 +566,8 @@ namespace GcproExtensionApp
             this.chkParPreAlarmHighHigh.TabIndex = 165;
             this.chkParPreAlarmHighHigh.Text = "PreAlarmHighHigh";
             this.chkParPreAlarmHighHigh.UseVisualStyleBackColor = true;
-            this.chkParPreAlarmHighHigh.CheckedChanged += new System.EventHandler(this.chkParPreAlarmHighHigh_CheckedChanged);
-            this.chkParPreAlarmHighHigh.MouseEnter += new System.EventHandler(this.chkParPreAlarmHighHigh_MouseEnter);
+            this.chkParPreAlarmHighHigh.CheckedChanged += new System.EventHandler(this.ChkParPreAlarmHighHigh_CheckedChanged);
+            this.chkParPreAlarmHighHigh.MouseEnter += new System.EventHandler(this.ChkParPreAlarmHighHigh_MouseEnter);
             // 
             // chkParPreAlarmHigh
             // 
@@ -578,8 +578,8 @@ namespace GcproExtensionApp
             this.chkParPreAlarmHigh.TabIndex = 164;
             this.chkParPreAlarmHigh.Text = "PreAlarmHigh";
             this.chkParPreAlarmHigh.UseVisualStyleBackColor = true;
-            this.chkParPreAlarmHigh.CheckedChanged += new System.EventHandler(this.chkParPreAlarmHigh_CheckedChanged);
-            this.chkParPreAlarmHigh.MouseEnter += new System.EventHandler(this.chkParPreAlarmHigh_MouseEnter);
+            this.chkParPreAlarmHigh.CheckedChanged += new System.EventHandler(this.ChkParPreAlarmHigh_CheckedChanged);
+            this.chkParPreAlarmHigh.MouseEnter += new System.EventHandler(this.ChkParPreAlarmHigh_MouseEnter);
             // 
             // chkParPreAlarmMiddle
             // 
@@ -590,8 +590,8 @@ namespace GcproExtensionApp
             this.chkParPreAlarmMiddle.TabIndex = 163;
             this.chkParPreAlarmMiddle.Text = "PreAlarmMiddle";
             this.chkParPreAlarmMiddle.UseVisualStyleBackColor = true;
-            this.chkParPreAlarmMiddle.CheckedChanged += new System.EventHandler(this.chkParPreAlarmMiddle_CheckedChanged);
-            this.chkParPreAlarmMiddle.MouseEnter += new System.EventHandler(this.chkParPreAlarmMiddle_MouseEnter);
+            this.chkParPreAlarmMiddle.CheckedChanged += new System.EventHandler(this.ChkParPreAlarmMiddle_CheckedChanged);
+            this.chkParPreAlarmMiddle.MouseEnter += new System.EventHandler(this.ChkParPreAlarmMiddle_MouseEnter);
             // 
             // lblUnitsBy100
             // 
@@ -611,8 +611,8 @@ namespace GcproExtensionApp
             this.chkParPreAlarmLow.TabIndex = 162;
             this.chkParPreAlarmLow.Text = "PreAlarmLow";
             this.chkParPreAlarmLow.UseVisualStyleBackColor = true;
-            this.chkParPreAlarmLow.CheckedChanged += new System.EventHandler(this.chkParPreAlarmLow_CheckedChanged);
-            this.chkParPreAlarmLow.MouseEnter += new System.EventHandler(this.chkParPreAlarmLow_MouseEnter);
+            this.chkParPreAlarmLow.CheckedChanged += new System.EventHandler(this.ChkParPreAlarmLow_CheckedChanged);
+            this.chkParPreAlarmLow.MouseEnter += new System.EventHandler(this.ChkParPreAlarmLow_MouseEnter);
             // 
             // txtUnitsBy100
             // 
@@ -623,7 +623,7 @@ namespace GcproExtensionApp
             this.txtUnitsBy100.Size = new System.Drawing.Size(56, 13);
             this.txtUnitsBy100.TabIndex = 131;
             this.txtUnitsBy100.Text = "100.0";
-            this.txtUnitsBy100.MouseEnter += new System.EventHandler(this.txtUnitsBy100_MouseEnter);
+            this.txtUnitsBy100.MouseEnter += new System.EventHandler(this.TxtUnitsBy100_MouseEnter);
             // 
             // chkParPreAlarmLowLow
             // 
@@ -634,8 +634,8 @@ namespace GcproExtensionApp
             this.chkParPreAlarmLowLow.TabIndex = 161;
             this.chkParPreAlarmLowLow.Text = "PreAlarmLowLow";
             this.chkParPreAlarmLowLow.UseVisualStyleBackColor = true;
-            this.chkParPreAlarmLowLow.CheckedChanged += new System.EventHandler(this.chkParPreAlarmLowLow_CheckedChanged);
-            this.chkParPreAlarmLowLow.MouseEnter += new System.EventHandler(this.chkParPreAlarmLowLow_MouseEnter);
+            this.chkParPreAlarmLowLow.CheckedChanged += new System.EventHandler(this.ChkParPreAlarmLowLow_CheckedChanged);
+            this.chkParPreAlarmLowLow.MouseEnter += new System.EventHandler(this.ChkParPreAlarmLowLow_MouseEnter);
             // 
             // lblDelayTimeDown
             // 
@@ -655,8 +655,8 @@ namespace GcproExtensionApp
             this.chkParWarningHighHigh.TabIndex = 160;
             this.chkParWarningHighHigh.Text = "ParWarningHighHigh";
             this.chkParWarningHighHigh.UseVisualStyleBackColor = true;
-            this.chkParWarningHighHigh.CheckedChanged += new System.EventHandler(this.chkParWarningHighHigh_CheckedChanged);
-            this.chkParWarningHighHigh.MouseEnter += new System.EventHandler(this.chkParWarningHighHigh_MouseEnter);
+            this.chkParWarningHighHigh.CheckedChanged += new System.EventHandler(this.ChkParWarningHighHigh_CheckedChanged);
+            this.chkParWarningHighHigh.MouseEnter += new System.EventHandler(this.ChkParWarningHighHigh_MouseEnter);
             // 
             // txtDelayTimeDown
             // 
@@ -666,7 +666,7 @@ namespace GcproExtensionApp
             this.txtDelayTimeDown.Size = new System.Drawing.Size(56, 13);
             this.txtDelayTimeDown.TabIndex = 133;
             this.txtDelayTimeDown.Text = "1.0";
-            this.txtDelayTimeDown.MouseEnter += new System.EventHandler(this.txtDelayTimeDown_MouseEnter);
+            this.txtDelayTimeDown.MouseEnter += new System.EventHandler(this.TxtDelayTimeDown_MouseEnter);
             // 
             // chkParWarningHigh
             // 
@@ -677,8 +677,8 @@ namespace GcproExtensionApp
             this.chkParWarningHigh.TabIndex = 159;
             this.chkParWarningHigh.Text = "ParWarningHigh";
             this.chkParWarningHigh.UseVisualStyleBackColor = true;
-            this.chkParWarningHigh.CheckedChanged += new System.EventHandler(this.chkParWarningHigh_CheckedChanged);
-            this.chkParWarningHigh.MouseEnter += new System.EventHandler(this.chkParWarningHigh_MouseEnter);
+            this.chkParWarningHigh.CheckedChanged += new System.EventHandler(this.ChkParWarningHigh_CheckedChanged);
+            this.chkParWarningHigh.MouseEnter += new System.EventHandler(this.ChkParWarningHigh_MouseEnter);
             // 
             // lblDelayTimeUp
             // 
@@ -698,8 +698,8 @@ namespace GcproExtensionApp
             this.chkParWarningMiddle.TabIndex = 158;
             this.chkParWarningMiddle.Text = "ParWarningMiddle";
             this.chkParWarningMiddle.UseVisualStyleBackColor = true;
-            this.chkParWarningMiddle.CheckedChanged += new System.EventHandler(this.chkParWarningMiddle_CheckedChanged);
-            this.chkParWarningMiddle.MouseEnter += new System.EventHandler(this.chkParWarningMiddle_MouseEnter);
+            this.chkParWarningMiddle.CheckedChanged += new System.EventHandler(this.ChkParWarningMiddle_CheckedChanged);
+            this.chkParWarningMiddle.MouseEnter += new System.EventHandler(this.ChkParWarningMiddle_MouseEnter);
             // 
             // txtDelayTimeUp
             // 
@@ -709,7 +709,7 @@ namespace GcproExtensionApp
             this.txtDelayTimeUp.Size = new System.Drawing.Size(56, 13);
             this.txtDelayTimeUp.TabIndex = 135;
             this.txtDelayTimeUp.Text = "1.0";
-            this.txtDelayTimeUp.MouseEnter += new System.EventHandler(this.txtDelayTimeUp_MouseEnter);
+            this.txtDelayTimeUp.MouseEnter += new System.EventHandler(this.TxtDelayTimeUp_MouseEnter);
             // 
             // chkParWarningLow
             // 
@@ -720,8 +720,8 @@ namespace GcproExtensionApp
             this.chkParWarningLow.TabIndex = 157;
             this.chkParWarningLow.Text = "ParWarningLow";
             this.chkParWarningLow.UseVisualStyleBackColor = true;
-            this.chkParWarningLow.CheckedChanged += new System.EventHandler(this.chkParWarningLow_CheckedChanged);
-            this.chkParWarningLow.MouseEnter += new System.EventHandler(this.chkParWarningLow_MouseEnter);
+            this.chkParWarningLow.CheckedChanged += new System.EventHandler(this.ChkParWarningLow_CheckedChanged);
+            this.chkParWarningLow.MouseEnter += new System.EventHandler(this.ChkParWarningLow_MouseEnter);
             // 
             // lblDelayTimeFault
             // 
@@ -741,8 +741,8 @@ namespace GcproExtensionApp
             this.chkParWarningLowLow.TabIndex = 156;
             this.chkParWarningLowLow.Text = "ParWarningLowLow";
             this.chkParWarningLowLow.UseVisualStyleBackColor = true;
-            this.chkParWarningLowLow.CheckedChanged += new System.EventHandler(this.chkParWarningLowLow_CheckedChanged);
-            this.chkParWarningLowLow.MouseEnter += new System.EventHandler(this.chkParWarningLowLow_MouseEnter);
+            this.chkParWarningLowLow.CheckedChanged += new System.EventHandler(this.ChkParWarningLowLow_CheckedChanged);
+            this.chkParWarningLowLow.MouseEnter += new System.EventHandler(this.ChkParWarningLowLow_MouseEnter);
             // 
             // txtDelayTimeFault
             // 
@@ -752,7 +752,7 @@ namespace GcproExtensionApp
             this.txtDelayTimeFault.Size = new System.Drawing.Size(56, 13);
             this.txtDelayTimeFault.TabIndex = 137;
             this.txtDelayTimeFault.Text = "1.0";
-            this.txtDelayTimeFault.MouseEnter += new System.EventHandler(this.txtDelayTimeFault_MouseEnter);
+            this.txtDelayTimeFault.MouseEnter += new System.EventHandler(this.TxtDelayTimeFault_MouseEnter);
             // 
             // txtMonTimeHighHigh
             // 
@@ -790,8 +790,8 @@ namespace GcproExtensionApp
             this.chkParLogOff.TabIndex = 139;
             this.chkParLogOff.Text = "ParLogOff";
             this.chkParLogOff.UseVisualStyleBackColor = true;
-            this.chkParLogOff.CheckedChanged += new System.EventHandler(this.chkParLogOff_CheckedChanged);
-            this.chkParLogOff.MouseEnter += new System.EventHandler(this.chkParLogOff_MouseEnter);
+            this.chkParLogOff.CheckedChanged += new System.EventHandler(this.ChkParLogOff_CheckedChanged);
+            this.chkParLogOff.MouseEnter += new System.EventHandler(this.ChkParLogOff_MouseEnter);
             // 
             // txtMonTimeHigh
             // 
@@ -811,8 +811,8 @@ namespace GcproExtensionApp
             this.chkParLimitsRel.TabIndex = 140;
             this.chkParLimitsRel.Text = "ParLimitsRel";
             this.chkParLimitsRel.UseVisualStyleBackColor = true;
-            this.chkParLimitsRel.CheckedChanged += new System.EventHandler(this.chkParLimitsRel_CheckedChanged);
-            this.chkParLimitsRel.MouseEnter += new System.EventHandler(this.chkParLimitsRel_MouseEnter);
+            this.chkParLimitsRel.CheckedChanged += new System.EventHandler(this.ChkParLimitsRel_CheckedChanged);
+            this.chkParLimitsRel.MouseEnter += new System.EventHandler(this.ChkParLimitsRel_MouseEnter);
             // 
             // lblHighMonTime
             // 
@@ -834,8 +834,8 @@ namespace GcproExtensionApp
             this.chkParNoHornByWarning.TabIndex = 141;
             this.chkParNoHornByWarning.Text = "ParNoHornByWarning";
             this.chkParNoHornByWarning.UseVisualStyleBackColor = true;
-            this.chkParNoHornByWarning.CheckedChanged += new System.EventHandler(this.chkParNoHornByWarning_CheckedChanged);
-            this.chkParNoHornByWarning.MouseEnter += new System.EventHandler(this.chkParNoHornByWarning_MouseEnter);
+            this.chkParNoHornByWarning.CheckedChanged += new System.EventHandler(this.ChkParNoHornByWarning_CheckedChanged);
+            this.chkParNoHornByWarning.MouseEnter += new System.EventHandler(this.ChkParNoHornByWarning_MouseEnter);
             // 
             // txtMonTimeMiddle
             // 
@@ -875,8 +875,8 @@ namespace GcproExtensionApp
             this.chkWinCC.Text = "WinCC:Negative Values";
             this.chkWinCC.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.chkWinCC.UseVisualStyleBackColor = true;
-            this.chkWinCC.CheckedChanged += new System.EventHandler(this.chkWinCC_CheckedChanged);
-            this.chkWinCC.MouseEnter += new System.EventHandler(this.chkWinCC_MouseEnter);
+            this.chkWinCC.CheckedChanged += new System.EventHandler(this.ChkWinCC_CheckedChanged);
+            this.chkWinCC.MouseEnter += new System.EventHandler(this.ChkWinCC_MouseEnter);
             // 
             // chkInDisable
             // 
@@ -888,8 +888,8 @@ namespace GcproExtensionApp
             this.chkInDisable.Text = "InDisable:=Local";
             this.chkInDisable.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.chkInDisable.UseVisualStyleBackColor = true;
-            this.chkInDisable.CheckedChanged += new System.EventHandler(this.chkInDisable_CheckedChanged);
-            this.chkInDisable.MouseEnter += new System.EventHandler(this.chkInDisable_MouseEnter);
+            this.chkInDisable.CheckedChanged += new System.EventHandler(this.ChkInDisable_CheckedChanged);
+            this.chkInDisable.MouseEnter += new System.EventHandler(this.ChkInDisable_MouseEnter);
             // 
             // chkMonNotMiddle
             // 
@@ -900,8 +900,8 @@ namespace GcproExtensionApp
             this.chkMonNotMiddle.TabIndex = 65;
             this.chkMonNotMiddle.Text = "Set InMonNotMiddle";
             this.chkMonNotMiddle.UseVisualStyleBackColor = true;
-            this.chkMonNotMiddle.CheckedChanged += new System.EventHandler(this.chkMonNotMiddle_CheckedChanged);
-            this.chkMonNotMiddle.MouseEnter += new System.EventHandler(this.chkMonNotMiddle_MouseEnter);
+            this.chkMonNotMiddle.CheckedChanged += new System.EventHandler(this.ChkMonNotMiddle_CheckedChanged);
+            this.chkMonNotMiddle.MouseEnter += new System.EventHandler(this.ChkMonNotMiddle_MouseEnter);
             // 
             // chkMonNotHighHigh
             // 
@@ -915,8 +915,8 @@ namespace GcproExtensionApp
             this.chkMonNotHighHigh.Text = "Set InMonNotHighHigh";
             this.chkMonNotHighHigh.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.chkMonNotHighHigh.UseVisualStyleBackColor = true;
-            this.chkMonNotHighHigh.CheckedChanged += new System.EventHandler(this.chkMonNotHighHigh_CheckedChanged);
-            this.chkMonNotHighHigh.MouseEnter += new System.EventHandler(this.chkMonNotHighHigh_MouseEnter);
+            this.chkMonNotHighHigh.CheckedChanged += new System.EventHandler(this.ChkMonNotHighHigh_CheckedChanged);
+            this.chkMonNotHighHigh.MouseEnter += new System.EventHandler(this.ChkMonNotHighHigh_MouseEnter);
             // 
             // lblValue9
             // 
@@ -936,8 +936,8 @@ namespace GcproExtensionApp
             this.chkMonNotHigh.TabIndex = 63;
             this.chkMonNotHigh.Text = "Set InMonNotHigh";
             this.chkMonNotHigh.UseVisualStyleBackColor = true;
-            this.chkMonNotHigh.CheckedChanged += new System.EventHandler(this.chkMonNotHigh_CheckedChanged);
-            this.chkMonNotHigh.MouseEnter += new System.EventHandler(this.chkMonNotHigh_MouseEnter);
+            this.chkMonNotHigh.CheckedChanged += new System.EventHandler(this.ChkMonNotHigh_CheckedChanged);
+            this.chkMonNotHigh.MouseEnter += new System.EventHandler(this.ChkMonNotHigh_MouseEnter);
             // 
             // chkMonNotLow
             // 
@@ -948,8 +948,8 @@ namespace GcproExtensionApp
             this.chkMonNotLow.TabIndex = 62;
             this.chkMonNotLow.Text = "Set InMonNotLow";
             this.chkMonNotLow.UseVisualStyleBackColor = true;
-            this.chkMonNotLow.CheckedChanged += new System.EventHandler(this.chkMonNotLow_CheckedChanged);
-            this.chkMonNotLow.MouseEnter += new System.EventHandler(this.chkMonNotLow_MouseEnter);
+            this.chkMonNotLow.CheckedChanged += new System.EventHandler(this.ChkMonNotLow_CheckedChanged);
+            this.chkMonNotLow.MouseEnter += new System.EventHandler(this.ChkMonNotLow_MouseEnter);
             // 
             // txtValue9
             // 
@@ -968,8 +968,8 @@ namespace GcproExtensionApp
             this.chkMonNotLowLow.TabIndex = 42;
             this.chkMonNotLowLow.Text = "Set InMonNotLowLow";
             this.chkMonNotLowLow.UseVisualStyleBackColor = true;
-            this.chkMonNotLowLow.CheckedChanged += new System.EventHandler(this.chkMonNotLowLow_CheckedChanged);
-            this.chkMonNotLowLow.MouseEnter += new System.EventHandler(this.chkMonNotLowLow_MouseEnter);
+            this.chkMonNotLowLow.CheckedChanged += new System.EventHandler(this.ChkMonNotLowLow_CheckedChanged);
+            this.chkMonNotLowLow.MouseEnter += new System.EventHandler(this.ChkMonNotLowLow_MouseEnter);
             // 
             // chkInterlocking
             // 
@@ -980,8 +980,8 @@ namespace GcproExtensionApp
             this.chkInterlocking.TabIndex = 41;
             this.chkInterlocking.Text = "Interlocking";
             this.chkInterlocking.UseVisualStyleBackColor = true;
-            this.chkInterlocking.CheckedChanged += new System.EventHandler(this.chkInterlocking_CheckedChanged);
-            this.chkInterlocking.MouseEnter += new System.EventHandler(this.chkInterlocking_MouseEnter);
+            this.chkInterlocking.CheckedChanged += new System.EventHandler(this.ChkInterlocking_CheckedChanged);
+            this.chkInterlocking.MouseEnter += new System.EventHandler(this.ChkInterlocking_MouseEnter);
             // 
             // lblMiddleMonTime
             // 
@@ -1055,7 +1055,7 @@ namespace GcproExtensionApp
             this.comboUnit.Name = "comboUnit";
             this.comboUnit.Size = new System.Drawing.Size(117, 21);
             this.comboUnit.TabIndex = 145;
-            this.comboUnit.MouseEnter += new System.EventHandler(this.comboUnit_MouseEnter);
+            this.comboUnit.MouseEnter += new System.EventHandler(this.ComboUnit_MouseEnter);
             // 
             // chkOnlyFree
             // 
@@ -1118,8 +1118,8 @@ namespace GcproExtensionApp
             this.txtSuffixInpHighHigh.TabIndex = 135;
             this.txtSuffixInpHighHigh.Text = ":I";
             this.txtSuffixInpHighHigh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSuffixInpHighHigh.TextChanged += new System.EventHandler(this.txtSuffixInpHighHigh_TextChanged);
-            this.txtSuffixInpHighHigh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSuffixInpHighHigh_KeyDown);
+            this.txtSuffixInpHighHigh.TextChanged += new System.EventHandler(this.TxtSuffixInpHighHigh_TextChanged);
+            this.txtSuffixInpHighHigh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSuffixInpHighHigh_KeyDown);
             // 
             // txtSuffixInpHigh
             // 
@@ -1130,8 +1130,8 @@ namespace GcproExtensionApp
             this.txtSuffixInpHigh.TabIndex = 134;
             this.txtSuffixInpHigh.Text = ":I";
             this.txtSuffixInpHigh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSuffixInpHigh.TextChanged += new System.EventHandler(this.txtSuffixInpHigh_TextChanged);
-            this.txtSuffixInpHigh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSuffixInpHigh_KeyDown);
+            this.txtSuffixInpHigh.TextChanged += new System.EventHandler(this.TxtSuffixInpHigh_TextChanged);
+            this.txtSuffixInpHigh.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSuffixInpHigh_KeyDown);
             // 
             // txtSuffixInpLow
             // 
@@ -1142,8 +1142,8 @@ namespace GcproExtensionApp
             this.txtSuffixInpLow.TabIndex = 133;
             this.txtSuffixInpLow.Text = ":I";
             this.txtSuffixInpLow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSuffixInpLow.TextChanged += new System.EventHandler(this.txtSuffixInpLow_TextChanged);
-            this.txtSuffixInpLow.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSuffixInpLow_KeyDown);
+            this.txtSuffixInpLow.TextChanged += new System.EventHandler(this.TxtSuffixInpLow_TextChanged);
+            this.txtSuffixInpLow.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSuffixInpLow_KeyDown);
             // 
             // txtInpHighHigh
             // 
@@ -1154,7 +1154,7 @@ namespace GcproExtensionApp
             this.txtInpHighHigh.Name = "txtInpHighHigh";
             this.txtInpHighHigh.Size = new System.Drawing.Size(100, 13);
             this.txtInpHighHigh.TabIndex = 132;
-            this.txtInpHighHigh.MouseEnter += new System.EventHandler(this.txtInpHighHigh_MouseEnter);
+            this.txtInpHighHigh.MouseEnter += new System.EventHandler(this.TxtInpHighHigh_MouseEnter);
             // 
             // lblInpHighHigh
             // 
@@ -1174,7 +1174,7 @@ namespace GcproExtensionApp
             this.txtInpHigh.Name = "txtInpHigh";
             this.txtInpHigh.Size = new System.Drawing.Size(100, 13);
             this.txtInpHigh.TabIndex = 130;
-            this.txtInpHigh.MouseEnter += new System.EventHandler(this.txtInpHigh_MouseEnter);
+            this.txtInpHigh.MouseEnter += new System.EventHandler(this.TxtInpHigh_MouseEnter);
             // 
             // lblInpHigh
             // 
@@ -1194,7 +1194,7 @@ namespace GcproExtensionApp
             this.txtInpLow.Name = "txtInpLow";
             this.txtInpLow.Size = new System.Drawing.Size(100, 13);
             this.txtInpLow.TabIndex = 128;
-            this.txtInpLow.MouseEnter += new System.EventHandler(this.txtInpLow_MouseEnter);
+            this.txtInpLow.MouseEnter += new System.EventHandler(this.TxtInpLow_MouseEnter);
             // 
             // lblInpLow
             // 
@@ -1214,7 +1214,7 @@ namespace GcproExtensionApp
             this.txtInpLowLow.Name = "txtInpLowLow";
             this.txtInpLowLow.Size = new System.Drawing.Size(100, 13);
             this.txtInpLowLow.TabIndex = 124;
-            this.txtInpLowLow.MouseEnter += new System.EventHandler(this.txtInpLowLow_MouseEnter);
+            this.txtInpLowLow.MouseEnter += new System.EventHandler(this.TxtInpLowLow_MouseEnter);
             // 
             // lblInpLowLow
             // 
@@ -1234,8 +1234,8 @@ namespace GcproExtensionApp
             this.txtSuffixInpLowLow.TabIndex = 125;
             this.txtSuffixInpLowLow.Text = ":I";
             this.txtSuffixInpLowLow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSuffixInpLowLow.TextChanged += new System.EventHandler(this.txtSuffixInpLowLow_TextChanged);
-            this.txtSuffixInpLowLow.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSuffixInpLowLow_KeyDown);
+            this.txtSuffixInpLowLow.TextChanged += new System.EventHandler(this.TxtSuffixInpLowLow_TextChanged);
+            this.txtSuffixInpLowLow.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSuffixInpLowLow_KeyDown);
             // 
             // lblSuffixInpDigital
             // 
@@ -1270,7 +1270,7 @@ namespace GcproExtensionApp
             this.chkAddUserSectionToDesc.TabIndex = 177;
             this.chkAddUserSectionToDesc.Text = "自定义工段";
             this.chkAddUserSectionToDesc.UseVisualStyleBackColor = true;
-            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddUserSectionToDesc_CheckedChanged);
+            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.ChkAddUserSectionToDesc_CheckedChanged);
             // 
             // chkNameOnlyNumber
             // 
@@ -1283,7 +1283,7 @@ namespace GcproExtensionApp
             this.chkNameOnlyNumber.TabIndex = 176;
             this.chkNameOnlyNumber.Text = "编号仅含数字";
             this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
-            this.chkNameOnlyNumber.CheckedChanged += new System.EventHandler(this.chkNameOnlyNumber_CheckedChanged);
+            this.chkNameOnlyNumber.CheckedChanged += new System.EventHandler(this.ChkNameOnlyNumber_CheckedChanged);
             // 
             // chkAddSectionToDesc
             // 
@@ -1296,7 +1296,7 @@ namespace GcproExtensionApp
             this.chkAddSectionToDesc.TabIndex = 123;
             this.chkAddSectionToDesc.Text = "工段";
             this.chkAddSectionToDesc.UseVisualStyleBackColor = true;
-            this.chkAddSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddSectionToDesc_CheckedChanged);
+            this.chkAddSectionToDesc.CheckedChanged += new System.EventHandler(this.ChkAddSectionToDesc_CheckedChanged);
             // 
             // chkAddFloorToDesc
             // 
@@ -1309,7 +1309,7 @@ namespace GcproExtensionApp
             this.chkAddFloorToDesc.TabIndex = 121;
             this.chkAddFloorToDesc.Text = "楼层";
             this.chkAddFloorToDesc.UseVisualStyleBackColor = true;
-            this.chkAddFloorToDesc.CheckedChanged += new System.EventHandler(this.chkAddFloorToDesc_CheckedChanged);
+            this.chkAddFloorToDesc.CheckedChanged += new System.EventHandler(this.ChkAddFloorToDesc_CheckedChanged);
             // 
             // chkAddNameToDesc
             // 
@@ -1322,7 +1322,7 @@ namespace GcproExtensionApp
             this.chkAddNameToDesc.TabIndex = 119;
             this.chkAddNameToDesc.Text = "编号";
             this.chkAddNameToDesc.UseVisualStyleBackColor = true;
-            this.chkAddNameToDesc.CheckedChanged += new System.EventHandler(this.chkAddNameToDesc_CheckedChanged);
+            this.chkAddNameToDesc.CheckedChanged += new System.EventHandler(this.ChkAddNameToDesc_CheckedChanged);
             // 
             // chkAddCabinetToDesc
             // 
@@ -1335,7 +1335,7 @@ namespace GcproExtensionApp
             this.chkAddCabinetToDesc.TabIndex = 120;
             this.chkAddCabinetToDesc.Text = "电柜";
             this.chkAddCabinetToDesc.UseVisualStyleBackColor = true;
-            this.chkAddCabinetToDesc.CheckedChanged += new System.EventHandler(this.chkAddCabinetToDesc_CheckedChanged);
+            this.chkAddCabinetToDesc.CheckedChanged += new System.EventHandler(this.ChkAddCabinetToDesc_CheckedChanged);
             // 
             // lblInHWStop
             // 
@@ -1355,7 +1355,7 @@ namespace GcproExtensionApp
             this.txtInHWStop.Name = "txtInHWStop";
             this.txtInHWStop.Size = new System.Drawing.Size(100, 13);
             this.txtInHWStop.TabIndex = 114;
-            this.txtInHWStop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtInHWStop_MouseDown);
+            this.txtInHWStop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TxtInHWStop_MouseDown);
             // 
             // lblInpFaultDev
             // 
@@ -1384,7 +1384,7 @@ namespace GcproExtensionApp
             this.txtInpFaultDev.Name = "txtInpFaultDev";
             this.txtInpFaultDev.Size = new System.Drawing.Size(100, 13);
             this.txtInpFaultDev.TabIndex = 110;
-            this.txtInpFaultDev.MouseEnter += new System.EventHandler(this.txtInpFaultDev_MouseEnter);
+            this.txtInpFaultDev.MouseEnter += new System.EventHandler(this.TxtInpFaultDev_MouseEnter);
             // 
             // txtInpFaultDevSuffix
             // 
@@ -1395,8 +1395,8 @@ namespace GcproExtensionApp
             this.txtInpFaultDevSuffix.TabIndex = 111;
             this.txtInpFaultDevSuffix.Text = ":I";
             this.txtInpFaultDevSuffix.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtInpFaultDevSuffix.TextChanged += new System.EventHandler(this.txtInpFaultDevSuffix_TextChanged);
-            this.txtInpFaultDevSuffix.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInpFaultDevSuffix_KeyDown);
+            this.txtInpFaultDevSuffix.TextChanged += new System.EventHandler(this.TxtInpFaultDevSuffix_TextChanged);
+            this.txtInpFaultDevSuffix.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtInpFaultDevSuffix_KeyDown);
             // 
             // lblSymbol
             // 
@@ -1436,7 +1436,7 @@ namespace GcproExtensionApp
             this.txtDescriptionIncRule.Name = "txtDescriptionIncRule";
             this.txtDescriptionIncRule.Size = new System.Drawing.Size(66, 13);
             this.txtDescriptionIncRule.TabIndex = 72;
-            this.txtDescriptionIncRule.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescriptionIncRule_KeyDown);
+            this.txtDescriptionIncRule.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtDescriptionIncRule_KeyDown);
             // 
             // lblDescriptionIncRule
             // 
@@ -1454,7 +1454,7 @@ namespace GcproExtensionApp
             this.txtDescriptionRule.Name = "txtDescriptionRule";
             this.txtDescriptionRule.Size = new System.Drawing.Size(66, 13);
             this.txtDescriptionRule.TabIndex = 11;
-            this.txtDescriptionRule.TextChanged += new System.EventHandler(this.txtDescriptionRule_TextChanged);
+            this.txtDescriptionRule.TextChanged += new System.EventHandler(this.TxtDescriptionRule_TextChanged);
             // 
             // txtInpValue
             // 
@@ -1465,7 +1465,7 @@ namespace GcproExtensionApp
             this.txtInpValue.Name = "txtInpValue";
             this.txtInpValue.Size = new System.Drawing.Size(100, 13);
             this.txtInpValue.TabIndex = 6;
-            this.txtInpValue.MouseEnter += new System.EventHandler(this.txtInpValue_MouseEnter);
+            this.txtInpValue.MouseEnter += new System.EventHandler(this.TxtInpValue_MouseEnter);
             // 
             // GrpSymbolRule
             // 
@@ -1496,7 +1496,7 @@ namespace GcproExtensionApp
             this.txtSymbolRule.Name = "txtSymbolRule";
             this.txtSymbolRule.Size = new System.Drawing.Size(66, 13);
             this.txtSymbolRule.TabIndex = 10;
-            this.txtSymbolRule.TextChanged += new System.EventHandler(this.txtSymbolRule_TextChanged);
+            this.txtSymbolRule.TextChanged += new System.EventHandler(this.TxtSymbolRule_TextChanged);
             // 
             // txtSymbolIncRule
             // 
@@ -1505,7 +1505,7 @@ namespace GcproExtensionApp
             this.txtSymbolIncRule.Name = "txtSymbolIncRule";
             this.txtSymbolIncRule.Size = new System.Drawing.Size(66, 13);
             this.txtSymbolIncRule.TabIndex = 71;
-            this.txtSymbolIncRule.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSymbolIncRule_KeyDown);
+            this.txtSymbolIncRule.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSymbolIncRule_KeyDown);
             // 
             // lblSymbolIncRule
             // 
@@ -1532,9 +1532,9 @@ namespace GcproExtensionApp
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(346, 13);
             this.txtDescription.TabIndex = 3;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
-            this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescription_KeyDown);
-            this.txtDescription.MouseEnter += new System.EventHandler(this.txtDescription_MouseEnter);
+            this.txtDescription.TextChanged += new System.EventHandler(this.TxtDescription_TextChanged);
+            this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtDescription_KeyDown);
+            this.txtDescription.MouseEnter += new System.EventHandler(this.TxtDescription_MouseEnter);
             // 
             // txtSymbol
             // 
@@ -1543,9 +1543,9 @@ namespace GcproExtensionApp
             this.txtSymbol.Name = "txtSymbol";
             this.txtSymbol.Size = new System.Drawing.Size(137, 13);
             this.txtSymbol.TabIndex = 2;
-            this.txtSymbol.TextChanged += new System.EventHandler(this.txtSymbol_TextChanged);
-            this.txtSymbol.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtSymbol_MouseDoubleClick);
-            this.txtSymbol.MouseEnter += new System.EventHandler(this.txtSymbol_MouseEnter);
+            this.txtSymbol.TextChanged += new System.EventHandler(this.TxtSymbol_TextChanged);
+            this.txtSymbol.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TxtSymbol_MouseDoubleClick);
+            this.txtSymbol.MouseEnter += new System.EventHandler(this.TxtSymbol_MouseEnter);
             // 
             // lblDescription
             // 
@@ -1565,8 +1565,8 @@ namespace GcproExtensionApp
             this.txtInpValeSuffix.TabIndex = 86;
             this.txtInpValeSuffix.Text = ":AI";
             this.txtInpValeSuffix.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtInpValeSuffix.TextChanged += new System.EventHandler(this.txtInpTrueSuffix_TextChanged);
-            this.txtInpValeSuffix.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInpValueSuffix_KeyDown);
+            this.txtInpValeSuffix.TextChanged += new System.EventHandler(this.TxtInpTrueSuffix_TextChanged);
+            this.txtInpValeSuffix.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtInpValueSuffix_KeyDown);
             // 
             // lblInpTrueSuffix
             // 
@@ -1733,7 +1733,7 @@ namespace GcproExtensionApp
             this.btnReadBML.Text = "   读取BML";
             this.btnReadBML.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReadBML.UseVisualStyleBackColor = true;
-            this.btnReadBML.Click += new System.EventHandler(this.btnReadBML_Click);
+            this.btnReadBML.Click += new System.EventHandler(this.BtnReadBML_Click);
             // 
             // dataGridBML
             // 
@@ -1767,8 +1767,8 @@ namespace GcproExtensionApp
             this.comboWorkSheetsBML.Name = "comboWorkSheetsBML";
             this.comboWorkSheetsBML.Size = new System.Drawing.Size(313, 21);
             this.comboWorkSheetsBML.TabIndex = 15;
-            this.comboWorkSheetsBML.SelectedIndexChanged += new System.EventHandler(this.comboWorkSheetsBML_SelectedIndexChanged);
-            this.comboWorkSheetsBML.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboWorkSheetsBML_MouseDown);
+            this.comboWorkSheetsBML.SelectedIndexChanged += new System.EventHandler(this.ComboWorkSheetsBML_SelectedIndexChanged);
+            this.comboWorkSheetsBML.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ComboWorkSheetsBML_MouseDown);
             // 
             // grpBoxExcelColumn
             // 
@@ -2297,7 +2297,7 @@ namespace GcproExtensionApp
             this.btnCreateTempAndPre.Text = "查询除尘";
             this.btnCreateTempAndPre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCreateTempAndPre.UseVisualStyleBackColor = false;
-            this.btnCreateTempAndPre.Click += new System.EventHandler(this.btnCreateTempAndPre_Click);
+            this.btnCreateTempAndPre.Click += new System.EventHandler(this.BtnCreateTempAndPre_Click);
             // 
             // FormAI
             // 

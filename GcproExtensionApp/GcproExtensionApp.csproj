@@ -37,7 +37,8 @@
     <ApplicationIcon>Common\Coorperatin2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GcproExtension">
+    <Reference Include="GcproExtension, Version=7.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\GcproExtensionLibary\bin\Debug\output\GcproExtension.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -97,6 +98,12 @@
     </Compile>
     <Compile Include="LL\EL\FormRollStandPhoenix.Designer.cs">
       <DependentUpon>FormRollStandPhoenix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormScaleAdapter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormScaleAdapter.Designer.cs">
+      <DependentUpon>FormScaleAdapter.cs</DependentUpon>
     </Compile>
     <Compile Include="LL\EL\FormVFCAdapter.cs">
       <SubType>Form</SubType>
@@ -166,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LL\EL\FormRollStandPhoenix.resx">
       <DependentUpon>FormRollStandPhoenix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormScaleAdapter.resx">
+      <DependentUpon>FormScaleAdapter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LL\FormDPSlave.resx">
       <DependentUpon>FormDPSlave.cs</DependentUpon>

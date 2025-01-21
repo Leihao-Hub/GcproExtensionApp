@@ -416,26 +416,29 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     .Append(unit);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
             }
+            var relations = new List<Relation>();
+
             if (subType == M11)
             {
-                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
+                relations.Add(new Relation(name, inpFwd, GcproTable.ObjData.Value11.Name));
+                relations.Add(new Relation(name, outpFwd, GcproTable.ObjData.Value12.Name));    
                 if (!string.IsNullOrEmpty(inpContactor))
                 {
-                    CreateRelation(name, inpContactor, GcproTable.ObjData.Value38.Name, this.fileRelationPath, encoding);
+                    relations.Add(new Relation(name, inpContactor, GcproTable.ObjData.Value38.Name));
                 }
             }
             else if (subType == M12)
             {
-                CreateRelation(name, inpFwd, GcproTable.ObjData.Value11.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, outpFwd, GcproTable.ObjData.Value12.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, inpRev, GcproTable.ObjData.Value13.Name, this.fileRelationPath, encoding);
-                CreateRelation(name, outpRev, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
+                relations.Add(new Relation(name, inpFwd, GcproTable.ObjData.Value11.Name));
+                relations.Add(new Relation(name, outpFwd, GcproTable.ObjData.Value12.Name));
+                relations.Add(new Relation(name, inpRev, GcproTable.ObjData.Value13.Name));
+                relations.Add(new Relation(name, outpRev, GcproTable.ObjData.Value14.Name));
             }
             else if (subType == M1VFC || subType == M2VFC)
             {
-                CreateRelation(name, adapter, GcproTable.ObjData.Value34.Name, this.fileRelationPath, encoding);
+                relations.Add(new Relation(name, adapter, GcproTable.ObjData.Value34.Name));
             }
+            CreateRelations(relations, this.fileRelationPath, encoding);
         }
 
         public void Clear()

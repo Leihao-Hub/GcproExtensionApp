@@ -84,6 +84,7 @@ namespace GcproExtensionApp
         public const string JS_MOTOR = "Motor";
         public const string JS_DI = "DI";
         public const string JS_DO = "DO";
+        public const string JS_SCALE_ADAPTER = "ScaleAdapter";
         public const string JS_AI = "AI";
         public const string JS_MDDX = "MDDx";
         public const string JS_ROLL8STAND = "MA_Roll8Stand";

@@ -61,6 +61,11 @@
         EL_AI = 1019,
 
         /// <summary>
+        /// EL FBAL
+        /// </summary>
+        EL_FBAL = 1028,
+
+        /// <summary>
         /// EL MDDx DP
         /// </summary>
         EL_MDDx = 1037,
@@ -69,6 +74,11 @@
         /// EL MDDYZ
         /// </summary>
         EL_MDDYZ = 1755,
+
+        /// <summary>
+        /// EL Scale Adapter
+        /// </summary>
+        EL_ScaleAdapter = 1801,
 
         /// <summary>
         /// EL VFCAdapter

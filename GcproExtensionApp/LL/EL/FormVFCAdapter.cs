@@ -784,7 +784,7 @@ namespace GcproExtensionApp
             // List<List<object>> allData = new List<List<object>>();
             string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboPowerBML.Text,comboFloorBML.Text,
                 comboCabinetBML.Text ,comboSectionBML.Text,comboControlBML.Text};
-            DataTable dataTable = new DataTable();
+            DataTable dataTable;
             string[] filters = { $"Value=={BML.Motor.Type}", $@"Value LIKE ""{BML.Motor.PrefixVFC}%""" };
             string[] filterColumns = { comboTypeBML.Text, comboControlBML.Text };
             dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);

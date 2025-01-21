@@ -53,6 +53,8 @@ namespace GcproExtensionApp
         private string vibroDischarger;
         private string impactMachine;
         private string hammer;
+        private string flowBlancer;
+        private string scale;
         private GetStoppingTime stoppingTime;
         #region Properties
         public  string Elevator
@@ -135,6 +137,15 @@ namespace GcproExtensionApp
         {
             get { return hammer; }
         }
+
+        public string FlowBlancer
+        {
+            get { return flowBlancer; }
+        }
+        public string Scale
+        {
+            get { return scale; }
+        }
         public GetStoppingTime StoppingTime
         { 
             get { return stoppingTime; }
@@ -169,6 +180,8 @@ namespace GcproExtensionApp
                     {$"{keyMachines}HammerMill",value => hammerMill = value },
                     {$"{keyMachines}Destoner",value => destoner = value },
                     {$"{keyMachines}Hammer",value => hammer = value },
+                    {$"{keyMachines}FlowBlancer",value => flowBlancer = value },
+                    {$"{keyMachines}Scale",value => scale = value },
                     {$"{keyMachines}VibroDischarger",value => vibroDischarger = value },
                     {$"{keyStoppingTime}PlanSifter",value => stoppingTime.PlanSifter = value },
                     {$"{keyStoppingTime}Purifier",value => stoppingTime.Purifier = value },

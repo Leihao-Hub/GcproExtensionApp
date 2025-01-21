@@ -244,7 +244,8 @@ namespace GcproExtensionApp
         }
         private void btnAddScaleAdapter_Click(object sender, EventArgs e)
         {
-
+            FormScaleAdapter formScaleAdapter = new FormScaleAdapter();
+            formScaleAdapter.Show();
         }
         private void btnAddRollStandPhoenix_Click(object sender, EventArgs e)
         {
