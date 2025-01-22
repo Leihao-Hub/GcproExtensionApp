@@ -45,6 +45,8 @@ namespace GcproExtensionApp
         private readonly string DEMO_DESCRIPTION_AI = "制粉A线2楼(4020)磨粉机电流/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_AI = "4020/或者空白";
         private readonly string MSG_CREATE_TEMP_AND_PRE_VIA_FILTER = "搜寻数据库中除尘器并创建温度与压差";
+        private readonly string aiBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_AI}.";
+        private readonly string aiSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_AI}.{AppGlobal.JS_SUFFIX}.";
         #endregion
         private int value9 = 32;
         private int value10 = 32;
@@ -319,7 +321,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpValeSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.AI.Suffix.InpValue", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{aiSuffix}InpValue", newJsonKeyValue);
                 GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
@@ -328,7 +330,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtSuffixInpLowLow.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.AI.Suffix.InpLowLow", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{aiSuffix}InpLowLow", newJsonKeyValue);
                 GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
@@ -338,7 +340,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtSuffixInpLow.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.AI.Suffix.InpLow", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{aiSuffix}InpLow", newJsonKeyValue);
                 GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
@@ -348,7 +350,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtSuffixInpHigh.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.AI.Suffix.InpHigh", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{aiSuffix}InpHigh", newJsonKeyValue);
                 GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
@@ -358,7 +360,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtSuffixInpHighHigh.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.AI.Suffix.InpHighHigh", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{aiSuffix}InpHighHigh", newJsonKeyValue);
                 GcObjectInfo.AI.SuffixInpValue = newJsonKeyValue;
             }
         }
@@ -367,7 +369,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtInpFaultDevSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "GcObjectInfo.AI.Suffix.InpFaultDev", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{aiSuffix}InpFaultDev", newJsonKeyValue);
                 GcObjectInfo.AI.SuffixInpFaultDev = newJsonKeyValue;
             }
         }
@@ -1292,7 +1294,7 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.AI.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.AI.Path", BML.AI.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{aiBMLSuffix}Path", BML.AI.BMLPath);
         }
         private void ComboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1321,15 +1323,16 @@ namespace GcproExtensionApp
                 comboCabinetBML.Items.Add(item);
                 comboPowerBML.Items.Add(item);
                 comboLineBML.Items.Add(item);
-                comboNameBML.SelectedItem = "B";
-                comboDescBML.SelectedItem = "N";
-                comboPowerBML.SelectedItem = "E";
-                comboTypeBML.SelectedItem = "C";
-                comboFloorBML.SelectedItem = "L";
-                comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";
-                comboLineBML.SelectedItem = "X";
+             
             }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboPowerBML.SelectedItem = "E";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboLineBML.SelectedItem = "X";
             for (int i = 1; i <= 20; i++)
             {
                 comboStartRow.Items.Add(i);

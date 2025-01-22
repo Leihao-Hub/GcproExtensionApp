@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormScaleAdapter));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,16 +48,24 @@ namespace GcproExtensionApp
             this.toolStripMenuReload = new System.Windows.Forms.ToolStripMenuItem();
             this.tabRule = new System.Windows.Forms.TabPage();
             this.PalGcObject = new System.Windows.Forms.Panel();
+            this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.grpWinCosTrending = new System.Windows.Forms.GroupBox();
             this.chkOutJobweight = new System.Windows.Forms.CheckBox();
             this.chkOutFlowrate = new System.Windows.Forms.CheckBox();
+            this.txtValue9 = new System.Windows.Forms.TextBox();
             this.grpReference = new System.Windows.Forms.GroupBox();
+            this.lblFluidLiftAirlockRule = new System.Windows.Forms.Label();
+            this.txtFluidLiftAirlockIncRule = new System.Windows.Forms.TextBox();
+            this.txtFluidLiftAirlockRule = new System.Windows.Forms.TextBox();
+            this.lblFluidLiftAirlockIncRule = new System.Windows.Forms.Label();
+            this.lblSenderBinRule = new System.Windows.Forms.Label();
+            this.txtSenderBinIncRule = new System.Windows.Forms.TextBox();
+            this.txtSenderBinRule = new System.Windows.Forms.TextBox();
             this.txtFluidLiftAirlock = new System.Windows.Forms.TextBox();
+            this.lblSenderBinIncRule = new System.Windows.Forms.Label();
             this.lblFluidLiftAirlock = new System.Windows.Forms.Label();
             this.txtSenderBin = new System.Windows.Forms.TextBox();
             this.lblSenderBin = new System.Windows.Forms.Label();
-            this.grpGeneral = new System.Windows.Forms.GroupBox();
-            this.txtValue9 = new System.Windows.Forms.TextBox();
             this.lblValue9 = new System.Windows.Forms.Label();
             this.txtValue60 = new System.Windows.Forms.TextBox();
             this.lblValue60 = new System.Windows.Forms.Label();
@@ -154,6 +162,8 @@ namespace GcproExtensionApp
             this.comboWorkSheetsBML = new System.Windows.Forms.ComboBox();
             this.grpBoxExcelColumn = new System.Windows.Forms.GroupBox();
             this.grpBoxBMLColum = new System.Windows.Forms.GroupBox();
+            this.comboIORemarkBML = new System.Windows.Forms.ComboBox();
+            this.lblIORemarkBML = new System.Windows.Forms.Label();
             this.comboControlBML = new System.Windows.Forms.ComboBox();
             this.lblControlBML = new System.Windows.Forms.Label();
             this.comboStartRow = new System.Windows.Forms.ComboBox();
@@ -195,24 +205,14 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
-            this.comboIORemarkBML = new System.Windows.Forms.ComboBox();
-            this.lblIORemarkBML = new System.Windows.Forms.Label();
-            this.txtSenderBinIncRule = new System.Windows.Forms.TextBox();
-            this.lblSenderBinIncRule = new System.Windows.Forms.Label();
-            this.lblSenderBinRule = new System.Windows.Forms.Label();
-            this.txtSenderBinRule = new System.Windows.Forms.TextBox();
-            this.lblFluidLiftAirlockRule = new System.Windows.Forms.Label();
-            this.txtFluidLiftAirlockIncRule = new System.Windows.Forms.TextBox();
-            this.txtFluidLiftAirlockRule = new System.Windows.Forms.TextBox();
-            this.lblFluidLiftAirlockIncRule = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
             this.tabRule.SuspendLayout();
             this.PalGcObject.SuspendLayout();
+            this.grpGeneral.SuspendLayout();
             this.grpWinCosTrending.SuspendLayout();
             this.grpReference.SuspendLayout();
-            this.grpGeneral.SuspendLayout();
             this.grpAdapter.SuspendLayout();
             this.grpGCPRO.SuspendLayout();
             this.grpAddInfoToDesc.SuspendLayout();
@@ -361,104 +361,6 @@ namespace GcproExtensionApp
             this.PalGcObject.Size = new System.Drawing.Size(709, 591);
             this.PalGcObject.TabIndex = 105;
             // 
-            // grpWinCosTrending
-            // 
-            this.grpWinCosTrending.Controls.Add(this.chkOutJobweight);
-            this.grpWinCosTrending.Controls.Add(this.chkOutFlowrate);
-            this.grpWinCosTrending.Location = new System.Drawing.Point(352, 401);
-            this.grpWinCosTrending.Name = "grpWinCosTrending";
-            this.grpWinCosTrending.Size = new System.Drawing.Size(131, 60);
-            this.grpWinCosTrending.TabIndex = 146;
-            this.grpWinCosTrending.TabStop = false;
-            this.grpWinCosTrending.Text = "WinCos Trending";
-            // 
-            // chkOutJobweight
-            // 
-            this.chkOutJobweight.AutoSize = true;
-            this.chkOutJobweight.Checked = true;
-            this.chkOutJobweight.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOutJobweight.Location = new System.Drawing.Point(6, 39);
-            this.chkOutJobweight.Name = "chkOutJobweight";
-            this.chkOutJobweight.Size = new System.Drawing.Size(91, 17);
-            this.chkOutJobweight.TabIndex = 157;
-            this.chkOutJobweight.Text = "OutJobweight";
-            this.chkOutJobweight.UseVisualStyleBackColor = true;
-            this.chkOutJobweight.CheckedChanged += new System.EventHandler(this.ChkOutJobweight_CheckedChanged);
-            this.chkOutJobweight.MouseEnter += new System.EventHandler(this.ChkOutJobweight_MouseEnter);
-            // 
-            // chkOutFlowrate
-            // 
-            this.chkOutFlowrate.AutoSize = true;
-            this.chkOutFlowrate.Checked = true;
-            this.chkOutFlowrate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkOutFlowrate.Location = new System.Drawing.Point(6, 16);
-            this.chkOutFlowrate.Name = "chkOutFlowrate";
-            this.chkOutFlowrate.Size = new System.Drawing.Size(83, 17);
-            this.chkOutFlowrate.TabIndex = 156;
-            this.chkOutFlowrate.Text = "OutFlowrate";
-            this.chkOutFlowrate.UseVisualStyleBackColor = true;
-            this.chkOutFlowrate.CheckedChanged += new System.EventHandler(this.ChkOutFlowrate_CheckedChanged);
-            this.chkOutFlowrate.MouseEnter += new System.EventHandler(this.ChkOutFlowrate_MouseEnter);
-            // 
-            // grpReference
-            // 
-            this.grpReference.Controls.Add(this.lblFluidLiftAirlockRule);
-            this.grpReference.Controls.Add(this.txtFluidLiftAirlockIncRule);
-            this.grpReference.Controls.Add(this.txtFluidLiftAirlockRule);
-            this.grpReference.Controls.Add(this.lblFluidLiftAirlockIncRule);
-            this.grpReference.Controls.Add(this.lblSenderBinRule);
-            this.grpReference.Controls.Add(this.txtSenderBinIncRule);
-            this.grpReference.Controls.Add(this.txtSenderBinRule);
-            this.grpReference.Controls.Add(this.txtFluidLiftAirlock);
-            this.grpReference.Controls.Add(this.lblSenderBinIncRule);
-            this.grpReference.Controls.Add(this.lblFluidLiftAirlock);
-            this.grpReference.Controls.Add(this.txtSenderBin);
-            this.grpReference.Controls.Add(this.lblSenderBin);
-            this.grpReference.Location = new System.Drawing.Point(4, 459);
-            this.grpReference.Name = "grpReference";
-            this.grpReference.Size = new System.Drawing.Size(479, 60);
-            this.grpReference.TabIndex = 145;
-            this.grpReference.TabStop = false;
-            this.grpReference.Text = "Reference";
-            // 
-            // txtFluidLiftAirlock
-            // 
-            this.txtFluidLiftAirlock.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFluidLiftAirlock.Location = new System.Drawing.Point(87, 36);
-            this.txtFluidLiftAirlock.Name = "txtFluidLiftAirlock";
-            this.txtFluidLiftAirlock.Size = new System.Drawing.Size(88, 13);
-            this.txtFluidLiftAirlock.TabIndex = 83;
-            this.txtFluidLiftAirlock.TextChanged += new System.EventHandler(this.txtFluidLiftAirlock_TextChanged);
-            this.txtFluidLiftAirlock.MouseEnter += new System.EventHandler(this.TxtFluidLiftAirlock_MouseEnter);
-            // 
-            // lblFluidLiftAirlock
-            // 
-            this.lblFluidLiftAirlock.AutoSize = true;
-            this.lblFluidLiftAirlock.Location = new System.Drawing.Point(5, 36);
-            this.lblFluidLiftAirlock.Name = "lblFluidLiftAirlock";
-            this.lblFluidLiftAirlock.Size = new System.Drawing.Size(75, 13);
-            this.lblFluidLiftAirlock.TabIndex = 84;
-            this.lblFluidLiftAirlock.Text = "FluidLiftAirlock";
-            // 
-            // txtSenderBin
-            // 
-            this.txtSenderBin.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSenderBin.Location = new System.Drawing.Point(87, 18);
-            this.txtSenderBin.Name = "txtSenderBin";
-            this.txtSenderBin.Size = new System.Drawing.Size(88, 13);
-            this.txtSenderBin.TabIndex = 82;
-            this.txtSenderBin.TextChanged += new System.EventHandler(this.txtSenderBin_TextChanged);
-            this.txtSenderBin.MouseEnter += new System.EventHandler(this.TxtSenderBin_MouseEnter);
-            // 
-            // lblSenderBin
-            // 
-            this.lblSenderBin.AutoSize = true;
-            this.lblSenderBin.Location = new System.Drawing.Point(6, 18);
-            this.lblSenderBin.Name = "lblSenderBin";
-            this.lblSenderBin.Size = new System.Drawing.Size(59, 13);
-            this.lblSenderBin.TabIndex = 82;
-            this.lblSenderBin.Text = "Sender Bin";
-            // 
             // grpGeneral
             // 
             this.grpGeneral.Controls.Add(this.grpWinCosTrending);
@@ -532,10 +434,49 @@ namespace GcproExtensionApp
             this.grpGeneral.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpGeneral.Location = new System.Drawing.Point(0, 0);
             this.grpGeneral.Name = "grpGeneral";
-            this.grpGeneral.Size = new System.Drawing.Size(705, 532);
+            this.grpGeneral.Size = new System.Drawing.Size(705, 523);
             this.grpGeneral.TabIndex = 118;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "常规";
+            // 
+            // grpWinCosTrending
+            // 
+            this.grpWinCosTrending.Controls.Add(this.chkOutJobweight);
+            this.grpWinCosTrending.Controls.Add(this.chkOutFlowrate);
+            this.grpWinCosTrending.Location = new System.Drawing.Point(352, 401);
+            this.grpWinCosTrending.Name = "grpWinCosTrending";
+            this.grpWinCosTrending.Size = new System.Drawing.Size(131, 60);
+            this.grpWinCosTrending.TabIndex = 146;
+            this.grpWinCosTrending.TabStop = false;
+            this.grpWinCosTrending.Text = "WinCos Trending";
+            // 
+            // chkOutJobweight
+            // 
+            this.chkOutJobweight.AutoSize = true;
+            this.chkOutJobweight.Checked = true;
+            this.chkOutJobweight.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOutJobweight.Location = new System.Drawing.Point(6, 39);
+            this.chkOutJobweight.Name = "chkOutJobweight";
+            this.chkOutJobweight.Size = new System.Drawing.Size(91, 17);
+            this.chkOutJobweight.TabIndex = 157;
+            this.chkOutJobweight.Text = "OutJobweight";
+            this.chkOutJobweight.UseVisualStyleBackColor = true;
+            this.chkOutJobweight.CheckedChanged += new System.EventHandler(this.ChkOutJobweight_CheckedChanged);
+            this.chkOutJobweight.MouseEnter += new System.EventHandler(this.ChkOutJobweight_MouseEnter);
+            // 
+            // chkOutFlowrate
+            // 
+            this.chkOutFlowrate.AutoSize = true;
+            this.chkOutFlowrate.Checked = true;
+            this.chkOutFlowrate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkOutFlowrate.Location = new System.Drawing.Point(6, 16);
+            this.chkOutFlowrate.Name = "chkOutFlowrate";
+            this.chkOutFlowrate.Size = new System.Drawing.Size(83, 17);
+            this.chkOutFlowrate.TabIndex = 156;
+            this.chkOutFlowrate.Text = "OutFlowrate";
+            this.chkOutFlowrate.UseVisualStyleBackColor = true;
+            this.chkOutFlowrate.CheckedChanged += new System.EventHandler(this.ChkOutFlowrate_CheckedChanged);
+            this.chkOutFlowrate.MouseEnter += new System.EventHandler(this.ChkOutFlowrate_MouseEnter);
             // 
             // txtValue9
             // 
@@ -545,6 +486,135 @@ namespace GcproExtensionApp
             this.txtValue9.Name = "txtValue9";
             this.txtValue9.Size = new System.Drawing.Size(42, 13);
             this.txtValue9.TabIndex = 183;
+            // 
+            // grpReference
+            // 
+            this.grpReference.Controls.Add(this.lblFluidLiftAirlockRule);
+            this.grpReference.Controls.Add(this.txtFluidLiftAirlockIncRule);
+            this.grpReference.Controls.Add(this.txtFluidLiftAirlockRule);
+            this.grpReference.Controls.Add(this.lblFluidLiftAirlockIncRule);
+            this.grpReference.Controls.Add(this.lblSenderBinRule);
+            this.grpReference.Controls.Add(this.txtSenderBinIncRule);
+            this.grpReference.Controls.Add(this.txtSenderBinRule);
+            this.grpReference.Controls.Add(this.txtFluidLiftAirlock);
+            this.grpReference.Controls.Add(this.lblSenderBinIncRule);
+            this.grpReference.Controls.Add(this.lblFluidLiftAirlock);
+            this.grpReference.Controls.Add(this.txtSenderBin);
+            this.grpReference.Controls.Add(this.lblSenderBin);
+            this.grpReference.Location = new System.Drawing.Point(4, 459);
+            this.grpReference.Name = "grpReference";
+            this.grpReference.Size = new System.Drawing.Size(479, 60);
+            this.grpReference.TabIndex = 145;
+            this.grpReference.TabStop = false;
+            this.grpReference.Text = "Reference";
+            // 
+            // lblFluidLiftAirlockRule
+            // 
+            this.lblFluidLiftAirlockRule.AutoSize = true;
+            this.lblFluidLiftAirlockRule.Location = new System.Drawing.Point(188, 36);
+            this.lblFluidLiftAirlockRule.Name = "lblFluidLiftAirlockRule";
+            this.lblFluidLiftAirlockRule.Size = new System.Drawing.Size(55, 13);
+            this.lblFluidLiftAirlockRule.TabIndex = 189;
+            this.lblFluidLiftAirlockRule.Text = "规则字段";
+            // 
+            // txtFluidLiftAirlockIncRule
+            // 
+            this.txtFluidLiftAirlockIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFluidLiftAirlockIncRule.Location = new System.Drawing.Point(378, 35);
+            this.txtFluidLiftAirlockIncRule.Name = "txtFluidLiftAirlockIncRule";
+            this.txtFluidLiftAirlockIncRule.Size = new System.Drawing.Size(63, 13);
+            this.txtFluidLiftAirlockIncRule.TabIndex = 188;
+            this.txtFluidLiftAirlockIncRule.Text = "1";
+            // 
+            // txtFluidLiftAirlockRule
+            // 
+            this.txtFluidLiftAirlockRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFluidLiftAirlockRule.Location = new System.Drawing.Point(244, 35);
+            this.txtFluidLiftAirlockRule.Name = "txtFluidLiftAirlockRule";
+            this.txtFluidLiftAirlockRule.Size = new System.Drawing.Size(63, 13);
+            this.txtFluidLiftAirlockRule.TabIndex = 190;
+            // 
+            // lblFluidLiftAirlockIncRule
+            // 
+            this.lblFluidLiftAirlockIncRule.AutoSize = true;
+            this.lblFluidLiftAirlockIncRule.Location = new System.Drawing.Point(322, 35);
+            this.lblFluidLiftAirlockIncRule.Name = "lblFluidLiftAirlockIncRule";
+            this.lblFluidLiftAirlockIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblFluidLiftAirlockIncRule.TabIndex = 187;
+            this.lblFluidLiftAirlockIncRule.Text = "递增规则";
+            // 
+            // lblSenderBinRule
+            // 
+            this.lblSenderBinRule.AutoSize = true;
+            this.lblSenderBinRule.Location = new System.Drawing.Point(188, 19);
+            this.lblSenderBinRule.Name = "lblSenderBinRule";
+            this.lblSenderBinRule.Size = new System.Drawing.Size(55, 13);
+            this.lblSenderBinRule.TabIndex = 185;
+            this.lblSenderBinRule.Text = "规则字段";
+            // 
+            // txtSenderBinIncRule
+            // 
+            this.txtSenderBinIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSenderBinIncRule.Location = new System.Drawing.Point(378, 18);
+            this.txtSenderBinIncRule.Name = "txtSenderBinIncRule";
+            this.txtSenderBinIncRule.Size = new System.Drawing.Size(63, 13);
+            this.txtSenderBinIncRule.TabIndex = 174;
+            this.txtSenderBinIncRule.Text = "1";
+            // 
+            // txtSenderBinRule
+            // 
+            this.txtSenderBinRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSenderBinRule.Location = new System.Drawing.Point(244, 18);
+            this.txtSenderBinRule.Name = "txtSenderBinRule";
+            this.txtSenderBinRule.Size = new System.Drawing.Size(63, 13);
+            this.txtSenderBinRule.TabIndex = 186;
+            // 
+            // txtFluidLiftAirlock
+            // 
+            this.txtFluidLiftAirlock.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFluidLiftAirlock.Location = new System.Drawing.Point(87, 36);
+            this.txtFluidLiftAirlock.Name = "txtFluidLiftAirlock";
+            this.txtFluidLiftAirlock.Size = new System.Drawing.Size(88, 13);
+            this.txtFluidLiftAirlock.TabIndex = 83;
+            this.txtFluidLiftAirlock.TextChanged += new System.EventHandler(this.txtFluidLiftAirlock_TextChanged);
+            this.txtFluidLiftAirlock.MouseEnter += new System.EventHandler(this.TxtFluidLiftAirlock_MouseEnter);
+            // 
+            // lblSenderBinIncRule
+            // 
+            this.lblSenderBinIncRule.AutoSize = true;
+            this.lblSenderBinIncRule.Location = new System.Drawing.Point(322, 18);
+            this.lblSenderBinIncRule.Name = "lblSenderBinIncRule";
+            this.lblSenderBinIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblSenderBinIncRule.TabIndex = 173;
+            this.lblSenderBinIncRule.Text = "递增规则";
+            // 
+            // lblFluidLiftAirlock
+            // 
+            this.lblFluidLiftAirlock.AutoSize = true;
+            this.lblFluidLiftAirlock.Location = new System.Drawing.Point(5, 36);
+            this.lblFluidLiftAirlock.Name = "lblFluidLiftAirlock";
+            this.lblFluidLiftAirlock.Size = new System.Drawing.Size(75, 13);
+            this.lblFluidLiftAirlock.TabIndex = 84;
+            this.lblFluidLiftAirlock.Text = "FluidLiftAirlock";
+            // 
+            // txtSenderBin
+            // 
+            this.txtSenderBin.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSenderBin.Location = new System.Drawing.Point(87, 18);
+            this.txtSenderBin.Name = "txtSenderBin";
+            this.txtSenderBin.Size = new System.Drawing.Size(88, 13);
+            this.txtSenderBin.TabIndex = 82;
+            this.txtSenderBin.TextChanged += new System.EventHandler(this.txtSenderBin_TextChanged);
+            this.txtSenderBin.MouseEnter += new System.EventHandler(this.TxtSenderBin_MouseEnter);
+            // 
+            // lblSenderBin
+            // 
+            this.lblSenderBin.AutoSize = true;
+            this.lblSenderBin.Location = new System.Drawing.Point(6, 18);
+            this.lblSenderBin.Name = "lblSenderBin";
+            this.lblSenderBin.Size = new System.Drawing.Size(59, 13);
+            this.lblSenderBin.TabIndex = 82;
+            this.lblSenderBin.Text = "Sender Bin";
             // 
             // lblValue9
             // 
@@ -1460,9 +1530,9 @@ namespace GcproExtensionApp
             this.lblParTimeOutStart.AutoSize = true;
             this.lblParTimeOutStart.Location = new System.Drawing.Point(6, 268);
             this.lblParTimeOutStart.Name = "lblParTimeOutStart";
-            this.lblParTimeOutStart.Size = new System.Drawing.Size(98, 13);
+            this.lblParTimeOutStart.Size = new System.Drawing.Size(96, 13);
             this.lblParTimeOutStart.TabIndex = 127;
-            this.lblParTimeOutStart.Text = "ParTimeOutStart[S]";
+            this.lblParTimeOutStart.Text = "ParTimeOutStart[s]";
             // 
             // txtInFlowrateLowLimit
             // 
@@ -1522,8 +1592,8 @@ namespace GcproExtensionApp
             // dataGridBML
             // 
             this.dataGridBML.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1595,6 +1665,25 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.TabIndex = 16;
             this.grpBoxBMLColum.TabStop = false;
             this.grpBoxBMLColum.Text = "信息列";
+            // 
+            // comboIORemarkBML
+            // 
+            this.comboIORemarkBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboIORemarkBML.FormattingEnabled = true;
+            this.comboIORemarkBML.IntegralHeight = false;
+            this.comboIORemarkBML.Location = new System.Drawing.Point(206, 44);
+            this.comboIORemarkBML.Name = "comboIORemarkBML";
+            this.comboIORemarkBML.Size = new System.Drawing.Size(66, 21);
+            this.comboIORemarkBML.TabIndex = 31;
+            // 
+            // lblIORemarkBML
+            // 
+            this.lblIORemarkBML.AutoSize = true;
+            this.lblIORemarkBML.Location = new System.Drawing.Point(146, 47);
+            this.lblIORemarkBML.Name = "lblIORemarkBML";
+            this.lblIORemarkBML.Size = new System.Drawing.Size(54, 13);
+            this.lblIORemarkBML.TabIndex = 30;
+            this.lblIORemarkBML.Text = "IO注释：";
             // 
             // comboControlBML
             // 
@@ -2038,95 +2127,6 @@ namespace GcproExtensionApp
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "Page:";
             // 
-            // comboIORemarkBML
-            // 
-            this.comboIORemarkBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboIORemarkBML.FormattingEnabled = true;
-            this.comboIORemarkBML.IntegralHeight = false;
-            this.comboIORemarkBML.Location = new System.Drawing.Point(206, 44);
-            this.comboIORemarkBML.Name = "comboIORemarkBML";
-            this.comboIORemarkBML.Size = new System.Drawing.Size(66, 21);
-            this.comboIORemarkBML.TabIndex = 31;
-            // 
-            // lblIORemarkBML
-            // 
-            this.lblIORemarkBML.AutoSize = true;
-            this.lblIORemarkBML.Location = new System.Drawing.Point(146, 47);
-            this.lblIORemarkBML.Name = "lblIORemarkBML";
-            this.lblIORemarkBML.Size = new System.Drawing.Size(54, 13);
-            this.lblIORemarkBML.TabIndex = 30;
-            this.lblIORemarkBML.Text = "IO注释：";
-            // 
-            // txtSenderBinIncRule
-            // 
-            this.txtSenderBinIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSenderBinIncRule.Location = new System.Drawing.Point(378, 18);
-            this.txtSenderBinIncRule.Name = "txtSenderBinIncRule";
-            this.txtSenderBinIncRule.Size = new System.Drawing.Size(63, 13);
-            this.txtSenderBinIncRule.TabIndex = 174;
-            this.txtSenderBinIncRule.Text = "1";
-            // 
-            // lblSenderBinIncRule
-            // 
-            this.lblSenderBinIncRule.AutoSize = true;
-            this.lblSenderBinIncRule.Location = new System.Drawing.Point(322, 18);
-            this.lblSenderBinIncRule.Name = "lblSenderBinIncRule";
-            this.lblSenderBinIncRule.Size = new System.Drawing.Size(55, 13);
-            this.lblSenderBinIncRule.TabIndex = 173;
-            this.lblSenderBinIncRule.Text = "递增规则";
-            // 
-            // lblSenderBinRule
-            // 
-            this.lblSenderBinRule.AutoSize = true;
-            this.lblSenderBinRule.Location = new System.Drawing.Point(188, 19);
-            this.lblSenderBinRule.Name = "lblSenderBinRule";
-            this.lblSenderBinRule.Size = new System.Drawing.Size(55, 13);
-            this.lblSenderBinRule.TabIndex = 185;
-            this.lblSenderBinRule.Text = "规则字段";
-            // 
-            // txtSenderBinRule
-            // 
-            this.txtSenderBinRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtSenderBinRule.Location = new System.Drawing.Point(244, 18);
-            this.txtSenderBinRule.Name = "txtSenderBinRule";
-            this.txtSenderBinRule.Size = new System.Drawing.Size(63, 13);
-            this.txtSenderBinRule.TabIndex = 186;
-            // 
-            // lblFluidLiftAirlockRule
-            // 
-            this.lblFluidLiftAirlockRule.AutoSize = true;
-            this.lblFluidLiftAirlockRule.Location = new System.Drawing.Point(188, 36);
-            this.lblFluidLiftAirlockRule.Name = "lblFluidLiftAirlockRule";
-            this.lblFluidLiftAirlockRule.Size = new System.Drawing.Size(55, 13);
-            this.lblFluidLiftAirlockRule.TabIndex = 189;
-            this.lblFluidLiftAirlockRule.Text = "规则字段";
-            // 
-            // txtFluidLiftAirlockIncRule
-            // 
-            this.txtFluidLiftAirlockIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFluidLiftAirlockIncRule.Location = new System.Drawing.Point(378, 35);
-            this.txtFluidLiftAirlockIncRule.Name = "txtFluidLiftAirlockIncRule";
-            this.txtFluidLiftAirlockIncRule.Size = new System.Drawing.Size(63, 13);
-            this.txtFluidLiftAirlockIncRule.TabIndex = 188;
-            this.txtFluidLiftAirlockIncRule.Text = "1";
-            // 
-            // txtFluidLiftAirlockRule
-            // 
-            this.txtFluidLiftAirlockRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFluidLiftAirlockRule.Location = new System.Drawing.Point(244, 35);
-            this.txtFluidLiftAirlockRule.Name = "txtFluidLiftAirlockRule";
-            this.txtFluidLiftAirlockRule.Size = new System.Drawing.Size(63, 13);
-            this.txtFluidLiftAirlockRule.TabIndex = 190;
-            // 
-            // lblFluidLiftAirlockIncRule
-            // 
-            this.lblFluidLiftAirlockIncRule.AutoSize = true;
-            this.lblFluidLiftAirlockIncRule.Location = new System.Drawing.Point(322, 35);
-            this.lblFluidLiftAirlockIncRule.Name = "lblFluidLiftAirlockIncRule";
-            this.lblFluidLiftAirlockIncRule.Size = new System.Drawing.Size(55, 13);
-            this.lblFluidLiftAirlockIncRule.TabIndex = 187;
-            this.lblFluidLiftAirlockIncRule.Text = "递增规则";
-            // 
             // FormScaleAdapter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2150,12 +2150,12 @@ namespace GcproExtensionApp
             this.tabRule.ResumeLayout(false);
             this.tabRule.PerformLayout();
             this.PalGcObject.ResumeLayout(false);
+            this.grpGeneral.ResumeLayout(false);
+            this.grpGeneral.PerformLayout();
             this.grpWinCosTrending.ResumeLayout(false);
             this.grpWinCosTrending.PerformLayout();
             this.grpReference.ResumeLayout(false);
             this.grpReference.PerformLayout();
-            this.grpGeneral.ResumeLayout(false);
-            this.grpGeneral.PerformLayout();
             this.grpAdapter.ResumeLayout(false);
             this.grpAdapter.PerformLayout();
             this.grpGCPRO.ResumeLayout(false);

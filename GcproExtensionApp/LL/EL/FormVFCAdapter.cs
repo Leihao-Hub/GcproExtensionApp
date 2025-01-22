@@ -37,6 +37,8 @@ namespace GcproExtensionApp
         private readonly string DEMO_NAME_RULE_VFC = "4001";
         private readonly string DEMO_DESCRIPTION_VFC = "磨粉机喂料辊变频器/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_VFC = "";
+        private readonly string motorSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_MOTOR}.{AppGlobal.JS_SUFFIX}.";
+        private readonly string motorBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MOTOR}.";
         private int value10 = 1;
         private int tempInt = 0;
         private float tempFloat = (float)0.0;
@@ -229,30 +231,7 @@ namespace GcproExtensionApp
             btnReadBML.Enabled = false;
             txtVFCPrefixBML.Text = BML.Motor.PrefixVFC;
             txtVFCSufffixBML.Text = GcObjectInfo.Motor.SuffixVFC;
-            var alphabetList = AppGlobal.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
-            foreach (var item in alphabetList)
-            {
-                comboNameBML.Items.Add(item);
-                comboDescBML.Items.Add(item);
-                comboTypeBML.Items.Add(item);
-                comboFloorBML.Items.Add(item);
-                comboPowerBML.Items.Add(item);
-                comboSectionBML.Items.Add(item);
-                comboCabinetBML.Items.Add(item);
-                comboControlBML.Items.Add(item);
-                comboNameBML.SelectedItem = "B";
-                comboDescBML.SelectedItem = "N";
-                comboTypeBML.SelectedItem = "C";
-                comboFloorBML.SelectedItem = "L";
-                comboPowerBML.SelectedItem = "E";
-                comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";
-                comboControlBML.SelectedItem = "H";
-            }
-            for (int i = 1; i <= 20; i++)
-            {
-                comboStartRow.Items.Add(i);
-            }
+         
             comboStartRow.SelectedItem = BML.StartRow;
             ComboEquipmentSubType.SelectedIndex = 2;
             CreateBMLDefault();
@@ -687,7 +666,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtVFCSufffixBML.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_MOTOR}.{AppGlobal.JS_SUFFIX}.VFC", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{motorSuffix}VFC", newJsonKeyValue);
                 GcObjectInfo.Motor.SuffixVFC = newJsonKeyValue;
 
             }
@@ -705,7 +684,7 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.Motor.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_BML}.{AppGlobal.JS_MOTOR}.Path", BML.Motor.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{motorBMLSuffix}{AppGlobal.JS_PATH}", BML.Motor.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -726,6 +705,31 @@ namespace GcproExtensionApp
         }
         private void CreateBMLDefault()
         {
+            var alphabetList = AppGlobal.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
+            foreach (var item in alphabetList)
+            {
+                comboNameBML.Items.Add(item);
+                comboDescBML.Items.Add(item);
+                comboTypeBML.Items.Add(item);
+                comboFloorBML.Items.Add(item);
+                comboPowerBML.Items.Add(item);
+                comboSectionBML.Items.Add(item);
+                comboCabinetBML.Items.Add(item);
+                comboControlBML.Items.Add(item);
+
+            }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboPowerBML.SelectedItem = "E";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboControlBML.SelectedItem = "H";
+            for (int i = 1; i <= 20; i++)
+            {
+                comboStartRow.Items.Add(i);
+            }
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text = BML.Motor.BMLPath;         
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn

@@ -34,6 +34,7 @@ namespace GcproExtensionApp
         private readonly string DEMO_NAME_RULE_SCALE_ADAPTER = "2001";
         private readonly string DEMO_DESCRIPTION_SCALE_ADAPTER = "清理A线1楼101号毛麦仓流量平衡器/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_SCALE_ADAPTER = "";
+        private readonly string scaleAdapterBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_SCALE_ADAPTER}.";
         private int value9 ,value10,value60;
         private int tempInt = 0;
         private float tempFloat = (float)0.0;
@@ -246,15 +247,15 @@ namespace GcproExtensionApp
                 comboSectionBML.Items.Add(item);
                 comboCabinetBML.Items.Add(item);
                 comboControlBML.Items.Add(item);
-                comboNameBML.SelectedItem = "B";
-                comboDescBML.SelectedItem = "N";
-                comboTypeBML.SelectedItem = "C";
-                comboFloorBML.SelectedItem = "L";
-                comboIORemarkBML.SelectedItem = "R";
-                comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";
-                comboControlBML.SelectedItem = "H";
             }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboIORemarkBML.SelectedItem = "R";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboControlBML.SelectedItem = "H";
             for (int i = 1; i <= 20; i++)
             {
                 comboStartRow.Items.Add(i);
@@ -819,8 +820,8 @@ namespace GcproExtensionApp
         private void TxtExcelPath_TextChanged(object sender, EventArgs e)
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
-            BML.Motor.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_BML}.{AppGlobal.JS_MOTOR}.Path", BML.Motor.BMLPath);
+            BML.ScaleAdapter.BMLPath = excelFileHandle.FilePath;
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{scaleAdapterBMLSuffix}{AppGlobal.JS_PATH}", BML.ScaleAdapter.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
