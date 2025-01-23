@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFBAL));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -147,6 +147,8 @@ namespace GcproExtensionApp
             this.comboWorkSheetsBML = new System.Windows.Forms.ComboBox();
             this.grpBoxExcelColumn = new System.Windows.Forms.GroupBox();
             this.grpBoxBMLColum = new System.Windows.Forms.GroupBox();
+            this.comboIORemarkBML = new System.Windows.Forms.ComboBox();
+            this.lblIORemarkBML = new System.Windows.Forms.Label();
             this.comboControlBML = new System.Windows.Forms.ComboBox();
             this.lblControlBML = new System.Windows.Forms.Label();
             this.comboStartRow = new System.Windows.Forms.ComboBox();
@@ -188,8 +190,6 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
-            this.comboIORemarkBML = new System.Windows.Forms.ComboBox();
-            this.lblIORemarkBML = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
@@ -1101,9 +1101,9 @@ namespace GcproExtensionApp
             this.LblSymbol.AutoSize = true;
             this.LblSymbol.Location = new System.Drawing.Point(6, 16);
             this.LblSymbol.Name = "LblSymbol";
-            this.LblSymbol.Size = new System.Drawing.Size(55, 13);
+            this.LblSymbol.Size = new System.Drawing.Size(31, 13);
             this.LblSymbol.TabIndex = 0;
-            this.LblSymbol.Text = "变频名称";
+            this.LblSymbol.Text = "名称";
             // 
             // GrpDescriptionRule
             // 
@@ -1260,9 +1260,9 @@ namespace GcproExtensionApp
             this.LblDescription.AutoSize = true;
             this.LblDescription.Location = new System.Drawing.Point(242, 16);
             this.LblDescription.Name = "LblDescription";
-            this.LblDescription.Size = new System.Drawing.Size(55, 13);
+            this.LblDescription.Size = new System.Drawing.Size(31, 13);
             this.LblDescription.TabIndex = 1;
-            this.LblDescription.Text = "变频描述";
+            this.LblDescription.Text = "描述";
             // 
             // chkParManual
             // 
@@ -1488,8 +1488,8 @@ namespace GcproExtensionApp
             // dataGridBML
             // 
             this.dataGridBML.AllowUserToAddRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1561,6 +1561,25 @@ namespace GcproExtensionApp
             this.grpBoxBMLColum.TabIndex = 16;
             this.grpBoxBMLColum.TabStop = false;
             this.grpBoxBMLColum.Text = "信息列";
+            // 
+            // comboIORemarkBML
+            // 
+            this.comboIORemarkBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboIORemarkBML.FormattingEnabled = true;
+            this.comboIORemarkBML.IntegralHeight = false;
+            this.comboIORemarkBML.Location = new System.Drawing.Point(206, 43);
+            this.comboIORemarkBML.Name = "comboIORemarkBML";
+            this.comboIORemarkBML.Size = new System.Drawing.Size(66, 21);
+            this.comboIORemarkBML.TabIndex = 33;
+            // 
+            // lblIORemarkBML
+            // 
+            this.lblIORemarkBML.AutoSize = true;
+            this.lblIORemarkBML.Location = new System.Drawing.Point(146, 46);
+            this.lblIORemarkBML.Name = "lblIORemarkBML";
+            this.lblIORemarkBML.Size = new System.Drawing.Size(54, 13);
+            this.lblIORemarkBML.TabIndex = 32;
+            this.lblIORemarkBML.Text = "IO注释：";
             // 
             // comboControlBML
             // 
@@ -2003,25 +2022,6 @@ namespace GcproExtensionApp
             this.lblPage.Size = new System.Drawing.Size(35, 13);
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "Page:";
-            // 
-            // comboIORemarkBML
-            // 
-            this.comboIORemarkBML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboIORemarkBML.FormattingEnabled = true;
-            this.comboIORemarkBML.IntegralHeight = false;
-            this.comboIORemarkBML.Location = new System.Drawing.Point(206, 43);
-            this.comboIORemarkBML.Name = "comboIORemarkBML";
-            this.comboIORemarkBML.Size = new System.Drawing.Size(66, 21);
-            this.comboIORemarkBML.TabIndex = 33;
-            // 
-            // lblIORemarkBML
-            // 
-            this.lblIORemarkBML.AutoSize = true;
-            this.lblIORemarkBML.Location = new System.Drawing.Point(146, 46);
-            this.lblIORemarkBML.Name = "lblIORemarkBML";
-            this.lblIORemarkBML.Size = new System.Drawing.Size(54, 13);
-            this.lblIORemarkBML.TabIndex = 32;
-            this.lblIORemarkBML.Text = "IO注释：";
             // 
             // FormFBAL
             // 
