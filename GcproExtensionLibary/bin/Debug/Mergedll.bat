@@ -12,7 +12,7 @@ if not exist %ILMERGE_PATH% (
 
 :: 设置输出目录和文件名
 set OUTPUT_DIR=%~dp0output
-set OUTPUT_DLL=GcproExtension.dll
+set OUTPUT_DLL=GcproExtensionLib.dll
 set OUTPUT_PATH=%OUTPUT_DIR%\%OUTPUT_DLL%
 
 :: 创建输出目录（如果不存在）

@@ -34,8 +34,6 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\tr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtension.dll
-Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtension.pdb
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.AssemblyReference.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.AppStart.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormAI.resources
@@ -60,3 +58,6 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExt.9C27A94B.Up2Date
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.pdb
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.FormFBAL.resources
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionLib.dll
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionLib.pdb

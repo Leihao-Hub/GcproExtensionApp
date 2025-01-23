@@ -38,6 +38,7 @@ namespace GcproExtensionApp
         private readonly string DEMO_NAME_RULE_MDDYZ = "4001";
         private readonly string DEMO_DESCRIPTION_MDDYZ = "制粉A线2楼磨粉机现场控制箱/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_MDDYZ = "";
+        private readonly string rollStandPhonexBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDX}.";
         // private long value21;
         private int value10 = 80;
         private int tempInt = 0;
@@ -718,7 +719,7 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.MDDx.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDX}.{AppGlobal.JS_PATH}", BML.MDDx.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{rollStandPhonexBMLSuffix}{AppGlobal.JS_PATH}", BML.MDDx.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -754,15 +755,15 @@ namespace GcproExtensionApp
                 comboCabinetBML.Items.Add(item);
                 comboControlBML.Items.Add(item);
                 comboLineBML.Items.Add(item);
-                comboNameBML.SelectedItem = "B";
-                comboDescBML.SelectedItem = "N";
-                comboTypeBML.SelectedItem = "C";
-                comboFloorBML.SelectedItem = "L";
-                comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";
-                comboControlBML.SelectedItem = "H";
-                comboLineBML.SelectedItem = "X";
             }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboControlBML.SelectedItem = "H";
+            comboLineBML.SelectedItem = "X";
             for (int i = 1; i <= 20; i++)
             {
                 comboStartRow.Items.Add(i);

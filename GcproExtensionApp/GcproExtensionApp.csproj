@@ -37,9 +37,8 @@
     <ApplicationIcon>Common\Coorperatin2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GcproExtension, Version=7.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\GcproExtensionLibary\bin\Debug\output\GcproExtension.dll</HintPath>
+    <Reference Include="GcproExtensionLib">
+      <HintPath>..\GcproExtensionLibary\bin\Debug\output\GcproExtensionLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -104,6 +103,12 @@
     </Compile>
     <Compile Include="LL\EL\FormScaleAdapter.Designer.cs">
       <DependentUpon>FormScaleAdapter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LL\EL\FormFBAL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\EL\FormFBAL.Designer.cs">
+      <DependentUpon>FormFBAL.cs</DependentUpon>
     </Compile>
     <Compile Include="LL\EL\FormVFCAdapter.cs">
       <SubType>Form</SubType>
@@ -176,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LL\EL\FormScaleAdapter.resx">
       <DependentUpon>FormScaleAdapter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\EL\FormFBAL.resx">
+      <DependentUpon>FormFBAL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LL\FormDPSlave.resx">
       <DependentUpon>FormDPSlave.cs</DependentUpon>

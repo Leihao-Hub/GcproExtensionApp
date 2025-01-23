@@ -489,11 +489,11 @@ namespace GcproExtensionApp
             #region Fields for properties
             private static string bmlPath;
             private static string flowBalancer;
-            private static string scale;            
+            private static string scale;
             private static readonly string ioRemarkString;
             private static string nameDelimiter;
             #endregion   
-            private static string dirToBin;       
+            private static string dirToBin;
             private static string dirTo;
             private static string binOf;
             #region Properties
@@ -512,7 +512,7 @@ namespace GcproExtensionApp
             {
                 get { return scale; }
             }
-              
+
             public static string IORemarkString { get; }
             #endregion
             static ScaleAdapter()
@@ -528,8 +528,8 @@ namespace GcproExtensionApp
                     var keys = new Dictionary<string, Action<string>>
                     {
                         {$"{keyFilter}ControlWeigher",value => scale= value },
-                        {$"{keyFilter}ControlFlowBalancer",value => flowBalancer = value },       
-                        {$"{keyIORemark}DirToBin",value => dirToBin= value },                   
+                        {$"{keyFilter}ControlFlowBalancer",value => flowBalancer = value },
+                        {$"{keyIORemark}DirToBin",value => dirToBin= value },
                         {$"{keyIORemark}DirTo",value =>  dirTo = value },
                         {$"{keyIORemark}BinOf",value =>  binOf = value },
                         {$"{keyPath}Path",value => bmlPath = value },
@@ -542,7 +542,7 @@ namespace GcproExtensionApp
                         {
                             key.Value(value);
                         }
-                    }               
+                    }
                     keyValueRead = null;
                 }
 
@@ -576,7 +576,7 @@ namespace GcproExtensionApp
                             return string.Empty;
                         }
                     }
-                   
+
                     else if (input.IndexOf(binOf, StringComparison.OrdinalIgnoreCase) >= 0)
                     {
                         string binIdent = Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
@@ -593,14 +593,119 @@ namespace GcproExtensionApp
                         {
                             return string.Empty;
                         }
-                    }              
+                    }
                     else
                     {
                         return string.Empty;
                     }
                 }
             }
+        }
+        public static class FBAL
+        {
+            #region Fields for properties
+            private static string bmlPath;
+            private static string flowBalancer;
+            private static readonly string ioRemarkString;
+            #endregion   
+            private static string dirToBin;
+            private static string binOf;
+            #region Properties
+            public static string BMLPath
+            {
+                get { return bmlPath; }
+                set { bmlPath = value; }
+            }
 
+            public static string FlowBalancer
+            {
+                get { return flowBalancer; }
+            }     
+            public static string IORemarkString { get; }
+            #endregion
+            static FBAL()
+            {
+                string keyPath = $"{AppGlobal.JS_BML}.{AppGlobal.JS_SCALE_ADAPTER}.";
+                string keyColumns = $"{keyPath}{AppGlobal.JS_COLUMNS}.";
+                string keyFilter = $"{keyPath}{AppGlobal.JS_FILTER}.";
+                string keyIORemark = $"{keyPath}{AppGlobal.JS_IO_REMARK}.";
+                try
+                {
+
+                    string[] ioRemarks = new string[7];
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        {$"{keyFilter}ControlFlowBalancer",value => flowBalancer = value },
+                        {$"{keyIORemark}DirToBin",value => dirToBin= value },
+                        {$"{keyIORemark}BinOf",value =>  binOf = value },
+                        {$"{keyPath}Path",value => bmlPath = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            public static string ParseIORemark(string input, DataTable data = null)
+            {
+                if (string.IsNullOrEmpty(input))
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    if (input.IndexOf(dirToBin, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        string binIdent = Regex.Replace(input, Regex.Escape(dirToBin), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        bool startWithBinPrefix = binIdent.StartsWith(GcObjectInfo.Bin.BinPrefix);
+                        if (startWithBinPrefix)
+                        {
+                            return $"{GcObjectInfo.Bin.BinPrefix}{binIdent}";
+                        }
+                        else if (data != null)
+                        {
+                            return OleDb.GetValueBaseOtherColumn(data, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Text0.Name, binIdent);
+                        }
+                        else
+                        {
+                            return string.Empty;
+                        }
+                    }
+
+                    else if (input.IndexOf(binOf, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        string binIdent = Regex.Replace(input, Regex.Escape(binOf), "", RegexOptions.IgnoreCase).Replace(" ", "");
+                        bool startWithBinPrefix = binIdent.StartsWith(GcObjectInfo.Bin.BinPrefix);
+                        if (startWithBinPrefix)
+                        {
+                            return $"{GcObjectInfo.Bin.BinPrefix}{binIdent}";
+                        }
+                        else if (data != null)
+                        {
+                            return OleDb.GetValueBaseOtherColumn(data, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Text0.Name, binIdent);
+                        }
+                        else
+                        {
+                            return string.Empty;
+                        }
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
         }
         public static class VLS
         {

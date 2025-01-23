@@ -817,8 +817,6 @@ namespace GcproExtensionApp
         private void TxtExcelPath_TextChanged(object sender, EventArgs e)
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
-            //BML.MA_Discharger.BMLPath = excelFileHandle.FilePath;
-            //LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_Discharger}.{AppGlobal.JS_PATH}", BML.MA_Discharger.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {

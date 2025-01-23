@@ -42,6 +42,7 @@ namespace GcproExtensionApp
         private readonly string DEMO_DESCRIPTION_DI = "401号基粉仓高料位/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_DI = "401/或者空白";
         private readonly string diSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DI}.{AppGlobal.JS_SUFFIX}.";
+        private readonly string diBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DI}.";
         private GcBaseRule objDefaultInfo;
         #endregion
         private int value9 = 0;
@@ -328,7 +329,7 @@ namespace GcproExtensionApp
             if (e.KeyCode == Keys.Enter)
             {
                 string newJsonKeyValue = txtOutpPowerOffSuffix.Text;
-                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffix}.OutpPowerOff", newJsonKeyValue);
+                LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diSuffix}OutpPowerOff", newJsonKeyValue);
                 GcObjectInfo.DI.SuffixOutpPowerOff = newJsonKeyValue;
             }
         }
@@ -1088,7 +1089,7 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.DI.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.DI.Path", BML.DI.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{diBMLSuffix}Path", BML.DI.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1122,16 +1123,16 @@ namespace GcproExtensionApp
                 comboControlBML.Items.Add(item);
                 comboIORemarkBML.Items.Add(item);
                 comboLineBML.Items.Add(item);
-                comboNameBML.SelectedItem = "B";
-                comboDescBML.SelectedItem = "N";
-                comboTypeBML.SelectedItem = "C";
-                comboFloorBML.SelectedItem = "L";
-                comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";
-                comboControlBML.SelectedItem = "H";
-                comboIORemarkBML.SelectedItem = "R";
-                comboLineBML.SelectedItem = "X";
             }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboControlBML.SelectedItem = "H";
+            comboIORemarkBML.SelectedItem = "R";
+            comboLineBML.SelectedItem = "X";
             for (int i = 1; i <= 20; i++)
             {
                 comboStartRow.Items.Add(i);

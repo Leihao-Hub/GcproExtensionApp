@@ -29,6 +29,8 @@ namespace GcproExtensionApp
         public static (int IOByteStart, int Len) IOAddr= (1000, 1);
         public static (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power,bool OnlyNumber) AdditionDesc = (true,false,true,true,false,false,true);
         #region Const
+        public const int MEAG_EXT_LONG = 72;
+        public const int MEAG_NORMAL = 24;
         public const string JSON_FILE_PATH = "appsettings.json";
         public const string ERROR_ENTER_TYPE = "输入类型错误";
         public const string ENTER_NUMERIC = "请输入一个数字类型";
@@ -85,6 +87,7 @@ namespace GcproExtensionApp
         public const string JS_DI = "DI";
         public const string JS_DO = "DO";
         public const string JS_SCALE_ADAPTER = "ScaleAdapter";
+        public const string JS_FBAL = "ScaleAdapter";
         public const string JS_AI = "AI";
         public const string JS_MDDX = "MDDx";
         public const string JS_ROLL8STAND = "MA_Roll8Stand";

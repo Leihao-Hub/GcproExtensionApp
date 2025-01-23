@@ -39,6 +39,8 @@ namespace GcproExtensionApp
         private readonly string DEMO_NAME_RULE_MDDx = "4001";
         private readonly string DEMO_DESCRIPTION_MDDx = "制粉A线2楼磨粉机现场控制箱/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_MDDx = "";
+        private readonly string mddxBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDX}.";
+       // private readonly string mddxSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_MDDX}.{AppGlobal.JS_SUFFIX}.";
         private readonly long value25 = 0;
         private long value26 = 286752;
         private readonly long value27 = 0;
@@ -968,7 +970,7 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.MDDx.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, "BML.MDDx.Path", BML.MDDx.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{mddxBMLSuffix}Path", BML.MDDx.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1001,15 +1003,15 @@ namespace GcproExtensionApp
                 comboCabinetBML.Items.Add(item);
                 comboControlBML.Items.Add(item);
                 comboLineBML.Items.Add(item);
-                comboNameBML.SelectedItem = "B";
-                comboDescBML.SelectedItem = "N";
-                comboTypeBML.SelectedItem = "C";
-                comboFloorBML.SelectedItem = "L";
-                comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";
-                comboControlBML.SelectedItem = "H";
-                comboLineBML.SelectedItem = "X";
             }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboControlBML.SelectedItem = "H";
+            comboLineBML.SelectedItem = "X";
             for (int i = 1; i <= 20; i++)
             {
                 comboStartRow.Items.Add(i);

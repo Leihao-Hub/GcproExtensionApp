@@ -1061,16 +1061,16 @@ namespace GcproExtensionApp
                 comboSectionBML.Items.Add(item);
                 comboCabinetBML.Items.Add(item);
                 comboControlBML.Items.Add(item);
-                comboLineBML.Items.Add(item);
-                comboNameBML.SelectedItem = "B";
-                comboDescBML.SelectedItem = "N";
-                comboTypeBML.SelectedItem = "C";
-                comboFloorBML.SelectedItem = "L";
-                comboCabinetBML.SelectedItem = "P";
-                comboSectionBML.SelectedItem = "Q";
-                comboLineBML.SelectedItem = "X";
-                comboControlBML.SelectedItem = "H";
+                comboLineBML.Items.Add(item);       
             }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboLineBML.SelectedItem = "X";
+            comboControlBML.SelectedItem = "H";
             for (int i = 1; i <= 20; i++)
             {
                 comboStartRow.Items.Add(i);

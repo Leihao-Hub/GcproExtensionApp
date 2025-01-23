@@ -240,7 +240,8 @@ namespace GcproExtensionApp
         }
         private void btnAddFBAL_Click(object sender, EventArgs e)
         {
-
+            FormFBAL formFBAL = new FormFBAL();
+            formFBAL.Show();
         }
         private void btnAddScaleAdapter_Click(object sender, EventArgs e)
         {
