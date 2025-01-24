@@ -296,6 +296,7 @@ namespace GcproExtensionApp
                         if (name != value)
                         {
                             name = value;
+                            /// 内部调用触发NameChange事件的方法                          
                             OnNameChange(EventArgs.Empty);
                         }
                     }
@@ -311,12 +312,31 @@ namespace GcproExtensionApp
                     name = null;
                 }
                 #region Name change event
+                /// <summary>
+                /// 定义事件委托
+                /// </summary>
+                /// <param name="sender"></param>
+                /// <param name="e"></param>
                 public delegate void NameChangeEventHandler(object sender, EventArgs e);
+                /// <summary>
+                /// 使用委托声明事件
+                /// </summary>
                 public event NameChangeEventHandler NameChange;
+                /// <summary>
+                /// 触发事件的方法
+                /// </summary>
+                /// <param name="e"></param>
                 protected virtual void OnNameChange(EventArgs e)
                 {
                     NameChange?.Invoke(this, e);
                     NameChangeAfterEvent();
+                }
+                /// <summary>
+                /// 供外部触发事件方法
+                /// </summary>
+                public void TriggerNameChange()
+                {                       
+                    OnNameChange(EventArgs.Empty);
                 }
                 private void NameChangeAfterEvent()
                 {
