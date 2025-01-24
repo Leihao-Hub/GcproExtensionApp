@@ -730,6 +730,7 @@ namespace GcproExtensionApp
             {
                 comboStartRow.Items.Add(i);
             }
+            comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text = BML.Motor.BMLPath;         
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn

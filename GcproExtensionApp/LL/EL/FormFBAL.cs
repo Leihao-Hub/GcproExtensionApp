@@ -1137,7 +1137,7 @@ namespace GcproExtensionApp
             {
                 comboStartRow.Items.Add(i);
             }
-            comboStartRow.SelectedIndex = 6;
+            comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text = BML.Motor.BMLPath;         
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
@@ -1521,7 +1521,7 @@ namespace GcproExtensionApp
             };
             #endregion common used variables declaration
 
-            #region Prepare export vfc file
+            #region Prepare export fbal file
             ///<OType>is set when object generated</OType>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>

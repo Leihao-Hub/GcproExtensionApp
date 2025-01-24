@@ -431,7 +431,6 @@ namespace GcproExtensionApp
                 }
             }
         }
-
         private void TxtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtDescriptionRule.Text))
