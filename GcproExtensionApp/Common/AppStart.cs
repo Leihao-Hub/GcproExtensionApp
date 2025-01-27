@@ -35,10 +35,8 @@ namespace GcproExtensionApp
                 try
                 {
 
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = false;
+                    OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath,false);
+                    DataTable dataTable ;
                     string subQuery = $"SELECT {ObjData.SubType.Name} FROM [{ObjData.TableName}] WHERE {ObjData.OType.Name} = {Project.OTypeValue}";
                     string whereClause = $"{SubType.FieldSubType.Name} IN";
                     dataTable = oledb.NestQueryDataTable(SubType.TableName, whereClause, null, null, subQuery, SubType.FieldSubType.Name, SubType.FieldSub_Type_Desc.Name);
@@ -58,13 +56,15 @@ namespace GcproExtensionApp
                     MessageBox.Show("查询错误: " + ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            TabHideOrShow();
         }
         private void BtnOpenGcsLibraryDB_Click(object sender, EventArgs e)
         {
 
             AppGlobal.GcproDBInfo.GcsLibaryPath = AccessFileHandle.BrowseFile();
             TxtGcsLibraryPath.Text = AppGlobal.GcproDBInfo.GcsLibaryPath;
-            Environment.SetEnvironmentVariable("GcsLibraryPath", TxtGcsLibraryPath.Text, EnvironmentVariableTarget.User);         
+            Environment.SetEnvironmentVariable("GcsLibraryPath", TxtGcsLibraryPath.Text, EnvironmentVariableTarget.User);
+            TabHideOrShow();
         }
         private void BtnOpenGcproTempPath_Click(object sender, EventArgs e)
         {
@@ -86,16 +86,14 @@ namespace GcproExtensionApp
             txtGcproTempPath.Text = AppGlobal.GcproDBInfo.GcproTempPath;
             txtRegexNameWithoutTypeLL.Text = Engineering.PatternMachineName;
             txtRegexNameOnlyWithNumberTypeLL.Text=Engineering.PatternNameNumber;     
-            txtRegexNamePrefix.Text = Engineering.PatternElementNamePrefix;    
+            txtRegexNamePrefix.Text = Engineering.PatternElementNamePrefix;
+            tabPage3.ImageIndex = 2;
             if (!string.IsNullOrEmpty(TxtProjectPath.Text))
             {
                 try
                 {
-
-                    OleDb oledb = new OleDb();
-                    DataTable dataTable = new DataTable();
-                    oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                    oledb.IsNewOLEDBDriver = false;
+                    OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, false);
+                    DataTable dataTable;
                     string subQuery = $"SELECT {ObjData.SubType.Name} FROM [{ObjData.TableName}] WHERE {ObjData.OType.Name} = {(int)(OTypeCollection.Project)}";
                     string whereClause = $"{SubType.FieldSubType.Name} IN";
                     dataTable = oledb.NestQueryDataTable(SubType.TableName, whereClause, null, null, subQuery, SubType.FieldSubType.Name,SubType.FieldSub_Type_Desc.Name);
@@ -115,8 +113,27 @@ namespace GcproExtensionApp
                     MessageBox.Show("查询错误: " + ex.Message,AppGlobal.AppInfo.Title,MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
-        }
+            TabHideOrShow();
 
+        }
+        private void TabHideOrShow()
+        {
+            if (!string.IsNullOrEmpty(TxtProjectPath.Text) && (!string.IsNullOrEmpty(TxtGcsLibraryPath.Text)))
+            { 
+                    
+                btnQuery.Enabled = true;
+                tabMain.TabPages.Clear();
+                tabPage1.Parent = tabMain;
+                tabPage2.Parent = tabMain;
+                tabPage3.Parent = tabMain;
+                tabMain.Refresh();  
+            }
+            else
+            { 
+                tabPage2.Parent = null;
+                btnQuery.Enabled = false;
+            }
+        }
 
         private void txtGcproTempPath_KeyDown(object sender, KeyEventArgs e)
         {
