@@ -1583,10 +1583,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+          //  int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             objDefaultInfo = MDDx.Rule.Common;
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {

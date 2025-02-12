@@ -233,7 +233,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 if (parPowerNominal != value)
                 { 
                     parPowerNominal = value;
-                    PowerChangAfterEvent();                }
+                    OnPowerChange(EventArgs.Empty);               
+                }
             }
         }
         public double ParSpeedService
@@ -468,20 +469,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// 触发事件的方法
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnPowerChangeChange(EventArgs e)
+        protected virtual void OnPowerChange(EventArgs e)
         {
             PowerChange?.Invoke(this, e);
-            PowerChangAfterEvent();
+            PowerChangeAfterEvent();
         }
         /// <summary>
         /// 供外部触发事件方法
         /// </summary>
         public void TriggerPowerChange()
         {
-            OnPowerChangeChange(EventArgs.Empty);
+            OnPowerChange(EventArgs.Empty);
         }
-
-        private void PowerChangAfterEvent()
+        private void PowerChangeAfterEvent()
         {
             parMonTime = GetStartingTime(parPowerNominal);
             parStartingTime = parMonTime -1 >= 0 ? parMonTime : 3.0;

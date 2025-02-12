@@ -1192,13 +1192,6 @@ namespace GcproExtensionApp
             CreateImpExp();
         }
    
-        private void AppendInfoToBuilder(CheckBox checkBox, string info, StringBuilder builder)
-        {
-            if (checkBox.Checked)
-            {
-                builder.Append(info);
-            }
-        }
         /// <summary>
         /// 
         /// </summary>
@@ -1357,7 +1350,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             myMDDYZPhoenix.Page = txtPage.Text;
             ///<Building></Building>
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1432,10 +1425,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+          //  int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1484,8 +1477,8 @@ namespace GcproExtensionApp
                 IsNewOLEDBDriver = isNewOledbDriver
             };
             DataTable dataTable ;
-            #region common used variables declaration       
-            AppGlobal.ParseValue<int>(TxtQuantity.Text, out int quantityNeedToBeCreate);
+            #region common used variables declaration  
+            int quantityNeedToBeCreate;         
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {

@@ -294,8 +294,7 @@ namespace GcproExtensionApp
                     {
                         if (name != value)
                         {
-                            name = value;
-                            /// 内部调用触发NameChange事件的方法                          
+                            name = value;              
                             OnNameChange(EventArgs.Empty);
                         }
                     }
@@ -511,8 +510,7 @@ namespace GcproExtensionApp
             private static string scale;
             private static readonly string ioRemarkString;
             #endregion   
-            private static string dirToBin;
-            private static string dirTo;
+            private static string dirToBin;        
             private static string binOf;
             #region Properties
             public static string BMLPath
@@ -551,7 +549,6 @@ namespace GcproExtensionApp
                         {$"{keyFilter}ControlWeigher",value => scale= value },
                         {$"{keyFilter}ControlFlowBalancer",value => flowBalancer = value },
                         {$"{keyIORemark}DirToBin",value => dirToBin= value },
-                        {$"{keyIORemark}DirTo",value =>  dirTo = value },
                         {$"{keyIORemark}BinOf",value =>  binOf = value },
                         {$"{keyPath}Path",value => bmlPath = value },
                     };
@@ -740,7 +737,7 @@ namespace GcproExtensionApp
             private static string pneTwoWayValve;
             private static string pneShutOffValve;
             private static string pneAspValve;
-            private static readonly string ioRemarkString;
+          //  private static readonly string ioRemarkString;
             private static string suffixVLS;
             private static string prefixName;
             private static string nameDelimiter;
@@ -863,7 +860,7 @@ namespace GcproExtensionApp
                     ioRemarks[4] = dirSelect;
                     ioRemarks[5] = dirTo;
                     ioRemarks[6] = binOf;
-                    ioRemarkString = string.Join(", ", ioRemarks);
+                    //ioRemarkString = string.Join(", ", ioRemarks);
                     keyValueRead = null;
                 }
 

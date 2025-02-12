@@ -145,7 +145,7 @@ namespace GcproExtensionApp
         public void CreateImpExp()
         {
             OleDb oledb = new OleDb();
-            DataTable dataTable = new DataTable();
+            DataTable dataTable;
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{Bin.ImpExpRuleName}'",
@@ -1182,12 +1182,9 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    List<(string name, string desc, double binNo,double value2, double value3, double value4, double value14) > binList = new List<(string, string,double, double, double, double, double)>();
-                  //  List<Dictionary<string, double>> binListD = new List<Dictionary<string, double>>();
+                    List<(string name, string desc, double binNo,double value2, double value3, double value4, double value14) > binList = new List<(string, string,double, double, double, double, double)>();       
                     List<Dictionary<string, string>> binLLList = new List<Dictionary<string, string>>();
                     List<Dictionary<string, string>> binHLList = new List<Dictionary<string, string>> ();
-                    // List<Dictionary<string, string>> binMLList = new List<Dictionary<string, string>>();
-                    //   List<Dictionary<string, string>> binALList = new List<Dictionary<string, string>>();
                     OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                     DataTable dataTable;               
                     if (connectLLWithDesc)
@@ -1202,19 +1199,6 @@ namespace GcproExtensionApp
                             null, $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
                         binHLList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
                     }
-                    //if (connectMLWithDesc)
-                    //{
-                    //    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {DI.OTypeValue} AND ({GcproTable.ObjData.SubType.Name} = '{DI.HLBIN}'" +
-                    //         $"OR {GcproTable.ObjData.SubType.Name} = '{DI.LLBIN}')", null, $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
-
-                    //    binMLList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
-                    //}
-                    //if (connectALWithDesc)
-                    //{
-                    //    dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {AI.OTypeValue} ",
-                    //        null, $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
-                    //    binALList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
-                    //}
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}", null,
                    $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Value1.Name,
                    GcproTable.ObjData.Value2.Name, GcproTable.ObjData.Value3.Name, GcproTable.ObjData.Value4.Name, GcproTable.ObjData.Value14.Name);
@@ -1238,21 +1222,12 @@ namespace GcproExtensionApp
                             null, GcproTable.ObjData.Value11.Name);
                         bool needCreateHLRel = dataTable.Rows.Count == 0 ? false : (dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
 
-                        //dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value4}", null,
-                        //null, GcproTable.ObjData.Value11.Name);
-                       // bool needCreateMLRel = dataTable.Rows.Count == 0 ? false : (dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
-
                         dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value3}", null,
                                  null, GcproTable.ObjData.Value11.Name);
                         bool needCreateLLRel = dataTable.Rows.Count == 0 ? false : (dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
 
-                        //dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value14}", null,
-                        //   null, GcproTable.ObjData.Value11.Name);
-                        //bool needCreateALRel = dataTable.Rows.Count == 0? false:(dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all);
-
                         if (connectHLWithDesc)
-                        {
-                           
+                        {                           
                             var descOfThisBin = binHLList
                                  .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
                                  .Select(dict => dict["Text0"])
@@ -1270,27 +1245,7 @@ namespace GcproExtensionApp
                             {
                                 Bin.CreateRelation(binName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
                             }
-                        }
-                        //if (connectMLWithDesc)
-                        //{
-                        //    var descOfThisBin = binMLList
-                        //          .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
-                        //         .Select(dict => dict["Text0"])
-                        //         .Where(value => value != null)
-                        //         .ToList();
-                        //    if (descOfThisBin.Count >= 1)
-                        //    {
-                        //        middleLevel.Name = descOfThisBin[0];
-                        //        Bin.CreateRelation(binName, middleLevel.Name, GcproTable.ObjData.Value4.Name, myBin.FileConnectorPath, Encoding.Unicode);
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value4.Name) == 0 || all)
-                        //    {
-                        //        Bin.CreateRelation(binName, highLevel.Name, GcproTable.ObjData.Value4.Name, myBin.FileConnectorPath, Encoding.Unicode);
-                        //    }
-                        //}
+                        }                
                         if (connectLLWithDesc)
                         {
                             var descOfThisBin = binLLList
@@ -1310,42 +1265,18 @@ namespace GcproExtensionApp
                             {
                                 Bin.CreateRelation(binName ,lowLevel.Name, GcproTable.ObjData.Value3.Name, myBin.FileConnectorPath, Encoding.Unicode);
                             }
-                        }
-                        //if (connectALWithDesc)
-                        //{
-                        //    var descOfThisBin = binALList
-                        //         .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
-                        //         .Select(dict => dict["Text0"])
-                        //         .Where(value => value != null)
-                        //         .ToList();
-                        //    if (descOfThisBin.Count >= 1 && needCreateALRel)
-                        //    {
-                        //        analogLevel.Name = descOfThisBin[0];
-                        //        Bin.CreateRelation(binName, analogLevel.Name, GcproTable.ObjData.Value14.Name, myBin.FileConnectorPath, Encoding.Unicode);
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    if (needCreateALRel)
-                        //    {
-                        //        Bin.CreateRelation(binName, analogLevel.Name, GcproTable.ObjData.Value14.Name, myBin.FileConnectorPath, Encoding.Unicode);
-                        //    }
-                        //}
+                        }                    
                         ProgressBar.Value = count;
                     }
-                      Bin.SaveFileAs(myBin.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
+                    Bin.SaveFileAs(myBin.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     ProgressBar.Value = ProgressBar.Maximum;
                     dataTable.Clear();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("寻找料位与关联过程出错:" + ex, AppGlobal.INFO + ":" + AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 }
-
-
             }
-
         }
         private void BtnClear_Click(object sender, EventArgs e)
         {
@@ -1359,7 +1290,6 @@ namespace GcproExtensionApp
         }
         private void BtnSaveAs_Click(object sender, EventArgs e)
         {
-
             Bin.SaveFileAs(myBin.FilePath, LibGlobalSource.CREATE_OBJECT);
             Bin.SaveFileAs(myBin.FileRelationPath, LibGlobalSource.CREATE_RELATION);
         }
@@ -1758,8 +1688,7 @@ namespace GcproExtensionApp
                                 && AppGlobal.CheckNumericString(txtHighLevelIncRule.Text) && AppGlobal.CheckNumericString(txtHighLevelIncRule.Text)
                                 && (highLevel.PosInfo.Len != -1))
                             {
-                                int highInc;
-                                AppGlobal.ParseValue<int>(txtHighLevelIncRule.Text, out highInc);
+                                AppGlobal.ParseValue<int>(txtHighLevelIncRule.Text, out int highInc);
                                 highLevel.Inc = i * highInc;
                                 highLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(highLevel.Sub, highLevel.PosInfo, (int.Parse(txtHighLevelRule.Text) + highLevel.Inc).ToString());
                             }
@@ -1767,7 +1696,6 @@ namespace GcproExtensionApp
                             {
                                 highLevel.Name = txtHighLevel.Text;
                             }
-
                         }
                         if (!String.IsNullOrEmpty(txtLowLevel.Text))
                         {
@@ -1776,8 +1704,7 @@ namespace GcproExtensionApp
                                 && AppGlobal.CheckNumericString(txtLowLevelIncRule.Text) && AppGlobal.CheckNumericString(txtLowLevelIncRule.Text)
                                 && (lowLevel.PosInfo.Len != -1))
                             {
-                                int lowInc;
-                                AppGlobal.ParseValue<int>(txtLowLevelIncRule.Text, out lowInc);
+                                AppGlobal.ParseValue<int>(txtLowLevelIncRule.Text, out int lowInc);
                                 lowLevel.Inc = i * lowInc;
                                 lowLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(lowLevel.Sub, lowLevel.PosInfo, (int.Parse(txtLowLevelRule.Text) + lowLevel.Inc).ToString());
                             }
@@ -1794,8 +1721,7 @@ namespace GcproExtensionApp
                                 && AppGlobal.CheckNumericString(txtMiddleLevelIncRule.Text) && AppGlobal.CheckNumericString(txtMiddleLevelIncRule.Text)
                                 && (middleLevel.PosInfo.Len != -1))
                             {
-                                int middleInc;
-                                AppGlobal.ParseValue<int>(txtMiddleLevelIncRule.Text, out middleInc);
+                                AppGlobal.ParseValue<int>(txtMiddleLevelIncRule.Text, out int middleInc);
                                 middleLevel.Inc = i * middleInc;
                                 middleLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(middleLevel.Sub, middleLevel.PosInfo, (int.Parse(txtMiddleLevelRule.Text) + middleLevel.Inc).ToString());
                             }

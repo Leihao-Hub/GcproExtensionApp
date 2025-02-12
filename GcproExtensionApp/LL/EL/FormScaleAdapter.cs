@@ -1404,12 +1404,12 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc,senderBinInc,fluidLiftAirlockInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out senderBinInc);
-            AppGlobal.ParseValue<int>(txtFluidLiftAirlockIncRule.Text, out fluidLiftAirlockInc);
+          //  int symbolInc, symbolRule, descriptionInc,senderBinInc,fluidLiftAirlockInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
+            AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out int senderBinInc);
+            AppGlobal.ParseValue<int>(txtFluidLiftAirlockIncRule.Text, out int fluidLiftAirlockInc);
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1611,12 +1611,12 @@ namespace GcproExtensionApp
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-            int ioByteIncRule = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 1;         
+           // int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            //AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out int ioByteIncRule);         
             try
             {
-                AppGlobal.IOAddr.IOByteStart = int.Parse(txtParIOByte.Text);
-                AppGlobal.IOAddr.Len = int.Parse(txtIOByteIncRule.Text);
+                AppGlobal.ParseValue<int>(txtParIOByte.Text, out AppGlobal.IOAddr.IOByteStart);
+                AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out AppGlobal.IOAddr.Len);        
                 AppGlobal.AdditionDesc.Section = chkAddSectionToDesc.Checked;
                 AppGlobal.AdditionDesc.UserDefSection = chkAddUserSectionToDesc.Checked;
                 AppGlobal.AdditionDesc.Elevation = chkAddFloorToDesc.Checked;

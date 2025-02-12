@@ -1488,7 +1488,7 @@ namespace GcproExtensionApp
                 objVLS.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Building></Building>
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1555,7 +1555,7 @@ namespace GcproExtensionApp
                GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);          
             StringBuilder descBuilder = new StringBuilder();
             string commName;
-            int noOfSubIO = 0;
+            int noOfSubIO;
 
             bool[] objChecked = new bool[dataFromBML.Rows.Count];
             string vlsDesc = string.Empty;
@@ -1949,10 +1949,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+          //  int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             objDefaultInfo = VLS.Rule.Common;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {

@@ -120,6 +120,12 @@
       <DependentUpon>FormVLS.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateObjHelper\GcObjectInfo.cs" />
+    <Compile Include="LL\FormDischargerVertex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LL\FormDischargerVertex.Designer.cs">
+      <DependentUpon>FormDischargerVertex.cs</DependentUpon>
+    </Compile>
     <Compile Include="LL\FormDPSlave.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LL\EL\FormFBAL.resx">
       <DependentUpon>FormFBAL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LL\FormDischargerVertex.resx">
+      <DependentUpon>FormDischargerVertex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LL\FormDPSlave.resx">
       <DependentUpon>FormDPSlave.cs</DependentUpon>

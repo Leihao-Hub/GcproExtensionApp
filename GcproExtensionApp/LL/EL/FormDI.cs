@@ -1588,7 +1588,7 @@ namespace GcproExtensionApp
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             #endregion
             #region Prepare export DI file     
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1998,10 +1998,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+           // int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 name.Inc = i * symbolInc;
@@ -2083,9 +2083,9 @@ namespace GcproExtensionApp
 
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
-                myDI.Name = objList[i];
-                myDI.InpTrue = objInpKeyList[i];
-                myDI.CreateObject(Encoding.Unicode);
+                objDI.Name = objList[i];
+                objDI.InpTrue = objInpKeyList[i];
+                objDI.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;

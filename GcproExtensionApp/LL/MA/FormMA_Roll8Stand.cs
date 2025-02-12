@@ -1332,7 +1332,7 @@ namespace GcproExtensionApp
             ProgressBar.Maximum = quantityNeedToBeCreate;
             ProgressBar.Value = 0;       
             string _nameNumberString = string.Empty;
-            string subTypePrev =string.Empty;
+           // string subTypePrev;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 // DataGridViewCell cell;
@@ -1480,7 +1480,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             myRoll8Stand.Page = txtPage.Text;
             ///<Building></Building>
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1555,10 +1555,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+          //  int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1602,8 +1602,8 @@ namespace GcproExtensionApp
             oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             #region common used variables declaration       
-         ;
-            AppGlobal.ParseValue<int>(TxtQuantity.Text, out int quantityNeedToBeCreate);
+            int quantityNeedToBeCreate;
+           // AppGlobal.ParseValue<int>(TxtQuantity.Text, out int quantityNeedToBeCreate);
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {
@@ -1637,7 +1637,7 @@ namespace GcproExtensionApp
             List<string> objVFC;
             List<int> objSubs;
             bool isVfc = false;
-            int noOfSubElements = 0;
+            int noOfSubElements;
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.EL_MDDx} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER}";
             filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
 

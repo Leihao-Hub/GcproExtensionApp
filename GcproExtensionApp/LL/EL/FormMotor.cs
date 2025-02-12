@@ -46,7 +46,7 @@ namespace GcproExtensionApp
         private string namePrefix = string.Empty;
         private GcBaseRule objDefaultInfo;
         #endregion
-
+      
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
@@ -250,7 +250,6 @@ namespace GcproExtensionApp
         }
         public void Default()
         {
-
             txtSymbol.Focus();
             txtInpFwdSuffix.Text = GcObjectInfo.Motor.SuffixInpRunFwd;
             txtOutpFwdSuffix.Text = GcObjectInfo.Motor.SuffixOutpRunFwd;
@@ -1559,7 +1558,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             objMotor.Page = txtPage.Text;
             ///<Building></Building>
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1615,7 +1614,7 @@ namespace GcproExtensionApp
             bool numeric, motorWithVFC,fcFan;
             bool isMDDxFeeder;
             bool planSifter, purifier, laab, hm;
-            float power;
+           // float power;
             int tmpInt;
             long parValue10 = 130;
             string _nameNumberString;
@@ -1647,7 +1646,7 @@ namespace GcproExtensionApp
                 columnPower = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnPower)].Value);
                 if (!String.IsNullOrEmpty(columnPower))
                 {
-                    numeric = AppGlobal.ParseValue<float>(Convert.ToString(columnPower), out power);
+                    numeric = AppGlobal.ParseValue<float>(Convert.ToString(columnPower), out float power);
                     //tmpInt = Motor.GetStartingTime(power);
                     //objMotor.ParMonTime = numeric ? tmpInt : 10.0;
                     //objMotor.ParStartingTime = numeric ? (tmpInt - 1.0) : 3.0;
@@ -1952,10 +1951,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+           // int symbolInc,symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
 
@@ -2052,7 +2051,7 @@ namespace GcproExtensionApp
 
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
             List<Dictionary<string, string>> objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
-
+            GcObjectInfo.Motor.SimpleInfo updatedItem;
             for (int listIndex = 0; listIndex < objSubList.Count; listIndex++)
             {
                 var dictionary = objSubList[listIndex];
@@ -2060,7 +2059,7 @@ namespace GcproExtensionApp
                 bool isVFC = dictionary[keys[1]] == VFCAdapter.OTypeValue.ToString();
                 string _nameIO = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.General.SuffixIO.Delimiter);
                 string _nameVFC = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.Motor.SuffixVFC);
-                string _name = string.IsNullOrEmpty(_nameIO) ? _nameVFC : _nameIO;
+                string _name = string.IsNullOrEmpty(_nameIO) ? _nameVFC : _nameIO;             
                 byte _count = 1;
                 if (listIndex == 0)
                 {
@@ -2080,10 +2079,11 @@ namespace GcproExtensionApp
 
                         if (_name.Equals(_namePrev))
                         {
+                          
                             found = true;
                             for (int indexObj = 0; indexObj <= obj.Count - 1; indexObj++)
                             {
-                                GcObjectInfo.Motor.SimpleInfo updatedItem = obj[indexObj];
+                                updatedItem = obj[indexObj];
                                 if (updatedItem.Name.Equals(_name))
                                 {
                                     updatedItem.Count += 1;
@@ -2101,10 +2101,9 @@ namespace GcproExtensionApp
             }
             processValue.Max = obj.Count;
             processValue.Value = 0;
-
             for (int i = 0; i <= obj.Count - 1; i++)
             {
-                GcObjectInfo.Motor.SimpleInfo updatedItem = obj[i];
+                //updatedItem = obj[i];
                 objMotor.Name = obj[i].Name;
                 objMotor.Description = txtDescription.Text;
                 if (obj[i].IsVFC)

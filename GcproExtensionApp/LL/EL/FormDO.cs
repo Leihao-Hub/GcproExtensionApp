@@ -49,7 +49,7 @@ namespace GcproExtensionApp
         private int value10 = 0;
         private int tempInt = 0;
         private float tempFloat = (float)0.0;
-        private bool tempBool = false;
+      //  private bool tempBool = false;
         #region Public interfaces
         public void GetInfoFromDatabase()
         {
@@ -1395,7 +1395,7 @@ namespace GcproExtensionApp
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             #endregion
             #region Prepare export DO file     
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1687,10 +1687,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+          //  int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1779,9 +1779,9 @@ namespace GcproExtensionApp
 
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
-                myDO.Name = objList[i];
-                myDO.OutpRun = objOutpKeyList[i];
-                myDO.CreateObject(Encoding.Unicode);
+                objDO.Name = objList[i];
+                objDO.OutpRun = objOutpKeyList[i];
+                objDO.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;

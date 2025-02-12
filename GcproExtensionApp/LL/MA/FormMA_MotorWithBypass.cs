@@ -1605,7 +1605,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             myMotorWithBypass.Page = txtPage.Text;
             ///<Building></Building>
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1757,8 +1757,6 @@ namespace GcproExtensionApp
             {
                 pressure.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtPressure.Text, txtPressureRule.Text);
             }
-            string selectedDPNode1Item = string.Empty;
-
             ///<DescRule>生成描述规则</DescRule>
             if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
             {
@@ -1782,17 +1780,17 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc,mon1Inc,mon2Inc,vls1Inc,vls2Inc,sealInc,pressureInc,aiInc,cleaningTime;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseValue<int>(txtMon1IncRule.Text, out mon1Inc);
-            AppGlobal.ParseValue<int>(txtMon2IncRule.Text, out mon2Inc);
-            AppGlobal.ParseValue<int>(txtVLS1IncRule.Text, out vls1Inc);
-            AppGlobal.ParseValue<int>(txtVLS2IncRule.Text, out vls2Inc);
-            AppGlobal.ParseValue<int>(txtSealIncRule.Text, out sealInc);
-            AppGlobal.ParseValue<int>(txtPressureIncRule.Text, out pressureInc);
-            AppGlobal.ParseValue<int>(txtAIIncRule.Text, out aiInc);
+           // int symbolInc, symbolRule, descriptionInc,mon1Inc,mon2Inc,vls1Inc,vls2Inc,sealInc,pressureInc,aiInc,cleaningTime;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
+            AppGlobal.ParseValue<int>(txtMon1IncRule.Text, out int mon1Inc);
+            AppGlobal.ParseValue<int>(txtMon2IncRule.Text, out int mon2Inc);
+            AppGlobal.ParseValue<int>(txtVLS1IncRule.Text, out int vls1Inc);
+            AppGlobal.ParseValue<int>(txtVLS2IncRule.Text, out int vls2Inc);
+            AppGlobal.ParseValue<int>(txtSealIncRule.Text, out int sealInc);
+            AppGlobal.ParseValue<int>(txtPressureIncRule.Text, out int pressureInc);
+            AppGlobal.ParseValue<int>(txtAIIncRule.Text, out int aiInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1969,7 +1967,7 @@ namespace GcproExtensionApp
                 myMotorWithBypass.Value10 = value10;
                 myMotorWithBypass.Value9 = value9;
 
-                bool tempBool = AppGlobal.ParseValue<int>(txtCleaningTime.Text, out cleaningTime);
+                bool tempBool = AppGlobal.ParseValue<int>(txtCleaningTime.Text, out int cleaningTime);
                 myMotorWithBypass.ParCleaningTime = tempBool ? Math.Round(Convert.ToDouble(cleaningTime),1): 60.0;
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         

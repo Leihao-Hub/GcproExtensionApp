@@ -1038,7 +1038,7 @@ namespace GcproExtensionApp
                 IsNewOLEDBDriver = isNewOledbDriver
             };
             int quantityNeedToBeCreate = dataFromBML.RowCount;
-            int tempNumberInt;
+          //  int tempNumberInt;
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
             SuffixObject suffixObject = new SuffixObject();
@@ -1069,7 +1069,7 @@ namespace GcproExtensionApp
                     numberString = LibGlobalSource.StringHelper.ExtractNumericPart(objMDDYZ.Name, false);
                     if (!string.IsNullOrEmpty(numberString))
                     {
-                        if (AppGlobal.ParseValue<int>(numberString.Substring(0, 4), out tempNumberInt))
+                        if (AppGlobal.ParseValue<int>(numberString.Substring(0, 4), out int tempNumberInt))
                         {
                             MDDYZ.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempNumberInt);
                         }
@@ -1267,10 +1267,10 @@ namespace GcproExtensionApp
                 }
             }
             #endregion
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+       //     int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
             objDefaultInfo = MDDYZ.Rule.Common;
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {

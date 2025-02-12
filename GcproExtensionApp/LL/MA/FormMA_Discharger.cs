@@ -1371,7 +1371,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             myDischarger.Page = txtPage.Text;
             ///<Building></Building>
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1509,8 +1509,6 @@ namespace GcproExtensionApp
                 senderBin.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSenderBin.Text, txtSenderBinRule.Text);
             }
 
-            string selectedDPNode1Item = string.Empty;
-
             ///<DescRule>生成描述规则</DescRule>
             if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
             {
@@ -1534,17 +1532,17 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc, dischargerInc, vibroInc, llBinInc, lsFlowInc, receiverInc, senderBinInc;
-            int vibroOnTime, vibroOffTime,restDischargeTime;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseValue<int>(txtDischargerIncRule.Text, out dischargerInc);
-            AppGlobal.ParseValue<int>(txtDischargerIncRule.Text, out vibroInc);
-            AppGlobal.ParseValue<int>(txtLLBinIncRule.Text, out llBinInc);
-            AppGlobal.ParseValue<int>(txtLSFlowIncRule.Text, out lsFlowInc);
-            AppGlobal.ParseValue<int>(txtReceiverIncRule.Text, out receiverInc);
-            AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out senderBinInc);
+           // int symbolInc, symbolRule, descriptionInc, dischargerInc, vibroInc, llBinInc, lsFlowInc, receiverInc, senderBinInc;
+           // int vibroOnTime, vibroOffTime,restDischargeTime;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
+            AppGlobal.ParseValue<int>(txtDischargerIncRule.Text, out int dischargerInc);
+            AppGlobal.ParseValue<int>(txtDischargerIncRule.Text, out int vibroInc);
+            AppGlobal.ParseValue<int>(txtLLBinIncRule.Text, out int llBinInc);
+            AppGlobal.ParseValue<int>(txtLSFlowIncRule.Text, out int lsFlowInc);
+            AppGlobal.ParseValue<int>(txtReceiverIncRule.Text, out int receiverInc);
+            AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out int senderBinInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1698,11 +1696,11 @@ namespace GcproExtensionApp
                 myDischarger.RefSenderBin = senderBin.Name;
                 AppGlobal.ParseValue<float>(txtValue10.Text, out tempFloat);
                 myDischarger.Value10 = tempFloat;
-                tempBool = AppGlobal.ParseValue<int>(txtParVibroOnTime.Text, out vibroOnTime);
+                tempBool = AppGlobal.ParseValue<int>(txtParVibroOnTime.Text, out int vibroOnTime);
                 myDischarger.ParVibroOnTime = tempBool ? Math.Round(Convert.ToDouble(vibroOnTime),1 ): 10.0;
-                tempBool = AppGlobal.ParseValue<int>(txtParVibroOffTime.Text, out vibroOffTime);
+                tempBool = AppGlobal.ParseValue<int>(txtParVibroOffTime.Text, out int vibroOffTime);
                 myDischarger.ParVibroOffTime = tempBool ? Math.Round(Convert.ToDouble(vibroOffTime), 1) : 30.0;
-                tempBool = AppGlobal.ParseValue<int>(txtParRestDischargeTime.Text, out restDischargeTime);
+                tempBool = AppGlobal.ParseValue<int>(txtParRestDischargeTime.Text, out int restDischargeTime);
                 myDischarger.ParRestDischargeTime = tempBool ? Math.Round(Convert.ToDouble(restDischargeTime), 1) : 0.0;
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         

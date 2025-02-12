@@ -920,41 +920,36 @@ namespace GcproExtensionApp
             ///<Description></Description>
             myDPSlave.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
-            string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
-                selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
+                string selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
                 myDPSlave.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Diagram></Diagram>
-            string selectedDiagram;
             if (ComboDiagram.SelectedItem != null)
             {
-                selectedDiagram = ComboDiagram.SelectedItem.ToString();
+                string selectedDiagram = ComboDiagram.SelectedItem.ToString();
                 myDPSlave.Diagram = DPSlave.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
 
             ///<Page></Page>
             myDPSlave.Page = txtPage.Text;
             ///<Building></Building>
-            string selectedBudling = "--";
             if (ComboBuilding.SelectedItem != null)
             {
-                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                string selectedBudling = ComboBuilding.SelectedItem.ToString();
                 myDPSlave.Building = selectedBudling;
             }
-            ///<Elevation></Elevation>
-            string selectedElevation;
+            ///<Elevation></Elevation>        
             if (ComboElevation.SelectedItem != null)
             {
-                selectedElevation = ComboElevation.SelectedItem.ToString();
+                string selectedElevation = ComboElevation.SelectedItem.ToString();
                 myDPSlave.Elevation = selectedElevation;
             }
             ///<Panel_ID></Panel_ID>
-            string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
             {
-                selectedPanel_ID = ComboPanel.SelectedItem.ToString();
+                string selectedPanel_ID = ComboPanel.SelectedItem.ToString();
                 myDPSlave.Panel_ID = selectedPanel_ID;
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
@@ -1015,16 +1010,16 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            int slaveNoInc,slaveNoStart;
-            int ipRuleInc, _ipRule;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseValue<int>(txtIPAddressIncRule.Text, out ipRuleInc);
-            AppGlobal.ParseValue<int>(ip.ipRule, out _ipRule);
-            AppGlobal.ParseValue<int>(txtParSlaveNoIncRule.Text, out slaveNoInc);
-            AppGlobal.ParseValue<int>(txtParSlaveNo.Text, out slaveNoStart);
+          //  int symbolInc, symbolRule, descriptionInc;
+           // int slaveNoInc,slaveNoStart;
+           // int ipRuleInc, _ipRule;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
+            AppGlobal.ParseValue<int>(txtIPAddressIncRule.Text, out int ipRuleInc);
+            AppGlobal.ParseValue<int>(ip.ipRule, out int _ipRule);
+            AppGlobal.ParseValue<int>(txtParSlaveNoIncRule.Text, out int slaveNoInc);
+            AppGlobal.ParseValue<int>(txtParSlaveNo.Text, out int slaveNoStart);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
