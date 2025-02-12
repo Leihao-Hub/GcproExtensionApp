@@ -277,8 +277,8 @@ namespace GcproExtensionApp
             //txtMonTimeMiddle.Text = myAI.MonTimeMiddle;
             //txtMonTimeHigh.Text = myAI.MonTimeHigh;
             //txtMonTimeHighHigh.Text = myAI.MonTimeHighHigh;
-            txtValue9.Text = myAI.Value10;
-            txtValue10.Text = myAI.Value9;
+            txtValue9.Text = myAI.Value10.ToString();
+            txtValue10.Text = myAI.Value9.ToString();
             ComboEquipmentSubType.SelectedIndex = 0;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(ToolStripMenuClearList_Click);
@@ -474,7 +474,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value10 = AppGlobal.ParseInt(txtValue10.Text, out tempInt) ? tempInt : value10;
+                value10 = AppGlobal.ParseValue<int>(txtValue10.Text, out tempInt) ? tempInt : value10;
                 GetValue10BitValue(value10);
             }
         }
@@ -483,7 +483,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value9 = AppGlobal.ParseInt(txtValue9.Text, out tempInt) ? tempInt : value9;
+                value9 = AppGlobal.ParseValue<int>(txtValue9.Text, out tempInt) ? tempInt : value9;
                 GetValue10BitValue(value9);
             }
         }
@@ -500,8 +500,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)0); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkMonNotLowLow_CheckedChanged(object sender, EventArgs e)
@@ -514,8 +514,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)1); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkMonNotLow_CheckedChanged(object sender, EventArgs e)
@@ -528,8 +528,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)2); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkMonNotMiddle_CheckedChanged(object sender, EventArgs e)
@@ -542,8 +542,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)3); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkMonNotHigh_CheckedChanged(object sender, EventArgs e)
@@ -556,8 +556,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)4); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkMonNotHighHigh_CheckedChanged(object sender, EventArgs e)
@@ -570,8 +570,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)5); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkInDisable_CheckedChanged(object sender, EventArgs e)
@@ -584,8 +584,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)6); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkWinCC_CheckedChanged(object sender, EventArgs e)
@@ -598,8 +598,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)7); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
         private void ChkOutValueUnits_CheckedChanged(object sender, EventArgs e)
         {
@@ -611,8 +611,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)16); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
 
         private void ChkOutValueRel_CheckedChanged(object sender, EventArgs e)
@@ -625,8 +625,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)17); }
 
-            myAI.Value9 = value9.ToString();
-            txtValue9.Text = myAI.Value9;
+            myAI.Value9 = value9;
+            txtValue9.Text = myAI.Value9.ToString();
         }
         private void ChkParLogOff_CheckedChanged(object sender, EventArgs e)
         {
@@ -638,8 +638,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value9;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value9.ToString();
         }
 
         private void ChkParLimitsRel_CheckedChanged(object sender, EventArgs e)
@@ -652,8 +652,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value9;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParNoHornByWarning_CheckedChanged(object sender, EventArgs e)
@@ -666,8 +666,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
         private void ChkParWarningLowLow_CheckedChanged(object sender, EventArgs e)
         {
@@ -679,8 +679,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParWarningLow_CheckedChanged(object sender, EventArgs e)
@@ -693,8 +693,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)7); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParWarningMiddle_CheckedChanged(object sender, EventArgs e)
@@ -707,8 +707,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)8); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParWarningHigh_CheckedChanged(object sender, EventArgs e)
@@ -721,8 +721,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)9); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParWarningHighHigh_CheckedChanged(object sender, EventArgs e)
@@ -735,8 +735,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)10); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParPreAlarmLowLow_CheckedChanged(object sender, EventArgs e)
@@ -749,8 +749,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)11); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParPreAlarmLow_CheckedChanged(object sender, EventArgs e)
@@ -763,8 +763,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)12); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParPreAlarmMiddle_CheckedChanged(object sender, EventArgs e)
@@ -777,8 +777,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)13); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParPreAlarmHigh_CheckedChanged(object sender, EventArgs e)
@@ -791,8 +791,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)14); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
 
         private void ChkParPreAlarmHighHigh_CheckedChanged(object sender, EventArgs e)
@@ -805,8 +805,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)15); }
 
-            myAI.Value10 = value10.ToString();
-            txtValue10.Text = myAI.Value10;
+            myAI.Value10 = value10;
+            txtValue10.Text = myAI.Value10.ToString();
         }
         #endregion
         #region <------Field in database display
@@ -1162,7 +1162,7 @@ namespace GcproExtensionApp
                     string nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, nameFilterController);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(nameNumberString, out tempInt))
+                        if (AppGlobal.ParseValue<int>(nameNumberString, out tempInt))
                         {
                             AI.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1258,7 +1258,8 @@ namespace GcproExtensionApp
                 {
                      comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;              
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -1338,7 +1339,8 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.AI.BMLPath;         
+            TxtExcelPath.Text = BML.AI.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add( new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -1519,25 +1521,25 @@ namespace GcproExtensionApp
           
             if (createTempature)
             {              
-                objAI.PType = AI.P7406.ToString();
-                objAI.UnitsBy100 ="100.0";
-                objAI.Unit = "3";//oC
-                objAI.LimitLowLow = "5.0";
-                objAI.LimitLow = "10.0";
-                objAI.LimitHigh = "60.0";
-                objAI.LimitHighHigh = "70.0";
-                objAI.MonTimeHighHigh = "100.0";
+                objAI.PType = AI.P7406;
+                objAI.UnitsBy100 =100.0;
+                objAI.Unit = 3;//oC
+                objAI.LimitLowLow = 5.0;
+                objAI.LimitLow = 10.0;
+                objAI.LimitHigh = 60.0;
+                objAI.LimitHighHigh = 70.0;
+                objAI.MonTimeHighHigh = 10.0;
             }
             else
             {
-                objAI.PType = AI.P7404_1.ToString();
-                objAI.UnitsBy100 = "1500.0";
-                objAI.Unit = "24";//pa
-                objAI.LimitLowLow = "0.0";
-                objAI.LimitLow = "300.0";
-                objAI.LimitHigh = "600.0";
-                objAI.LimitHighHigh = "1000.0";
-                objAI.MonTimeHighHigh = "100.0";
+                objAI.PType = AI.P7404_1;
+                objAI.UnitsBy100 = 1500.0;
+                objAI.Unit = 24;//pa
+                objAI.LimitLowLow = 0.0;
+                objAI.LimitLow = 300.0;
+                objAI.LimitHigh = 600.0;
+                objAI.LimitHighHigh = 1000.0;
+                objAI.MonTimeHighHigh = 10.0;
             }         
             objAI.CreateObject(Encoding.Unicode);           
             }
@@ -1702,21 +1704,23 @@ namespace GcproExtensionApp
         private void CreateObjectCommon(AI objAI)
         {
             ///<UnitsBy100</UnitsBy100>
-            objAI.UnitsBy100 = AppGlobal.ParseFloat(txtUnitsBy100.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F0") : "100";
+            objAI.UnitsBy100 = AppGlobal.ParseValue<float>(txtUnitsBy100.Text, out tempFloat) ? (Math.Round(tempFloat,0)) : 100;
             ///<OffsetUnits</OffsetUnits>
-            objAI.OffsetUnits = AppGlobal.ParseFloat(txtOffsetUnits.Text, out tempFloat) ? (tempFloat).ToString("F0") : "0.0";
+            objAI.OffsetUnits = AppGlobal.ParseValue<float>(txtOffsetUnits.Text, out tempFloat) ? (Math.Round(tempFloat, 0)) : 0.0;
             ///<DelayTimeDown></DelayTimeDown>
-            objAI.DelayTimeDown = AppGlobal.ParseFloat(txtDelayTimeDown.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objAI.DelayTimeDown = AppGlobal.ParseValue<float>(txtDelayTimeDown.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 1.0;
             ///<DelayTimeUp></DelayTimeUp>
-            objAI.DelayTimeUp = AppGlobal.ParseFloat(txtDelayTimeUp.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objAI.DelayTimeUp = AppGlobal.ParseValue<float>(txtDelayTimeUp.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 1.0;
             ///<DelayFaultTime ></DelayFaultTime >
-            objAI.DelayFaultTime = AppGlobal.ParseFloat(txtDelayTimeFault.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objAI.DelayFaultTime = AppGlobal.ParseValue<float>(txtDelayTimeFault.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 1.0;
             ///<Unit ></Unit >
             string selectedUnit;
             if (comboUnit.SelectedItem != null)
             {
                 selectedUnit = comboUnit.SelectedItem.ToString();
-                objAI.Unit = selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                AppGlobal.ParseValue<int>(selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR)),out tempInt);
+                objAI.Unit = tempInt;
+                  
             }
             ///<Building></Building>
            string selectedBudling = "--";
@@ -1726,23 +1730,23 @@ namespace GcproExtensionApp
                 objAI.Building = selectedBudling;
             }
             ///<ParLimitLowLow></ParLimitLowLow>
-            objAI.LimitLowLow = AppGlobal.ParseFloat(txtParLimitLowLow.Text, out tempFloat) ? (tempFloat).ToString("F0") : "0";
+            objAI.LimitLowLow = AppGlobal.ParseValue<float>(txtParLimitLowLow.Text, out tempFloat) ? (Math.Round(tempFloat, 0)) : 0;
             ///<ParLimitLow></ParLimitLow>
-            objAI.LimitLowLow = AppGlobal.ParseFloat(txtParLimitLow.Text, out tempFloat) ? (tempFloat).ToString("F0") : "1";
+            objAI.LimitLowLow = AppGlobal.ParseValue<float>(txtParLimitLow.Text, out tempFloat) ? (Math.Round(tempFloat, 0)) : 1;
             ///<ParLimitHigh></ParLimitHigh>
-            objAI.LimitHigh = AppGlobal.ParseFloat(txtParLimitHigh.Text, out tempFloat) ? (tempFloat).ToString("F0") : "5";
+            objAI.LimitHigh = AppGlobal.ParseValue<float>(txtParLimitHigh.Text, out tempFloat) ? (Math.Round(tempFloat, 0)) : 5;
             ///<ParLimitHighHigh></ParLimitHighHigh>
-            objAI.LimitHighHigh = AppGlobal.ParseFloat(txtParLimitHighHigh.Text, out tempFloat) ? (tempFloat).ToString("F0") : "10";
+            objAI.LimitHighHigh = AppGlobal.ParseValue<float>(txtParLimitHighHigh.Text, out tempFloat) ? (Math.Round(tempFloat, 0)) : 10;
             ///<ParMonTimeLowLow></ParMonTimeLowLow>
-            objAI.MonTimeLowLow = AppGlobal.ParseFloat(txtMonTimeLowLow.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objAI.MonTimeLowLow = AppGlobal.ParseValue<float>(txtMonTimeLowLow.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 1.0;
             ///<ParMonTimeLow></ParMonTimeLow>
-            objAI.MonTimeLow = AppGlobal.ParseFloat(txtMonTimeLow.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objAI.MonTimeLow = AppGlobal.ParseValue<float>(txtMonTimeLow.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 1.0;
             ///<ParMonTimeMiddle></ParMonTimeMiddle>
-            objAI.MonTimeMiddle = AppGlobal.ParseFloat(txtMonTimeMiddle.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objAI.MonTimeMiddle = AppGlobal.ParseValue<float>(txtMonTimeMiddle.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 1.0;
             ///<ParMonTimeHigh></ParMonTimeHigh>
-            objAI.MonTimeHigh = AppGlobal.ParseFloat(txtMonTimeHigh.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objAI.MonTimeHigh = AppGlobal.ParseValue<float>(txtMonTimeHigh.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 1.0;
             ///<ParMonTimeHighHigh></ParMonTimeHighHigh>
-            objAI.MonTimeHighHigh = AppGlobal.ParseFloat(txtMonTimeHighHigh.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objAI.MonTimeHighHigh = AppGlobal.ParseValue<float>(txtMonTimeHighHigh.Text, out tempFloat) ? (Math.Round(tempFloat, 1)) : 2.0;
         }
         private void CreateObjectRule(AI objAI,
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc, 
@@ -1752,7 +1756,7 @@ namespace GcproExtensionApp
             DataTable dataTable = new DataTable();
             string desc = string.Empty;
             // StringBuilder descTotalBuilder = new StringBuilder();
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             bool needDPNodeChanged = false;
@@ -1815,11 +1819,12 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                objAI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                AppGlobal.ParseValue<float>(selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)), out tempFloat);
+                objAI.PType = tempFloat;
             }
             else
             {
-                objAI.PType = AI.P7252.ToString();
+                objAI.PType = AI.P7252;
             }
 
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
@@ -1839,7 +1844,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objAI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objAI.Diagram = AI.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
 
             ///<Page></Page>
@@ -1867,39 +1872,31 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            objAI.FieldBusNode = LibGlobalSource.NOCHILD; ;
             ///<DPNode1></DPNode1>
             string selectDPNode1 = String.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
-                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;          
-                objAI.DPNode1 = AI.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();   
+                
+                AppGlobal.FieldbusNodeInfo = AI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
 
-                if (String.IsNullOrEmpty(objAI.DPNode1))
-                { objAI.FieldBusNode = string.Empty; }
-                else
-                {
-                    objAI.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objAI.DPNode1));
-                }
+                objAI.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objAI.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
             }
+            ///<HornCode></HornCode>
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                objAI.HornCode = hornCode.Substring(0, 2);
+                objAI.HornCode = AI.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             #endregion
 
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1975,9 +1972,9 @@ namespace GcproExtensionApp
             ///DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = AI.Rule.Common;
 
             for (int i = 0; i < quantityNeedToBeCreate; i++)
@@ -1993,14 +1990,14 @@ namespace GcproExtensionApp
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, dpNode1.Name);
 
-                    if (String.IsNullOrEmpty(objAI.DPNode1))
-                    { objAI.FieldBusNode = string.Empty; }
+                    if (objAI.DPNode1 == AppGlobal.NO_DP_NODE)
+                    { objAI.FieldBusNode = AppGlobal.NO_DP_NODE; }
                     else
                     {
                         objAI.FieldBusNode = AI.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                         {
                             return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objAI.DPNode1));
+                        }, objAI.DPNode1);
                     }
                 }
 
@@ -2059,8 +2056,8 @@ namespace GcproExtensionApp
             processValue.Value = processValue.Max;
         }
         private void CreateObjectBML(DataGridView dataFromBML, AI objAI,
-       (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
-       out (int Value, int Max) processValue)
+        (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+        out (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable ;
@@ -2133,7 +2130,7 @@ namespace GcproExtensionApp
                     nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, name);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(nameNumberString, out tempInt))
+                        if (AppGlobal.ParseValue<int>(nameNumberString, out tempInt))
                         {
                             AI.Rule.Common.DescLine=GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -2169,15 +2166,15 @@ namespace GcproExtensionApp
                      );
 
                     objAI.Name = $"{nameMotor}{GcObjectInfo.AI.SuffixName}";
-                    objAI.PType = AI.P7408_1.ToString();
+                    objAI.PType = AI.P7408_1;
                     objAI.InpValue = $"{nameMotor}{GcObjectInfo.AI.SuffixInpValue}";
-                    objAI.UnitsBy100 = motorCurrent.rateCurrent.ToString("F1");
-                    objAI.Unit = "11";//A
-                    objAI.LimitLowLow = (motorCurrent.rateCurrent * 0.1f).ToString("F0");
-                    objAI.LimitLow = (motorCurrent.rateCurrent * 0.3f).ToString("F0");
-                    objAI.LimitHigh = (motorCurrent.rateCurrent * 0.9f).ToString("F0");
-                    objAI.LimitHighHigh = (motorCurrent.rateCurrent * 1.1f).ToString("F0");
-                    objAI.MonTimeHighHigh = (Motor.GetStartingTime(motorCurrent.rateCurrent) * 10).ToString();
+                    objAI.UnitsBy100 = Math.Round(motorCurrent.rateCurrent,1);
+                    objAI.Unit = 11;//A
+                    objAI.LimitLowLow = Math.Round(motorCurrent.rateCurrent * 0.1f,0);
+                    objAI.LimitLow = Math.Round(motorCurrent.rateCurrent * 0.3f,0);
+                    objAI.LimitHigh = Math.Round(motorCurrent.rateCurrent * 0.9f,0);
+                    objAI.LimitHighHigh = Math.Round(motorCurrent.rateCurrent * 1.1f,0);
+                    objAI.MonTimeHighHigh = Motor.GetStartingTime(motorCurrent.rateCurrent);
                     objAI.CreateObject(Encoding.Unicode);
                 }
                 ///<UpdateFiled>

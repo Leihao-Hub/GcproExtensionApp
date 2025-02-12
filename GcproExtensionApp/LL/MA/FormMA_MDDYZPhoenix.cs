@@ -185,7 +185,7 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
           
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString().ToString();
             value10 = int.Parse(txtValue10.Text);
             chkParManual.Checked = true;
             ComboEquipmentSubType.SelectedIndex = 0;
@@ -310,8 +310,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
         private void chkParWithHLInletS1_CheckedChanged(object sender, EventArgs e)
         {
@@ -323,8 +323,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkParWithHLInletS2_CheckedChanged(object sender, EventArgs e)
@@ -337,8 +337,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkPar4Rolls_CheckedChanged(object sender, EventArgs e)
@@ -351,8 +351,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkParWithHLInletS1Div_CheckedChanged(object sender, EventArgs e)
@@ -364,8 +364,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)8); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkParWithHLInletS2Div_CheckedChanged(object sender, EventArgs e)
@@ -377,8 +377,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)9); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithMotorUpS1_CheckedChanged(object sender, EventArgs e)
@@ -390,8 +390,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)10); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithMotorUpS2_CheckedChanged(object sender, EventArgs e)
@@ -403,8 +403,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)11); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithHLOutlet1S1_CheckedChanged(object sender, EventArgs e)
@@ -416,8 +416,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)12); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithHLOutlet2S1_CheckedChanged(object sender, EventArgs e)
@@ -429,8 +429,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)13); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithHLOutlet1S2_CheckedChanged(object sender, EventArgs e)
@@ -442,8 +442,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)14); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithHLOutlet2S2_CheckedChanged(object sender, EventArgs e)
@@ -455,8 +455,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)15); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithHLOutlet3S1_CheckedChanged(object sender, EventArgs e)
@@ -468,8 +468,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)16); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithHLOutlet3S2_CheckedChanged(object sender, EventArgs e)
@@ -481,8 +481,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)17); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
 
         private void chkWithCurrentTransform_CheckedChanged(object sender, EventArgs e)
@@ -494,8 +494,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)19); }
 
-            myMDDYZPhoenix.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZPhoenix.Value10;
+            myMDDYZPhoenix.Value10 = value10;
+            txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
         }
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
@@ -851,7 +851,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -936,6 +937,7 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
+            AddWorkSheets();
             TxtExcelPath.Text =BML. MA_MDDYZPhoenix.BMLPath;
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -1205,7 +1207,7 @@ namespace GcproExtensionApp
         /// <param name="parValue10"></param>
         /// <param name="addtionToDesc"></param>
         /// <param name="processValue"></param>
-        public void CreatObjectBML(DataGridView datafromBML,MDDYZPhoenix objMDDYZPhoenix,string parValue10,
+        public void CreatObjectBML(DataGridView datafromBML,MDDYZPhoenix objMDDYZPhoenix,double parValue10,
             (bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
             out (int Value, int Max) processValue)
         {
@@ -1254,7 +1256,7 @@ namespace GcproExtensionApp
                 {                
                     if (!string.IsNullOrEmpty(numberString))
                     {
-                        if (AppGlobal.ParseInt(numberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(numberString.Substring(0, 4), out tempInt))
                         {
                             descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
                         }
@@ -1331,15 +1333,10 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myMDDYZPhoenix.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myMDDYZPhoenix.PType = MDDYZPhoenix.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, MDDYZPhoenix.P2757);
             }
-            else
-            {
-                myMDDYZPhoenix.PType = MDDYZPhoenix.P2757.ToString();
-            }
-
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-            myMDDYZPhoenix.Value10= value10.ToString();
+            myMDDYZPhoenix.Value10= value10;
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
             myMDDYZPhoenix.Description = txtDescription.Text;
@@ -1355,7 +1352,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myMDDYZPhoenix.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myMDDYZPhoenix.Diagram = MDDYZPhoenix.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             myMDDYZPhoenix.Page = txtPage.Text;
@@ -1382,11 +1379,11 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myMDDYZPhoenix.FieldBusNode = string.Empty;
+            myMDDYZPhoenix.FieldBusNode = AppGlobal.NO_DP_NODE;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1436,9 +1433,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1488,7 +1485,7 @@ namespace GcproExtensionApp
             };
             DataTable dataTable ;
             #region common used variables declaration       
-            AppGlobal.ParseInt(TxtQuantity.Text, out int quantityNeedToBeCreate);
+            AppGlobal.ParseValue<int>(TxtQuantity.Text, out int quantityNeedToBeCreate);
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {
@@ -1573,7 +1570,7 @@ namespace GcproExtensionApp
                 SetValue10AndElements();
            
                 myMDDYZPhoenix.Description = txtDescription.Text;
-                myMDDYZPhoenix.Value10 = txtValue10.Text;
+                myMDDYZPhoenix.Value10 = value10;
                 myMDDYZPhoenix.CreateObject(Encoding.Unicode);
                 ProgressBar.Value = i;
             }
@@ -1592,8 +1589,7 @@ namespace GcproExtensionApp
                 AppGlobal.AdditionDesc.Power = false;
                 if (createMode.BML)
                 {
-
-                    CreatObjectBML(dataGridBML, myMDDYZPhoenix, txtValue10.Text,AppGlobal.AdditionDesc, out AppGlobal.ProcessValue);
+                    CreatObjectBML(dataGridBML, myMDDYZPhoenix, value10,AppGlobal.AdditionDesc, out AppGlobal.ProcessValue);
                 }
                 else if (createMode.AutoSearch)
                 {
@@ -1601,7 +1597,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreatObjectRule(AppGlobal.AdditionDesc, AppGlobal.IOAddr, ref AppGlobal.ProcessValue);
                 }
                 ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
@@ -1612,7 +1608,6 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         #endregion
 
     

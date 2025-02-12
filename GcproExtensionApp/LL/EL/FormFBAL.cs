@@ -228,10 +228,10 @@ namespace GcproExtensionApp
             txtSymbol.Focus();
             txtSymbolIncRule.Text = "1";
             txtDescriptionIncRule.Text = "1";
-            txtValue10.Text = myFBAL.Value10;
-            txtValue9.Text = myFBAL.Value9;
-            txtValue30.Text = myFBAL.Value30;
-            txtValue31.Text = myFBAL.Value31;
+            txtValue10.Text = myFBAL.Value10.ToString();
+            txtValue9.Text = myFBAL.Value9.ToString();
+            txtValue30.Text = myFBAL.Value30.ToString().ToString();
+            txtValue31.Text = myFBAL.Value31.ToString().ToString();
             txtIOByteIncRule.Text = AppGlobal.MEAG_EXT_LONG.ToString(); 
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
@@ -408,8 +408,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myFBAL.Value10 = value10.ToString();
-            txtValue10.Text = myFBAL.Value10;
+            myFBAL.Value10 = value10;
+            txtValue10.Text = myFBAL.Value10.ToString();
         }
 
         private void ChkParManual_CheckedChanged(object sender, EventArgs e)
@@ -421,8 +421,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myFBAL.Value10 = value10.ToString();
-            txtValue10.Text = myFBAL.Value10;
+            myFBAL.Value10 = value10;
+            txtValue10.Text = myFBAL.Value10.ToString();
         }
 
         private void ChkParWithFlowrateRel_CheckedChanged(object sender, EventArgs e)
@@ -434,8 +434,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myFBAL.Value10 = value10.ToString();
-            txtValue10.Text = myFBAL.Value10;
+            myFBAL.Value10 = value10;
+            txtValue10.Text = myFBAL.Value10.ToString();
         }
 
         private void ChkParMZAH_CheckedChanged(object sender, EventArgs e)
@@ -447,8 +447,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myFBAL.Value10 = value10.ToString();
-            txtValue10.Text = myFBAL.Value10;
+            myFBAL.Value10 = value10;
+            txtValue10.Text = myFBAL.Value10.ToString();
         }
 
         private void ChkParOpto22_CheckedChanged(object sender, EventArgs e)
@@ -460,8 +460,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
 
-            myFBAL.Value10 = value10.ToString();
-            txtValue10.Text = myFBAL.Value10;
+            myFBAL.Value10 = value10;
+            txtValue10.Text = myFBAL.Value10.ToString();
         }
 
         private void ChkParMZDE_CheckedChanged(object sender, EventArgs e)
@@ -473,8 +473,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
 
-            myFBAL.Value10 = value10.ToString();
-            txtValue10.Text = myFBAL.Value10;
+            myFBAL.Value10 = value10;
+            txtValue10.Text = myFBAL.Value10.ToString();
         }
 
         private void ChkParBlend_CheckedChanged(object sender, EventArgs e)
@@ -486,8 +486,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myFBAL.Value10 = value10.ToString();
-            txtValue10.Text = myFBAL.Value10;
+            myFBAL.Value10 = value10;
+            txtValue10.Text = myFBAL.Value10.ToString();
         }
         private void ChkOutFlowrate_CheckedChanged(object sender, EventArgs e)
         {
@@ -498,8 +498,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)16); }
 
-            myFBAL.Value9 = value9.ToString();
-            txtValue9.Text = myFBAL.Value9;
+            myFBAL.Value9 = value9;
+            txtValue9.Text = myFBAL.Value9.ToString();
         }
 
         private void ChkOutJobweight_CheckedChanged(object sender, EventArgs e)
@@ -511,8 +511,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)17); }
 
-            myFBAL.Value9 = value9.ToString();
-            txtValue9.Text = myFBAL.Value9;
+            myFBAL.Value9 = value9;
+            txtValue9.Text = myFBAL.Value9.ToString();
         }
         private void ChkFilterSumFault_CheckedChanged(object sender, EventArgs e)
         {
@@ -523,8 +523,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)0); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA05_24VToLow_CheckedChanged(object sender, EventArgs e)
@@ -536,8 +536,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)1); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA07ADRange_CheckedChanged(object sender, EventArgs e)
@@ -549,8 +549,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)2); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA08Calibration_CheckedChanged(object sender, EventArgs e)
@@ -562,8 +562,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)3); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA09ADFunction_CheckedChanged(object sender, EventArgs e)
@@ -575,8 +575,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)4); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA10ADSupply_CheckedChanged(object sender, EventArgs e)
@@ -588,8 +588,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)5); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA11AnalogInput_CheckedChanged(object sender, EventArgs e)
@@ -601,8 +601,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)6); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterAxxComunication_CheckedChanged(object sender, EventArgs e)
@@ -614,8 +614,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)7); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA13RemoteControl_CheckedChanged(object sender, EventArgs e)
@@ -627,8 +627,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)8); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA16Printer_CheckedChanged(object sender, EventArgs e)
@@ -640,8 +640,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)9); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA24WeightHopper_CheckedChanged(object sender, EventArgs e)
@@ -653,8 +653,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)10); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA25FrequencyConverter_CheckedChanged(object sender, EventArgs e)
@@ -666,8 +666,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)11); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA26Tolerance_CheckedChanged(object sender, EventArgs e)
@@ -679,8 +679,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)12); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA27Measurement_CheckedChanged(object sender, EventArgs e)
@@ -692,8 +692,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)13); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA28FeedDrive_CheckedChanged(object sender, EventArgs e)
@@ -705,8 +705,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)14); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA29FeedingTime_CheckedChanged(object sender, EventArgs e)
@@ -718,8 +718,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)15); }
 
-            myFBAL.Value30 = value30.ToString();
-            txtValue30.Text = myFBAL.Value30;
+            myFBAL.Value30 = value30;
+            txtValue30.Text = myFBAL.Value30.ToString();
         }
 
         private void ChkFilterA30ZeroTara_CheckedChanged(object sender, EventArgs e)
@@ -731,8 +731,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)0); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         private void ChkFilterA32InletSlideGate_CheckedChanged(object sender, EventArgs e)
@@ -744,8 +744,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)1); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         private void ChkFilterA33AirPressure_CheckedChanged(object sender, EventArgs e)
@@ -757,8 +757,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)2); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         private void ChkFilterA34NoProduct_CheckedChanged(object sender, EventArgs e)
@@ -770,8 +770,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)3); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         private void ChkFilterA37Empty_CheckedChanged(object sender, EventArgs e)
@@ -783,8 +783,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)4); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         private void ChkFilterA38Slide_CheckedChanged(object sender, EventArgs e)
@@ -796,8 +796,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)5); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         private void ChkFilterA39AirPressure_CheckedChanged(object sender, EventArgs e)
@@ -809,8 +809,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)6); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         private void ChkFilterA54Relais_CheckedChanged(object sender, EventArgs e)
@@ -822,8 +822,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)7); }
 
-            myFBAL.Value31 = value31.ToString();
-            txtValue31.Text = myFBAL.Value31;
+            myFBAL.Value31 = value31;
+            txtValue31.Text = myFBAL.Value31.ToString();
         }
 
         #endregion <------Check and unchek "Value9","Value10",Value30 and value31------>
@@ -1054,7 +1054,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -1139,7 +1140,8 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.Motor.BMLPath;         
+            TxtExcelPath.Text = BML.Motor.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -1460,10 +1462,10 @@ namespace GcproExtensionApp
         {
             #region common used variables declaration
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);    
-            int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+            int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             int ioByteInc = AppGlobal.MEAG_EXT_LONG;
             bool needDPNodeChanged = false;
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             RuleSubDataSet description, name, dpNode1,senderBin;
@@ -1560,7 +1562,7 @@ namespace GcproExtensionApp
                 objFBAL.Elevation = selectedElevation;
             }
             ///<FieldBusNode></FieldBusNode>  
-            objFBAL.FieldBusNode = LibGlobalSource.NOCHILD;
+            objFBAL.FieldBusNode = AppGlobal.NO_DP_NODE;
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
@@ -1573,7 +1575,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objFBAL.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objFBAL.Diagram = FBAL.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             objFBAL.Page = txtPage.Text;
@@ -1582,40 +1584,32 @@ namespace GcproExtensionApp
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();             
-                int dpnode1 = int.Parse(objFBAL.DPNode1);
-                objFBAL.DPNode1 = FBAL.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
 
-                if (String.IsNullOrEmpty(objFBAL.DPNode1))
-                { objFBAL.FieldBusNode = string.Empty; }
-                else
-                {
-                    objFBAL.FieldBusNode = FBAL.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, dpnode1);
-                }
+                objFBAL.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objFBAL.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
             }
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Value30>Value is set when corresponding check box's check state changed</Value30>
             ///<Value31>Value is set when corresponding check box's check state changed</Value31>
             ///<ParMonTime></ParMonTime>
-            objFBAL.ParMonTime = AppGlobal.ParseInt(txtParMonTime.Text, out tempInt) ? (tempInt*10).ToString() : "200";
+            objFBAL.ParMonTime = AppGlobal.ParseValue<float>(txtParMonTime.Text, out tempFloat) ? Math.Round(tempFloat,1) : 20.0;
             ///<ParIOByteNoExt></ParIOByteNoExt>
-            objFBAL.IoByteNoExt= AppGlobal.ParseInt(txtParIOByteNoExt.Text, out tempInt) ? (tempInt).ToString() : "0";
+            objFBAL.IoByteNoExt= AppGlobal.ParseValue<int>(txtParIOByteNoExt.Text, out tempInt) ? tempInt : 0;
             ///<ParLoopNo></ParLoopNo>
-            objFBAL.ParLoopNo = AppGlobal.ParseInt(txtParLoopNo.Text, out tempInt) ? (tempInt).ToString() : "91";
+            objFBAL.ParLoopNo = AppGlobal.ParseValue<int>(txtParLoopNo.Text, out tempInt) ? tempInt : 91;
             ///<txtParLCAddr></txtParLCAddr>
-            objFBAL.ParLCAddr = AppGlobal.ParseInt(txtParLCAddr.Text, out tempInt) ? (tempInt).ToString() : "1";        
+            objFBAL.ParLCAddr = AppGlobal.ParseValue<int>(txtParLCAddr.Text, out tempInt) ? tempInt : 1;        
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             #endregion Prepare export fbal file
 
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1700,38 +1694,31 @@ namespace GcproExtensionApp
             }
             #endregion Parse rules
 
-            processValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
+            processValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
             processValue.Value = 0;
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc,senderBinInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseInt(txtSenderBinIncRule.Text, out senderBinInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out senderBinInc);
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                 if (needDPNodeChanged && moreThanOne)
                 {
-                    dpNode1.Inc = i * symbolInc;
-                    dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    objFBAL.DPNode1 = FBAL.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    //dpNode1.Inc = i * symbolInc;
+                    //dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());                  
+                    AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                     {
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, objFBAL.Name);
 
-                    if (String.IsNullOrEmpty(objFBAL.DPNode1))
-                    { objFBAL.FieldBusNode = string.Empty; }
-                    else
-                    {
-                        objFBAL.FieldBusNode = FBAL.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                        {
-                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objFBAL.DPNode1));
-                    }
+                    objFBAL.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                    objFBAL.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
                 if (!String.IsNullOrEmpty(desc))
@@ -1757,7 +1744,7 @@ namespace GcproExtensionApp
                 if (!string.IsNullOrEmpty(txtSenderBin.Text))
                 {
                     senderBin.Inc = i * senderBinInc;
-                    objFBAL.RefSenderBin = AppGlobal.ParseInt(txtSenderBinRule.Text, out int sndBinRule) ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + senderBin.Inc) : txtSenderBin.Text;
+                    objFBAL.RefSenderBin = AppGlobal.ParseValue<int>(txtSenderBinRule.Text, out int sndBinRule) ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + senderBin.Inc) : txtSenderBin.Text;
                 }
                 objFBAL.Name = name.Name;
 
@@ -1775,7 +1762,7 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
                 // objFBAL.Description = description.Name;
-                objFBAL.IoByteNo = Convert.ToString(ioByte + i * ioByteInc);
+                objFBAL.IoByteNo = ioByte + i * ioByteInc;
                 objFBAL.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }
@@ -1792,7 +1779,7 @@ namespace GcproExtensionApp
             GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             int ioByteInc = AppGlobal.MEAG_EXT_LONG;
-            int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+            int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             string desc = string.Empty;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -1818,7 +1805,7 @@ namespace GcproExtensionApp
                     string nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objFBAL.Name);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(nameNumberString, out tempInt))
+                        if (AppGlobal.ParseValue<int>(nameNumberString, out tempInt))
                         {
                             FBAL.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1853,26 +1840,19 @@ namespace GcproExtensionApp
               //  string controlMethod = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnControlMethod)].Value);
                 objFBAL.SubType = FBAL.MZAHDP;
                 ///<IOByteNo>   </IOByteNo> 
-                objFBAL.IoByteNo = Convert.ToString(nextIOByte);
+                objFBAL.IoByteNo = nextIOByte;
                 nextIOByte += ioByteInc;
                 ///<ParMonTime>   </ParMonTime> 
-                objFBAL.ParMonTime = AppGlobal.ParseInt(txtParMonTime.Text, out tempInt) ? (tempInt * 10).ToString() : "200"; 
+                objFBAL.ParMonTime = AppGlobal.ParseValue<float>(txtParMonTime.Text, out tempFloat) ? Math.Round(tempFloat ,1) : 20; 
                 nextIOByte += ioByteInc;
-                ///<DPNode1>   </DPNode1>                                    
-                objFBAL.DPNode1 = FBAL.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                ///<DPNode1>   </DPNode1>                                                
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, objFBAL.Name);
 
-                if (String.IsNullOrEmpty(objFBAL.DPNode1))
-                { objFBAL.FieldBusNode = string.Empty; }
-                else
-                {
-                    objFBAL.FieldBusNode = FBAL.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objFBAL.DPNode1));
-                }
+                objFBAL.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objFBAL.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 ///<SenderBin>Connect Sender bin </SenderBin>
                 string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
                 if (!string.IsNullOrEmpty(ioRemark))
@@ -1891,7 +1871,7 @@ namespace GcproExtensionApp
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
         
             try
             {
@@ -1918,7 +1898,7 @@ namespace GcproExtensionApp
 
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                          objFBAL: myFBAL,
                          addtionToDesc: AppGlobal.AdditionDesc,

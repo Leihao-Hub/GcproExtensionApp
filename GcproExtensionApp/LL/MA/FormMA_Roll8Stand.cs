@@ -185,7 +185,7 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
           
-            txtValue10.Text = myRoll8Stand.Value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString().ToString();
             value10 = int.Parse(txtValue10.Text);
             chkParManual.Checked = true;
             ComboEquipmentSubType.SelectedIndex = 1;
@@ -309,8 +309,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
         private void chkParWithHLInletS1_CheckedChanged(object sender, EventArgs e)
         {
@@ -322,8 +322,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkParWithHLInletS2_CheckedChanged(object sender, EventArgs e)
@@ -336,8 +336,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkParWithSMS1_CheckedChanged(object sender, EventArgs e)
@@ -350,8 +350,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkParWithSMS2_CheckedChanged(object sender, EventArgs e)
@@ -364,8 +364,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkPar4Rolls_CheckedChanged(object sender, EventArgs e)
@@ -378,8 +378,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkParWithMDDx_CheckedChanged(object sender, EventArgs e)
@@ -392,8 +392,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)7); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkParWithHLInletS1Div_CheckedChanged(object sender, EventArgs e)
@@ -405,8 +405,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)8); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkParWithHLInletS2Div_CheckedChanged(object sender, EventArgs e)
@@ -418,8 +418,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)9); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithMotorUpS1_CheckedChanged(object sender, EventArgs e)
@@ -431,8 +431,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)10); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithMotorUpS2_CheckedChanged(object sender, EventArgs e)
@@ -444,8 +444,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)11); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithHLOutlet1S1_CheckedChanged(object sender, EventArgs e)
@@ -457,8 +457,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)12); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithHLOutlet2S1_CheckedChanged(object sender, EventArgs e)
@@ -470,8 +470,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)13); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithHLOutlet1S2_CheckedChanged(object sender, EventArgs e)
@@ -483,8 +483,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)14); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithHLOutlet2S2_CheckedChanged(object sender, EventArgs e)
@@ -496,8 +496,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)15); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithHLOutlet3S1_CheckedChanged(object sender, EventArgs e)
@@ -509,8 +509,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)16); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithHLOutlet3S2_CheckedChanged(object sender, EventArgs e)
@@ -522,8 +522,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)17); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithATVForFeedRolls_CheckedChanged(object sender, EventArgs e)
@@ -535,8 +535,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)18); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
 
         private void chkWithCurrentTransform_CheckedChanged(object sender, EventArgs e)
@@ -548,8 +548,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)19); }
 
-            myRoll8Stand.Value10 = value10.ToString();
-            txtValue10.Text = myRoll8Stand.Value10;
+            myRoll8Stand.Value10 = value10;
+            txtValue10.Text = myRoll8Stand.Value10.ToString();
         }
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
@@ -993,7 +993,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -1078,6 +1079,7 @@ namespace GcproExtensionApp
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text = BML.MA_Roll8Stand.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -1325,7 +1327,7 @@ namespace GcproExtensionApp
         {
             StringBuilder descTotalBuilder = new StringBuilder();
             int noOfSubElements;
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;           
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;           
             listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
             ProgressBar.Maximum = quantityNeedToBeCreate;
             ProgressBar.Value = 0;       
@@ -1368,7 +1370,7 @@ namespace GcproExtensionApp
                     SetElementsName(myRoll8Stand.SubType, myRoll8Stand.Name);
                     SetValue10AndElements();
               
-                myRoll8Stand.Value10= txtValue10.Text;
+                myRoll8Stand.Value10= value10;
             
                 #endregion  
                 myRoll8Stand.Elevation= ComboElevation.Text;
@@ -1380,7 +1382,7 @@ namespace GcproExtensionApp
                     _nameNumberString = LibGlobalSource.StringHelper.ExtractNumericPart(myRoll8Stand.Name, false);
                     if (!string.IsNullOrEmpty(_nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(_nameNumberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(_nameNumberString.Substring(0, 4), out tempInt))
                         {
                             descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
                         }
@@ -1403,7 +1405,7 @@ namespace GcproExtensionApp
         }
         private void CreatObjectRule()
         {    
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
@@ -1449,11 +1451,11 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myRoll8Stand.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myRoll8Stand.PType = Roll8Stand.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, Roll8Stand.P2046);   
             }
             else
             {
-                myRoll8Stand.PType = Roll8Stand.P2046.ToString();
+                myRoll8Stand.PType = Roll8Stand.P2046;
             }
 
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
@@ -1473,7 +1475,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myRoll8Stand.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myRoll8Stand.Diagram = Roll8Stand.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             myRoll8Stand.Page = txtPage.Text;
@@ -1500,11 +1502,11 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myRoll8Stand.FieldBusNode = string.Empty;
+            myRoll8Stand.FieldBusNode = AppGlobal.NO_DP_NODE;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1554,9 +1556,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1584,7 +1586,7 @@ namespace GcproExtensionApp
 
                 myRoll8Stand.Name = name.Name;
                 SetElementsName(myRoll8Stand.SubType, name.Name);
-                myRoll8Stand.Value10 = txtValue10.Text;
+                myRoll8Stand.Value10 = value10;
                // SetElementsEnbale(myRoll8Stand.SubType);
               //  SetValue10AndElements();
                 myRoll8Stand.Description = description.Name;
@@ -1601,7 +1603,7 @@ namespace GcproExtensionApp
             oledb.IsNewOLEDBDriver = isNewOledbDriver;
             #region common used variables declaration       
          ;
-            AppGlobal.ParseInt(TxtQuantity.Text, out int quantityNeedToBeCreate);
+            AppGlobal.ParseValue<int>(TxtQuantity.Text, out int quantityNeedToBeCreate);
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {
@@ -1704,7 +1706,7 @@ namespace GcproExtensionApp
                 SetValue10AndElements();
            
                 myRoll8Stand.Description = txtDescription.Text;
-                myRoll8Stand.Value10 = txtValue10.Text;
+                myRoll8Stand.Value10 = value10;
                 myRoll8Stand.CreateObject(Encoding.Unicode);
                 ProgressBar.Value = i;
             }

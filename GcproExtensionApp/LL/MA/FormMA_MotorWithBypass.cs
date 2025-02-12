@@ -176,13 +176,13 @@ namespace GcproExtensionApp
             txtSymbol.Text =  MotorWithBypass.Rule.Common.Name;
 
             txtMotorIncRule.Text = MotorWithBypass.Rule.Common.NameRuleInc;
-            txtMon1IncRule.Text = MotorWithBypass.Rule.Mon1RuleInc;
-            txtMon2IncRule.Text = MotorWithBypass.Rule.Mon2RuleInc;
-            txtVLS1IncRule.Text = MotorWithBypass.Rule.VLS1RuleInc;
-            txtVLS2IncRule.Text = MotorWithBypass.Rule.VLS2RuleInc;
-            txtAIIncRule.Text = MotorWithBypass.Rule.AIRuleInc;
-            txtSealIncRule.Text = MotorWithBypass.Rule.SealRuleInc;
-            txtPressureIncRule.Text = MotorWithBypass.Rule.PressureRuleInc;
+            txtMon1IncRule.Text = MotorWithBypass.Rule.Mon1RuleInc.ToString();
+            txtMon2IncRule.Text = MotorWithBypass.Rule.Mon2RuleInc.ToString();
+            txtVLS1IncRule.Text = MotorWithBypass.Rule.VLS1RuleInc.ToString();
+            txtVLS2IncRule.Text = MotorWithBypass.Rule.VLS2RuleInc.ToString();
+            txtAIIncRule.Text = MotorWithBypass.Rule.AIRuleInc.ToString();
+            txtSealIncRule.Text = MotorWithBypass.Rule.SealRuleInc.ToString();
+            txtPressureIncRule.Text = MotorWithBypass.Rule.PressureRuleInc.ToString();
 
             
         }
@@ -228,9 +228,9 @@ namespace GcproExtensionApp
          //   ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
          //   ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;      
-            txtValue10.Text = myMotorWithBypass.Value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString().ToString();
             value10 = int.Parse(txtValue10.Text);
-            txtValue9.Text = myMotorWithBypass.Value9;
+            txtValue9.Text = myMotorWithBypass.Value9.ToString().ToString();
             value9 = int.Parse(txtValue9.Text);
             //暂时隐藏BML Tab
             TabPage tabToHide = tabCreateMode.TabPages["tabBML"];
@@ -430,7 +430,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtMon1IncRule.Text))
             {
-                MotorWithBypass.Rule.Mon1RuleInc= txtMon1IncRule.Text;
+                AppGlobal.ParseValue<int>(txtMon1IncRule.Text, out MotorWithBypass.Rule.Mon1RuleInc);
             }
             else
             {
@@ -502,7 +502,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtAIIncRule.Text))
             {
-                MotorWithBypass.Rule.AIRuleInc = txtAIIncRule.Text;
+                AppGlobal.ParseValue<int>(txtAIIncRule.Text, out MotorWithBypass.Rule.AIRuleInc);
             }
             else
             {
@@ -514,7 +514,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtVLS1IncRule.Text))
             {
-                MotorWithBypass.Rule.VLS1RuleInc = txtVLS1IncRule.Text;
+                AppGlobal.ParseValue<int>(txtVLS1IncRule.Text, out MotorWithBypass.Rule.VLS1RuleInc);
             }
             else
             {
@@ -526,7 +526,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtMon2IncRule.Text))
             {
-                MotorWithBypass.Rule.Mon2RuleInc = txtMon2IncRule.Text;
+                AppGlobal.ParseValue<int>(txtMon2IncRule.Text, out MotorWithBypass.Rule.Mon2RuleInc);
             }
             else
             {
@@ -538,7 +538,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtVLS2IncRule.Text))
             {
-                MotorWithBypass.Rule.VLS2RuleInc = txtVLS2IncRule.Text;
+                AppGlobal.ParseValue<int>(txtVLS2IncRule.Text, out MotorWithBypass.Rule.VLS2RuleInc);
             }
             else
             {
@@ -550,7 +550,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtSealIncRule.Text))
             {
-                MotorWithBypass.Rule.SealRuleInc = txtSealIncRule.Text;
+                AppGlobal.ParseValue<int>(txtSealIncRule.Text, out MotorWithBypass.Rule.SealRuleInc);
             }
             else
             {
@@ -574,7 +574,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtPressureIncRule.Text))
             {
-                MotorWithBypass.Rule.PressureRuleInc = txtPressureIncRule.Text;
+                AppGlobal.ParseValue<int>(txtPressureIncRule.Text, out MotorWithBypass.Rule.PressureRuleInc);
             }
             else
             {
@@ -597,8 +597,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParMon1IsHL_CheckedChanged(object sender, EventArgs e)
@@ -610,8 +610,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString().ToString();
         }
 
         private void chkParMon1StopByFault_CheckedChanged(object sender, EventArgs e)
@@ -623,8 +623,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParLocalPosition_CheckedChanged(object sender, EventArgs e)
@@ -636,8 +636,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParWithMon1_CheckedChanged(object sender, EventArgs e)
@@ -649,8 +649,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParWithMon2_CheckedChanged(object sender, EventArgs e)
@@ -662,8 +662,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)7); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParWithVLS2_CheckedChanged(object sender, EventArgs e)
@@ -675,8 +675,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)8); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParWithSeal_CheckedChanged(object sender, EventArgs e)
@@ -688,8 +688,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)9); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParMon2IsLS_CheckedChanged(object sender, EventArgs e)
@@ -701,8 +701,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)10); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParMon2IsHL_CheckedChanged(object sender, EventArgs e)
@@ -713,8 +713,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)11); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParMon2StopByFault_CheckedChanged(object sender, EventArgs e)
@@ -725,8 +725,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)12); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkParWithAI_CheckedChanged(object sender, EventArgs e)
@@ -737,8 +737,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)13); }
 
-            myMotorWithBypass.Value10 = value10.ToString();
-            txtValue10.Text = myMotorWithBypass.Value10;
+            myMotorWithBypass.Value10 = value10;
+            txtValue10.Text = myMotorWithBypass.Value10.ToString();
         }
 
         private void chkRunInterlock_CheckedChanged(object sender, EventArgs e)
@@ -749,8 +749,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)0); }
 
-            myMotorWithBypass.Value9 = value9.ToString();
-            txtValue9.Text = myMotorWithBypass.Value9;
+            myMotorWithBypass.Value9 = value9;
+            txtValue9.Text = myMotorWithBypass.Value9.ToString();
         }
 
         private void chkStartingInterlock_CheckedChanged(object sender, EventArgs e)
@@ -761,13 +761,13 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)1); }
 
-            myMotorWithBypass.Value9 = value9.ToString();
-            txtValue9.Text = myMotorWithBypass.Value9;
+            myMotorWithBypass.Value9 = value9;
+            txtValue9.Text = myMotorWithBypass.Value9.ToString();
         }
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
             GetValue10BitValue(value10);
-            AppGlobal.ParseInt(txtValue10.Text, out value10);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
         }
         #endregion
         #region <------Field in database display
@@ -1408,7 +1408,7 @@ namespace GcproExtensionApp
                 {                
                     if (!string.IsNullOrEmpty(numberString))
                     {
-                        if (AppGlobal.ParseInt(numberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(numberString.Substring(0, 4), out tempInt))
                         {
                             descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
                         }
@@ -1581,15 +1581,10 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myMotorWithBypass.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myMotorWithBypass.PType = MotorWithBypass.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, MotorWithBypass.P2052);
             }
-            else
-            {
-                myMotorWithBypass.PType = MotorWithBypass.P2052.ToString();
-            }
-
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-            myMotorWithBypass.Value10= value10.ToString();
+            myMotorWithBypass.Value10= value10;
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
             myMotorWithBypass.Description = txtDescription.Text;
@@ -1605,7 +1600,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myMotorWithBypass.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myMotorWithBypass.Diagram = MotorWithBypass.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             myMotorWithBypass.Page = txtPage.Text;
@@ -1632,11 +1627,11 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myMotorWithBypass.FieldBusNode = string.Empty;
+            myMotorWithBypass.FieldBusNode = AppGlobal.NO_DP_NODE;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1788,16 +1783,16 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc,mon1Inc,mon2Inc,vls1Inc,vls2Inc,sealInc,pressureInc,aiInc,cleaningTime;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseInt(txtMon1IncRule.Text, out mon1Inc);
-            AppGlobal.ParseInt(txtMon2IncRule.Text, out mon2Inc);
-            AppGlobal.ParseInt(txtVLS1IncRule.Text, out vls1Inc);
-            AppGlobal.ParseInt(txtVLS2IncRule.Text, out vls2Inc);
-            AppGlobal.ParseInt(txtSealIncRule.Text, out sealInc);
-            AppGlobal.ParseInt(txtPressureIncRule.Text, out pressureInc);
-            AppGlobal.ParseInt(txtAIIncRule.Text, out aiInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtMon1IncRule.Text, out mon1Inc);
+            AppGlobal.ParseValue<int>(txtMon2IncRule.Text, out mon2Inc);
+            AppGlobal.ParseValue<int>(txtVLS1IncRule.Text, out vls1Inc);
+            AppGlobal.ParseValue<int>(txtVLS2IncRule.Text, out vls2Inc);
+            AppGlobal.ParseValue<int>(txtSealIncRule.Text, out sealInc);
+            AppGlobal.ParseValue<int>(txtPressureIncRule.Text, out pressureInc);
+            AppGlobal.ParseValue<int>(txtAIIncRule.Text, out aiInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1971,11 +1966,11 @@ namespace GcproExtensionApp
                 myMotorWithBypass.Seal = seal.Name;
                 myMotorWithBypass.AI = ai.Name;
                 myMotorWithBypass.Pressure = pressure.Name;
-                myMotorWithBypass.Value10 = txtValue10.Text;
-                myMotorWithBypass.Value9 = txtValue9.Text;
+                myMotorWithBypass.Value10 = value10;
+                myMotorWithBypass.Value9 = value9;
 
-                bool tempBool = AppGlobal.ParseInt(txtCleaningTime.Text, out cleaningTime);
-                myMotorWithBypass.ParCleaningTime = tempBool ? (cleaningTime * 10.0 ).ToString("F1") : "600.0";
+                bool tempBool = AppGlobal.ParseValue<int>(txtCleaningTime.Text, out cleaningTime);
+                myMotorWithBypass.ParCleaningTime = tempBool ? Math.Round(Convert.ToDouble(cleaningTime),1): 60.0;
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         
                 myMotorWithBypass.Description = descTotalBuilder.ToString();
@@ -1993,7 +1988,7 @@ namespace GcproExtensionApp
          oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
          oledb.IsNewOLEDBDriver = isNewOledbDriver;
          #region common used variables declaration       
-         int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+         int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
          RuleSubDataSet description, name;
          description = new RuleSubDataSet
          {
@@ -2107,7 +2102,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreatObjectRule(AppGlobal.AdditionDesc, ref AppGlobal.ProcessValue);
                 }
                 ProgressBar.Maximum = AppGlobal.ProcessValue.Max;

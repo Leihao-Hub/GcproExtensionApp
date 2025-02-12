@@ -22,26 +22,26 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
         private string isNew;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string dpNode2;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double dpNode2;
         private string hwStop;
         private string outpDosingEnable;
-        private string parMonTime;
-        private string value9;
-        private string value10;
-        private string value30;
-        private string value31;
-        private string ioByteNo;
-        private string ioByteNoExt;
-        private string parLoopNo;
-        private string parLCAddr;
+        private double parMonTime;
+        private double value9;
+        private double value10;
+        private double value30;
+        private double value31;
+        private double ioByteNo;
+        private double ioByteNoExt;
+        private double parLoopNo;
+        private double parLCAddr;
         private string refSenderBin;
         public override string FilePath
         {
@@ -84,7 +84,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -94,7 +94,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -104,25 +104,25 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
         #endregion
         #region Application properties
-        public string DPNode2
+        public double DPNode2
         {
             get { return dpNode2; }
             set { dpNode2 = value; }
@@ -137,47 +137,47 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return outpDosingEnable; }
             set { outpDosingEnable = value; }
         }
-        public string ParMonTime
+        public double ParMonTime
         {
             get { return parMonTime; }
             set { parMonTime = value; }
         }
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
         }
-        public string Value30
+        public double Value30
         {
             get { return value30; }
             set { value30 = value; }
         }
-        public string Value31
+        public double Value31
         {
             get { return value31; }
             set { value31 = value; }
         }
-        public string IoByteNo
+        public double IoByteNo
         {
             get { return ioByteNo; }
             set { ioByteNo = value; }
         }
-        public string IoByteNoExt
+        public double IoByteNoExt
         {
             get { return ioByteNoExt; }
             set { ioByteNoExt = value; }
         }
-        public string ParLoopNo
+        public double ParLoopNo
         {
             get { return parLoopNo; }
             set { parLoopNo = value; }
         }
-        public string ParLCAddr
+        public double ParLCAddr
         {
             get { return parLCAddr; }
             set { parLCAddr= value; }
@@ -210,12 +210,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public FBAL()
         {
             string commonDefaultFilePath;
-            value10 = "10";
-            value9 ="196608";
-            value30 = "1";
-            value31 = "0";
-            pType = P7372.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
+            value10 = 10;
+            value9 =196608;
+            value30 = 1;
+            value31 = 0;
+            pType = P7372;
+            hornCode = 0;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.EL_MDDx);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{fbalFileName}";
@@ -261,7 +261,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
              .Append(value9).Append(LibGlobalSource.TAB)
              .Append(value30).Append(LibGlobalSource.TAB)
              .Append(value31).Append(LibGlobalSource.TAB)
-             .Append(parMonTime).Append(LibGlobalSource.TAB)
+             .Append(parMonTime * 10 ).Append(LibGlobalSource.TAB)
              .Append(LibGlobalSource.NOCHILD);
             textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
             var relations = new List<Relation>();       

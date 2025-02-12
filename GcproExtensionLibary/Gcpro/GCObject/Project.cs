@@ -11,9 +11,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
         public Project()
         {
@@ -51,7 +51,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -61,7 +61,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }

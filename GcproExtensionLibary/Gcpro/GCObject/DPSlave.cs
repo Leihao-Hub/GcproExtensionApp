@@ -11,8 +11,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public struct DPSlaveRule
         {
             public GcBaseRule Common;
-            public string IPAddressInc;
-            public string SlaveNoInc;
+            public int IPAddressInc;
+            public int SlaveNoInc;
         }
         private string filePath;
         //private string fileRelationPath;
@@ -25,15 +25,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string value10;
-        private string value31;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double value10;
+        private double value31;
         private string ipAddr;
         private int slaveNo;
         private int updateTime;
@@ -72,7 +72,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -82,7 +82,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -92,18 +92,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
@@ -115,12 +115,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         #endregion
         #region Application properties
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
         }
-        public string Value31
+        public double Value31
         {
             get { return value31; }
             set { value31 = value; }
@@ -169,19 +169,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public DPSlave()
         {
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-            Rule.IPAddressInc = Rule.SlaveNoInc = "1";
+            Rule.IPAddressInc = Rule.SlaveNoInc = 1;
             ipAddr = "192.168.1.2";
             updateTime = 1;
             slaveNo = 3;
             watchDogFactor = 200;
-            pType = P7895.ToString();
-            fieldBusNode = string.Empty;
+            pType = P7895;
+            fieldBusNode = 0;
             panel_ID = string.Empty;
-            diagram = string.Empty;
+            diagram = 0;
             page = string.Empty;
-            hornCode = LibGlobalSource.NOCHILD;
-            dpNode1 = string.Empty;
-            value10 = "0";
+            hornCode = 00;
+            dpNode1 = 0;
+            value10 = 0;
             SetOTypeProperty(OTypeCollection.DP_Slave);
             this.filePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dpSlaveFileName}.Txt";
         }

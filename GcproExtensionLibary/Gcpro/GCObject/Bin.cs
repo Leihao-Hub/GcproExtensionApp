@@ -19,9 +19,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
         private string isNew;
 
@@ -29,11 +29,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private readonly string fileRelationPath;
         private readonly string fileConnectorPath;
         private readonly static string binFileName = $@"\{OTypeCollection.Bin}";
-        private string parBinNo;
-        private string parEmptyingTime;
-        private string parOverfillingWeight;
-        private string parDryFillingWeight;
-        private string parRestdischargeWeight;
+        private double parBinNo;
+        private double parEmptyingTime;
+        private double parOverfillingWeight;
+        private double parDryFillingWeight;
+        private double parRestdischargeWeight;
         private string highLevel;
         private string middleLevel;
         private string lowLevel;
@@ -42,9 +42,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string middleLevelRemote;
         private string lowLevelRemote;
         private string inFillLevelRemote;
-        private string value24;
-        private string value30;
-        private string value31;
+        private double value24;
+        private double value30;
+        private double value31;
         #region Standard properties
         public override string Name
         {
@@ -76,7 +76,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -86,7 +86,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -98,27 +98,27 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         #endregion
         #region Application properties
-        public string ParBinNo
+        public double ParBinNo
         {
             get { return parBinNo; }
             set { parBinNo = value; }
         }
-        public string ParEmptyingTime
+        public double ParEmptyingTime
         {
             get { return parEmptyingTime; }
             set { parEmptyingTime = value; }
         }
-        public string ParOverfillingWeight
+        public double ParOverfillingWeight
         {
             get { return parOverfillingWeight; }
             set { parOverfillingWeight = value; }
         }
-        public string ParDryFillingWeight
+        public double ParDryFillingWeight
         {
             get { return parDryFillingWeight; }
             set { parDryFillingWeight = value; }
         }
-        public string ParRestdischargeWeight
+        public double ParRestdischargeWeight
         {
             get { return parRestdischargeWeight; }
             set { parRestdischargeWeight = value; }
@@ -163,17 +163,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return inFillLevelRemote; }
             set { inFillLevelRemote = value; }
         }
-        public string Value24
+        public double Value24
         {
             get { return value24; }
             set { value24 = value; }
         }
-        public string Value30
+        public double Value30
         {
             get { return value30; }
             set { value30 = value; }
         }
-        public string Value31
+        public double Value31
         {
             get { return value31; }
             set { value31 = value; }
@@ -210,10 +210,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             Rule.Common.DescriptionRuleInc = "1";
             Rule.Common.NameRuleInc = "1";
             subType = BINB;
-            parEmptyingTime = LibGlobalSource.NOCHILD;
-            parOverfillingWeight = "100";
-            parDryFillingWeight = LibGlobalSource.NOCHILD;
-            parRestdischargeWeight = LibGlobalSource.NOCHILD;
+            parEmptyingTime = 0;
+            parOverfillingWeight = 100;
+            parDryFillingWeight = 0;
+            parRestdischargeWeight = 0;
             highLevel = string.Empty;
             middleLevel = string.Empty;
             lowLevel = string.Empty;
@@ -222,9 +222,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             middleLevelRemote = LibGlobalSource.NOCHILD;
             lowLevelRemote = LibGlobalSource.NOCHILD;
             inFillLevelRemote = LibGlobalSource.NOCHILD;
-            value24 = "4";
-            value30 = LibGlobalSource.NOCHILD;
-            value31 = "4";
+            value24 = 4;
+            value30 = 0;
+            value31 = 4;
             SetOTypeProperty(OTypeCollection.Bin);
             string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{binFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";

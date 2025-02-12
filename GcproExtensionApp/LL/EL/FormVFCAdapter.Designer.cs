@@ -152,7 +152,7 @@ namespace GcproExtensionApp
             this.lblVFCPrefixBML = new System.Windows.Forms.Label();
             this.btnReadBML = new System.Windows.Forms.Button();
             this.dataGridBML = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblWorkSheet = new System.Windows.Forms.Label();
             this.comboWorkSheetsBML = new System.Windows.Forms.ComboBox();
             this.grpBoxExcelColumn = new System.Windows.Forms.GroupBox();
             this.grpBoxBMLColum = new System.Windows.Forms.GroupBox();
@@ -470,6 +470,7 @@ namespace GcproExtensionApp
             this.txtParUnitsPerDigit_T5.Size = new System.Drawing.Size(63, 13);
             this.txtParUnitsPerDigit_T5.TabIndex = 83;
             this.txtParUnitsPerDigit_T5.Text = "0";
+            this.txtParUnitsPerDigit_T5.TextChanged += new System.EventHandler(this.txtParUnitsPerDigit_T5_TextChanged);
             this.txtParUnitsPerDigit_T5.MouseEnter += new System.EventHandler(this.txtParUnitsPerDigit_T5_MouseEnter);
             // 
             // lblParUnitsPerDigit_T5
@@ -489,6 +490,7 @@ namespace GcproExtensionApp
             this.txtParPNO_T5.Size = new System.Drawing.Size(63, 13);
             this.txtParPNO_T5.TabIndex = 82;
             this.txtParPNO_T5.Text = "0";
+            this.txtParPNO_T5.TextChanged += new System.EventHandler(this.txtParPNO_T5_TextChanged);
             this.txtParPNO_T5.MouseEnter += new System.EventHandler(this.txtParPNO_T5_MouseEnter);
             // 
             // lblParPNO_T5
@@ -521,6 +523,7 @@ namespace GcproExtensionApp
             this.txtParUnitsPerDigit_T4.Size = new System.Drawing.Size(63, 13);
             this.txtParUnitsPerDigit_T4.TabIndex = 83;
             this.txtParUnitsPerDigit_T4.Text = "0";
+            this.txtParUnitsPerDigit_T4.TextChanged += new System.EventHandler(this.txtParUnitsPerDigit_T4_TextChanged);
             this.txtParUnitsPerDigit_T4.MouseEnter += new System.EventHandler(this.txtParUnitsPerDigit_T4_MouseEnter);
             // 
             // lblParUnitsPerDigit_T4
@@ -540,6 +543,7 @@ namespace GcproExtensionApp
             this.txtParPNO_T4.Size = new System.Drawing.Size(63, 13);
             this.txtParPNO_T4.TabIndex = 82;
             this.txtParPNO_T4.Text = "0";
+            this.txtParPNO_T4.TextChanged += new System.EventHandler(this.txtParPNO_T4_TextChanged);
             this.txtParPNO_T4.MouseEnter += new System.EventHandler(this.txtParPNO_T4_MouseEnter);
             // 
             // lblParPNO_T4
@@ -572,6 +576,7 @@ namespace GcproExtensionApp
             this.txtParUnitsPerDigit_T3.Size = new System.Drawing.Size(63, 13);
             this.txtParUnitsPerDigit_T3.TabIndex = 83;
             this.txtParUnitsPerDigit_T3.Text = "0";
+            this.txtParUnitsPerDigit_T3.TextChanged += new System.EventHandler(this.txtParUnitsPerDigit_T3_TextChanged);
             this.txtParUnitsPerDigit_T3.MouseEnter += new System.EventHandler(this.txtParUnitsPerDigit_T3_MouseEnter);
             // 
             // lblParUnitsPerDigit_T3
@@ -591,6 +596,7 @@ namespace GcproExtensionApp
             this.txtParPNO_T3.Size = new System.Drawing.Size(63, 13);
             this.txtParPNO_T3.TabIndex = 82;
             this.txtParPNO_T3.Text = "0";
+            this.txtParPNO_T3.TextChanged += new System.EventHandler(this.txtParPNO_T3_TextChanged);
             this.txtParPNO_T3.MouseEnter += new System.EventHandler(this.txtParPNO_T3_MouseEnter);
             // 
             // lblParPNO_T3
@@ -623,6 +629,7 @@ namespace GcproExtensionApp
             this.txtParUnitsPerDigit_T2.Size = new System.Drawing.Size(63, 13);
             this.txtParUnitsPerDigit_T2.TabIndex = 83;
             this.txtParUnitsPerDigit_T2.Text = "0";
+            this.txtParUnitsPerDigit_T2.TextChanged += new System.EventHandler(this.txtParUnitsPerDigit_T2_TextChanged);
             this.txtParUnitsPerDigit_T2.MouseEnter += new System.EventHandler(this.txtParUnitsPerDigit_T2_MouseEnter);
             // 
             // lblParUnitsPerDigit_T2
@@ -642,6 +649,7 @@ namespace GcproExtensionApp
             this.txtParPNO_T2.Size = new System.Drawing.Size(63, 13);
             this.txtParPNO_T2.TabIndex = 82;
             this.txtParPNO_T2.Text = "0";
+            this.txtParPNO_T2.TextChanged += new System.EventHandler(this.txtParPNO_T2_TextChanged);
             this.txtParPNO_T2.MouseEnter += new System.EventHandler(this.txtParPNO_T2_MouseEnter);
             // 
             // lblParPNO_T2
@@ -674,6 +682,7 @@ namespace GcproExtensionApp
             this.txtParUnitsPerDigit_T1.Size = new System.Drawing.Size(63, 13);
             this.txtParUnitsPerDigit_T1.TabIndex = 83;
             this.txtParUnitsPerDigit_T1.Text = "0";
+            this.txtParUnitsPerDigit_T1.TextChanged += new System.EventHandler(this.txtParUnitsPerDigit_T1_TextChanged);
             this.txtParUnitsPerDigit_T1.MouseEnter += new System.EventHandler(this.txtParUnitsPerDigit_T1_MouseEnter);
             // 
             // lblParUnitsPerDigit_T1
@@ -693,6 +702,7 @@ namespace GcproExtensionApp
             this.txtParPNO_T1.Size = new System.Drawing.Size(63, 13);
             this.txtParPNO_T1.TabIndex = 82;
             this.txtParPNO_T1.Text = "0";
+            this.txtParPNO_T1.TextChanged += new System.EventHandler(this.txtParPNO_T1_TextChanged);
             this.txtParPNO_T1.MouseEnter += new System.EventHandler(this.txtParPNO_T1_MouseEnter);
             // 
             // lblParPNO_T1
@@ -875,6 +885,7 @@ namespace GcproExtensionApp
             this.txtParUnitsPerDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParUnitsPerDigits.TabIndex = 155;
             this.txtParUnitsPerDigits.Text = "0.1";
+            this.txtParUnitsPerDigits.TextChanged += new System.EventHandler(this.txtParUnitsPerDigits_TextChanged);
             this.txtParUnitsPerDigits.MouseEnter += new System.EventHandler(this.txtParUnitsPerDigits_MouseEnter);
             // 
             // lblUnitsPerDigits
@@ -1250,6 +1261,7 @@ namespace GcproExtensionApp
             this.txtParSpeedMaxDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedMaxDigits.TabIndex = 122;
             this.txtParSpeedMaxDigits.Text = "16384";
+            this.txtParSpeedMaxDigits.TextChanged += new System.EventHandler(this.txtParSpeedMaxDigits_TextChanged);
             this.txtParSpeedMaxDigits.MouseEnter += new System.EventHandler(this.txtParSpeedMaxDigits_MouseEnter);
             // 
             // txtValue10
@@ -1299,6 +1311,7 @@ namespace GcproExtensionApp
             this.txtParLenPZDInp.Size = new System.Drawing.Size(63, 13);
             this.txtParLenPZDInp.TabIndex = 140;
             this.txtParLenPZDInp.Text = "0";
+            this.txtParLenPZDInp.TextChanged += new System.EventHandler(this.txtParLenPZDInp_TextChanged);
             this.txtParLenPZDInp.MouseEnter += new System.EventHandler(this.txtParLenPZDInp_MouseEnter);
             // 
             // lblParLenPKW
@@ -1319,6 +1332,7 @@ namespace GcproExtensionApp
             this.txtParSpeedUnitsByZeroDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedUnitsByZeroDigits.TabIndex = 124;
             this.txtParSpeedUnitsByZeroDigits.Text = "0";
+            this.txtParSpeedUnitsByZeroDigits.TextChanged += new System.EventHandler(this.txtParSpeedUnitsByZeroDigits_TextChanged);
             this.txtParSpeedUnitsByZeroDigits.MouseEnter += new System.EventHandler(this.txtParSpeedUnitsByZeroDigits_MouseEnter);
             // 
             // txtParSpeedLimitMax
@@ -1329,6 +1343,7 @@ namespace GcproExtensionApp
             this.txtParSpeedLimitMax.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedLimitMax.TabIndex = 130;
             this.txtParSpeedLimitMax.Text = "100";
+            this.txtParSpeedLimitMax.TextChanged += new System.EventHandler(this.txtParSpeedLimitMax_TextChanged);
             this.txtParSpeedLimitMax.MouseEnter += new System.EventHandler(this.txtParSpeedLimitMax_MouseEnter);
             // 
             // lblParLenPZDInp
@@ -1368,6 +1383,7 @@ namespace GcproExtensionApp
             this.txtParSpeedLimitMin.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedLimitMin.TabIndex = 128;
             this.txtParSpeedLimitMin.Text = "0";
+            this.txtParSpeedLimitMin.TextChanged += new System.EventHandler(this.txtParSpeedLimitMin_TextChanged);
             this.txtParSpeedLimitMin.MouseEnter += new System.EventHandler(this.txtParSpeedLimitMin_MouseEnter);
             // 
             // txtParLenPZD
@@ -1398,6 +1414,7 @@ namespace GcproExtensionApp
             this.txtParSpeedUnitsByMaxDigits.Size = new System.Drawing.Size(63, 13);
             this.txtParSpeedUnitsByMaxDigits.TabIndex = 126;
             this.txtParSpeedUnitsByMaxDigits.Text = "100";
+            this.txtParSpeedUnitsByMaxDigits.TextChanged += new System.EventHandler(this.txtParSpeedUnitsByMaxDigits_TextChanged);
             this.txtParSpeedUnitsByMaxDigits.MouseEnter += new System.EventHandler(this.txtParSpeedUnitsByMaxDigits_MouseEnter);
             // 
             // lblParLenPZD
@@ -1435,7 +1452,7 @@ namespace GcproExtensionApp
             this.grpBoxExcelData.Controls.Add(this.lblVFCPrefixBML);
             this.grpBoxExcelData.Controls.Add(this.btnReadBML);
             this.grpBoxExcelData.Controls.Add(this.dataGridBML);
-            this.grpBoxExcelData.Controls.Add(this.label3);
+            this.grpBoxExcelData.Controls.Add(this.lblWorkSheet);
             this.grpBoxExcelData.Controls.Add(this.comboWorkSheetsBML);
             this.grpBoxExcelData.Location = new System.Drawing.Point(6, 133);
             this.grpBoxExcelData.Name = "grpBoxExcelData";
@@ -1515,14 +1532,14 @@ namespace GcproExtensionApp
             this.dataGridBML.TabIndex = 16;
             this.dataGridBML.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridBML_RowsRemoved);
             // 
-            // label3
+            // lblWorkSheet
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 27);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "工作表";
+            this.lblWorkSheet.AutoSize = true;
+            this.lblWorkSheet.Location = new System.Drawing.Point(6, 27);
+            this.lblWorkSheet.Name = "lblWorkSheet";
+            this.lblWorkSheet.Size = new System.Drawing.Size(43, 13);
+            this.lblWorkSheet.TabIndex = 14;
+            this.lblWorkSheet.Text = "工作表";
             // 
             // comboWorkSheetsBML
             // 
@@ -2132,7 +2149,7 @@ namespace GcproExtensionApp
         private System.Windows.Forms.GroupBox grpBoxExcelColumn;
         private System.Windows.Forms.Label lblBMLSymbol;
         private System.Windows.Forms.Label lblBMLDescription;
-        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.Label lblWorkSheet;
         internal System.Windows.Forms.ComboBox comboWorkSheetsBML;
         internal System.Windows.Forms.TextBox txtPage;
         internal System.Windows.Forms.Label lblPage;

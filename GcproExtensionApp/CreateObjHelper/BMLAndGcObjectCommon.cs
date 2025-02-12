@@ -12,15 +12,15 @@ namespace GcproExtensionApp
 {
     public class VFCAdapterParametersSet
     {
-        public string LenPKW { get; set; } = "0";
-        public string LenPZD { get; set; } = "12";
-        public string LenPZDInp { get; set; } = "0";
-        public string UnitsPerDigits { get; set; } = "0.1";
-        public string SpeedMaxDigits { get; set; } = "500";
-        public string SpeedUnitsByMaxDigits { get; set; } = "100";
-        public string SpeedUnitsByZeroDigits { get; set; } = "0";
-        public string SpeedLimitMax { get; set; } = "100";
-        public string SpeedLimitMin { get; set; } = "0";
+        public double LenPKW { get; set; } = 0;
+        public double LenPZD { get; set; } = 12;
+        //public double LenPZDInp { get; set; } = 0;
+        //public double UnitsPerDigits { get; set; } = 0.1;
+        //public double SpeedMaxDigits { get; set; } = 500;
+        //public double SpeedUnitsByMaxDigits { get; set; } = 100;
+        //public double SpeedUnitsByZeroDigits { get; set; } = 0;
+        //public double SpeedLimitMax { get; set; } = 100;
+        //public double SpeedLimitMin { get; set; } = 0;
         public bool ParPZDConsistent { get; set; } = false;
     }
     public class GetStoppingTime

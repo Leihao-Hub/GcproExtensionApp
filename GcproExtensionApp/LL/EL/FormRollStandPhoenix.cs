@@ -40,10 +40,11 @@ namespace GcproExtensionApp
         private readonly string DEMO_DESCRIPTION_RULE_MDDYZ = "";
         private readonly string rollStandPhonexBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDX}.";
         // private long value21;
-        private int value10 = 80;
+        private long value10 = 80;
         private int tempInt = 0;
         private float tempFloat;
-     //   private bool tempBool = false;
+        private long tempLong;
+        //   private bool tempBool = false;
         private GcBaseRule objDefaultInfo;
         #endregion
     
@@ -258,8 +259,8 @@ namespace GcproExtensionApp
             txtSymbol.Focus();         
             txtSymbolIncRule.Text = "1";
             txtDescriptionIncRule.Text = "1";
-            txtValue10.Text = myMDDYZ.Value10;
-            value10 = int.Parse(myMDDYZ.Value10);
+            txtValue10.Text = myMDDYZ.Value10.ToString();
+            value10 = Convert.ToInt64(myMDDYZ.Value10);
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
@@ -433,8 +434,8 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value10 = AppGlobal.ParseInt(txtValue10.Text, out tempInt) ? tempInt : value10;
-                GetValue10BitValue(value10);
+                value10 = AppGlobal.ParseValue<int>(txtValue10.Text, out tempInt) ? tempInt : value10;
+                GetValue10BitValue(Convert.ToInt32(value10));
             }
         }
         #endregion <------Check and store rule event------>
@@ -448,8 +449,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)0); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
         private void chkParWithBearTemp_CheckedChanged(object sender, EventArgs e)
         {
@@ -459,8 +460,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)1); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
         private void chkParWithFeedGapAdjust_CheckedChanged(object sender, EventArgs e)
         {
@@ -470,8 +471,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)2); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
 
         private void chkParWithRollerTemp_CheckedChanged(object sender, EventArgs e)
@@ -482,8 +483,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)3); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
 
         private void chkPar4Rolls_CheckedChanged(object sender, EventArgs e)
@@ -494,8 +495,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)4); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
         private void chkB1Rollstand_CheckedChanged(object sender, EventArgs e)
         {
@@ -505,8 +506,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)5); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
 
         private void chkParMotorPLC_CheckedChanged(object sender, EventArgs e)
@@ -517,8 +518,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)6); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
 
         private void chkParWithAutoGapAdjust_CheckedChanged(object sender, EventArgs e)
@@ -529,8 +530,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)7); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)7); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
 
         private void chkParSide1Divided_CheckedChanged(object sender, EventArgs e)
@@ -541,8 +542,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)8); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)8); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
 
         private void chkParSide2Divided_CheckedChanged(object sender, EventArgs e)
@@ -553,8 +554,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)9); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)9); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
     
         private void chkParManual_CheckedChanged(object sender, EventArgs e)
@@ -565,8 +566,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)11); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)11); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
 
         private void chkStartingWarning_CheckedChanged(object sender, EventArgs e)
@@ -577,8 +578,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value10, (byte)12); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)12); }
-            myMDDYZ.Value10 = value10.ToString();
-            txtValue10.Text = myMDDYZ.Value10;
+            myMDDYZ.Value10 = value10;
+            txtValue10.Text = myMDDYZ.Value10.ToString();
         }
         #endregion <------ Check and unchek "Value9" and "Value10------>   
 
@@ -685,7 +686,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -771,7 +773,7 @@ namespace GcproExtensionApp
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text=BML.MDDx.BMLPath;
-
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -1067,7 +1069,7 @@ namespace GcproExtensionApp
                     numberString = LibGlobalSource.StringHelper.ExtractNumericPart(objMDDYZ.Name, false);
                     if (!string.IsNullOrEmpty(numberString))
                     {
-                        if (AppGlobal.ParseInt(numberString.Substring(0, 4), out tempNumberInt))
+                        if (AppGlobal.ParseValue<int>(numberString.Substring(0, 4), out tempNumberInt))
                         {
                             MDDYZ.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempNumberInt);
                         }
@@ -1094,22 +1096,15 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );             
-               objMDDYZ.IoByteNo = (IOAddr.IOByteStart + IOAddr.Len * i).ToString();
-                ///<DPNode1>   </DPNode1>                         
-                objMDDYZ.DPNode1 = MDDYZ.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+               objMDDYZ.IoByteNo = IOAddr.IOByteStart + IOAddr.Len * i;
+                ///<DPNode1>   </DPNode1>                                    
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, objMDDYZ.Name);
 
-                if (String.IsNullOrEmpty(objMDDYZ.DPNode1))
-                { objMDDYZ.FieldBusNode = string.Empty; }
-                else
-                {
-                    objMDDYZ.FieldBusNode = MDDYZ.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objMDDYZ.DPNode1));
-                }
+                objMDDYZ.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objMDDYZ.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 objMDDYZ.CreateObject(Encoding.Unicode);
                processValue.Value = i;
             }
@@ -1177,16 +1172,17 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                objMDDYZ.PType = LibGlobalSource.StringHelper.ExtractNumericPart(selectedPTypeItem, false);
+                AppGlobal.ParseValue<long>( LibGlobalSource.StringHelper.ExtractNumericPart(selectedPTypeItem, false),out tempLong);
+                objMDDYZ.PType = tempLong;
             }
             else
             {
-                objMDDYZ.PType = MDDYZ.P7755_1.ToString();
+                objMDDYZ.PType = MDDYZ.P7755_1;
             }
             ///<Value10</Value10>
-            objMDDYZ.Value10 = value10.ToString();
+            objMDDYZ.Value10 = value10;
             ///<ValueParTimeOutStart</ValueParTimeOutStart>
-            objMDDYZ.ParTimeOutStart = AppGlobal.ParseFloat(txtParTimeOutStart.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "100.0";
+            objMDDYZ.ParTimeOutStart = AppGlobal.ParseValue<float>(txtParTimeOutStart.Text, out tempFloat) ? Math.Round(tempFloat ,1) : 10.0;
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Diagram></Diagram>
@@ -1194,7 +1190,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objMDDYZ.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMDDYZ.Diagram = MDDYZ.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             objMDDYZ.Page = txtPage.Text;
@@ -1219,18 +1215,18 @@ namespace GcproExtensionApp
                 selectedPanel_ID = ComboPanel.SelectedItem.ToString();
                 objMDDYZ.Panel_ID = selectedPanel_ID;
             }
-            objMDDYZ.FieldBusNode = LibGlobalSource.NOCHILD; ;    
+            objMDDYZ.FieldBusNode = AppGlobal.NO_DP_NODE;    
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                objMDDYZ.HornCode = hornCode.Substring(0, 2);
+                objMDDYZ.HornCode = MDDYZ.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE); ;
             }
             ///<IOByteNo></IOByteNo>
-            objMDDYZ.IoByteNo = LibGlobalSource.NOCHILD;
+            objMDDYZ.IoByteNo = 0;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1272,9 +1268,9 @@ namespace GcproExtensionApp
             }
             #endregion
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = MDDYZ.Rule.Common;
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
@@ -1314,22 +1310,15 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
                
-                objMDDYZ.IoByteNo = (IOAddr.IOByteStart+ IOAddr.Len * i).ToString();
+                objMDDYZ.IoByteNo = IOAddr.IOByteStart+ IOAddr.Len * i;
                 ///<DPNode1>   </DPNode1>                                                              
-                objMDDYZ.DPNode1 = MDDYZ.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, objMDDYZ.Name);
 
-                if (String.IsNullOrEmpty(objMDDYZ.DPNode1))
-                { objMDDYZ.FieldBusNode = string.Empty; }
-                else
-                {
-                    objMDDYZ.FieldBusNode = MDDYZ.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objMDDYZ.DPNode1));
-                }
+                objMDDYZ.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objMDDYZ.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 objMDDYZ.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }
@@ -1367,7 +1356,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                          objMDDYZ: myMDDYZ,
                          addtionToDesc: AppGlobal.AdditionDesc,

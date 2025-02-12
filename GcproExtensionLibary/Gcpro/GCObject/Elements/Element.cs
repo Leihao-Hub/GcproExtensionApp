@@ -6,11 +6,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 {
     public abstract class Element : GcObject
     {
-        public abstract string PType { get; set; }
-        public abstract string HornCode { get; set; }
+        public abstract double PType { get; set; }
+        public abstract double HornCode { get; set; }
         //   public abstract string Value9 { get; set; }
-        public abstract string Value10 { get; set; }
-        public abstract string DPNode1 { get; set; }
+        public abstract double Value10 { get; set; }
+        public abstract double DPNode1 { get; set; }
         public Element()
         {
 
@@ -29,6 +29,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
               .Append(Value10);
             return objFields.ToString();
         }
+        //protected double ParseHornCode(string hornCodeAndDesc)
+        //{
+        //    return double.TryParse(hornCodeAndDesc.Substring(0, 2),out double tempDouble)? tempDouble : LibGlobalSource.GROUP_HORNCODE;
+        //}
         protected new void CreateImpExpDef(List<List<Gcpro.DbParameter>> impExpList, string impExpRuleName)
         {
             base.CreateImpExpDef(impExpList, impExpRuleName);

@@ -22,15 +22,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string value9;
-        private string value10;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double value9;
+        private double value10;
         private string inpValue;
         private string inpFaultDev;
         private string inHWStop;
@@ -38,21 +38,21 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string inpLow;
         private string inpHighHigh;
         private string inpHigh;
-        private string unitsBy100;
-        private string offsetUnits;
-        private string delayTimeDown;
-        private string delayTimeUp;
-        private string delayFaultTime;
-        private string limitLowLow;
-        private string limitLow;
-        private string limitHighHigh;
-        private string limitHigh;
-        private string monTimeLowLow;
-        private string monTimeLow;
-        private string monTimeMiddle;
-        private string monTimeHighHigh;
-        private string monTimeHigh;
-        private string unit;
+        private double unitsBy100;
+        private double offsetUnits;
+        private double delayTimeDown;
+        private double delayTimeUp;
+        private double delayFaultTime;
+        private double limitLowLow;
+        private double limitLow;
+        private double limitHighHigh;
+        private double limitHigh;
+        private double monTimeLowLow;
+        private double monTimeLow;
+        private double monTimeMiddle;
+        private double monTimeHighHigh;
+        private double monTimeHigh;
+        private double unit;
         private string reference;
         private string isNew;
         #region Standard properties
@@ -87,7 +87,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -97,7 +97,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -107,30 +107,30 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
         #endregion
         #region Application properties
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -171,84 +171,84 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { inpHigh = value; }
         }
 
-        public string UnitsBy100
+        public double UnitsBy100
         {
             get { return unitsBy100; }
             set { unitsBy100 = value; }
         }
-        public string OffsetUnits
+        public double OffsetUnits
         {
             get { return offsetUnits; }
             set { offsetUnits = value; }
         }
 
-        public string DelayTimeDown
+        public double DelayTimeDown
         {
             get { return delayTimeDown; }
             set { delayTimeDown = value; }
         }
 
-        public string DelayTimeUp
+        public double DelayTimeUp
         {
             get { return delayTimeUp; }
             set { delayTimeUp = value; }
         }
 
-        public string DelayFaultTime
+        public double DelayFaultTime
         {
             get { return delayFaultTime; }
             set { delayFaultTime = value; }
         }
 
-        public string LimitLowLow
+        public double LimitLowLow
         {
             get { return limitLowLow; }
             set { limitLowLow = value; }
         }
 
-        public string LimitLow
+        public double LimitLow
         {
             get { return limitLow; }
             set { limitLow = value; }
         }
 
-        public string LimitHighHigh
+        public double LimitHighHigh
         {
             get { return limitHighHigh; }
             set { limitHighHigh = value; }
         }
 
-        public string LimitHigh
+        public double LimitHigh
         {
             get { return limitHigh; }
             set { limitHigh = value; }
         }
 
-        public string MonTimeLowLow
+        public double MonTimeLowLow
         {
             get { return monTimeLowLow; }
             set { monTimeLowLow = value; }
         }
 
-        public string MonTimeLow
+        public double MonTimeLow
         {
             get { return monTimeLow; }
             set { monTimeLow = value; }
         }
 
-        public string MonTimeMiddle
+        public double MonTimeMiddle
         {
             get { return monTimeMiddle; }
             set { monTimeMiddle = value; }
         }
 
-        public string MonTimeHighHigh
+        public double MonTimeHighHigh
         {
             get { return monTimeHighHigh; }
             set { monTimeHighHigh = value; }
         }
 
-        public string MonTimeHigh
+        public double MonTimeHigh
         {
             get { return monTimeHigh; }
             set { monTimeHigh = value; }
@@ -258,7 +258,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return reference; }
             set { reference = value; }
         }
-        public string Unit
+        public double Unit
         {
             get { return unit; }
             set { unit = value; }
@@ -324,24 +324,24 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             processFct = string.Empty;
             building = "--";
             elevation = "--";
-            fieldBusNode = string.Empty;
+            fieldBusNode = 0;
             panel_ID = string.Empty;
-            diagram = string.Empty;
+            diagram = 0;
             page = string.Empty;
-            pType = P7252.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
-            dpNode1 = LibGlobalSource.NOCHILD;
-            value9 = "32";
-            value10 = "32";
-            OffsetUnits = "0";
-            delayTimeDown = "10.0";
-            delayTimeUp = "10.0";
-            delayFaultTime = "10.0";
-            monTimeLowLow = "10.0";
-            monTimeLow = "10.0";
-            monTimeMiddle = "10.0";
-            monTimeHigh = "10.0";
-            monTimeHighHigh = "20.0";
+            pType = P7252;
+            hornCode = 0;
+            dpNode1 = 0;
+            value9 = 32;
+            value10 = 32;
+            OffsetUnits = 0;
+            delayTimeDown = 1.0;
+            delayTimeUp = 1.0;
+            delayFaultTime = 1.0;
+            monTimeLowLow = 1.0;
+            monTimeLow = 1.0;
+            monTimeMiddle = 1.0;
+            monTimeHigh =  0.0;
+            monTimeHighHigh = 2.0;
             inpValue = string.Empty;
             inpLowLow = string.Empty;
             inpLow = string.Empty;
@@ -401,19 +401,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(string.Empty).Append(LibGlobalSource.TAB)
                   .Append(unitsBy100).Append(LibGlobalSource.TAB)
                   .Append(offsetUnits).Append(LibGlobalSource.TAB)
-                  .Append(delayTimeDown).Append(LibGlobalSource.TAB)
-                  .Append(delayTimeUp).Append(LibGlobalSource.TAB)
-                  .Append(delayFaultTime).Append(LibGlobalSource.TAB)
+                  .Append(delayTimeDown * 10).Append(LibGlobalSource.TAB)
+                  .Append(delayTimeUp * 10).Append(LibGlobalSource.TAB)
+                  .Append(delayFaultTime * 10).Append(LibGlobalSource.TAB)
                   .Append(unit).Append(LibGlobalSource.TAB)
                   .Append(limitLowLow).Append(LibGlobalSource.TAB)
                   .Append(limitLow).Append(LibGlobalSource.TAB)
                   .Append(limitHigh).Append(LibGlobalSource.TAB)
                   .Append(limitHighHigh).Append(LibGlobalSource.TAB)
-                  .Append(monTimeLowLow).Append(LibGlobalSource.TAB)
-                  .Append(monTimeLow).Append(LibGlobalSource.TAB)
-                  .Append(monTimeMiddle).Append(LibGlobalSource.TAB)
-                  .Append(monTimeHigh).Append(LibGlobalSource.TAB)
-                  .Append(monTimeHighHigh).Append(LibGlobalSource.TAB)
+                  .Append(monTimeLowLow * 10).Append(LibGlobalSource.TAB)
+                  .Append(monTimeLow *10).Append(LibGlobalSource.TAB)
+                  .Append(monTimeMiddle * 10).Append(LibGlobalSource.TAB)
+                  .Append(monTimeHigh *10).Append(LibGlobalSource.TAB)
+                  .Append(monTimeHighHigh * 10).Append(LibGlobalSource.TAB)
                   .Append(string.Empty).Append(LibGlobalSource.TAB)
                   .Append(string.Empty);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);

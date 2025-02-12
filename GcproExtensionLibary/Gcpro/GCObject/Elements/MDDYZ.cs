@@ -22,17 +22,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
         private string isNew;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string value10;
-        private string value21;
-        private string ioByteNo;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double value10;
+        private double parTimeOutStart;
+        private double ioByteNo;
         private readonly MYTARef side1Top;
         private readonly MYTARef side1Bottom;
         private readonly MYTARef side2Top;
@@ -83,7 +83,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -93,7 +93,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -103,18 +103,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
@@ -122,20 +122,20 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
         #region Application properties
 
-        public string IoByteNo
+        public double IoByteNo
         {
             get { return ioByteNo; }
             set { ioByteNo = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
         }
-        public string ParTimeOutStart
+        public double ParTimeOutStart
         {
-            get { return value21; }
-            set { value21 = value; }
+            get { return parTimeOutStart; }
+            set { parTimeOutStart = value; }
         }
 
         public override string IsNew
@@ -178,14 +178,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public MDDYZ()
         {
             string commonDefaultFilePath;
-            value10 = "80";
-            value21 = "100";
+            value10 = 80;
+            parTimeOutStart = 100;
             side1Top = new MYTARef("", 1);
             side1Bottom = new MYTARef("", 2);
             side2Top = new MYTARef("", 3);
             side2Bottom = new MYTARef("", 4);
-            pType = P7755_1.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
+            pType = P7755_1;
+            hornCode = 0;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.EL_MDDYZ);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddyzFileName}";
@@ -225,7 +225,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             ///生成Application字符串部分-子类中自身完成
             ///</summary>  
             objFields.Append(ioByteNo).Append(LibGlobalSource.TAB)
-              .Append(value21).Append(LibGlobalSource.TAB)
+              .Append(parTimeOutStart * 10).Append(LibGlobalSource.TAB)
              .Append(string.Empty).Append(LibGlobalSource.TAB)
              .Append(Convert.ToString(side1Top.PassageNo)).Append(LibGlobalSource.TAB)
              .Append(string.Empty).Append(LibGlobalSource.TAB)

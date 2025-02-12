@@ -1,0 +1,1172 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using System.Data.OleDb;
+using System.Data.Common;
+#region GcproExtensionLibrary
+using GcproExtensionLibrary.Gcpro.GCObject;
+using GcproExtensionLibrary.FileHandle;
+using GcproExtensionLibrary;
+using GcproExtensionLibrary.Gcpro;
+using System.Diagnostics.Eventing.Reader;
+using System.Security.Cryptography;
+using static GcproExtensionLibrary.Gcpro.GcproTable;
+using System.Linq;
+using System.Xml.Linq;
+using OfficeOpenXml.Packaging.Ionic.Zlib;
+#endregion
+namespace GcproExtensionApp
+{
+    #pragma warning disable IDE1006
+    public partial class FormDischargerVertex : Form, IGcForm
+    {
+        public FormDischargerVertex()
+        {
+            InitializeComponent();
+        }
+
+        #region Public object in this class
+        readonly DischargerVertex myDischargerVertex = new DischargerVertex(AppGlobal.GcproDBInfo.GcproTempPath);
+        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+        readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+        readonly CreateMode createMode = new CreateMode();
+        private bool isNewOledbDriver;
+        private readonly string DEMO_NAME_DischargerVertex = "Vertex01Bin501D0";
+        private readonly string DEMO_NAME_RULE_DischargerVertex = "5001";
+        private readonly string DEMO_DESCRIPTION_DischargerVertex = "配粉A线4楼501配粉仓/或者空白";
+        private readonly string DEMO_DESCRIPTION_RULE_DischargerVertex = "";
+        private readonly string DischargerVertexBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DischargerVertex}.";
+       // private readonly string DischargerVertexSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DischargerVertex}.{AppGlobal.JS_SUFFIX}.";
+        private readonly long value25 = 0;
+        private long value26 = 286752;
+        private readonly long value27 = 0;
+        private long value28 = 804672;
+        private int value10 = 0;
+        private int tempInt = 0;
+        // private long tempLong = 0;
+        //  private float tempFloat = 0.0f;
+      //  private bool tempBool = false;
+        private GcBaseRule objDefaultInfo;
+        #endregion
+
+        #region Public interfaces
+        public void GetInfoFromDatabase()
+        {
+            string itemInfo;
+            List<string> list;
+            DataTable dataTable;
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.GcsLibaryPath, isNewOledbDriver);
+            ///<ReaDischargerVertexnfoFromGcsLibrary> 
+            ///Read [SubType], [Unit] ,[ProcessFct]from GcsLibrary 
+            ///</ReaDischargerVertexnfoFromGcsLibrary>
+            ///<SubType> Read [SubType] </SubType>
+            dataTable = oledb.QueryDataTable(GcproTable.SubType.TableName, $"{GcproTable.SubType.FieldOType.Name}={DischargerVertex.OTypeValue}",
+                null, $"{GcproTable.SubType.FieldSub_Type_Desc.Name} ASC",
+                GcproTable.SubType.FieldSubType.Name, GcproTable.SubType.FieldSub_Type_Desc.Name);
+            // List<string> list = OleDb.GetColumnData<string>(dataTable, "SubType");
+
+            for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
+            {
+                itemInfo = dataTable.Rows[count].Field<string>(GcproTable.SubType.TableName) + AppGlobal.FIELDS_SEPARATOR +
+                       dataTable.Rows[count].Field<string>($"{GcproTable.SubType.FieldSub_Type_Desc.Name}");
+                ComboEquipmentSubType.Items.Add(itemInfo);
+
+            }
+
+            ComboEquipmentSubType.SelectedIndex = 0;
+            ///<ProcessFct> Read [ProcessFct] </ProcessFct>
+            dataTable = oledb.QueryDataTable(GcproTable.ProcessFct.TableName, $"{GcproTable.ProcessFct.FieldOType.Name} = {DischargerVertex.OTypeValue}",
+                null, $"{GcproTable.ProcessFct.FieldFct_Desc.Name} ASC",
+                 GcproTable.ProcessFct.FieldProcessFct.Name, GcproTable.ProcessFct.FieldFct_Desc.Name);
+            //list = OleDb.GetColumnData<string>(dataTable, "Fct_Desc");
+            for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
+            {
+                itemInfo = dataTable.Rows[count].Field<string>(GcproTable.ProcessFct.FieldProcessFct.Name) + AppGlobal.FIELDS_SEPARATOR +
+                       dataTable.Rows[count].Field<string>(GcproTable.ProcessFct.FieldFct_Desc.Name);
+                ComboProcessFct.Items.Add(itemInfo);
+            }
+            ///<ReadInfoFromProjectDB> 
+            ///Read [PType],[Building],[Elevation],[Panel]
+            ///Read [DPNode1],[DPNode2],[HornCode]
+            ///</ReadInfoFromProjectDB>
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
+  
+            ///<Elevation> Read [Elevation]</Elevation>
+            dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_Elevation}'",
+            null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name);
+            list = OleDb.GetColumnData<string>(dataTable, GcproTable.TranslationCbo.FieldText.Name);
+            foreach (var column in list)
+            {
+
+                ComboElevation.Items.Add(column.ToString());
+            }
+            ///<Building> Read [Building]</Building>
+            dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_Building}'",
+            null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name);
+            list = OleDb.GetColumnData<string>(dataTable, GcproTable.TranslationCbo.FieldText.Name);
+            foreach (var column in list)
+            {
+
+                ComboBuilding.Items.Add(column.ToString());
+            }
+            ///<Panel> Read [Panel]</Panel>
+            dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_PanelID}'",
+            null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name);
+            list = OleDb.GetColumnData<string>(dataTable, GcproTable.TranslationCbo.FieldText.Name);
+            foreach (var column in list)
+            {
+
+                ComboPanel.Items.Add(column.ToString());
+            }
+            ///<Diagram> Read [Diagram]</Diagram>
+            dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_ASWDiagram}'",
+            null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name, GcproTable.TranslationCbo.FieldValue.Name);
+            for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
+            {
+                itemInfo = dataTable.Rows[count].Field<double>(GcproTable.TranslationCbo.FieldValue.Name) + AppGlobal.FIELDS_SEPARATOR +
+                       dataTable.Rows[count].Field<string>(GcproTable.TranslationCbo.FieldText.Name);
+                ComboDiagram.Items.Add(itemInfo);
+            }
+
+
+        }
+        public void GetLastObjRule()
+        {
+            objDefaultInfo.NameRule = "4001";
+            objDefaultInfo.DescLine = "制粉A线";
+            objDefaultInfo.DescFloor = "2楼";
+            objDefaultInfo.Name = "=A-4001-KCL30";
+            objDefaultInfo.DescObject = "磨粉机现场控制箱";
+            objDefaultInfo.DescriptionRuleInc = DischargerVertex.Rule.Common.DescriptionRuleInc;
+            objDefaultInfo.NameRuleInc = DischargerVertex.Rule.Common.NameRuleInc;
+            DischargerVertex.Rule.Common.Cabinet = DischargerVertex.Rule.Common.Power = string.Empty;
+
+            objDefaultInfo.Description = DischargerVertex.EncodingDesc(
+                baseRule: ref objDefaultInfo,
+                namePrefix: GcObjectInfo.General.PrefixName,
+                nameRule: Engineering.PatternMachineName,
+                withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+                withFloorInfo: chkAddFloorToDesc.Checked,
+                withNameInfo: chkAddNameToDesc.Checked,
+                withCabinet: chkAddCabinetToDesc.Checked,
+                withPower: false,
+                nameOnlyWithNumber: chkNameOnlyNumber.Checked);
+            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.Description))
+            { DischargerVertex.Rule.Common.Description = objDefaultInfo.Description; }
+
+            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.Name))
+            { DischargerVertex.Rule.Common.Name = objDefaultInfo.Name; }
+
+            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescLine))
+            { DischargerVertex.Rule.Common.DescLine = objDefaultInfo.DescLine; }
+
+            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescFloor))
+            { DischargerVertex.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
+
+            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescObject))
+            { DischargerVertex.Rule.Common.DescObject = objDefaultInfo.DescObject; }
+           
+            txtSymbolRule.Text = DischargerVertex.Rule.Common.NameRule;
+            txtSymbolIncRule.Text = DischargerVertex.Rule.Common.NameRuleInc;
+            txtDescriptionRule.Text = DischargerVertex.Rule.Common.DescriptionRule;
+            txtDescriptionIncRule.Text = DischargerVertex.Rule.Common.DescriptionRuleInc;
+            txtSymbol.Text = DischargerVertex.Rule.Common.Name;
+            txtDescription.Text = DischargerVertex.Rule.Common.Description;
+        }
+        public void CreateTips()
+        {
+            toolTip.SetToolTip(BtnNewImpExpDef, AppGlobal.CREATE_IMPORT_RULE + DischargerVertex.OType);
+            toolTip.SetToolTip(txtSymbol, AppGlobal.DEMO_NAME + DEMO_NAME_DischargerVertex);
+            toolTip.SetToolTip(txtSymbolRule, AppGlobal.DEMO_NAME_RULE + DEMO_NAME_RULE_DischargerVertex);
+            toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_DischargerVertex);
+           
+            toolTip.SetToolTip(txtDescriptionRule, AppGlobal.DEMO_DESCRIPTION_RULE + DEMO_DESCRIPTION_RULE_DischargerVertex);
+        }
+        private void CreateDischargerVertexImpExp(OleDb oledb)
+        {
+            bool result = myDischargerVertex.CreateImpExpDef((tableName, impExpList) =>
+            {
+                return oledb.InsertRecords(tableName, impExpList);
+            });
+            if (result)
+            {
+                MessageBox.Show(AppGlobal.MSG_RULE_CREATE_SUCESSFULL, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        public void CreateImpExp()
+        {
+            DataTable dataTable;
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            dataTable = oledb.QueryDataTable(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DischargerVertex.ImpExpRuleName}'",
+            null, null, GcproTable.ImpExpDef.FieldType.Name);
+            if (dataTable.Rows.Count > 0)
+            {
+                if (MessageBox.Show(AppGlobal.MSG_RULE_ALREADY_EXITS, AppGlobal.INFO,
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    oledb.DeleteRecord(GcproTable.ImpExpDef.TableName, $"{GcproTable.ImpExpDef.FieldType.Name} LIKE '{DischargerVertex.ImpExpRuleName}'", null);
+                    CreateDischargerVertexImpExp(oledb);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                CreateDischargerVertexImpExp(oledb);
+            }
+
+        }
+
+        public void Default()
+        {
+            txtSymbol.Focus();
+
+            txtSymbolIncRule.Text = "1";
+            txtDescriptionIncRule.Text = "1";
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
+            ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
+            ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
+            ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
+            ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
+    
+            ComboEquipmentSubType.SelectedIndex = 0;
+            CreateBMLDefault();
+            toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
+            toolStripMenuReload.Click += new EventHandler(toolStripMenuReload_Click);
+            toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
+            this.Text = "DischargerVertex导入文件 " + " " + myDischargerVertex.FilePath;
+        }
+
+        #endregion
+        private void UpdateDesc()
+        {
+            DischargerVertex.EncodingDesc(
+            baseRule: ref DischargerVertex.Rule.Common,
+            namePrefix: GcObjectInfo.General.PrefixName,
+            nameRule: Engineering.PatternMachineName,
+            withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+            withFloorInfo: chkAddFloorToDesc.Checked,
+            withNameInfo: chkAddNameToDesc.Checked,
+            withCabinet: chkAddCabinetToDesc.Checked,
+            withPower: false,
+            nameOnlyWithNumber: chkNameOnlyNumber.Checked
+            );
+            txtDescription.Text = DischargerVertex.Rule.Common.Description;
+        }
+        private void FormDischargerVertex_Load(object sender, EventArgs e)
+        {
+            isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
+
+            ///<ImplementIGcForm>   </ImplementIGcForm>
+            GetLastObjRule();
+            GetInfoFromDatabase();
+            CreateTips();
+            Default();
+        }
+        private void FormDischargerVertex_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
+        }
+
+        #region <---Rule and autosearch part--->
+        private void txtSymbol_TextChanged(object sender, EventArgs e)
+        {
+            txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
+            myDischargerVertex.Name = txtSymbol.Text;
+            DischargerVertex.Rule.Common.Name = txtSymbol.Text;
+            UpdateDesc();
+        }
+        private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value21.Name,
+                OType = Convert.ToString(DischargerVertex.OTypeValue)
+            };
+            objectBrowser.Show();
+        }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+            if (!DischargerVertex.Rule.Common.Description.Equals(txtDescription.Text))
+            {
+                DischargerVertex.Rule.Common.Description = txtDescription.Text;
+            }
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(DischargerVertex.Rule.Common.DescObject, false);
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
+        }
+
+        private void txtDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    DischargerVertex.Rule.Common.Description = txtDescription.Text;
+                    DischargerVertex.DecodingDesc(ref DischargerVertex.Rule.Common, AppGlobal.DESC_SEPARATOR);
+                    UpdateDesc();
+                }
+                catch
+                {
+                }
+            }
+        }
+        #region <------Check and store rule event------>
+
+        private void txtSymbolRule_TextChanged(object sender, EventArgs e)
+        {
+            if (AppGlobal.CheckNumericString(txtSymbolRule.Text))
+            {
+                DischargerVertex.Rule.Common.NameRule = txtSymbolRule.Text;
+            }
+            else
+            {
+                AppGlobal.MessageNotNumeric();
+            }
+        }
+
+        private void txtSymbolIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                if (AppGlobal.CheckNumericString(txtSymbolIncRule.Text))
+                {
+                    DischargerVertex.Rule.Common.NameRuleInc = txtSymbolIncRule.Text;
+                }
+                else
+                {
+                    AppGlobal.MessageNotNumeric();
+                }
+            }
+        }
+
+        private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtDescriptionRule.Text))
+            { return; }
+
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { txtDescription.BackColor = Color.Red; }
+            else
+            { txtDescription.BackColor = Color.White; }
+            if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
+            {
+                string descObjectNumber = LibGlobalSource.StringHelper.ExtractNumericPart(DischargerVertex.Rule.Common.DescObject, false);
+                if (!string.IsNullOrEmpty(descObjectNumber))
+                {
+                    DischargerVertex.Rule.Common.DescriptionRule = txtDescriptionRule.Text;
+                    DischargerVertex.Rule.Common.DescObject = DischargerVertex.Rule.Common.DescObject.Replace(descObjectNumber, DischargerVertex.Rule.Common.DescriptionRule);
+                    UpdateDesc();
+                }
+            }
+            else
+            {
+                AppGlobal.MessageNotNumeric();
+            }
+
+        }
+        private void txtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (AppGlobal.CheckNumericString(txtDescriptionIncRule.Text))
+                {
+                    DischargerVertex.Rule.Common.DescriptionRuleInc = txtDescriptionIncRule.Text;
+                }
+                else
+                {
+                    AppGlobal.MessageNotNumeric();
+                }
+            }
+        }
+
+        private void txtValue10_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                value10 = AppGlobal.ParseValue<int>(txtValue10.Text, out tempInt) ? tempInt : value10;
+                GetValue10BitValue(value10);
+            }
+        }
+
+        #endregion <------Check and store rule event------>
+
+        #region <------ Check and unchek "Value9" and "Value10------>    
+    
+
+
+      
+
+
+        #endregion <------ Check and unchek "Value9" and "Value10------> 
+
+        #region <------Field in database display------>
+        private void txtSymbol_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text0";
+        }
+        private void txtDescription_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text1";
+        }
+        private void ComboEquipmentInfoType_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value5";
+        }
+        private void ComboHornCode_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value2";
+        }
+        private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "DPNode1";
+        }
+        private void txtParIOByte_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value21";
+        }
+
+        #endregion  <------Field in database display------>
+
+        void SubTypeChanged(string subType)
+        {
+        
+        }
+        void GetValue10BitValue(int value)
+        {
+            //chkParLogOff.Checked = AppGlobal.GetBitValue(value, 0);
+            //chkParSide1Divided.Checked = AppGlobal.GetBitValue(value, 1);
+            //chkParSide2Divided.Checked = AppGlobal.GetBitValue(value, 2);
+            //chkParWithBearTemp.Checked = AppGlobal.GetBitValue(value, 3);
+            //chkParWithFeedRollRecipe.Checked = AppGlobal.GetBitValue(value, 4);
+            //chkParWithRollerTemp.Checked = AppGlobal.GetBitValue(value, 5);
+            //chkParWithRollerGapRecipe.Checked = AppGlobal.GetBitValue(value, 6);
+        }
+        //void GetValue25BitValue(long value)
+        //{
+
+        //}
+        //void GetValue26BitValue(long value)
+        //{
+
+        //}
+        //void GetValue27BitValue(long value)
+        //{
+
+        //}
+        //void GetValue28BitValue(long value)
+        //{
+
+        //}
+        private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
+                if (!String.IsNullOrEmpty(selectedItem))
+                {
+                    myDischargerVertex.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                }
+                SubTypeChanged(myDischargerVertex.SubType);
+            }
+            catch (Exception ex)
+            { MessageBox.Show(ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
+        #endregion <---Rule and autosearch part--->
+
+        #region <---BML part--->
+        private void AddWorkSheets()
+        {
+            
+            try
+            {
+                List<string> workSheets = new List<string>();
+                workSheets = excelFileHandle.GetWorkSheets();
+                comboWorkSheetsBML.Items.Clear();
+                foreach (string sheet in workSheets)
+                {
+                    comboWorkSheetsBML.Items.Add(sheet);
+                }
+                comboWorkSheetsBML.SelectedIndex = 0;
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show(AppGlobal.EX_FILE_NOT_FOUND, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show(AppGlobal.EX_UNAUTHORIZED_ACCESS, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(AppGlobal.EX_IO_ERROR + $"{ex.Message}", AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(AppGlobal.EX_UNKNOW + $"{ex.Message}", AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void BtnOpenProjectDB_Click(object sender, EventArgs e)
+        {
+            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
+            excelFileHandle.FilePath = TxtExcelPath.Text;
+            AddWorkSheets();
+
+        }
+        private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
+        {
+            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
+            AddWorkSheets();
+        }
+        private void TxtExcelPath_TextChanged(object sender, EventArgs e)
+        {
+            excelFileHandle.FilePath = TxtExcelPath.Text;
+            BML.DischargerVertex.BMLPath = excelFileHandle.FilePath;
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{DischargerVertexBMLSuffix}Path", BML.DischargerVertex.BMLPath);
+        }
+        private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
+        {
+           // AddWorkSheets();
+        }
+        private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
+            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            {
+                btnReadBML.Enabled = true;
+            }
+        }
+        private void dataGridBML_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            TxtQuantity.Text = dataGridBML.Rows.Count.ToString();
+        }
+        private void CreateBMLDefault()
+        {
+            btnReadBML.Enabled = false;
+            var alphabetList = AppGlobal.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
+            foreach (var item in alphabetList)
+            {
+                comboNameBML.Items.Add(item);
+                comboDescBML.Items.Add(item);
+                comboTypeBML.Items.Add(item);
+                comboFloorBML.Items.Add(item);
+                comboSectionBML.Items.Add(item);
+                comboCabinetBML.Items.Add(item);
+                comboControlBML.Items.Add(item);
+                comboLineBML.Items.Add(item);
+            }
+            comboNameBML.SelectedItem = "B";
+            comboDescBML.SelectedItem = "N";
+            comboTypeBML.SelectedItem = "C";
+            comboFloorBML.SelectedItem = "L";
+            comboCabinetBML.SelectedItem = "P";
+            comboSectionBML.SelectedItem = "Q";
+            comboControlBML.SelectedItem = "H";
+            comboLineBML.SelectedItem = "X";
+            for (int i = 1; i <= 20; i++)
+            {
+                comboStartRow.Items.Add(i);
+            }
+            comboStartRow.SelectedItem = BML.StartRow;
+            dataGridBML.AutoGenerateColumns = false;
+            TxtExcelPath.Text = BML.DischargerVertex.BMLPath;
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnName,
+                Name = nameof(BML.ColumnName)
+            });
+
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnDesc,
+                Name = nameof(BML.ColumnDesc)
+            });
+
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnControlMethod,
+                Name = nameof(BML.ColumnControlMethod)
+            });
+
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnFloor,
+                Name = nameof(BML.ColumnFloor)
+            });
+
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinet,
+                Name = nameof(BML.ColumnCabinet)
+            });
+
+
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnCabinetGroup,
+                Name = nameof(BML.ColumnCabinetGroup)
+            });
+
+            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = BML.ColumnLine,
+                Name = nameof(BML.ColumnLine)
+            });
+        }
+
+        private void btnReadBML_Click(object sender, EventArgs e)
+        {
+            string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboControlBML.Text,comboFloorBML.Text,
+                comboCabinetBML.Text ,comboSectionBML.Text,comboLineBML.Text,comboTypeBML.Text};
+            StringBuilder sbControlFilters = new StringBuilder();
+            sbControlFilters.Append($@"Value LIKE ""%{BML.DischargerVertex.TypeDischargerVertex}%""");
+            StringBuilder sbTypeFilters = new StringBuilder();
+            sbTypeFilters.Append($@"Value LIKE ""%{BML.DischargerVertex.TypeKCL}""");
+            DataTable dataTable;
+            string[] filters = { sbControlFilters.ToString(), sbTypeFilters.ToString() };
+            string[] filterColumns = { comboControlBML.Text, comboTypeBML.Text };
+            dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
+
+            dataGridBML.DataSource = dataTable;
+            dataGridBML.AutoGenerateColumns = false;
+            dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnControlMethod)].DataPropertyName = dataTable.Columns[2].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
+            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
+            TxtQuantity.Text = dataTable.Rows.Count.ToString();
+        }
+        #endregion <---BML part--->
+
+        #region <---Common used--->
+
+        private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddSectionToDesc.Checked)
+            { chkAddUserSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddUserSectionToDesc.Checked)
+            { chkAddSectionToDesc.Checked = false; }
+            UpdateDesc();
+        }
+        private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkAddPowerToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void chkNameOnlyNumber_CheckedChanged_1(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void ComboPanel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ComboPanel.Text))
+            {
+                DischargerVertex.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{ComboPanel.Text}";
+                UpdateDesc();
+            }
+        }
+        private void ComboElevation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DischargerVertex.Rule.Common.DescFloor = ComboElevation.Text;
+            UpdateDesc();
+        }
+        private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.Rule)
+            {
+                tabCreateMode.SelectedTab = tabRule;
+                createMode.Rule = true;
+                createMode.BML = false;
+                createMode.AutoSearch = false;
+                txtSymbolRule.Text = DischargerVertex.Rule.Common.NameRule;
+                txtSymbolIncRule.Text = DischargerVertex.Rule.Common.NameRuleInc;
+                LblQuantity.Visible = true;
+                TxtQuantity.Visible = true;
+                grpSymbolRule.Visible = true;
+                lblSymbol.Text = AppGlobal.NAME;
+             //   txtSymbol.Text = DEMO_NAME_DischargerVertex;
+                tabRule.Text = CreateMode.ObjectCreateMode.Rule;
+
+            }
+            else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.AutoSearch)
+            {
+                tabCreateMode.SelectedTab = tabRule;
+                createMode.Rule = false;
+                createMode.BML = false;
+                createMode.AutoSearch = true;
+                txtSymbolRule.Text = DischargerVertex.Rule.Common.NameRule;
+                txtSymbolIncRule.Text = DischargerVertex.Rule.Common.NameRuleInc;
+                LblQuantity.Visible = false;
+                TxtQuantity.Visible = false;
+                grpSymbolRule.Visible = false;
+                lblSymbol.Text = AppGlobal.KEY_WORD_AUTOSEARCH;
+
+                tabRule.Text = CreateMode.ObjectCreateMode.AutoSearch;
+
+            }
+
+            else if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.BML)
+            {
+                createMode.Rule = false;
+                createMode.BML = true;
+                createMode.AutoSearch = false;
+                tabCreateMode.SelectedTab = tabBML;
+            }
+
+        }
+        private void tabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabCreateMode.SelectedTab == tabRule)
+
+            {
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
+            }
+            else
+            {
+                ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
+            }
+        }
+        private void toolStripMenuClearList_Click(object sender, EventArgs e)
+        {
+            //dataTable.Clear();
+            DataTable dataTable = null;
+            dataGridBML.DataSource = dataTable;
+
+        }
+        private void toolStripMenuReload_Click(object sender, EventArgs e)
+        {
+            btnReadBML_Click(sender, e);
+        }
+        private void toolStripMenuDelete_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridBML.SelectedRows)
+            {
+                dataGridBML.Rows.RemoveAt(row.Index);
+            }
+            dataGridBML.ClearSelection();
+            TxtQuantity.Text = dataGridBML.Rows.Count.ToString();
+        }
+        private void TxtQuantity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
+                {
+                    AppGlobal.MessageNotNumeric();
+                }
+            }
+        }
+        private void TxtQuantity_TextChanged(object sender, EventArgs e)
+        {
+            if (!AppGlobal.CheckNumericString(TxtQuantity.Text))
+            {
+                AppGlobal.MessageNotNumeric();
+            }
+        }
+        private void BtnConnectIO_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(AppGlobal.MSG_CLEAR_FILE, AppGlobal.INFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                == DialogResult.OK)
+
+            {
+                myDischargerVertex.Clear();
+                ProgressBar.Value = 0;
+            }
+        }
+        private void BtnSaveAs_Click(object sender, EventArgs e)
+        {
+
+            DischargerVertex.SaveFileAs(myDischargerVertex.FilePath, LibGlobalSource.CREATE_OBJECT);
+            DischargerVertex.SaveFileAs(myDischargerVertex.FileRelationPath, LibGlobalSource.CREATE_RELATION);
+        }
+
+        private void BtnNewImpExpDef_Click(object sender, EventArgs e)
+        {
+            CreateImpExp();
+        }
+        private void BtnRegenerateDPNode_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(AppGlobal.MSG_REGENERATE_DPNODE, AppGlobal.AppInfo.Title, MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
+                == DialogResult.OK)
+            {
+                OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+                DischargerVertex.ReGenerateDPNode(oledb);
+            }
+        }   
+        public void CreateObjectBML(DataGridView dataFromBML, DischargerVertex objDischargerVertex,
+            (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+            out (int Value, int Max) processValue)
+        {
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
+            SuffixObject suffixObject = new SuffixObject();
+            string cabinet, cabinetGroup;
+            string _nameNumberString = string.Empty;
+            objDefaultInfo = DischargerVertex.Rule.Common;
+            for (int i = 0; i < quantityNeedToBeCreate; i++)
+            {
+                processValue.Value = i;
+                DataGridViewCell cell;
+                cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
+                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                { continue; }
+
+                cabinet = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
+                cabinetGroup = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
+                objDischargerVertex.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
+                objDischargerVertex.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
+
+                #region Subtype and PType                                          
+                // SubTypeChanged(objDischargerVertex.SubType);
+                #endregion
+                ///<AdditionInfoToDesc>
+                ///</AdditionInfoToDesc>
+                string desc = $"{Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value)}{suffixObject.SuffixObjectType["KCL"]}";
+
+                objDischargerVertex.Name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
+                if (addtionToDesc.Section)
+                {
+                    _nameNumberString = LibGlobalSource.StringHelper.ExtractNumericPart(objDischargerVertex.Name, false);
+                    if (!string.IsNullOrEmpty(_nameNumberString))
+                    {
+                        if (AppGlobal.ParseValue<int>(_nameNumberString, out tempInt))
+                        {
+                            DischargerVertex.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
+                        }
+                    }
+                }
+                else if (addtionToDesc.UserDefSection)
+                {
+                    DischargerVertex.Rule.Common.DescLine = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value); ;
+                }
+
+                DischargerVertex.Rule.Common.Name = objDischargerVertex.Name;
+                DischargerVertex.Rule.Common.DescFloor = $"{objDischargerVertex.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                DischargerVertex.Rule.Common.DescObject = desc;
+                DischargerVertex.Rule.Common.Cabinet = $"{GcObjectInfo.General.AddInfoCabinet}{objDischargerVertex.Panel_ID}";
+                objDischargerVertex.Description = DischargerVertex.EncodingDesc(
+                    baseRule: ref DischargerVertex.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                    withFloorInfo: addtionToDesc.Elevation,
+                    withNameInfo: addtionToDesc.IdentNumber,
+                    withCabinet: addtionToDesc.Cabinet,
+                    withPower: addtionToDesc.Power,
+                    nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                 );
+              
+               
+
+                objDischargerVertex.CreateObject(Encoding.Unicode);
+               
+            }
+            DischargerVertex.Rule.Common = objDefaultInfo;
+            processValue.Value = processValue.Max;
+        }
+        private void CreateObjectRule(DischargerVertex objDischargerVertex, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
+      ref (int Value, int Max) processValue)
+        {
+            #region common used variables declaration 
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            bool needDPNodeChanged = false;
+            StringBuilder descTotalBuilder = new StringBuilder();
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            bool moreThanOne = quantityNeedToBeCreate > 1;
+            bool onlyOne = quantityNeedToBeCreate == 1;
+            RuleSubDataSet description, name, dpNode1;
+            description = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            name = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            dpNode1 = new RuleSubDataSet
+            {
+                Sub = new string[] { },
+                Inc = 0,
+                PosInfo = new RuleSubPos
+                {
+                    StartPos = false,
+                    MidPos = false,
+                    EndPos = false,
+                    PosInString = 0,
+                    Len = 0,
+                }
+            };
+            #endregion common used variables declaration  
+
+            #region Prepare export DischargerVertex file
+            ///<OType>is set when object generated</OType>
+            ///<SubType></SubType>
+            string selectedSubTypeItem;
+            if (ComboEquipmentSubType.SelectedItem != null)
+            {
+                selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
+                objDischargerVertex.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+
+            }
+            else
+            {
+                objDischargerVertex.SubType = DischargerVertex.MDDRDP;
+            }
+           
+            objDischargerVertex.Elevation = ComboElevation.Text;
+            ///<Value10</Value10>
+            objDischargerVertex.Value10 = value10;
+        
+            ///<Value10>Value is set when corresponding check box's check state changed</Value10>
+            ///<Name>Value is set in TxtSymbol text changed event</Name>
+            ///<Description></Description>
+            objDischargerVertex.Description = txtDescription.Text;
+            ///<ProcessFct></ProcessFct>
+            string selectedProcessFct = string.Empty;
+            //if (ComboProcessFct.SelectedItem != null)
+            //{
+            //    selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
+            //    objDischargerVertex.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            //}
+            ///<Diagram></Diagram>
+            string selectedDiagram;
+            if (ComboDiagram.SelectedItem != null)
+            {
+                selectedDiagram = ComboDiagram.SelectedItem.ToString();
+                objDischargerVertex.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+            }
+
+            ///<Page></Page>
+            objDischargerVertex.Page = txtPage.Text;
+            ///<Building></Building>
+            string selectedBudling = "--";
+            if (ComboBuilding.SelectedItem != null)
+            {
+                selectedBudling = ComboBuilding.SelectedItem.ToString();
+                objDischargerVertex.Building = selectedBudling;
+            }
+            ///<Elevation></Elevation>
+            string selectedElevation;
+            if (ComboElevation.SelectedItem != null)
+            {
+                selectedElevation = ComboElevation.SelectedItem.ToString();
+                objDischargerVertex.Elevation = selectedElevation;
+            }
+            ///<Panel_ID></Panel_ID>
+            string selectedPanel_ID;
+            if (ComboPanel.SelectedItem != null)
+            {
+                selectedPanel_ID = ComboPanel.SelectedItem.ToString();
+                objDischargerVertex.Panel_ID = selectedPanel_ID;
+            }
+            ///<IsNew>is set when object generated,Default value is "No"</IsNew>
+            ///<FieldBusNode></FieldBusNode>
+            objDischargerVertex.FieldBusNode = LibGlobalSource.NOCHILD; ;
+          
+            #endregion
+            #region Parse rules
+            ///<ParseRule> </ParseRule>
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.MessageNotNumeric($"({grpSymbolRule.Text}.{lblSymbolIncRule.Text})");
+                    return;
+                }
+            }
+            ///<NameRule>生成名称规则</NameRule>
+            name.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtSymbol.Text, txtSymbolRule.Text);
+            if (name.PosInfo.Len == -1)
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.RuleNotSetCorrect($"{grpSymbolRule.Text}.{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    return;
+                }
+            }
+            else
+            {
+                name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
+            }
+
+           
+            ///<DescRule>生成描述规则</DescRule>
+            string desc = DischargerVertex.Rule.Common.DescObject;
+            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            {
+                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
+                if (description.PosInfo.Len == -1)
+                {
+                    if (moreThanOne)
+                    {
+                        AppGlobal.RuleNotSetCorrect($"{grpDescriptionRule.Text}.{lblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    }
+                }
+                else
+                {
+                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(desc, txtDescriptionRule.Text);
+                }
+            }
+            #endregion
+
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
+            ///<CreateObj>
+            ///Search IO key,DPNode
+            ///</CreateObj>
+            int symbolInc, symbolRule, descriptionInc;
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+            objDefaultInfo = DischargerVertex.Rule.Common;
+            for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
+            {
+                name.Inc = i * symbolInc;
+                name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
+                if (!String.IsNullOrEmpty(desc))
+                {
+                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                        && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
+                        && (description.PosInfo.Len != -1))
+                    {
+                        description.Inc = i * descriptionInc;
+                        description.Name = LibGlobalSource.StringHelper.GenerateObjectName(description.Sub, description.PosInfo, (int.Parse(txtDescriptionRule.Text) + description.Inc).ToString().PadLeft(description.PosInfo.Len, '0'));
+                    }
+                    else
+                    {
+                        description.Name = desc;
+                    }
+
+                }
+                else
+                {
+                    description.Name = "--";
+                }
+                objDischargerVertex.Name = name.Name;
+                DischargerVertex.Rule.Common.Name = name.Name;
+                DischargerVertex.Rule.Common.DescObject = description.Name;
+                objDischargerVertex.Description = DischargerVertex.EncodingDesc(
+                    baseRule: ref DischargerVertex.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.Section || addtionToDesc.UserDefSection,
+                    withFloorInfo: addtionToDesc.Elevation,
+                    withNameInfo: addtionToDesc.IdentNumber,
+                    withCabinet: addtionToDesc.Cabinet,
+                    withPower: addtionToDesc.Power,
+                    nameOnlyWithNumber: addtionToDesc.OnlyNumber
+                 );
+             
+              
+                objDischargerVertex.CreateObject(Encoding.Unicode);
+                processValue.Value = i;
+            }
+            DischargerVertex.Rule.Common = objDefaultInfo;
+            processValue.Value = processValue.Max;
+        }
+        private void BtnConfirm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AppGlobal.AdditionDesc.Section = chkAddSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.UserDefSection = chkAddUserSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.Elevation = chkAddFloorToDesc.Checked;
+                AppGlobal.AdditionDesc.IdentNumber = chkAddNameToDesc.Checked;
+                AppGlobal.AdditionDesc.Cabinet = chkAddCabinetToDesc.Checked;
+                AppGlobal.AdditionDesc.Power = false;
+                AppGlobal.AdditionDesc.OnlyNumber = chkNameOnlyNumber.Checked;
+                AppGlobal.ProcessValue.Value = ProgressBar.Value = 0;
+                if (createMode.BML)
+                {
+                    CreateObjectBML(
+                         dataFromBML: dataGridBML,
+                         objDischargerVertex: myDischargerVertex,
+                         addtionToDesc: AppGlobal.AdditionDesc,
+                         processValue: out AppGlobal.ProcessValue
+                         );
+                }
+                else if (createMode.AutoSearch)
+                {
+
+                }
+                else if (createMode.Rule)
+                {
+                    CreateObjectRule(    
+                         objDischargerVertex: myDischargerVertex,
+                         addtionToDesc: AppGlobal.AdditionDesc,
+                         processValue: ref AppGlobal.ProcessValue
+                         );
+                }
+                ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
+                ProgressBar.Value = AppGlobal.ProcessValue.Value;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion <---Common used--->
+
+       
+    }
+}

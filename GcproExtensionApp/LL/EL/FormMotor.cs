@@ -40,6 +40,7 @@ namespace GcproExtensionApp
         private int value9 = 2;
         private int value10 = 2;
         private int tempInt = 0;
+        private long tempLong = 0;
         private float tempFloat = (float)0.0;
       //  private bool tempBool = false;
         private string namePrefix = string.Empty;
@@ -270,7 +271,7 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             TxtValue9.Text = "2";
-            myMotor.Value9 = "2";
+            myMotor.Value9 = 2;
 
             // comboWorkSheetsBML.Enabled = false;
 
@@ -402,8 +403,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)1); }
 
-            myMotor.Value9 = value9.ToString();
-            TxtValue9.Text = myMotor.Value9;
+            myMotor.Value9 = value9;
+            TxtValue9.Text = myMotor.Value9.ToString();
         }
 
         private void ChkStartingInterlock_CheckedChanged(object sender, EventArgs e)
@@ -416,8 +417,8 @@ namespace GcproExtensionApp
                 else
                 { AppGlobal.ClearBit(ref value9, (byte)0); }
 
-                myMotor.Value9 = value9.ToString();
-                TxtValue9.Text = myMotor.Value9;
+                myMotor.Value9 = value9;
+                TxtValue9.Text = myMotor.Value9.ToString();
             }
         }
         private void ChkParManual_CheckedChanged(object sender, EventArgs e)
@@ -429,8 +430,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myMotor.Value10 = value10.ToString();
-            TxtValue10.Text = myMotor.Value10;
+            myMotor.Value10 = value10;
+            TxtValue10.Text = myMotor.Value10.ToString().ToString();
         }
 
         private void ChkRestartDelay_CheckedChanged(object sender, EventArgs e)
@@ -442,8 +443,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myMotor.Value10 = value10.ToString();
-            TxtValue10.Text = myMotor.Value10;
+            myMotor.Value10 = value10;
+            TxtValue10.Text = myMotor.Value10.ToString();
         }
 
         private void ChkRevNotAllowed_CheckedChanged(object sender, EventArgs e)
@@ -455,8 +456,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)7); }
 
-            myMotor.Value10 = value10.ToString();
-            TxtValue10.Text = myMotor.Value10;
+            myMotor.Value10 = value10;
+            TxtValue10.Text = myMotor.Value10.ToString();
         }
 
         private void ChKPower_CheckedChanged(object sender, EventArgs e)
@@ -468,8 +469,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)8); }
 
-            myMotor.Value10 = value10.ToString();
-            TxtValue10.Text = myMotor.Value10;
+            myMotor.Value10 = value10;
+            TxtValue10.Text = myMotor.Value10.ToString();
         }
         #endregion
 
@@ -879,7 +880,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -929,7 +931,7 @@ namespace GcproExtensionApp
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
-            //AddWorkSheets();
+           
         }
         private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -947,6 +949,7 @@ namespace GcproExtensionApp
         }
         private void CreateBMLDefault()
         {
+           
             btnReadBML.Enabled = false;
             txtVFCPrefixBML.Text = BML.Motor.PrefixVFC;
             var alphabetList = AppGlobal.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
@@ -977,7 +980,8 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.Motor.BMLPath;                                               
+            TxtExcelPath.Text = BML.Motor.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName, 
@@ -1520,17 +1524,17 @@ namespace GcproExtensionApp
         private void CreateObjectCommon(Motor objMotor)
         {
             ///<ParMonTime></ParMonTime>
-            objMotor.ParMonTime = AppGlobal.ParseFloat(TxtMonTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objMotor.ParMonTime = AppGlobal.ParseValue<float>(TxtMonTime.Text, out tempFloat) ? Math.Round(tempFloat ,1) : 2.0;
             ///<ParStartDelay></ParStartDelay>
-            objMotor.ParStartDelay = AppGlobal.ParseFloat(TxtStartDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objMotor.ParStartDelay = AppGlobal.ParseValue<float>(TxtStartDelayTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 2.0;
             ///<ParStartingTime></ParStartingTime>
-            objMotor.ParStartingTime = AppGlobal.ParseFloat(TxtStartingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objMotor.ParStartingTime = AppGlobal.ParseValue<float>(TxtStartingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 2.0;
             ///<ParStoppingTime></ParStoppingTime>
-            objMotor.ParStoppingTime = AppGlobal.ParseFloat(TxtStoppingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objMotor.ParStoppingTime = AppGlobal.ParseValue<float>(TxtStoppingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<ParIdlingTime></ParIdlingTime>
-            objMotor.ParIdlingTime = AppGlobal.ParseFloat(TxtIdlingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objMotor.ParIdlingTime = AppGlobal.ParseValue<float>(TxtIdlingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
             ///<ParFaultDelayTime></ParFaultDelayTime>
-            objMotor.ParFaultDelayTime = AppGlobal.ParseFloat(TxtFaultDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objMotor.ParFaultDelayTime = AppGlobal.ParseValue<float>(TxtFaultDelayTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
 
             string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
@@ -1543,14 +1547,14 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objMotor.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMotor.Diagram = Motor.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM); 
             }
             ///<Unit></Unit>
             string selectedUnit;
             if (comboUnit.SelectedItem != null)
             {
                 selectedUnit = comboUnit.SelectedItem.ToString();
-                objMotor.Unit = selectedUnit.Substring(0, selectedUnit.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMotor.Unit = Motor.ParseInfoValue(selectedUnit, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NONE_UNIT);
             }
             ///<Page></Page>
             objMotor.Page = txtPage.Text;
@@ -1599,7 +1603,7 @@ namespace GcproExtensionApp
         /// <param name="parValue9">parameter Value9</param> 
         /// <param name="addtionToDesc"></param>
         /// <param name="processValue"></param>
-        public void CreateObjectBML(DataGridView dataFromBML, Motor objMotor, string parValue9,
+        public void CreateObjectBML(DataGridView dataFromBML, Motor objMotor, long parValue9,
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
             out (int Value, int Max) processValue)
         {
@@ -1613,11 +1617,10 @@ namespace GcproExtensionApp
             bool planSifter, purifier, laab, hm;
             float power;
             int tmpInt;
-            int parValue10 = 130;
+            long parValue10 = 130;
             string _nameNumberString;
             string desc;
-            string columnPower;
-            string strParValue10 = parValue10.ToString();
+            string columnPower;;
             DataGridViewCell cell;
             objDefaultInfo = Motor.Rule.Common;
             MachineType machines = new MachineType();
@@ -1640,21 +1643,21 @@ namespace GcproExtensionApp
                 objMotor.Name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
               
                 objMotor.SubType = motorWithVFC ? Motor.M1VFC : Motor.M11;
-                objMotor.PType = motorWithVFC ? Motor.P7042.ToString() : Motor.P7053.ToString();
+                objMotor.PType = motorWithVFC ? Motor.P7042: Motor.P7053;
                 columnPower = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnPower)].Value);
                 if (!String.IsNullOrEmpty(columnPower))
                 {
-                    numeric = AppGlobal.ParseFloat(Convert.ToString(columnPower), out power);
-                    tmpInt = Motor.GetStartingTime(power);
-                    objMotor.ParMonTime = numeric ? (tmpInt * 10.0).ToString("F1") : "100.0";
-                    objMotor.ParStartingTime = numeric ? (tmpInt * 10.0 - 10.0).ToString("F1") : "30.0";
-                    objMotor.ParPowerNominal = power.ToString();
+                    numeric = AppGlobal.ParseValue<float>(Convert.ToString(columnPower), out power);
+                    //tmpInt = Motor.GetStartingTime(power);
+                    //objMotor.ParMonTime = numeric ? tmpInt : 10.0;
+                    //objMotor.ParStartingTime = numeric ? (tmpInt - 1.0) : 3.0;
+                    objMotor.ParPowerNominal = numeric? power : 0;
                 }
                 else
                 {
-                    objMotor.ParMonTime = "50.0";
-                    objMotor.ParStartingTime = "20.0";
-                    objMotor.ParPowerNominal = string.Empty;
+                    objMotor.ParMonTime = 5.0;
+                    objMotor.ParStartingTime = 2.0;
+                    objMotor.ParPowerNominal = 0;
                 }
                 //List need stopping time machines
                 planSifter = desc.Contains(BML.MachineType.PlanSifter);
@@ -1666,31 +1669,31 @@ namespace GcproExtensionApp
                     AppGlobal.SetBit(ref parValue10, (byte)2);
                     if (planSifter)
                     {
-                        numeric = AppGlobal.ParseInt(machines.StoppingTime.PlanSifter, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? (tmpInt * 10.0).ToString("F1") : "1500.0";
+                        numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.PlanSifter, out tmpInt);
+                        objMotor.ParStoppingTime = numeric ? tmpInt  : 150.0;
                     }
                     else if (purifier)
                     {
-                        numeric = AppGlobal.ParseInt(machines.StoppingTime.Purifier, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? (tmpInt * 10.0).ToString("F1") : "1200.0";
+                        numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.Purifier, out tmpInt);
+                        objMotor.ParStoppingTime = numeric ? tmpInt : 120.0;
                     }
                     else if (laab)
                     {
-                        numeric = AppGlobal.ParseInt(machines.StoppingTime.LAAB, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? (tmpInt * 10.0).ToString("F1") : "1800.0";
+                        numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.LAAB, out tmpInt);
+                        objMotor.ParStoppingTime = numeric ? tmpInt : 180.0;
                     }
                     else if (hm)
                     {
-                        numeric = AppGlobal.ParseInt(machines.StoppingTime.Hammermill, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? (tmpInt * 10.0).ToString("F1") : "3000.0";
+                        numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.Hammermill, out tmpInt);
+                        objMotor.ParStoppingTime = numeric ? tmpInt : 300.0;
                     }
                 }
                 else
                 {
-                    objMotor.ParStoppingTime = "10.0";
+                    objMotor.ParStoppingTime = 1.0;
                 }
                 objMotor.Value9 = parValue9;
-                objMotor.Value10 = parValue10.ToString();
+                objMotor.Value10 = parValue10;
                 objMotor.Adapter = motorWithVFC ? $"{objMotor.Name}{txtVFCSuffix.Text}" : LibGlobalSource.NOCHILD;
                 isMDDxFeeder = (((objMotor.Name.Contains(GcObjectInfo.MA_Roll8Stand.SiffixSide1.FeedRoll) || objMotor.Name.Contains(GcObjectInfo.MA_Roll8Stand.SiffixSide2.FeedRoll)) && motorWithVFC) &&
                      desc.Contains(BML.MachineType.RollerMiller)) || desc.Contains(BML.MachineType.FeederRollerMiller);
@@ -1718,7 +1721,7 @@ namespace GcproExtensionApp
                     _nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objMotor.Name);
                     if (!string.IsNullOrEmpty(_nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(_nameNumberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(_nameNumberString.Substring(0, 4), out tempInt))
                         {
                             Motor.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1828,14 +1831,16 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myMotor.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+
+               AppGlobal.ParseValue<float>( selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)),out tempFloat);
+                myMotor.PType = tempFloat;
             }
             else
             {
-                myMotor.PType = Motor.P7053.ToString();
+                myMotor.PType = Motor.P7053;
             }
             ///<ParPowerNominal></ParPowerNominal>
-            myMotor.ParPowerNominal = AppGlobal.ParseFloat(TxtKW.Text, out tempFloat) ? tempFloat.ToString("F2") : string.Empty;
+            myMotor.ParPowerNominal = AppGlobal.ParseValue<float>(TxtKW.Text, out tempFloat) ? Math.Round(tempFloat,2) : 0.0;
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
@@ -1844,26 +1849,12 @@ namespace GcproExtensionApp
             ///<ProcessFct></ProcessFct>       
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myMotor.FieldBusNode = LibGlobalSource.NOCHILD; ;
             ///<DPNode1></DPNode1>
             string selectDPNode1 = String.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
-                objMotor.DPNode1 = Motor.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
-                {
-                    return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                }, selectDPNode1);
-
-                if (String.IsNullOrEmpty(objMotor.DPNode1))
-                { objMotor.FieldBusNode = string.Empty; }
-                else
-                {
-                    objMotor.FieldBusNode = MDDYZ.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objMotor.DPNode1));
-                }
+              
             }
             ///<DPNode2></DPNode2>
             string selectDPNode2 = String.Empty;
@@ -1878,14 +1869,14 @@ namespace GcproExtensionApp
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                myMotor.HornCode = hornCode.Substring(0, 2);
+                myMotor.HornCode = Motor.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
 
             #endregion
 
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1962,9 +1953,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
 
@@ -1997,20 +1988,13 @@ namespace GcproExtensionApp
                 {
                     dpNode1.Inc = i * symbolInc;
                     dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    objMotor.DPNode1 = Motor.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                     {
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, dpNode1.Name);
 
-                    if (String.IsNullOrEmpty(objMotor.DPNode1))
-                    { objMotor.FieldBusNode = string.Empty; }
-                    else
-                    {
-                        objMotor.FieldBusNode = MDDYZ.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                        {
-                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objMotor.DPNode1));
-                    }
+                    objMotor.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                    objMotor.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
                 if (!String.IsNullOrEmpty(desc))
@@ -2126,13 +2110,13 @@ namespace GcproExtensionApp
                 if (obj[i].IsVFC)
                 {
                     objMotor.SubType = Motor.M1VFC;
-                    objMotor.PType = Motor.P7042.ToString();
+                    objMotor.PType = Motor.P7042;
                     objMotor.Adapter = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixVFC}";
                 }
                 else if (obj[i].Count == 2)
                 {
                     objMotor.SubType = Motor.M12;
-                    objMotor.PType = Motor.P7056.ToString();
+                    objMotor.PType = Motor.P7056;
                     objMotor.OutpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunFwd}1";
                     objMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}1";
                     objMotor.OutpRev = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunRev}";
@@ -2141,7 +2125,7 @@ namespace GcproExtensionApp
                 else
                 {
                     objMotor.SubType = Motor.M11;
-                    objMotor.PType = Motor.P7053.ToString();
+                    objMotor.PType = Motor.P7053;
                     objMotor.OutpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixOutpRunFwd}";
                     objMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}";
                 }
@@ -2168,10 +2152,11 @@ namespace GcproExtensionApp
                 CreateObjectCommon(myMotor);
                 if (createMode.BML)
                 {
+                    AppGlobal.ParseValue<long>(TxtValue9.Text, out tempLong);
                     CreateObjectBML(
                         dataFromBML: dataGridBML,
                         objMotor: myMotor,
-                        parValue9: TxtValue9.Text,
+                        parValue9: tempLong,
                         addtionToDesc: AppGlobal.AdditionDesc,
                         processValue: out AppGlobal.ProcessValue
                         );
@@ -2185,7 +2170,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                         objMotor: myMotor,
                         addtionToDesc: AppGlobal.AdditionDesc,

@@ -9,8 +9,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public struct VFCAdapterRule
         {
             public GcBaseRule Common;
-            public string ioByteInc;
-            public string slaveIndexInc;
+            public int ioByteInc;
+            public int slaveIndexInc;
         }
         public static VFCAdapterRule Rule;
         private string filePath;
@@ -21,37 +21,59 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
         private string isNew;
-        private string hornCode;
-        private string pType;
-        private string value10;
-        private string dpNode1;
+        private double hornCode;
+        private double pType;
+        private double value10;
+        private double dpNode1;
         private string meagGateway;
-        private string slaveIndex;
+        private double slaveIndex;
         private string outpHardwareStop;
-        private string speedMaxDigits;
-        private string speedUnitsByZeroDigits;
-        private string speedUnitsByMaxDigits;
-        private string unitsPerDigits;
-        private string speedLimitMin;
-        private string speedLimitMax;
-        private string ioByteNo;
-        private string lenPKW;
-        private string lenPZD;
-        private string lenPZDInp;
-        private string refCurrent;
-        private string refTorque;
-        private string refPower;
+        private double speedMaxDigits;
+        private double speedUnitsByZeroDigits;
+        private double speedUnitsByMaxDigits;
+        private double unitsPerDigits;
+        private double speedLimitMin;
+        private double speedLimitMax;
+        private double ioByteNo;
+        private double lenPKW;
+        private double lenPZD;
+        private double lenPZDInp;
+        private double refCurrent;
+        private double refTorque;
+        private double refPower;
         private VFCTelegram telegram1;
         private VFCTelegram telegram2;
         private VFCTelegram telegram3;
         private VFCTelegram telegram4;
         private VFCTelegram telegram5;
-
+        #region cosnt
+        private const string _ATVASYNCDP = "ATVASYNCDP";
+        private const string _ATVDP = "ATVDP";
+        private const string _ATVM = "ATVM";
+        private const string _SST01DP = "SST01DP";
+        private const string _SST02DP = "SST02DP";
+        private const string _VFCA0 = "VFCA0";
+        private const string _VFCA1 = "VFCA1";
+        private const string _VFCA10 = "VFCA10";
+        private const string _VFCA11 = "VFCA11";
+        private const string _VFCA12 = "VFCA12";
+        private const string _VFCA13 = "VFCA13";
+        private const string _VFCA2 = "VFCA2";
+        private const string _VFCA3 = "VFCA3";
+        private const string _VFCA4 = "VFCA4";
+        private const string _VFCA5 = "VFCA5";
+        private const string _VFCA6 = "VFCA6";
+        private const string _VFCA7 = "VFCA7";
+        private const string _VFCANALOG = "VFCANALOG";
+        private const string _VFCLS = "VFCLS";
+        private const string _VFCMS3RK = "VFCMS3RK";
+        private const string _VFCPNG = "VFCPNG";
+        #endregion
         public override string FilePath
         {
             get { return filePath; }
@@ -79,7 +101,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public override string SubType
         {
             get { return subType; }
-            set { subType = value; }
+            set 
+            {
+                if (name != value)
+                {
+                    subType = value;
+                    OnSubTypeChange(EventArgs.Empty);
+                }
+            }
         }
 
         public override string ProcessFct
@@ -97,7 +126,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -107,7 +136,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -117,7 +146,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -127,18 +156,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return isNew; }
             set { isNew = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
@@ -150,7 +179,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return meagGateway; }
             set { meagGateway = value; }
         }
-        public string SlaveIndex
+        public double SlaveIndex
         {
             get { return slaveIndex; }
             set { slaveIndex = value; }
@@ -160,67 +189,67 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return outpHardwareStop; }
             set { outpHardwareStop = value; }
         }
-        public string SpeedMaxDigits
+        public double SpeedMaxDigits
         {
             get { return speedMaxDigits; }
             set { speedMaxDigits = value; }
         }
-        public string SpeedUnitsByZeroDigits
+        public double SpeedUnitsByZeroDigits
         {
             get { return speedUnitsByZeroDigits; }
             set { speedUnitsByZeroDigits = value; }
         }
-        public string SpeedUnitsByMaxDigits
+        public double SpeedUnitsByMaxDigits
         {
             get { return speedUnitsByMaxDigits; }
             set { speedUnitsByMaxDigits = value; }
         }
-        public string UnitsPerDigits
+        public double UnitsPerDigits
         {
             get { return unitsPerDigits; }
             set { unitsPerDigits = value; }
         }
-        public string SpeedLimitMin
+        public double SpeedLimitMin
         {
             get { return speedLimitMin; }
             set { speedLimitMin = value; }
         }
-        public string SpeedLimitMax
+        public double SpeedLimitMax
         {
             get { return speedLimitMax; }
             set { speedLimitMax = value; }
         }
-        public string IoByteNo
+        public double IoByteNo
         {
             get { return ioByteNo; }
             set { ioByteNo = value; }
         }
-        public string LenPKW
+        public double LenPKW
         {
             get { return lenPKW; }
             set { lenPKW = value; }
         }
-        public string LenPZD
+        public double LenPZD
         {
             get { return lenPZD; }
             set { lenPZD = value; }
         }
-        public string LenPZDInp
+        public double LenPZDInp
         {
             get { return lenPZDInp; }
             set { lenPZDInp = value; }
         }
-        public string RefCurrent
+        public double RefCurrent
         {
             get { return refCurrent; }
             set { refCurrent = value; }
         }
-        public string RefTorque
+        public double RefTorque
         {
             get { return refTorque; }
             set { refTorque = value; }
         }
-        public string RefPower
+        public double RefPower
         {
             get { return refPower; }
             set { refPower = value; }
@@ -252,42 +281,53 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         #endregion
         #region Readonly  property
-        public static string ATVASYNCDP { get; } = "ATVASYNCDP";
-        public static string ATVDP { get; } = "ATVDP";
-        public static string ATVM { get; } = "ATVM";
-        public static string SST01DP { get; } = "SST01DP";
-        public static string SST02DP { get; } = "SST02DP";
-        public static string VFCA0 { get; } = "VFCA0";
-        public static string VFCA1 { get; } = "VFCA1";
-        public static string VFCA10 { get; } = "VFCA10";
-        public static string VFCA11 { get; } = "VFCA11";
-        public static string VFCA12 { get; } = "VFCA12";
-        public static string VFCA13 { get; } = "VFCA13";
-        public static string VFCA2 { get; } = "VFCA2";
-        public static string VFCA3 { get; } = "VFCA3";
-        public static string VFCA4 { get; } = "VFCA4";
-        public static string VFCA5 { get; } = "VFCA5";
-        public static string VFCA6 { get; } = "VFCA6";
-        public static string VFCA7 { get; } = "VFCA7";
-        public static string VFCANALOG { get; } = "VFCANALOG";
-        public static string VFCLS { get; } = "VFCLS";
-        public static string VFCMS3RK { get; } = "VFCMS3RK";
-        public static string VFCPNG { get; } = "VFCPNG";
+        public static string ATVASYNCDP { get; } = _ATVASYNCDP;
+        public static string ATVDP { get; } = _ATVDP;
+        public static string ATVM { get; } = _ATVM;
+        public static string SST01DP { get; } = _SST01DP;
+        public static string SST02DP { get; } = _SST02DP;
+        public static string VFCA0 { get; } = _VFCA0;
+        public static string VFCA1 { get; } = _VFCA1;
+        public static string VFCA10 { get; } = _VFCA10;
+        public static string VFCA11 { get; } = _VFCA11;
+        public static string VFCA12 { get; } = _VFCA12;
+        public static string VFCA13 { get; } = _VFCA13;
+        public static string VFCA2 { get; } = _VFCA2;
+        public static string VFCA3 { get; } = _VFCA3;
+        public static string VFCA4 { get; } = _VFCA4;
+        public static string VFCA5 { get; } = _VFCA5;
+        public static string VFCA6 { get; } = _VFCA6;
+        public static string VFCA7 { get; } = _VFCA7;
+        public static string VFCANALOG { get; } = _VFCANALOG;
+        public static string VFCLS { get; } = _VFCLS;
+        public static string VFCMS3RK { get; } = _VFCMS3RK;
+        public static string VFCPNG { get; } = _VFCPNG;
         public static string ImpExpRuleName { get; } = "IE_VFCAdapter";
         public static int OTypeValue { get; } = (int)OTypeCollection.EL_VFCAdapter;
         #endregion
         public VFCAdapter()
         {
-            telegram1 = new VFCTelegram { ParPNO = LibGlobalSource.NOCHILD, ParUnitsPerDigit = LibGlobalSource.NOCHILD };
-            telegram2 = new VFCTelegram { ParPNO = LibGlobalSource.NOCHILD, ParUnitsPerDigit = LibGlobalSource.NOCHILD };
-            telegram3 = new VFCTelegram { ParPNO = LibGlobalSource.NOCHILD, ParUnitsPerDigit = LibGlobalSource.NOCHILD };
-            telegram4 = new VFCTelegram { ParPNO = LibGlobalSource.NOCHILD, ParUnitsPerDigit = LibGlobalSource.NOCHILD };
-            telegram5 = new VFCTelegram { ParPNO = LibGlobalSource.NOCHILD, ParUnitsPerDigit = LibGlobalSource.NOCHILD };
-            pType = LibGlobalSource.NOCHILD;
-            hornCode = LibGlobalSource.NOCHILD;
+            telegram1 = new VFCTelegram { ParPNO = 0, ParUnitsPerDigit = 0 };
+            telegram2 = new VFCTelegram { ParPNO = 0, ParUnitsPerDigit = 0 };
+            telegram3 = new VFCTelegram { ParPNO = 0, ParUnitsPerDigit = 0 };
+            telegram4 = new VFCTelegram { ParPNO = 0, ParUnitsPerDigit = 0 };
+            telegram5 = new VFCTelegram { ParPNO = 0, ParUnitsPerDigit = 0 };
+            pType = 0;
+            hornCode = 0;
+            ///Default parameters
+            subType = _ATVDP;
+            slaveIndex = 0;
+            speedLimitMin = 0;
+            speedLimitMax = 100;
+            speedMaxDigits = 500;
+            speedUnitsByZeroDigits = 0;
+            speedUnitsByMaxDigits = 100;
+            unitsPerDigits = 0.1;
+            lenPZDInp = 0;
+            ///Default parameters 
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-            Rule.slaveIndexInc = "1";
-            Rule.ioByteInc = "12";
+            Rule.slaveIndexInc = 1;
+            Rule.ioByteInc = 12;
             SetOTypeProperty(OTypeCollection.EL_VFCAdapter);
             this.filePath =$"{ LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH }{ vfcFileName }.Txt";
         }
@@ -306,11 +346,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             StringBuilder objFields = new StringBuilder();
 
             ///<summary>
-            ///生产Standard字符串部分
+            ///生产Standard 字符串部分
             ///</summary> 
             objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
               .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
-
             ///<summary>
             ///生成Application 字符串部分
             ///</summary>   
@@ -553,12 +592,210 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             impExpList.Clear();
             return result;
         }
+
+        #region SubType change event
+        /// <summary>
+        /// 使用委托声明事件
+        /// </summary>
+        public event GcObjectEventHandler SubTypeChange;
+        /// <summary>
+        /// 触发事件的方法
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnSubTypeChange(EventArgs e)
+        {
+            SubTypeChange?.Invoke(this, e);
+            SubTypeChangeAfterEvent();
+        }
+        /// <summary>
+        /// 供外部触发事件方法
+        /// </summary>
+        public void TriggerSubTypeChange()
+        {
+            OnSubTypeChange(EventArgs.Empty);
+        }
+        private void SetSpeedParameters(int min, int max, int maxDigits, int unitsZeroDigits, int unitsMaxUnits, float speedUnitsPerDigits)
+        {
+            speedLimitMin = min;
+            speedLimitMax = max;
+            speedMaxDigits = maxDigits;
+            speedUnitsByZeroDigits = unitsZeroDigits;
+            speedUnitsByMaxDigits = unitsMaxUnits;
+            unitsPerDigits = speedUnitsPerDigits;
+        }
+        private void ATVCommonParameters()
+        {
+            slaveIndex = 0;
+            SetSpeedParameters(0,100,500,0,100,0.1f);
+            lenPZDInp = 0;
+        }
+  
+        private void SubTypeChangeAfterEvent()
+        {
+            if (!string.IsNullOrEmpty(subType))
+            {
+                switch (subType) 
+                {           
+                    case _ATVDP://ATV Fieldbus (only synch)
+                        {
+                            ATVCommonParameters(); 
+                            telegram1.ParPNO = 0;
+                            telegram1.ParUnitsPerDigit = 0;
+                            telegram2.ParPNO = 0;
+                            telegram2.ParUnitsPerDigit = 0;
+                            telegram3.ParPNO = 0;
+                            telegram3.ParUnitsPerDigit = 0;
+                            telegram4.ParPNO = 0;
+                            telegram4.ParUnitsPerDigit = 0;
+                            telegram5.ParPNO = 0;
+                            telegram5.ParUnitsPerDigit = 0;
+                            break;
+                        }
+                    case _ATVASYNCDP://ATV Fieldbus with Async
+                        {
+                            ATVCommonParameters();                                   
+                            break;
+                        }                       
+                    case _VFCA0://MOVIDRIVE Speed
+                    case _VFCA10://MOVIDRIVE IPos
+                    case _VFCA6://MOVITRAC
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(-100, 100, 16384, 0, 100, 0f);               
+                            lenPZDInp = 0;
+                            lenPKW = 0;
+                            lenPZD = 6;
+                            break;
+                        }
+                    case _VFCA1://MicroMaster
+                    case _VFCA2://Sinamics
+                    case _VFCA3://NORD
+                    case _VFCA4://Danfoss FC
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(-100, 100, 16384, 0, 100, 0f);                      
+                            lenPKW = 0;
+                            lenPZD = 12;
+                            break;
+                        }            
+                    case _VFCA5://Danfoss Profidrive
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(-100, 100, 16384, 0, 100, 0f);                       
+                            lenPKW = 8;
+                            lenPZD = 20;
+                            telegram1.ParPNO = 414;
+                            telegram1.ParUnitsPerDigit = 0.1;
+                            telegram2.ParPNO = 120;
+                            telegram2.ParUnitsPerDigit = 0.01;
+                            break;
+                        }
+                    case _VFCA7://ABB
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(-100, 100, 20000, 0, 100, 0f);                        
+                            lenPZDInp = 0;
+                            break;
+                        }
+                      
+                     case _SST01DP://Softstart Sirius 3RW44
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(0, 0, 0, 0, 0, 0f);                   
+                            lenPZDInp = 0;
+                            lenPKW = 0;
+                            lenPZD = 2;
+                            break;
+                        }
+                    case _SST02DP://Softstart Sirius 3RW5x
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(0, 0, 0, 0, 0, 0f);                       
+                            lenPZDInp = 16;
+                            lenPKW = 0;
+                            lenPZD = 4;
+                            break;
+                        }
+                    case _VFCA11://Lenze
+                    case _VFCA12://Lenze Pos
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(0, 0, 0, 0, 0, 0f);                      
+                            lenPZDInp = 16;
+                            lenPKW = 0;
+                            lenPZD = 4;
+                            break;
+                        }
+                    case _VFCA13://MOVIKIT
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(0, 0, 0, 0, 0, 0f);                  
+                            lenPZDInp = 16;
+                            lenPKW = 0;
+                            lenPZD = 4;
+                            telegram1.ParPNO = 8326;
+                            telegram1.ParUnitsPerDigit = 0.001;
+                            telegram2.ParPNO = 8323;
+                            telegram2.ParUnitsPerDigit = 0.001;
+                            break;
+                        }
+                    case _VFCLS://Leroy-Somer
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(0, 100, 1000, 0, 100, 0f);                     
+                            lenPZDInp = 0;
+                            lenPKW = 0;
+                            lenPZD = 12;
+                            break;
+                        }
+                    case _VFCMS3RK://ET200SP Motor Starter
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(0, 100, 27648, 0, 100, 0f);                      
+                            unitsPerDigits = 0;
+                            lenPZDInp = 0;
+                            lenPKW = 0;
+                            lenPZD = 4;
+                            break;
+                        }
+                    case _ATVM://ATV MEAG
+                        {
+                            SetSpeedParameters(0, 100, 1000, 0, 100, 0.1f);                     
+                            lenPZDInp = 0;
+                            lenPKW = 0;
+                            lenPZD = 16;
+                            ioByteNo = 0;
+                            break;
+                        }
+                    case _VFCPNG://ATV Profinte gateway
+                        {
+                            ATVCommonParameters();
+                            speedMaxDigits = 1000;                    
+                            lenPKW = 0;
+                            lenPZD = 16;
+                            ioByteNo = 0;
+                            break;
+                        }
+                    default:
+                        {
+                            slaveIndex = 0;
+                            SetSpeedParameters(0, 100, 500, 0, 100, 0.1f);               
+                            lenPZDInp = 0;
+                            lenPKW = 8;
+                            lenPZD = 12;
+                            break;
+                        }                       
+                }
+                       
+            }
+        }
+        #endregion
     }
 
     public class VFCTelegram
     {
-        public string ParPNO { get; set; }
-        public string ParUnitsPerDigit { get; set; }
+        public double ParPNO { get; set; }
+        public double ParUnitsPerDigit { get; set; }
         public VFCTelegram()
         {
         }

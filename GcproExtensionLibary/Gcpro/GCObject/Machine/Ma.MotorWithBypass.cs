@@ -12,13 +12,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public struct MotorWithBypassRule
         {
             public GcBaseRule Common;
-            public string Mon1, Mon1Rule, Mon1RuleInc;
-            public string Mon2, Mon2Rule, Mon2RuleInc;
-            public string VLS1, VLS1Rule, VLS1RuleInc;
-            public string VLS2, VLS2Rule, VLS2RuleInc;
-            public string Seal, SealRule, SealRuleInc;
-            public string AI, AIRule, AIRuleInc;
-            public string Pressure, PressureRule, PressureRuleInc;
+            public string Mon1, Mon1Rule;
+            public string Mon2, Mon2Rule;
+            public string VLS1, VLS1Rule;
+            public string VLS2, VLS2Rule;
+            public string Seal, SealRule;
+            public string AI, AIRule;
+            public string Pressure, PressureRule;
+            public int Mon1RuleInc, Mon2RuleInc, VLS1RuleInc, VLS2RuleInc, SealRuleInc, AIRuleInc, PressureRuleInc;
         }
         private string filePath;
         private readonly string fileRelationPath;
@@ -31,14 +32,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string pType;
-        private string value10;
-        private string value9;
-        private string parCleaningTime;
+        private double pType;
+        private double value10;
+        private double value9;
+        private double parCleaningTime;
         private string mon1;
         private string motor;
         private string vls1;
@@ -79,7 +80,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -89,7 +90,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -99,7 +100,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
@@ -113,17 +114,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         #endregion
         #region Application properties 
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
         }
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public string ParCleaningTime
+        public double ParCleaningTime
         {
             get { return parCleaningTime; }
             set { parCleaningTime = value; }
@@ -193,17 +194,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public MotorWithBypass()
         {
             string commonDefaultFilePath;
-            pType = P2052.ToString();
-            value10 = "40";
-            value9 = "0";
-            parCleaningTime = "600.0";
+            pType = P2052;
+            value10 = 40;
+            value9 = 0;
+            parCleaningTime = 60.0;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-            Rule.Mon1RuleInc =  "1";
-            Rule.Mon2RuleInc =  "1";
-            Rule.VLS1RuleInc = Rule.VLS2RuleInc = "1";
-            Rule.AIRuleInc = "1";
-            Rule.SealRuleInc = "1";
-            Rule.PressureRuleInc = "1";
+            Rule.Mon1RuleInc = Rule.Mon2RuleInc = 1;
+            Rule.VLS1RuleInc = Rule.VLS2RuleInc = 1;
+            Rule.AIRuleInc = 1;
+            Rule.SealRuleInc = 1;
+            Rule.PressureRuleInc = 1;
             SetOTypeProperty(OTypeCollection.MA_MotorWithBypass);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{motorWithBypassFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
@@ -247,7 +247,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 ///生成Application 字符串部分
                 ///</summary>         
                 objFields.Append(Value9).Append(LibGlobalSource.TAB)
-                    .Append(parCleaningTime).Append(LibGlobalSource.TAB)
+                    .Append(parCleaningTime * 10).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)

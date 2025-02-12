@@ -580,8 +580,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myVLS.Value10 = value10.ToString();
-            txtValue10.Text = myVLS.Value10;
+            myVLS.Value10 = value10;
+            txtValue10.Text = myVLS.Value10.ToString();
         }
         private void chkParManual_CheckedChanged(object sender, EventArgs e)
         {
@@ -591,8 +591,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myVLS.Value10 = value10.ToString();
-            txtValue10.Text = myVLS.Value10;
+            myVLS.Value10 = value10;
+            txtValue10.Text = myVLS.Value10.ToString();
         }
         private void chkPulseValve_CheckedChanged(object sender, EventArgs e)
         {
@@ -602,8 +602,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myVLS.Value10 = value10.ToString();
-            txtValue10.Text = myVLS.Value10;
+            myVLS.Value10 = value10;
+            txtValue10.Text = myVLS.Value10.ToString();
         }
         private void chkContValve_CheckedChanged(object sender, EventArgs e)
         {
@@ -613,8 +613,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myVLS.Value10 = value10.ToString();
-            txtValue10.Text = myVLS.Value10;
+            myVLS.Value10 = value10;
+            txtValue10.Text = myVLS.Value10.ToString();
         }
 
         private void chkManualFlap_CheckedChanged(object sender, EventArgs e)
@@ -625,8 +625,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
 
-            myVLS.Value10 = value10.ToString();
-            txtValue10.Text = myVLS.Value10;
+            myVLS.Value10 = value10;
+            txtValue10.Text = myVLS.Value10.ToString();
         }
 
         private void chkStartwarningLN_CheckedChanged(object sender, EventArgs e)
@@ -637,8 +637,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
 
-            myVLS.Value10 = value10.ToString();
-            txtValue10.Text = myVLS.Value10;
+            myVLS.Value10 = value10;
+            txtValue10.Text = myVLS.Value10.ToString();
         }
 
         private void chkStartwarningHN_CheckedChanged(object sender, EventArgs e)
@@ -649,8 +649,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myVLS.Value10 = value10.ToString();
-            txtValue10.Text = myVLS.Value10;
+            myVLS.Value10 = value10;
+            txtValue10.Text = myVLS.Value10.ToString();
         }
         #endregion <------Check and unchek "Value9" and "Value10------>   
 
@@ -919,7 +919,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -1007,6 +1008,7 @@ namespace GcproExtensionApp
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
             TxtExcelPath.Text = BML.VLS.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -1497,24 +1499,24 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objVLS.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objVLS.Diagram = VLS.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             objVLS.Page = txtPage.Text;
             ///<HornCode></HornCode>
-            objVLS.HornCode = "00";
+            objVLS.HornCode = AppGlobal.GROUP_HORNCODE;
             ///<ParMonTime></ParMonTime>
-            objVLS.MonTime = AppGlobal.ParseFloat(txtMonTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "200.0";
+            objVLS.MonTime = AppGlobal.ParseValue<float>(txtMonTime.Text, out tempFloat) ? Math.Round(tempFloat ,1) : 20.0;
             ///<ParpulseTimeLN></ParpulseTimeLN>
-            objVLS.PulseTimeLN = AppGlobal.ParseFloat(txtPulseTimeLN.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "5.0";
+            objVLS.PulseTimeLN = AppGlobal.ParseValue<float>(txtPulseTimeLN.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.5;
             ///<ParpulseTimeHN></ParpulseTimeHN>
-            objVLS.PulseTimeHN = AppGlobal.ParseFloat(txtPulseTimeHN.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "5.0";
+            objVLS.PulseTimeHN = AppGlobal.ParseValue<float>(txtPulseTimeHN.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.5;
             ///<ParIdlingTime></ParIdlingTime>
-            objVLS.IdlingTime = AppGlobal.ParseFloat(txtIdlingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "10.0";
+            objVLS.IdlingTime = AppGlobal.ParseValue<float>(txtIdlingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1;
             ///<ParFaultDelayTime></ParFaultDelayTime>
-            objVLS.FaultDelay = AppGlobal.ParseFloat(txtFaultDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "30.0";
+            objVLS.FaultDelay = AppGlobal.ParseValue<float>(txtFaultDelayTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 3.0;
             ///<ParStartDelay></ParStartDelay>
-            objVLS.StartDelay = AppGlobal.ParseFloat(txtStartDelayTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objVLS.StartDelay = AppGlobal.ParseValue<float>(txtStartDelayTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///                       
             ///<InpLN></InpLN>
@@ -1606,7 +1608,7 @@ namespace GcproExtensionApp
                         if (vlsType.Contains(BML.VLS.ManualFlap))
                         {
                             objVLS.SubType = VLS.VMF;
-                            objVLS.PType = VLS.P7082.ToString();
+                            objVLS.PType = VLS.P7082;
                         }
                         else if (vlsType.Contains(BML.VLS.PneFlap))
                         {
@@ -1622,12 +1624,12 @@ namespace GcproExtensionApp
                                     objVLS.SubType = VLS.VPO;
                                     break;
                             }
-                            objVLS.PType = VLS.P7082.ToString();
+                            objVLS.PType = VLS.P7082;
                         }
                         else if (vlsType.Contains(BML.VLS.ManualSlideGate))
                         {
                             objVLS.SubType = VLS.VMF;
-                            objVLS.PType = VLS.P7081.ToString();
+                            objVLS.PType = VLS.P7081;
                         }
                         else if (vlsType.Contains(BML.VLS.PneSlideGate))
                         {
@@ -1643,7 +1645,7 @@ namespace GcproExtensionApp
                                     objVLS.SubType = VLS.VPO;
                                     break;
                             }
-                            objVLS.PType = VLS.P7081.ToString();
+                            objVLS.PType = VLS.P7081;
                         }
                         else if (vlsType.Contains(BML.VLS.PneTwoWayValve))
                         {
@@ -1659,7 +1661,7 @@ namespace GcproExtensionApp
                                     objVLS.SubType = VLS.VPO;
                                     break;
                             }
-                            objVLS.PType = VLS.P7082.ToString();
+                            objVLS.PType = VLS.P7082;
                         }
                         else if (vlsType.Contains(BML.VLS.PneShutOffValve))
                         {
@@ -1675,7 +1677,7 @@ namespace GcproExtensionApp
                                     objVLS.SubType = VLS.VCO;
                                     break;
                             }
-                            objVLS.PType = VLS.P7081.ToString();
+                            objVLS.PType = VLS.P7081;
                         }
                         else if (vlsType.Contains(BML.VLS.PneAspValve))
                         {
@@ -1691,7 +1693,7 @@ namespace GcproExtensionApp
                                     objVLS.SubType = VLS.VCO;
                                     break;
                             }
-                            objVLS.PType = VLS.P7081.ToString();
+                            objVLS.PType = VLS.P7081;
                         }
                         if (noOfSubChecked == 1)
                         {
@@ -1752,7 +1754,7 @@ namespace GcproExtensionApp
                     _nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objVLS.Name);
                     if (!string.IsNullOrEmpty(_nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(_nameNumberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(_nameNumberString.Substring(0, 4), out tempInt))
                         {
                             VLS.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1799,7 +1801,7 @@ namespace GcproExtensionApp
             //    DataTable dataTable = new DataTable();
 
             #region common used variables declaration
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
             string desc = string.Empty;
@@ -1879,40 +1881,31 @@ namespace GcproExtensionApp
             {
                 string selectedPTypeItem;
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                objVLS.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                AppGlobal.ParseValue<float>(selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)),out tempFloat);
+                objVLS.PType = tempFloat;
             }
             else
             {
-                objVLS.PType = VLS.P7081.ToString();
+                objVLS.PType = VLS.P7081;
             }
             ///<FieldBusNode></FieldBusNode>
-            objVLS.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            objVLS.FieldBusNode = AppGlobal.NO_DP_NODE; ;
             ///<DPNode1></DPNode1>                 
             if (ComboDPNode1.SelectedItem != null)
             {
-                string selectDPNode1 = ComboDPNode1.SelectedItem.ToString();  
-                objVLS.DPNode1 = VLS.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                string selectDPNode1 = ComboDPNode1.SelectedItem.ToString();                            
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
-                int dpnode1 = 0;
-                if (String.IsNullOrEmpty(objVLS.DPNode1))
-                { objVLS.FieldBusNode = string.Empty; }
-                else
-                {
-                    if (AppGlobal.ParseInt(objVLS.DPNode1, out dpnode1))
 
-                    { objVLS.FieldBusNode = LibGlobalSource.NOCHILD; }
-                    objVLS.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objVLS.DPNode1));
-                }
+                objVLS.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objVLS.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
             }
 
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1957,9 +1950,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = VLS.Rule.Common;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
@@ -2026,8 +2019,8 @@ namespace GcproExtensionApp
                 if (!string.IsNullOrEmpty(txtSndBin.Text))
                 {
                     RuleSubDataSet sndBin;
-                    sndBin.Inc = AppGlobal.ParseInt(txtSndBinIncRule.Text, out int sndBinInc) ? i * sndBinInc : 0;
-                    objVLS.RefSndBin = AppGlobal.ParseInt(txtSndBinRule.Text, out int sndBinRule) ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + sndBin.Inc) : txtSndBin.Text;
+                    sndBin.Inc = AppGlobal.ParseValue<int>(txtSndBinIncRule.Text, out int sndBinInc) ? i * sndBinInc : 0;
+                    objVLS.RefSndBin = AppGlobal.ParseValue<int>(txtSndBinRule.Text, out int sndBinRule) ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + sndBin.Inc) : txtSndBin.Text;
                 }
                 ///<RefAsp></RefAsp>
                 objVLS.RefAsp = txtAsp.Text;
@@ -2042,7 +2035,7 @@ namespace GcproExtensionApp
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath,isNewOledbDriver);
             DataTable dataTable;
             #region common used variables declaration
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             StringBuilder descTotalBuilder = new StringBuilder();
@@ -2212,7 +2205,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                         objVLS: myVLS,
                         addtionToDesc: AppGlobal.AdditionDesc,

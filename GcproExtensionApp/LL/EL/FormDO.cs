@@ -256,7 +256,7 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
-            txtValue10.Text = myDO.Value10;
+            txtValue10.Text = myDO.Value10.ToString().ToString();
             ComboEquipmentSubType.SelectedIndex = 0;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
@@ -515,7 +515,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value10 = AppGlobal.ParseInt(txtValue10.Text, out tempInt) ? tempInt : value10;
+                value10 = AppGlobal.ParseValue<int>(txtValue10.Text, out tempInt) ? tempInt : value10;
                 GetValue10BitValue(value10);
             }
         }  
@@ -532,8 +532,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myDO.Value10 = value10.ToString();
-            txtValue10.Text = myDO.Value10;
+            myDO.Value10 = value10;
+            txtValue10.Text = myDO.Value10.ToString();
         }
         private void chkParManual_CheckedChanged(object sender, EventArgs e)
         {
@@ -545,8 +545,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myDO.Value10 = value10.ToString();
-            txtValue10.Text = myDO.Value10;
+            myDO.Value10 = value10;
+            txtValue10.Text = myDO.Value10.ToString();
         }
         private void chkParContinuous_CheckedChanged(object sender, EventArgs e)
         {
@@ -558,8 +558,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myDO.Value10 = value10.ToString();
-            txtValue10.Text = myDO.Value10;
+            myDO.Value10 = value10;
+            txtValue10.Text = myDO.Value10.ToString();
         }      
         private void chkParPulse_CheckedChanged(object sender, EventArgs e)
         {
@@ -571,8 +571,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myDO.Value10 = value10.ToString();
-            txtValue10.Text = myDO.Value10;
+            myDO.Value10 = value10;
+            txtValue10.Text = myDO.Value10.ToString();
         }
         private void chkParPulsing_CheckedChanged(object sender, EventArgs e)
         {
@@ -584,8 +584,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
 
-            myDO.Value10 = value10.ToString();
-            txtValue10.Text = myDO.Value10;
+            myDO.Value10 = value10;
+            txtValue10.Text = myDO.Value10.ToString();
         }
 
         private void chkParFilter_CheckedChanged(object sender, EventArgs e)
@@ -598,8 +598,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
 
-            myDO.Value10 = value10.ToString();
-            txtValue10.Text = myDO.Value10;
+            myDO.Value10 = value10;
+            txtValue10.Text = myDO.Value10.ToString();
         }
 
         private void chkParStartwarning_CheckedChanged(object sender, EventArgs e)
@@ -612,8 +612,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myDO.Value10 = value10.ToString();
-            txtValue10.Text = myDO.Value10;
+            myDO.Value10 = value10;
+            txtValue10.Text = myDO.Value10.ToString();
         }
         #endregion
         #region <------Field in database display
@@ -715,7 +715,7 @@ namespace GcproExtensionApp
         {
             if (subType == DO.DOC)
             {
-                myDO.PType = DO.P7002.ToString();
+                myDO.PType = DO.P7002;
                 txtParStartDelay.Text = "0.0";
                 txtParStartingTime.Text = "1.0";
                 txtParOnTime.Text = "0.0";
@@ -726,7 +726,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DO.DOP)
             {
-                myDO.PType = DO.P7002.ToString();
+                myDO.PType = DO.P7002;
                 txtParStartDelay.Text = "0.0";
                 txtParStartingTime.Text = "0.0";
                 txtParOnTime.Text = "10.0";
@@ -737,7 +737,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DO.DON)
             {
-                myDO.PType = DO.P7002.ToString();
+                myDO.PType = DO.P7002;
                 txtParStartDelay.Text = "0.0";
                 txtParStartingTime.Text = "0.0";
                 txtParOnTime.Text = "1.0";
@@ -748,7 +748,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DO.DOPHORN)
             {
-                myDO.PType = DO.P7002.ToString();
+                myDO.PType = DO.P7002;
                 txtParStartDelay.Text = "0.0";
                 txtParStartingTime.Text = "5.0";
                 txtParOnTime.Text = "30.0";
@@ -759,7 +759,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DO.DOCFilter)
             {
-                myDO.PType = DO.P7002.ToString();
+                myDO.PType = DO.P7002;
                 txtParStartDelay.Text = "0.0";
                 txtParStartingTime.Text = "5.0";
                 txtParOnTime.Text = "0.0";
@@ -770,7 +770,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DO.DOCADJREQ || subType == DO.DOCTARWT)
             {
-                myDO.PType = DO.P7002.ToString();
+                myDO.PType = DO.P7002;
                 txtParStartDelay.Text = "0.0";
                 txtParStartingTime.Text = "5.0";
                 txtParOnTime.Text = "0.0";
@@ -780,12 +780,12 @@ namespace GcproExtensionApp
                 value10 = 4;
             }           
                  
-            myDO.ParStartDelay = AppGlobal.ParseFloat(txtParStartDelay.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
-            myDO.ParStartingTime = AppGlobal.ParseFloat(txtParStartingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
-            myDO.ParOnTime= AppGlobal.ParseFloat(txtParOnTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
-            myDO.ParOffTime = AppGlobal.ParseFloat(txtParOffTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "5.0";
-            myDO.ParIdlingTime = AppGlobal.ParseFloat(txtParIdlingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
-            myDO.ParDelayFaultTime = AppGlobal.ParseFloat(txtParDelayFaultTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
+            myDO.ParStartDelay = AppGlobal.ParseValue<float>(txtParStartDelay.Text, out tempFloat) ? Math.Round(tempFloat ,1) : 1.0;
+            myDO.ParStartingTime = AppGlobal.ParseValue<float>(txtParStartingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
+            myDO.ParOnTime= AppGlobal.ParseValue<float>(txtParOnTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
+            myDO.ParOffTime = AppGlobal.ParseValue<float>(txtParOffTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 5.0;
+            myDO.ParIdlingTime = AppGlobal.ParseValue<float>(txtParIdlingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
+            myDO.ParDelayFaultTime = AppGlobal.ParseValue<float>(txtParDelayFaultTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
         }
         void GetValue10BitValue(int value)
         {
@@ -836,7 +836,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -922,6 +923,7 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
+            AddWorkSheets();
             TxtExcelPath.Text = BML.DO.BMLPath;
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -1270,24 +1272,25 @@ namespace GcproExtensionApp
             if (comboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = comboEquipmentInfoType.SelectedItem.ToString();
-                objDO.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                AppGlobal.ParseValue<float>(selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)), out tempFloat);
+                objDO.PType = tempFloat;
             }
             else
             {
-                objDO.PType = DO.P7002.ToString();
+                objDO.PType = DO.P7002;
             }
             ///<StartDelay</StartDelay>
-            objDO.ParStartDelay = AppGlobal.ParseFloat(txtParStartDelay.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objDO.ParStartDelay = AppGlobal.ParseValue<float>(txtParStartDelay.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 2.0;
             ///<StartingTime></StartingTime>
-            objDO.ParStartingTime= AppGlobal.ParseFloat(txtParStartingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDO.ParStartingTime= AppGlobal.ParseValue<float>(txtParStartingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<OnTime></OnTime>
-            objDO.ParOnTime = AppGlobal.ParseFloat(txtParOnTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDO.ParOnTime = AppGlobal.ParseValue<float>(txtParOnTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<OffTime></OffTime>
-            objDO.ParOffTime = AppGlobal.ParseFloat(txtParOffTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDO.ParOffTime = AppGlobal.ParseValue<float>(txtParOffTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<IdlingTime></IdlingTime>
-            objDO.ParIdlingTime = AppGlobal.ParseFloat(txtParIdlingTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDO.ParIdlingTime = AppGlobal.ParseValue<float>(txtParIdlingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<DelayFaultTime></DelayFaultTime>
-            objDO.ParDelayFaultTime = AppGlobal.ParseFloat(txtParDelayFaultTime.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F0") : "0";
+            objDO.ParDelayFaultTime = AppGlobal.ParseValue<float>(txtParDelayFaultTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0;
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
@@ -1305,7 +1308,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objDO.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objDO.Diagram = DO.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
 
             ///<Page></Page>
@@ -1333,52 +1336,36 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            objDO.FieldBusNode = LibGlobalSource.NOCHILD; ;
             ///<DPNode1></DPNode1>
             string selectDPNode1 = String.Empty;
             if (comboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = comboDPNode1.SelectedItem.ToString();
-                objDO.DPNode1 = DO.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
-
-                if (String.IsNullOrEmpty(objDO.DPNode1))
-                { objDO.FieldBusNode = string.Empty; }
-                else
-                {
-                    objDO.FieldBusNode = DO.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objDO.DPNode1));
-                }
+                objDO.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objDO.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;          
             }
             ///<DPNode2></DPNode2>
             string selectDPNode2 = String.Empty;
             if (comboDPNode2.SelectedItem != null)
             {
                 selectDPNode2 = comboDPNode1.SelectedItem.ToString();
-                objDO.DPNode2 = DO.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode2);
 
-                if (String.IsNullOrEmpty(objDO.DPNode2))
-                { objDO.FieldBusNode = string.Empty; }
-                else
-                {
-                    objDO.FieldBusNode = DO.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objDO.DPNode1));
-                }
+                objDO.DPNode2 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objDO.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
             }
             ///<HornCode></HornCode>
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                objDO.HornCode = hornCode.Substring(0, 2);
+                objDO.HornCode = DO.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             ///<InpRun></InpRun>
             objDO.InpRun = LibGlobalSource.NOCHILD;
@@ -1416,11 +1403,11 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            objDO.FieldBusNode = LibGlobalSource.NOCHILD; ;
+
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                objDO.HornCode = hornCode.Substring(0, 2);
+                objDO.HornCode = DO.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             #endregion
             processValue.Max = quantityNeedToBeCreate;
@@ -1459,7 +1446,7 @@ namespace GcproExtensionApp
                     stringNumber = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objDO.Name);
                     if (!string.IsNullOrEmpty(stringNumber))
                     {
-                        if (AppGlobal.ParseInt(stringNumber.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(stringNumber.Substring(0, 4), out tempInt))
                         {
                             DO.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1481,28 +1468,28 @@ namespace GcproExtensionApp
                 if (_subType.Contains(BML.DO.Alarmhorn))
                 {
                     objDO.SubType = DO.DOPHORN;
-                    objDO.Value10 = "10";              
+                    objDO.Value10 = 10;              
                 }
           
                 else if (_subType.Contains(BML.DO.FilterController))
                 {
                     objDO.SubType = DO.DOCFilter;
-                    objDO.Value10 = "102";
+                    objDO.Value10 = 102;
                 }
                 else if (_subType.Contains(BML.DO.Lamp))
                 {
                     objDO.SubType = DO.DOC;
-                    objDO.Value10 = "70";
+                    objDO.Value10 = 70;
                 }
                 else if (_subType.Contains(BML.DO.SolenoidValve) && desc.Contains(BML.MachineType.Hammer))
                 {
                     objDO.SubType = DO.DON;
-                    objDO.Value10 = "82";
+                    objDO.Value10 = 82;
                 }
                else
                 {
                     objDO.SubType = DO.DOC;
-                    objDO.Value10 = "70";
+                    objDO.Value10 = 70;
                 }
                 #endregion
                 SubTypeChanged(objDO.SubType);
@@ -1536,7 +1523,7 @@ namespace GcproExtensionApp
             #region common used variables declaration       
             bool needDPNodeChanged = false;
             StringBuilder descToBuilder = new StringBuilder();
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -1598,7 +1585,7 @@ namespace GcproExtensionApp
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1701,9 +1688,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            tempBool = AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            tempBool = AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            tempBool = AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            tempBool = AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            tempBool = AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            tempBool = AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1713,37 +1700,17 @@ namespace GcproExtensionApp
                 {
                     dpNode1.Inc = i * symbolInc;
                     dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    dpNode2.Inc = i * symbolInc;
-                    dpNode2.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode2.Sub, dpNode2.PosInfo, (symbolRule + dpNode2.Inc).ToString());
-                    objDO.DPNode1 = DO.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    //dpNode2.Inc = i * symbolInc;
+                    //dpNode2.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode2.Sub, dpNode2.PosInfo, (symbolRule + dpNode2.Inc).ToString());
+
+                    AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                     {
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, dpNode1.Name);
 
-                    objDO.DPNode2 = DO.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, dpNode2.Name);
-
-                    if (String.IsNullOrEmpty(objDO.DPNode1))
-                    { objDO.FieldBusNode = string.Empty; }
-                    else
-                    {
-                        objDO.FieldBusNode = DO.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                        {
-                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objDO.DPNode1));
-                    }
-
-                    if (String.IsNullOrEmpty(objDO.DPNode2))
-                    { objDO.FieldBusNode = string.Empty; }
-                    else
-                    {
-                        objDO.FieldBusNode = DO.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                        {
-                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objDO.DPNode2));
-                    }
+                    objDO.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                    objDO.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
+                 
                 }
 
                 if (!String.IsNullOrEmpty(desc))
@@ -1852,7 +1819,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                         objDO: myDO,
                         addtionToDesc: AppGlobal.AdditionDesc,

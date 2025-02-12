@@ -22,26 +22,26 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double  fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string value9;
-        private string value10;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double value9;
+        private double value10;
         private string inpTrue;
         private string inpFaultDev;
         private string inHWStop;
         private string outpFaultReset;
         private string outpPowerOff;
         private string outpLamp;
-        private string delayChange;
-        private string delayTrue;
-        private string delayFalse;
-        private string timeoutTrue;
-        private string timeoutFalse;
+        private double delayChange;
+        private double delayTrue;
+        private double delayFalse;
+        private double timeoutTrue;
+        private double timeoutFalse;
         private string refSpecial;
         private string refMRMAMixer;
         private string isNew;
@@ -77,7 +77,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -87,7 +87,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -97,30 +97,30 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
         #endregion
         #region Application properties
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -155,27 +155,27 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return outpLamp; }
             set { outpLamp = value; }
         }
-        public string DelayChange
+        public double DelayChange
         {
             get { return delayChange; }
             set { delayChange = value; }
         }
-        public string DelayTrue
+        public double DelayTrue
         {
             get { return delayTrue; }
             set { delayTrue = value; }
         }
-        public string DelayFalse
+        public double DelayFalse
         {
             get { return delayFalse; }
             set { delayFalse = value; }
         }
-        public string TimeoutTrue
+        public double TimeoutTrue
         {
             get { return timeoutTrue; }
             set { timeoutTrue = value; }
         }
-        public string TimeoutFalse
+        public double TimeoutFalse
         {
             get { return timeoutFalse; }
             set { timeoutFalse = value; }
@@ -293,26 +293,26 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             processFct = string.Empty;
             building = "--";
             elevation = "--";
-            fieldBusNode = string.Empty;
+            fieldBusNode = 0;
             panel_ID = string.Empty;
-            diagram = string.Empty;
+            diagram = 0;
             page = string.Empty;
-            pType = P7147.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
-            dpNode1 = LibGlobalSource.NOCHILD;
-            value9 = "0";
-            value10 = "10";
+            pType = P7147;
+            hornCode = 0;
+            dpNode1 = 0;
+            value9 = 0;
+            value10 = 10;
             inpTrue = LibGlobalSource.NOCHILD;
             inpFaultDev = LibGlobalSource.NOCHILD;
             inHWStop = LibGlobalSource.NOCHILD;
             outpFaultReset = LibGlobalSource.NOCHILD;
             outpPowerOff = LibGlobalSource.NOCHILD;
             outpLamp = LibGlobalSource.NOCHILD;
-            delayChange = "5";
-            delayTrue = "20";
-            delayFalse = "5";
-            timeoutTrue = "0";
-            timeoutFalse = "0";
+            delayChange = 0.5;
+            delayTrue = 1.0;
+            delayFalse = 0.5;
+            timeoutTrue = 0;
+            timeoutFalse = 0;
             refSpecial = string.Empty;
             refMRMAMixer = string.Empty;
             SetOTypeProperty(OTypeCollection.EL_DI);
@@ -364,11 +364,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(delayChange).Append(LibGlobalSource.TAB)
-                  .Append(delayTrue).Append(LibGlobalSource.TAB)
-                  .Append(delayFalse).Append(LibGlobalSource.TAB)
-                  .Append(timeoutTrue).Append(LibGlobalSource.TAB)
-                  .Append(timeoutFalse).Append(LibGlobalSource.TAB)
+                  .Append(delayChange * 10).Append(LibGlobalSource.TAB)
+                  .Append(delayTrue * 10).Append(LibGlobalSource.TAB)
+                  .Append(delayFalse * 10).Append(LibGlobalSource.TAB)
+                  .Append(timeoutTrue * 10).Append(LibGlobalSource.TAB)
+                  .Append(timeoutFalse * 10).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);

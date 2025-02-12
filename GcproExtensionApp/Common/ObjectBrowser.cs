@@ -198,7 +198,7 @@ namespace GcproExtensionApp
         private void QueryObj()
         {
             queryParameters.Clear(); 
-            if (AppGlobal.ParseInt(oType, out int _oType))
+            if (AppGlobal.ParseValue<int>(oType, out int _oType))
             {
                 OleDb oledb = new OleDb
                 {

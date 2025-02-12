@@ -215,7 +215,7 @@ namespace GcproExtensionLibrary.Gcpro
                 text3 = new DbParameter { Name = "Text3", Value = string.Empty };
                 subProject = new DbParameter { Name = "SubProject", Value = (long)0 };
                 pageName = new DbParameter { Name = "PageName", Value = string.Empty };
-                diagramNo = new DbParameter { Name = "DiagramNo", Value = (long)0 };
+                diagramNo = new DbParameter { Name = "DiagramNo", Value = (double)0 };
                 aeproNo = new DbParameter { Name = "AEPRONo", Value = (long)0 };
                 masterCopy = new DbParameter { Name = "MasterCopy", Value = (bool)false };
                 masterCopyName = new DbParameter { Name = "MasterCopyName", Value = string.Empty };
@@ -246,7 +246,7 @@ namespace GcproExtensionLibrary.Gcpro
                 isVirtual = new DbParameter { Name = "IsVirtual", Value = (bool) false};
                 communication = new DbParameter { Name = "Communication", Value = (long)0 };
                 notUsed = new DbParameter { Name = "NotUsed", Value = (bool) false };
-                fieldbusNode = new DbParameter { Name = "FieldbusNode", Value = (int)0 };
+                fieldbusNode = new DbParameter { Name = "FieldbusNode", Value = (long)0 };
             }
             #region Public  properties
             public static string TableName { get; } = "ObjData";

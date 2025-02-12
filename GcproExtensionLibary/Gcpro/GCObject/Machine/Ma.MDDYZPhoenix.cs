@@ -23,12 +23,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string pType;
-        private string value10;
+        private double pType;
+        private double value10;
         private RollermillSide side1;
         private RollermillSide side2;
         private string lc_COM;
@@ -64,7 +64,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -74,7 +74,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -84,7 +84,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
@@ -98,7 +98,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         #endregion
         #region Application properties 
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -145,8 +145,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             string commonDefaultFilePath;
             side1 = new RollermillSide();
             side2 = new RollermillSide();
-            pType = P2757.ToString();
-            value10 = "96";
+            pType = P2757;
+            value10 = 96;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.MA_Roll8Stand);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddyzPhoenix}";

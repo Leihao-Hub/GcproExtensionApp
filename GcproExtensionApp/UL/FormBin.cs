@@ -515,7 +515,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value24 = AppGlobal.ParseInt(txtValue24.Text, out tempInt) ? tempInt : value24;
+                value24 = AppGlobal.ParseValue<int>(txtValue24.Text, out tempInt) ? tempInt : value24;
                 GetValue24BitValue(value24);
             }
         }
@@ -523,7 +523,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value31 = AppGlobal.ParseInt(txtValue31.Text, out tempInt) ? tempInt : value31;
+                value31 = AppGlobal.ParseValue<int>(txtValue31.Text, out tempInt) ? tempInt : value31;
                 GetValue31BitValue(value31);
             }
         }
@@ -531,7 +531,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value30 = AppGlobal.ParseInt(txtValue30.Text, out tempInt) ? tempInt : value30;
+                value30 = AppGlobal.ParseValue<int>(txtValue30.Text, out tempInt) ? tempInt : value30;
                 GetValue30BitValue(value30);
             }
         }
@@ -547,8 +547,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value24, (byte)0); }
 
-            myBin.Value24 = value24.ToString();
-            txtValue24.Text = myBin.Value24;
+            myBin.Value24 = value24;
+            txtValue24.Text = myBin.Value24.ToString();
         }
         private void chkRestdischarge_CheckedChanged(object sender, EventArgs e)
         {
@@ -560,8 +560,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value24, (byte)1); }
 
-            myBin.Value24 = value24.ToString();
-            txtValue24.Text = myBin.Value24;
+            myBin.Value24 = value24;
+            txtValue24.Text = myBin.Value24.ToString();
         }
         private void chkWithLL_CheckedChanged(object sender, EventArgs e)
         {
@@ -573,8 +573,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value24, (byte)2); }
 
-            myBin.Value24 = value24.ToString();
-            txtValue24.Text = myBin.Value24;
+            myBin.Value24 = value24;
+            txtValue24.Text = myBin.Value24.ToString();
         }
         private void chKWithSWLL_CheckedChanged(object sender, EventArgs e)
         {
@@ -586,8 +586,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value24, (byte)4); }
 
-            myBin.Value24 = value24.ToString();
-            txtValue24.Text = myBin.Value24;
+            myBin.Value24 = value24;
+            txtValue24.Text = myBin.Value24.ToString();
         }
         private void chkNoOverrideLLIfEmpty_CheckedChanged(object sender, EventArgs e)
         {
@@ -599,8 +599,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value24, (byte)3); }
 
-            myBin.Value24 = value24.ToString();
-            txtValue24.Text = myBin.Value24;
+            myBin.Value24 = value24;
+            txtValue24.Text = myBin.Value24.ToString();
         }
         private void chkReadHighLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -612,8 +612,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)0); }
 
-            myBin.Value31 = value31.ToString();
-            txtValue31.Text = myBin.Value31;
+            myBin.Value31 = value31;
+            txtValue31.Text = myBin.Value31.ToString();
         }
         private void chkReadRefillLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -625,8 +625,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)1); }
 
-            myBin.Value31 = value31.ToString();
-            txtValue31.Text = myBin.Value31;
+            myBin.Value31 = value31;
+            txtValue31.Text = myBin.Value31.ToString();
         }
         private void chkReadLowLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -638,8 +638,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)2); }
 
-            myBin.Value31 = value31.ToString();
-            txtValue31.Text = myBin.Value31;
+            myBin.Value31 = value31;
+            txtValue31.Text = myBin.Value31.ToString();
         }
         private void chkReadInFillLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -651,8 +651,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)3); }
 
-            myBin.Value31 = value31.ToString();
-            txtValue31.Text = myBin.Value31;
+            myBin.Value31 = value31;
+            txtValue31.Text = myBin.Value31.ToString();
         }
         private void chkReadInOutEmpty_CheckedChanged(object sender, EventArgs e)
         {
@@ -664,8 +664,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value31, (byte)4); }
 
-            myBin.Value31 = value31.ToString();
-            txtValue31.Text = myBin.Value31;
+            myBin.Value31 = value31;
+            txtValue31.Text = myBin.Value31.ToString();
         }
         private void chkTestRefillLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -677,8 +677,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)0); }
 
-            myBin.Value30 = value30.ToString();
-            txtValue30.Text = myBin.Value30;
+            myBin.Value30 = value30;
+            txtValue30.Text = myBin.Value30.ToString();
         }
         private void chkEmptyLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -690,8 +690,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value30, (byte)1); }
 
-            myBin.Value30 = value30.ToString();
-            txtValue30.Text = myBin.Value30;
+            myBin.Value30 = value30;
+            txtValue30.Text = myBin.Value30.ToString();
         }
 
         #endregion
@@ -1382,7 +1382,7 @@ namespace GcproExtensionApp
                 //  DataTable dataTable = new DataTable();
                 #region common used variables declaration       
                 StringBuilder descTotalBuilder = new StringBuilder();
-                int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                 bool moreThanOne = quantityNeedToBeCreate > 1;
                 bool onlyOne = quantityNeedToBeCreate == 1;
                 int binNo;
@@ -1495,15 +1495,15 @@ namespace GcproExtensionApp
                     myBin.SubType = Bin.BINB;
                 }
                 ///<ParEmptyingTime></ParEmptyingTime
-                myBin.ParEmptyingTime = AppGlobal.ParseInt(txtEmptyingTime.Text, out tempInt) ? (tempInt).ToString("F0") : "0";
+                myBin.ParEmptyingTime = AppGlobal.ParseValue<int>(txtEmptyingTime.Text, out tempInt) ? tempInt: 0;
                 ///<ParOverfillingWeight></ParOverfillingWeight>
-                myBin.ParOverfillingWeight = AppGlobal.ParseInt(txtOverFillingWeight.Text, out tempInt) ? (tempInt).ToString("F0") : "100";
+                myBin.ParOverfillingWeight = AppGlobal.ParseValue<int>(txtOverFillingWeight.Text, out tempInt) ? tempInt : 100;
                 ///<ParDryFillingWeight></ParDryFillingWeight>
-                myBin.ParDryFillingWeight = AppGlobal.ParseInt(txtDryFillingWeight.Text, out tempInt) ? (tempInt).ToString("F0") : "0";
+                myBin.ParDryFillingWeight = AppGlobal.ParseValue<int>(txtDryFillingWeight.Text, out tempInt) ? tempInt : 0;
                 ///<ParRestdischargeWeight></ParRestdischargeWeight>
-                myBin.ParRestdischargeWeight = AppGlobal.ParseInt(txtRestdischargeWeight.Text, out tempInt) ? (tempInt).ToString("F0") : "0";
+                myBin.ParRestdischargeWeight = AppGlobal.ParseValue<int>(txtRestdischargeWeight.Text, out tempInt) ? tempInt : 0;
                 ///<ParBinNo>Value is set when corresponding check box's check state changed</ParBinNo>
-                AppGlobal.ParseInt(txtBinNo.Text, out binNo);
+                AppGlobal.ParseValue<int>(txtBinNo.Text, out binNo);
                 ///<value31>Value is set when corresponding check box's check state changed</value31>
                 ///<Value30>Value is set when corresponding check box's check state changed</Value30>
                 ///<Value24>Value is set when corresponding check box's check state changed</Value24>
@@ -1520,7 +1520,7 @@ namespace GcproExtensionApp
                 if (ComboDiagram.SelectedItem != null)
                 {
                     selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                    myBin.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                    myBin.Diagram = Bin.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
                 }
                 ///<Page></Page>
                 myBin.Page = txtPage.Text;
@@ -1575,7 +1575,7 @@ namespace GcproExtensionApp
                 {
                     #region Parse rules
                     ///<ParseRule> </ParseRule>
-                    if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+                    if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
                     {
                         if (moreThanOne)
                         {
@@ -1702,14 +1702,14 @@ namespace GcproExtensionApp
 
                     }
                     #endregion
-                    ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
+                    ProgressBar.Maximum = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
                     ProgressBar.Value = 0;
                     ///<CreateObj>
                     ///</CreateObj>
                     int symbolInc, symbolRule, descriptionInc;
-                    AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-                    AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-                    AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+                    AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+                    AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+                    AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
                         name.Inc = i * symbolInc;
@@ -1759,7 +1759,7 @@ namespace GcproExtensionApp
                                 && (highLevel.PosInfo.Len != -1))
                             {
                                 int highInc;
-                                AppGlobal.ParseInt(txtHighLevelIncRule.Text, out highInc);
+                                AppGlobal.ParseValue<int>(txtHighLevelIncRule.Text, out highInc);
                                 highLevel.Inc = i * highInc;
                                 highLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(highLevel.Sub, highLevel.PosInfo, (int.Parse(txtHighLevelRule.Text) + highLevel.Inc).ToString());
                             }
@@ -1777,7 +1777,7 @@ namespace GcproExtensionApp
                                 && (lowLevel.PosInfo.Len != -1))
                             {
                                 int lowInc;
-                                AppGlobal.ParseInt(txtLowLevelIncRule.Text, out lowInc);
+                                AppGlobal.ParseValue<int>(txtLowLevelIncRule.Text, out lowInc);
                                 lowLevel.Inc = i * lowInc;
                                 lowLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(lowLevel.Sub, lowLevel.PosInfo, (int.Parse(txtLowLevelRule.Text) + lowLevel.Inc).ToString());
                             }
@@ -1795,7 +1795,7 @@ namespace GcproExtensionApp
                                 && (middleLevel.PosInfo.Len != -1))
                             {
                                 int middleInc;
-                                AppGlobal.ParseInt(txtMiddleLevelIncRule.Text, out middleInc);
+                                AppGlobal.ParseValue<int>(txtMiddleLevelIncRule.Text, out middleInc);
                                 middleLevel.Inc = i * middleInc;
                                 middleLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(middleLevel.Sub, middleLevel.PosInfo, (int.Parse(txtMiddleLevelRule.Text) + middleLevel.Inc).ToString());
                             }
@@ -1813,7 +1813,7 @@ namespace GcproExtensionApp
                                 && (analogLevel.PosInfo.Len != -1))
                             {
                                 int analogInc;
-                                AppGlobal.ParseInt(txtAnalogLevelIncRule.Text, out analogInc);
+                                AppGlobal.ParseValue<int>(txtAnalogLevelIncRule.Text, out analogInc);
                                 analogLevel.Inc = i * analogInc;
                                 analogLevel.Name = LibGlobalSource.StringHelper.GenerateObjectName(analogLevel.Sub, analogLevel.PosInfo, (int.Parse(txtAnalogLevelRule.Text) + analogLevel.Inc).ToString());
                             }
@@ -1825,7 +1825,7 @@ namespace GcproExtensionApp
                         descTotal = descPrefix.Name + description.Name;
                         myBin.Name = name.Name;
                         myBin.Description = descTotal;
-                        myBin.ParBinNo = (binNo + name.Inc).ToString();
+                        myBin.ParBinNo = binNo + name.Inc;
                         myBin.HighLevel = highLevel.Name;
                         myBin.MiddleLevel = middleLevel.Name;
                         myBin.LowLevel = lowLevel.Name;

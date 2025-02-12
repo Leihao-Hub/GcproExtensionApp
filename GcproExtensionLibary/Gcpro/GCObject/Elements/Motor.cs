@@ -13,22 +13,22 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             public GcBaseRule Common;
             public string AORule;
-            public string AORuleInc;
+            public int AORuleInc;
             public string VFCRule;
-            public string VFCRuleInc;
+            public int VFCRuleInc;
             public string PowerAppRule;
-            public string PowerAppRuleInc;
+            public int PowerAppRuleInc;
         }
         private string filePath;
         private readonly string fileRelationPath;
         private readonly string fileConnectorPath;
         private readonly static string motorFileName = $@"\{OTypeCollection.EL_Motor}";
-        private string hornCode;
-        private string pType;
-        private string value9;
-        private string value10;
-        private string dpNode1;
-        private string dpNode2;
+        private double hornCode;
+        private double pType;
+        private double value9;
+        private double value10;
+        private double dpNode1;
+        private double dpNode2;
         private string isNew;
         public static MotorRule Rule;
         private string name;
@@ -37,11 +37,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-
         private string inpFwd;
         private string outpFwd;
         private string inpRev;
@@ -51,15 +50,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string adapter;
         private string powerApp;
         private string ao;
-        private string parMonTime;
-        private string parStartDelay;
-        private string parStartingTime;
-        private string parStoppingTime;
-        private string parIdlingTime;
-        private string parFaultDelayTime;
-        private string parPowerNominal;
-        private string parSpeedService;
-        private string unit;
+        private double parMonTime;
+        private double parStartDelay;
+        private double parStartingTime;
+        private double parStoppingTime;
+        private double parIdlingTime;
+        private double parFaultDelayTime;
+        private double parPowerNominal;
+        private double parSpeedService;
+        private double unit;
 
         #region Standard properties
         public override string Name
@@ -92,7 +91,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -102,7 +101,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -112,18 +111,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
@@ -131,18 +130,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
 
         #region Application properties
-        public string DPNode2
+        public double DPNode2
         {
             get { return dpNode2; }
             set { dpNode2 = value; }
 
         }
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -195,48 +194,54 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return ao; }
             set { ao = value; }
         }
-        public string ParMonTime
+        public double ParMonTime
         {
             get { return parMonTime; }
             set { parMonTime = value; }
         }
-        public string ParStartDelay
+        public double ParStartDelay
         {
             get { return parStartDelay; }
             set { parStartDelay = value; }
         }
-        public string ParStartingTime
+        public double ParStartingTime
         {
             get { return parStartingTime; }
             set { parStartingTime = value; }
         }
-        public string ParStoppingTime
+        public double ParStoppingTime
         {
             get { return parStoppingTime; }
             set { parStoppingTime = value; }
         }
-        public string ParIdlingTime
+        public double ParIdlingTime
         {
             get { return parIdlingTime; }
             set { parIdlingTime = value; }
         }
-        public string ParFaultDelayTime
+        public double ParFaultDelayTime
         {
             get { return parFaultDelayTime; }
             set { parFaultDelayTime = value; }
         }
 
-        public string ParPowerNominal
+        public double ParPowerNominal
         {
             get { return parPowerNominal; }
-            set { parPowerNominal = value; }
+            set
+            {
+                if (parPowerNominal != value)
+                { 
+                    parPowerNominal = value;
+                    PowerChangAfterEvent();                }
+            }
         }
-        public string ParSpeedService
+        public double ParSpeedService
         {
             get { return parSpeedService; }
             set { parSpeedService = value; }
         }
-        public string Unit
+        public double Unit
         {
             get { return unit; }
             set { unit = value; }
@@ -311,6 +316,8 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public static string ImpExpRuleName { get; } = "IE_EL_Motor";
         public static int OTypeValue { get; } = (int)OTypeCollection.EL_Motor;
         #endregion  
+
+
         public Motor()
         {
             string commonDefaultFilePath;
@@ -322,17 +329,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             page = string.Empty;
             building = "--";
             elevation = "--";
-            fieldBusNode = string.Empty;
+            fieldBusNode = 0;
             panel_ID = string.Empty;
-            diagram = string.Empty;
+            diagram = 0;
             page = string.Empty;
-
-            pType = P7053.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
-            dpNode1 = LibGlobalSource.NOCHILD;
-            dpNode2 = LibGlobalSource.NOCHILD;
-            value9 = "2";
-            value10 = "130";
+            pType = P7053;
+            hornCode = 0;
+            dpNode1 = 0;
+            dpNode2 = 0;
+            value9 = 2;
+            value10 = 130;
             inpFwd = LibGlobalSource.NOCHILD;
             outpFwd = LibGlobalSource.NOCHILD;
             inpRev = LibGlobalSource.NOCHILD;
@@ -342,15 +348,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             adapter = LibGlobalSource.NOCHILD;
             powerApp = LibGlobalSource.NOCHILD;
             ao = LibGlobalSource.NOCHILD;
-            parMonTime = "50";
-            parStartDelay = "0";
-            parStartingTime = "10";
-            parStoppingTime = "10";
-            parIdlingTime = "10";
-            parFaultDelayTime = "10";
-            parPowerNominal = "0";
-            parSpeedService = "20";
-            unit = "2";
+            parMonTime = 5.0;
+            parStartDelay = 0;
+            parStartingTime = 1;
+            parStoppingTime = 1;
+            parIdlingTime = 1;
+            parFaultDelayTime = 1;
+            parPowerNominal = 0;
+            parSpeedService = 20;
+            unit = 2;
             SetOTypeProperty(OTypeCollection.EL_Motor);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{motorFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
@@ -405,12 +411,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(parMonTime).Append(LibGlobalSource.TAB)
-                    .Append(parStartDelay).Append(LibGlobalSource.TAB)
-                    .Append(parStartingTime).Append(LibGlobalSource.TAB)
-                    .Append(parStoppingTime).Append(LibGlobalSource.TAB)
-                    .Append(parIdlingTime).Append(LibGlobalSource.TAB)
-                    .Append(parFaultDelayTime).Append(LibGlobalSource.TAB)
+                    .Append(parMonTime * 10).Append(LibGlobalSource.TAB)
+                    .Append(parStartDelay * 10).Append(LibGlobalSource.TAB)
+                    .Append(parStartingTime * 10).Append(LibGlobalSource.TAB)
+                    .Append(parStoppingTime * 10).Append(LibGlobalSource.TAB)
+                    .Append(parIdlingTime * 10).Append(LibGlobalSource.TAB)
+                    .Append(parFaultDelayTime * 10).Append(LibGlobalSource.TAB)
                     .Append(parPowerNominal).Append(LibGlobalSource.TAB)
                     .Append(parSpeedService).Append(LibGlobalSource.TAB)
                     .Append(unit);
@@ -453,6 +459,34 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             textFileHandle.FilePath = this.fileConnectorPath;
             textFileHandle.ClearContents();
         }
+        #region Power change event
+        /// <summary>
+        /// 使用委托声明事件
+        /// </summary>
+        public event GcObjectEventHandler PowerChange;
+        /// <summary>
+        /// 触发事件的方法
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnPowerChangeChange(EventArgs e)
+        {
+            PowerChange?.Invoke(this, e);
+            PowerChangAfterEvent();
+        }
+        /// <summary>
+        /// 供外部触发事件方法
+        /// </summary>
+        public void TriggerPowerChange()
+        {
+            OnPowerChangeChange(EventArgs.Empty);
+        }
+
+        private void PowerChangAfterEvent()
+        {
+            parMonTime = GetStartingTime(parPowerNominal);
+            parStartingTime = parMonTime -1 >= 0 ? parMonTime : 3.0;
+        }
+        #endregion
         public static int GetStartingTime(float power)
         {
             int time;

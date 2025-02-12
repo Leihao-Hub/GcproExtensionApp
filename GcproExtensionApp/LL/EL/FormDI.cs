@@ -254,9 +254,9 @@ namespace GcproExtensionApp
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
             txtValue9.Text = "1";
-            myDI.Value9 = "1";
+            myDI.Value9 = 1;
             txtValue10.Text = "0";
-            myDI.Value10 = "0";
+            myDI.Value10 = 0;
             ComboEquipmentSubType.SelectedIndex = 0;
             CreateBMLDefault();
             toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
@@ -476,7 +476,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value10 = AppGlobal.ParseInt(txtValue10.Text, out tempInt) ? tempInt : value10;
+                value10 = AppGlobal.ParseValue<int>(txtValue10.Text, out tempInt) ? tempInt : value10;
                 GetValue10BitValue(value10);
             }
         }
@@ -485,7 +485,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value9 = AppGlobal.ParseInt(txtValue9.Text, out tempInt) ? tempInt : value9;
+                value9 = AppGlobal.ParseValue<int>(txtValue9.Text, out tempInt) ? tempInt : value9;
                 GetValue10BitValue(value9);
             }
         }
@@ -501,8 +501,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)0); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString();
         }
         private void chkInvertInput_CheckedChanged(object sender, EventArgs e)
         {
@@ -514,8 +514,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)1); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString();
         }
         private void chkMonTrue_CheckedChanged(object sender, EventArgs e)
         {
@@ -527,8 +527,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)2); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString();
         }
         private void chkMonCovered_CheckedChanged(object sender, EventArgs e)
         {
@@ -540,8 +540,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)12); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString();
         }
         private void chkMonFalse_CheckedChanged(object sender, EventArgs e)
         {
@@ -553,8 +553,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)3); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString();
         }
         private void chkMonUnCovered_CheckedChanged(object sender, EventArgs e)
         {
@@ -566,8 +566,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)13); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString();
         }
         private void chkInPreAlarm_CheckedChanged(object sender, EventArgs e)
         {
@@ -579,8 +579,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)4); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString().ToString();
         }
         private void chKInpFaultDev_CheckedChanged(object sender, EventArgs e)
         {
@@ -592,8 +592,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)6); }
 
-            myDI.Value9 = value9.ToString();
-            txtValue9.Text = myDI.Value9;
+            myDI.Value9 = value9;
+            txtValue9.Text = myDI.Value9.ToString();
         }
         private void chkParLogOff_CheckedChanged(object sender, EventArgs e)
         {
@@ -605,8 +605,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myDI.Value10 = value10.ToString();
-            txtValue10.Text = myDI.Value10;
+            myDI.Value10 = value10;
+            txtValue10.Text = myDI.Value10.ToString();
         }
         private void chkParPulsing_CheckedChanged(object sender, EventArgs e)
         {
@@ -618,8 +618,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myDI.Value10 = value10.ToString();
-            txtValue10.Text = myDI.Value10;
+            myDI.Value10 = value10;
+            txtValue10.Text = myDI.Value10.ToString();
         }
         private void chkParFaultRetry_CheckedChanged(object sender, EventArgs e)
         {
@@ -631,8 +631,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myDI.Value10 = value10.ToString();
-            txtValue10.Text = myDI.Value10;
+            myDI.Value10 = value10;
+            txtValue10.Text = myDI.Value10.ToString();
         }
         private void chkParBinLevel_CheckedChanged(object sender, EventArgs e)
         {
@@ -644,8 +644,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
 
-            myDI.Value10 = value10.ToString();
-            txtValue10.Text = myDI.Value10;
+            myDI.Value10 = value10;
+            txtValue10.Text = myDI.Value10.ToString();
         }
         #endregion
         #region <------Field in database display
@@ -766,7 +766,7 @@ namespace GcproExtensionApp
         {
             if (subType == DI.MON2BS)
             {
-                myDI.PType = DI.P7163.ToString();
+                myDI.PType = DI.P7163;
                 txtDelayChange.Text = "0.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "0.0";
@@ -777,7 +777,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.MON1MVC)
             {
-                myDI.PType = DI.P7171.ToString();
+                myDI.PType = DI.P7171;
                 txtDelayChange.Text = "0.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "0.0";
@@ -788,7 +788,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.MON1M_LS)
             {
-                myDI.PType = DI.P7167.ToString();
+                myDI.PType = DI.P7167;
                 txtDelayChange.Text = "0.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "0.0";
@@ -799,7 +799,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.HLBIN)
             {
-                myDI.PType = DI.P7146.ToString();
+                myDI.PType = DI.P7146;
                 txtDelayChange.Text = "2.0";
                 txtDelayTrue.Text = "15.0";
                 txtDelayFalse.Text = "0.0";
@@ -810,7 +810,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.LLBIN)
             {
-                myDI.PType = DI.P7145.ToString();
+                myDI.PType = DI.P7145;
                 txtDelayChange.Text = "2.0";
                 txtDelayTrue.Text = "30.0";
                 txtDelayFalse.Text = "5.0";
@@ -821,7 +821,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.HLMA)
             {
-                myDI.PType = DI.P7165.ToString();
+                myDI.PType = DI.P7165;
                 txtDelayChange.Text = "2.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "3.0";
@@ -832,7 +832,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.MON1MPH)
             {
-                myDI.PType = DI.P7143.ToString();
+                myDI.PType = DI.P7143;
                 txtDelayChange.Text = "1.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "0.0";
@@ -843,7 +843,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.DIC)
             {
-                myDI.PType = DI.P7154.ToString();
+                myDI.PType = DI.P7154;
                 txtDelayChange.Text = "2.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "0.0";
@@ -855,7 +855,7 @@ namespace GcproExtensionApp
             else if (subType == DI.MON2SSP)
             {
                 myDI.SubType = DI.MON2SSP;
-                myDI.PType = DI.P7159.ToString();
+                myDI.PType = DI.P7159;
                 txtDelayChange.Text = "0.0";
                 txtDelayTrue.Text = "0.0";
                 txtDelayFalse.Text = "0.0";
@@ -866,7 +866,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.MON1M_TS)
             {
-                myDI.PType = DI.P7131.ToString();
+                myDI.PType = DI.P7131;
                 txtDelayChange.Text = "0.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "0.0";
@@ -877,7 +877,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.MON2PRLSS)
             {
-                myDI.PType = DI.P7156.ToString();
+                myDI.PType = DI.P7156;
                 txtDelayChange.Text = "0.0";
                 txtDelayTrue.Text = "0.0";
                 txtDelayFalse.Text = "0.0";
@@ -888,7 +888,7 @@ namespace GcproExtensionApp
             }
             else if (subType == DI.MON2SS)
             {
-                myDI.PType = DI.P7135.ToString();
+                myDI.PType = DI.P7135;
                 txtDelayChange.Text = "0.0";
                 txtDelayTrue.Text = "1.0";
                 txtDelayFalse.Text = "0.0";
@@ -897,11 +897,11 @@ namespace GcproExtensionApp
                 value9 = 4;
                 value10 = 0;
             }
-            myDI.DelayChange = AppGlobal.ParseFloat(txtDelayChange.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
-            myDI.DelayTrue = AppGlobal.ParseFloat(txtDelayTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
-            myDI.DelayFalse = AppGlobal.ParseFloat(txtDelayFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
-            myDI.TimeoutTrue = AppGlobal.ParseFloat(txtTimeoutTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "5.0";
-            myDI.TimeoutFalse = AppGlobal.ParseFloat(txtTimeoutFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "1.0";
+            myDI.DelayChange = AppGlobal.ParseValue<float>(txtDelayChange.Text, out tempFloat) ? Math.Round(tempFloat,1) : 1.0;
+            myDI.DelayTrue = AppGlobal.ParseValue<float>(txtDelayTrue.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
+            myDI.DelayFalse = AppGlobal.ParseValue<float>(txtDelayFalse.Text, out tempFloat) ? Math.Round(tempFloat, 1)  : 0.0;
+            myDI.TimeoutTrue = AppGlobal.ParseValue<float>(txtTimeoutTrue.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 5.0;
+            myDI.TimeoutFalse = AppGlobal.ParseValue<float>(txtTimeoutFalse.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
         }
         void GetValue10BitValue(int value)
         {
@@ -1054,7 +1054,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -1479,22 +1480,23 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                objDI.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                AppGlobal.ParseValue<float>( selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)),out tempFloat);
+                objDI.PType =tempFloat;
             }
             else
             {
-                objDI.PType = DI.P7154.ToString();
+                objDI.PType = DI.P7154;
             }
             ///<DelayChange</DelayChange>
-            objDI.DelayChange = AppGlobal.ParseFloat(txtDelayChange.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "20.0";
+            objDI.DelayChange = AppGlobal.ParseValue<float>(txtDelayChange.Text, out tempFloat) ? Math.Round(tempFloat ,1): 2.0;
             ///<DelayTrue></DelayTrue>
-            objDI.DelayTrue = AppGlobal.ParseFloat(txtDelayTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDI.DelayTrue = AppGlobal.ParseValue<float>(txtDelayTrue.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<DelayFalse></DelayFalse>
-            objDI.DelayFalse = AppGlobal.ParseFloat(txtDelayFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDI.DelayFalse = AppGlobal.ParseValue<float>(txtDelayFalse.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<TimeoutTrue></TimeoutTrue>
-            objDI.TimeoutTrue = AppGlobal.ParseFloat(txtTimeoutTrue.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDI.TimeoutTrue = AppGlobal.ParseValue<float>(txtTimeoutTrue.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<TimeoutFalse></TimeoutFalse>
-            objDI.TimeoutFalse = AppGlobal.ParseFloat(txtTimeoutFalse.Text, out tempFloat) ? (tempFloat * 10.0).ToString("F1") : "0.0";
+            objDI.TimeoutFalse = AppGlobal.ParseValue<float>(txtTimeoutFalse.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.0;
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
@@ -1512,7 +1514,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objDI.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objDI.Diagram = DI.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
 
             ///<Page></Page>
@@ -1540,31 +1542,23 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            objDI.FieldBusNode = LibGlobalSource.NOCHILD; ;
             ///<DPNode1></DPNode1>
             string selectDPNode1 = String.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
-                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();           
-                objDI.DPNode1 = DI.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
 
-                if (String.IsNullOrEmpty(objDI.DPNode1))
-                { objDI.FieldBusNode = string.Empty; }
-                else
-                {
-                    objDI.FieldBusNode = DI.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objDI.DPNode1));
-                }
+                objDI.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objDI.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
             }
             if (ComboHornCode.SelectedItem != null)
             {
-                string hornCode = ComboHornCode.SelectedItem.ToString();
-                objDI.HornCode = hornCode.Substring(0, 2);
+                string hornCode = ComboHornCode.SelectedItem.ToString();             
+                objDI.HornCode = DI.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             ///<InpTrue></InpTrue>
             objDI.InpTrue = LibGlobalSource.NOCHILD;
@@ -1602,11 +1596,11 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            objDI.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            objDI.FieldBusNode = AppGlobal.NO_DP_NODE;
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                objDI.HornCode = hornCode.Substring(0, 2);
+                objDI.HornCode = DI.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             #endregion
             processValue.Max = quantityNeedToBeCreate;
@@ -1654,7 +1648,7 @@ namespace GcproExtensionApp
                     stringNumber = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objDI.Name);
                     if (!string.IsNullOrEmpty(stringNumber))
                     {
-                        if (AppGlobal.ParseInt(stringNumber.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(stringNumber.Substring(0, 4), out tempInt))
                         {
                             DI.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1675,8 +1669,8 @@ namespace GcproExtensionApp
                 if (objDI.Name.Contains(suffixObject.GetKey("BZA")))
                 {
                     objDI.SubType = DI.MON2BS;
-                    objDI.Value9 = "4";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 4;
+                    objDI.Value10 = 0;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BZA"]}");
@@ -1686,14 +1680,14 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("SHE")))
                 {
                     objDI.SubType = DI.MON1MVC;
-                    objDI.Value9 = "4";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 4;
+                    objDI.Value10 = 0;
                 }
                 else if (objDI.Name.Contains(suffixObject.GetKey("FYX")))
                 {
                     objDI.SubType = DI.MON1M_LS;
-                    objDI.Value9 = "5";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 5;
+                    objDI.Value10 = 0;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["FYX"]}");
@@ -1702,8 +1696,8 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("BZS")))
                 {
                     objDI.SubType = DI.MON1M_LS;
-                    objDI.Value9 = "5";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 5;
+                    objDI.Value10 = 0;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BZS"]}");
@@ -1712,8 +1706,8 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("QYS")))
                 {
                     objDI.SubType = DI.MON1M_LS;
-                    objDI.Value9 = "5";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 5;
+                    objDI.Value10 = 0;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["QYS"]}");
@@ -1722,8 +1716,8 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("BLH")))
                 {
                     objDI.SubType = DI.HLBIN;
-                    objDI.Value9 = "2";
-                    objDI.Value10 = "16";
+                    objDI.Value9 = 2;
+                    objDI.Value10 = 16;
                     remark = BML.DI.ParseIORemark(ioRemark, dataTable);
                     if (!string.IsNullOrEmpty(remark))
                     {
@@ -1734,7 +1728,7 @@ namespace GcproExtensionApp
                         if (!string.IsNullOrEmpty(remark))
                         {
                             stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
-                            if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                            if (AppGlobal.ParseValue<int>(stringNumber, out tempInt))
                             {
                                 descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
                             }
@@ -1749,8 +1743,8 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("BLL")) || _subType == BML.DI.MiddleLevel)
                 {
                     objDI.SubType = DI.LLBIN;
-                    objDI.Value9 = "4098";
-                    objDI.Value10 = "16";
+                    objDI.Value9 = 4098;
+                    objDI.Value10 = 16;
                     remark = BML.DI.ParseIORemark(ioRemark, dataTable);
                     if (!string.IsNullOrEmpty(remark))
                     {
@@ -1761,7 +1755,7 @@ namespace GcproExtensionApp
                         if (!string.IsNullOrEmpty(remark))
                         {
                             stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(remark, false);
-                            if (AppGlobal.ParseInt(stringNumber, out tempInt))
+                            if (AppGlobal.ParseValue<int>(stringNumber, out tempInt))
                             {
                                 descToBuilder.Append($"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}");
                             }                        
@@ -1776,8 +1770,8 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("BQS")))
                 {
                     objDI.SubType = DI.HLMA;
-                    objDI.Value9 = "8195";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 8195;
+                    objDI.Value10 = 0;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BQS"]}");
@@ -1786,8 +1780,8 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("BPS")))
                 {
                     objDI.SubType = DI.MON1MPH;
-                    objDI.Value9 = "5";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 5;
+                    objDI.Value10 = 0;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BPS"]}");
@@ -1796,15 +1790,15 @@ namespace GcproExtensionApp
                 else if (_subType == BML.DI.PushButton)
                 {
                     objDI.SubType = DI.DIC;
-                    objDI.Value9 = "0";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 0;
+                    objDI.Value10 = 0;
                 }
                 else if (objDI.Name.Contains(suffixObject.GetKey("BST")))
                 {
                     objDI.SubType = DI.MON2SSP;
 
-                    objDI.Value9 = "4";
-                    objDI.Value10 = "2";
+                    objDI.Value9 = 4;
+                    objDI.Value10 = 2;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BST"]}");
@@ -1813,21 +1807,21 @@ namespace GcproExtensionApp
                 else if (_subType == BML.DI.TemperatureSwitch)
                 {
                     objDI.SubType = DI.MON1M_TS;
-                    objDI.PType = DI.P7131.ToString();
-                    objDI.Value9 = "4";
-                    objDI.Value10 = "0";
+                    objDI.PType = DI.P7131;
+                    objDI.Value9 = 4;
+                    objDI.Value10 = 0;
                 }
                 else if (_subType == BML.DI.VibrationSwitch)
                 {
                     objDI.SubType = DI.DIC;
-                    objDI.Value9 = "5";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 5;
+                    objDI.Value10 = 0;
                 }
                 else if (objDI.Name.Contains(suffixObject.GetKey("BSA")))
                 {
                     objDI.SubType = DI.MON2SS;
-                    objDI.Value9 = "4";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 4;
+                    objDI.Value10 = 0;
                     if (!descUserDef)
                     {
                         descToBuilder.Append($"{suffixObject.SuffixObjectType["BSA"]}");
@@ -1836,8 +1830,8 @@ namespace GcproExtensionApp
                 else if (objDI.Name.Contains(suffixObject.GetKey("MXZ")))
                 {
                     objDI.SubType = DI.DIC;
-                    objDI.Value9 = "4";
-                    objDI.Value10 = "0";
+                    objDI.Value9 = 4;
+                    objDI.Value10 = 0;
                     if (!descUserDef && !desc.Contains(AppGlobal.FC_FAN))
                     {
                         descToBuilder.Append(AppGlobal.FC_FAN);
@@ -1847,8 +1841,8 @@ namespace GcproExtensionApp
                 //当输入类型为风扇监控时,重写以下参数
                 if (objDI.Name.Contains(suffixObject.GetKey("MXZ")))
                 {  
-                    objDI.PType = DI.P7162.ToString();
-                    objDI.TimeoutTrue = "50.0";
+                    objDI.PType = DI.P7162;
+                    objDI.TimeoutTrue = 5.0;
                 }
                 #endregion
                 desc = descToBuilder.ToString();
@@ -1881,7 +1875,7 @@ namespace GcproExtensionApp
             #region common used variables declaration       
             bool needDPNodeChanged = false;
             StringBuilder descToBuilder = new StringBuilder();
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -1930,7 +1924,7 @@ namespace GcproExtensionApp
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -2005,9 +1999,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 name.Inc = i * symbolInc;
@@ -2017,20 +2011,13 @@ namespace GcproExtensionApp
                 {
                     dpNode1.Inc = i * symbolInc;
                     dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    objDI.DPNode1 = DI.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                     {
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, dpNode1.Name);
 
-                    if (String.IsNullOrEmpty(objDI.DPNode1))
-                    { objDI.FieldBusNode = string.Empty; }
-                    else
-                    {
-                        objDI.FieldBusNode = DI.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                        {
-                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objDI.DPNode1));
-                    }
+                    objDI.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                    objDI.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
                 if (!String.IsNullOrEmpty(desc))
@@ -2136,7 +2123,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                         objDI: myDI,
                         addtionToDesc: AppGlobal.AdditionDesc,

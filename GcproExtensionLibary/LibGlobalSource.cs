@@ -35,6 +35,15 @@ namespace GcproExtensionLibrary
         public const string MSG_INVALID_IO_SYMBOL = "无效的IO名称！";
         public const int NO_OWNER = 1;
         public const int NO_PARENT = 0;
+        public const int MEAG_EXT_LONG = 72;
+        public const int MEAG_NORMAL = 24;
+        public const int NONE_UNIT = 0;
+        public const double NO_DP_NODE = 0;
+        public const double NO_DIAGRAM = 0;
+        public const double GROUP_HORNCODE = 0; 
+        public const string FIELDS_SEPARATOR = "   |";
+        public const string HORNCODE_FIELDS_SEPARATOR = " ¦";
+
         #endregion
         public static class StringHelper
         {

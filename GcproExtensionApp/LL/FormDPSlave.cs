@@ -152,8 +152,8 @@ namespace GcproExtensionApp
             txtSymbolIncRule.Text = DPSlave.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = DPSlave.Rule.Common.DescriptionRule;
             txtDescriptionIncRule.Text = DPSlave.Rule.Common.DescriptionRuleInc;
-            txtIPAddressIncRule.Text = DPSlave.Rule.IPAddressInc;
-            txtParSlaveNoIncRule.Text = DPSlave.Rule.SlaveNoInc;
+            txtIPAddressIncRule.Text = DPSlave.Rule.IPAddressInc.ToString();
+            txtParSlaveNoIncRule.Text = DPSlave.Rule.SlaveNoInc.ToString();
         }
         public void CreateTips()
         {
@@ -302,19 +302,19 @@ namespace GcproExtensionApp
         {
              if (AppGlobal.CheckNumericString(txtParSlaveNoIncRule.Text))
                 {
-                    DPSlave.Rule.SlaveNoInc = txtParSlaveNoIncRule.Text;                  
+                    AppGlobal.ParseValue<int>(txtParSlaveNoIncRule.Text, out DPSlave.Rule.SlaveNoInc);
                 }
              else
-            {
+             {
                 AppGlobal.MessageNotNumeric();
-            }
+             }
         }
 
         private void txtIPAddressIncRule_TextChanged(object sender, EventArgs e)
         {
             if (AppGlobal.CheckNumericString(txtIPAddressIncRule.Text))
             {
-                DPSlave.Rule.IPAddressInc = txtIPAddressIncRule.Text;
+                AppGlobal.ParseValue<int>(txtIPAddressIncRule.Text, out DPSlave.Rule.IPAddressInc);
             }
             else
             {
@@ -385,8 +385,8 @@ namespace GcproExtensionApp
             { AppGlobal.SetBit(ref value31, (byte)0); }
             else
             { AppGlobal.ClearBit(ref value31, (byte)0); }
-            myDPSlave.Value31 = value31.ToString();
-            txtValue31.Text = myDPSlave.Value31;
+            myDPSlave.Value31 = value31;
+            txtValue31.Text = myDPSlave.Value31.ToString();
         }
         #endregion
         #region <------Field in database display
@@ -483,7 +483,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -857,7 +858,7 @@ namespace GcproExtensionApp
             //};
             //   bool needDPNodeChanged = false;
             StringBuilder descTotalBuilder = new StringBuilder();
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             RuleSubDataSet description, name;
@@ -907,14 +908,14 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myDPSlave.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myDPSlave.PType = DPSlave.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, DPSlave.P7895);
             }
             else
             {
-                myDPSlave.PType = DPSlave.P7895.ToString();
+                myDPSlave.PType = DPSlave.P7895;
             }
             ///<Value31</Value31>
-            myDPSlave.Value31 = value31.ToString();
+            myDPSlave.Value31 = value31;
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
             myDPSlave.Description = txtDescription.Text;
@@ -930,7 +931,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myDPSlave.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myDPSlave.Diagram = DPSlave.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
 
             ///<Page></Page>
@@ -958,17 +959,17 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myDPSlave.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            myDPSlave.FieldBusNode = AppGlobal.NO_DP_NODE;
 
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                myDPSlave.HornCode = hornCode.Substring(0, 2);
+                myDPSlave.HornCode = DPSlave.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1009,7 +1010,7 @@ namespace GcproExtensionApp
             }
             #endregion
 
-            ProgressBar.Maximum = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
+            ProgressBar.Maximum = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
             ProgressBar.Value = 0;
             ///<CreateObj>
             ///Search IO key,DPNode
@@ -1017,13 +1018,13 @@ namespace GcproExtensionApp
             int symbolInc, symbolRule, descriptionInc;
             int slaveNoInc,slaveNoStart;
             int ipRuleInc, _ipRule;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseInt(txtIPAddressIncRule.Text, out ipRuleInc);
-            AppGlobal.ParseInt(ip.ipRule, out _ipRule);
-            AppGlobal.ParseInt(txtParSlaveNoIncRule.Text, out slaveNoInc);
-            AppGlobal.ParseInt(txtParSlaveNo.Text, out slaveNoStart);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtIPAddressIncRule.Text, out ipRuleInc);
+            AppGlobal.ParseValue<int>(ip.ipRule, out _ipRule);
+            AppGlobal.ParseValue<int>(txtParSlaveNoIncRule.Text, out slaveNoInc);
+            AppGlobal.ParseValue<int>(txtParSlaveNo.Text, out slaveNoStart);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;

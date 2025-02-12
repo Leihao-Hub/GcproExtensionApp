@@ -12,11 +12,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             public GcBaseRule Common;
             public string AORule;
-            public string AORuleInc;
+            public int AORuleInc;
             public string VFCRule;
-            public string VFCRuleInc;
+            public int VFCRuleInc;
             public string PowerAppRule;
-            public string PowerAppRuleInc;
+            public int PowerAppRuleInc;
         }
         private string filePath;
         private readonly string fileRelationPath;
@@ -29,28 +29,28 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string hornCode;
-        private string pType;
-        private string dpNode1;
-        private string dpNode2;
-        private string value9;
-        private string value10;
+        private double hornCode;
+        private double pType;
+        private double dpNode1;
+        private double dpNode2;
+        private double value9;
+        private double value10;
         private string inpLN;
         private string inpHN;
         private string outpLN;
         private string outpHN;
         private string inpRunRev;
         private string inpRunFwd;
-        private string monTime;
-        private string pulseTimeLN;
-        private string pulseTimeHN;
-        private string idlingTime;
-        private string faultDelay;
-        private string startDelay;
+        private double monTime;
+        private double pulseTimeLN;
+        private double pulseTimeHN;
+        private double idlingTime;
+        private double faultDelay;
+        private double startDelay;
         private string hwStop;
         private string refRcvLN;
         private string refRcvHN;
@@ -89,7 +89,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -99,7 +99,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -109,37 +109,36 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
         #endregion
         #region Application properties
-        public string DPNode2
+        public double DPNode2
         {
             get { return dpNode2; }
             set { dpNode2 = value; }
 
         }
-
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -174,32 +173,32 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return inpRunFwd; }
             set { inpRunFwd = value; }
         }
-        public string MonTime
+        public double MonTime
         {
             get { return monTime; }
             set { monTime = value; }
         }
-        public string PulseTimeLN
+        public double PulseTimeLN
         {
             get { return pulseTimeLN; }
             set { pulseTimeLN = value; }
         }
-        public string PulseTimeHN
+        public double PulseTimeHN
         {
             get { return pulseTimeHN; }
             set { pulseTimeHN = value; }
         }
-        public string IdlingTime
+        public double IdlingTime
         {
             get { return idlingTime; }
             set { idlingTime = value; }
         }
-        public string FaultDelay
+        public double FaultDelay
         {
             get { return faultDelay; }
             set { faultDelay = value; }
         }
-        public string StartDelay
+        public double StartDelay
         {
             get { return startDelay; }
             set { startDelay = value; }
@@ -280,28 +279,28 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             page = string.Empty;
             building = "--";
             elevation = "--";
-            fieldBusNode = string.Empty;
+            fieldBusNode = 0;
             panel_ID = string.Empty;
-            diagram = string.Empty;
+            diagram = 0;
             page = string.Empty;
-            pType = P7081.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
-            dpNode1 = LibGlobalSource.NOCHILD;
-            dpNode2 = LibGlobalSource.NOCHILD;
-            value9 = "0";
-            value10 = "10";
+            pType = P7081;
+            hornCode = 0;
+            dpNode1 = 0;
+            dpNode2 = 0;
+            value9 = 0;
+            value10 = 10;
             inpLN = LibGlobalSource.NOCHILD;
             outpLN = LibGlobalSource.NOCHILD;
             inpHN = LibGlobalSource.NOCHILD;
             outpHN = LibGlobalSource.NOCHILD;
             inpRunRev = LibGlobalSource.NOCHILD;
             inpRunFwd = LibGlobalSource.NOCHILD;
-            monTime = "200";
-            pulseTimeLN = "5";
-            pulseTimeHN = "5";
-            idlingTime = "10";
-            faultDelay = "30";
-            startDelay = "0";
+            monTime = 20.0;
+            pulseTimeLN = 0.5;
+            pulseTimeHN = 0.5;
+            idlingTime = 1.0;
+            faultDelay = 3.0;
+            startDelay = 0;
             hwStop = LibGlobalSource.NOCHILD;
             refRcvLN = LibGlobalSource.NOCHILD;
             refRcvHN = LibGlobalSource.NOCHILD;
@@ -353,12 +352,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(monTime).Append(LibGlobalSource.TAB)
-                  .Append(pulseTimeHN).Append(LibGlobalSource.TAB)
-                  .Append(pulseTimeLN).Append(LibGlobalSource.TAB)
-                  .Append(idlingTime).Append(LibGlobalSource.TAB)
-                  .Append(faultDelay).Append(LibGlobalSource.TAB)
-                  .Append(startDelay).Append(LibGlobalSource.TAB)
+                  .Append(monTime * 10).Append(LibGlobalSource.TAB)
+                  .Append(pulseTimeHN * 10).Append(LibGlobalSource.TAB)
+                  .Append(pulseTimeLN * 10).Append(LibGlobalSource.TAB)
+                  .Append(idlingTime * 10).Append(LibGlobalSource.TAB)
+                  .Append(faultDelay * 10).Append(LibGlobalSource.TAB)
+                  .Append(startDelay * 10).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)

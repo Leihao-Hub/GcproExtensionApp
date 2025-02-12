@@ -16,9 +16,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public abstract string ProcessFct { get; set; }
         public abstract string Building { get; set; }
         public abstract string Elevation { get; set; }
-        public abstract string FieldBusNode { get; set; }
+        public abstract double FieldBusNode { get; set; }
         public abstract string Panel_ID { get; set; }
-        public abstract string Diagram { get; set; }
+        public abstract double Diagram { get; set; }
         public abstract string Page { get; set; }
         public abstract string IsNew { get; set; }
         public abstract string FilePath { get; set; }
@@ -110,6 +110,20 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     );
                 }
             }
+        }
+        /// <summary>
+        /// 从描述中提取信息,比如Diagram,InfoType以及HorCdoe等信息
+        /// 00 ¦ Group horncode 提取 0;
+        /// 7147   | off/on     提取 7147;
+        /// 11  | +C21A         提取 11  ;  
+        /// </summary>
+        /// <param name="infoValueAndDesc"></param>
+        /// <param name="separator">分隔符，比如InfoType为"   |";HornCode为" ¦"</param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static double ParseInfoValue(string infoValueAndDesc,string separator,double defaultValue = 0)
+        {
+            return double.TryParse(infoValueAndDesc.Substring(0, infoValueAndDesc.IndexOf(separator)), out double tempDouble) ? tempDouble : defaultValue;
         }
         protected void CreateImpExpDef(List<List<Gcpro.DbParameter>> impExpList, string impExpRuleName)
         {
@@ -254,7 +268,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             baseRule.Description = desc.ToString();
             return baseRule.Description;
         }
-
         public static void DecodingDesc(ref GcBaseRule baseRule, string descSeparator)
         {
     
@@ -439,26 +452,61 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         //    return ret;
         }
         /// <summary>
+        /// Return the FieldbusNodeKeyin table [ObjData]
+        /// </summary>
+        /// <param name="queryDataTable">OleDb类中的QueryDataTable方法的委托/param>
+        /// <param name="nodeName">DPNode名称[FieldText]字段</param>
+        /// <returns></returns>
+        public static (double, double) ParseFieldbusNodeKey(Func<string, string, IDictionary<string, object>, string, string[], DataTable> queryDataTable, string nodeName)
+        {
+            double dpNodeNo = LibGlobalSource.NO_DP_NODE;
+            double fieldbusNodeKey = LibGlobalSource.NO_DP_NODE;
+            if (string.IsNullOrEmpty(nodeName))
+            {
+                return (dpNodeNo, fieldbusNodeKey);
+            }
+            else
+            { 
+                DataTable data;
+                string tableName, whereClause;
+                tableName = GcproTable.TranslationCbo.TableName;
+                string[] fieldList = { GcproTable.TranslationCbo.FieldValue.Name };
+                whereClause = $@"{GcproTable.TranslationCbo.FieldText.Name} LIKE '{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name} = '{GcproTable.TranslationCbo.Class_ASWInDPFault}'";
+                data = queryDataTable(tableName, whereClause, null, null, fieldList);
+                if (data.Rows.Count != 0)
+                { dpNodeNo = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name); }
+                else
+                {
+                    dpNodeNo = fieldbusNodeKey = LibGlobalSource.NO_DP_NODE;
+                    return (dpNodeNo, fieldbusNodeKey);
+                }
+                tableName = GcproTable.ObjData.TableName;
+                fieldList = new string[] { GcproTable.ObjData.Key.Name };
+                whereClause = $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={dpNodeNo}";
+                data = queryDataTable(tableName, whereClause, null, null, fieldList);
+                fieldbusNodeKey = data.Rows.Count != 0 ? data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name) : LibGlobalSource.NO_DP_NODE;
+                return (dpNodeNo, fieldbusNodeKey);
+            }
+        }
+        /// <summary>
         /// Return the FieldbusNode
         /// </summary>
         /// <param name="queryDataTable">OleDb类中的QueryDataTable方法的委托/param>
         /// <param name="nodeNo">DPNode</param>
         /// <returns></returns>
-        public static string FindFieldbusNodeKey(Func<string, string, IDictionary<string,object>, string, string[], DataTable> queryDataTable, int nodeNo)
+        public static double FindFieldbusNodeKey(Func<string, string, IDictionary<string,object>, string, string[], DataTable> queryDataTable, double nodeNo)
         {
-            string key ;
+            double key ;
             DataTable data;    
-            //data = oleDb.QueryDataTable(GcproTable.ObjData.TableName, $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}",
-            //             null, null, GcproTable.ObjData.Key.Name);
             string tableName, whereClause;
             tableName = GcproTable.ObjData.TableName;
             string[] fieldList = { GcproTable.ObjData.Key.Name };
             whereClause = $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}";  
             data = queryDataTable(tableName, whereClause,null,null, fieldList);
             if (data.Rows.Count != 0)
-            { key = data.Rows[0].Field<int>(GcproTable.ObjData.Key.Name).ToString(); }
+            { key = data.Rows[0].Field<double>(GcproTable.ObjData.Key.Name); }
             else
-            { key = string.Empty; }
+            { key = 0; }
             return key;
         }
 
@@ -468,9 +516,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="queryDataTable">OleDb类中的QueryDataTable方法的委托/param>
         /// <param name="nodeName">DPNode名称[FieldText]字段</param>
         /// <returns></returns>
-        public static string FindDPNodeNo(Func<string, string, IDictionary<string, object>, string, string[], DataTable> queryDataTable, string nodeName)
+        public static double FindDPNodeNo(Func<string, string, IDictionary<string, object>, string, string[], DataTable> queryDataTable, string nodeName)
         {
-            string key ;
+            double key ;
             DataTable data;          
             string tableName, whereClause;
             tableName = GcproTable.TranslationCbo.TableName;
@@ -478,10 +526,23 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             whereClause = $@"{GcproTable.TranslationCbo.FieldText.Name} LIKE '{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name} = '{GcproTable.TranslationCbo.Class_ASWInDPFault}'";
             data = queryDataTable(tableName, whereClause, null, null, fieldList);
             if (data.Rows.Count != 0)
-            { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name).ToString(); }
+            { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name); }
             else
-            { key = string.Empty; }
+            { key = 0; }
             return key;
+        }
+        /// <summary>
+        /// 定义事件委托
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public delegate void GcObjectEventHandler(object sender, EventArgs e);
+         /// <summary>
+         /// 
+         /// </summary>
+        protected void SetObjParameters()
+        {
+
         }
     }
 }

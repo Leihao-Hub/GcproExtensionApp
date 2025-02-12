@@ -22,16 +22,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string dpNode2;
-        private string value9;
-        private string value10;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double dpNode2;
+        private double value9;
+        private double value10;
         private string inpRun;
         private string inpFaultDev;
         private string inpAlarmReset;
@@ -40,12 +40,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string outpFaultReset;      
         private string outpLamp;
         private string outpFinalClearing;
-        private string parStartDelay;
-        private string parStartingTime;
-        private string parOnTime;
-        private string parOffTime;
-        private string parIdlingTime;
-        private string parDelayFaultTime;     
+        private double parStartDelay;
+        private double parStartingTime;
+        private double parOnTime;
+        private double parOffTime;
+        private double parIdlingTime;
+        private double parDelayFaultTime;     
         private string refInEnable;
         private string refSenderBin;
         private string refSafetyStop;
@@ -82,7 +82,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -92,7 +92,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -102,35 +102,35 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
         #endregion
         #region Application properties
-        public string DPNode2
+        public double DPNode2
         {
             get { return dpNode2; }
             set { dpNode2 = value; }
         }
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -177,32 +177,32 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { outpFinalClearing = value; }
         }
 
-        public string ParStartDelay
+        public double ParStartDelay
         {
             get { return parStartDelay; }
             set { parStartDelay = value; }
         }
-        public string ParStartingTime
+        public double ParStartingTime
         {
             get { return parStartingTime; }
             set { parStartingTime = value; }
         }
-        public string ParOnTime
+        public double ParOnTime
         {
             get { return parOnTime; }
             set { parOnTime = value; }
         }
-        public string ParOffTime
+        public double ParOffTime
         {
             get { return parOffTime; }
             set { parOffTime = value; }
         }
-        public string ParIdlingTime
+        public double ParIdlingTime
         {
             get { return parIdlingTime; }
             set { parIdlingTime = value; }
         }
-        public string ParDelayFaultTime
+        public double ParDelayFaultTime
         {
             get { return parDelayFaultTime; }
             set { parDelayFaultTime = value; }
@@ -275,28 +275,28 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             processFct = string.Empty;
             building = "--";
             elevation = "--";
-            fieldBusNode = string.Empty;
+            fieldBusNode = 0;
             panel_ID = string.Empty;
-            diagram = string.Empty;
+            diagram = 0;
             page = string.Empty;
-            pType = P7002.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
-            dpNode1 = LibGlobalSource.NOCHILD;
-            dpNode2 = LibGlobalSource.NOCHILD;
-            value9 = "0";
-            value10 = "102";
+            pType = P7002;
+            hornCode = 0;
+            dpNode1 = 0;
+            dpNode2 = 0;
+            value9 = 0;
+            value10 = 102;
             inpRun = LibGlobalSource.NOCHILD;
             inpFaultDev = LibGlobalSource.NOCHILD;
             inHWStop = LibGlobalSource.NOCHILD;
             outpFaultReset = LibGlobalSource.NOCHILD;
             outpRun = LibGlobalSource.NOCHILD;
             outpLamp = LibGlobalSource.NOCHILD;
-            parStartDelay = "0";
-            parStartingTime= "10";
-            parOnTime = "0";
-            parOffTime = "0";
-            parIdlingTime = "0";
-            parDelayFaultTime = "0";
+            parStartDelay = 0;
+            parStartingTime= 1;
+            parOnTime = 0.5;
+            parOffTime = 5.0;
+            parIdlingTime = 0;
+            parDelayFaultTime = 0;
             refInEnable = string.Empty;
             refSenderBin = string.Empty;
             refSafetyStop = string.Empty;

@@ -32,7 +32,7 @@ namespace GcproExtensionApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormScaleAdapter));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblFieldInDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblField = new System.Windows.Forms.ToolStripStatusLabel();
@@ -205,6 +205,8 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
+            this.lblHornCode = new System.Windows.Forms.Label();
+            this.comboHornCode = new System.Windows.Forms.ComboBox();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
@@ -363,6 +365,8 @@ namespace GcproExtensionApp
             // 
             // grpGeneral
             // 
+            this.grpGeneral.Controls.Add(this.lblHornCode);
+            this.grpGeneral.Controls.Add(this.comboHornCode);
             this.grpGeneral.Controls.Add(this.grpWinCosTrending);
             this.grpGeneral.Controls.Add(this.txtValue9);
             this.grpGeneral.Controls.Add(this.grpReference);
@@ -824,7 +828,7 @@ namespace GcproExtensionApp
             // 
             this.comboDPNode2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboDPNode2.FormattingEnabled = true;
-            this.comboDPNode2.Location = new System.Drawing.Point(109, 241);
+            this.comboDPNode2.Location = new System.Drawing.Point(109, 259);
             this.comboDPNode2.Name = "comboDPNode2";
             this.comboDPNode2.Size = new System.Drawing.Size(217, 21);
             this.comboDPNode2.TabIndex = 172;
@@ -832,7 +836,7 @@ namespace GcproExtensionApp
             // lbllblDPNode2
             // 
             this.lbllblDPNode2.AutoSize = true;
-            this.lbllblDPNode2.Location = new System.Drawing.Point(6, 241);
+            this.lbllblDPNode2.Location = new System.Drawing.Point(8, 262);
             this.lbllblDPNode2.Name = "lbllblDPNode2";
             this.lbllblDPNode2.Size = new System.Drawing.Size(70, 13);
             this.lbllblDPNode2.TabIndex = 171;
@@ -852,7 +856,7 @@ namespace GcproExtensionApp
             this.ComboEquipmentInfoType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComboEquipmentInfoType.FormattingEnabled = true;
             this.ComboEquipmentInfoType.IntegralHeight = false;
-            this.ComboEquipmentInfoType.Location = new System.Drawing.Point(107, 187);
+            this.ComboEquipmentInfoType.Location = new System.Drawing.Point(109, 187);
             this.ComboEquipmentInfoType.Name = "ComboEquipmentInfoType";
             this.ComboEquipmentInfoType.Size = new System.Drawing.Size(357, 21);
             this.ComboEquipmentInfoType.TabIndex = 170;
@@ -1101,7 +1105,7 @@ namespace GcproExtensionApp
             // txtInFlowrateHighLimit
             // 
             this.txtInFlowrateHighLimit.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtInFlowrateHighLimit.Location = new System.Drawing.Point(147, 399);
+            this.txtInFlowrateHighLimit.Location = new System.Drawing.Point(147, 420);
             this.txtInFlowrateHighLimit.Name = "txtInFlowrateHighLimit";
             this.txtInFlowrateHighLimit.Size = new System.Drawing.Size(63, 13);
             this.txtInFlowrateHighLimit.TabIndex = 155;
@@ -1112,7 +1116,7 @@ namespace GcproExtensionApp
             // 
             this.lblInFlowrateHighLimit.AutoSize = true;
             this.lblInFlowrateHighLimit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblInFlowrateHighLimit.Location = new System.Drawing.Point(4, 399);
+            this.lblInFlowrateHighLimit.Location = new System.Drawing.Point(4, 420);
             this.lblInFlowrateHighLimit.Name = "lblInFlowrateHighLimit";
             this.lblInFlowrateHighLimit.Size = new System.Drawing.Size(128, 13);
             this.lblInFlowrateHighLimit.TabIndex = 154;
@@ -1123,7 +1127,7 @@ namespace GcproExtensionApp
             // 
             this.comboDPNode1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboDPNode1.FormattingEnabled = true;
-            this.comboDPNode1.Location = new System.Drawing.Point(109, 214);
+            this.comboDPNode1.Location = new System.Drawing.Point(109, 235);
             this.comboDPNode1.Name = "comboDPNode1";
             this.comboDPNode1.Size = new System.Drawing.Size(218, 21);
             this.comboDPNode1.TabIndex = 120;
@@ -1131,7 +1135,7 @@ namespace GcproExtensionApp
             // lblDPNode1
             // 
             this.lblDPNode1.AutoSize = true;
-            this.lblDPNode1.Location = new System.Drawing.Point(6, 214);
+            this.lblDPNode1.Location = new System.Drawing.Point(8, 239);
             this.lblDPNode1.Name = "lblDPNode1";
             this.lblDPNode1.Size = new System.Drawing.Size(70, 13);
             this.lblDPNode1.TabIndex = 119;
@@ -1166,9 +1170,9 @@ namespace GcproExtensionApp
             this.grpIOByte.Controls.Add(this.tblFParIOByte);
             this.grpIOByte.Controls.Add(this.tblIOByteIncRule);
             this.grpIOByte.Controls.Add(this.txtParIOByte);
-            this.grpIOByte.Location = new System.Drawing.Point(1, 304);
+            this.grpIOByte.Location = new System.Drawing.Point(1, 325);
             this.grpIOByte.Name = "grpIOByte";
-            this.grpIOByte.Size = new System.Drawing.Size(320, 38);
+            this.grpIOByte.Size = new System.Drawing.Size(320, 39);
             this.grpIOByte.TabIndex = 146;
             this.grpIOByte.TabStop = false;
             this.grpIOByte.Text = "IO Byte和规则";
@@ -1388,7 +1392,7 @@ namespace GcproExtensionApp
             // lblInFlowrate
             // 
             this.lblInFlowrate.AutoSize = true;
-            this.lblInFlowrate.Location = new System.Drawing.Point(4, 348);
+            this.lblInFlowrate.Location = new System.Drawing.Point(4, 369);
             this.lblInFlowrate.Name = "lblInFlowrate";
             this.lblInFlowrate.Size = new System.Drawing.Size(56, 13);
             this.lblInFlowrate.TabIndex = 121;
@@ -1423,7 +1427,7 @@ namespace GcproExtensionApp
             // txtInFlowrate
             // 
             this.txtInFlowrate.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtInFlowrate.Location = new System.Drawing.Point(147, 348);
+            this.txtInFlowrate.Location = new System.Drawing.Point(147, 369);
             this.txtInFlowrate.Name = "txtInFlowrate";
             this.txtInFlowrate.Size = new System.Drawing.Size(63, 13);
             this.txtInFlowrate.TabIndex = 122;
@@ -1442,7 +1446,7 @@ namespace GcproExtensionApp
             // txtInDumpWeight
             // 
             this.txtInDumpWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtInDumpWeight.Location = new System.Drawing.Point(147, 416);
+            this.txtInDumpWeight.Location = new System.Drawing.Point(147, 437);
             this.txtInDumpWeight.Name = "txtInDumpWeight";
             this.txtInDumpWeight.Size = new System.Drawing.Size(63, 13);
             this.txtInDumpWeight.TabIndex = 132;
@@ -1452,7 +1456,7 @@ namespace GcproExtensionApp
             // lblInPreCutoffWeight
             // 
             this.lblInPreCutoffWeight.AutoSize = true;
-            this.lblInPreCutoffWeight.Location = new System.Drawing.Point(4, 365);
+            this.lblInPreCutoffWeight.Location = new System.Drawing.Point(4, 386);
             this.lblInPreCutoffWeight.Name = "lblInPreCutoffWeight";
             this.lblInPreCutoffWeight.Size = new System.Drawing.Size(94, 13);
             this.lblInPreCutoffWeight.TabIndex = 123;
@@ -1471,7 +1475,7 @@ namespace GcproExtensionApp
             // 
             this.lblInDumpWeight.AutoSize = true;
             this.lblInDumpWeight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblInDumpWeight.Location = new System.Drawing.Point(4, 416);
+            this.lblInDumpWeight.Location = new System.Drawing.Point(4, 437);
             this.lblInDumpWeight.Name = "lblInDumpWeight";
             this.lblInDumpWeight.Size = new System.Drawing.Size(78, 13);
             this.lblInDumpWeight.TabIndex = 131;
@@ -1480,7 +1484,7 @@ namespace GcproExtensionApp
             // txtInPreCuttoffWeight
             // 
             this.txtInPreCuttoffWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtInPreCuttoffWeight.Location = new System.Drawing.Point(147, 365);
+            this.txtInPreCuttoffWeight.Location = new System.Drawing.Point(147, 386);
             this.txtInPreCuttoffWeight.Name = "txtInPreCuttoffWeight";
             this.txtInPreCuttoffWeight.Size = new System.Drawing.Size(63, 13);
             this.txtInPreCuttoffWeight.TabIndex = 124;
@@ -1490,7 +1494,7 @@ namespace GcproExtensionApp
             // txtParPulseWeight
             // 
             this.txtParPulseWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParPulseWeight.Location = new System.Drawing.Point(149, 285);
+            this.txtParPulseWeight.Location = new System.Drawing.Point(149, 306);
             this.txtParPulseWeight.Name = "txtParPulseWeight";
             this.txtParPulseWeight.Size = new System.Drawing.Size(63, 13);
             this.txtParPulseWeight.TabIndex = 130;
@@ -1500,7 +1504,7 @@ namespace GcproExtensionApp
             // lblParPulseWeight
             // 
             this.lblParPulseWeight.AutoSize = true;
-            this.lblParPulseWeight.Location = new System.Drawing.Point(6, 285);
+            this.lblParPulseWeight.Location = new System.Drawing.Point(6, 306);
             this.lblParPulseWeight.Name = "lblParPulseWeight";
             this.lblParPulseWeight.Size = new System.Drawing.Size(83, 13);
             this.lblParPulseWeight.TabIndex = 129;
@@ -1509,7 +1513,7 @@ namespace GcproExtensionApp
             // lblInFlowrateLowLimit
             // 
             this.lblInFlowrateLowLimit.AutoSize = true;
-            this.lblInFlowrateLowLimit.Location = new System.Drawing.Point(4, 382);
+            this.lblInFlowrateLowLimit.Location = new System.Drawing.Point(4, 403);
             this.lblInFlowrateLowLimit.Name = "lblInFlowrateLowLimit";
             this.lblInFlowrateLowLimit.Size = new System.Drawing.Size(126, 13);
             this.lblInFlowrateLowLimit.TabIndex = 125;
@@ -1518,7 +1522,7 @@ namespace GcproExtensionApp
             // txtParTimeOutStart
             // 
             this.txtParTimeOutStart.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtParTimeOutStart.Location = new System.Drawing.Point(149, 268);
+            this.txtParTimeOutStart.Location = new System.Drawing.Point(149, 289);
             this.txtParTimeOutStart.Name = "txtParTimeOutStart";
             this.txtParTimeOutStart.Size = new System.Drawing.Size(63, 13);
             this.txtParTimeOutStart.TabIndex = 128;
@@ -1528,7 +1532,7 @@ namespace GcproExtensionApp
             // lblParTimeOutStart
             // 
             this.lblParTimeOutStart.AutoSize = true;
-            this.lblParTimeOutStart.Location = new System.Drawing.Point(6, 268);
+            this.lblParTimeOutStart.Location = new System.Drawing.Point(6, 289);
             this.lblParTimeOutStart.Name = "lblParTimeOutStart";
             this.lblParTimeOutStart.Size = new System.Drawing.Size(96, 13);
             this.lblParTimeOutStart.TabIndex = 127;
@@ -1537,7 +1541,7 @@ namespace GcproExtensionApp
             // txtInFlowrateLowLimit
             // 
             this.txtInFlowrateLowLimit.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtInFlowrateLowLimit.Location = new System.Drawing.Point(147, 382);
+            this.txtInFlowrateLowLimit.Location = new System.Drawing.Point(147, 403);
             this.txtInFlowrateLowLimit.Name = "txtInFlowrateLowLimit";
             this.txtInFlowrateLowLimit.Size = new System.Drawing.Size(63, 13);
             this.txtInFlowrateLowLimit.TabIndex = 126;
@@ -1592,8 +1596,8 @@ namespace GcproExtensionApp
             // dataGridBML
             // 
             this.dataGridBML.AllowUserToAddRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dataGridBML.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridBML.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridBML.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridBML.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -2127,6 +2131,24 @@ namespace GcproExtensionApp
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "Page:";
             // 
+            // lblHornCode
+            // 
+            this.lblHornCode.AutoSize = true;
+            this.lblHornCode.Location = new System.Drawing.Point(8, 213);
+            this.lblHornCode.Name = "lblHornCode";
+            this.lblHornCode.Size = new System.Drawing.Size(71, 13);
+            this.lblHornCode.TabIndex = 185;
+            this.lblHornCode.Text = "ParHornCode";
+            // 
+            // comboHornCode
+            // 
+            this.comboHornCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboHornCode.FormattingEnabled = true;
+            this.comboHornCode.Location = new System.Drawing.Point(109, 211);
+            this.comboHornCode.Name = "comboHornCode";
+            this.comboHornCode.Size = new System.Drawing.Size(217, 21);
+            this.comboHornCode.TabIndex = 186;
+            // 
             // FormScaleAdapter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2358,6 +2380,8 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Label lblFluidLiftAirlockIncRule;
         internal System.Windows.Forms.Label lblSenderBinRule;
         internal System.Windows.Forms.TextBox txtSenderBinRule;
+        internal System.Windows.Forms.Label lblHornCode;
+        internal System.Windows.Forms.ComboBox comboHornCode;
     }
 }
 

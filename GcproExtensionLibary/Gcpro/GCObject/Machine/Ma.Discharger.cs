@@ -12,12 +12,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public struct DischargerdRule
         {
             public GcBaseRule Common;
-            public string Discharger, DischargerRule, DischargerRuleInc;
-            public string Vibro, VibroRule, VibroRuleInc;
-            public string LSFlow, LSFlowRule, LSFlowRuleInc;
-            public string LLBin, LLBinRule, LLBinRuleInc;
-            public string Receiver, ReceiverRule, ReceiverRuleInc;
-            public string SenderBin, SenderBinRule, SenderBinRuleInc;
+            public string Discharger, DischargerRule;
+            public string Vibro, VibroRule;
+            public string LSFlow, LSFlowRule;
+            public string LLBin, LLBinRule;
+            public string Receiver, ReceiverRule;
+            public string SenderBin, SenderBinRule;
+            public int DischargerRuleInc, VibroRuleInc, LSFlowRuleInc,LLBinRuleInc, ReceiverRuleInc, SenderBinRuleInc;
         }
         private string filePath;
         private readonly string fileRelationPath;
@@ -30,19 +31,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
-        private string pType;
-        private string value10;
+        private double pType;
+        private double value10;
         private string discharger;
         private string vibro;
         private string lsFlow;
         private string llBin;
-        private string parVibrOnTime;
-        private string parVibrOffTime;
-        private string parRestDischargeTime;
+        private double parVibrOnTime;
+        private double parVibrOffTime;
+        private double parRestDischargeTime;
         private string refReceiver;
         private string refSenderBin;
         private string isNew;
@@ -77,7 +78,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -87,7 +88,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -97,7 +98,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
@@ -111,7 +112,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         #endregion
         #region Application properties 
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
@@ -138,18 +139,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return llBin; }
             set { llBin = value; }
         }
-        public string ParVibroOnTime
+        public double ParVibroOnTime
         {
             get { return parVibrOnTime; }
             set { parVibrOnTime = value; }
         }
-        public string ParVibroOffTime
+        public double ParVibroOffTime
         {
             get { return parVibrOffTime; }
             set { parVibrOffTime = value; }
         }
 
-        public string ParRestDischargeTime
+        public double ParRestDischargeTime
         {
             get { return parRestDischargeTime; }
             set { parRestDischargeTime = value; }
@@ -192,13 +193,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public Discharger()
         {
             string commonDefaultFilePath;
-            pType = P2056.ToString();
-            value10 = "16";
+            pType = P2056;
+            value10 = 16;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-            Rule.DischargerRuleInc =  "1";
-            Rule.VibroRuleInc = "1";
-            Rule.LLBinRuleInc = Rule.LSFlowRuleInc = "1";
-            Rule.ReceiverRuleInc = Rule.SenderBinRuleInc = "1";
+            Rule.DischargerRuleInc =  1;
+            Rule.VibroRuleInc = 1;
+            Rule.LLBinRuleInc = Rule.LSFlowRuleInc = 1;
+            Rule.ReceiverRuleInc = Rule.SenderBinRuleInc = 1;
             SetOTypeProperty(OTypeCollection.MA_Discharger);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
@@ -245,9 +246,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(parVibrOnTime).Append(LibGlobalSource.TAB)
-                    .Append(parVibrOffTime).Append(LibGlobalSource.TAB)
-                    .Append(parRestDischargeTime).Append(LibGlobalSource.TAB)
+                    .Append(parVibrOnTime * 10).Append(LibGlobalSource.TAB)
+                    .Append(parVibrOffTime * 10).Append(LibGlobalSource.TAB)
+                    .Append(parRestDischargeTime * 10).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                     .Append(LibGlobalSource.NOCHILD);                
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);

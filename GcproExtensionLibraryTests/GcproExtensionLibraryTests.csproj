@@ -60,6 +60,11 @@
       <Name>GcproExtensionLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework">
+      <Version>3.1.1</Version>
+    </PackageReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -95,6 +95,16 @@ namespace GcproExtensionApp
                 ComboEquipmentInfoType.Items.Add(column.ToString());
             }
             ComboEquipmentInfoType.SelectedIndex = 0;
+            ///<HornCode> Read [PType] </HornCode>
+            dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_ASWParHornCode}'",
+                null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name);
+            list = OleDb.GetColumnData<string>(dataTable, GcproTable.TranslationCbo.FieldText.Name);
+            foreach (var column in list)
+            {
+
+                comboHornCode.Items.Add(column.ToString());
+            }
+            comboHornCode.SelectedIndex = 0;
             ///<DPNode> Read [DPNode1] and [DPNode2]</DPNode>
             dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_ASWInDPFault}'",
             null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name);
@@ -227,9 +237,9 @@ namespace GcproExtensionApp
             txtSymbol.Focus();
             txtSymbolIncRule.Text = "1";
             txtDescriptionIncRule.Text = "1";
-            txtValue10.Text = myScaleAdapter.Value10;
-            txtValue9.Text = myScaleAdapter.Value9;
-            txtValue60.Text = myScaleAdapter.Value60;
+            txtValue10.Text = myScaleAdapter.Value10.ToString();
+            txtValue9.Text = myScaleAdapter.Value9.ToString().ToString();
+            txtValue60.Text = myScaleAdapter.Value60.ToString().ToString();
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
@@ -424,7 +434,7 @@ namespace GcproExtensionApp
                 if (AppGlobal.CheckNumericString(txtIOByteIncRule.Text))
                 {
 
-                   ScaleAdapter.Rule.ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt:0;
+                   ScaleAdapter.Rule.ioByteInc = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt:0;
                 }
                 else
                 {
@@ -444,8 +454,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myScaleAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myScaleAdapter.Value10;
+            myScaleAdapter.Value10 = value10;
+            txtValue10.Text = myScaleAdapter.Value10.ToString();
         }
 
         private void ChkParManual_CheckedChanged(object sender, EventArgs e)
@@ -457,8 +467,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myScaleAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myScaleAdapter.Value10;
+            myScaleAdapter.Value10 = value10;
+            txtValue10.Text = myScaleAdapter.Value10.ToString();
         }
 
         private void ChkParStartwarning_CheckedChanged(object sender, EventArgs e)
@@ -470,8 +480,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
 
-            myScaleAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myScaleAdapter.Value10;
+            myScaleAdapter.Value10 = value10;
+            txtValue10.Text = myScaleAdapter.Value10.ToString();
         }
 
         private void ChkParDump_CheckedChanged(object sender, EventArgs e)
@@ -483,8 +493,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myScaleAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myScaleAdapter.Value10;
+            myScaleAdapter.Value10 = value10;
+            txtValue10.Text = myScaleAdapter.Value10.ToString();
         }
 
         private void ChkParBlend_CheckedChanged(object sender, EventArgs e)
@@ -496,8 +506,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)7); }
 
-            myScaleAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myScaleAdapter.Value10;
+            myScaleAdapter.Value10 = value10;
+            txtValue10.Text = myScaleAdapter.Value10.ToString();
         }
 
         private void ChkParFlowrateCauculateion_CheckedChanged(object sender, EventArgs e)
@@ -509,8 +519,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)8); }
 
-            myScaleAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myScaleAdapter.Value10;
+            myScaleAdapter.Value10 = value10;
+            txtValue10.Text = myScaleAdapter.Value10.ToString();
         }
 
         private void ChkParSendFlowrate_CheckedChanged(object sender, EventArgs e)
@@ -522,8 +532,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value60, (byte)0); }
 
-            myScaleAdapter.Value60 = value60.ToString();
-            txtValue60.Text = myScaleAdapter.Value60;
+            myScaleAdapter.Value60 = value60;
+            txtValue60.Text = myScaleAdapter.Value60.ToString();
         }
 
         private void ChkParSendJobWeight_CheckedChanged(object sender, EventArgs e)
@@ -535,8 +545,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value60, (byte)1); }
 
-            myScaleAdapter.Value60 = value60.ToString();
-            txtValue60.Text = myScaleAdapter.Value60;
+            myScaleAdapter.Value60 = value60;
+            txtValue60.Text = myScaleAdapter.Value60.ToString();
         }
 
         private void ChkParSendCutoffWeight_CheckedChanged(object sender, EventArgs e)
@@ -548,8 +558,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value60, (byte)2); }
 
-            myScaleAdapter.Value60 = value60.ToString();
-            txtValue60.Text = myScaleAdapter.Value60;
+            myScaleAdapter.Value60 = value60;
+            txtValue60.Text = myScaleAdapter.Value60.ToString();
         }
 
         private void ChkParVerifiable_CheckedChanged(object sender, EventArgs e)
@@ -561,8 +571,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value60, (byte)10); }
 
-            myScaleAdapter.Value60 = value60.ToString();
-            txtValue60.Text = myScaleAdapter.Value60;
+            myScaleAdapter.Value60 = value60;
+            txtValue60.Text = myScaleAdapter.Value60.ToString();
         }
 
         private void ChkParVolumetricDosing_CheckedChanged(object sender, EventArgs e)
@@ -574,8 +584,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value60, (byte)11); }
 
-            myScaleAdapter.Value60 = value60.ToString();
-            txtValue60.Text = myScaleAdapter.Value60;
+            myScaleAdapter.Value60 = value60;
+            txtValue60.Text = myScaleAdapter.Value60.ToString();
         }
 
         private void ChkWithRestDischarge_CheckedChanged(object sender, EventArgs e)
@@ -587,8 +597,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)0); }
 
-            myScaleAdapter.Value9 = value9.ToString();
-            txtValue9.Text = myScaleAdapter.Value9;
+            myScaleAdapter.Value9 = value9;
+            txtValue9.Text = myScaleAdapter.Value9.ToString();
         }
 
         private void ChkOutFlowrate_CheckedChanged(object sender, EventArgs e)
@@ -600,8 +610,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)16); }
 
-            myScaleAdapter.Value9 = value9.ToString();
-            txtValue9.Text = myScaleAdapter.Value9;
+            myScaleAdapter.Value9 = value9;
+            txtValue9.Text = myScaleAdapter.Value9.ToString();
         }
 
         private void ChkOutJobweight_CheckedChanged(object sender, EventArgs e)
@@ -613,8 +623,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value9, (byte)17); }
 
-            myScaleAdapter.Value9 = value9.ToString();
-            txtValue9.Text = myScaleAdapter.Value9;
+            myScaleAdapter.Value9 = value9;
+            txtValue9.Text = myScaleAdapter.Value9.ToString();
         }
         #endregion <------ Check and unchek "Value9" ,"Value10 and "Value60"------>
 
@@ -784,7 +794,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -843,7 +854,8 @@ namespace GcproExtensionApp
         private void CreateBMLDefault()
         {
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.Motor.BMLPath;         
+            TxtExcelPath.Text = BML.Motor.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -1116,10 +1128,10 @@ namespace GcproExtensionApp
         {
             #region common used variables declaration
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);    
-            int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
-            int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
+            int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+            int ioByteInc = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
             bool needDPNodeChanged = false;
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             RuleSubDataSet description, name, dpNode1,senderBin,fluidLiftAirlock;
@@ -1149,19 +1161,19 @@ namespace GcproExtensionApp
                     Len = 0,
                 }
             };
-            dpNode1 = new RuleSubDataSet
-            {
-                Sub = new string[] { },
-                Inc = 0,
-                PosInfo = new RuleSubPos
-                {
-                    StartPos = false,
-                    MidPos = false,
-                    EndPos = false,
-                    PosInString = 0,
-                    Len = 0,
-                }
-            };
+            //dpNode1 = new RuleSubDataSet
+            //{
+            //    Sub = new string[] { },
+            //    Inc = 0,
+            //    PosInfo = new RuleSubPos
+            //    {
+            //        StartPos = false,
+            //        MidPos = false,
+            //        EndPos = false,
+            //        PosInString = 0,
+            //        Len = 0,
+            //    }
+            //};
             senderBin = new RuleSubDataSet
             {
                 Sub = new string[] { },
@@ -1229,7 +1241,7 @@ namespace GcproExtensionApp
                 objScaleAdapter.Elevation = selectedElevation;
             }
             ///<FieldBusNode></FieldBusNode>  
-            objScaleAdapter.FieldBusNode = LibGlobalSource.NOCHILD;
+            objScaleAdapter.FieldBusNode = AppGlobal.NO_DP_NODE;
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
@@ -1242,7 +1254,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objScaleAdapter.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objScaleAdapter.Diagram = ScaleAdapter.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             objScaleAdapter.Page = txtPage.Text;
@@ -1250,50 +1262,46 @@ namespace GcproExtensionApp
             string selectDPNode1 = String.Empty;
             if (comboDPNode1.SelectedItem != null)
             {
-                selectDPNode1 = comboDPNode1.SelectedItem.ToString();
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                int dpnode1 = int.Parse(objScaleAdapter.DPNode1);
-                objScaleAdapter.DPNode1 = ScaleAdapter.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                selectDPNode1 = comboDPNode1.SelectedItem.ToString();         
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
 
-                if (String.IsNullOrEmpty(objScaleAdapter.DPNode1))
-                { objScaleAdapter.FieldBusNode = string.Empty; }
-                else
-                {
-                    objScaleAdapter.FieldBusNode = ScaleAdapter.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, dpnode1);
-                }
+                objScaleAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objScaleAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
+            }
+            ///<HornCode></HornCode>
+            if (comboHornCode.SelectedItem != null)
+            {
+                string hornCode = comboHornCode.SelectedItem.ToString();
+                objScaleAdapter.HornCode = ScaleAdapter.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             ///<Value9>Value is set when corresponding check box's check state changed</Value9>
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Value60>Value is set when corresponding check box's check state changed</Value60>
             ///<ParTimeoutStart></ParTimeoutStart>
-            objScaleAdapter.ParTimeoutStart = AppGlobal.ParseInt(txtParTimeOutStart.Text, out tempInt) ? (tempInt).ToString() : "0";
+            objScaleAdapter.ParTimeoutStart = AppGlobal.ParseValue<float>(txtParTimeOutStart.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0;
             ///<ParPulseWeight></ParPulseWeight>
-            objScaleAdapter.ParPulseWeight = AppGlobal.ParseInt(txtParPulseWeight.Text, out tempInt) ? (tempInt).ToString() : "0";
+            objScaleAdapter.ParPulseWeight = AppGlobal.ParseValue<float>(txtParPulseWeight.Text, out tempFloat) ? Math.Round(tempFloat, 0) : 0.0;
             ///<InFlowrate></InFlowrate>
-            objScaleAdapter.InFlowrate = AppGlobal.ParseInt(txtInFlowrate.Text, out tempInt) ? (tempInt).ToString() : "0";
+            objScaleAdapter.InFlowrate = AppGlobal.ParseValue<float>(txtInFlowrate.Text, out tempFloat) ? Math.Round(tempFloat, 0) : 0.0;
             ///<InPreCuttoffWeight></InPreCuttoffWeight>
-            objScaleAdapter.InPreCutoffWeight = AppGlobal.ParseInt(txtInPreCuttoffWeight.Text, out tempInt) ? (tempInt).ToString() : "0";
+            objScaleAdapter.InPreCutoffWeight = AppGlobal.ParseValue<float>(txtInPreCuttoffWeight.Text, out tempFloat) ? Math.Round(tempFloat, 0) : 0.0;
             ///<InFlowrateLowLimit></InFlowrateLowLimit>
-            objScaleAdapter.InFlowrateLowLimit = AppGlobal.ParseInt(txtInFlowrateLowLimit.Text, out tempInt) ? (tempInt).ToString() : "0";
+            objScaleAdapter.InFlowrateLowLimit = AppGlobal.ParseValue<float>(txtInFlowrateLowLimit.Text, out tempFloat) ? Math.Round(tempFloat, 0) : 0.0;
             ///<InFlowrateHighLimit</InFlowrateHighLimit>
-            objScaleAdapter.InFlowrateHighLimit = AppGlobal.ParseFloat(txtInFlowrateHighLimit.Text, out tempFloat) ? (tempFloat).ToString("F1") : "0.1";
+            objScaleAdapter.InFlowrateHighLimit = AppGlobal.ParseValue<float>(txtInFlowrateHighLimit.Text, out tempFloat) ? Math.Round(tempFloat, 0) : 0.0; ;
             ///<InDumpWeight</InDumpWeight>
-            objScaleAdapter.InDumpWeight = AppGlobal.ParseInt(txtInDumpWeight.Text, out tempInt) ? (tempInt).ToString() : "0";          
+            objScaleAdapter.InDumpWeight = AppGlobal.ParseValue<float>(txtInDumpWeight.Text, out tempFloat) ? Math.Round(tempFloat, 0) : 0.0; ;          
             ///<ParIOByteNo</ParIOByteNo>
-            objScaleAdapter.IoByteNo = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? (tempInt).ToString() : "20000";               
+            objScaleAdapter.IoByteNo = AppGlobal.ParseValue<float>(txtParIOByte.Text, out tempFloat) ? (tempFloat): 20000;               
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
-            #endregion Prepare export vfc file
+            #endregion Prepare export scale adapter file
 
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1391,39 +1399,33 @@ namespace GcproExtensionApp
                 fluidLiftAirlock.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtFluidLiftAirlock.Text, txtFluidLiftAirlockRule.Text);
             }
             #endregion Parse rules
-            processValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
+            processValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
             processValue.Value = 0;
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc,senderBinInc,fluidLiftAirlockInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseInt(txtSenderBinIncRule.Text, out senderBinInc);
-            AppGlobal.ParseInt(txtFluidLiftAirlockIncRule.Text, out fluidLiftAirlockInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out senderBinInc);
+            AppGlobal.ParseValue<int>(txtFluidLiftAirlockIncRule.Text, out fluidLiftAirlockInc);
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                 if (needDPNodeChanged && moreThanOne)
                 {
-                    dpNode1.Inc = i * symbolInc;
-                    dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    objScaleAdapter.DPNode1 = ScaleAdapter.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                    //dpNode1.Inc = i * symbolInc;
+                    //dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
+
+                    AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                     {
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, objScaleAdapter.Name);
 
-                    if (String.IsNullOrEmpty(objScaleAdapter.DPNode1))
-                    { objScaleAdapter.FieldBusNode = string.Empty; }
-                    else
-                    {
-                        objScaleAdapter.FieldBusNode = ScaleAdapter.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                        {
-                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objScaleAdapter.DPNode1));
-                    }
+                    objScaleAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                    objScaleAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
                 if (!String.IsNullOrEmpty(desc))
@@ -1449,7 +1451,7 @@ namespace GcproExtensionApp
                 if (!string.IsNullOrEmpty(txtSenderBin.Text))
                 {
                     senderBin.Inc = i * senderBinInc;
-                    objScaleAdapter.RefSenderBin = AppGlobal.ParseInt(txtSenderBinRule.Text, out int sndBinRule) ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + senderBin.Inc) : txtSenderBin.Text;
+                    objScaleAdapter.RefSenderBin = AppGlobal.ParseValue<int>(txtSenderBinRule.Text, out int sndBinRule) ? GcObjectInfo.Bin.BinPrefix + (sndBinRule + senderBin.Inc) : txtSenderBin.Text;
                 }
                 ///<RefFluidLiftAirlock></RefFluidLiftAirlock>
                 if (!string.IsNullOrEmpty(txtFluidLiftAirlock.Text) && !string.IsNullOrEmpty(txtFluidLiftAirlockRule.Text) && !string.IsNullOrEmpty(txtFluidLiftAirlockIncRule.Text))
@@ -1472,7 +1474,7 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objScaleAdapter.IoByteNo = Convert.ToString(ioByte + i * ioByteInc);
+                objScaleAdapter.IoByteNo = ioByte + i * ioByteInc;
                 objScaleAdapter.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }
@@ -1491,8 +1493,8 @@ namespace GcproExtensionApp
              null, $"{GcproTable.ObjData.Text0.Name} ASC",
              GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;          
-            int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
-            int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+            int ioByteInc = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
+            int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             string desc = string.Empty;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -1518,7 +1520,7 @@ namespace GcproExtensionApp
                     string nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objScaleAdapter.Name);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(nameNumberString, out tempInt))
+                        if (AppGlobal.ParseValue<int>(nameNumberString, out tempInt))
                         {
                             ScaleAdapter.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1573,37 +1575,33 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );          
                 ///<ParTimeoutStart></ParTimeoutStart>
-                objScaleAdapter.ParTimeoutStart = "0.0";
+                objScaleAdapter.ParTimeoutStart = 0.0;
                 ///<ParPulseWeight></ParPulseWeight>
-                objScaleAdapter.ParPulseWeight = "0";
+                objScaleAdapter.ParPulseWeight = 0;
                 ///<InFlowrate></InFlowrate>
-                objScaleAdapter.InFlowrate = "0";
+                objScaleAdapter.InFlowrate = 0;
                 ///<InPreCutoffWeight></InPreCutoffWeight>
-                objScaleAdapter.InPreCutoffWeight ="0";
+                objScaleAdapter.InPreCutoffWeight =0;
                 ///<InFlowrateLowLimit></InFlowrateLowLimit>
-                objScaleAdapter.InFlowrateLowLimit = "0";
+                objScaleAdapter.InFlowrateLowLimit = 0;
                 ///<InFlowrateHighLimit</InFlowrateHighLimit>
-                objScaleAdapter.InFlowrateHighLimit = "0";
+                objScaleAdapter.InFlowrateHighLimit = 0;
                 ///<InDumpWeight</InDumpWeight>
-                objScaleAdapter.InDumpWeight ="0";
+                objScaleAdapter.InDumpWeight =0;
                 ///<IOByteNo>   </IOByteNo> 
-                objScaleAdapter.IoByteNo = Convert.ToString(nextIOByte);
+                objScaleAdapter.IoByteNo = nextIOByte;
                 nextIOByte += ioByteInc;
                 ///<DPNode1>   </DPNode1>                                    
-                objScaleAdapter.DPNode1 = ScaleAdapter.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                           
+                AppGlobal.FieldbusNodeInfo = ScaleAdapter.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, objScaleAdapter.Name);
+                objScaleAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objScaleAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
 
-                if (String.IsNullOrEmpty(objScaleAdapter.DPNode1))
-                { objScaleAdapter.FieldBusNode = string.Empty; }
-                else
-                {
-                    objScaleAdapter.FieldBusNode = ScaleAdapter.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objScaleAdapter.DPNode1));
-                }
+                ///<HornCode>   </Horncode> 
+                
                 ///<CreateObject>   </CreateObject>
                 objScaleAdapter.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
@@ -1613,8 +1611,8 @@ namespace GcproExtensionApp
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-            int ioByteIncRule = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 1;         
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int ioByteIncRule = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 1;         
             try
             {
                 AppGlobal.IOAddr.IOByteStart = int.Parse(txtParIOByte.Text);
@@ -1640,7 +1638,7 @@ namespace GcproExtensionApp
 
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                          objScaleAdapter: myScaleAdapter,
                          addtionToDesc: AppGlobal.AdditionDesc,

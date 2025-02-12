@@ -196,7 +196,6 @@ namespace GcproExtensionApp
             private static string prefixName;
             private static string nameDelimiter;
             private static string type;
-            //  private static string ioRemarkString;
             private static string prefixVFC;
             private static string fcFan;
             #endregion
@@ -276,7 +275,7 @@ namespace GcproExtensionApp
                 public static string MOVIDRIVE { get; } = "MOVIDRIVE";
                 public static string MicroMaster { get; } = "MicroMaster";
                 public static string Sinamics { get; } = "Sinamics";
-                public static string DanfossFC { get; } = "DanfossFC";
+                public static string FC280{ get; } = "FC280";
                 public static string DanfossProfidrive { get; } = "DanfossProfidrive";
                 public static string Lenze { get; } = "Lenze";
                 public static string LenzePos { get; } = "LenzePos";
@@ -344,158 +343,158 @@ namespace GcproExtensionApp
                     {
                         if (name == TypeEnmu.ATV320)
                         {
-                            par.LenPKW = "8";
-                            par.LenPZD = "12";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0.1";
-                            par.SpeedMaxDigits = "500";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 8;
+                            par.LenPZD = 12;
+                          //  par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0.1;
+                            //par.SpeedMaxDigits = 500;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.ATV930 || name == TypeEnmu.ATV955 || name == TypeEnmu.ATV61 || name == TypeEnmu.ATV71)
                         {
-                            par.LenPKW = "8";
-                            par.LenPZD = "16";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0.1";
-                            par.SpeedMaxDigits = "500";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 8;
+                            par.LenPZD = 16;
+                           // par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0.1;
+                            //par.SpeedMaxDigits = 500;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.ABB)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "12";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "2000";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "-100";
+                            par.LenPKW = 0;
+                            par.LenPZD = 12;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 20000;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = -100;
                             par.ParPZDConsistent = false;
                         }
-                        else if (name == TypeEnmu.NORD || name == TypeEnmu.MicroMaster || name == TypeEnmu.Sinamics || name == TypeEnmu.DanfossFC)
+                        else if (name == TypeEnmu.NORD || name == TypeEnmu.MicroMaster || name == TypeEnmu.Sinamics || name == TypeEnmu.FC280)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "12";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "16384";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "-100";
+                            par.LenPKW = 0;
+                            par.LenPZD = 12;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 16384;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = -100;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.MOVIDRIVE)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "6";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "16384";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "-100";
+                            par.LenPKW = 0;
+                            par.LenPZD = 6;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 16384;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = -100;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.DanfossProfidrive)
                         {
-                            par.LenPKW = "8";
-                            par.LenPZD = "20";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "16384";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "-100";
+                            par.LenPKW = 8;
+                            par.LenPZD = 20;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 16384;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = -100;
                             par.ParPZDConsistent = true;
                         }
                         else if (name == TypeEnmu.SS3RW44)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "2";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "0";
-                            par.SpeedUnitsByMaxDigits = "0";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "0";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 0;
+                            par.LenPZD = 2;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 0;
+                            //par.SpeedUnitsByMaxDigits = 0;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 0;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.SS3RW5x)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "4";
-                            par.LenPZDInp = "16";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "0";
-                            par.SpeedUnitsByMaxDigits = "0";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "0";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 0;
+                            par.LenPZD = 4;
+                            //par.LenPZDInp = 16;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 0;
+                            //par.SpeedUnitsByMaxDigits = 0;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 0;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.Lenze || name == TypeEnmu.LenzePos)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "6";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "16384";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 0;
+                            par.LenPZD = 6;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 16384;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.Leroy)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "12";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "1000";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 0;
+                            par.LenPZD = 12;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 1000;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
                         else if (name == TypeEnmu.SSET200S)
                         {
-                            par.LenPKW = "0";
-                            par.LenPZD = "4";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0";
-                            par.SpeedMaxDigits = "27648";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 0;
+                            par.LenPZD = 4;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0;
+                            //par.SpeedMaxDigits = 27648;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
                         else
                         {
-                            par.LenPKW = "8";
-                            par.LenPZD = "12";
-                            par.LenPZDInp = "0";
-                            par.UnitsPerDigits = "0.1";
-                            par.SpeedMaxDigits = "500";
-                            par.SpeedUnitsByMaxDigits = "100";
-                            par.SpeedUnitsByZeroDigits = "0";
-                            par.SpeedLimitMax = "100";
-                            par.SpeedLimitMin = "0";
+                            par.LenPKW = 8;
+                            par.LenPZD = 12;
+                            //par.LenPZDInp = 0;
+                            //par.UnitsPerDigits = 0.1;
+                            //par.SpeedMaxDigits = 500;
+                            //par.SpeedUnitsByMaxDigits = 100;
+                            //par.SpeedUnitsByZeroDigits = 0;
+                            //par.SpeedLimitMax = 100;
+                            //par.SpeedLimitMin = 0;
                             par.ParPZDConsistent = false;
                         }
 
@@ -511,7 +510,6 @@ namespace GcproExtensionApp
             private static string flowBalancer;
             private static string scale;
             private static readonly string ioRemarkString;
-            private static string nameDelimiter;
             #endregion   
             private static string dirToBin;
             private static string dirTo;
@@ -533,7 +531,10 @@ namespace GcproExtensionApp
                 get { return scale; }
             }
 
-            public static string IORemarkString { get; }
+            public static string IORemarkString
+            {
+                get { return ioRemarkString ; }
+             }
             #endregion
             static ScaleAdapter()
             {
@@ -626,7 +627,6 @@ namespace GcproExtensionApp
             #region Fields for properties
             private static string bmlPath;
             private static string flowBalancer;
-            private static readonly string ioRemarkString;
             #endregion   
             private static string dirToBin;
             private static string binOf;

@@ -1,0 +1,622 @@
+﻿using GcproExtensionLibrary.FileHandle;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace GcproExtensionLibrary.Gcpro.GCObject
+{
+    public class DischargerVertex : GcObject
+
+    {
+        public struct DischargerVertexRule
+        {
+            public GcBaseRule Common;
+            public int BinNoInc;
+            public int VertexNoInc;
+        }
+        private string filePath;
+        //private string fileRelationPath;
+        //private string fileConnectorPath;
+        private readonly static string dischargerVertexFileName = $@"\{OTypeCollection.DischargerVertex}";
+        public static DischargerVertexRule Rule;
+        private string name;
+        private string description;
+        private string subType;
+        private string processFct;
+        private string building;
+        private string elevation;
+        private double fieldBusNode;
+        private string panel_ID;
+        private double diagram;
+        private string page;
+        private string parDischargerNo;
+        private string bin;
+        private string vertex;
+        private string conche;
+        private string destination;
+        private double parScaleNo;
+        private double parBinNo;
+        private double parHeightDropMax;
+        private double parDownPipeWeight;
+        private double parDosingSpeedFast;
+        private double parDosingSpeedSlow;
+        private double parSwitchOverTimeFToS;
+        private double parDosingTimeSlow;
+        private double parCutoffWeightCorrMax;
+        private double parLevelCompensationMax;
+        private double parDosingTimeMax;
+        private double parFineDosingWeight;
+        private double parCutoffWeight;
+        private double parFlowrateFast;
+        private double parFlowrateSlow;
+        private double parTipPulseLen;
+        private double parTolPosWeight;
+        private double parTolPosRel;
+        private double parTolAutoPosWeight;
+        private double parTolAutoPosRel;
+        private double parTolNegWeight;
+        private double parTolNegRel;
+        private double value10;    
+       private string isNew;
+        #region Standard properties
+        public override string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public override string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+        public override string SubType
+        {
+            get { return subType; }
+            set { subType = value; }
+        }
+
+        public override string ProcessFct
+        {
+            get { return processFct; }
+            set { processFct = value; }
+        }
+        public override string Building
+        {
+            get { return building; }
+            set { building = value; }
+        }
+        public override string Elevation
+        {
+            get { return elevation; }
+            set { elevation = value; }
+        }
+        public override double FieldBusNode
+        {
+            get { return fieldBusNode; }
+            set { fieldBusNode = value; }
+        }
+        public override string Panel_ID
+        {
+            get { return panel_ID; }
+            set { panel_ID = value; }
+        }
+        public override double Diagram
+        {
+            get { return diagram; }
+            set { diagram = value; }
+        }
+        public override string Page
+        {
+            get { return page; }
+            set { page = value; }
+        }
+ 
+        public override string IsNew
+        {
+            get { return isNew; }
+            set { isNew = value; }
+        }
+        #endregion
+        #region Application properties
+        public string ParDischargerNo
+        {
+            get { return parDischargerNo; }
+            set { parDischargerNo = value; }
+        }
+
+        public string Bin
+        {
+            get { return bin; }
+            set { bin = value; }
+        }
+
+        public string Vertex
+        {
+            get { return vertex; }
+            set { vertex = value; }
+        }
+
+        public string Conche
+        {
+            get { return conche; }
+            set { conche = value; }
+        }
+
+        public string Destination
+        {
+            get { return destination; }
+            set { destination = value; }
+        }
+
+        public double ParScaleNo
+        {
+            get { return parScaleNo; }
+            set { parScaleNo = value; }
+        }
+
+        public double ParBinNo
+        {
+            get { return parBinNo; }
+            set { parBinNo = value; }
+        }
+
+        public double ParHeightDropMax
+        {
+            get { return parHeightDropMax; }
+            set { parHeightDropMax = value; }
+        }
+
+        public double ParDownPipeWeight
+        {
+            get { return parDownPipeWeight; }
+            set { parDownPipeWeight = value; }
+        }
+
+        public double ParDosingSpeedFast
+        {
+            get { return parDosingSpeedFast; }
+            set { parDosingSpeedFast = value; }
+        }
+
+        public double ParDosingSpeedSlow
+        {
+            get { return parDosingSpeedSlow; }
+            set { parDosingSpeedSlow = value; }
+        }
+
+        public double ParSwitchOverTimeFToS
+        {
+            get { return parSwitchOverTimeFToS; }
+            set { parSwitchOverTimeFToS = value; }
+        }
+
+        public double ParDosingTimeSlow
+        {
+            get { return parDosingTimeSlow; }
+            set { parDosingTimeSlow = value; }
+        }
+
+        public double ParCutoffWeightCorrMax
+        {
+            get { return parCutoffWeightCorrMax; }
+            set { parCutoffWeightCorrMax = value; }
+        }
+
+        public double ParLevelCompensationMax
+        {
+            get { return parLevelCompensationMax; }
+            set { parLevelCompensationMax = value; }
+        }
+
+        public double ParDosingTimeMax
+        {
+            get { return parDosingTimeMax; }
+            set { parDosingTimeMax = value; }
+        }
+
+        public double ParFineDosingWeight
+        {
+            get { return parFineDosingWeight; }
+            set { parFineDosingWeight = value; }
+        }
+
+        public double ParCutoffWeight
+        {
+            get { return parCutoffWeight; }
+            set { parCutoffWeight = value; }
+        }
+
+        public double ParFlowrateFast
+        {
+            get { return parFlowrateFast; }
+            set { parFlowrateFast = value; }
+        }
+
+        public double ParFlowrateSlow
+        {
+            get { return parFlowrateSlow; }
+            set { parFlowrateSlow = value; }
+        }
+
+        public double ParTipPulseLen
+        {
+            get { return parTipPulseLen; }
+            set { parTipPulseLen = value; }
+        }
+
+        public double ParTolPosWeight
+        {
+            get { return parTolPosWeight; }
+            set { parTolPosWeight = value; }
+        }
+
+        public double ParTolPosRel
+        {
+            get { return parTolPosRel; }
+            set { parTolPosRel = value; }
+        }
+
+        public double ParTolAutoPosWeight
+        {
+            get { return parTolAutoPosWeight; }
+            set { parTolAutoPosWeight = value; }
+        }
+
+        public double ParTolAutoPosRel
+        {
+            get { return parTolAutoPosRel; }
+            set { parTolAutoPosRel = value; }
+        }
+
+        public double ParTolNegWeight
+        {
+            get { return parTolNegWeight; }
+            set { parTolNegWeight = value; }
+        }
+
+        public double ParTolNegRel
+        {
+            get { return parTolNegRel; }
+            set { parTolNegRel = value; }
+        }
+
+        public double Value10
+        {
+            get { return value10; }
+            set { value10 = value; }
+        }
+        public override string FilePath
+        {
+            get { return filePath; }
+            set { filePath = value; }
+        }
+        #endregion
+
+        #region Readonly property
+        public static string Profibus { get; } = "Profibus";
+        public static string Profinet { get; } = "Profinet";
+        public static string ProfinetIOLINKIFM { get; } = "ProfinetIOLINKIFM";
+
+        public static string ImpExpRuleName { get; } = "IE_DischargerVertex";
+        public static int OTypeValue { get; } = (int)OTypeCollection.DischargerVertex;
+        #endregion
+        public DischargerVertex()
+        {
+            Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
+       
+            fieldBusNode = 0;
+            panel_ID = string.Empty;
+            diagram = 0;
+            page = string.Empty;
+            value10 = 88;
+            SetOTypeProperty(OTypeCollection.DischargerVertex);
+            this.filePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerVertexFileName}.Txt";
+        }
+        public DischargerVertex(string filePath = null) : this()
+        {
+            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
+                            $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerVertexFileName}.Txt" : $"{filePath}{dischargerVertexFileName}.Txt");
+        }
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
+        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        {
+            if (!onlyRelation)
+            {
+                TextFileHandle textFileHandle = new TextFileHandle
+                {
+                    FilePath = this.filePath
+                };
+                isNew = "false";
+                StringBuilder objFields = new StringBuilder();
+                ///<summary>
+                ///生产Standard字符串部分-使用父类中方法实现
+                ///</summary> 
+                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
+                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                ///<summary>
+                ///生成Application 字符串部分
+                ///</summary>   
+                objFields.Append(parDischargerNo).Append(LibGlobalSource.TAB)
+                   .Append(bin).Append(LibGlobalSource.TAB)
+                   .Append(vertex).Append(LibGlobalSource.TAB)
+                   .Append(conche).Append(LibGlobalSource.TAB)
+                   .Append(destination).Append(LibGlobalSource.TAB)
+                   .Append(parScaleNo).Append(LibGlobalSource.TAB)
+                   .Append(parBinNo).Append(LibGlobalSource.TAB)
+                   .Append(parHeightDropMax).Append(LibGlobalSource.TAB)
+                   .Append(parDownPipeWeight * 1000).Append(LibGlobalSource.TAB)
+                   .Append(parDosingSpeedFast).Append(LibGlobalSource.TAB)
+                   .Append(parDosingSpeedSlow).Append(LibGlobalSource.TAB)
+                   .Append(parSwitchOverTimeFToS * 10).Append(LibGlobalSource.TAB)
+                   .Append(parDosingTimeSlow * 10).Append(LibGlobalSource.TAB)
+                   .Append(parCutoffWeightCorrMax * 1000).Append(LibGlobalSource.TAB)
+                   .Append(parLevelCompensationMax).Append(LibGlobalSource.TAB)
+                   .Append(parDosingTimeMax).Append(LibGlobalSource.TAB)
+                   .Append(parFineDosingWeight * 1000).Append(LibGlobalSource.TAB)
+                   .Append(parCutoffWeight * 1000).Append(LibGlobalSource.TAB)
+                   .Append(parFlowrateFast).Append(LibGlobalSource.TAB)
+                   .Append(parFlowrateSlow).Append(LibGlobalSource.TAB)
+                   .Append(parTipPulseLen * 10).Append(LibGlobalSource.TAB)
+                   .Append(parTolPosWeight * 1000).Append(LibGlobalSource.TAB)
+                   .Append(parTolPosRel *10).Append(LibGlobalSource.TAB)
+                   .Append(parTolAutoPosWeight * 1000).Append(LibGlobalSource.TAB)
+                   .Append(parTolAutoPosRel * 10).Append(LibGlobalSource.TAB)
+                   .Append(parTolNegWeight * 1000).Append(LibGlobalSource.TAB)
+                   .Append(parTolNegRel *10).Append(LibGlobalSource.TAB)
+                   .Append(Value10);
+                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+             
+            }
+        }
+        public void Clear()
+        {
+            TextFileHandle textFileHandle = new TextFileHandle
+            {
+                FilePath = this.filePath
+            };
+            textFileHandle.ClearContents();
+        }
+        /// <summary>
+        /// 向数据库ImpExpDef中插入对向的导入定义
+        /// </summary>
+        /// <param name="insertMultipleRecords">传入一个Oledb类中InsertMultipleRecords方法的委托</param>
+        /// <returns></returns>
+        public bool CreateImpExpDef(Func<string, List<List<Gcpro.DbParameter>>, bool> insertMultipleRecords)
+        {
+            List<List<Gcpro.DbParameter>> impExpList = new List<List<Gcpro.DbParameter>>();
+            string tableName = GcproTable.ImpExpDef.TableName;
+            base.CreateImpExpDef(impExpList, ImpExpRuleName);
+            #region  #region Add records list
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDischargerNo"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value13.Name }
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Bin"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value41.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Vertex"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value42.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Conche"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value43.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "Destination"},
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value44.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParScaleNo" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value11.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParBinNo" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value1.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParHeightDropMax" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value29.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDownPipeWeight" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value33.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDosinSpeedFst" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value27.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDosingSpeedSlow" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value28.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParSwitchOverTimeFToS" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value20.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDosingTimeSlow" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value19.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParCutoffWeightCorrMax" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value18.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParLevelCompensationMax" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value30.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDosingTimeMax" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value22.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParFineDosingWeight" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value14.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParCutoffWeight" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value15.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParFlowrateFast" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value31.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParFlowrateSlow" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value32.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTipPulseLen" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value21.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTolPosWeight" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value16.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTolPosRel" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value23.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTolAutoPosWeight" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value25.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTolAutoPosRel" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value26.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTolNegsWeight" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value17.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParTolNegRel" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value24.Name }
+
+            });
+
+            impExpList.Add(new List<Gcpro.DbParameter>
+            {
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParValue10" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value10.Name }
+
+            });
+            #endregion
+            bool result = insertMultipleRecords(tableName, impExpList);
+            impExpList.Clear();
+            return result;
+        }
+    }
+}

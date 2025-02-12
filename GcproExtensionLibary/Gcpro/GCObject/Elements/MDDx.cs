@@ -21,20 +21,20 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
         private string isNew;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string value10;
-        private string value25;
-        private string value26;
-        private string value27;
-        private string value28;
-        private string ioByteNo;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double value10;
+        private double value25;
+        private double value26;
+        private double value27;
+        private double value28;
+        private double ioByteNo;
         private readonly MYTARef side1Top;
         private readonly MYTARef side1Bottom;
         private readonly MYTARef side2Top;
@@ -85,7 +85,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -95,7 +95,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -105,18 +105,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
@@ -124,32 +124,32 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
         #region Application properties
 
-        public string IoByteNo
+        public double IoByteNo
         {
             get { return ioByteNo; }
             set { ioByteNo = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
         }
-        public string Value25
+        public double Value25
         {
             get { return value25; }
             set { value25 = value; }
         }
-        public string Value26
+        public double Value26
         {
             get { return value26; }
             set { value26 = value; }
         }
-        public string Value27
+        public double Value27
         {
             get { return value27; }
             set { value27 = value; }
         }
-        public string Value28
+        public double Value28
         {
             get { return value28; }
             set { value28 = value; }
@@ -193,16 +193,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public MDDx()
         {
             string commonDefaultFilePath;
-            value10 = "0";
-            value25 = value27 = "0";
-            Value26 = "286752";
-            Value28 = "804672";
+            value10 = 0;
+            value25 = value27 = 0;
+            Value26 = 286752;
+            Value28 = 804672;
             side1Top = new MYTARef("", 1);
             side1Bottom = new MYTARef("", 2);
             side2Top = new MYTARef("", 3);
             side2Bottom = new MYTARef("", 4);
-            pType = P7366.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
+            pType = P7366;
+            hornCode = 0;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.EL_MDDx);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddxFileName}";

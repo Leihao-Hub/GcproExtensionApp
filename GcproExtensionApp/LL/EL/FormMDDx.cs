@@ -47,6 +47,7 @@ namespace GcproExtensionApp
         private long value28 = 804672;
         private int value10 = 0;
         private int tempInt = 0;
+        private float tempFloat = 0;
         // private long tempLong = 0;
         //  private float tempFloat = 0.0f;
       //  private bool tempBool = false;
@@ -293,7 +294,6 @@ namespace GcproExtensionApp
         private void FormMDDx_Load(object sender, EventArgs e)
         {
             isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
-
             ///<ImplementIGcForm>   </ImplementIGcForm>
             GetLastObjRule();
             GetInfoFromDatabase();
@@ -436,7 +436,7 @@ namespace GcproExtensionApp
         {
             if (e.KeyCode == Keys.Enter)
             {
-                value10 = AppGlobal.ParseInt(txtValue10.Text, out tempInt) ? tempInt : value10;
+                value10 = AppGlobal.ParseValue<int>(txtValue10.Text, out tempInt) ? tempInt : value10;
                 GetValue10BitValue(value10);
             }
         }
@@ -446,396 +446,396 @@ namespace GcproExtensionApp
         #region <------ Check and unchek "Value9" and "Value10------>    
         private void chkParLogOff_CheckedChanged(object sender, EventArgs e)
         {
-            value10 = int.Parse(txtValue10.Text);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParLogOff.Checked)
 
             { AppGlobal.SetBit(ref value10, (byte)0); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
-            myMDDx.Value10 = value10.ToString();
-            txtValue10.Text = myMDDx.Value10;
+            myMDDx.Value10 = value10;
+            txtValue10.Text = myMDDx.Value10.ToString();
         }
 
         private void chkParSide1Divided_CheckedChanged(object sender, EventArgs e)
         {
-            value10 = int.Parse(txtValue10.Text);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParSide1Divided.Checked)
 
             { AppGlobal.SetBit(ref value10, (byte)1); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
-            myMDDx.Value10 = value10.ToString();
-            txtValue10.Text = myMDDx.Value10;
+            myMDDx.Value10 = value10;
+            txtValue10.Text = myMDDx.Value10.ToString();
         }
 
         private void chkParSide2Divided_CheckedChanged(object sender, EventArgs e)
         {
-            value10 = int.Parse(txtValue10.Text);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParSide2Divided.Checked)
 
             { AppGlobal.SetBit(ref value10, (byte)2); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
-            myMDDx.Value10 = value10.ToString();
-            txtValue10.Text = myMDDx.Value10;
+            myMDDx.Value10 = value10;
+            txtValue10.Text = myMDDx.Value10.ToString();
         }
 
         private void chkParWithBearTemp_CheckedChanged(object sender, EventArgs e)
         {
-            value10 = int.Parse(txtValue10.Text);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithBearTemp.Checked)
 
             { AppGlobal.SetBit(ref value10, (byte)3); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
-            myMDDx.Value10 = value10.ToString();
-            txtValue10.Text = myMDDx.Value10;
+            myMDDx.Value10 = value10;
+            txtValue10.Text = myMDDx.Value10.ToString();
         }
 
         private void chkParWithFeedRollRecipe_CheckedChanged(object sender, EventArgs e)
         {
-            value10 = int.Parse(txtValue10.Text);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithFeedRollRecipe.Checked)
 
             { AppGlobal.SetBit(ref value10, (byte)4); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
-            myMDDx.Value10 = value10.ToString();
-            txtValue10.Text = myMDDx.Value10;
+            myMDDx.Value10 = value10;
+            txtValue10.Text = myMDDx.Value10.ToString();
         }
 
         private void chkParWithRollerTemp_CheckedChanged(object sender, EventArgs e)
         {
-            value10 = int.Parse(txtValue10.Text);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithRollerTemp.Checked)
 
             { AppGlobal.SetBit(ref value10, (byte)5); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)5); }
-            myMDDx.Value10 = value10.ToString();
-            txtValue10.Text = myMDDx.Value10;
+            myMDDx.Value10 = value10;
+            txtValue10.Text = myMDDx.Value10.ToString();
         }
 
         private void chkParWithRollerGapRecipe_CheckedChanged(object sender, EventArgs e)
         {
-            value10 = int.Parse(txtValue10.Text);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithRollerGapRecipe.Checked)
 
             { AppGlobal.SetBit(ref value10, (byte)6); }
             else
             { AppGlobal.ClearBit(ref value10, (byte)6); }
-            myMDDx.Value10 = value10.ToString();
-            txtValue10.Text = myMDDx.Value10;
+            myMDDx.Value10 = value10;
+            txtValue10.Text = myMDDx.Value10.ToString();
         }
 
 
         private void chkWarningAx07Range_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx07Range.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)7); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)7); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA018Battery_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA018Battery.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)5); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)5); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA024Empty_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA024Empty.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)18); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)18); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningAx30Zero_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx30Zero.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)6); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)6); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningAx32Rod_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx32Rod.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)8); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)8); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningAx50FRoll1_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx50FRoll1.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)9); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)9); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningAx51FRoll2_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx51FRoll2.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)10); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)10); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA052RollUp_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA052RollUp.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)11); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)11); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA053RollLow_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA053RollLow.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)12); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)12); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA054MotUp_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA054MotUp.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)13); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)13); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA055MotLow_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA055MotLow.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)14); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)14); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA056STBYUP_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA056STBYUP.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)15); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)15); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningA057STBYDN_CheckedChanged(object sender, EventArgs e)
         {
-            value26 = int.Parse(txtValue26.Text);
+           AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA057STBYDN.Checked)
 
             { AppGlobal.SetBit(ref value26, (byte)16); }
             else
             { AppGlobal.ClearBit(ref value26, (byte)16); }
-            myMDDx.Value26 = value26.ToString();
-            txtValue26.Text = myMDDx.Value26;
+            myMDDx.Value26 = value26;
+            txtValue26.Text = myMDDx.Value26.ToString();
         }
 
         private void chkWarningAx60HLInlet_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningAx60HLInlet.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)1); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)1); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningA061HLOut1_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA061HLOut1.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)2); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)2); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningA062HLOut2_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA062HLOut2.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)3); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)3); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningA063HLOut3_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA063HLOut3.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)4); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)4); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningA064HLBackupLeft_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA064HLBackupLeft.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)5); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)5); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningW065HLBackupLeft_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningW065HLBackupLeft.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)6); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)6); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningA066HLBackupRight_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA066HLBackupRight.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)7); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)7); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningW067HLBackupRight_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningW067HLBackupRight.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)8); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)8); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningAx68InletFull_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningAx68InletFull.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)9); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)9); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
 
         private void chkWarningAx69DosMax_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningAx69DosMax.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)10); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)10); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
         private void chkWarningW075WarnTemp_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningW075WarnTemp.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)14); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)14); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
         private void chkWarningA110Gap_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA110Gap.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)18); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)18); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
         private void chkWarningA111GapSet_CheckedChanged(object sender, EventArgs e)
         {
-            value28 = int.Parse(txtValue28.Text);
+           AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA111GapSet.Checked)
 
             { AppGlobal.SetBit(ref value28, (byte)19); }
             else
             { AppGlobal.ClearBit(ref value28, (byte)19); }
-            myMDDx.Value28 = value28.ToString();
-            txtValue28.Text = myMDDx.Value28;
+            myMDDx.Value28 = value28;
+            txtValue28.Text = myMDDx.Value28.ToString();
         }
         #endregion <------ Check and unchek "Value9" and "Value10------> 
 
@@ -935,7 +935,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -1017,8 +1018,9 @@ namespace GcproExtensionApp
                 comboStartRow.Items.Add(i);
             }
             comboStartRow.SelectedItem = BML.StartRow;
-            dataGridBML.AutoGenerateColumns = false;
+            dataGridBML.AutoGenerateColumns = false;       
             TxtExcelPath.Text = BML.MDDx.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -1275,7 +1277,7 @@ namespace GcproExtensionApp
             out (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
             SuffixObject suffixObject = new SuffixObject();
@@ -1308,7 +1310,7 @@ namespace GcproExtensionApp
                     _nameNumberString = LibGlobalSource.StringHelper.ExtractNumericPart(objMDDx.Name, false);
                     if (!string.IsNullOrEmpty(_nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(_nameNumberString, out tempInt))
+                        if (AppGlobal.ParseValue<int>(_nameNumberString, out tempInt))
                         {
                             MDDx.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1334,22 +1336,15 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objMDDx.IoByteNo = (int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i).ToString();
+                objMDDx.IoByteNo = (int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i);
                 ///<DPNode1>   </DPNode1>                                      
-                objMDDx.DPNode1 = MDDx.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, objMDDx.Name);
 
-                if (String.IsNullOrEmpty(objMDDx.DPNode1))
-                { objMDDx.FieldBusNode = string.Empty; }
-                else
-                {
-                    objMDDx.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objMDDx.DPNode1));
-                }
+                objMDDx.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objMDDx.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
 
                 objMDDx.CreateObject(Encoding.Unicode);
                
@@ -1364,7 +1359,7 @@ namespace GcproExtensionApp
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             bool needDPNodeChanged = false;
             StringBuilder descTotalBuilder = new StringBuilder();
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             RuleSubDataSet description, name, dpNode1;
@@ -1428,23 +1423,25 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                objMDDx.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                AppGlobal.ParseValue<float>(selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)),out tempFloat);
+                objMDDx.PType = tempFloat;
+
             }
             else
             {
-                objMDDx.PType = MDDx.P7366.ToString();
+                objMDDx.PType = MDDx.P7366;
             }
             objMDDx.Elevation = ComboElevation.Text;
             ///<Value10</Value10>
-            objMDDx.Value10 = value10.ToString();
+            objMDDx.Value10 = value10;
             ///<Value25</Value25>
-            objMDDx.Value25 = value25.ToString();
+            objMDDx.Value25 = value25;
             ///<Value26</Value26>
-            objMDDx.Value26 = value26.ToString();
+            objMDDx.Value26 = value26;
             ///<Value27</Value27>
-            objMDDx.Value27 = value27.ToString();
+            objMDDx.Value27 = value27;
             ///<Value28</Value28>
-            objMDDx.Value28 = value28.ToString();
+            objMDDx.Value28 = value28;
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
@@ -1461,7 +1458,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objMDDx.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMDDx.Diagram = MDDx.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
 
             ///<Page></Page>
@@ -1489,40 +1486,30 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            objMDDx.FieldBusNode = LibGlobalSource.NOCHILD; ;
             ///<DPNode1></DPNode1>
             string selectDPNode1 = String.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;         
-                objMDDx.DPNode1 = MDDx.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = MDDx.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
 
-                if (String.IsNullOrEmpty(objMDDx.DPNode1))
-                { objMDDx.FieldBusNode = string.Empty; }
-                else
-                {
-                    objMDDx.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objMDDx.DPNode1));
-                }
+                objMDDx.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objMDDx.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
             }
             if (ComboHornCode.SelectedItem != null)
             {
                 string hornCode = ComboHornCode.SelectedItem.ToString();
-                objMDDx.HornCode = hornCode.Substring(0, 2);
+                objMDDx.HornCode = MDDx.ParseInfoValue(hornCode, AppGlobal.HORNCODE_FIELDS_SEPARATOR, AppGlobal.GROUP_HORNCODE);
             }
             ///<IOByteNo></IOByteNo>
-            objMDDx.IoByteNo = LibGlobalSource.NOCHILD;
+            objMDDx.IoByteNo = 0;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1597,9 +1584,9 @@ namespace GcproExtensionApp
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             objDefaultInfo = MDDx.Rule.Common;
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
@@ -1638,22 +1625,15 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objMDDx.IoByteNo = (int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i).ToString();
+                objMDDx.IoByteNo = int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i;
                 ///<DPNode1>   </DPNode1>                                               
-                objMDDx.DPNode1 = MDDx.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = MDDx.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, objMDDx.Name);
+                objMDDx.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objMDDx.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
 
-                if (String.IsNullOrEmpty(objMDDx.DPNode1))
-                { objMDDx.FieldBusNode = string.Empty; }
-                else
-                {
-                    objMDDx.FieldBusNode = MDDx.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objMDDx.DPNode1));
-                }
                 objMDDx.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }

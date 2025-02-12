@@ -26,6 +26,7 @@ namespace GcproExtensionApp
         }
         #region Public object in this class
         readonly VFCAdapter myVFCAdapter = new VFCAdapter(AppGlobal.GcproDBInfo.GcproTempPath);
+             readonly VFCAdapter myVFCAdapter1 = new VFCAdapter(AppGlobal.GcproDBInfo.GcproTempPath);
         readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
@@ -179,7 +180,7 @@ namespace GcproExtensionApp
             txtDescriptionIncRule.Text = VFCAdapter.Rule.Common.DescriptionRuleInc;
             txtSymbol.Text = VFCAdapter.Rule.Common.Name;
             txtDescription.Text = VFCAdapter.Rule.Common.Description;
-            txtIOByteIncRule.Text = VFCAdapter.Rule.ioByteInc;
+            txtIOByteIncRule.Text = VFCAdapter.Rule.ioByteInc.ToString();
         }
         public void CreateTips()
         {
@@ -386,7 +387,7 @@ namespace GcproExtensionApp
             {
                 if (AppGlobal.CheckNumericString(txtIOByteIncRule.Text))
                 {
-                    VFCAdapter.Rule.ioByteInc = txtIOByteIncRule.Text;
+                    AppGlobal.ParseValue<int> (txtIOByteIncRule.Text, out VFCAdapter.Rule.ioByteInc);
                 }
                 else
                 {
@@ -406,8 +407,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
+            myVFCAdapter.Value10 = value10;
+            txtValue10.Text = myVFCAdapter.Value10.ToString();
         }
 
         private void chkParProfinet_CheckedChanged(object sender, EventArgs e)
@@ -419,8 +420,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
+            myVFCAdapter.Value10 = value10;
+            txtValue10.Text = myVFCAdapter.Value10.ToString();
         }
 
         private void chkParWithActivePower_CheckedChanged(object sender, EventArgs e)
@@ -432,8 +433,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
+            myVFCAdapter.Value10 = value10;
+            txtValue10.Text = myVFCAdapter.Value10.ToString();
         }
 
         private void chkWithMultiMotorCfg_CheckedChanged(object sender, EventArgs e)
@@ -445,8 +446,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)16); }
 
-            myVFCAdapter.Value10 = value10.ToString();
-            txtValue10.Text = myVFCAdapter.Value10;
+            myVFCAdapter.Value10 = value10;
+            txtValue10.Text = myVFCAdapter.Value10.ToString();
         }
         #endregion <------ Check and unchek "Value9" and "Value10------>
 
@@ -629,7 +630,8 @@ namespace GcproExtensionApp
                 {
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
-                comboWorkSheetsBML.SelectedIndex = 0;
+                if (comboWorkSheetsBML.Items.Count > 0)
+                { comboWorkSheetsBML.SelectedIndex = 0; }
             }
             catch (FileNotFoundException)
             {
@@ -732,7 +734,8 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.Motor.BMLPath;         
+            TxtExcelPath.Text = BML.Motor.BMLPath;
+            AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
@@ -809,10 +812,14 @@ namespace GcproExtensionApp
         #endregion <---BML part--->
 
         #region  <---Common used--->
-        private string GetIOByteLen(string lenPKW,string lenPZD)
+        private double GetIOByteLen(double lenPKW,double lenPZD)
         {
-            AppGlobal.ParseInt(lenPKW, out int _lenPKW);
-            AppGlobal.ParseInt(lenPZD, out int _lenPZD);
+            return (lenPKW + lenPZD);
+        }
+        private string GetIOByteLen(string lenPKW, string lenPZD)
+        {
+            AppGlobal.ParseValue<int>(lenPKW, out int _lenPKW);
+            AppGlobal.ParseValue<int>(lenPZD, out int _lenPZD);
             return (_lenPKW + _lenPZD).ToString();
         }
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
@@ -821,12 +828,11 @@ namespace GcproExtensionApp
             string selectedItem = Convert.ToString(ComboEquipmentSubType.SelectedItem);
             myVFCAdapter.SubType = String.IsNullOrEmpty(selectedItem) ? VFCAdapter.ATVDP :
                 selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
-
+         
             ///<ATV>  
             if (myVFCAdapter.SubType.StartsWith("ATV"))
             {
-
-                vfc.Name = BML.VFCAdapter.TypeEnmu.ATV930;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.ATV930;
                 txtParLenPZDInp.Enabled = false;
                 txtParPNO_T1.Text = txtParUnitsPerDigit_T1.Text = "0";
                 txtParPNO_T2.Text = txtParUnitsPerDigit_T2.Text = "0";
@@ -855,7 +861,7 @@ namespace GcproExtensionApp
             ///<ABB>  
             if (myVFCAdapter.SubType == VFCAdapter.VFCA7)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.ABB;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.ABB;
                 txtParLenPZDInp.Enabled = false;
 
             }
@@ -863,17 +869,7 @@ namespace GcproExtensionApp
 
             ///<ATVMEAGGateWay>
             if (myVFCAdapter.SubType == VFCAdapter.ATVM)
-            {
-                txtParIOByte.Text = "0";
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "16";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0.1";
-                txtParSpeedMaxDigits.Text = "1000";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                //TxtParSpeedLimitMax.Text = "100";
-                //TxtParSpeedLimitMax.Text = "0";
+            {           
                 txtParLenPZDInp.Enabled = false;
                 txtMEAGGateway.Enabled = true;
                 txtParSalveIndex.Enabled = true;
@@ -893,41 +889,32 @@ namespace GcproExtensionApp
 
             ///<VFCPNGateWay>
             if (myVFCAdapter.SubType == VFCAdapter.VFCPNG)
-            {
-                txtParIOByte.Text = "0";
-                txtParLenPKW.Text = "0";
-                txtParLenPZD.Text = "16";
-                txtParLenPZDInp.Text = "0";
-                txtParUnitsPerDigits.Text = "0.1";
-                txtParSpeedMaxDigits.Text = "1000";
-                txtParSpeedUnitsByMaxDigits.Text = "100";
-                txtParSpeedUnitsByZeroDigits.Text = "0";
-                txtParLenPZDInp.Enabled = false;
-         
+            {              
+                txtParLenPZDInp.Enabled = false;     
             }
             ///</VFCPNGateWay>
             ///
             ///<DanfossFC>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA4)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.DanfossFC;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.DanfossFC;
                 txtParLenPZDInp.Enabled = false;
-                txtParPNO_T1.Text = "414";
-                txtParUnitsPerDigit_T1.Text = "0.1";
-                txtParPNO_T2.Text = "120";
-                txtParUnitsPerDigit_T2.Text = "0.01";
+                //txtParPNO_T1.Text = "414";
+                //txtParUnitsPerDigit_T1.Text = "0.1";
+                //txtParPNO_T2.Text = "120";
+                //txtParUnitsPerDigit_T2.Text = "0.01";   
             }
             ///</DanfossFC>
             ///
             ///<DanfossProfidrive>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA5)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.DanfossProfidrive;
+               // vfc.Name = BML.VFCAdapter.TypeEnmu.DanfossProfidrive;
                 txtParLenPZDInp.Enabled = false;
-                txtParPNO_T1.Text = "414";
-                txtParUnitsPerDigit_T1.Text = "0.1";
-                txtParPNO_T2.Text = "120";
-                txtParUnitsPerDigit_T2.Text = "0.01";
+                //txtParPNO_T1.Text = "414";
+                //txtParUnitsPerDigit_T1.Text = "0.1";
+                //txtParPNO_T2.Text = "120";
+                //txtParUnitsPerDigit_T2.Text = "0.01";
                 txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
                 txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
             }
@@ -936,7 +923,7 @@ namespace GcproExtensionApp
             ///<ET200SMotorStarter>
             if (myVFCAdapter.SubType == VFCAdapter.VFCMS3RK)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.SSET200S;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.SSET200S;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
             }
@@ -945,7 +932,7 @@ namespace GcproExtensionApp
             ///<Lenze>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA11)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.Lenze;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.Lenze;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
             }
@@ -954,7 +941,7 @@ namespace GcproExtensionApp
             ///<LenzePos>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA12)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.Lenze;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.Lenze;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
 
@@ -964,7 +951,7 @@ namespace GcproExtensionApp
             ///<Leroy>
             if (myVFCAdapter.SubType == VFCAdapter.VFCLS)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.Leroy;
+               // vfc.Name = BML.VFCAdapter.TypeEnmu.Leroy;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
 
@@ -974,7 +961,7 @@ namespace GcproExtensionApp
             ///<MOVIDRIVEIpos>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA10)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
+               // vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
 
@@ -985,10 +972,9 @@ namespace GcproExtensionApp
             if (myVFCAdapter.SubType == VFCAdapter.VFCA0)
             {
 
-                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
+               // vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
-
             }
             ///</MOVIDRIVESpeed>
             ///
@@ -996,13 +982,13 @@ namespace GcproExtensionApp
             if (myVFCAdapter.SubType == VFCAdapter.VFCA13)
             {
 
-                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
-                txtParPNO_T1.Text = "8326";
-                txtParUnitsPerDigit_T1.Text = "0.001";
-                txtParPNO_T2.Text = "8323";
-                txtParUnitsPerDigit_T2.Text = "0.001";
+                //txtParPNO_T1.Text = "8326";
+                //txtParUnitsPerDigit_T1.Text = "0.001";
+                //txtParPNO_T2.Text = "8323";
+                //txtParUnitsPerDigit_T2.Text = "0.001";
                 txtParPNO_T1.BackColor = txtParUnitsPerDigit_T1.BackColor = Color.LightGreen;
                 txtParPNO_T2.BackColor = txtParUnitsPerDigit_T2.BackColor = Color.LightGreen;
             }
@@ -1011,7 +997,7 @@ namespace GcproExtensionApp
             ///<MOVITRAC>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA6)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
+             //   vfc.Name = BML.VFCAdapter.TypeEnmu.MOVIDRIVE;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
             }
@@ -1020,7 +1006,7 @@ namespace GcproExtensionApp
             ///<MicroMaster>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA1)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.MicroMaster;
+             //   vfc.Name = BML.VFCAdapter.TypeEnmu.MicroMaster;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
             }
@@ -1029,7 +1015,7 @@ namespace GcproExtensionApp
             ///<Nord>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA3)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.NORD;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.NORD;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
             }
@@ -1038,7 +1024,7 @@ namespace GcproExtensionApp
             ///<Sinamics>
             if (myVFCAdapter.SubType == VFCAdapter.VFCA2)
             {
-                vfc.Name = BML.VFCAdapter.TypeEnmu.Sinamics;
+             //   vfc.Name = BML.VFCAdapter.TypeEnmu.Sinamics;
 
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = true;
@@ -1059,7 +1045,7 @@ namespace GcproExtensionApp
             if (myVFCAdapter.SubType == VFCAdapter.SST01DP)
             {
 
-                vfc.Name = BML.VFCAdapter.TypeEnmu.SS3RW44;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.SS3RW44;
                 txtParLenPZDInp.Enabled = false;
                 chkParWithActivePower.Enabled = false;
             }
@@ -1069,31 +1055,146 @@ namespace GcproExtensionApp
             if (myVFCAdapter.SubType == VFCAdapter.SST02DP)
             {
 
-                vfc.Name = BML.VFCAdapter.TypeEnmu.SS3RW5x;
+              //  vfc.Name = BML.VFCAdapter.TypeEnmu.SS3RW5x;
                 txtParLenPZDInp.Enabled = true;
                 chkParWithActivePower.Enabled = false;
             }
             ///<CommonUsedPar></CommonUsedPar>
+            txtParLenPKW.Text = myVFCAdapter.LenPKW.ToString();
+            txtParLenPZD.Text = myVFCAdapter.LenPZD.ToString();
+            txtParLenPZDInp.Text = myVFCAdapter.LenPZDInp.ToString();
+            txtParUnitsPerDigits.Text = myVFCAdapter.UnitsPerDigits.ToString();
+            txtParSpeedMaxDigits.Text = myVFCAdapter.SpeedMaxDigits.ToString();
+            txtParSpeedUnitsByMaxDigits.Text = myVFCAdapter.SpeedUnitsByMaxDigits.ToString();
+            txtParSpeedUnitsByZeroDigits.Text = myVFCAdapter.SpeedUnitsByZeroDigits.ToString();
+            txtParSpeedLimitMax.Text = myVFCAdapter.SpeedLimitMax.ToString();
+            txtParSpeedLimitMin.Text = myVFCAdapter.SpeedLimitMin.ToString();
 
-            txtParLenPKW.Text = vfc.Par.LenPKW;
-            txtParLenPZD.Text = vfc.Par.LenPZD;
-            txtParLenPZDInp.Text = vfc.Par.LenPZDInp;
-            txtParUnitsPerDigits.Text = vfc.Par.UnitsPerDigits;
-            txtParSpeedMaxDigits.Text = vfc.Par.SpeedMaxDigits;
-            txtParSpeedUnitsByMaxDigits.Text = vfc.par.SpeedUnitsByMaxDigits;
-            txtParSpeedUnitsByZeroDigits.Text = vfc.par.SpeedUnitsByZeroDigits;
-            txtParSpeedLimitMax.Text = vfc.par.SpeedLimitMax;
-            txtParSpeedLimitMin.Text = vfc.par.SpeedLimitMin;
+            txtParPNO_T1.Text = myVFCAdapter.Telegram1.ParPNO.ToString();
+            txtParUnitsPerDigit_T1.Text = myVFCAdapter.Telegram1.ParUnitsPerDigit.ToString();
+            txtParPNO_T2.Text = myVFCAdapter.Telegram2.ParPNO.ToString();
+            txtParUnitsPerDigit_T2.Text = myVFCAdapter.Telegram2.ParUnitsPerDigit.ToString();
             chkParPZDConsistent.Checked = vfc.par.ParPZDConsistent;
             txtIOByteIncRule.Text = GetIOByteLen(txtParLenPKW.Text, txtParLenPZD.Text); 
         }
+
+        private void txtParSpeedLimitMin_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.SpeedLimitMin = AppGlobal.ParseValue<int>(txtParSpeedLimitMin.Text, out tempInt) ? tempInt : 0;
+        }
+
+        private void txtParSpeedLimitMax_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.SpeedLimitMax = AppGlobal.ParseValue<int>(txtParSpeedLimitMax.Text, out tempInt) ? tempInt : 100;
+        }
+
+        private void txtParSpeedMaxDigits_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.SpeedMaxDigits = AppGlobal.ParseValue<int>(txtParSpeedMaxDigits.Text, out tempInt) ? tempInt : 500;
+        }
+
+        private void txtParSpeedUnitsByZeroDigits_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.SpeedUnitsByZeroDigits = AppGlobal.ParseValue<int>(txtParSpeedUnitsByZeroDigits.Text, out tempInt) ? tempInt : 0;
+        }
+
+        private void txtParSpeedUnitsByMaxDigits_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.SpeedUnitsByMaxDigits = AppGlobal.ParseValue<int>(txtParSpeedUnitsByMaxDigits.Text, out tempInt) ? tempInt : 100;
+        }
+
+        private void txtParUnitsPerDigits_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.UnitsPerDigits = AppGlobal.ParseValue<float>(txtParUnitsPerDigits.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 0.1;
+        }
+
+
+        private void txtParLenPZDInp_TextChanged(object sender, EventArgs e)
+        {
+            myVFCAdapter.LenPZDInp = AppGlobal.ParseValue<int>(txtParLenPZDInp.Text, out tempInt) ? tempInt : 0;
+        }
         private void txtParLenPZD_TextChanged(object sender, EventArgs e)
         {
+            myVFCAdapter.LenPZD = AppGlobal.ParseValue<int>(txtParLenPZD.Text, out tempInt) ? tempInt : 6;
             txtIOByteIncRule.Text = GetIOByteLen(txtParLenPKW.Text, txtParLenPZD.Text);
-        }
+        }         
         private void txtParLenPKW_TextChanged(object sender, EventArgs e)
         {
+            myVFCAdapter.LenPKW = AppGlobal.ParseValue<int>(txtParLenPKW.Text, out tempInt) ? tempInt : 0;
             txtIOByteIncRule.Text = GetIOByteLen(txtParLenPKW.Text, txtParLenPZD.Text);
+        }
+      
+                                   
+        private void txtParPNO_T1_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram1</Telegram1>
+            myVFCAdapter.Telegram1.ParPNO = String.IsNullOrEmpty(txtParPNO_T1.Text) ? 0 :
+                                    (AppGlobal.ParseValue<float>(txtParPNO_T1.Text, out tempFloat) ? tempFloat : 0);
+           
+        }
+
+        private void txtParUnitsPerDigit_T1_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram1</Telegram1>
+            myVFCAdapter.Telegram1.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T1.Text) ? 0 :
+                        (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T1.Text, out tempFloat) ? tempFloat : 0);
+        }
+
+        private void txtParPNO_T2_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram2</Telegram2>
+            myVFCAdapter.Telegram2.ParPNO = String.IsNullOrEmpty(txtParPNO_T2.Text) ? 0 :
+                                (AppGlobal.ParseValue<float>(txtParPNO_T2.Text, out tempFloat) ? tempFloat : 0);
+        }
+
+        private void txtParUnitsPerDigit_T2_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram2</Telegram2>
+             myVFCAdapter.Telegram2.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T2.Text)? 0 :
+            (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T2.Text, out tempFloat) ? tempFloat : 0);
+        }
+
+        private void txtParPNO_T3_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram3</Telegram3>
+            myVFCAdapter.Telegram3.ParPNO = String.IsNullOrEmpty(txtParPNO_T3.Text) ? 0 :
+                                (AppGlobal.ParseValue<float>(txtParPNO_T3.Text, out tempFloat) ? tempFloat : 0);
+
+        }
+
+        private void txtParUnitsPerDigit_T3_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram3</Telegram3>
+            myVFCAdapter.Telegram3.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T3.Text) ? 0 :
+                    (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T3.Text, out tempFloat) ? tempFloat : 0);
+        }
+              
+        private void txtParPNO_T4_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram4</Telegram4>
+            myVFCAdapter.Telegram4.ParPNO = String.IsNullOrEmpty(txtParPNO_T4.Text) ? 0 :
+                                    (AppGlobal.ParseValue<float>(txtParPNO_T4.Text, out tempFloat) ? tempFloat : 0);
+        }
+
+        private void txtParUnitsPerDigit_T4_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram4</Telegram4>
+            myVFCAdapter.Telegram4.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T4.Text) ? 0 :
+                   (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T4.Text, out tempFloat) ? tempFloat : 0);
+        }
+
+        private void txtParPNO_T5_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram5</Telegram5>
+            myVFCAdapter.Telegram5.ParPNO = String.IsNullOrEmpty(txtParPNO_T5.Text) ? 0 :
+                                (AppGlobal.ParseValue<float>(txtParPNO_T5.Text, out tempFloat) ? tempFloat : 0);
+        }
+
+        private void txtParUnitsPerDigit_T5_TextChanged(object sender, EventArgs e)
+        {
+            ///<Telegram5</Telegram5>
+            myVFCAdapter.Telegram5.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T5.Text) ? 0 :
+                    (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T5.Text, out tempFloat) ? tempFloat : 0);
         }
         private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
@@ -1283,10 +1384,10 @@ namespace GcproExtensionApp
         {
             #region common used variables declaration
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);    
-            int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
-            int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
+            int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+            int ioByteInc = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
             bool needDPNodeChanged = false;
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             RuleSubDataSet description, name, dpNode1;
@@ -1316,19 +1417,19 @@ namespace GcproExtensionApp
                     Len = 0,
                 }
             };
-            dpNode1 = new RuleSubDataSet
-            {
-                Sub = new string[] { },
-                Inc = 0,
-                PosInfo = new RuleSubPos
-                {
-                    StartPos = false,
-                    MidPos = false,
-                    EndPos = false,
-                    PosInString = 0,
-                    Len = 0,
-                }
-            };
+            //dpNode1 = new RuleSubDataSet
+            //{
+            //    Sub = new string[] { },
+            //    Inc = 0,
+            //    PosInfo = new RuleSubPos
+            //    {
+            //        StartPos = false,
+            //        MidPos = false,
+            //        EndPos = false,
+            //        PosInString = 0,
+            //        Len = 0,
+            //    }
+            //};
             #endregion common used variables declaration
 
             #region Prepare export vfc file
@@ -1370,7 +1471,7 @@ namespace GcproExtensionApp
                 objVFCAdapter.Elevation = selectedElevation;
             }
             ///<FieldBusNode></FieldBusNode>  
-            objVFCAdapter.FieldBusNode = LibGlobalSource.NOCHILD;
+            objVFCAdapter.FieldBusNode = AppGlobal.NO_DP_NODE;
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
@@ -1383,7 +1484,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objVFCAdapter.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objVFCAdapter.Diagram = VFCAdapter.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             objVFCAdapter.Page = txtPage.Text;
@@ -1391,81 +1492,47 @@ namespace GcproExtensionApp
             string selectDPNode1 = String.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
-                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
-                oledb.IsNewOLEDBDriver = isNewOledbDriver;
-                oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-                int dpnode1 = int.Parse(objVFCAdapter.DPNode1);
-                objVFCAdapter.DPNode1 = VFCAdapter.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                selectDPNode1 = ComboDPNode1.SelectedItem.ToString();          
+                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, selectDPNode1);
 
-                if (String.IsNullOrEmpty(objVFCAdapter.DPNode1))
-                { objVFCAdapter.FieldBusNode = string.Empty; }
-                else
-                {
-                    objVFCAdapter.FieldBusNode = VFCAdapter.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, dpnode1);
-                }
+                objVFCAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objVFCAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
             }
             ///<Value9>Value9 is not used here</Value9>
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
 
             ///<ParSpeedLimitMin></ParSpeedLimitMin>
-            objVFCAdapter.SpeedLimitMin = AppGlobal.ParseInt(txtParSpeedLimitMin.Text, out tempInt) ? (tempInt).ToString() : "0";
+           // objVFCAdapter.SpeedLimitMin = AppGlobal.ParseValue<int>(txtParSpeedLimitMin.Text, out tempInt) ? tempInt : 0;
             ///<ParSpeedLimitMax></ParSpeedLimitMax>
-            objVFCAdapter.SpeedLimitMax = AppGlobal.ParseInt(txtParSpeedLimitMax.Text, out tempInt) ? (tempInt).ToString() : "100";
+           // objVFCAdapter.SpeedLimitMax = AppGlobal.ParseValue<int>(txtParSpeedLimitMax.Text, out tempInt) ? tempInt : 100;
             ///<ParSpeedMaxDigits></ParSpeedMaxDigits>
-            objVFCAdapter.SpeedMaxDigits = AppGlobal.ParseInt(txtParSpeedMaxDigits.Text, out tempInt) ? (tempInt).ToString() : "500";
+           // objVFCAdapter.SpeedMaxDigits = AppGlobal.ParseValue<int>(txtParSpeedMaxDigits.Text, out tempInt) ? tempInt : 500;
             ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-            objVFCAdapter.SpeedUnitsByZeroDigits = AppGlobal.ParseInt(txtParSpeedUnitsByZeroDigits.Text, out tempInt) ? (tempInt).ToString() : "0";
+          //  objVFCAdapter.SpeedUnitsByZeroDigits = AppGlobal.ParseValue<int>(txtParSpeedUnitsByZeroDigits.Text, out tempInt) ? tempInt : 0;
             ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-            objVFCAdapter.SpeedUnitsByMaxDigits = AppGlobal.ParseInt(txtParSpeedUnitsByMaxDigits.Text, out tempInt) ? (tempInt).ToString() : "100";
+          //  objVFCAdapter.SpeedUnitsByMaxDigits = AppGlobal.ParseValue<int>(txtParSpeedUnitsByMaxDigits.Text, out tempInt) ? tempInt : 100;
             ///<ParUnitsPerDigits</ParUnitsPerDigits>
-            objVFCAdapter.UnitsPerDigits = AppGlobal.ParseFloat(txtParUnitsPerDigits.Text, out tempFloat) ? (tempFloat).ToString("F1") : "0.1";
+          //  objVFCAdapter.UnitsPerDigits = AppGlobal.ParseValue<float>(txtParUnitsPerDigits.Text, out tempFloat) ? Math.Round(tempFloat,1) : 0.1;
             ///<ParLenPKW</ParLenPKW>
-            objVFCAdapter.LenPKW = AppGlobal.ParseInt(txtParLenPKW.Text, out tempInt) ? (tempInt).ToString() : "0";
+          //  objVFCAdapter.LenPKW = AppGlobal.ParseValue<int>(txtParLenPKW.Text, out tempInt) ? tempInt : 0;
             ///<ParLenPZD</ParLenPZD>
-            objVFCAdapter.LenPZD = AppGlobal.ParseInt(txtParLenPZD.Text, out tempInt) ? (tempInt).ToString() : "6";
+         //   objVFCAdapter.LenPZD = AppGlobal.ParseValue<int>(txtParLenPZD.Text, out tempInt) ? tempInt : 6;
             ///<ParLenPZDInp</ParLenPZDInp>
-            objVFCAdapter.LenPZDInp = AppGlobal.ParseInt(txtParLenPZDInp.Text, out tempInt) ? (tempInt).ToString() : "0";
+         //   objVFCAdapter.LenPZDInp = AppGlobal.ParseValue<int>(txtParLenPZDInp.Text, out tempInt) ? tempInt : 0;
             ///<ParIOByteNo</ParIOByteNo>
-            objVFCAdapter.IoByteNo = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? (tempInt).ToString() : "20000";
+            objVFCAdapter.IoByteNo = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 20000;
             ///<MEAGGateway</MEAGGateway<>
             objVFCAdapter.MeagGateway = objVFCAdapter.SubType == VFCAdapter.ATVM ? txtMEAGGateway.Text : "0";
             ///<SlaveIndex</SlaveIndex>      
             objVFCAdapter.SlaveIndex = objVFCAdapter.SubType == VFCAdapter.ATVM ?
-                (AppGlobal.ParseInt(txtParSalveIndex.Text, out tempInt) ? (tempInt).ToString() : "0") : "0";
+                (AppGlobal.ParseValue<int>(txtParSalveIndex.Text, out tempInt) ? tempInt : 0) : 0;
             ///<OutpHardwareStop</OutpHardwareStop>
             objVFCAdapter.OutpHardwareStop = objVFCAdapter.SubType == VFCAdapter.ATVM ? txtOutpHardwareStop.Text : "0";
 
-            ///<Telegram1</Telegram1>
-            objVFCAdapter.Telegram1.ParPNO = String.IsNullOrEmpty(txtParPNO_T1.Text) ? "0.0" :
-                                (AppGlobal.ParseFloat(txtParPNO_T1.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            objVFCAdapter.Telegram1.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T1.Text) ? "0.0" :
-                    (AppGlobal.ParseFloat(txtParUnitsPerDigit_T1.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            ///<Telegram2</Telegram2>
-            objVFCAdapter.Telegram2.ParPNO = String.IsNullOrEmpty(txtParPNO_T2.Text) ? "0.0" :
-                                (AppGlobal.ParseFloat(txtParPNO_T2.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            objVFCAdapter.Telegram2.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T2.Text) ? "0.0" :
-                    (AppGlobal.ParseFloat(txtParUnitsPerDigit_T2.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            ///<Telegram3</Telegram3>
-            objVFCAdapter.Telegram3.ParPNO = String.IsNullOrEmpty(txtParPNO_T3.Text) ? "0.0" :
-                                (AppGlobal.ParseFloat(txtParPNO_T3.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            objVFCAdapter.Telegram3.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T3.Text) ? "0.0" :
-                    (AppGlobal.ParseFloat(txtParUnitsPerDigit_T3.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            ///<Telegram4</Telegram4>
-            objVFCAdapter.Telegram4.ParPNO = String.IsNullOrEmpty(txtParPNO_T4.Text) ? "0.0" :
-                                (AppGlobal.ParseFloat(txtParPNO_T4.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            objVFCAdapter.Telegram4.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T4.Text) ? "0.0" :
-                    (AppGlobal.ParseFloat(txtParUnitsPerDigit_T4.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            ///<Telegram5</Telegram5>
-            objVFCAdapter.Telegram5.ParPNO = String.IsNullOrEmpty(txtParPNO_T5.Text) ? "0.0" :
-                                (AppGlobal.ParseFloat(txtParPNO_T5.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
-            objVFCAdapter.Telegram5.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T5.Text) ? "0.0" :
-                    (AppGlobal.ParseFloat(txtParUnitsPerDigit_T5.Text, out tempFloat) ? (tempFloat).ToString() : "0.0");
+
             ///<Sinamics>
             ///[RefCurrent],[RefTorque],[RefPower]
             ///don't need ,they will read from VFC            
@@ -1474,7 +1541,7 @@ namespace GcproExtensionApp
 
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1545,37 +1612,31 @@ namespace GcproExtensionApp
             }
             #endregion Parse rules
 
-            processValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
+            processValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt - 1 : 1;
             processValue.Value = 0;
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                 if (needDPNodeChanged && moreThanOne)
                 {
-                    dpNode1.Inc = i * symbolInc;
-                    dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
-                    objVFCAdapter.DPNode1 = VFCAdapter.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                   // dpNode1.Inc = i * symbolInc;
+                   // dpNode1.Name = LibGlobalSource.StringHelper.GenerateObjectName(dpNode1.Sub, dpNode1.PosInfo, (symbolRule + dpNode1.Inc).ToString());
+                   
+                    AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                     {
                         return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                     }, objVFCAdapter.Name);
 
-                    if (String.IsNullOrEmpty(objVFCAdapter.DPNode1))
-                    { objVFCAdapter.FieldBusNode = string.Empty; }
-                    else
-                    {
-                        objVFCAdapter.FieldBusNode = VFCAdapter.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                        {
-                            return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                        }, int.Parse(objVFCAdapter.DPNode1));
-                    }
+                    objVFCAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                    objVFCAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
                 if (!String.IsNullOrEmpty(desc))
@@ -1613,7 +1674,7 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
                 // objVFCAdapter.Description = description.Name;
-                objVFCAdapter.IoByteNo = Convert.ToString(ioByte + i * ioByteInc);
+                objVFCAdapter.IoByteNo = ioByte + i * ioByteInc;
                 objVFCAdapter.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
             }
@@ -1626,11 +1687,12 @@ namespace GcproExtensionApp
             #region common used variables declaration
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);       
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
-            int slaveIndexInc = AppGlobal.ParseInt(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
-            int ioByteInc = AppGlobal.ParseInt(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
-            int ioByte = AppGlobal.ParseInt(txtParIOByte.Text, out tempInt) ? tempInt : 0;
+            int slaveIndexInc = AppGlobal.ParseValue<int>(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
+            int ioByteInc = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
+            int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             string desc = string.Empty;
+            string motor = string.Empty;
             bool onlyOne = quantityNeedToBeCreate == 1;
             int nextIOByte = ioByte;
             #endregion common used variables declaration
@@ -1646,7 +1708,8 @@ namespace GcproExtensionApp
                 if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                     continue;
                 ///<Name>   </Name>
-                objVFCAdapter.Name = Convert.ToString(cell.Value) + GcObjectInfo.Motor.SuffixVFC;
+                motor = Convert.ToString(cell.Value);
+                objVFCAdapter.Name = motor + GcObjectInfo.Motor.SuffixVFC;
                 ///<Description>   </Description>    
                 desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
                 if (addtionToDesc.Section)
@@ -1654,7 +1717,7 @@ namespace GcproExtensionApp
                     string nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objVFCAdapter.Name);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
-                        if (AppGlobal.ParseInt(nameNumberString, out tempInt))
+                        if (AppGlobal.ParseValue<int>(nameNumberString, out tempInt))
                         {
                             VFCAdapter.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
@@ -1688,57 +1751,60 @@ namespace GcproExtensionApp
                 ///<IOByteNo>   </IOByteNo> 
                 string controlMethod = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnControlMethod)].Value);
 
-                if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV320))
+                if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV320.Substring(0,3)))
                 {
-                    vfc.Name = BML.VFCAdapter.TypeEnmu.ATV320;
+                    objVFCAdapter.SubType = VFCAdapter.ATVDP;
+                    if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV320))
+                    {
+                        vfc.Name = BML.VFCAdapter.TypeEnmu.ATV320;
+                    }
+                    else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV930))
+                    {
+                        vfc.Name = BML.VFCAdapter.TypeEnmu.ATV930;                       
+                    }
+                    else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV955))
+                    {
+                        vfc.Name = BML.VFCAdapter.TypeEnmu.ATV955;
+                    }
                 }
-                else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV930))
+                else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ABB))
                 {
-                    vfc.Name = BML.VFCAdapter.TypeEnmu.ATV930;
-
+                    vfc.Name = BML.VFCAdapter.TypeEnmu.ABB;
+                    objVFCAdapter.SubType = VFCAdapter.VFCA7;
                 }
-                else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.ATV955))
+                else if (controlMethod.Contains(BML.VFCAdapter.TypeEnmu.FC280))
                 {
-                    vfc.Name = BML.VFCAdapter.TypeEnmu.ATV955;
-
+                    vfc.Name = BML.VFCAdapter.TypeEnmu.FC280;
+                    objVFCAdapter.SubType = VFCAdapter.VFCA4;
                 }
+                ///The following parameters are changed in class interbal when sutype changed.
                 ///<ParSpeedLimitMin></ParSpeedLimitMin>
-                objVFCAdapter.SpeedLimitMin = vfc.Par.SpeedLimitMin;
                 ///<ParSpeedLimitMax></ParSpeedLimitMax>
-                objVFCAdapter.SpeedLimitMax = vfc.Par.SpeedLimitMax;
-                ///<ParSpeedMaxDigits></ParSpeedMaxDigits>
-                objVFCAdapter.SpeedMaxDigits = objVFCAdapter.Description.Contains(BML.MachineType.RollerMiller) ? "1000" : vfc.Par.SpeedMaxDigits;
                 ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-                objVFCAdapter.SpeedUnitsByZeroDigits = vfc.Par.SpeedUnitsByZeroDigits;
                 ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-                objVFCAdapter.SpeedUnitsByMaxDigits = vfc.Par.SpeedUnitsByMaxDigits;
                 ///<ParUnitsPerDigits</ParUnitsPerDigits>
-                objVFCAdapter.UnitsPerDigits = vfc.Par.UnitsPerDigits;
-                ///<ParLenPKW</ParLenPKW>
+                ///Overwrite <ParSpeedMaxDigits></ParSpeedMaxDigits>
+                if (objVFCAdapter.Description.Contains(BML.MachineType.RollerMiller))
+                { objVFCAdapter.SpeedMaxDigits = 1000; }
+                /// Overwrite <ParLenPKW> and <ParLenPZD>
+                ///<ParLenPKW></ParLenPKW></ParLenPKW>
                 objVFCAdapter.LenPKW = vfc.Par.LenPKW;
-                ///<ParLenPZD</ParLenPZD>
+                ///<ParLenPZD></ParLenPZD>
                 objVFCAdapter.LenPZD = vfc.Par.LenPZD;
                 ///<ParLenPZDInp</ParLenPZDInp>
-                objVFCAdapter.LenPZDInp = vfc.Par.LenPZDInp;
+               // objVFCAdapter.LenPZDInp = vfc.Par.LenPZDInp;
                 ioByteInc = Convert.ToInt32(GetIOByteLen(vfc.Par.LenPKW, vfc.Par.LenPZD));
                 // objVFCAdapter.IoByteNo = Convert.ToString(ioByte + i * ioByteInc);
-                objVFCAdapter.IoByteNo = Convert.ToString(nextIOByte);
+                objVFCAdapter.IoByteNo = nextIOByte;
                 nextIOByte += ioByteInc;
-                ///<DPNode1>   </DPNode1>                                    
-                objVFCAdapter.DPNode1 = VFCAdapter.FindDPNodeNo((tableName, whereClause, parameters, sortBy, fieldList) =>
+                ///<DPNode1>   </DPNode1>                                               
+                AppGlobal.FieldbusNodeInfo = VFCAdapter.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                }, objVFCAdapter.Name);
+                }, motor);
 
-                if (String.IsNullOrEmpty(objVFCAdapter.DPNode1))
-                { objVFCAdapter.FieldBusNode = string.Empty; }
-                else
-                {
-                    objVFCAdapter.FieldBusNode = VFCAdapter.FindFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
-                    {
-                        return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
-                    }, int.Parse(objVFCAdapter.DPNode1));
-                }
+                objVFCAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
+                objVFCAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 ///<CreateObject>   </CreateObject>
                 objVFCAdapter.CreateObject(Encoding.Unicode);
                 processValue.Value = i;
@@ -1748,8 +1814,8 @@ namespace GcproExtensionApp
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-            int slaveIndexInc = AppGlobal.ParseInt(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
+            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+            int slaveIndexInc = AppGlobal.ParseValue<int>(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
 
             if (myVFCAdapter.SubType == VFCAdapter.ATVM)
             {
@@ -1791,7 +1857,7 @@ namespace GcproExtensionApp
 
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreateObjectRule(
                          objVFCAdapter: myVFCAdapter,
                          addtionToDesc: AppGlobal.AdditionDesc,
@@ -1805,8 +1871,22 @@ namespace GcproExtensionApp
             {
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }          
-      #endregion <---Common used--->
+        }
+        #endregion <---Common used--->
+
+        ///<ParSpeedLimitMax></ParSpeedLimitMax>
+
+        ///<ParSpeedMaxDigits></ParSpeedMaxDigits>
+
+        ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
+
+        ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
+
+        ///<ParUnitsPerDigits</ParUnitsPerDigits>
+
+        ///<ParLenPKW</ParLenPKW>
+
+
     }
 
 }

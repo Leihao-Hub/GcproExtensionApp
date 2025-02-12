@@ -22,30 +22,30 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string processFct;
         private string building;
         private string elevation;
-        private string fieldBusNode;
+        private double fieldBusNode;
         private string panel_ID;
-        private string diagram;
+        private double diagram;
         private string page;
         private string isNew;
-        private string pType;
-        private string hornCode;
-        private string dpNode1;
-        private string dpNode2;
+        private double pType;
+        private double hornCode;
+        private double dpNode1;
+        private double dpNode2;
         private string hwStop;
         private string inpFaultDev;
         private string inpWeightPulse;
         private string outpFaultReset;
-        private string parTimeoutStart;
-        private string parPulseWeight;
-        private string inFlowrate;
-        private string inPreCutoffWeight;
-        private string inFlowrateLowLimit;
-        private string inFlowrateHighLimit;
-        private string inDumpWeight;
-        private string value9;
-        private string value10;
-        private string value60;
-        private string ioByteNo;
+        private double parTimeoutStart;
+        private double parPulseWeight;
+        private double inFlowrate;
+        private double inPreCutoffWeight;
+        private double inFlowrateLowLimit;
+        private double inFlowrateHighLimit;
+        private double inDumpWeight;
+        private double value9;
+        private double value10;
+        private double value60;
+        private double ioByteNo;
         private string refSenderBin;
         private string refFluidliftAirlock;
         private string refAdapter;
@@ -95,7 +95,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return elevation; }
             set { elevation = value; }
         }
-        public override string FieldBusNode
+        public override double FieldBusNode
         {
             get { return fieldBusNode; }
             set { fieldBusNode = value; }
@@ -105,7 +105,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override string Diagram
+        public override double Diagram
         {
             get { return diagram; }
             set { diagram = value; }
@@ -115,25 +115,25 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return page; }
             set { page = value; }
         }
-        public override string PType
+        public override double PType
         {
             get { return pType; }
             set { pType = value; }
 
         }
-        public override string HornCode
+        public override double HornCode
         {
             get { return hornCode; }
             set { hornCode = value; }
         }
-        public override string DPNode1
+        public override double DPNode1
         {
             get { return dpNode1; }
             set { dpNode1 = value; }
         }
         #endregion
         #region Application properties
-        public string DPNode2
+        public double DPNode2
         {
             get { return dpNode2; }
             set { dpNode2 = value; }
@@ -162,62 +162,62 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { outpFaultReset = value; }
         }
 
-        public string ParTimeoutStart
+        public double ParTimeoutStart
         {
             get { return parTimeoutStart; }
             set { parTimeoutStart = value; }
         }
 
-        public string ParPulseWeight
+        public double ParPulseWeight
         {
             get { return parPulseWeight; }
             set { parPulseWeight = value; }
         }
-        public string InFlowrate
+        public double InFlowrate
         {
             get { return inFlowrate; }
             set { inFlowrate = value; }
         }
 
-        public string InPreCutoffWeight
+        public double InPreCutoffWeight
         {
             get { return inPreCutoffWeight; }
             set { inPreCutoffWeight = value; }
         }
 
-        public string InFlowrateLowLimit
+        public double InFlowrateLowLimit
         {
             get { return inFlowrateLowLimit; }
             set { inFlowrateLowLimit = value; }
         }
 
-        public string InFlowrateHighLimit
+        public double InFlowrateHighLimit
         {
             get { return inFlowrateHighLimit; }
             set { inFlowrateHighLimit = value; }
         }
 
-        public string InDumpWeight
+        public double InDumpWeight
         {
             get { return inDumpWeight; }
             set { inDumpWeight = value; }
         }
-        public string Value9
+        public double Value9
         {
             get { return value9; }
             set { value9 = value; }
         }
-        public override string Value10
+        public override double Value10
         {
             get { return value10; }
             set { value10 = value; }
         }
-        public string Value60
+        public double Value60
         {
             get { return value60; }
             set { value60 = value; }
         }
-        public string IoByteNo
+        public double IoByteNo
         {
             get { return ioByteNo; }
             set { ioByteNo = value; }
@@ -268,11 +268,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public ScaleAdapter()
         {
             string commonDefaultFilePath;
-            value10 = "66";
-            value9 ="196608";
-            value60 = "0";
-            pType = P7601.ToString();
-            hornCode = LibGlobalSource.NOCHILD;
+            value10 = 66;
+            value9 =196608;
+            value60 = 0;
+            pType = P7601;
+            hornCode = 0;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.EL_MDDx);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{scaleAdapterFileName}";
@@ -315,7 +315,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
              .Append(ioByteNo).Append(LibGlobalSource.TAB)
              .Append(value9).Append(LibGlobalSource.TAB)
              .Append(value60).Append(LibGlobalSource.TAB)
-             .Append(parTimeoutStart).Append(LibGlobalSource.TAB)
+             .Append(parTimeoutStart * 10).Append(LibGlobalSource.TAB)
              .Append(parPulseWeight).Append(LibGlobalSource.TAB)
              .Append(inFlowrate).Append(LibGlobalSource.TAB)
              .Append(inPreCutoffWeight).Append(LibGlobalSource.TAB)

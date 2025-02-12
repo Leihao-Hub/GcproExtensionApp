@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Linq;
 using System.Xml.Linq;
+using static GcproExtensionApp.GcObjectInfo;
 #endregion
 namespace GcproExtensionApp
 {
@@ -39,6 +40,7 @@ namespace GcproExtensionApp
         #endregion
         private int value10 ;
         private int tempInt = 0;
+        private float tempFloat = 0;
         private bool tempBool = false;
         #region Public interfaces
         public void GetInfoFromDatabase()
@@ -170,12 +172,12 @@ namespace GcproExtensionApp
             txtSymbol.Text =  Discharger.Rule.Common.Name;
 
             txtVibroIncRule.Text = Discharger.Rule.Common.NameRuleInc;
-            txtDischargerIncRule.Text = Discharger.Rule.DischargerRuleInc;
-            txtVibroIncRule.Text = Discharger.Rule.VibroRuleInc;
-            txtLLBinIncRule.Text = Discharger.Rule.LLBinRuleInc;
-            txtLSFlowIncRule.Text = Discharger.Rule.LSFlowRuleInc;
-            txtReceiverIncRule.Text = Discharger.Rule.ReceiverRuleInc;
-            txtSenderBinIncRule.Text = Discharger.Rule.SenderBinRuleInc;
+            txtDischargerIncRule.Text = Discharger.Rule.DischargerRuleInc.ToString();
+            txtVibroIncRule.Text = Discharger.Rule.VibroRuleInc.ToString();
+            txtLLBinIncRule.Text = Discharger.Rule.LLBinRuleInc.ToString();
+            txtLSFlowIncRule.Text = Discharger.Rule.LSFlowRuleInc.ToString();
+            txtReceiverIncRule.Text = Discharger.Rule.ReceiverRuleInc.ToString();
+            txtSenderBinIncRule.Text = Discharger.Rule.SenderBinRuleInc.ToString();
 
         }
         public void CreateTips()
@@ -220,7 +222,7 @@ namespace GcproExtensionApp
          //   ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
          //   ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;      
-            txtValue10.Text = myDischarger.Value10;
+            txtValue10.Text = myDischarger.Value10.ToString().ToString();
             value10 = int.Parse(txtValue10.Text);
             //暂时隐藏BML Tab
             TabPage tabToHide = tabCreateMode.TabPages["tabBML"];
@@ -409,7 +411,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtDischargerIncRule.Text))
             {
-                Discharger.Rule.DischargerRuleInc = txtDischargerIncRule.Text;
+               AppGlobal.ParseValue<int>(txtDischargerIncRule.Text, out Discharger.Rule.DischargerRuleInc);
             }
             else
             {
@@ -432,7 +434,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtVibroIncRule.Text))
             {
-                Discharger.Rule.VibroRuleInc = txtVibroIncRule.Text;
+                AppGlobal.ParseValue<int>(txtVibroIncRule.Text, out Discharger.Rule.VibroRuleInc);
             }
             else
             {
@@ -456,7 +458,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtLLBinIncRule.Text))
             {
-                Discharger.Rule.LLBinRuleInc = txtLLBinIncRule.Text;
+                AppGlobal.ParseValue<int>(txtLLBinIncRule.Text, out Discharger.Rule.LLBinRuleInc);
             }
             else
             {
@@ -480,7 +482,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtLSFlowIncRule.Text))
             {
-                Discharger.Rule.LSFlowRuleInc = txtLSFlowIncRule.Text;
+                AppGlobal.ParseValue<int>(txtLSFlowIncRule.Text, out Discharger.Rule.LSFlowRuleInc);
             }
             else
             {
@@ -504,7 +506,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtReceiverIncRule.Text))
             {
-                Discharger.Rule.ReceiverRuleInc = txtReceiverIncRule.Text;
+                AppGlobal.ParseValue<int>(txtReceiverIncRule.Text, out Discharger.Rule.ReceiverRuleInc);
             }
             else
             {
@@ -527,7 +529,7 @@ namespace GcproExtensionApp
         {
             if (AppGlobal.CheckNumericString(txtSenderBinIncRule.Text))
             {
-                Discharger.Rule.SenderBinRuleInc = txtSenderBinIncRule.Text;
+                AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out Discharger.Rule.SenderBinRuleInc);
             }
             else
             {
@@ -550,8 +552,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)4); }
 
-            myDischarger.Value10 = value10.ToString();
-            txtValue10.Text = myDischarger.Value10;
+            myDischarger.Value10 = value10;
+            txtValue10.Text = myDischarger.Value10.ToString();
         }
 
         private void chkParWithVibro_CheckedChanged(object sender, EventArgs e)
@@ -563,8 +565,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)0); }
 
-            myDischarger.Value10 = value10.ToString();
-            txtValue10.Text = myDischarger.Value10;
+            myDischarger.Value10 = value10;
+            txtValue10.Text = myDischarger.Value10.ToString();
         }
 
         private void chkParWithLLBin_CheckedChanged(object sender, EventArgs e)
@@ -576,8 +578,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)1); }
 
-            myDischarger.Value10 = value10.ToString();
-            txtValue10.Text = myDischarger.Value10;
+            myDischarger.Value10 = value10;
+            txtValue10.Text = myDischarger.Value10.ToString();
         }
 
         private void chkParWithFlow_CheckedChanged(object sender, EventArgs e)
@@ -589,8 +591,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)2); }
 
-            myDischarger.Value10 = value10.ToString();
-            txtValue10.Text = myDischarger.Value10;
+            myDischarger.Value10 = value10;
+            txtValue10.Text = myDischarger.Value10.ToString();
         }
 
         private void chkParDischargerIsMotor_CheckedChanged(object sender, EventArgs e)
@@ -602,8 +604,8 @@ namespace GcproExtensionApp
             else
             { AppGlobal.ClearBit(ref value10, (byte)3); }
 
-            myDischarger.Value10 = value10.ToString();
-            txtValue10.Text = myDischarger.Value10;
+            myDischarger.Value10 = value10;
+            txtValue10.Text = myDischarger.Value10.ToString();
         }
 
       
@@ -611,7 +613,7 @@ namespace GcproExtensionApp
         private void txtValue10_KeyDown(object sender, KeyEventArgs e)
         {
             GetValue10BitValue(value10);
-            AppGlobal.ParseInt(txtValue10.Text, out value10);
+            AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
         }
         #endregion
         #region <------Field in database display
@@ -1180,7 +1182,7 @@ namespace GcproExtensionApp
                 {                
                     if (!string.IsNullOrEmpty(numberString))
                     {
-                        if (AppGlobal.ParseInt(numberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(numberString.Substring(0, 4), out tempInt))
                         {
                             descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
                         }
@@ -1339,15 +1341,16 @@ namespace GcproExtensionApp
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myDischarger.PType = selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                AppGlobal.ParseValue<float>( selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)), out tempFloat);
+                myDischarger.PType = tempFloat;
             }
             else
             {
-                myDischarger.PType = Discharger.P2056.ToString();
+                myDischarger.PType = Discharger.P2056;
             }
 
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-            myDischarger.Value10= value10.ToString();
+            myDischarger.Value10= value10;
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
             myDischarger.Description = txtDescription.Text;
@@ -1363,7 +1366,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myDischarger.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                myDischarger.Diagram = Discharger.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             myDischarger.Page = txtPage.Text;
@@ -1390,11 +1393,11 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myDischarger.FieldBusNode = string.Empty;
+            myDischarger.FieldBusNode = AppGlobal.NO_DP_NODE;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
-            if (!AppGlobal.ParseInt(txtSymbolIncRule.Text, out tempInt))
+            if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
             {
                 if (moreThanOne)
                 {
@@ -1533,15 +1536,15 @@ namespace GcproExtensionApp
             ///</CreateObj>
             int symbolInc, symbolRule, descriptionInc, dischargerInc, vibroInc, llBinInc, lsFlowInc, receiverInc, senderBinInc;
             int vibroOnTime, vibroOffTime,restDischargeTime;
-            AppGlobal.ParseInt(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseInt(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseInt(txtDescriptionIncRule.Text, out descriptionInc);
-            AppGlobal.ParseInt(txtDischargerIncRule.Text, out dischargerInc);
-            AppGlobal.ParseInt(txtDischargerIncRule.Text, out vibroInc);
-            AppGlobal.ParseInt(txtLLBinIncRule.Text, out llBinInc);
-            AppGlobal.ParseInt(txtLSFlowIncRule.Text, out lsFlowInc);
-            AppGlobal.ParseInt(txtReceiverIncRule.Text, out receiverInc);
-            AppGlobal.ParseInt(txtSenderBinIncRule.Text, out senderBinInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtDischargerIncRule.Text, out dischargerInc);
+            AppGlobal.ParseValue<int>(txtDischargerIncRule.Text, out vibroInc);
+            AppGlobal.ParseValue<int>(txtLLBinIncRule.Text, out llBinInc);
+            AppGlobal.ParseValue<int>(txtLSFlowIncRule.Text, out lsFlowInc);
+            AppGlobal.ParseValue<int>(txtReceiverIncRule.Text, out receiverInc);
+            AppGlobal.ParseValue<int>(txtSenderBinIncRule.Text, out senderBinInc);
             for (int i = 0; i < quantityNeedToBeCreate ; i++)
             {
                 name.Inc = i * symbolInc;
@@ -1693,13 +1696,14 @@ namespace GcproExtensionApp
                 myDischarger.LSFlow = lsFlow.Name;
                 myDischarger.RefReceiver = receiver.Name;
                 myDischarger.RefSenderBin = senderBin.Name;
-                myDischarger.Value10 = txtValue10.Text;
-                tempBool = AppGlobal.ParseInt(txtParVibroOnTime.Text, out vibroOnTime);
-                myDischarger.ParVibroOnTime = tempBool ? (vibroOnTime * 10.0 ).ToString("F1") : "100.0";
-                tempBool = AppGlobal.ParseInt(txtParVibroOffTime.Text, out vibroOffTime);
-                myDischarger.ParVibroOffTime = tempBool ? (vibroOffTime * 10.0).ToString("F1") : "300.0";
-                tempBool = AppGlobal.ParseInt(txtParRestDischargeTime.Text, out restDischargeTime);
-                myDischarger.ParRestDischargeTime = tempBool ? (restDischargeTime * 10.0).ToString("F1") : "0.0";
+                AppGlobal.ParseValue<float>(txtValue10.Text, out tempFloat);
+                myDischarger.Value10 = tempFloat;
+                tempBool = AppGlobal.ParseValue<int>(txtParVibroOnTime.Text, out vibroOnTime);
+                myDischarger.ParVibroOnTime = tempBool ? Math.Round(Convert.ToDouble(vibroOnTime),1 ): 10.0;
+                tempBool = AppGlobal.ParseValue<int>(txtParVibroOffTime.Text, out vibroOffTime);
+                myDischarger.ParVibroOffTime = tempBool ? Math.Round(Convert.ToDouble(vibroOffTime), 1) : 30.0;
+                tempBool = AppGlobal.ParseValue<int>(txtParRestDischargeTime.Text, out restDischargeTime);
+                myDischarger.ParRestDischargeTime = tempBool ? Math.Round(Convert.ToDouble(restDischargeTime), 1) : 0.0;
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         
                 myDischarger.Description = descTotalBuilder.ToString();
@@ -1717,7 +1721,7 @@ namespace GcproExtensionApp
          oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
          oledb.IsNewOLEDBDriver = isNewOledbDriver;
          #region common used variables declaration       
-         int quantityNeedToBeCreate = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+         int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
          RuleSubDataSet description, name;
          description = new RuleSubDataSet
          {
@@ -1831,7 +1835,7 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    AppGlobal.ProcessValue.Max = AppGlobal.ParseInt(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
                     CreatObjectRule(AppGlobal.AdditionDesc, ref AppGlobal.ProcessValue);
                 }
                 ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
