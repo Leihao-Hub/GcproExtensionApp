@@ -423,12 +423,11 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     .Append(unit);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
             }
-            var relations = new List<Relation>();
-
+                var relations = new List<Relation>();
             if (subType == M11)
             {
                 relations.Add(new Relation(name, inpFwd, GcproTable.ObjData.Value11.Name));
-                relations.Add(new Relation(name, outpFwd, GcproTable.ObjData.Value12.Name));    
+                relations.Add(new Relation(name, outpFwd, GcproTable.ObjData.Value12.Name));
                 if (!string.IsNullOrEmpty(inpContactor))
                 {
                     relations.Add(new Relation(name, inpContactor, GcproTable.ObjData.Value38.Name));
@@ -441,10 +440,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 relations.Add(new Relation(name, inpRev, GcproTable.ObjData.Value13.Name));
                 relations.Add(new Relation(name, outpRev, GcproTable.ObjData.Value14.Name));
             }
-            else if (subType == M1VFC || subType == M2VFC)
-            {
+           else if (subType == M1VFC || subType == M2VFC)
+           { 
                 relations.Add(new Relation(name, adapter, GcproTable.ObjData.Value34.Name));
-            }
+           }
             CreateRelations(relations, this.fileRelationPath, encoding);
         }
 

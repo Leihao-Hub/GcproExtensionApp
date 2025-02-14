@@ -377,6 +377,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public void CreateObject(Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
+
             {
                 TextFileHandle textFileHandle = new TextFileHandle
                 {
@@ -410,26 +411,26 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(limitHigh).Append(LibGlobalSource.TAB)
                   .Append(limitHighHigh).Append(LibGlobalSource.TAB)
                   .Append(monTimeLowLow * 10).Append(LibGlobalSource.TAB)
-                  .Append(monTimeLow *10).Append(LibGlobalSource.TAB)
+                  .Append(monTimeLow * 10).Append(LibGlobalSource.TAB)
                   .Append(monTimeMiddle * 10).Append(LibGlobalSource.TAB)
-                  .Append(monTimeHigh *10).Append(LibGlobalSource.TAB)
+                  .Append(monTimeHigh * 10).Append(LibGlobalSource.TAB)
                   .Append(monTimeHighHigh * 10).Append(LibGlobalSource.TAB)
                   .Append(string.Empty).Append(LibGlobalSource.TAB)
                   .Append(string.Empty);
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
             }
-            var relations = new List<Relation>
-            {
-                new Relation(name,inpValue, GcproTable.ObjData.Value11.Name),
-                new Relation(name,inpFaultDev, GcproTable.ObjData.Value19.Name),
-                new Relation(name,inpLowLow, GcproTable.ObjData.Value12.Name),
-                new Relation(name,inpLow, GcproTable.ObjData.Value13.Name),
-                new Relation(name,inpHigh, GcproTable.ObjData.Value14.Name),
-                new Relation(name,inpHighHigh, GcproTable.ObjData.Value15.Name),
-                new Relation(name,inHWStop, GcproTable.ObjData.Value47.Name),
-                new Relation(name,reference, GcproTable.ObjData.Value39.Name),
-            };
-            CreateRelations(relations, this.fileRelationPath, encoding);
+                var relations = new List<Relation>
+                {
+                    new Relation(name,inpValue, GcproTable.ObjData.Value11.Name),
+                    new Relation(name,inpFaultDev, GcproTable.ObjData.Value19.Name),
+                    new Relation(name,inpLowLow, GcproTable.ObjData.Value12.Name),
+                    new Relation(name,inpLow, GcproTable.ObjData.Value13.Name),
+                    new Relation(name,inpHigh, GcproTable.ObjData.Value14.Name),
+                    new Relation(name,inpHighHigh, GcproTable.ObjData.Value15.Name),
+                    new Relation(name,inHWStop, GcproTable.ObjData.Value47.Name),
+                    new Relation(name,reference, GcproTable.ObjData.Value39.Name),
+                };
+                CreateRelations(relations, this.fileRelationPath, encoding);
         }
         public void Clear()
         {

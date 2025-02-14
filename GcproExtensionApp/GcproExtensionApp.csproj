@@ -36,7 +36,13 @@
   <PropertyGroup>
     <ApplicationIcon>Common\Coorperatin2.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>GcproExtensionApp.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GcproExtension">
+      <HintPath>..\GcproExtensionLibary\bin\Debug\output\GcproExtension.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -706,19 +712,6 @@
     <None Include="Resources\Access1.png" />
     <None Include="Resources\Access.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GcproExtensionLibary\GcproExtensionLibrary.csproj">
-      <Project>{12705553-fd01-4e57-8194-1a82a5244448}</Project>
-      <Name>GcproExtensionLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.ValueTuple">
-      <Version>4.5.0</Version>
-    </PackageReference>
-  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

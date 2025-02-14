@@ -1296,6 +1296,57 @@ namespace GcproExtensionApp
                 }
             }
         }
+
+        public static class DischargerVertex
+        {
+            private static string prefixDischargerNo;
+            private static string prefixVertex;
+            private static string prefixCWA;
+            public static string PrefixDischargerNo
+            {
+                get { return prefixDischargerNo; }
+                set { prefixDischargerNo = value; }
+            }
+            public static string PrefixVertex
+            {
+                get { return prefixVertex; }
+                set { prefixVertex = value; }
+            }
+            public static string PrefixCWA
+            {
+                get { return prefixCWA; }
+                set { prefixCWA = value; }
+            }
+            static DischargerVertex()
+            {
+                string keyPath = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DISCHARGER_VERTEX}.";
+                string keyPathPreffix = $"{keyPath}{AppGlobal.JS_PREFIX}.";
+                try
+                {
+                    var keys = new Dictionary<string, Action<string>>
+                    {
+                        { $"{keyPathPreffix}DischargerNo", value => prefixDischargerNo= value },
+                        { $"{keyPathPreffix}Vertex", value => prefixVertex = value },
+                        { $"{keyPathPreffix}CWA", value => prefixCWA = value },
+                    };
+                    Dictionary<string, string> keyValueRead;
+                    keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
+                    foreach (var key in keys)
+                    {
+                        if (keyValueRead.TryGetValue(key.Key, out var value))
+                        {
+                            key.Value(value);
+                        }
+                    }
+                    keyValueRead = null;
+                }
+
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), $"{keyPath} Json配置文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
    
 }

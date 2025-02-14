@@ -541,7 +541,6 @@
           "EPPlus": "7.1.3",
           "MSTest.TestFramework": "3.1.1",
           "Newtonsoft.Json": "13.0.3",
-          "System.ValueTuple": "4.5.0",
           "ilmerge": "3.0.40"
         },
         "compile": {
@@ -1092,7 +1091,6 @@
           "EPPlus": "7.1.3",
           "MSTest.TestFramework": "3.1.1",
           "Newtonsoft.Json": "13.0.3",
-          "System.ValueTuple": "4.5.0",
           "ilmerge": "3.0.40"
         },
         "compile": {
@@ -1643,7 +1641,6 @@
           "EPPlus": "7.1.3",
           "MSTest.TestFramework": "3.1.1",
           "Newtonsoft.Json": "13.0.3",
-          "System.ValueTuple": "4.5.0",
           "ilmerge": "3.0.40"
         },
         "compile": {
@@ -2194,7 +2191,6 @@
           "EPPlus": "7.1.3",
           "MSTest.TestFramework": "3.1.1",
           "Newtonsoft.Json": "13.0.3",
-          "System.ValueTuple": "4.5.0",
           "ilmerge": "3.0.40"
         },
         "compile": {
@@ -2745,7 +2741,6 @@
           "EPPlus": "7.1.3",
           "MSTest.TestFramework": "3.1.1",
           "Newtonsoft.Json": "13.0.3",
-          "System.ValueTuple": "4.5.0",
           "ilmerge": "3.0.40"
         },
         "compile": {

@@ -2,30 +2,30 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Data;
+using System.Reflection;
+
 #region GcproExtensionLibrary
+using GcproExtensionLibrary.Gcpro.GCObject;
+using GcproExtensionLibrary.FileHandle;
 using GcproExtensionLibrary;
 using GcproExtensionLibrary.Gcpro;
-using System.Xml.Linq;
-using System.Configuration;
-using System.Security.AccessControl;
-
-using static GcproExtensionLibrary.LibGlobalSource;
+using System.Diagnostics.Eventing.Reader;
+using System.Security.Cryptography;
+using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Linq;
-
-using System.Drawing;
-using System.Data.SqlTypes;
-using System.Text.RegularExpressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using GcproExtensionLibrary.Gcpro.GCObject;
+using System.Collections;
+using System.Xml.Linq;
+using System.Windows.Forms.VisualStyles;
+using OfficeOpenXml.Drawing.Slicer.Style;
+using System.Net.NetworkInformation;
 #endregion
 namespace GcproExtensionApp
 {
 
     public static class AppGlobal
-    {
-       
+    {      
         #region Const
         public const int MEAG_EXT_LONG = LibGlobalSource.MEAG_EXT_LONG;
         public const int MEAG_NORMAL = LibGlobalSource.MEAG_NORMAL;
@@ -97,6 +97,7 @@ namespace GcproExtensionApp
         public const string JS_MDDYZPHOENIX = "MA_MDDYZPhoenix";
         public const string JS_MOTOR_WITH_BYPASS= "MA_MotorWithBypass";
         public const string JS_DISCHARGER = "MA_Discharger";
+        public const string JS_DISCHARGER_VERTEX = "DischargerVertex";
         public const string JS_DPSLAVE= "DPSlave";
         public const string JS_GENERAL= "General";
         public const string JS_NAME_NUMBER_RULE="NameNumberRule";
@@ -207,6 +208,11 @@ namespace GcproExtensionApp
         /// <param name="converter"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
+        /// 
+        public static string FieldDisplay(string fieldName)
+        {
+            return OBJECT_FIELD + fieldName;
+        }
         public static void AppendInfoToBuilder(bool add, string info, StringBuilder builder)
         {
             if (add)

@@ -18,6 +18,7 @@ using static GcproExtensionLibrary.Gcpro.GcproTable;
 using System.Linq;
 using System.Xml.Linq;
 using OfficeOpenXml.Packaging.Ionic.Zlib;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 #endregion
 namespace GcproExtensionApp
 {
@@ -31,25 +32,18 @@ namespace GcproExtensionApp
 
         #region Public object in this class
         readonly DischargerVertex myDischargerVertex = new DischargerVertex(AppGlobal.GcproDBInfo.GcproTempPath);
-        readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
+       // readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
         private readonly string DEMO_NAME_DischargerVertex = "Vertex01Bin501D0";
-        private readonly string DEMO_NAME_RULE_DischargerVertex = "5001";
-        private readonly string DEMO_DESCRIPTION_DischargerVertex = "配粉A线4楼501配粉仓/或者空白";
+        private readonly string DEMO_NAME_RULE_DischargerVertex = "501";
+        private readonly string DEMO_DESCRIPTION_DischargerVertex = "配粉A线4楼501配粉仓卸料器/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_DischargerVertex = "";
-        private readonly string DischargerVertexBMLSuffix = $"{AppGlobal.JS_BML}.{AppGlobal.JS_DischargerVertex}.";
-       // private readonly string DischargerVertexSuffix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DischargerVertex}.{AppGlobal.JS_SUFFIX}.";
-        private readonly long value25 = 0;
-        private long value26 = 286752;
-        private readonly long value27 = 0;
-        private long value28 = 804672;
-        private int value10 = 0;
-        private int tempInt = 0;
-        // private long tempLong = 0;
-        //  private float tempFloat = 0.0f;
-      //  private bool tempBool = false;
+        private readonly string DischargerVertexPrefix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DISCHARGER_VERTEX}.{AppGlobal.JS_PREFIX}.";
+        private int value10;
+        private int tempInt;
+        private double tempDouble;
         private GcBaseRule objDefaultInfo;
         #endregion
 
@@ -77,7 +71,7 @@ namespace GcproExtensionApp
 
             }
 
-            ComboEquipmentSubType.SelectedIndex = 0;
+            ComboEquipmentSubType.SelectedIndex = 2;
             ///<ProcessFct> Read [ProcessFct] </ProcessFct>
             dataTable = oledb.QueryDataTable(GcproTable.ProcessFct.TableName, $"{GcproTable.ProcessFct.FieldOType.Name} = {DischargerVertex.OTypeValue}",
                 null, $"{GcproTable.ProcessFct.FieldFct_Desc.Name} ASC",
@@ -93,8 +87,7 @@ namespace GcproExtensionApp
             ///Read [PType],[Building],[Elevation],[Panel]
             ///Read [DPNode1],[DPNode2],[HornCode]
             ///</ReadInfoFromProjectDB>
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-  
+            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath; 
             ///<Elevation> Read [Elevation]</Elevation>
             dataTable = oledb.QueryDataTable(GcproTable.TranslationCbo.TableName, $"{GcproTable.TranslationCbo.FieldClass.Name} LIKE '{GcproTable.TranslationCbo.Class_Elevation}'",
             null, $"{GcproTable.TranslationCbo.FieldText.Name} ASC", GcproTable.TranslationCbo.FieldText.Name);
@@ -136,11 +129,11 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
-            objDefaultInfo.NameRule = "4001";
-            objDefaultInfo.DescLine = "制粉A线";
-            objDefaultInfo.DescFloor = "2楼";
-            objDefaultInfo.Name = "=A-4001-KCL30";
-            objDefaultInfo.DescObject = "磨粉机现场控制箱";
+            objDefaultInfo.NameRule = "501";
+            objDefaultInfo.DescLine = "配粉A线";
+            objDefaultInfo.DescFloor = "4楼";
+            objDefaultInfo.Name = "Vertex01Bin501D0";
+            objDefaultInfo.DescObject = "501号配粉仓卸料器";
             objDefaultInfo.DescriptionRuleInc = DischargerVertex.Rule.Common.DescriptionRuleInc;
             objDefaultInfo.NameRuleInc = DischargerVertex.Rule.Common.NameRuleInc;
             DischargerVertex.Rule.Common.Cabinet = DischargerVertex.Rule.Common.Power = string.Empty;
@@ -156,20 +149,25 @@ namespace GcproExtensionApp
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
             if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.Description))
-            { DischargerVertex.Rule.Common.Description = objDefaultInfo.Description; }
-
+            { 
+                DischargerVertex.Rule.Common.Description = objDefaultInfo.Description; 
+            }
             if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.Name))
-            { DischargerVertex.Rule.Common.Name = objDefaultInfo.Name; }
-
+            { 
+                DischargerVertex.Rule.Common.Name = objDefaultInfo.Name;
+            }
             if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescLine))
-            { DischargerVertex.Rule.Common.DescLine = objDefaultInfo.DescLine; }
-
+            { 
+                DischargerVertex.Rule.Common.DescLine = objDefaultInfo.DescLine; 
+            }
             if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescFloor))
-            { DischargerVertex.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
-
+            { 
+                DischargerVertex.Rule.Common.DescFloor = objDefaultInfo.DescFloor; 
+            }
             if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescObject))
-            { DischargerVertex.Rule.Common.DescObject = objDefaultInfo.DescObject; }
-           
+            {
+                DischargerVertex.Rule.Common.DescObject = objDefaultInfo.DescObject;
+            }         
             txtSymbolRule.Text = DischargerVertex.Rule.Common.NameRule;
             txtSymbolIncRule.Text = DischargerVertex.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = DischargerVertex.Rule.Common.DescriptionRule;
@@ -220,24 +218,46 @@ namespace GcproExtensionApp
             {
                 CreateDischargerVertexImpExp(oledb);
             }
-
         }
 
         public void Default()
         {
             txtSymbol.Focus();
+            ///Get parameters from DischargerVertex
+            txtParDosingSpeedFast.Text = myDischargerVertex.ParDosingSpeedFast.ToString();
+            txtParDosingSpeedSlow.Text = myDischargerVertex.ParDosingSpeedSlow.ToString();
+            txtParSwitchTimeFtoS.Text = myDischargerVertex.ParSwitchOverTimeFToS.ToString();
+            txtParDosingTimeSlow.Text = myDischargerVertex.ParDosingTimeSlow.ToString();
+            txtParCutOffWeightCorrMax.Text = myDischargerVertex.ParCutoffWeightCorrMax.ToString();
 
-            txtSymbolIncRule.Text = "1";
-            txtDescriptionIncRule.Text = "1";
+            txtParLevelCompensationMax.Text = myDischargerVertex.ParLevelCompensationMax.ToString();
+            txtParDosingTimeMax.Text = myDischargerVertex.ParDosingTimeMax.ToString();
+            txtParFineDosingWeight.Text = myDischargerVertex.ParFineDosingWeight.ToString();
+            txtParCutoffWeight.Text = myDischargerVertex.ParCutoffWeight.ToString();
+            txtParFlowrateFast.Text = myDischargerVertex.ParFlowrateFast.ToString();   
+            txtParFlowrateSlow.Text = myDischargerVertex.ParFlowrateSlow.ToString();
+            txtParTipPulseLen.Text = myDischargerVertex.ParTipPulseLen.ToString();
+
+            txtParTolPosWeight.Text = myDischargerVertex.ParTolPosWeight.ToString();
+            txtParTolPosRel.Text = myDischargerVertex.ParTolPosRel.ToString();
+            txtParAutoPosWeight.Text = myDischargerVertex.ParTolAutoPosWeight.ToString();
+            txtParAutoPosRel.Text = myDischargerVertex.ParTolAutoPosRel.ToString();
+            txtParTolNegWeight.Text = myDischargerVertex.ParTolNegWeight.ToString();
+            txtParTolNegRel.Text = myDischargerVertex.ParTolNegRel.ToString();
+            txtBinIncRule.Text = DischargerVertex.Rule.BinNoInc.ToString();
+
+            txtParHeightDropMax.Text = myDischargerVertex.ParHeightDropMax.ToString();
+            txtParDownPipeWeight.Text = myDischargerVertex.ParDownPipeWeight.ToString();
+            //txtSymbolIncRule.Text = DischargerVertex.Rule.Common.NameRuleInc;
+            //txtSymbolRule.Text = DischargerVertex.Rule.Common.NameRule;
+            //txtDescriptionIncRule.Text = DischargerVertex.Rule.Common.DescriptionRuleInc;
             LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + GcproTable.ObjData.Text0.Name;
             ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.Rule);
-            ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
-            ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
+            //ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.BML);
+            //ComboCreateMode.Items.Add(CreateMode.ObjectCreateMode.AutoSearch);
             ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.Rule;
-    
-            ComboEquipmentSubType.SelectedIndex = 0;
-            CreateBMLDefault();
-            toolStripMenuClearList.Click += new EventHandler(toolStripMenuClearList_Click);
+            ComboEquipmentSubType.SelectedIndex = 2;     
+            toolStripMenuClearList.Click += new EventHandler(ToolStripMenuClearList_Click);
             toolStripMenuReload.Click += new EventHandler(toolStripMenuReload_Click);
             toolStripMenuDelete.Click += new EventHandler(toolStripMenuDelete_Click);
             this.Text = "DischargerVertex导入文件 " + " " + myDischargerVertex.FilePath;
@@ -275,12 +295,73 @@ namespace GcproExtensionApp
         }
 
         #region <---Rule and autosearch part--->
+        private string GetInfoFromName(string pattern,string name,bool ingoreCase)
+        {
+            return LibGlobalSource.StringHelper.ExtractStringPart(pattern, name, ingoreCase);                  
+        }
+        private string GetInfoValueFromName(string pattern, string name, bool ingoreCase)
+        {
+            return LibGlobalSource.StringHelper.ExtractNumericPart(
+            GetInfoFromName(pattern, name, true), ingoreCase);
+        }
+        private string GetScaleNameFromName(string prefixCWA, string prefixVertex, string name, bool ingoreCase)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return string.Empty;
+            }
+            string pattern = $@"{prefixVertex}\d+";
+            string result = GetInfoFromName(pattern, name, ingoreCase);
+            pattern = $@"{prefixCWA}\d+";
+            return string.IsNullOrEmpty(result) ? GetInfoFromName(pattern, name, ingoreCase): result;
+        }
+
         private void txtSymbol_TextChanged(object sender, EventArgs e)
         {
-            txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
             myDischargerVertex.Name = txtSymbol.Text;
             DischargerVertex.Rule.Common.Name = txtSymbol.Text;
             UpdateDesc();
+            DischargerVertex.Rule.Common.NameRule = txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text.Substring(
+               txtSymbol.Text.IndexOf(GcObjectInfo.Bin.BinPrefix, StringComparison.OrdinalIgnoreCase)), false);
+
+            txtBin.Text = GetInfoFromName($@"{GcObjectInfo.Bin.BinPrefix}\d+",txtSymbol.Text,true);
+            txtParDischargerNo.Text = GetInfoValueFromName($@"{GcObjectInfo.DischargerVertex.PrefixDischargerNo}\d+",txtSymbol.Text,true);
+            txtVertex.Text = GetScaleNameFromName(GcObjectInfo.DischargerVertex.PrefixVertex,GcObjectInfo.DischargerVertex.PrefixVertex, txtSymbol.Text, true);
+
+        }
+        private void TxtBin_TextChanged(object sender, EventArgs e)
+        {
+            DataTable dataTable;
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue} And {GcproTable.ObjData.Text0.Name}='{txtBin.Text}'",
+                          null, null, GcproTable.ObjData.Value1.Name);
+           if (dataTable.Rows.Count == 0)
+            {
+                txtParBinNo.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtBin.Text, false);
+            }
+            else
+            {
+                txtParBinNo.Text = dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value1.Name).ToString();
+            }
+           txtBinRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtBin.Text, false);
+            myDischargerVertex.Bin = txtBin.Text;
+        }
+
+        private void TxtVertex_TextChanged(object sender, EventArgs e)
+        {
+            DataTable dataTable;
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+           dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = 3103 And {GcproTable.ObjData.Text0.Name}='{txtVertex.Text}'",
+                          null, null, GcproTable.ObjData.Value1.Name);
+            if (dataTable.Rows.Count ==0)
+            {
+                txtParScaleNo.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtVertex.Text, false);
+            }
+            else
+            {
+                txtParScaleNo.Text = dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value1.Name).ToString();
+            }
+            myDischargerVertex.Vertex = txtVertex.Text;
         }
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -319,6 +400,129 @@ namespace GcproExtensionApp
                 {
                 }
             }
+        }
+        private void TxtParDosingSpeedFast_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParDosingSpeedFast.Text, out tempDouble);
+            myDischargerVertex.ParDosingSpeedFast = tempDouble;
+        }
+        private void TxtParDosingSpeedSlow_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParDosingSpeedSlow.Text, out tempDouble);
+            myDischargerVertex.ParDosingSpeedSlow = tempDouble;
+        }
+
+        private void TxtParSwitchTimeFtoS_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParSwitchTimeFtoS.Text, out tempDouble);
+            myDischargerVertex.ParSwitchOverTimeFToS= tempDouble;
+        }
+
+        private void TxtParDosingTimeSlow_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParDosingTimeSlow.Text, out tempDouble);
+            myDischargerVertex.ParDosingTimeSlow = tempDouble;
+        }
+
+        private void TxtParCutOffWeightCorrMax_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParCutOffWeightCorrMax.Text, out tempDouble);
+            myDischargerVertex.ParCutoffWeightCorrMax = tempDouble;
+        }
+
+        private void TxtParDosingTimeMax_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParDosingTimeMax.Text, out tempDouble);
+            myDischargerVertex.ParDosingTimeMax = tempDouble;
+        }
+
+        private void TxtParFineDosingWeight_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParFineDosingWeight.Text, out tempDouble);
+            myDischargerVertex.ParFineDosingWeight = tempDouble;
+        }
+
+        private void TxtParCutoffWeight_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParCutoffWeight.Text, out tempDouble);
+            myDischargerVertex.ParCutoffWeight = tempDouble;
+        }
+
+        private void TxtParFlowrateFast_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParFlowrateFast.Text, out tempDouble);
+            myDischargerVertex.ParFlowrateFast = tempDouble;
+        }
+
+        private void TxtParFlowrateSlow_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParFlowrateSlow.Text, out tempDouble);
+            myDischargerVertex.ParFlowrateSlow = tempDouble;
+        }
+
+        private void TxtParTipPulseLen_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParTipPulseLen.Text, out tempDouble);
+            myDischargerVertex.ParTipPulseLen = tempDouble;
+        }
+
+        private void TxtParTolPosWeight_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParTolPosWeight.Text, out tempDouble);
+            myDischargerVertex.ParTolPosWeight = tempDouble;
+        }
+
+        private void TxtParTolPosRel_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParTolPosRel.Text, out tempDouble);
+            myDischargerVertex.ParTolPosRel = tempDouble;
+        }
+
+        private void TxtParAutoPosWeight_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParAutoPosWeight.Text, out tempDouble);
+            myDischargerVertex.ParTolAutoPosWeight= tempDouble;
+        }
+
+        private void TxtParAutoPosRel_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParAutoPosRel.Text, out tempDouble);
+            myDischargerVertex.ParTolAutoPosRel = tempDouble;
+        }
+
+        private void TxtParTolNegWeight_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParTolNegWeight.Text, out tempDouble);
+            myDischargerVertex.ParTolNegWeight = tempDouble;
+        }
+
+        private void TxtParTolNegRel_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParTolNegRel.Text, out tempDouble);
+            myDischargerVertex.ParTolNegRel = tempDouble;
+        }
+        private void TxtParHeightDropMax_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParHeightDropMax.Text, out tempDouble);
+            myDischargerVertex.ParHeightDropMax = tempDouble;
+        }
+
+        private void TxtParDownPipeWeight_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParDownPipeWeight.Text, out tempDouble);
+            myDischargerVertex.ParDownPipeWeight = tempDouble;
+        }
+
+        private void TxtParScaleNo_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParScaleNo.Text, out tempDouble);
+            myDischargerVertex.ParScaleNo = tempDouble;
+        }
+
+        private void TxtParBinNo_TextChanged(object sender, EventArgs e)
+        {
+            AppGlobal.ParseValue<double>(txtParBinNo.Text, out tempDouble);
+            myDischargerVertex.ParBinNo = tempDouble;
         }
         #region <------Check and store rule event------>
 
@@ -375,6 +579,7 @@ namespace GcproExtensionApp
             }
 
         }
+    
         private void txtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -402,72 +607,336 @@ namespace GcproExtensionApp
         #endregion <------Check and store rule event------>
 
         #region <------ Check and unchek "Value9" and "Value10------>    
-    
 
+        private void ChkParManualAdd_CheckedChanged(object sender, EventArgs e)
+        {
+        //    value10 = int.Parse(txtValue10.Text);
+        //    if (chkParManualAdd.Checked)
+        //    { AppGlobal.SetBit(ref value10, (byte)0); }
 
-      
+        //    else
+        //    { AppGlobal.ClearBit(ref value10, (byte)0); }
 
+        //    myDischargerVertex.Value10 = value10;
+        //    txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkPar1Speed_CheckedChanged(object sender, EventArgs e)
+        {
+            //value10 = int.Parse(txtValue10.Text);
+            //if (chkPar1Speed.Checked)
+            //{ AppGlobal.SetBit(ref value10, (byte)1); }
+
+            //else
+            //{ AppGlobal.ClearBit(ref value10, (byte)1); }
+
+            //myDischargerVertex.Value10 = value10;
+            //txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkPar2Speed_CheckedChanged(object sender, EventArgs e)
+        {
+            //value10 = int.Parse(txtValue10.Text);
+            //if (chkPar2Speed.Checked)
+            //{ AppGlobal.SetBit(ref value10, (byte)2); }
+
+            //else
+            //{ AppGlobal.ClearBit(ref value10, (byte)2); }
+
+            //myDischargerVertex.Value10 = value10;
+            //txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkParFrequency_CheckedChanged(object sender, EventArgs e)
+        {
+            //value10 = int.Parse(txtValue10.Text);
+            //if (chkParFrequency.Checked)
+            //{ AppGlobal.SetBit(ref value10, (byte)3); }
+
+            //else
+            //{ AppGlobal.ClearBit(ref value10, (byte)3); }
+
+            //myDischargerVertex.Value10 = value10;
+            //txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkParFlowmeter_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParFlowmeter.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)5); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)5); }
+
+            myDischargerVertex.Value10 = value10;
+            txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkParScrew_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParScrew.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)6); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)6); }
+
+            myDischargerVertex.Value10 = value10;
+            txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkParWithIngrInfo_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithIngrInfo.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)7); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)7); }
+
+            myDischargerVertex.Value10 = value10;
+            txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkParModeFineDosingWeight_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParModeFineDosingWeight.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)4); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)4); }
+
+            myDischargerVertex.Value10 = value10;
+            txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
+
+        private void ChkParWithDynmicTipPluse_CheckedChanged(object sender, EventArgs e)
+        {
+            value10 = int.Parse(txtValue10.Text);
+            if (chkParWithDynmicTipPluse.Checked)
+            { AppGlobal.SetBit(ref value10, (byte)8); }
+
+            else
+            { AppGlobal.ClearBit(ref value10, (byte)8); }
+
+            myDischargerVertex.Value10 = value10;
+            txtValue10.Text = myDischargerVertex.Value10.ToString();
+        }
 
         #endregion <------ Check and unchek "Value9" and "Value10------> 
 
         #region <------Field in database display------>
-        private void txtSymbol_MouseEnter(object sender, EventArgs e)
+
+        private void TxtSymbol_MouseEnter(object sender, EventArgs e)
         {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text0";
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Text0");
         }
-        private void txtDescription_MouseEnter(object sender, EventArgs e)
+        private void TxtDescription_MouseEnter(object sender, EventArgs e)
         {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Text1";
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Text1");
         }
-        private void ComboEquipmentInfoType_MouseEnter(object sender, EventArgs e)
+        private void TxtParDischargerNo_MouseEnter(object sender, EventArgs e)
         {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value5";
-        }
-        private void ComboHornCode_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value2";
-        }
-        private void ComboDPNode1_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "DPNode1";
-        }
-        private void txtParIOByte_MouseEnter(object sender, EventArgs e)
-        {
-            LblFieldInDatabase.Text = AppGlobal.OBJECT_FIELD + "Value21";
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value13");
         }
 
+        private void TxtBin_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value41");
+        }
+
+        private void TxtVertex_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value42");
+        }
+
+        private void TxtConcheMeteringSystem_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value43");
+        }
+
+        private void TxtDestination_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value44");
+        }
+
+        private void TxtParScaleNo_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value11");
+        }
+
+        private void TxtParBinNo_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value1");
+        }
+
+        private void TxtParHeightDropMax_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value29");
+        }
+
+        private void TxtParDownPipeWeight_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value33");
+        }
+
+        private void TxtParDosingSpeedFast_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value27");
+        }
+
+        private void TxtParDosingSpeedSlow_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value28");
+        }
+
+        private void TxtParSwitchTimeFtoS_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value20");
+        }
+
+        private void TxtParDosingTimeSlow_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value19");
+        }
+
+        private void TxtParCutOffWeightCorrMax_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value18");
+        }
+
+        private void TxtParLevelCompensationMax_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value30");
+        }
+
+        private void TxtParDosingTimeMax_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value22");
+        }
+
+        private void TxtParTolPosWeight_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value16");
+        }
+
+        private void TxtParTolPosRel_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value23");
+        }
+
+        private void TxtParAutoPosWeight_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value25");
+        }
+
+        private void TxtParAutoPosRel_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value26");
+        }
+
+        private void TxtParTolNegWeight_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value17");
+        }
+
+        private void TxtParTolNegRel_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value24");
+        }
+
+        private void TxtParFineDosingWeight_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value14");
+        }
+
+        private void TxtParCutoffWeight_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value15");
+        }
+
+        private void TxtParFlowrateFast_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value31");
+        }
+
+        private void TxtParFlowrateSlow_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value32");
+        }
+
+        private void TxtParTipPulseLen_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value21");
+        }
+        private void ChkParManualAdd_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit0");
+        }
+
+        private void ChkPar1Speed_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit1");
+        }
+
+        private void ChkPar2Speed_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit2");
+        }
+
+        private void ChkParFrequency_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit3");
+        }
+
+        private void ChkParFlowmeter_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit5");
+        }
+
+        private void ChkParScrew_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit6");
+        }
+
+        private void ChkParWithIngrInfo_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit7");
+        }
+
+        private void ChkParModeFineDosingWeight_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit4");
+        }
+
+        private void ChkParWithDynmicTipPluse_MouseEnter(object sender, EventArgs e)
+        {
+            LblFieldInDatabase.Text = AppGlobal.FieldDisplay("Value10 Bit8");
+        }
         #endregion  <------Field in database display------>
 
-        void SubTypeChanged(string subType)
-        {
-        
+        void SubTypeChanged()
+        {          
+            value10 = Convert.ToInt32(myDischargerVertex.Value10);
+            txtValue10.Text = value10.ToString();
+            chkParModeFineDosingWeight.Enabled = myDischargerVertex.SubType == DischargerVertex.DSFU;
+            GetValue10BitValue(value10);
         }
         void GetValue10BitValue(int value)
         {
-            //chkParLogOff.Checked = AppGlobal.GetBitValue(value, 0);
-            //chkParSide1Divided.Checked = AppGlobal.GetBitValue(value, 1);
-            //chkParSide2Divided.Checked = AppGlobal.GetBitValue(value, 2);
-            //chkParWithBearTemp.Checked = AppGlobal.GetBitValue(value, 3);
-            //chkParWithFeedRollRecipe.Checked = AppGlobal.GetBitValue(value, 4);
-            //chkParWithRollerTemp.Checked = AppGlobal.GetBitValue(value, 5);
-            //chkParWithRollerGapRecipe.Checked = AppGlobal.GetBitValue(value, 6);
+            chkParManualAdd.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 0);
+            chkPar1Speed.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 1);
+            chkPar2Speed.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 2);
+            chkParFrequency.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 3);
+            chkParFlowmeter.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 5);
+            chkParScrew.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 6);
+            chkParWithIngrInfo.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 7);
+            chkParModeFineDosingWeight.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 4);
+            chkParWithDynmicTipPluse.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 8);
         }
-        //void GetValue25BitValue(long value)
-        //{
-
-        //}
-        //void GetValue26BitValue(long value)
-        //{
-
-        //}
-        //void GetValue27BitValue(long value)
-        //{
-
-        //}
-        //void GetValue28BitValue(long value)
-        //{
-
-        //}
+      
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -477,7 +946,7 @@ namespace GcproExtensionApp
                 {
                     myDischargerVertex.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
-                SubTypeChanged(myDischargerVertex.SubType);
+                SubTypeChanged();
             }
             catch (Exception ex)
             { MessageBox.Show(ex.Message, AppGlobal.AppInfo.Title, MessageBoxButtons.OK, MessageBoxIcon.Error); }
@@ -485,211 +954,45 @@ namespace GcproExtensionApp
 
         #endregion <---Rule and autosearch part--->
 
-        #region <---BML part--->
-        private void AddWorkSheets()
-        {
-            
-            try
-            {
-                List<string> workSheets = new List<string>();
-                workSheets = excelFileHandle.GetWorkSheets();
-                comboWorkSheetsBML.Items.Clear();
-                foreach (string sheet in workSheets)
-                {
-                    comboWorkSheetsBML.Items.Add(sheet);
-                }
-                comboWorkSheetsBML.SelectedIndex = 0;
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show(AppGlobal.EX_FILE_NOT_FOUND, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show(AppGlobal.EX_UNAUTHORIZED_ACCESS, AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show(AppGlobal.EX_IO_ERROR + $"{ex.Message}", AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(AppGlobal.EX_UNKNOW + $"{ex.Message}", AppGlobal.INFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void BtnOpenProjectDB_Click(object sender, EventArgs e)
-        {
-            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
-            excelFileHandle.FilePath = TxtExcelPath.Text;
-            AddWorkSheets();
-
-        }
-        private void TxtExcelPath_DoubleClick(object sender, EventArgs e)
-        {
-            TxtExcelPath.Text = ExcelFileHandle.BrowseFile();
-            AddWorkSheets();
-        }
-        private void TxtExcelPath_TextChanged(object sender, EventArgs e)
-        {
-            excelFileHandle.FilePath = TxtExcelPath.Text;
-            BML.DischargerVertex.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{DischargerVertexBMLSuffix}Path", BML.DischargerVertex.BMLPath);
-        }
-        private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
-        {
-           // AddWorkSheets();
-        }
-        private void comboWorkSheetsBML_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
-            {
-                btnReadBML.Enabled = true;
-            }
-        }
-        private void dataGridBML_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            TxtQuantity.Text = dataGridBML.Rows.Count.ToString();
-        }
-        private void CreateBMLDefault()
-        {
-            btnReadBML.Enabled = false;
-            var alphabetList = AppGlobal.CreateAlphabetList<string>('A', 'Z', letter => letter.ToString());
-            foreach (var item in alphabetList)
-            {
-                comboNameBML.Items.Add(item);
-                comboDescBML.Items.Add(item);
-                comboTypeBML.Items.Add(item);
-                comboFloorBML.Items.Add(item);
-                comboSectionBML.Items.Add(item);
-                comboCabinetBML.Items.Add(item);
-                comboControlBML.Items.Add(item);
-                comboLineBML.Items.Add(item);
-            }
-            comboNameBML.SelectedItem = "B";
-            comboDescBML.SelectedItem = "N";
-            comboTypeBML.SelectedItem = "C";
-            comboFloorBML.SelectedItem = "L";
-            comboCabinetBML.SelectedItem = "P";
-            comboSectionBML.SelectedItem = "Q";
-            comboControlBML.SelectedItem = "H";
-            comboLineBML.SelectedItem = "X";
-            for (int i = 1; i <= 20; i++)
-            {
-                comboStartRow.Items.Add(i);
-            }
-            comboStartRow.SelectedItem = BML.StartRow;
-            dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text = BML.DischargerVertex.BMLPath;
-            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = BML.ColumnName,
-                Name = nameof(BML.ColumnName)
-            });
-
-            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = BML.ColumnDesc,
-                Name = nameof(BML.ColumnDesc)
-            });
-
-            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = BML.ColumnControlMethod,
-                Name = nameof(BML.ColumnControlMethod)
-            });
-
-            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = BML.ColumnFloor,
-                Name = nameof(BML.ColumnFloor)
-            });
-
-            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = BML.ColumnCabinet,
-                Name = nameof(BML.ColumnCabinet)
-            });
-
-
-            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = BML.ColumnCabinetGroup,
-                Name = nameof(BML.ColumnCabinetGroup)
-            });
-
-            dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = BML.ColumnLine,
-                Name = nameof(BML.ColumnLine)
-            });
-        }
-
-        private void btnReadBML_Click(object sender, EventArgs e)
-        {
-            string[] columnList = { comboNameBML.Text, comboDescBML.Text,comboControlBML.Text,comboFloorBML.Text,
-                comboCabinetBML.Text ,comboSectionBML.Text,comboLineBML.Text,comboTypeBML.Text};
-            StringBuilder sbControlFilters = new StringBuilder();
-            sbControlFilters.Append($@"Value LIKE ""%{BML.DischargerVertex.TypeDischargerVertex}%""");
-            StringBuilder sbTypeFilters = new StringBuilder();
-            sbTypeFilters.Append($@"Value LIKE ""%{BML.DischargerVertex.TypeKCL}""");
-            DataTable dataTable;
-            string[] filters = { sbControlFilters.ToString(), sbTypeFilters.ToString() };
-            string[] filterColumns = { comboControlBML.Text, comboTypeBML.Text };
-            dataTable = excelFileHandle.ReadAsDataTable(int.Parse(comboStartRow.Text), columnList, filters, filterColumns, comboNameBML.Text, true);
-
-            dataGridBML.DataSource = dataTable;
-            dataGridBML.AutoGenerateColumns = false;
-            dataGridBML.Columns[nameof(BML.ColumnName)].DataPropertyName = dataTable.Columns[0].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnDesc)].DataPropertyName = dataTable.Columns[1].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnControlMethod)].DataPropertyName = dataTable.Columns[2].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnFloor)].DataPropertyName = dataTable.Columns[3].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
-            dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
-            TxtQuantity.Text = dataTable.Rows.Count.ToString();
-        }
-        #endregion <---BML part--->
-
+     
         #region <---Common used--->
 
-        private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAddSectionToDesc.Checked)
             { chkAddUserSectionToDesc.Checked = false; }
             UpdateDesc();
         }
-        private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAddUserSectionToDesc.Checked)
             { chkAddSectionToDesc.Checked = false; }
             UpdateDesc();
         }
-        private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
 
-        private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
 
-        private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
+        private void ChkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
-        private void chkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddCabinetToDesc_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
 
-        private void chkAddPowerToDesc_CheckedChanged(object sender, EventArgs e)
+        private void ChkAddPowerToDesc_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDesc();
         }
-        private void chkNameOnlyNumber_CheckedChanged_1(object sender, EventArgs e)
+        private void ChkNameOnlyNumber_CheckedChanged_1(object sender, EventArgs e)
         {
             UpdateDesc();
         }
@@ -750,7 +1053,7 @@ namespace GcproExtensionApp
             }
 
         }
-        private void tabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabCreateMode.SelectedTab == tabRule)
 
@@ -762,7 +1065,7 @@ namespace GcproExtensionApp
                 ComboCreateMode.SelectedItem = CreateMode.ObjectCreateMode.BML;
             }
         }
-        private void toolStripMenuClearList_Click(object sender, EventArgs e)
+        private void ToolStripMenuClearList_Click(object sender, EventArgs e)
         {
             //dataTable.Clear();
             DataTable dataTable = null;
@@ -771,7 +1074,7 @@ namespace GcproExtensionApp
         }
         private void toolStripMenuReload_Click(object sender, EventArgs e)
         {
-            btnReadBML_Click(sender, e);
+          
         }
         private void toolStripMenuDelete_Click(object sender, EventArgs e)
         {
@@ -817,7 +1120,7 @@ namespace GcproExtensionApp
         {
 
             DischargerVertex.SaveFileAs(myDischargerVertex.FilePath, LibGlobalSource.CREATE_OBJECT);
-            DischargerVertex.SaveFileAs(myDischargerVertex.FileRelationPath, LibGlobalSource.CREATE_RELATION);
+       
         }
 
         private void BtnNewImpExpDef_Click(object sender, EventArgs e)
@@ -833,10 +1136,12 @@ namespace GcproExtensionApp
                 DischargerVertex.ReGenerateDPNode(oledb);
             }
         }   
+        
         public void CreateObjectBML(DataGridView dataFromBML, DischargerVertex objDischargerVertex,
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
             out (int Value, int Max) processValue)
         {
+           
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
@@ -897,26 +1202,22 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-              
-               
-
-                objDischargerVertex.CreateObject(Encoding.Unicode);
-               
+                objDischargerVertex.CreateObject(Encoding.Unicode);            
             }
             DischargerVertex.Rule.Common = objDefaultInfo;
             processValue.Value = processValue.Max;
         }
+    
         private void CreateObjectRule(DischargerVertex objDischargerVertex, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
       ref (int Value, int Max) processValue)
         {
             #region common used variables declaration 
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
-            bool needDPNodeChanged = false;
             StringBuilder descTotalBuilder = new StringBuilder();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
-            RuleSubDataSet description, name, dpNode1;
+            RuleSubDataSet description, name,bin;
             description = new RuleSubDataSet
             {
                 Sub = new string[] { },
@@ -943,7 +1244,7 @@ namespace GcproExtensionApp
                     Len = 0,
                 }
             };
-            dpNode1 = new RuleSubDataSet
+            bin= new RuleSubDataSet
             {
                 Sub = new string[] { },
                 Inc = 0,
@@ -970,12 +1271,11 @@ namespace GcproExtensionApp
             }
             else
             {
-                objDischargerVertex.SubType = DischargerVertex.MDDRDP;
+                objDischargerVertex.SubType = DischargerVertex.DSFU;
             }
            
             objDischargerVertex.Elevation = ComboElevation.Text;
             ///<Value10</Value10>
-            objDischargerVertex.Value10 = value10;
         
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
             ///<Name>Value is set in TxtSymbol text changed event</Name>
@@ -993,13 +1293,13 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objDischargerVertex.Diagram = selectedDiagram.Substring(0, selectedDiagram.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objDischargerVertex.Diagram = DischargerVertex.ParseInfoValue(selectedDiagram,AppGlobal.FIELDS_SEPARATOR,AppGlobal.NO_DIAGRAM);              
             }
 
             ///<Page></Page>
             objDischargerVertex.Page = txtPage.Text;
             ///<Building></Building>
-            string selectedBudling = "--";
+            string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
@@ -1021,7 +1321,7 @@ namespace GcproExtensionApp
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            objDischargerVertex.FieldBusNode = LibGlobalSource.NOCHILD; ;
+            objDischargerVertex.FieldBusNode =AppGlobal.NO_DP_NODE; 
           
             #endregion
             #region Parse rules
@@ -1067,6 +1367,22 @@ namespace GcproExtensionApp
                     description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(desc, txtDescriptionRule.Text);
                 }
             }
+
+            ///<BinRule>生成名称规则</BinRule>
+            bin.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtBin.Text, txtBinRule.Text);
+            if (bin.PosInfo.Len == -1)
+            {
+                if (moreThanOne)
+                {
+                    AppGlobal.RuleNotSetCorrect($"{lblSymbolRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
+                    return;
+                }
+            }
+            else
+            {
+                bin.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtBin.Text, txtBinRule.Text);
+            }
+
             #endregion
 
             processValue.Max = quantityNeedToBeCreate;
@@ -1074,10 +1390,10 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-            int symbolInc, symbolRule, descriptionInc;
-            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+            AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+            AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+            AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
+            AppGlobal.ParseValue<int>(txtBinIncRule.Text, out int binInc);
             objDefaultInfo = DischargerVertex.Rule.Common;
             for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
             {
@@ -1102,6 +1418,26 @@ namespace GcproExtensionApp
                 {
                     description.Name = "--";
                 }
+                if (!String.IsNullOrEmpty(bin.Name))
+                {
+                    if (!String.IsNullOrEmpty(txtBinIncRule.Text) && !String.IsNullOrEmpty(txtBinRule.Text)
+                        && AppGlobal.CheckNumericString(txtBinIncRule.Text) && AppGlobal.CheckNumericString(txtBinIncRule.Text)
+                        && (bin.PosInfo.Len != -1))
+                    {
+                        bin.Inc = i * descriptionInc;
+                        bin.Name = LibGlobalSource.StringHelper.GenerateObjectName(bin.Sub, bin.PosInfo, (int.Parse(txtDescriptionRule.Text) + bin.Inc).ToString().PadLeft(bin.PosInfo.Len, '0'));
+                    }
+                    else
+                    {
+                        bin.Name = txtBin.Text;
+                    }
+
+                }
+                else
+                {
+                    bin.Name = txtBin.Text;
+                }
+                txtBin.Text = bin.Name;
                 objDischargerVertex.Name = name.Name;
                 DischargerVertex.Rule.Common.Name = name.Name;
                 DischargerVertex.Rule.Common.DescObject = description.Name;
@@ -1165,8 +1501,6 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion <---Common used--->
-
-       
+        #endregion <---Common used--->   
     }
 }

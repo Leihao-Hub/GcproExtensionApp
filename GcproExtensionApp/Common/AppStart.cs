@@ -311,7 +311,8 @@ namespace GcproExtensionApp
     
         private void btnAddDischargerVertex_Click(object sender, EventArgs e)
         {
-
+            FormDischargerVertex formDischargerVertex = new FormDischargerVertex();
+            formDischargerVertex.Show();
         }
 
         private void btnQuery_Click(object sender, EventArgs e)

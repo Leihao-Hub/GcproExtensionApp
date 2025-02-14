@@ -84,12 +84,13 @@ namespace GcproExtensionLibrary
                 return ruleSubPos;
             }
     
-            public static string ExtractStringPart(string pattern, string stringTobeExtract)
+            public static string ExtractStringPart(string pattern, string stringTobeExtract,bool ignoreCase = false)
             {
                 string result;
                 if (!string.IsNullOrEmpty(stringTobeExtract))
                 {
-                    Match match = Regex.Match(stringTobeExtract, pattern);
+                    RegexOptions options = ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None;
+                    Match match = Regex.Match(stringTobeExtract, pattern, options);
                     result = match.Success ? match.Value : string.Empty;
                     return result;
                 }

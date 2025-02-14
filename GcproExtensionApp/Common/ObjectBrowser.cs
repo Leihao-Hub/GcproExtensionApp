@@ -85,7 +85,7 @@ namespace GcproExtensionApp
             comboOType.Items.Clear();
             int membersEnum = OTypeCollection.EL_Motor.GetEnumMemberCount();
             string[] enumNames = Enum.GetNames(typeof(OTypeCollection));
-            OTypeCollection[] enumeValues = AppGlobal.GetEnumValues<OTypeCollection>();
+           OTypeCollection[] enumeValues = AppGlobal.GetEnumValues<OTypeCollection>();
             for (int i= 0; i < membersEnum; i++)
             {             
                 string item;

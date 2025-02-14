@@ -1,6 +1,8 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Security.Cryptography.Xml;
 using System.Text;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
@@ -15,7 +17,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             public int VertexNoInc;
         }
         private string filePath;
-        //private string fileRelationPath;
+        private string fileRelationPath;
         //private string fileConnectorPath;
         private readonly static string dischargerVertexFileName = $@"\{OTypeCollection.DischargerVertex}";
         public static DischargerVertexRule Rule;
@@ -57,7 +59,12 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private double parTolNegWeight;
         private double parTolNegRel;
         private double value10;    
-       private string isNew;
+        private string isNew;
+        private const string _DSFU = "DSFU";
+        private const string _DSMAN = "DSMAN";
+        private const string _DSS1 = "DSS1";
+        private const string _DSS2 = "DSS2";
+        private const string _DSSIMPLE = "DSSIMPLE";
         #region Standard properties
         public override string Name
         {
@@ -72,7 +79,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public override string SubType
         {
             get { return subType; }
-            set { subType = value; }
+            set
+            {
+                if (subType != value)
+                {
+                    subType = value;
+                    OnSubTypeChange(EventArgs.Empty);
+                }
+            }
         }
 
         public override string ProcessFct
@@ -293,30 +307,108 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
 
         #region Readonly property
-        public static string Profibus { get; } = "Profibus";
-        public static string Profinet { get; } = "Profinet";
-        public static string ProfinetIOLINKIFM { get; } = "ProfinetIOLINKIFM";
-
+        public static string DSFU { get; } = _DSFU;
+        public static string DSMAN { get; } = _DSMAN;
+        public static string DSS1 { get; } = _DSS1;
+        public static string DSS2 { get; } = _DSS2;
+        public static string DSSIMPLE { get; } = _DSSIMPLE;
         public static string ImpExpRuleName { get; } = "IE_DischargerVertex";
         public static int OTypeValue { get; } = (int)OTypeCollection.DischargerVertex;
         #endregion
-        public DischargerVertex()
+        private void Default()
         {
+            subType = _DSFU;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
-       
+            Rule.BinNoInc = Rule.VertexNoInc = 1;
+            Rule.Common.NameRule = "501";
+            parDosingSpeedFast = 100;
+            parDosingSpeedSlow = 20;
+            parSwitchOverTimeFToS = 3.0;
+            parDosingTimeSlow = 4.0;
+            parCutoffWeightCorrMax = 5;
+            parLevelCompensationMax = 0;
+            parFineDosingWeight = 20.0;
+            parCutoffWeight = 5.000;
+            parFlowrateFast = 0;
+            parFlowrateSlow = 0;
+            parTipPulseLen = 0.5;
+            parTolPosWeight = 5.0;
+            parTolPosRel = 50.0;
+            parTolNegWeight = 5.0;
+            parTolNegRel = 50.0;
+            parTolAutoPosWeight = 0.0;
+            parTolAutoPosRel = 0.0;
+            parHeightDropMax = 500;
+            parDownPipeWeight = 1.0;
             fieldBusNode = 0;
             panel_ID = string.Empty;
             diagram = 0;
             page = string.Empty;
-            value10 = 88;
+            value10 = 72;
+        }
+        public DischargerVertex()
+        {
+            Default();
             SetOTypeProperty(OTypeCollection.DischargerVertex);
-            this.filePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerVertexFileName}.Txt";
+
+            string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerVertexFileName}";
+            this.filePath = $"{commonDefaultFilePath}.Txt";
+            this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
         }
         public DischargerVertex(string filePath = null) : this()
-        {
-            this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
-                            $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerVertexFileName}.Txt" : $"{filePath}{dischargerVertexFileName}.Txt");
+        {        
+            string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerVertexFileName}";
+            string commonUserFilePath = $"{filePath}{dischargerVertexFileName}";
+            bool defaultPath = string.IsNullOrWhiteSpace(filePath);
+            this.filePath = defaultPath ?
+                $"{commonDefaultFilePath}.Txt" : $"{commonUserFilePath}.Txt";
+            this.fileRelationPath = defaultPath ?
+                $"{commonDefaultFilePath}_Relation.Txt" : $"{commonUserFilePath}_Relation.Txt";
         }
+        #region SubType change event
+        /// <summary>
+        /// 使用委托声明事件
+        /// </summary>
+        public event GcObjectEventHandler SubTypeChange;
+        /// <summary>
+        /// 触发事件的方法
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnSubTypeChange(EventArgs e)
+        {
+            SubTypeChange?.Invoke(this, e);
+            SubTypeChangeAfterEvent();
+        }
+        /// <summary>
+        /// 供外部触发事件方法
+        /// </summary>
+        public void TriggerSubTypeChange()
+        {
+            OnSubTypeChange(EventArgs.Empty);
+        }
+        private void SubTypeChangeAfterEvent()
+        {
+            switch (subType)
+            {
+                case _DSFU:
+                    value10 = 72;
+                    break;
+                case _DSS1:
+                    value10 = 66;
+                    break;
+                case _DSS2:
+                    value10 = 68;
+                    break;
+                case _DSMAN:
+                case _DSSIMPLE:
+                    value10 = 1;
+                    break;
+                default:
+                    value10 = 88;
+                    break;
+            } 
+        }
+        #endregion
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
@@ -341,10 +433,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 ///生成Application 字符串部分
                 ///</summary>   
                 objFields.Append(parDischargerNo).Append(LibGlobalSource.TAB)
-                   .Append(bin).Append(LibGlobalSource.TAB)
-                   .Append(vertex).Append(LibGlobalSource.TAB)
-                   .Append(conche).Append(LibGlobalSource.TAB)
-                   .Append(destination).Append(LibGlobalSource.TAB)
+                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
+                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
                    .Append(parScaleNo).Append(LibGlobalSource.TAB)
                    .Append(parBinNo).Append(LibGlobalSource.TAB)
                    .Append(parHeightDropMax).Append(LibGlobalSource.TAB)
@@ -371,6 +463,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
              
             }
+            var relations = new List<Relation>
+            {
+                new Relation(name,bin, GcproTable.ObjData.Value41.Name),
+                new Relation(name,vertex, GcproTable.ObjData.Value42.Name),
+                new Relation(name,conche, GcproTable.ObjData.Value43.Name),
+                new Relation(name,destination, GcproTable.ObjData.Value44.Name),                 
+            };
+            CreateRelations(relations, fileRelationPath, encoding);
         }
         public void Clear()
         {
@@ -465,7 +565,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             impExpList.Add(new List<Gcpro.DbParameter>
             {
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldType.Name, Value = ImpExpRuleName },
-                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDosinSpeedFst" },
+                new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldDescription.Name, Value = "ParDosinSpeedFast" },
                 new Gcpro.DbParameter{ Name = GcproTable.ImpExpDef.FieldFieldName.Name, Value = GcproTable.ObjData.Value27.Name }
 
             });

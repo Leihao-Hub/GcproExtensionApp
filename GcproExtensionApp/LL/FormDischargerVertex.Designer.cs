@@ -47,92 +47,92 @@ namespace GcproExtensionApp
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuReload = new System.Windows.Forms.ToolStripMenuItem();
             this.tabRule = new System.Windows.Forms.TabPage();
-            this.PalGcObject = new System.Windows.Forms.Panel();
-            this.TxtDestinationRule = new System.Windows.Forms.TextBox();
-            this.LblDestinationRule = new System.Windows.Forms.Label();
-            this.TxtDestinationIncRule = new System.Windows.Forms.TextBox();
-            this.LblDestinationIncRule = new System.Windows.Forms.Label();
-            this.TxtConcheRule = new System.Windows.Forms.TextBox();
-            this.LblConcheRule = new System.Windows.Forms.Label();
-            this.LblParDischargerNo = new System.Windows.Forms.Label();
-            this.TxtConcheIncRule = new System.Windows.Forms.TextBox();
-            this.LblBin = new System.Windows.Forms.Label();
-            this.LblCocheIncRule = new System.Windows.Forms.Label();
-            this.TxtParDischargerNo = new System.Windows.Forms.TextBox();
-            this.TxtVertexRule = new System.Windows.Forms.TextBox();
-            this.LblVertex = new System.Windows.Forms.Label();
-            this.LblVertexRule = new System.Windows.Forms.Label();
-            this.LblConcheMeteringSystem = new System.Windows.Forms.Label();
-            this.TxtVertexIncRule = new System.Windows.Forms.TextBox();
-            this.LblDestination = new System.Windows.Forms.Label();
-            this.LblVertexIncRule = new System.Windows.Forms.Label();
-            this.TxtBin = new System.Windows.Forms.TextBox();
-            this.TxtBinRule = new System.Windows.Forms.TextBox();
-            this.TxtVertex = new System.Windows.Forms.TextBox();
-            this.LblBinRule = new System.Windows.Forms.Label();
-            this.TxtConcheMeteringSystem = new System.Windows.Forms.TextBox();
-            this.TxtBinIncRule = new System.Windows.Forms.TextBox();
-            this.TxtDestination = new System.Windows.Forms.TextBox();
-            this.LblBinIncRule = new System.Windows.Forms.Label();
-            this.GrpConfiguration = new System.Windows.Forms.GroupBox();
-            this.TxtParScaleNo = new System.Windows.Forms.TextBox();
-            this.LblParScaleNo = new System.Windows.Forms.Label();
-            this.LblParBinNo = new System.Windows.Forms.Label();
-            this.TxtParBinNo = new System.Windows.Forms.TextBox();
-            this.TxtParHeightDropMax = new System.Windows.Forms.TextBox();
-            this.LblParHeightDropMax = new System.Windows.Forms.Label();
-            this.LblHLOutlet3S1 = new System.Windows.Forms.Label();
-            this.TxtParDownPipeWeight = new System.Windows.Forms.TextBox();
-            this.ChkParManualAdd = new System.Windows.Forms.CheckBox();
-            this.ChkPar1Speed = new System.Windows.Forms.CheckBox();
-            this.ChkPar2Speed = new System.Windows.Forms.CheckBox();
-            this.ChkParFrequency = new System.Windows.Forms.CheckBox();
-            this.ChkParFlowmeter = new System.Windows.Forms.CheckBox();
-            this.ChkParScrew = new System.Windows.Forms.CheckBox();
-            this.ChkParWithIngrInfo = new System.Windows.Forms.CheckBox();
-            this.ChkParModeFineDosingWeight = new System.Windows.Forms.CheckBox();
-            this.ChkParWithDynmicTipPluse = new System.Windows.Forms.CheckBox();
-            this.LblValue10 = new System.Windows.Forms.Label();
+            this.palGcObject = new System.Windows.Forms.Panel();
+            this.txtDestinationRule = new System.Windows.Forms.TextBox();
+            this.lblDestinationRule = new System.Windows.Forms.Label();
+            this.txtDestinationIncRule = new System.Windows.Forms.TextBox();
+            this.lblDestinationIncRule = new System.Windows.Forms.Label();
+            this.txtConcheRule = new System.Windows.Forms.TextBox();
+            this.lblConcheRule = new System.Windows.Forms.Label();
+            this.lblParDischargerNo = new System.Windows.Forms.Label();
+            this.txtConcheIncRule = new System.Windows.Forms.TextBox();
+            this.lblBin = new System.Windows.Forms.Label();
+            this.lblCocheIncRule = new System.Windows.Forms.Label();
+            this.txtParDischargerNo = new System.Windows.Forms.TextBox();
+            this.txtVertexRule = new System.Windows.Forms.TextBox();
+            this.lblVertex = new System.Windows.Forms.Label();
+            this.lblVertexRule = new System.Windows.Forms.Label();
+            this.lblConcheMeteringSystem = new System.Windows.Forms.Label();
+            this.txtVertexIncRule = new System.Windows.Forms.TextBox();
+            this.lblDestination = new System.Windows.Forms.Label();
+            this.lblVertexIncRule = new System.Windows.Forms.Label();
+            this.txtBin = new System.Windows.Forms.TextBox();
+            this.txtBinRule = new System.Windows.Forms.TextBox();
+            this.txtVertex = new System.Windows.Forms.TextBox();
+            this.lblBinRule = new System.Windows.Forms.Label();
+            this.txtConcheMeteringSystem = new System.Windows.Forms.TextBox();
+            this.txtBinIncRule = new System.Windows.Forms.TextBox();
+            this.txtDestination = new System.Windows.Forms.TextBox();
+            this.lblBinIncRule = new System.Windows.Forms.Label();
+            this.grpConfiguration = new System.Windows.Forms.GroupBox();
+            this.txtParScaleNo = new System.Windows.Forms.TextBox();
+            this.lblParScaleNo = new System.Windows.Forms.Label();
+            this.lblParBinNo = new System.Windows.Forms.Label();
+            this.txtParBinNo = new System.Windows.Forms.TextBox();
+            this.txtParHeightDropMax = new System.Windows.Forms.TextBox();
+            this.lblParHeightDropMax = new System.Windows.Forms.Label();
+            this.lblHLOutlet3S1 = new System.Windows.Forms.Label();
+            this.txtParDownPipeWeight = new System.Windows.Forms.TextBox();
+            this.chkParManualAdd = new System.Windows.Forms.CheckBox();
+            this.chkPar1Speed = new System.Windows.Forms.CheckBox();
+            this.chkPar2Speed = new System.Windows.Forms.CheckBox();
+            this.chkParFrequency = new System.Windows.Forms.CheckBox();
+            this.chkParFlowmeter = new System.Windows.Forms.CheckBox();
+            this.chkParScrew = new System.Windows.Forms.CheckBox();
+            this.chkParWithIngrInfo = new System.Windows.Forms.CheckBox();
+            this.chkParModeFineDosingWeight = new System.Windows.Forms.CheckBox();
+            this.chkParWithDynmicTipPluse = new System.Windows.Forms.CheckBox();
+            this.lblValue10 = new System.Windows.Forms.Label();
             this.txtValue10 = new System.Windows.Forms.TextBox();
-            this.GrpStaticParameterDosing = new System.Windows.Forms.GroupBox();
-            this.TxtParDosingTimeSlow = new System.Windows.Forms.TextBox();
-            this.LblParDosingTimeSlow = new System.Windows.Forms.Label();
-            this.TxtParLevelCompensationMax = new System.Windows.Forms.TextBox();
-            this.LblParLevelCompensationMax = new System.Windows.Forms.Label();
-            this.TxtParDosingSpeedFast = new System.Windows.Forms.TextBox();
-            this.LblParDosingSpeedFast = new System.Windows.Forms.Label();
-            this.LblParDosingSpeedSlow = new System.Windows.Forms.Label();
-            this.TxtParDosingSpeedSlow = new System.Windows.Forms.TextBox();
-            this.TxtParSwitchTimeFtoS = new System.Windows.Forms.TextBox();
-            this.LblParSwitchTimeFtoS = new System.Windows.Forms.Label();
-            this.LblParCutOffWeightCorrMax = new System.Windows.Forms.Label();
-            this.TxtParCutOffWeightCorrMax = new System.Windows.Forms.TextBox();
-            this.TxtParDosingTimeMax = new System.Windows.Forms.TextBox();
-            this.LblParDosingTimeMax = new System.Windows.Forms.Label();
-            this.GroupBox3 = new System.Windows.Forms.GroupBox();
-            this.TxtParAutoPosRel = new System.Windows.Forms.TextBox();
-            this.LblParAutoPosRel = new System.Windows.Forms.Label();
-            this.TxtParTolNegRel = new System.Windows.Forms.TextBox();
-            this.LblParTolNegRel = new System.Windows.Forms.Label();
-            this.TxtParTolPosWeight = new System.Windows.Forms.TextBox();
-            this.LblParTolPosWeight = new System.Windows.Forms.Label();
-            this.LblParTolPosRel = new System.Windows.Forms.Label();
-            this.TxtParTolPosRel = new System.Windows.Forms.TextBox();
-            this.TxtParAutoPosWeight = new System.Windows.Forms.TextBox();
-            this.LblParAutoPosWeight = new System.Windows.Forms.Label();
-            this.LblParTolNegWeight = new System.Windows.Forms.Label();
-            this.TxtParTolNegWeight = new System.Windows.Forms.TextBox();
-            this.GroupBox2 = new System.Windows.Forms.GroupBox();
-            this.TxtParFineDosingWeight = new System.Windows.Forms.TextBox();
-            this.LblParFineDosingWeight = new System.Windows.Forms.Label();
-            this.LblParCutoffWeight = new System.Windows.Forms.Label();
-            this.TxtParCutoffWeight = new System.Windows.Forms.TextBox();
-            this.TxtParFlowrateFast = new System.Windows.Forms.TextBox();
-            this.LblParFlowrateFast = new System.Windows.Forms.Label();
-            this.LblParFlowrateSlow = new System.Windows.Forms.Label();
-            this.TxtParFlowrateSlow = new System.Windows.Forms.TextBox();
-            this.TxtParTipPulseLen = new System.Windows.Forms.TextBox();
-            this.LblParTipPluseLen = new System.Windows.Forms.Label();
+            this.grpStaticParameterDosing = new System.Windows.Forms.GroupBox();
+            this.txtParDosingTimeSlow = new System.Windows.Forms.TextBox();
+            this.lblParDosingTimeSlow = new System.Windows.Forms.Label();
+            this.txtParLevelCompensationMax = new System.Windows.Forms.TextBox();
+            this.lblParLevelCompensationMax = new System.Windows.Forms.Label();
+            this.txtParDosingSpeedFast = new System.Windows.Forms.TextBox();
+            this.lblParDosingSpeedFast = new System.Windows.Forms.Label();
+            this.lblParDosingSpeedSlow = new System.Windows.Forms.Label();
+            this.txtParDosingSpeedSlow = new System.Windows.Forms.TextBox();
+            this.txtParSwitchTimeFtoS = new System.Windows.Forms.TextBox();
+            this.lblParSwitchTimeFtoS = new System.Windows.Forms.Label();
+            this.lblParCutOffWeightCorrMax = new System.Windows.Forms.Label();
+            this.txtParCutOffWeightCorrMax = new System.Windows.Forms.TextBox();
+            this.txtParDosingTimeMax = new System.Windows.Forms.TextBox();
+            this.lblParDosingTimeMax = new System.Windows.Forms.Label();
+            this.grpTolerence = new System.Windows.Forms.GroupBox();
+            this.txtParAutoPosRel = new System.Windows.Forms.TextBox();
+            this.lblParAutoPosRel = new System.Windows.Forms.Label();
+            this.txtParTolNegRel = new System.Windows.Forms.TextBox();
+            this.lblParTolNegRel = new System.Windows.Forms.Label();
+            this.txtParTolPosWeight = new System.Windows.Forms.TextBox();
+            this.lblParTolPosWeight = new System.Windows.Forms.Label();
+            this.lblParTolPosRel = new System.Windows.Forms.Label();
+            this.txtParTolPosRel = new System.Windows.Forms.TextBox();
+            this.txtParAutoPosWeight = new System.Windows.Forms.TextBox();
+            this.lblParAutoPosWeight = new System.Windows.Forms.Label();
+            this.lblParTolNegWeight = new System.Windows.Forms.Label();
+            this.txtParTolNegWeight = new System.Windows.Forms.TextBox();
+            this.grpDynmicParameters = new System.Windows.Forms.GroupBox();
+            this.txtParFineDosingWeight = new System.Windows.Forms.TextBox();
+            this.lblParFineDosingWeight = new System.Windows.Forms.Label();
+            this.lblParCutoffWeight = new System.Windows.Forms.Label();
+            this.txtParCutoffWeight = new System.Windows.Forms.TextBox();
+            this.txtParFlowrateFast = new System.Windows.Forms.TextBox();
+            this.lblParFlowrateFast = new System.Windows.Forms.Label();
+            this.lblParFlowrateSlow = new System.Windows.Forms.Label();
+            this.txtParFlowrateSlow = new System.Windows.Forms.TextBox();
+            this.txtParTipPulseLen = new System.Windows.Forms.TextBox();
+            this.lblParTipPluseLen = new System.Windows.Forms.Label();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
             this.grpAddInfoToDesc = new System.Windows.Forms.GroupBox();
             this.chkAddUserSectionToDesc = new System.Windows.Forms.CheckBox();
@@ -211,11 +211,11 @@ namespace GcproExtensionApp
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
             this.tabRule.SuspendLayout();
-            this.PalGcObject.SuspendLayout();
-            this.GrpConfiguration.SuspendLayout();
-            this.GrpStaticParameterDosing.SuspendLayout();
-            this.GroupBox3.SuspendLayout();
-            this.GroupBox2.SuspendLayout();
+            this.palGcObject.SuspendLayout();
+            this.grpConfiguration.SuspendLayout();
+            this.grpStaticParameterDosing.SuspendLayout();
+            this.grpTolerence.SuspendLayout();
+            this.grpDynmicParameters.SuspendLayout();
             this.grpGeneral.SuspendLayout();
             this.grpAddInfoToDesc.SuspendLayout();
             this.grpDescriptionRule.SuspendLayout();
@@ -301,7 +301,7 @@ namespace GcproExtensionApp
             this.tabCreateMode.SelectedIndex = 0;
             this.tabCreateMode.Size = new System.Drawing.Size(742, 771);
             this.tabCreateMode.TabIndex = 107;
-            this.tabCreateMode.SelectedIndexChanged += new System.EventHandler(this.tabCreateMode_SelectedIndexChanged);
+            this.tabCreateMode.SelectedIndexChanged += new System.EventHandler(this.TabCreateMode_SelectedIndexChanged);
             // 
             // contextMenuStripBML
             // 
@@ -342,7 +342,7 @@ namespace GcproExtensionApp
             // 
             this.tabRule.AutoScroll = true;
             this.tabRule.BackColor = System.Drawing.SystemColors.Control;
-            this.tabRule.Controls.Add(this.PalGcObject);
+            this.tabRule.Controls.Add(this.palGcObject);
             this.tabRule.Location = new System.Drawing.Point(4, 22);
             this.tabRule.Name = "tabRule";
             this.tabRule.Padding = new System.Windows.Forms.Padding(3);
@@ -350,497 +350,544 @@ namespace GcproExtensionApp
             this.tabRule.TabIndex = 0;
             this.tabRule.Text = "设定规则创建";
             // 
-            // PalGcObject
-            // 
-            this.PalGcObject.AutoScroll = true;
-            this.PalGcObject.AutoSize = true;
-            this.PalGcObject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.PalGcObject.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.PalGcObject.Controls.Add(this.TxtDestinationRule);
-            this.PalGcObject.Controls.Add(this.LblDestinationRule);
-            this.PalGcObject.Controls.Add(this.TxtDestinationIncRule);
-            this.PalGcObject.Controls.Add(this.LblDestinationIncRule);
-            this.PalGcObject.Controls.Add(this.TxtConcheRule);
-            this.PalGcObject.Controls.Add(this.LblConcheRule);
-            this.PalGcObject.Controls.Add(this.LblParDischargerNo);
-            this.PalGcObject.Controls.Add(this.TxtConcheIncRule);
-            this.PalGcObject.Controls.Add(this.LblBin);
-            this.PalGcObject.Controls.Add(this.LblCocheIncRule);
-            this.PalGcObject.Controls.Add(this.TxtParDischargerNo);
-            this.PalGcObject.Controls.Add(this.TxtVertexRule);
-            this.PalGcObject.Controls.Add(this.LblVertex);
-            this.PalGcObject.Controls.Add(this.LblVertexRule);
-            this.PalGcObject.Controls.Add(this.LblConcheMeteringSystem);
-            this.PalGcObject.Controls.Add(this.TxtVertexIncRule);
-            this.PalGcObject.Controls.Add(this.LblDestination);
-            this.PalGcObject.Controls.Add(this.LblVertexIncRule);
-            this.PalGcObject.Controls.Add(this.TxtBin);
-            this.PalGcObject.Controls.Add(this.TxtBinRule);
-            this.PalGcObject.Controls.Add(this.TxtVertex);
-            this.PalGcObject.Controls.Add(this.LblBinRule);
-            this.PalGcObject.Controls.Add(this.TxtConcheMeteringSystem);
-            this.PalGcObject.Controls.Add(this.TxtBinIncRule);
-            this.PalGcObject.Controls.Add(this.TxtDestination);
-            this.PalGcObject.Controls.Add(this.LblBinIncRule);
-            this.PalGcObject.Controls.Add(this.GrpConfiguration);
-            this.PalGcObject.Controls.Add(this.GrpStaticParameterDosing);
-            this.PalGcObject.Controls.Add(this.GroupBox3);
-            this.PalGcObject.Controls.Add(this.GroupBox2);
-            this.PalGcObject.Controls.Add(this.grpGeneral);
-            this.PalGcObject.Controls.Add(this.BtnNewImpExpDef);
-            this.PalGcObject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PalGcObject.Location = new System.Drawing.Point(3, 3);
-            this.PalGcObject.Name = "PalGcObject";
-            this.PalGcObject.Size = new System.Drawing.Size(728, 739);
-            this.PalGcObject.TabIndex = 105;
-            // 
-            // TxtDestinationRule
-            // 
-            this.TxtDestinationRule.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.TxtDestinationRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtDestinationRule.Location = new System.Drawing.Point(321, 283);
-            this.TxtDestinationRule.Name = "TxtDestinationRule";
-            this.TxtDestinationRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtDestinationRule.TabIndex = 228;
-            // 
-            // LblDestinationRule
-            // 
-            this.LblDestinationRule.AutoSize = true;
-            this.LblDestinationRule.Location = new System.Drawing.Point(263, 282);
-            this.LblDestinationRule.Name = "LblDestinationRule";
-            this.LblDestinationRule.Size = new System.Drawing.Size(55, 13);
-            this.LblDestinationRule.TabIndex = 227;
-            this.LblDestinationRule.Text = "规则字段";
-            // 
-            // TxtDestinationIncRule
-            // 
-            this.TxtDestinationIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtDestinationIncRule.Location = new System.Drawing.Point(429, 283);
-            this.TxtDestinationIncRule.Name = "TxtDestinationIncRule";
-            this.TxtDestinationIncRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtDestinationIncRule.TabIndex = 226;
-            // 
-            // LblDestinationIncRule
-            // 
-            this.LblDestinationIncRule.AutoSize = true;
-            this.LblDestinationIncRule.Location = new System.Drawing.Point(371, 282);
-            this.LblDestinationIncRule.Name = "LblDestinationIncRule";
-            this.LblDestinationIncRule.Size = new System.Drawing.Size(55, 13);
-            this.LblDestinationIncRule.TabIndex = 225;
-            this.LblDestinationIncRule.Text = "递增规则";
-            // 
-            // TxtConcheRule
-            // 
-            this.TxtConcheRule.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.TxtConcheRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtConcheRule.Enabled = false;
-            this.TxtConcheRule.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.TxtConcheRule.Location = new System.Drawing.Point(321, 264);
-            this.TxtConcheRule.Name = "TxtConcheRule";
-            this.TxtConcheRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtConcheRule.TabIndex = 224;
-            // 
-            // LblConcheRule
-            // 
-            this.LblConcheRule.AutoSize = true;
-            this.LblConcheRule.Location = new System.Drawing.Point(263, 263);
-            this.LblConcheRule.Name = "LblConcheRule";
-            this.LblConcheRule.Size = new System.Drawing.Size(55, 13);
-            this.LblConcheRule.TabIndex = 223;
-            this.LblConcheRule.Text = "规则字段";
-            // 
-            // LblParDischargerNo
-            // 
-            this.LblParDischargerNo.AutoSize = true;
-            this.LblParDischargerNo.Location = new System.Drawing.Point(3, 205);
-            this.LblParDischargerNo.Name = "LblParDischargerNo";
-            this.LblParDischargerNo.Size = new System.Drawing.Size(88, 13);
-            this.LblParDischargerNo.TabIndex = 205;
-            this.LblParDischargerNo.Text = "ParDischargerNo";
-            // 
-            // TxtConcheIncRule
-            // 
-            this.TxtConcheIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtConcheIncRule.Location = new System.Drawing.Point(429, 264);
-            this.TxtConcheIncRule.Name = "TxtConcheIncRule";
-            this.TxtConcheIncRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtConcheIncRule.TabIndex = 222;
-            // 
-            // LblBin
-            // 
-            this.LblBin.AutoSize = true;
-            this.LblBin.Location = new System.Drawing.Point(3, 224);
-            this.LblBin.Name = "LblBin";
-            this.LblBin.Size = new System.Drawing.Size(22, 13);
-            this.LblBin.TabIndex = 206;
-            this.LblBin.Text = "Bin";
-            // 
-            // LblCocheIncRule
-            // 
-            this.LblCocheIncRule.AutoSize = true;
-            this.LblCocheIncRule.Location = new System.Drawing.Point(371, 263);
-            this.LblCocheIncRule.Name = "LblCocheIncRule";
-            this.LblCocheIncRule.Size = new System.Drawing.Size(55, 13);
-            this.LblCocheIncRule.TabIndex = 221;
-            this.LblCocheIncRule.Text = "递增规则";
-            // 
-            // TxtParDischargerNo
-            // 
-            this.TxtParDischargerNo.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParDischargerNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParDischargerNo.Location = new System.Drawing.Point(134, 206);
-            this.TxtParDischargerNo.Name = "TxtParDischargerNo";
-            this.TxtParDischargerNo.Size = new System.Drawing.Size(100, 13);
-            this.TxtParDischargerNo.TabIndex = 207;
-            // 
-            // TxtVertexRule
-            // 
-            this.TxtVertexRule.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.TxtVertexRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtVertexRule.Location = new System.Drawing.Point(321, 245);
-            this.TxtVertexRule.Name = "TxtVertexRule";
-            this.TxtVertexRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtVertexRule.TabIndex = 220;
-            // 
-            // LblVertex
-            // 
-            this.LblVertex.AutoSize = true;
-            this.LblVertex.Location = new System.Drawing.Point(3, 243);
-            this.LblVertex.Name = "LblVertex";
-            this.LblVertex.Size = new System.Drawing.Size(37, 13);
-            this.LblVertex.TabIndex = 208;
-            this.LblVertex.Text = "Vertex";
-            // 
-            // LblVertexRule
-            // 
-            this.LblVertexRule.AutoSize = true;
-            this.LblVertexRule.Location = new System.Drawing.Point(263, 244);
-            this.LblVertexRule.Name = "LblVertexRule";
-            this.LblVertexRule.Size = new System.Drawing.Size(55, 13);
-            this.LblVertexRule.TabIndex = 219;
-            this.LblVertexRule.Text = "规则字段";
-            // 
-            // LblConcheMeteringSystem
-            // 
-            this.LblConcheMeteringSystem.AutoSize = true;
-            this.LblConcheMeteringSystem.Location = new System.Drawing.Point(3, 262);
-            this.LblConcheMeteringSystem.Name = "LblConcheMeteringSystem";
-            this.LblConcheMeteringSystem.Size = new System.Drawing.Size(125, 13);
-            this.LblConcheMeteringSystem.TabIndex = 209;
-            this.LblConcheMeteringSystem.Text = "Conche:Metering System";
-            // 
-            // TxtVertexIncRule
-            // 
-            this.TxtVertexIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtVertexIncRule.Location = new System.Drawing.Point(429, 245);
-            this.TxtVertexIncRule.Name = "TxtVertexIncRule";
-            this.TxtVertexIncRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtVertexIncRule.TabIndex = 218;
-            // 
-            // LblDestination
-            // 
-            this.LblDestination.AutoSize = true;
-            this.LblDestination.Location = new System.Drawing.Point(3, 281);
-            this.LblDestination.Name = "LblDestination";
-            this.LblDestination.Size = new System.Drawing.Size(60, 13);
-            this.LblDestination.TabIndex = 210;
-            this.LblDestination.Text = "Destination";
-            // 
-            // LblVertexIncRule
-            // 
-            this.LblVertexIncRule.AutoSize = true;
-            this.LblVertexIncRule.Location = new System.Drawing.Point(371, 244);
-            this.LblVertexIncRule.Name = "LblVertexIncRule";
-            this.LblVertexIncRule.Size = new System.Drawing.Size(55, 13);
-            this.LblVertexIncRule.TabIndex = 217;
-            this.LblVertexIncRule.Text = "递增规则";
-            // 
-            // TxtBin
-            // 
-            this.TxtBin.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtBin.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtBin.Location = new System.Drawing.Point(134, 225);
-            this.TxtBin.Name = "TxtBin";
-            this.TxtBin.Size = new System.Drawing.Size(100, 13);
-            this.TxtBin.TabIndex = 211;
-            // 
-            // TxtBinRule
-            // 
-            this.TxtBinRule.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.TxtBinRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtBinRule.Enabled = false;
-            this.TxtBinRule.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.TxtBinRule.Location = new System.Drawing.Point(321, 226);
-            this.TxtBinRule.Name = "TxtBinRule";
-            this.TxtBinRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtBinRule.TabIndex = 216;
-            // 
-            // TxtVertex
-            // 
-            this.TxtVertex.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtVertex.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtVertex.Location = new System.Drawing.Point(134, 244);
-            this.TxtVertex.Name = "TxtVertex";
-            this.TxtVertex.Size = new System.Drawing.Size(100, 13);
-            this.TxtVertex.TabIndex = 212;
-            // 
-            // LblBinRule
-            // 
-            this.LblBinRule.AutoSize = true;
-            this.LblBinRule.Location = new System.Drawing.Point(263, 225);
-            this.LblBinRule.Name = "LblBinRule";
-            this.LblBinRule.Size = new System.Drawing.Size(55, 13);
-            this.LblBinRule.TabIndex = 215;
-            this.LblBinRule.Text = "规则字段";
-            // 
-            // TxtConcheMeteringSystem
-            // 
-            this.TxtConcheMeteringSystem.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtConcheMeteringSystem.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtConcheMeteringSystem.Location = new System.Drawing.Point(134, 263);
-            this.TxtConcheMeteringSystem.Name = "TxtConcheMeteringSystem";
-            this.TxtConcheMeteringSystem.Size = new System.Drawing.Size(100, 13);
-            this.TxtConcheMeteringSystem.TabIndex = 213;
-            // 
-            // TxtBinIncRule
-            // 
-            this.TxtBinIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtBinIncRule.Location = new System.Drawing.Point(429, 226);
-            this.TxtBinIncRule.Name = "TxtBinIncRule";
-            this.TxtBinIncRule.Size = new System.Drawing.Size(48, 13);
-            this.TxtBinIncRule.TabIndex = 204;
-            // 
-            // TxtDestination
-            // 
-            this.TxtDestination.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtDestination.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtDestination.Location = new System.Drawing.Point(134, 282);
-            this.TxtDestination.Name = "TxtDestination";
-            this.TxtDestination.Size = new System.Drawing.Size(100, 13);
-            this.TxtDestination.TabIndex = 214;
-            // 
-            // LblBinIncRule
-            // 
-            this.LblBinIncRule.AutoSize = true;
-            this.LblBinIncRule.Location = new System.Drawing.Point(371, 225);
-            this.LblBinIncRule.Name = "LblBinIncRule";
-            this.LblBinIncRule.Size = new System.Drawing.Size(55, 13);
-            this.LblBinIncRule.TabIndex = 203;
-            this.LblBinIncRule.Text = "递增规则";
-            // 
-            // GrpConfiguration
-            // 
-            this.GrpConfiguration.Controls.Add(this.TxtParScaleNo);
-            this.GrpConfiguration.Controls.Add(this.LblParScaleNo);
-            this.GrpConfiguration.Controls.Add(this.LblParBinNo);
-            this.GrpConfiguration.Controls.Add(this.TxtParBinNo);
-            this.GrpConfiguration.Controls.Add(this.TxtParHeightDropMax);
-            this.GrpConfiguration.Controls.Add(this.LblParHeightDropMax);
-            this.GrpConfiguration.Controls.Add(this.LblHLOutlet3S1);
-            this.GrpConfiguration.Controls.Add(this.TxtParDownPipeWeight);
-            this.GrpConfiguration.Controls.Add(this.ChkParManualAdd);
-            this.GrpConfiguration.Controls.Add(this.ChkPar1Speed);
-            this.GrpConfiguration.Controls.Add(this.ChkPar2Speed);
-            this.GrpConfiguration.Controls.Add(this.ChkParFrequency);
-            this.GrpConfiguration.Controls.Add(this.ChkParFlowmeter);
-            this.GrpConfiguration.Controls.Add(this.ChkParScrew);
-            this.GrpConfiguration.Controls.Add(this.ChkParWithIngrInfo);
-            this.GrpConfiguration.Controls.Add(this.ChkParModeFineDosingWeight);
-            this.GrpConfiguration.Controls.Add(this.ChkParWithDynmicTipPluse);
-            this.GrpConfiguration.Controls.Add(this.LblValue10);
-            this.GrpConfiguration.Controls.Add(this.txtValue10);
-            this.GrpConfiguration.Location = new System.Drawing.Point(6, 343);
-            this.GrpConfiguration.Name = "GrpConfiguration";
-            this.GrpConfiguration.Size = new System.Drawing.Size(216, 274);
-            this.GrpConfiguration.TabIndex = 188;
-            this.GrpConfiguration.TabStop = false;
-            this.GrpConfiguration.Text = "Configuration";
-            // 
-            // TxtParScaleNo
-            // 
-            this.TxtParScaleNo.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParScaleNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParScaleNo.Location = new System.Drawing.Point(147, 18);
-            this.TxtParScaleNo.Name = "TxtParScaleNo";
-            this.TxtParScaleNo.Size = new System.Drawing.Size(56, 13);
-            this.TxtParScaleNo.TabIndex = 182;
-            this.TxtParScaleNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParScaleNo
-            // 
-            this.LblParScaleNo.AutoSize = true;
-            this.LblParScaleNo.Location = new System.Drawing.Point(1, 18);
-            this.LblParScaleNo.Name = "LblParScaleNo";
-            this.LblParScaleNo.Size = new System.Drawing.Size(64, 13);
-            this.LblParScaleNo.TabIndex = 78;
-            this.LblParScaleNo.Text = "ParScaleNo";
-            // 
-            // LblParBinNo
-            // 
-            this.LblParBinNo.AutoSize = true;
-            this.LblParBinNo.Location = new System.Drawing.Point(1, 36);
-            this.LblParBinNo.Name = "LblParBinNo";
-            this.LblParBinNo.Size = new System.Drawing.Size(52, 13);
-            this.LblParBinNo.TabIndex = 134;
-            this.LblParBinNo.Text = "ParBinNo";
-            // 
-            // TxtParBinNo
-            // 
-            this.TxtParBinNo.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParBinNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParBinNo.Location = new System.Drawing.Point(147, 36);
-            this.TxtParBinNo.Name = "TxtParBinNo";
-            this.TxtParBinNo.Size = new System.Drawing.Size(56, 13);
-            this.TxtParBinNo.TabIndex = 148;
-            this.TxtParBinNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtParHeightDropMax
-            // 
-            this.TxtParHeightDropMax.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParHeightDropMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParHeightDropMax.Location = new System.Drawing.Point(147, 54);
-            this.TxtParHeightDropMax.Name = "TxtParHeightDropMax";
-            this.TxtParHeightDropMax.Size = new System.Drawing.Size(56, 13);
-            this.TxtParHeightDropMax.TabIndex = 155;
-            this.TxtParHeightDropMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParHeightDropMax
-            // 
-            this.LblParHeightDropMax.AutoSize = true;
-            this.LblParHeightDropMax.Location = new System.Drawing.Point(1, 54);
-            this.LblParHeightDropMax.Name = "LblParHeightDropMax";
-            this.LblParHeightDropMax.Size = new System.Drawing.Size(119, 13);
-            this.LblParHeightDropMax.TabIndex = 135;
-            this.LblParHeightDropMax.Text = "ParHeightDropMax[mm]";
-            // 
-            // LblHLOutlet3S1
-            // 
-            this.LblHLOutlet3S1.AutoSize = true;
-            this.LblHLOutlet3S1.Location = new System.Drawing.Point(1, 72);
-            this.LblHLOutlet3S1.Name = "LblHLOutlet3S1";
-            this.LblHLOutlet3S1.Size = new System.Drawing.Size(125, 13);
-            this.LblHLOutlet3S1.TabIndex = 136;
-            this.LblHLOutlet3S1.Text = "ParDownPipeWeight[Kg]";
-            // 
-            // TxtParDownPipeWeight
-            // 
-            this.TxtParDownPipeWeight.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParDownPipeWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParDownPipeWeight.Location = new System.Drawing.Point(147, 72);
-            this.TxtParDownPipeWeight.Name = "TxtParDownPipeWeight";
-            this.TxtParDownPipeWeight.Size = new System.Drawing.Size(56, 13);
-            this.TxtParDownPipeWeight.TabIndex = 149;
-            this.TxtParDownPipeWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // ChkParManualAdd
-            // 
-            this.ChkParManualAdd.AutoSize = true;
-            this.ChkParManualAdd.Enabled = false;
-            this.ChkParManualAdd.Location = new System.Drawing.Point(5, 91);
-            this.ChkParManualAdd.Name = "ChkParManualAdd";
-            this.ChkParManualAdd.Size = new System.Drawing.Size(96, 17);
-            this.ChkParManualAdd.TabIndex = 37;
-            this.ChkParManualAdd.Text = "ParManualAdd";
-            this.ChkParManualAdd.UseVisualStyleBackColor = true;
-            // 
-            // ChkPar1Speed
-            // 
-            this.ChkPar1Speed.AutoSize = true;
-            this.ChkPar1Speed.Enabled = false;
-            this.ChkPar1Speed.Location = new System.Drawing.Point(5, 111);
-            this.ChkPar1Speed.Name = "ChkPar1Speed";
-            this.ChkPar1Speed.Size = new System.Drawing.Size(79, 17);
-            this.ChkPar1Speed.TabIndex = 38;
-            this.ChkPar1Speed.Text = "Par1Speed";
-            this.ChkPar1Speed.UseVisualStyleBackColor = true;
-            // 
-            // ChkPar2Speed
-            // 
-            this.ChkPar2Speed.AutoSize = true;
-            this.ChkPar2Speed.Enabled = false;
-            this.ChkPar2Speed.Location = new System.Drawing.Point(5, 131);
-            this.ChkPar2Speed.Name = "ChkPar2Speed";
-            this.ChkPar2Speed.Size = new System.Drawing.Size(79, 17);
-            this.ChkPar2Speed.TabIndex = 39;
-            this.ChkPar2Speed.Tag = "";
-            this.ChkPar2Speed.Text = "Par2Speed";
-            this.ChkPar2Speed.UseVisualStyleBackColor = true;
-            // 
-            // ChkParFrequency
-            // 
-            this.ChkParFrequency.AutoSize = true;
-            this.ChkParFrequency.Enabled = false;
-            this.ChkParFrequency.Location = new System.Drawing.Point(5, 151);
-            this.ChkParFrequency.Name = "ChkParFrequency";
-            this.ChkParFrequency.Size = new System.Drawing.Size(92, 17);
-            this.ChkParFrequency.TabIndex = 112;
-            this.ChkParFrequency.Tag = "";
-            this.ChkParFrequency.Text = "ParFrequency";
-            this.ChkParFrequency.UseVisualStyleBackColor = true;
-            // 
-            // ChkParFlowmeter
-            // 
-            this.ChkParFlowmeter.AutoSize = true;
-            this.ChkParFlowmeter.Location = new System.Drawing.Point(5, 171);
-            this.ChkParFlowmeter.Name = "ChkParFlowmeter";
-            this.ChkParFlowmeter.Size = new System.Drawing.Size(90, 17);
-            this.ChkParFlowmeter.TabIndex = 113;
-            this.ChkParFlowmeter.Tag = "";
-            this.ChkParFlowmeter.Text = "ParFlowmeter";
-            this.ChkParFlowmeter.UseVisualStyleBackColor = true;
-            // 
-            // ChkParScrew
-            // 
-            this.ChkParScrew.AutoSize = true;
-            this.ChkParScrew.Location = new System.Drawing.Point(5, 191);
-            this.ChkParScrew.Name = "ChkParScrew";
-            this.ChkParScrew.Size = new System.Drawing.Size(72, 17);
-            this.ChkParScrew.TabIndex = 114;
-            this.ChkParScrew.Tag = "";
-            this.ChkParScrew.Text = "ParScrew";
-            this.ChkParScrew.UseVisualStyleBackColor = true;
-            // 
-            // ChkParWithIngrInfo
-            // 
-            this.ChkParWithIngrInfo.AutoSize = true;
-            this.ChkParWithIngrInfo.Location = new System.Drawing.Point(5, 211);
-            this.ChkParWithIngrInfo.Name = "ChkParWithIngrInfo";
-            this.ChkParWithIngrInfo.Size = new System.Drawing.Size(100, 17);
-            this.ChkParWithIngrInfo.TabIndex = 115;
-            this.ChkParWithIngrInfo.Tag = "";
-            this.ChkParWithIngrInfo.Text = "ParWithIngrInfo";
-            this.ChkParWithIngrInfo.UseVisualStyleBackColor = true;
-            // 
-            // ChkParModeFineDosingWeight
-            // 
-            this.ChkParModeFineDosingWeight.AutoSize = true;
-            this.ChkParModeFineDosingWeight.Location = new System.Drawing.Point(5, 231);
-            this.ChkParModeFineDosingWeight.Name = "ChkParModeFineDosingWeight";
-            this.ChkParModeFineDosingWeight.Size = new System.Drawing.Size(156, 17);
-            this.ChkParModeFineDosingWeight.TabIndex = 116;
-            this.ChkParModeFineDosingWeight.Tag = "";
-            this.ChkParModeFineDosingWeight.Text = "ParModeFineDosingWeight";
-            this.ChkParModeFineDosingWeight.UseVisualStyleBackColor = true;
-            // 
-            // ChkParWithDynmicTipPluse
-            // 
-            this.ChkParWithDynmicTipPluse.AutoSize = true;
-            this.ChkParWithDynmicTipPluse.Location = new System.Drawing.Point(5, 251);
-            this.ChkParWithDynmicTipPluse.Name = "ChkParWithDynmicTipPluse";
-            this.ChkParWithDynmicTipPluse.Size = new System.Drawing.Size(140, 17);
-            this.ChkParWithDynmicTipPluse.TabIndex = 117;
-            this.ChkParWithDynmicTipPluse.Tag = "";
-            this.ChkParWithDynmicTipPluse.Text = "ParWithDynmicTipPluse";
-            this.ChkParWithDynmicTipPluse.UseVisualStyleBackColor = true;
-            // 
-            // LblValue10
-            // 
-            this.LblValue10.AutoSize = true;
-            this.LblValue10.Location = new System.Drawing.Point(141, 115);
-            this.LblValue10.Name = "LblValue10";
-            this.LblValue10.Size = new System.Drawing.Size(46, 13);
-            this.LblValue10.TabIndex = 60;
-            this.LblValue10.Text = "Value10";
+            // palGcObject
+            // 
+            this.palGcObject.AutoScroll = true;
+            this.palGcObject.AutoSize = true;
+            this.palGcObject.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.palGcObject.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.palGcObject.Controls.Add(this.txtDestinationRule);
+            this.palGcObject.Controls.Add(this.lblDestinationRule);
+            this.palGcObject.Controls.Add(this.txtDestinationIncRule);
+            this.palGcObject.Controls.Add(this.lblDestinationIncRule);
+            this.palGcObject.Controls.Add(this.txtConcheRule);
+            this.palGcObject.Controls.Add(this.lblConcheRule);
+            this.palGcObject.Controls.Add(this.lblParDischargerNo);
+            this.palGcObject.Controls.Add(this.txtConcheIncRule);
+            this.palGcObject.Controls.Add(this.lblBin);
+            this.palGcObject.Controls.Add(this.lblCocheIncRule);
+            this.palGcObject.Controls.Add(this.txtParDischargerNo);
+            this.palGcObject.Controls.Add(this.txtVertexRule);
+            this.palGcObject.Controls.Add(this.lblVertex);
+            this.palGcObject.Controls.Add(this.lblVertexRule);
+            this.palGcObject.Controls.Add(this.lblConcheMeteringSystem);
+            this.palGcObject.Controls.Add(this.txtVertexIncRule);
+            this.palGcObject.Controls.Add(this.lblDestination);
+            this.palGcObject.Controls.Add(this.lblVertexIncRule);
+            this.palGcObject.Controls.Add(this.txtBin);
+            this.palGcObject.Controls.Add(this.txtBinRule);
+            this.palGcObject.Controls.Add(this.txtVertex);
+            this.palGcObject.Controls.Add(this.lblBinRule);
+            this.palGcObject.Controls.Add(this.txtConcheMeteringSystem);
+            this.palGcObject.Controls.Add(this.txtBinIncRule);
+            this.palGcObject.Controls.Add(this.txtDestination);
+            this.palGcObject.Controls.Add(this.lblBinIncRule);
+            this.palGcObject.Controls.Add(this.grpConfiguration);
+            this.palGcObject.Controls.Add(this.grpStaticParameterDosing);
+            this.palGcObject.Controls.Add(this.grpTolerence);
+            this.palGcObject.Controls.Add(this.grpDynmicParameters);
+            this.palGcObject.Controls.Add(this.grpGeneral);
+            this.palGcObject.Controls.Add(this.BtnNewImpExpDef);
+            this.palGcObject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.palGcObject.Location = new System.Drawing.Point(3, 3);
+            this.palGcObject.Name = "palGcObject";
+            this.palGcObject.Size = new System.Drawing.Size(728, 739);
+            this.palGcObject.TabIndex = 105;
+            // 
+            // txtDestinationRule
+            // 
+            this.txtDestinationRule.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtDestinationRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDestinationRule.Location = new System.Drawing.Point(321, 283);
+            this.txtDestinationRule.Name = "txtDestinationRule";
+            this.txtDestinationRule.Size = new System.Drawing.Size(48, 13);
+            this.txtDestinationRule.TabIndex = 228;
+            this.txtDestinationRule.Visible = false;
+            // 
+            // lblDestinationRule
+            // 
+            this.lblDestinationRule.AutoSize = true;
+            this.lblDestinationRule.Location = new System.Drawing.Point(263, 282);
+            this.lblDestinationRule.Name = "lblDestinationRule";
+            this.lblDestinationRule.Size = new System.Drawing.Size(55, 13);
+            this.lblDestinationRule.TabIndex = 227;
+            this.lblDestinationRule.Text = "规则字段";
+            this.lblDestinationRule.Visible = false;
+            // 
+            // txtDestinationIncRule
+            // 
+            this.txtDestinationIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDestinationIncRule.Location = new System.Drawing.Point(429, 283);
+            this.txtDestinationIncRule.Name = "txtDestinationIncRule";
+            this.txtDestinationIncRule.Size = new System.Drawing.Size(48, 13);
+            this.txtDestinationIncRule.TabIndex = 226;
+            this.txtDestinationIncRule.Visible = false;
+            // 
+            // lblDestinationIncRule
+            // 
+            this.lblDestinationIncRule.AutoSize = true;
+            this.lblDestinationIncRule.Location = new System.Drawing.Point(371, 282);
+            this.lblDestinationIncRule.Name = "lblDestinationIncRule";
+            this.lblDestinationIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblDestinationIncRule.TabIndex = 225;
+            this.lblDestinationIncRule.Text = "递增规则";
+            this.lblDestinationIncRule.Visible = false;
+            // 
+            // txtConcheRule
+            // 
+            this.txtConcheRule.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtConcheRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtConcheRule.Enabled = false;
+            this.txtConcheRule.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtConcheRule.Location = new System.Drawing.Point(321, 264);
+            this.txtConcheRule.Name = "txtConcheRule";
+            this.txtConcheRule.Size = new System.Drawing.Size(48, 13);
+            this.txtConcheRule.TabIndex = 224;
+            this.txtConcheRule.Visible = false;
+            // 
+            // lblConcheRule
+            // 
+            this.lblConcheRule.AutoSize = true;
+            this.lblConcheRule.Location = new System.Drawing.Point(263, 263);
+            this.lblConcheRule.Name = "lblConcheRule";
+            this.lblConcheRule.Size = new System.Drawing.Size(55, 13);
+            this.lblConcheRule.TabIndex = 223;
+            this.lblConcheRule.Text = "规则字段";
+            this.lblConcheRule.Visible = false;
+            // 
+            // lblParDischargerNo
+            // 
+            this.lblParDischargerNo.AutoSize = true;
+            this.lblParDischargerNo.Location = new System.Drawing.Point(3, 205);
+            this.lblParDischargerNo.Name = "lblParDischargerNo";
+            this.lblParDischargerNo.Size = new System.Drawing.Size(88, 13);
+            this.lblParDischargerNo.TabIndex = 205;
+            this.lblParDischargerNo.Text = "ParDischargerNo";
+            // 
+            // txtConcheIncRule
+            // 
+            this.txtConcheIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtConcheIncRule.Location = new System.Drawing.Point(429, 264);
+            this.txtConcheIncRule.Name = "txtConcheIncRule";
+            this.txtConcheIncRule.Size = new System.Drawing.Size(48, 13);
+            this.txtConcheIncRule.TabIndex = 222;
+            this.txtConcheIncRule.Visible = false;
+            // 
+            // lblBin
+            // 
+            this.lblBin.AutoSize = true;
+            this.lblBin.Location = new System.Drawing.Point(3, 224);
+            this.lblBin.Name = "lblBin";
+            this.lblBin.Size = new System.Drawing.Size(22, 13);
+            this.lblBin.TabIndex = 206;
+            this.lblBin.Text = "Bin";
+            // 
+            // lblCocheIncRule
+            // 
+            this.lblCocheIncRule.AutoSize = true;
+            this.lblCocheIncRule.Location = new System.Drawing.Point(371, 263);
+            this.lblCocheIncRule.Name = "lblCocheIncRule";
+            this.lblCocheIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblCocheIncRule.TabIndex = 221;
+            this.lblCocheIncRule.Text = "递增规则";
+            this.lblCocheIncRule.Visible = false;
+            // 
+            // txtParDischargerNo
+            // 
+            this.txtParDischargerNo.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParDischargerNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParDischargerNo.Location = new System.Drawing.Point(134, 206);
+            this.txtParDischargerNo.Name = "txtParDischargerNo";
+            this.txtParDischargerNo.Size = new System.Drawing.Size(100, 13);
+            this.txtParDischargerNo.TabIndex = 207;
+            this.txtParDischargerNo.MouseEnter += new System.EventHandler(this.TxtParDischargerNo_MouseEnter);
+            // 
+            // txtVertexRule
+            // 
+            this.txtVertexRule.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtVertexRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtVertexRule.Location = new System.Drawing.Point(321, 245);
+            this.txtVertexRule.Name = "txtVertexRule";
+            this.txtVertexRule.Size = new System.Drawing.Size(48, 13);
+            this.txtVertexRule.TabIndex = 220;
+            this.txtVertexRule.Visible = false;
+            // 
+            // lblVertex
+            // 
+            this.lblVertex.AutoSize = true;
+            this.lblVertex.Location = new System.Drawing.Point(3, 243);
+            this.lblVertex.Name = "lblVertex";
+            this.lblVertex.Size = new System.Drawing.Size(37, 13);
+            this.lblVertex.TabIndex = 208;
+            this.lblVertex.Text = "Vertex";
+            // 
+            // lblVertexRule
+            // 
+            this.lblVertexRule.AutoSize = true;
+            this.lblVertexRule.Location = new System.Drawing.Point(263, 244);
+            this.lblVertexRule.Name = "lblVertexRule";
+            this.lblVertexRule.Size = new System.Drawing.Size(55, 13);
+            this.lblVertexRule.TabIndex = 219;
+            this.lblVertexRule.Text = "规则字段";
+            this.lblVertexRule.Visible = false;
+            // 
+            // lblConcheMeteringSystem
+            // 
+            this.lblConcheMeteringSystem.AutoSize = true;
+            this.lblConcheMeteringSystem.Location = new System.Drawing.Point(3, 262);
+            this.lblConcheMeteringSystem.Name = "lblConcheMeteringSystem";
+            this.lblConcheMeteringSystem.Size = new System.Drawing.Size(125, 13);
+            this.lblConcheMeteringSystem.TabIndex = 209;
+            this.lblConcheMeteringSystem.Text = "Conche:Metering System";
+            // 
+            // txtVertexIncRule
+            // 
+            this.txtVertexIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtVertexIncRule.Location = new System.Drawing.Point(429, 245);
+            this.txtVertexIncRule.Name = "txtVertexIncRule";
+            this.txtVertexIncRule.Size = new System.Drawing.Size(48, 13);
+            this.txtVertexIncRule.TabIndex = 218;
+            this.txtVertexIncRule.Visible = false;
+            // 
+            // lblDestination
+            // 
+            this.lblDestination.AutoSize = true;
+            this.lblDestination.Location = new System.Drawing.Point(3, 281);
+            this.lblDestination.Name = "lblDestination";
+            this.lblDestination.Size = new System.Drawing.Size(60, 13);
+            this.lblDestination.TabIndex = 210;
+            this.lblDestination.Text = "Destination";
+            // 
+            // lblVertexIncRule
+            // 
+            this.lblVertexIncRule.AutoSize = true;
+            this.lblVertexIncRule.Location = new System.Drawing.Point(371, 244);
+            this.lblVertexIncRule.Name = "lblVertexIncRule";
+            this.lblVertexIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblVertexIncRule.TabIndex = 217;
+            this.lblVertexIncRule.Text = "递增规则";
+            this.lblVertexIncRule.Visible = false;
+            // 
+            // txtBin
+            // 
+            this.txtBin.BackColor = System.Drawing.SystemColors.Window;
+            this.txtBin.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBin.Location = new System.Drawing.Point(134, 225);
+            this.txtBin.Name = "txtBin";
+            this.txtBin.Size = new System.Drawing.Size(100, 13);
+            this.txtBin.TabIndex = 211;
+            this.txtBin.TextChanged += new System.EventHandler(this.TxtBin_TextChanged);
+            this.txtBin.MouseEnter += new System.EventHandler(this.TxtBin_MouseEnter);
+            // 
+            // txtBinRule
+            // 
+            this.txtBinRule.BackColor = System.Drawing.SystemColors.HighlightText;
+            this.txtBinRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBinRule.Enabled = false;
+            this.txtBinRule.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtBinRule.Location = new System.Drawing.Point(321, 226);
+            this.txtBinRule.Name = "txtBinRule";
+            this.txtBinRule.Size = new System.Drawing.Size(48, 13);
+            this.txtBinRule.TabIndex = 216;
+            // 
+            // txtVertex
+            // 
+            this.txtVertex.BackColor = System.Drawing.SystemColors.Window;
+            this.txtVertex.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtVertex.Location = new System.Drawing.Point(134, 244);
+            this.txtVertex.Name = "txtVertex";
+            this.txtVertex.Size = new System.Drawing.Size(100, 13);
+            this.txtVertex.TabIndex = 212;
+            this.txtVertex.TextChanged += new System.EventHandler(this.TxtVertex_TextChanged);
+            this.txtVertex.MouseEnter += new System.EventHandler(this.TxtVertex_MouseEnter);
+            // 
+            // lblBinRule
+            // 
+            this.lblBinRule.AutoSize = true;
+            this.lblBinRule.Location = new System.Drawing.Point(263, 225);
+            this.lblBinRule.Name = "lblBinRule";
+            this.lblBinRule.Size = new System.Drawing.Size(55, 13);
+            this.lblBinRule.TabIndex = 215;
+            this.lblBinRule.Text = "规则字段";
+            // 
+            // txtConcheMeteringSystem
+            // 
+            this.txtConcheMeteringSystem.BackColor = System.Drawing.SystemColors.Window;
+            this.txtConcheMeteringSystem.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtConcheMeteringSystem.Location = new System.Drawing.Point(134, 263);
+            this.txtConcheMeteringSystem.Name = "txtConcheMeteringSystem";
+            this.txtConcheMeteringSystem.Size = new System.Drawing.Size(100, 13);
+            this.txtConcheMeteringSystem.TabIndex = 213;
+            this.txtConcheMeteringSystem.MouseEnter += new System.EventHandler(this.TxtConcheMeteringSystem_MouseEnter);
+            // 
+            // txtBinIncRule
+            // 
+            this.txtBinIncRule.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBinIncRule.Location = new System.Drawing.Point(429, 226);
+            this.txtBinIncRule.Name = "txtBinIncRule";
+            this.txtBinIncRule.Size = new System.Drawing.Size(48, 13);
+            this.txtBinIncRule.TabIndex = 204;
+            // 
+            // txtDestination
+            // 
+            this.txtDestination.BackColor = System.Drawing.SystemColors.Window;
+            this.txtDestination.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtDestination.Location = new System.Drawing.Point(134, 282);
+            this.txtDestination.Name = "txtDestination";
+            this.txtDestination.Size = new System.Drawing.Size(100, 13);
+            this.txtDestination.TabIndex = 214;
+            this.txtDestination.MouseEnter += new System.EventHandler(this.TxtDestination_MouseEnter);
+            // 
+            // lblBinIncRule
+            // 
+            this.lblBinIncRule.AutoSize = true;
+            this.lblBinIncRule.Location = new System.Drawing.Point(371, 225);
+            this.lblBinIncRule.Name = "lblBinIncRule";
+            this.lblBinIncRule.Size = new System.Drawing.Size(55, 13);
+            this.lblBinIncRule.TabIndex = 203;
+            this.lblBinIncRule.Text = "递增规则";
+            // 
+            // grpConfiguration
+            // 
+            this.grpConfiguration.Controls.Add(this.txtParScaleNo);
+            this.grpConfiguration.Controls.Add(this.lblParScaleNo);
+            this.grpConfiguration.Controls.Add(this.lblParBinNo);
+            this.grpConfiguration.Controls.Add(this.txtParBinNo);
+            this.grpConfiguration.Controls.Add(this.txtParHeightDropMax);
+            this.grpConfiguration.Controls.Add(this.lblParHeightDropMax);
+            this.grpConfiguration.Controls.Add(this.lblHLOutlet3S1);
+            this.grpConfiguration.Controls.Add(this.txtParDownPipeWeight);
+            this.grpConfiguration.Controls.Add(this.chkParManualAdd);
+            this.grpConfiguration.Controls.Add(this.chkPar1Speed);
+            this.grpConfiguration.Controls.Add(this.chkPar2Speed);
+            this.grpConfiguration.Controls.Add(this.chkParFrequency);
+            this.grpConfiguration.Controls.Add(this.chkParFlowmeter);
+            this.grpConfiguration.Controls.Add(this.chkParScrew);
+            this.grpConfiguration.Controls.Add(this.chkParWithIngrInfo);
+            this.grpConfiguration.Controls.Add(this.chkParModeFineDosingWeight);
+            this.grpConfiguration.Controls.Add(this.chkParWithDynmicTipPluse);
+            this.grpConfiguration.Controls.Add(this.lblValue10);
+            this.grpConfiguration.Controls.Add(this.txtValue10);
+            this.grpConfiguration.Location = new System.Drawing.Point(6, 343);
+            this.grpConfiguration.Name = "grpConfiguration";
+            this.grpConfiguration.Size = new System.Drawing.Size(216, 274);
+            this.grpConfiguration.TabIndex = 188;
+            this.grpConfiguration.TabStop = false;
+            this.grpConfiguration.Text = "Configuration";
+            // 
+            // txtParScaleNo
+            // 
+            this.txtParScaleNo.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParScaleNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParScaleNo.Enabled = false;
+            this.txtParScaleNo.Location = new System.Drawing.Point(147, 18);
+            this.txtParScaleNo.Name = "txtParScaleNo";
+            this.txtParScaleNo.Size = new System.Drawing.Size(56, 13);
+            this.txtParScaleNo.TabIndex = 182;
+            this.txtParScaleNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParScaleNo.TextChanged += new System.EventHandler(this.TxtParScaleNo_TextChanged);
+            this.txtParScaleNo.MouseEnter += new System.EventHandler(this.TxtParScaleNo_MouseEnter);
+            // 
+            // lblParScaleNo
+            // 
+            this.lblParScaleNo.AutoSize = true;
+            this.lblParScaleNo.Location = new System.Drawing.Point(1, 18);
+            this.lblParScaleNo.Name = "lblParScaleNo";
+            this.lblParScaleNo.Size = new System.Drawing.Size(64, 13);
+            this.lblParScaleNo.TabIndex = 78;
+            this.lblParScaleNo.Text = "ParScaleNo";
+            // 
+            // lblParBinNo
+            // 
+            this.lblParBinNo.AutoSize = true;
+            this.lblParBinNo.Location = new System.Drawing.Point(1, 36);
+            this.lblParBinNo.Name = "lblParBinNo";
+            this.lblParBinNo.Size = new System.Drawing.Size(52, 13);
+            this.lblParBinNo.TabIndex = 134;
+            this.lblParBinNo.Text = "ParBinNo";
+            // 
+            // txtParBinNo
+            // 
+            this.txtParBinNo.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParBinNo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParBinNo.Enabled = false;
+            this.txtParBinNo.Location = new System.Drawing.Point(147, 36);
+            this.txtParBinNo.Name = "txtParBinNo";
+            this.txtParBinNo.Size = new System.Drawing.Size(56, 13);
+            this.txtParBinNo.TabIndex = 148;
+            this.txtParBinNo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParBinNo.TextChanged += new System.EventHandler(this.TxtParBinNo_TextChanged);
+            this.txtParBinNo.MouseEnter += new System.EventHandler(this.TxtParBinNo_MouseEnter);
+            // 
+            // txtParHeightDropMax
+            // 
+            this.txtParHeightDropMax.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParHeightDropMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParHeightDropMax.Location = new System.Drawing.Point(147, 54);
+            this.txtParHeightDropMax.Name = "txtParHeightDropMax";
+            this.txtParHeightDropMax.Size = new System.Drawing.Size(56, 13);
+            this.txtParHeightDropMax.TabIndex = 155;
+            this.txtParHeightDropMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParHeightDropMax.TextChanged += new System.EventHandler(this.TxtParHeightDropMax_TextChanged);
+            this.txtParHeightDropMax.MouseEnter += new System.EventHandler(this.TxtParHeightDropMax_MouseEnter);
+            // 
+            // lblParHeightDropMax
+            // 
+            this.lblParHeightDropMax.AutoSize = true;
+            this.lblParHeightDropMax.Location = new System.Drawing.Point(1, 54);
+            this.lblParHeightDropMax.Name = "lblParHeightDropMax";
+            this.lblParHeightDropMax.Size = new System.Drawing.Size(119, 13);
+            this.lblParHeightDropMax.TabIndex = 135;
+            this.lblParHeightDropMax.Text = "ParHeightDropMax[mm]";
+            // 
+            // lblHLOutlet3S1
+            // 
+            this.lblHLOutlet3S1.AutoSize = true;
+            this.lblHLOutlet3S1.Location = new System.Drawing.Point(1, 72);
+            this.lblHLOutlet3S1.Name = "lblHLOutlet3S1";
+            this.lblHLOutlet3S1.Size = new System.Drawing.Size(125, 13);
+            this.lblHLOutlet3S1.TabIndex = 136;
+            this.lblHLOutlet3S1.Text = "ParDownPipeWeight[Kg]";
+            // 
+            // txtParDownPipeWeight
+            // 
+            this.txtParDownPipeWeight.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParDownPipeWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParDownPipeWeight.Location = new System.Drawing.Point(147, 72);
+            this.txtParDownPipeWeight.Name = "txtParDownPipeWeight";
+            this.txtParDownPipeWeight.Size = new System.Drawing.Size(56, 13);
+            this.txtParDownPipeWeight.TabIndex = 149;
+            this.txtParDownPipeWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParDownPipeWeight.TextChanged += new System.EventHandler(this.TxtParDownPipeWeight_TextChanged);
+            this.txtParDownPipeWeight.MouseEnter += new System.EventHandler(this.TxtParDownPipeWeight_MouseEnter);
+            // 
+            // chkParManualAdd
+            // 
+            this.chkParManualAdd.AutoSize = true;
+            this.chkParManualAdd.Enabled = false;
+            this.chkParManualAdd.Location = new System.Drawing.Point(5, 91);
+            this.chkParManualAdd.Name = "chkParManualAdd";
+            this.chkParManualAdd.Size = new System.Drawing.Size(96, 17);
+            this.chkParManualAdd.TabIndex = 37;
+            this.chkParManualAdd.Text = "ParManualAdd";
+            this.chkParManualAdd.UseVisualStyleBackColor = true;
+            this.chkParManualAdd.CheckedChanged += new System.EventHandler(this.ChkParManualAdd_CheckedChanged);
+            this.chkParManualAdd.MouseEnter += new System.EventHandler(this.ChkParManualAdd_MouseEnter);
+            // 
+            // chkPar1Speed
+            // 
+            this.chkPar1Speed.AutoSize = true;
+            this.chkPar1Speed.Enabled = false;
+            this.chkPar1Speed.Location = new System.Drawing.Point(5, 111);
+            this.chkPar1Speed.Name = "chkPar1Speed";
+            this.chkPar1Speed.Size = new System.Drawing.Size(79, 17);
+            this.chkPar1Speed.TabIndex = 38;
+            this.chkPar1Speed.Text = "Par1Speed";
+            this.chkPar1Speed.UseVisualStyleBackColor = true;
+            this.chkPar1Speed.CheckedChanged += new System.EventHandler(this.ChkPar1Speed_CheckedChanged);
+            this.chkPar1Speed.MouseEnter += new System.EventHandler(this.ChkPar1Speed_MouseEnter);
+            // 
+            // chkPar2Speed
+            // 
+            this.chkPar2Speed.AutoSize = true;
+            this.chkPar2Speed.Enabled = false;
+            this.chkPar2Speed.Location = new System.Drawing.Point(5, 131);
+            this.chkPar2Speed.Name = "chkPar2Speed";
+            this.chkPar2Speed.Size = new System.Drawing.Size(79, 17);
+            this.chkPar2Speed.TabIndex = 39;
+            this.chkPar2Speed.Tag = "";
+            this.chkPar2Speed.Text = "Par2Speed";
+            this.chkPar2Speed.UseVisualStyleBackColor = true;
+            this.chkPar2Speed.CheckedChanged += new System.EventHandler(this.ChkPar2Speed_CheckedChanged);
+            this.chkPar2Speed.MouseEnter += new System.EventHandler(this.ChkPar2Speed_MouseEnter);
+            // 
+            // chkParFrequency
+            // 
+            this.chkParFrequency.AutoSize = true;
+            this.chkParFrequency.Enabled = false;
+            this.chkParFrequency.Location = new System.Drawing.Point(5, 151);
+            this.chkParFrequency.Name = "chkParFrequency";
+            this.chkParFrequency.Size = new System.Drawing.Size(92, 17);
+            this.chkParFrequency.TabIndex = 112;
+            this.chkParFrequency.Tag = "";
+            this.chkParFrequency.Text = "ParFrequency";
+            this.chkParFrequency.UseVisualStyleBackColor = true;
+            this.chkParFrequency.CheckedChanged += new System.EventHandler(this.ChkParFrequency_CheckedChanged);
+            this.chkParFrequency.MouseEnter += new System.EventHandler(this.ChkParFrequency_MouseEnter);
+            // 
+            // chkParFlowmeter
+            // 
+            this.chkParFlowmeter.AutoSize = true;
+            this.chkParFlowmeter.Location = new System.Drawing.Point(5, 171);
+            this.chkParFlowmeter.Name = "chkParFlowmeter";
+            this.chkParFlowmeter.Size = new System.Drawing.Size(90, 17);
+            this.chkParFlowmeter.TabIndex = 113;
+            this.chkParFlowmeter.Tag = "";
+            this.chkParFlowmeter.Text = "ParFlowmeter";
+            this.chkParFlowmeter.UseVisualStyleBackColor = true;
+            this.chkParFlowmeter.CheckedChanged += new System.EventHandler(this.ChkParFlowmeter_CheckedChanged);
+            this.chkParFlowmeter.MouseEnter += new System.EventHandler(this.ChkParFlowmeter_MouseEnter);
+            // 
+            // chkParScrew
+            // 
+            this.chkParScrew.AutoSize = true;
+            this.chkParScrew.Location = new System.Drawing.Point(5, 191);
+            this.chkParScrew.Name = "chkParScrew";
+            this.chkParScrew.Size = new System.Drawing.Size(72, 17);
+            this.chkParScrew.TabIndex = 114;
+            this.chkParScrew.Tag = "";
+            this.chkParScrew.Text = "ParScrew";
+            this.chkParScrew.UseVisualStyleBackColor = true;
+            this.chkParScrew.CheckedChanged += new System.EventHandler(this.ChkParScrew_CheckedChanged);
+            this.chkParScrew.MouseEnter += new System.EventHandler(this.ChkParScrew_MouseEnter);
+            // 
+            // chkParWithIngrInfo
+            // 
+            this.chkParWithIngrInfo.AutoSize = true;
+            this.chkParWithIngrInfo.Location = new System.Drawing.Point(5, 211);
+            this.chkParWithIngrInfo.Name = "chkParWithIngrInfo";
+            this.chkParWithIngrInfo.Size = new System.Drawing.Size(100, 17);
+            this.chkParWithIngrInfo.TabIndex = 115;
+            this.chkParWithIngrInfo.Tag = "";
+            this.chkParWithIngrInfo.Text = "ParWithIngrInfo";
+            this.chkParWithIngrInfo.UseVisualStyleBackColor = true;
+            this.chkParWithIngrInfo.CheckedChanged += new System.EventHandler(this.ChkParWithIngrInfo_CheckedChanged);
+            this.chkParWithIngrInfo.MouseEnter += new System.EventHandler(this.ChkParWithIngrInfo_MouseEnter);
+            // 
+            // chkParModeFineDosingWeight
+            // 
+            this.chkParModeFineDosingWeight.AutoSize = true;
+            this.chkParModeFineDosingWeight.Location = new System.Drawing.Point(5, 231);
+            this.chkParModeFineDosingWeight.Name = "chkParModeFineDosingWeight";
+            this.chkParModeFineDosingWeight.Size = new System.Drawing.Size(156, 17);
+            this.chkParModeFineDosingWeight.TabIndex = 116;
+            this.chkParModeFineDosingWeight.Tag = "";
+            this.chkParModeFineDosingWeight.Text = "ParModeFineDosingWeight";
+            this.chkParModeFineDosingWeight.UseVisualStyleBackColor = true;
+            this.chkParModeFineDosingWeight.CheckedChanged += new System.EventHandler(this.ChkParModeFineDosingWeight_CheckedChanged);
+            this.chkParModeFineDosingWeight.MouseEnter += new System.EventHandler(this.ChkParModeFineDosingWeight_MouseEnter);
+            // 
+            // chkParWithDynmicTipPluse
+            // 
+            this.chkParWithDynmicTipPluse.AutoSize = true;
+            this.chkParWithDynmicTipPluse.Location = new System.Drawing.Point(5, 251);
+            this.chkParWithDynmicTipPluse.Name = "chkParWithDynmicTipPluse";
+            this.chkParWithDynmicTipPluse.Size = new System.Drawing.Size(140, 17);
+            this.chkParWithDynmicTipPluse.TabIndex = 117;
+            this.chkParWithDynmicTipPluse.Tag = "";
+            this.chkParWithDynmicTipPluse.Text = "ParWithDynmicTipPluse";
+            this.chkParWithDynmicTipPluse.UseVisualStyleBackColor = true;
+            this.chkParWithDynmicTipPluse.CheckedChanged += new System.EventHandler(this.ChkParWithDynmicTipPluse_CheckedChanged);
+            this.chkParWithDynmicTipPluse.MouseEnter += new System.EventHandler(this.ChkParWithDynmicTipPluse_MouseEnter);
+            // 
+            // lblValue10
+            // 
+            this.lblValue10.AutoSize = true;
+            this.lblValue10.Location = new System.Drawing.Point(141, 115);
+            this.lblValue10.Name = "lblValue10";
+            this.lblValue10.Size = new System.Drawing.Size(46, 13);
+            this.lblValue10.TabIndex = 60;
+            this.lblValue10.Text = "Value10";
             // 
             // txtValue10
             // 
@@ -851,410 +898,445 @@ namespace GcproExtensionApp
             this.txtValue10.TabIndex = 59;
             this.txtValue10.Text = "0";
             // 
-            // GrpStaticParameterDosing
-            // 
-            this.GrpStaticParameterDosing.Controls.Add(this.TxtParDosingTimeSlow);
-            this.GrpStaticParameterDosing.Controls.Add(this.LblParDosingTimeSlow);
-            this.GrpStaticParameterDosing.Controls.Add(this.TxtParLevelCompensationMax);
-            this.GrpStaticParameterDosing.Controls.Add(this.LblParLevelCompensationMax);
-            this.GrpStaticParameterDosing.Controls.Add(this.TxtParDosingSpeedFast);
-            this.GrpStaticParameterDosing.Controls.Add(this.LblParDosingSpeedFast);
-            this.GrpStaticParameterDosing.Controls.Add(this.LblParDosingSpeedSlow);
-            this.GrpStaticParameterDosing.Controls.Add(this.TxtParDosingSpeedSlow);
-            this.GrpStaticParameterDosing.Controls.Add(this.TxtParSwitchTimeFtoS);
-            this.GrpStaticParameterDosing.Controls.Add(this.LblParSwitchTimeFtoS);
-            this.GrpStaticParameterDosing.Controls.Add(this.LblParCutOffWeightCorrMax);
-            this.GrpStaticParameterDosing.Controls.Add(this.TxtParCutOffWeightCorrMax);
-            this.GrpStaticParameterDosing.Controls.Add(this.TxtParDosingTimeMax);
-            this.GrpStaticParameterDosing.Controls.Add(this.LblParDosingTimeMax);
-            this.GrpStaticParameterDosing.Location = new System.Drawing.Point(227, 343);
-            this.GrpStaticParameterDosing.Name = "GrpStaticParameterDosing";
-            this.GrpStaticParameterDosing.Size = new System.Drawing.Size(216, 148);
-            this.GrpStaticParameterDosing.TabIndex = 189;
-            this.GrpStaticParameterDosing.TabStop = false;
-            this.GrpStaticParameterDosing.Text = "Static Parameters Dosing";
-            // 
-            // TxtParDosingTimeSlow
-            // 
-            this.TxtParDosingTimeSlow.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParDosingTimeSlow.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParDosingTimeSlow.Location = new System.Drawing.Point(146, 72);
-            this.TxtParDosingTimeSlow.Name = "TxtParDosingTimeSlow";
-            this.TxtParDosingTimeSlow.Size = new System.Drawing.Size(56, 13);
-            this.TxtParDosingTimeSlow.TabIndex = 186;
-            this.TxtParDosingTimeSlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParDosingTimeSlow
-            // 
-            this.LblParDosingTimeSlow.AutoSize = true;
-            this.LblParDosingTimeSlow.Location = new System.Drawing.Point(3, 72);
-            this.LblParDosingTimeSlow.Name = "LblParDosingTimeSlow";
-            this.LblParDosingTimeSlow.Size = new System.Drawing.Size(113, 13);
-            this.LblParDosingTimeSlow.TabIndex = 185;
-            this.LblParDosingTimeSlow.Text = "ParDosingTimeSlow[s]";
-            // 
-            // TxtParLevelCompensationMax
-            // 
-            this.TxtParLevelCompensationMax.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParLevelCompensationMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParLevelCompensationMax.Location = new System.Drawing.Point(146, 108);
-            this.TxtParLevelCompensationMax.Name = "TxtParLevelCompensationMax";
-            this.TxtParLevelCompensationMax.Size = new System.Drawing.Size(56, 13);
-            this.TxtParLevelCompensationMax.TabIndex = 184;
-            this.TxtParLevelCompensationMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParLevelCompensationMax
-            // 
-            this.LblParLevelCompensationMax.AutoSize = true;
-            this.LblParLevelCompensationMax.Location = new System.Drawing.Point(3, 108);
-            this.LblParLevelCompensationMax.Name = "LblParLevelCompensationMax";
-            this.LblParLevelCompensationMax.Size = new System.Drawing.Size(136, 13);
-            this.LblParLevelCompensationMax.TabIndex = 183;
-            this.LblParLevelCompensationMax.Text = "ParLevelCompensationMax";
-            // 
-            // TxtParDosingSpeedFast
-            // 
-            this.TxtParDosingSpeedFast.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParDosingSpeedFast.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParDosingSpeedFast.Location = new System.Drawing.Point(146, 18);
-            this.TxtParDosingSpeedFast.Name = "TxtParDosingSpeedFast";
-            this.TxtParDosingSpeedFast.Size = new System.Drawing.Size(56, 13);
-            this.TxtParDosingSpeedFast.TabIndex = 182;
-            this.TxtParDosingSpeedFast.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParDosingSpeedFast
-            // 
-            this.LblParDosingSpeedFast.AutoSize = true;
-            this.LblParDosingSpeedFast.Location = new System.Drawing.Point(3, 18);
-            this.LblParDosingSpeedFast.Name = "LblParDosingSpeedFast";
-            this.LblParDosingSpeedFast.Size = new System.Drawing.Size(121, 13);
-            this.LblParDosingSpeedFast.TabIndex = 78;
-            this.LblParDosingSpeedFast.Text = "ParDosingSpeedFast[%]";
-            // 
-            // LblParDosingSpeedSlow
-            // 
-            this.LblParDosingSpeedSlow.AutoSize = true;
-            this.LblParDosingSpeedSlow.Location = new System.Drawing.Point(3, 36);
-            this.LblParDosingSpeedSlow.Name = "LblParDosingSpeedSlow";
-            this.LblParDosingSpeedSlow.Size = new System.Drawing.Size(124, 13);
-            this.LblParDosingSpeedSlow.TabIndex = 134;
-            this.LblParDosingSpeedSlow.Text = "ParDosingSpeedSlow[%]";
-            // 
-            // TxtParDosingSpeedSlow
-            // 
-            this.TxtParDosingSpeedSlow.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParDosingSpeedSlow.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParDosingSpeedSlow.Location = new System.Drawing.Point(146, 36);
-            this.TxtParDosingSpeedSlow.Name = "TxtParDosingSpeedSlow";
-            this.TxtParDosingSpeedSlow.Size = new System.Drawing.Size(56, 13);
-            this.TxtParDosingSpeedSlow.TabIndex = 148;
-            this.TxtParDosingSpeedSlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtParSwitchTimeFtoS
-            // 
-            this.TxtParSwitchTimeFtoS.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParSwitchTimeFtoS.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParSwitchTimeFtoS.Location = new System.Drawing.Point(146, 54);
-            this.TxtParSwitchTimeFtoS.Name = "TxtParSwitchTimeFtoS";
-            this.TxtParSwitchTimeFtoS.Size = new System.Drawing.Size(56, 13);
-            this.TxtParSwitchTimeFtoS.TabIndex = 155;
-            this.TxtParSwitchTimeFtoS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParSwitchTimeFtoS
-            // 
-            this.LblParSwitchTimeFtoS.AutoSize = true;
-            this.LblParSwitchTimeFtoS.Location = new System.Drawing.Point(3, 54);
-            this.LblParSwitchTimeFtoS.Name = "LblParSwitchTimeFtoS";
-            this.LblParSwitchTimeFtoS.Size = new System.Drawing.Size(111, 13);
-            this.LblParSwitchTimeFtoS.TabIndex = 135;
-            this.LblParSwitchTimeFtoS.Text = "ParSwitchTimeFtoS[s]";
-            // 
-            // LblParCutOffWeightCorrMax
-            // 
-            this.LblParCutOffWeightCorrMax.AutoSize = true;
-            this.LblParCutOffWeightCorrMax.Location = new System.Drawing.Point(3, 90);
-            this.LblParCutOffWeightCorrMax.Name = "LblParCutOffWeightCorrMax";
-            this.LblParCutOffWeightCorrMax.Size = new System.Drawing.Size(145, 13);
-            this.LblParCutOffWeightCorrMax.TabIndex = 136;
-            this.LblParCutOffWeightCorrMax.Text = "ParCutOffWeightCorrMax[Kg]";
-            // 
-            // TxtParCutOffWeightCorrMax
-            // 
-            this.TxtParCutOffWeightCorrMax.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParCutOffWeightCorrMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParCutOffWeightCorrMax.Location = new System.Drawing.Point(146, 90);
-            this.TxtParCutOffWeightCorrMax.Name = "TxtParCutOffWeightCorrMax";
-            this.TxtParCutOffWeightCorrMax.Size = new System.Drawing.Size(56, 13);
-            this.TxtParCutOffWeightCorrMax.TabIndex = 149;
-            this.TxtParCutOffWeightCorrMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtParDosingTimeMax
-            // 
-            this.TxtParDosingTimeMax.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParDosingTimeMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParDosingTimeMax.Location = new System.Drawing.Point(146, 126);
-            this.TxtParDosingTimeMax.Name = "TxtParDosingTimeMax";
-            this.TxtParDosingTimeMax.Size = new System.Drawing.Size(56, 13);
-            this.TxtParDosingTimeMax.TabIndex = 150;
-            this.TxtParDosingTimeMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParDosingTimeMax
-            // 
-            this.LblParDosingTimeMax.AutoSize = true;
-            this.LblParDosingTimeMax.Location = new System.Drawing.Point(3, 126);
-            this.LblParDosingTimeMax.Name = "LblParDosingTimeMax";
-            this.LblParDosingTimeMax.Size = new System.Drawing.Size(110, 13);
-            this.LblParDosingTimeMax.TabIndex = 140;
-            this.LblParDosingTimeMax.Text = "ParDosingTimeMax[s]";
-            // 
-            // GroupBox3
-            // 
-            this.GroupBox3.Controls.Add(this.TxtParAutoPosRel);
-            this.GroupBox3.Controls.Add(this.LblParAutoPosRel);
-            this.GroupBox3.Controls.Add(this.TxtParTolNegRel);
-            this.GroupBox3.Controls.Add(this.LblParTolNegRel);
-            this.GroupBox3.Controls.Add(this.TxtParTolPosWeight);
-            this.GroupBox3.Controls.Add(this.LblParTolPosWeight);
-            this.GroupBox3.Controls.Add(this.LblParTolPosRel);
-            this.GroupBox3.Controls.Add(this.TxtParTolPosRel);
-            this.GroupBox3.Controls.Add(this.TxtParAutoPosWeight);
-            this.GroupBox3.Controls.Add(this.LblParAutoPosWeight);
-            this.GroupBox3.Controls.Add(this.LblParTolNegWeight);
-            this.GroupBox3.Controls.Add(this.TxtParTolNegWeight);
-            this.GroupBox3.Location = new System.Drawing.Point(457, 343);
-            this.GroupBox3.Name = "GroupBox3";
-            this.GroupBox3.Size = new System.Drawing.Size(216, 148);
-            this.GroupBox3.TabIndex = 191;
-            this.GroupBox3.TabStop = false;
-            this.GroupBox3.Text = "Tolerance";
-            // 
-            // TxtParAutoPosRel
-            // 
-            this.TxtParAutoPosRel.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParAutoPosRel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParAutoPosRel.Location = new System.Drawing.Point(151, 72);
-            this.TxtParAutoPosRel.Name = "TxtParAutoPosRel";
-            this.TxtParAutoPosRel.Size = new System.Drawing.Size(56, 13);
-            this.TxtParAutoPosRel.TabIndex = 186;
-            this.TxtParAutoPosRel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParAutoPosRel
-            // 
-            this.LblParAutoPosRel.AutoSize = true;
-            this.LblParAutoPosRel.Location = new System.Drawing.Point(3, 72);
-            this.LblParAutoPosRel.Name = "LblParAutoPosRel";
-            this.LblParAutoPosRel.Size = new System.Drawing.Size(90, 13);
-            this.LblParAutoPosRel.TabIndex = 185;
-            this.LblParAutoPosRel.Text = "ParAutoPosRel[s]";
-            // 
-            // TxtParTolNegRel
-            // 
-            this.TxtParTolNegRel.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParTolNegRel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParTolNegRel.Location = new System.Drawing.Point(151, 108);
-            this.TxtParTolNegRel.Name = "TxtParTolNegRel";
-            this.TxtParTolNegRel.Size = new System.Drawing.Size(56, 13);
-            this.TxtParTolNegRel.TabIndex = 184;
-            this.TxtParTolNegRel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParTolNegRel
-            // 
-            this.LblParTolNegRel.AutoSize = true;
-            this.LblParTolNegRel.Location = new System.Drawing.Point(3, 108);
-            this.LblParTolNegRel.Name = "LblParTolNegRel";
-            this.LblParTolNegRel.Size = new System.Drawing.Size(88, 13);
-            this.LblParTolNegRel.TabIndex = 183;
-            this.LblParTolNegRel.Text = "ParTolNegRel[%]";
-            // 
-            // TxtParTolPosWeight
-            // 
-            this.TxtParTolPosWeight.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParTolPosWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParTolPosWeight.Location = new System.Drawing.Point(151, 18);
-            this.TxtParTolPosWeight.Name = "TxtParTolPosWeight";
-            this.TxtParTolPosWeight.Size = new System.Drawing.Size(56, 13);
-            this.TxtParTolPosWeight.TabIndex = 182;
-            this.TxtParTolPosWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParTolPosWeight
-            // 
-            this.LblParTolPosWeight.AutoSize = true;
-            this.LblParTolPosWeight.Location = new System.Drawing.Point(3, 18);
-            this.LblParTolPosWeight.Name = "LblParTolPosWeight";
-            this.LblParTolPosWeight.Size = new System.Drawing.Size(109, 13);
-            this.LblParTolPosWeight.TabIndex = 78;
-            this.LblParTolPosWeight.Text = "ParTolPosWeight[Kg]";
-            // 
-            // LblParTolPosRel
-            // 
-            this.LblParTolPosRel.AutoSize = true;
-            this.LblParTolPosRel.Location = new System.Drawing.Point(3, 36);
-            this.LblParTolPosRel.Name = "LblParTolPosRel";
-            this.LblParTolPosRel.Size = new System.Drawing.Size(86, 13);
-            this.LblParTolPosRel.TabIndex = 134;
-            this.LblParTolPosRel.Text = "ParTolPosRel[%]";
-            // 
-            // TxtParTolPosRel
-            // 
-            this.TxtParTolPosRel.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParTolPosRel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParTolPosRel.Location = new System.Drawing.Point(151, 36);
-            this.TxtParTolPosRel.Name = "TxtParTolPosRel";
-            this.TxtParTolPosRel.Size = new System.Drawing.Size(56, 13);
-            this.TxtParTolPosRel.TabIndex = 148;
-            this.TxtParTolPosRel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtParAutoPosWeight
-            // 
-            this.TxtParAutoPosWeight.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParAutoPosWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParAutoPosWeight.Location = new System.Drawing.Point(151, 54);
-            this.TxtParAutoPosWeight.Name = "TxtParAutoPosWeight";
-            this.TxtParAutoPosWeight.Size = new System.Drawing.Size(56, 13);
-            this.TxtParAutoPosWeight.TabIndex = 155;
-            this.TxtParAutoPosWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParAutoPosWeight
-            // 
-            this.LblParAutoPosWeight.AutoSize = true;
-            this.LblParAutoPosWeight.Location = new System.Drawing.Point(3, 54);
-            this.LblParAutoPosWeight.Name = "LblParAutoPosWeight";
-            this.LblParAutoPosWeight.Size = new System.Drawing.Size(116, 13);
-            this.LblParAutoPosWeight.TabIndex = 135;
-            this.LblParAutoPosWeight.Text = "ParAutoPosWeight[Kg]";
-            // 
-            // LblParTolNegWeight
-            // 
-            this.LblParTolNegWeight.AutoSize = true;
-            this.LblParTolNegWeight.Location = new System.Drawing.Point(3, 90);
-            this.LblParTolNegWeight.Name = "LblParTolNegWeight";
-            this.LblParTolNegWeight.Size = new System.Drawing.Size(111, 13);
-            this.LblParTolNegWeight.TabIndex = 136;
-            this.LblParTolNegWeight.Text = "ParTolNegWeight[Kg]";
-            // 
-            // TxtParTolNegWeight
-            // 
-            this.TxtParTolNegWeight.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParTolNegWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParTolNegWeight.Location = new System.Drawing.Point(151, 90);
-            this.TxtParTolNegWeight.Name = "TxtParTolNegWeight";
-            this.TxtParTolNegWeight.Size = new System.Drawing.Size(56, 13);
-            this.TxtParTolNegWeight.TabIndex = 149;
-            this.TxtParTolNegWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // GroupBox2
-            // 
-            this.GroupBox2.Controls.Add(this.TxtParFineDosingWeight);
-            this.GroupBox2.Controls.Add(this.LblParFineDosingWeight);
-            this.GroupBox2.Controls.Add(this.LblParCutoffWeight);
-            this.GroupBox2.Controls.Add(this.TxtParCutoffWeight);
-            this.GroupBox2.Controls.Add(this.TxtParFlowrateFast);
-            this.GroupBox2.Controls.Add(this.LblParFlowrateFast);
-            this.GroupBox2.Controls.Add(this.LblParFlowrateSlow);
-            this.GroupBox2.Controls.Add(this.TxtParFlowrateSlow);
-            this.GroupBox2.Controls.Add(this.TxtParTipPulseLen);
-            this.GroupBox2.Controls.Add(this.LblParTipPluseLen);
-            this.GroupBox2.Location = new System.Drawing.Point(227, 499);
-            this.GroupBox2.Name = "GroupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(216, 118);
-            this.GroupBox2.TabIndex = 190;
-            this.GroupBox2.TabStop = false;
-            this.GroupBox2.Text = "Dynmic Parameters";
-            // 
-            // TxtParFineDosingWeight
-            // 
-            this.TxtParFineDosingWeight.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParFineDosingWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParFineDosingWeight.Location = new System.Drawing.Point(146, 18);
-            this.TxtParFineDosingWeight.Name = "TxtParFineDosingWeight";
-            this.TxtParFineDosingWeight.Size = new System.Drawing.Size(56, 13);
-            this.TxtParFineDosingWeight.TabIndex = 182;
-            this.TxtParFineDosingWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParFineDosingWeight
-            // 
-            this.LblParFineDosingWeight.AutoSize = true;
-            this.LblParFineDosingWeight.Location = new System.Drawing.Point(1, 18);
-            this.LblParFineDosingWeight.Name = "LblParFineDosingWeight";
-            this.LblParFineDosingWeight.Size = new System.Drawing.Size(129, 13);
-            this.LblParFineDosingWeight.TabIndex = 78;
-            this.LblParFineDosingWeight.Text = "ParFineDosingWeight[Kg]";
-            // 
-            // LblParCutoffWeight
-            // 
-            this.LblParCutoffWeight.AutoSize = true;
-            this.LblParCutoffWeight.Location = new System.Drawing.Point(1, 36);
-            this.LblParCutoffWeight.Name = "LblParCutoffWeight";
-            this.LblParCutoffWeight.Size = new System.Drawing.Size(101, 13);
-            this.LblParCutoffWeight.TabIndex = 134;
-            this.LblParCutoffWeight.Text = "ParCutoffWeightKg]";
-            // 
-            // TxtParCutoffWeight
-            // 
-            this.TxtParCutoffWeight.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParCutoffWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParCutoffWeight.Location = new System.Drawing.Point(146, 36);
-            this.TxtParCutoffWeight.Name = "TxtParCutoffWeight";
-            this.TxtParCutoffWeight.Size = new System.Drawing.Size(56, 13);
-            this.TxtParCutoffWeight.TabIndex = 148;
-            this.TxtParCutoffWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtParFlowrateFast
-            // 
-            this.TxtParFlowrateFast.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParFlowrateFast.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParFlowrateFast.Location = new System.Drawing.Point(146, 54);
-            this.TxtParFlowrateFast.Name = "TxtParFlowrateFast";
-            this.TxtParFlowrateFast.Size = new System.Drawing.Size(56, 13);
-            this.TxtParFlowrateFast.TabIndex = 155;
-            this.TxtParFlowrateFast.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParFlowrateFast
-            // 
-            this.LblParFlowrateFast.AutoSize = true;
-            this.LblParFlowrateFast.Location = new System.Drawing.Point(1, 54);
-            this.LblParFlowrateFast.Name = "LblParFlowrateFast";
-            this.LblParFlowrateFast.Size = new System.Drawing.Size(105, 13);
-            this.LblParFlowrateFast.TabIndex = 135;
-            this.LblParFlowrateFast.Text = "ParFlowrateFast[g/s]";
-            // 
-            // LblParFlowrateSlow
-            // 
-            this.LblParFlowrateSlow.AutoSize = true;
-            this.LblParFlowrateSlow.Location = new System.Drawing.Point(1, 72);
-            this.LblParFlowrateSlow.Name = "LblParFlowrateSlow";
-            this.LblParFlowrateSlow.Size = new System.Drawing.Size(108, 13);
-            this.LblParFlowrateSlow.TabIndex = 136;
-            this.LblParFlowrateSlow.Text = "ParFlowrateSlow[g/s]";
-            // 
-            // TxtParFlowrateSlow
-            // 
-            this.TxtParFlowrateSlow.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParFlowrateSlow.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParFlowrateSlow.Location = new System.Drawing.Point(146, 72);
-            this.TxtParFlowrateSlow.Name = "TxtParFlowrateSlow";
-            this.TxtParFlowrateSlow.Size = new System.Drawing.Size(56, 13);
-            this.TxtParFlowrateSlow.TabIndex = 149;
-            this.TxtParFlowrateSlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // TxtParTipPulseLen
-            // 
-            this.TxtParTipPulseLen.BackColor = System.Drawing.SystemColors.Window;
-            this.TxtParTipPulseLen.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TxtParTipPulseLen.Location = new System.Drawing.Point(146, 91);
-            this.TxtParTipPulseLen.Name = "TxtParTipPulseLen";
-            this.TxtParTipPulseLen.Size = new System.Drawing.Size(56, 13);
-            this.TxtParTipPulseLen.TabIndex = 150;
-            this.TxtParTipPulseLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // LblParTipPluseLen
-            // 
-            this.LblParTipPluseLen.AutoSize = true;
-            this.LblParTipPluseLen.Location = new System.Drawing.Point(3, 90);
-            this.LblParTipPluseLen.Name = "LblParTipPluseLen";
-            this.LblParTipPluseLen.Size = new System.Drawing.Size(99, 13);
-            this.LblParTipPluseLen.TabIndex = 140;
-            this.LblParTipPluseLen.Text = "ParTipePulseLen[s]";
+            // grpStaticParameterDosing
+            // 
+            this.grpStaticParameterDosing.Controls.Add(this.txtParDosingTimeSlow);
+            this.grpStaticParameterDosing.Controls.Add(this.lblParDosingTimeSlow);
+            this.grpStaticParameterDosing.Controls.Add(this.txtParLevelCompensationMax);
+            this.grpStaticParameterDosing.Controls.Add(this.lblParLevelCompensationMax);
+            this.grpStaticParameterDosing.Controls.Add(this.txtParDosingSpeedFast);
+            this.grpStaticParameterDosing.Controls.Add(this.lblParDosingSpeedFast);
+            this.grpStaticParameterDosing.Controls.Add(this.lblParDosingSpeedSlow);
+            this.grpStaticParameterDosing.Controls.Add(this.txtParDosingSpeedSlow);
+            this.grpStaticParameterDosing.Controls.Add(this.txtParSwitchTimeFtoS);
+            this.grpStaticParameterDosing.Controls.Add(this.lblParSwitchTimeFtoS);
+            this.grpStaticParameterDosing.Controls.Add(this.lblParCutOffWeightCorrMax);
+            this.grpStaticParameterDosing.Controls.Add(this.txtParCutOffWeightCorrMax);
+            this.grpStaticParameterDosing.Controls.Add(this.txtParDosingTimeMax);
+            this.grpStaticParameterDosing.Controls.Add(this.lblParDosingTimeMax);
+            this.grpStaticParameterDosing.Location = new System.Drawing.Point(227, 343);
+            this.grpStaticParameterDosing.Name = "grpStaticParameterDosing";
+            this.grpStaticParameterDosing.Size = new System.Drawing.Size(216, 148);
+            this.grpStaticParameterDosing.TabIndex = 189;
+            this.grpStaticParameterDosing.TabStop = false;
+            this.grpStaticParameterDosing.Text = "Static Parameters Dosing";
+            // 
+            // txtParDosingTimeSlow
+            // 
+            this.txtParDosingTimeSlow.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParDosingTimeSlow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParDosingTimeSlow.Location = new System.Drawing.Point(146, 72);
+            this.txtParDosingTimeSlow.Name = "txtParDosingTimeSlow";
+            this.txtParDosingTimeSlow.Size = new System.Drawing.Size(56, 13);
+            this.txtParDosingTimeSlow.TabIndex = 186;
+            this.txtParDosingTimeSlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParDosingTimeSlow.TextChanged += new System.EventHandler(this.TxtParDosingTimeSlow_TextChanged);
+            this.txtParDosingTimeSlow.MouseEnter += new System.EventHandler(this.TxtParDosingTimeSlow_MouseEnter);
+            // 
+            // lblParDosingTimeSlow
+            // 
+            this.lblParDosingTimeSlow.AutoSize = true;
+            this.lblParDosingTimeSlow.Location = new System.Drawing.Point(3, 72);
+            this.lblParDosingTimeSlow.Name = "lblParDosingTimeSlow";
+            this.lblParDosingTimeSlow.Size = new System.Drawing.Size(113, 13);
+            this.lblParDosingTimeSlow.TabIndex = 185;
+            this.lblParDosingTimeSlow.Text = "ParDosingTimeSlow[s]";
+            // 
+            // txtParLevelCompensationMax
+            // 
+            this.txtParLevelCompensationMax.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParLevelCompensationMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParLevelCompensationMax.Location = new System.Drawing.Point(146, 108);
+            this.txtParLevelCompensationMax.Name = "txtParLevelCompensationMax";
+            this.txtParLevelCompensationMax.Size = new System.Drawing.Size(56, 13);
+            this.txtParLevelCompensationMax.TabIndex = 184;
+            this.txtParLevelCompensationMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParLevelCompensationMax.MouseEnter += new System.EventHandler(this.TxtParLevelCompensationMax_MouseEnter);
+            // 
+            // lblParLevelCompensationMax
+            // 
+            this.lblParLevelCompensationMax.AutoSize = true;
+            this.lblParLevelCompensationMax.Location = new System.Drawing.Point(3, 108);
+            this.lblParLevelCompensationMax.Name = "lblParLevelCompensationMax";
+            this.lblParLevelCompensationMax.Size = new System.Drawing.Size(136, 13);
+            this.lblParLevelCompensationMax.TabIndex = 183;
+            this.lblParLevelCompensationMax.Text = "ParLevelCompensationMax";
+            // 
+            // txtParDosingSpeedFast
+            // 
+            this.txtParDosingSpeedFast.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParDosingSpeedFast.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParDosingSpeedFast.Location = new System.Drawing.Point(146, 18);
+            this.txtParDosingSpeedFast.Name = "txtParDosingSpeedFast";
+            this.txtParDosingSpeedFast.Size = new System.Drawing.Size(56, 13);
+            this.txtParDosingSpeedFast.TabIndex = 182;
+            this.txtParDosingSpeedFast.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParDosingSpeedFast.TextChanged += new System.EventHandler(this.TxtParDosingSpeedFast_TextChanged);
+            this.txtParDosingSpeedFast.MouseEnter += new System.EventHandler(this.TxtParDosingSpeedFast_MouseEnter);
+            // 
+            // lblParDosingSpeedFast
+            // 
+            this.lblParDosingSpeedFast.AutoSize = true;
+            this.lblParDosingSpeedFast.Location = new System.Drawing.Point(3, 18);
+            this.lblParDosingSpeedFast.Name = "lblParDosingSpeedFast";
+            this.lblParDosingSpeedFast.Size = new System.Drawing.Size(121, 13);
+            this.lblParDosingSpeedFast.TabIndex = 78;
+            this.lblParDosingSpeedFast.Text = "ParDosingSpeedFast[%]";
+            // 
+            // lblParDosingSpeedSlow
+            // 
+            this.lblParDosingSpeedSlow.AutoSize = true;
+            this.lblParDosingSpeedSlow.Location = new System.Drawing.Point(3, 36);
+            this.lblParDosingSpeedSlow.Name = "lblParDosingSpeedSlow";
+            this.lblParDosingSpeedSlow.Size = new System.Drawing.Size(124, 13);
+            this.lblParDosingSpeedSlow.TabIndex = 134;
+            this.lblParDosingSpeedSlow.Text = "ParDosingSpeedSlow[%]";
+            // 
+            // txtParDosingSpeedSlow
+            // 
+            this.txtParDosingSpeedSlow.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParDosingSpeedSlow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParDosingSpeedSlow.Location = new System.Drawing.Point(146, 36);
+            this.txtParDosingSpeedSlow.Name = "txtParDosingSpeedSlow";
+            this.txtParDosingSpeedSlow.Size = new System.Drawing.Size(56, 13);
+            this.txtParDosingSpeedSlow.TabIndex = 148;
+            this.txtParDosingSpeedSlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParDosingSpeedSlow.TextChanged += new System.EventHandler(this.TxtParDosingSpeedSlow_TextChanged);
+            this.txtParDosingSpeedSlow.MouseEnter += new System.EventHandler(this.TxtParDosingSpeedSlow_MouseEnter);
+            // 
+            // txtParSwitchTimeFtoS
+            // 
+            this.txtParSwitchTimeFtoS.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParSwitchTimeFtoS.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParSwitchTimeFtoS.Location = new System.Drawing.Point(146, 54);
+            this.txtParSwitchTimeFtoS.Name = "txtParSwitchTimeFtoS";
+            this.txtParSwitchTimeFtoS.Size = new System.Drawing.Size(56, 13);
+            this.txtParSwitchTimeFtoS.TabIndex = 155;
+            this.txtParSwitchTimeFtoS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParSwitchTimeFtoS.TextChanged += new System.EventHandler(this.TxtParSwitchTimeFtoS_TextChanged);
+            this.txtParSwitchTimeFtoS.MouseEnter += new System.EventHandler(this.TxtParSwitchTimeFtoS_MouseEnter);
+            // 
+            // lblParSwitchTimeFtoS
+            // 
+            this.lblParSwitchTimeFtoS.AutoSize = true;
+            this.lblParSwitchTimeFtoS.Location = new System.Drawing.Point(3, 54);
+            this.lblParSwitchTimeFtoS.Name = "lblParSwitchTimeFtoS";
+            this.lblParSwitchTimeFtoS.Size = new System.Drawing.Size(111, 13);
+            this.lblParSwitchTimeFtoS.TabIndex = 135;
+            this.lblParSwitchTimeFtoS.Text = "ParSwitchTimeFtoS[s]";
+            // 
+            // lblParCutOffWeightCorrMax
+            // 
+            this.lblParCutOffWeightCorrMax.AutoSize = true;
+            this.lblParCutOffWeightCorrMax.Location = new System.Drawing.Point(3, 90);
+            this.lblParCutOffWeightCorrMax.Name = "lblParCutOffWeightCorrMax";
+            this.lblParCutOffWeightCorrMax.Size = new System.Drawing.Size(145, 13);
+            this.lblParCutOffWeightCorrMax.TabIndex = 136;
+            this.lblParCutOffWeightCorrMax.Text = "ParCutOffWeightCorrMax[Kg]";
+            // 
+            // txtParCutOffWeightCorrMax
+            // 
+            this.txtParCutOffWeightCorrMax.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParCutOffWeightCorrMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParCutOffWeightCorrMax.Location = new System.Drawing.Point(146, 90);
+            this.txtParCutOffWeightCorrMax.Name = "txtParCutOffWeightCorrMax";
+            this.txtParCutOffWeightCorrMax.Size = new System.Drawing.Size(56, 13);
+            this.txtParCutOffWeightCorrMax.TabIndex = 149;
+            this.txtParCutOffWeightCorrMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParCutOffWeightCorrMax.TextChanged += new System.EventHandler(this.TxtParCutOffWeightCorrMax_TextChanged);
+            this.txtParCutOffWeightCorrMax.MouseEnter += new System.EventHandler(this.TxtParCutOffWeightCorrMax_MouseEnter);
+            // 
+            // txtParDosingTimeMax
+            // 
+            this.txtParDosingTimeMax.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParDosingTimeMax.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParDosingTimeMax.Location = new System.Drawing.Point(146, 126);
+            this.txtParDosingTimeMax.Name = "txtParDosingTimeMax";
+            this.txtParDosingTimeMax.Size = new System.Drawing.Size(56, 13);
+            this.txtParDosingTimeMax.TabIndex = 150;
+            this.txtParDosingTimeMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParDosingTimeMax.TextChanged += new System.EventHandler(this.TxtParDosingTimeMax_TextChanged);
+            this.txtParDosingTimeMax.MouseEnter += new System.EventHandler(this.TxtParDosingTimeMax_MouseEnter);
+            // 
+            // lblParDosingTimeMax
+            // 
+            this.lblParDosingTimeMax.AutoSize = true;
+            this.lblParDosingTimeMax.Location = new System.Drawing.Point(3, 126);
+            this.lblParDosingTimeMax.Name = "lblParDosingTimeMax";
+            this.lblParDosingTimeMax.Size = new System.Drawing.Size(110, 13);
+            this.lblParDosingTimeMax.TabIndex = 140;
+            this.lblParDosingTimeMax.Text = "ParDosingTimeMax[s]";
+            // 
+            // grpTolerence
+            // 
+            this.grpTolerence.Controls.Add(this.txtParAutoPosRel);
+            this.grpTolerence.Controls.Add(this.lblParAutoPosRel);
+            this.grpTolerence.Controls.Add(this.txtParTolNegRel);
+            this.grpTolerence.Controls.Add(this.lblParTolNegRel);
+            this.grpTolerence.Controls.Add(this.txtParTolPosWeight);
+            this.grpTolerence.Controls.Add(this.lblParTolPosWeight);
+            this.grpTolerence.Controls.Add(this.lblParTolPosRel);
+            this.grpTolerence.Controls.Add(this.txtParTolPosRel);
+            this.grpTolerence.Controls.Add(this.txtParAutoPosWeight);
+            this.grpTolerence.Controls.Add(this.lblParAutoPosWeight);
+            this.grpTolerence.Controls.Add(this.lblParTolNegWeight);
+            this.grpTolerence.Controls.Add(this.txtParTolNegWeight);
+            this.grpTolerence.Location = new System.Drawing.Point(457, 343);
+            this.grpTolerence.Name = "grpTolerence";
+            this.grpTolerence.Size = new System.Drawing.Size(216, 148);
+            this.grpTolerence.TabIndex = 191;
+            this.grpTolerence.TabStop = false;
+            this.grpTolerence.Text = "Tolerance";
+            // 
+            // txtParAutoPosRel
+            // 
+            this.txtParAutoPosRel.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParAutoPosRel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParAutoPosRel.Location = new System.Drawing.Point(151, 72);
+            this.txtParAutoPosRel.Name = "txtParAutoPosRel";
+            this.txtParAutoPosRel.Size = new System.Drawing.Size(56, 13);
+            this.txtParAutoPosRel.TabIndex = 186;
+            this.txtParAutoPosRel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParAutoPosRel.TextChanged += new System.EventHandler(this.TxtParAutoPosRel_TextChanged);
+            this.txtParAutoPosRel.MouseEnter += new System.EventHandler(this.TxtParAutoPosRel_MouseEnter);
+            // 
+            // lblParAutoPosRel
+            // 
+            this.lblParAutoPosRel.AutoSize = true;
+            this.lblParAutoPosRel.Location = new System.Drawing.Point(3, 72);
+            this.lblParAutoPosRel.Name = "lblParAutoPosRel";
+            this.lblParAutoPosRel.Size = new System.Drawing.Size(90, 13);
+            this.lblParAutoPosRel.TabIndex = 185;
+            this.lblParAutoPosRel.Text = "ParAutoPosRel[s]";
+            // 
+            // txtParTolNegRel
+            // 
+            this.txtParTolNegRel.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParTolNegRel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParTolNegRel.Location = new System.Drawing.Point(151, 108);
+            this.txtParTolNegRel.Name = "txtParTolNegRel";
+            this.txtParTolNegRel.Size = new System.Drawing.Size(56, 13);
+            this.txtParTolNegRel.TabIndex = 184;
+            this.txtParTolNegRel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParTolNegRel.TextChanged += new System.EventHandler(this.TxtParTolNegRel_TextChanged);
+            this.txtParTolNegRel.MouseEnter += new System.EventHandler(this.TxtParTolNegRel_MouseEnter);
+            // 
+            // lblParTolNegRel
+            // 
+            this.lblParTolNegRel.AutoSize = true;
+            this.lblParTolNegRel.Location = new System.Drawing.Point(3, 108);
+            this.lblParTolNegRel.Name = "lblParTolNegRel";
+            this.lblParTolNegRel.Size = new System.Drawing.Size(88, 13);
+            this.lblParTolNegRel.TabIndex = 183;
+            this.lblParTolNegRel.Text = "ParTolNegRel[%]";
+            // 
+            // txtParTolPosWeight
+            // 
+            this.txtParTolPosWeight.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParTolPosWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParTolPosWeight.Location = new System.Drawing.Point(151, 18);
+            this.txtParTolPosWeight.Name = "txtParTolPosWeight";
+            this.txtParTolPosWeight.Size = new System.Drawing.Size(56, 13);
+            this.txtParTolPosWeight.TabIndex = 182;
+            this.txtParTolPosWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParTolPosWeight.TextChanged += new System.EventHandler(this.TxtParTolPosWeight_TextChanged);
+            this.txtParTolPosWeight.MouseEnter += new System.EventHandler(this.TxtParTolPosWeight_MouseEnter);
+            // 
+            // lblParTolPosWeight
+            // 
+            this.lblParTolPosWeight.AutoSize = true;
+            this.lblParTolPosWeight.Location = new System.Drawing.Point(3, 18);
+            this.lblParTolPosWeight.Name = "lblParTolPosWeight";
+            this.lblParTolPosWeight.Size = new System.Drawing.Size(109, 13);
+            this.lblParTolPosWeight.TabIndex = 78;
+            this.lblParTolPosWeight.Text = "ParTolPosWeight[Kg]";
+            // 
+            // lblParTolPosRel
+            // 
+            this.lblParTolPosRel.AutoSize = true;
+            this.lblParTolPosRel.Location = new System.Drawing.Point(3, 36);
+            this.lblParTolPosRel.Name = "lblParTolPosRel";
+            this.lblParTolPosRel.Size = new System.Drawing.Size(86, 13);
+            this.lblParTolPosRel.TabIndex = 134;
+            this.lblParTolPosRel.Text = "ParTolPosRel[%]";
+            // 
+            // txtParTolPosRel
+            // 
+            this.txtParTolPosRel.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParTolPosRel.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParTolPosRel.Location = new System.Drawing.Point(151, 36);
+            this.txtParTolPosRel.Name = "txtParTolPosRel";
+            this.txtParTolPosRel.Size = new System.Drawing.Size(56, 13);
+            this.txtParTolPosRel.TabIndex = 148;
+            this.txtParTolPosRel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParTolPosRel.TextChanged += new System.EventHandler(this.TxtParTolPosRel_TextChanged);
+            this.txtParTolPosRel.MouseEnter += new System.EventHandler(this.TxtParTolPosRel_MouseEnter);
+            // 
+            // txtParAutoPosWeight
+            // 
+            this.txtParAutoPosWeight.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParAutoPosWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParAutoPosWeight.Location = new System.Drawing.Point(151, 54);
+            this.txtParAutoPosWeight.Name = "txtParAutoPosWeight";
+            this.txtParAutoPosWeight.Size = new System.Drawing.Size(56, 13);
+            this.txtParAutoPosWeight.TabIndex = 155;
+            this.txtParAutoPosWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParAutoPosWeight.TextChanged += new System.EventHandler(this.TxtParAutoPosWeight_TextChanged);
+            this.txtParAutoPosWeight.MouseEnter += new System.EventHandler(this.TxtParAutoPosWeight_MouseEnter);
+            // 
+            // lblParAutoPosWeight
+            // 
+            this.lblParAutoPosWeight.AutoSize = true;
+            this.lblParAutoPosWeight.Location = new System.Drawing.Point(3, 54);
+            this.lblParAutoPosWeight.Name = "lblParAutoPosWeight";
+            this.lblParAutoPosWeight.Size = new System.Drawing.Size(116, 13);
+            this.lblParAutoPosWeight.TabIndex = 135;
+            this.lblParAutoPosWeight.Text = "ParAutoPosWeight[Kg]";
+            // 
+            // lblParTolNegWeight
+            // 
+            this.lblParTolNegWeight.AutoSize = true;
+            this.lblParTolNegWeight.Location = new System.Drawing.Point(3, 90);
+            this.lblParTolNegWeight.Name = "lblParTolNegWeight";
+            this.lblParTolNegWeight.Size = new System.Drawing.Size(111, 13);
+            this.lblParTolNegWeight.TabIndex = 136;
+            this.lblParTolNegWeight.Text = "ParTolNegWeight[Kg]";
+            // 
+            // txtParTolNegWeight
+            // 
+            this.txtParTolNegWeight.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParTolNegWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParTolNegWeight.Location = new System.Drawing.Point(151, 90);
+            this.txtParTolNegWeight.Name = "txtParTolNegWeight";
+            this.txtParTolNegWeight.Size = new System.Drawing.Size(56, 13);
+            this.txtParTolNegWeight.TabIndex = 149;
+            this.txtParTolNegWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParTolNegWeight.TextChanged += new System.EventHandler(this.TxtParTolNegWeight_TextChanged);
+            this.txtParTolNegWeight.MouseEnter += new System.EventHandler(this.TxtParTolNegWeight_MouseEnter);
+            // 
+            // grpDynmicParameters
+            // 
+            this.grpDynmicParameters.Controls.Add(this.txtParFineDosingWeight);
+            this.grpDynmicParameters.Controls.Add(this.lblParFineDosingWeight);
+            this.grpDynmicParameters.Controls.Add(this.lblParCutoffWeight);
+            this.grpDynmicParameters.Controls.Add(this.txtParCutoffWeight);
+            this.grpDynmicParameters.Controls.Add(this.txtParFlowrateFast);
+            this.grpDynmicParameters.Controls.Add(this.lblParFlowrateFast);
+            this.grpDynmicParameters.Controls.Add(this.lblParFlowrateSlow);
+            this.grpDynmicParameters.Controls.Add(this.txtParFlowrateSlow);
+            this.grpDynmicParameters.Controls.Add(this.txtParTipPulseLen);
+            this.grpDynmicParameters.Controls.Add(this.lblParTipPluseLen);
+            this.grpDynmicParameters.Location = new System.Drawing.Point(227, 499);
+            this.grpDynmicParameters.Name = "grpDynmicParameters";
+            this.grpDynmicParameters.Size = new System.Drawing.Size(216, 118);
+            this.grpDynmicParameters.TabIndex = 190;
+            this.grpDynmicParameters.TabStop = false;
+            this.grpDynmicParameters.Text = "Dynmic Parameters";
+            // 
+            // txtParFineDosingWeight
+            // 
+            this.txtParFineDosingWeight.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParFineDosingWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParFineDosingWeight.Location = new System.Drawing.Point(146, 18);
+            this.txtParFineDosingWeight.Name = "txtParFineDosingWeight";
+            this.txtParFineDosingWeight.Size = new System.Drawing.Size(56, 13);
+            this.txtParFineDosingWeight.TabIndex = 182;
+            this.txtParFineDosingWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParFineDosingWeight.TextChanged += new System.EventHandler(this.TxtParFineDosingWeight_TextChanged);
+            this.txtParFineDosingWeight.MouseEnter += new System.EventHandler(this.TxtParFineDosingWeight_MouseEnter);
+            // 
+            // lblParFineDosingWeight
+            // 
+            this.lblParFineDosingWeight.AutoSize = true;
+            this.lblParFineDosingWeight.Location = new System.Drawing.Point(1, 18);
+            this.lblParFineDosingWeight.Name = "lblParFineDosingWeight";
+            this.lblParFineDosingWeight.Size = new System.Drawing.Size(129, 13);
+            this.lblParFineDosingWeight.TabIndex = 78;
+            this.lblParFineDosingWeight.Text = "ParFineDosingWeight[Kg]";
+            // 
+            // lblParCutoffWeight
+            // 
+            this.lblParCutoffWeight.AutoSize = true;
+            this.lblParCutoffWeight.Location = new System.Drawing.Point(1, 36);
+            this.lblParCutoffWeight.Name = "lblParCutoffWeight";
+            this.lblParCutoffWeight.Size = new System.Drawing.Size(101, 13);
+            this.lblParCutoffWeight.TabIndex = 134;
+            this.lblParCutoffWeight.Text = "ParCutoffWeightKg]";
+            // 
+            // txtParCutoffWeight
+            // 
+            this.txtParCutoffWeight.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParCutoffWeight.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParCutoffWeight.Location = new System.Drawing.Point(146, 36);
+            this.txtParCutoffWeight.Name = "txtParCutoffWeight";
+            this.txtParCutoffWeight.Size = new System.Drawing.Size(56, 13);
+            this.txtParCutoffWeight.TabIndex = 148;
+            this.txtParCutoffWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParCutoffWeight.TextChanged += new System.EventHandler(this.TxtParCutoffWeight_TextChanged);
+            this.txtParCutoffWeight.MouseEnter += new System.EventHandler(this.TxtParCutoffWeight_MouseEnter);
+            // 
+            // txtParFlowrateFast
+            // 
+            this.txtParFlowrateFast.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParFlowrateFast.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParFlowrateFast.Location = new System.Drawing.Point(146, 54);
+            this.txtParFlowrateFast.Name = "txtParFlowrateFast";
+            this.txtParFlowrateFast.Size = new System.Drawing.Size(56, 13);
+            this.txtParFlowrateFast.TabIndex = 155;
+            this.txtParFlowrateFast.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParFlowrateFast.TextChanged += new System.EventHandler(this.TxtParFlowrateFast_TextChanged);
+            this.txtParFlowrateFast.MouseEnter += new System.EventHandler(this.TxtParFlowrateFast_MouseEnter);
+            // 
+            // lblParFlowrateFast
+            // 
+            this.lblParFlowrateFast.AutoSize = true;
+            this.lblParFlowrateFast.Location = new System.Drawing.Point(1, 54);
+            this.lblParFlowrateFast.Name = "lblParFlowrateFast";
+            this.lblParFlowrateFast.Size = new System.Drawing.Size(105, 13);
+            this.lblParFlowrateFast.TabIndex = 135;
+            this.lblParFlowrateFast.Text = "ParFlowrateFast[g/s]";
+            // 
+            // lblParFlowrateSlow
+            // 
+            this.lblParFlowrateSlow.AutoSize = true;
+            this.lblParFlowrateSlow.Location = new System.Drawing.Point(1, 72);
+            this.lblParFlowrateSlow.Name = "lblParFlowrateSlow";
+            this.lblParFlowrateSlow.Size = new System.Drawing.Size(108, 13);
+            this.lblParFlowrateSlow.TabIndex = 136;
+            this.lblParFlowrateSlow.Text = "ParFlowrateSlow[g/s]";
+            // 
+            // txtParFlowrateSlow
+            // 
+            this.txtParFlowrateSlow.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParFlowrateSlow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParFlowrateSlow.Location = new System.Drawing.Point(146, 72);
+            this.txtParFlowrateSlow.Name = "txtParFlowrateSlow";
+            this.txtParFlowrateSlow.Size = new System.Drawing.Size(56, 13);
+            this.txtParFlowrateSlow.TabIndex = 149;
+            this.txtParFlowrateSlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParFlowrateSlow.TextChanged += new System.EventHandler(this.TxtParFlowrateSlow_TextChanged);
+            this.txtParFlowrateSlow.MouseEnter += new System.EventHandler(this.TxtParFlowrateSlow_MouseEnter);
+            // 
+            // txtParTipPulseLen
+            // 
+            this.txtParTipPulseLen.BackColor = System.Drawing.SystemColors.Window;
+            this.txtParTipPulseLen.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtParTipPulseLen.Location = new System.Drawing.Point(146, 91);
+            this.txtParTipPulseLen.Name = "txtParTipPulseLen";
+            this.txtParTipPulseLen.Size = new System.Drawing.Size(56, 13);
+            this.txtParTipPulseLen.TabIndex = 150;
+            this.txtParTipPulseLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtParTipPulseLen.TextChanged += new System.EventHandler(this.TxtParTipPulseLen_TextChanged);
+            this.txtParTipPulseLen.MouseEnter += new System.EventHandler(this.TxtParTipPulseLen_MouseEnter);
+            // 
+            // lblParTipPluseLen
+            // 
+            this.lblParTipPluseLen.AutoSize = true;
+            this.lblParTipPluseLen.Location = new System.Drawing.Point(3, 90);
+            this.lblParTipPluseLen.Name = "lblParTipPluseLen";
+            this.lblParTipPluseLen.Size = new System.Drawing.Size(99, 13);
+            this.lblParTipPluseLen.TabIndex = 140;
+            this.lblParTipPluseLen.Text = "ParTipePulseLen[s]";
             // 
             // grpGeneral
             // 
@@ -1296,7 +1378,7 @@ namespace GcproExtensionApp
             this.chkAddUserSectionToDesc.TabIndex = 130;
             this.chkAddUserSectionToDesc.Text = "自定义工段";
             this.chkAddUserSectionToDesc.UseVisualStyleBackColor = true;
-            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddUserSectionToDesc_CheckedChanged);
+            this.chkAddUserSectionToDesc.CheckedChanged += new System.EventHandler(this.ChkAddUserSectionToDesc_CheckedChanged);
             // 
             // chkNameOnlyNumber
             // 
@@ -1309,7 +1391,7 @@ namespace GcproExtensionApp
             this.chkNameOnlyNumber.TabIndex = 124;
             this.chkNameOnlyNumber.Text = "编号仅含数字";
             this.chkNameOnlyNumber.UseVisualStyleBackColor = true;
-            this.chkNameOnlyNumber.CheckedChanged += new System.EventHandler(this.chkNameOnlyNumber_CheckedChanged);
+            this.chkNameOnlyNumber.CheckedChanged += new System.EventHandler(this.ChkNameOnlyNumber_CheckedChanged);
             // 
             // chkAddFloorToDesc
             // 
@@ -1322,7 +1404,7 @@ namespace GcproExtensionApp
             this.chkAddFloorToDesc.TabIndex = 121;
             this.chkAddFloorToDesc.Text = "楼层";
             this.chkAddFloorToDesc.UseVisualStyleBackColor = true;
-            this.chkAddFloorToDesc.CheckedChanged += new System.EventHandler(this.chkAddFloorToDesc_CheckedChanged);
+            this.chkAddFloorToDesc.CheckedChanged += new System.EventHandler(this.ChkAddFloorToDesc_CheckedChanged);
             // 
             // chkAddSectionToDesc
             // 
@@ -1335,20 +1417,19 @@ namespace GcproExtensionApp
             this.chkAddSectionToDesc.TabIndex = 123;
             this.chkAddSectionToDesc.Text = "工段";
             this.chkAddSectionToDesc.UseVisualStyleBackColor = true;
-            this.chkAddSectionToDesc.CheckedChanged += new System.EventHandler(this.chkAddSectionToDesc_CheckedChanged);
+            this.chkAddSectionToDesc.CheckedChanged += new System.EventHandler(this.ChkAddSectionToDesc_CheckedChanged);
             // 
             // chkAddNameToDesc
             // 
             this.chkAddNameToDesc.AutoSize = true;
-            this.chkAddNameToDesc.Checked = true;
-            this.chkAddNameToDesc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAddNameToDesc.Enabled = false;
             this.chkAddNameToDesc.Location = new System.Drawing.Point(259, 17);
             this.chkAddNameToDesc.Name = "chkAddNameToDesc";
             this.chkAddNameToDesc.Size = new System.Drawing.Size(50, 17);
             this.chkAddNameToDesc.TabIndex = 119;
             this.chkAddNameToDesc.Text = "编号";
             this.chkAddNameToDesc.UseVisualStyleBackColor = true;
-            this.chkAddNameToDesc.CheckedChanged += new System.EventHandler(this.chkAddNameToDesc_CheckedChanged);
+            this.chkAddNameToDesc.CheckedChanged += new System.EventHandler(this.ChkAddNameToDesc_CheckedChanged);
             // 
             // chkAddCabinetToDesc
             // 
@@ -1361,7 +1442,7 @@ namespace GcproExtensionApp
             this.chkAddCabinetToDesc.TabIndex = 120;
             this.chkAddCabinetToDesc.Text = "电柜";
             this.chkAddCabinetToDesc.UseVisualStyleBackColor = true;
-            this.chkAddCabinetToDesc.CheckedChanged += new System.EventHandler(this.chkAddCabinetToDesc_CheckedChanged);
+            this.chkAddCabinetToDesc.CheckedChanged += new System.EventHandler(this.ChkAddCabinetToDesc_CheckedChanged);
             // 
             // lblSymbol
             // 
@@ -1479,7 +1560,7 @@ namespace GcproExtensionApp
             this.txtDescription.TabIndex = 3;
             this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescription_KeyDown);
-            this.txtDescription.MouseEnter += new System.EventHandler(this.txtDescription_MouseEnter);
+            this.txtDescription.MouseEnter += new System.EventHandler(this.TxtDescription_MouseEnter);
             // 
             // txtSymbol
             // 
@@ -1490,7 +1571,7 @@ namespace GcproExtensionApp
             this.txtSymbol.TabIndex = 2;
             this.txtSymbol.TextChanged += new System.EventHandler(this.txtSymbol_TextChanged);
             this.txtSymbol.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.txtSymbol_MouseDoubleClick);
-            this.txtSymbol.MouseEnter += new System.EventHandler(this.txtSymbol_MouseEnter);
+            this.txtSymbol.MouseEnter += new System.EventHandler(this.TxtSymbol_MouseEnter);
             // 
             // LblDescription
             // 
@@ -1558,7 +1639,6 @@ namespace GcproExtensionApp
             this.btnReadBML.Text = "   读取BML";
             this.btnReadBML.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnReadBML.UseVisualStyleBackColor = true;
-            this.btnReadBML.Click += new System.EventHandler(this.btnReadBML_Click);
             // 
             // dataGridBML
             // 
@@ -1573,7 +1653,6 @@ namespace GcproExtensionApp
             this.dataGridBML.Name = "dataGridBML";
             this.dataGridBML.Size = new System.Drawing.Size(701, 559);
             this.dataGridBML.TabIndex = 16;
-            this.dataGridBML.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridBML_RowsRemoved);
             // 
             // lblWorkSheet
             // 
@@ -1593,8 +1672,6 @@ namespace GcproExtensionApp
             this.comboWorkSheetsBML.Name = "comboWorkSheetsBML";
             this.comboWorkSheetsBML.Size = new System.Drawing.Size(313, 21);
             this.comboWorkSheetsBML.TabIndex = 15;
-            this.comboWorkSheetsBML.SelectedIndexChanged += new System.EventHandler(this.comboWorkSheetsBML_SelectedIndexChanged);
-            this.comboWorkSheetsBML.MouseDown += new System.Windows.Forms.MouseEventHandler(this.comboWorkSheetsBML_MouseDown);
             // 
             // grpBoxExcelColumn
             // 
@@ -1817,8 +1894,6 @@ namespace GcproExtensionApp
             this.TxtExcelPath.Name = "TxtExcelPath";
             this.TxtExcelPath.Size = new System.Drawing.Size(500, 13);
             this.TxtExcelPath.TabIndex = 18;
-            this.TxtExcelPath.TextChanged += new System.EventHandler(this.TxtExcelPath_TextChanged);
-            this.TxtExcelPath.DoubleClick += new System.EventHandler(this.TxtExcelPath_DoubleClick);
             // 
             // BtnOpenProjectDB
             // 
@@ -1834,7 +1909,6 @@ namespace GcproExtensionApp
             this.BtnOpenProjectDB.Text = "    浏 览";
             this.BtnOpenProjectDB.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnOpenProjectDB.UseVisualStyleBackColor = true;
-            this.BtnOpenProjectDB.Click += new System.EventHandler(this.BtnOpenProjectDB_Click);
             // 
             // LblGcproProjectPath
             // 
@@ -2122,16 +2196,16 @@ namespace GcproExtensionApp
             this.contextMenuStripBML.ResumeLayout(false);
             this.tabRule.ResumeLayout(false);
             this.tabRule.PerformLayout();
-            this.PalGcObject.ResumeLayout(false);
-            this.PalGcObject.PerformLayout();
-            this.GrpConfiguration.ResumeLayout(false);
-            this.GrpConfiguration.PerformLayout();
-            this.GrpStaticParameterDosing.ResumeLayout(false);
-            this.GrpStaticParameterDosing.PerformLayout();
-            this.GroupBox3.ResumeLayout(false);
-            this.GroupBox3.PerformLayout();
-            this.GroupBox2.ResumeLayout(false);
-            this.GroupBox2.PerformLayout();
+            this.palGcObject.ResumeLayout(false);
+            this.palGcObject.PerformLayout();
+            this.grpConfiguration.ResumeLayout(false);
+            this.grpConfiguration.PerformLayout();
+            this.grpStaticParameterDosing.ResumeLayout(false);
+            this.grpStaticParameterDosing.PerformLayout();
+            this.grpTolerence.ResumeLayout(false);
+            this.grpTolerence.PerformLayout();
+            this.grpDynmicParameters.ResumeLayout(false);
+            this.grpDynmicParameters.PerformLayout();
             this.grpGeneral.ResumeLayout(false);
             this.grpGeneral.PerformLayout();
             this.grpAddInfoToDesc.ResumeLayout(false);
@@ -2186,7 +2260,7 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.ComboBox ComboBuilding;
         internal System.Windows.Forms.Panel PalCommon;
         private System.Windows.Forms.TabPage tabRule;
-        internal System.Windows.Forms.Panel PalGcObject;
+        internal System.Windows.Forms.Panel palGcObject;
         internal System.Windows.Forms.Button BtnNewImpExpDef;
         private System.Windows.Forms.GroupBox grpBoxExcelColumn;
         private System.Windows.Forms.Label lblBMLSymbol;
@@ -2247,91 +2321,91 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Label LblDescription;
         internal System.Windows.Forms.CheckBox chkNameOnlyNumber;
         internal System.Windows.Forms.CheckBox chkAddUserSectionToDesc;
-        internal System.Windows.Forms.TextBox TxtDestinationRule;
-        internal System.Windows.Forms.Label LblDestinationRule;
-        internal System.Windows.Forms.TextBox TxtDestinationIncRule;
-        internal System.Windows.Forms.Label LblDestinationIncRule;
-        internal System.Windows.Forms.TextBox TxtConcheRule;
-        internal System.Windows.Forms.Label LblConcheRule;
-        internal System.Windows.Forms.Label LblParDischargerNo;
-        internal System.Windows.Forms.TextBox TxtConcheIncRule;
-        internal System.Windows.Forms.Label LblBin;
-        internal System.Windows.Forms.Label LblCocheIncRule;
-        internal System.Windows.Forms.TextBox TxtParDischargerNo;
-        internal System.Windows.Forms.TextBox TxtVertexRule;
-        internal System.Windows.Forms.Label LblVertex;
-        internal System.Windows.Forms.Label LblVertexRule;
-        internal System.Windows.Forms.Label LblConcheMeteringSystem;
-        internal System.Windows.Forms.TextBox TxtVertexIncRule;
-        internal System.Windows.Forms.Label LblDestination;
-        internal System.Windows.Forms.Label LblVertexIncRule;
-        internal System.Windows.Forms.TextBox TxtBin;
-        internal System.Windows.Forms.TextBox TxtBinRule;
-        internal System.Windows.Forms.TextBox TxtVertex;
-        internal System.Windows.Forms.Label LblBinRule;
-        internal System.Windows.Forms.TextBox TxtConcheMeteringSystem;
-        internal System.Windows.Forms.TextBox TxtBinIncRule;
-        internal System.Windows.Forms.TextBox TxtDestination;
-        internal System.Windows.Forms.Label LblBinIncRule;
-        internal System.Windows.Forms.GroupBox GrpConfiguration;
-        internal System.Windows.Forms.TextBox TxtParScaleNo;
-        internal System.Windows.Forms.Label LblParScaleNo;
-        internal System.Windows.Forms.Label LblParBinNo;
-        internal System.Windows.Forms.TextBox TxtParBinNo;
-        internal System.Windows.Forms.TextBox TxtParHeightDropMax;
-        internal System.Windows.Forms.Label LblParHeightDropMax;
-        internal System.Windows.Forms.Label LblHLOutlet3S1;
-        internal System.Windows.Forms.TextBox TxtParDownPipeWeight;
-        internal System.Windows.Forms.CheckBox ChkParManualAdd;
-        internal System.Windows.Forms.CheckBox ChkPar1Speed;
-        internal System.Windows.Forms.CheckBox ChkPar2Speed;
-        internal System.Windows.Forms.CheckBox ChkParFrequency;
-        internal System.Windows.Forms.CheckBox ChkParFlowmeter;
-        internal System.Windows.Forms.CheckBox ChkParScrew;
-        internal System.Windows.Forms.CheckBox ChkParWithIngrInfo;
-        internal System.Windows.Forms.CheckBox ChkParModeFineDosingWeight;
-        internal System.Windows.Forms.CheckBox ChkParWithDynmicTipPluse;
-        internal System.Windows.Forms.Label LblValue10;
+        internal System.Windows.Forms.TextBox txtDestinationRule;
+        internal System.Windows.Forms.Label lblDestinationRule;
+        internal System.Windows.Forms.TextBox txtDestinationIncRule;
+        internal System.Windows.Forms.Label lblDestinationIncRule;
+        internal System.Windows.Forms.TextBox txtConcheRule;
+        internal System.Windows.Forms.Label lblConcheRule;
+        internal System.Windows.Forms.Label lblParDischargerNo;
+        internal System.Windows.Forms.TextBox txtConcheIncRule;
+        internal System.Windows.Forms.Label lblBin;
+        internal System.Windows.Forms.Label lblCocheIncRule;
+        internal System.Windows.Forms.TextBox txtParDischargerNo;
+        internal System.Windows.Forms.TextBox txtVertexRule;
+        internal System.Windows.Forms.Label lblVertex;
+        internal System.Windows.Forms.Label lblVertexRule;
+        internal System.Windows.Forms.Label lblConcheMeteringSystem;
+        internal System.Windows.Forms.TextBox txtVertexIncRule;
+        internal System.Windows.Forms.Label lblDestination;
+        internal System.Windows.Forms.Label lblVertexIncRule;
+        internal System.Windows.Forms.TextBox txtBin;
+        internal System.Windows.Forms.TextBox txtBinRule;
+        internal System.Windows.Forms.TextBox txtVertex;
+        internal System.Windows.Forms.Label lblBinRule;
+        internal System.Windows.Forms.TextBox txtConcheMeteringSystem;
+        internal System.Windows.Forms.TextBox txtBinIncRule;
+        internal System.Windows.Forms.TextBox txtDestination;
+        internal System.Windows.Forms.Label lblBinIncRule;
+        internal System.Windows.Forms.GroupBox grpConfiguration;
+        internal System.Windows.Forms.TextBox txtParScaleNo;
+        internal System.Windows.Forms.Label lblParScaleNo;
+        internal System.Windows.Forms.Label lblParBinNo;
+        internal System.Windows.Forms.TextBox txtParBinNo;
+        internal System.Windows.Forms.TextBox txtParHeightDropMax;
+        internal System.Windows.Forms.Label lblParHeightDropMax;
+        internal System.Windows.Forms.Label lblHLOutlet3S1;
+        internal System.Windows.Forms.TextBox txtParDownPipeWeight;
+        internal System.Windows.Forms.CheckBox chkParManualAdd;
+        internal System.Windows.Forms.CheckBox chkPar1Speed;
+        internal System.Windows.Forms.CheckBox chkPar2Speed;
+        internal System.Windows.Forms.CheckBox chkParFrequency;
+        internal System.Windows.Forms.CheckBox chkParFlowmeter;
+        internal System.Windows.Forms.CheckBox chkParScrew;
+        internal System.Windows.Forms.CheckBox chkParWithIngrInfo;
+        internal System.Windows.Forms.CheckBox chkParModeFineDosingWeight;
+        internal System.Windows.Forms.CheckBox chkParWithDynmicTipPluse;
+        internal System.Windows.Forms.Label lblValue10;
         internal System.Windows.Forms.TextBox txtValue10;
-        internal System.Windows.Forms.GroupBox GrpStaticParameterDosing;
-        internal System.Windows.Forms.TextBox TxtParDosingTimeSlow;
-        internal System.Windows.Forms.Label LblParDosingTimeSlow;
-        internal System.Windows.Forms.TextBox TxtParLevelCompensationMax;
-        internal System.Windows.Forms.Label LblParLevelCompensationMax;
-        internal System.Windows.Forms.TextBox TxtParDosingSpeedFast;
-        internal System.Windows.Forms.Label LblParDosingSpeedFast;
-        internal System.Windows.Forms.Label LblParDosingSpeedSlow;
-        internal System.Windows.Forms.TextBox TxtParDosingSpeedSlow;
-        internal System.Windows.Forms.TextBox TxtParSwitchTimeFtoS;
-        internal System.Windows.Forms.Label LblParSwitchTimeFtoS;
-        internal System.Windows.Forms.Label LblParCutOffWeightCorrMax;
-        internal System.Windows.Forms.TextBox TxtParCutOffWeightCorrMax;
-        internal System.Windows.Forms.TextBox TxtParDosingTimeMax;
-        internal System.Windows.Forms.Label LblParDosingTimeMax;
-        internal System.Windows.Forms.GroupBox GroupBox3;
-        internal System.Windows.Forms.TextBox TxtParAutoPosRel;
-        internal System.Windows.Forms.Label LblParAutoPosRel;
-        internal System.Windows.Forms.TextBox TxtParTolNegRel;
-        internal System.Windows.Forms.Label LblParTolNegRel;
-        internal System.Windows.Forms.TextBox TxtParTolPosWeight;
-        internal System.Windows.Forms.Label LblParTolPosWeight;
-        internal System.Windows.Forms.Label LblParTolPosRel;
-        internal System.Windows.Forms.TextBox TxtParTolPosRel;
-        internal System.Windows.Forms.TextBox TxtParAutoPosWeight;
-        internal System.Windows.Forms.Label LblParAutoPosWeight;
-        internal System.Windows.Forms.Label LblParTolNegWeight;
-        internal System.Windows.Forms.TextBox TxtParTolNegWeight;
-        internal System.Windows.Forms.GroupBox GroupBox2;
-        internal System.Windows.Forms.TextBox TxtParFineDosingWeight;
-        internal System.Windows.Forms.Label LblParFineDosingWeight;
-        internal System.Windows.Forms.Label LblParCutoffWeight;
-        internal System.Windows.Forms.TextBox TxtParCutoffWeight;
-        internal System.Windows.Forms.TextBox TxtParFlowrateFast;
-        internal System.Windows.Forms.Label LblParFlowrateFast;
-        internal System.Windows.Forms.Label LblParFlowrateSlow;
-        internal System.Windows.Forms.TextBox TxtParFlowrateSlow;
-        internal System.Windows.Forms.TextBox TxtParTipPulseLen;
-        internal System.Windows.Forms.Label LblParTipPluseLen;
+        internal System.Windows.Forms.GroupBox grpStaticParameterDosing;
+        internal System.Windows.Forms.TextBox txtParDosingTimeSlow;
+        internal System.Windows.Forms.Label lblParDosingTimeSlow;
+        internal System.Windows.Forms.TextBox txtParLevelCompensationMax;
+        internal System.Windows.Forms.Label lblParLevelCompensationMax;
+        internal System.Windows.Forms.TextBox txtParDosingSpeedFast;
+        internal System.Windows.Forms.Label lblParDosingSpeedFast;
+        internal System.Windows.Forms.Label lblParDosingSpeedSlow;
+        internal System.Windows.Forms.TextBox txtParDosingSpeedSlow;
+        internal System.Windows.Forms.TextBox txtParSwitchTimeFtoS;
+        internal System.Windows.Forms.Label lblParSwitchTimeFtoS;
+        internal System.Windows.Forms.Label lblParCutOffWeightCorrMax;
+        internal System.Windows.Forms.TextBox txtParCutOffWeightCorrMax;
+        internal System.Windows.Forms.TextBox txtParDosingTimeMax;
+        internal System.Windows.Forms.Label lblParDosingTimeMax;
+        internal System.Windows.Forms.GroupBox grpTolerence;
+        internal System.Windows.Forms.TextBox txtParAutoPosRel;
+        internal System.Windows.Forms.Label lblParAutoPosRel;
+        internal System.Windows.Forms.TextBox txtParTolNegRel;
+        internal System.Windows.Forms.Label lblParTolNegRel;
+        internal System.Windows.Forms.TextBox txtParTolPosWeight;
+        internal System.Windows.Forms.Label lblParTolPosWeight;
+        internal System.Windows.Forms.Label lblParTolPosRel;
+        internal System.Windows.Forms.TextBox txtParTolPosRel;
+        internal System.Windows.Forms.TextBox txtParAutoPosWeight;
+        internal System.Windows.Forms.Label lblParAutoPosWeight;
+        internal System.Windows.Forms.Label lblParTolNegWeight;
+        internal System.Windows.Forms.TextBox txtParTolNegWeight;
+        internal System.Windows.Forms.GroupBox grpDynmicParameters;
+        internal System.Windows.Forms.TextBox txtParFineDosingWeight;
+        internal System.Windows.Forms.Label lblParFineDosingWeight;
+        internal System.Windows.Forms.Label lblParCutoffWeight;
+        internal System.Windows.Forms.TextBox txtParCutoffWeight;
+        internal System.Windows.Forms.TextBox txtParFlowrateFast;
+        internal System.Windows.Forms.Label lblParFlowrateFast;
+        internal System.Windows.Forms.Label lblParFlowrateSlow;
+        internal System.Windows.Forms.TextBox txtParFlowrateSlow;
+        internal System.Windows.Forms.TextBox txtParTipPulseLen;
+        internal System.Windows.Forms.Label lblParTipPluseLen;
     }
 }
 
