@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Common\Coorperatin2.ico</ApplicationIcon>
+    <ApplicationIcon>GcObjectConfiguration.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>GcproExtensionApp.Program</StartupObject>
@@ -261,6 +261,7 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="GcObjectConfiguration.ico" />
     <Content Include="Resources\dataBase.ico" />
     <None Include="Resources\RollerMill.ico" />
     <None Include="Resources\Value.JPG" />
@@ -712,6 +713,5 @@
     <None Include="Resources\Access1.png" />
     <None Include="Resources\Access.png" />
   </ItemGroup>
-
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

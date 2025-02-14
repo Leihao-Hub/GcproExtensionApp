@@ -2187,7 +2187,7 @@ namespace GcproExtensionApp
             this.Controls.Add(this.tabCreateMode);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormDischargerVertex";
-            this.Text = "EL_DischargerVertex";
+            this.Text = "DischargerVertex";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDischargerVertex_FormClosed);
             this.Load += new System.EventHandler(this.FormDischargerVertex_Load);
             this.statusStrip.ResumeLayout(false);

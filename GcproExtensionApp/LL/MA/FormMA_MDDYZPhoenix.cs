@@ -937,8 +937,8 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
+            TxtExcelPath.Text =BML.MA_MDDYZPhoenix.BMLPath;
             AddWorkSheets();
-            TxtExcelPath.Text =BML. MA_MDDYZPhoenix.BMLPath;
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = BML.ColumnName,
