@@ -17,6 +17,8 @@ Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionApp\obj\Debug\Gc
 Z:\D\Leihao\Data\Programming\C#\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.pdb
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\appsettings.json
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.exe.config
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.exe.manifest
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.application
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.exe
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtensionApp.pdb
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\bin\Debug\GcproExtension.dll
@@ -44,6 +46,8 @@ Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.Properties.Resources.resources
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.GenerateResource.cache
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.csproj.CoreCompileInputs.cache
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe.manifest
+Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.application
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExt.9C27A94B.Up2Date
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.exe
 Z:\D\Leihao\Data\Programming\Repos\GcproExtensionApp\GcproExtensionApp\obj\Debug\GcproExtensionApp.pdb
