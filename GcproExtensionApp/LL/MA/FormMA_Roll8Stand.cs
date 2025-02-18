@@ -1029,7 +1029,7 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.MA_Roll8Stand.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_ROLL8STAND}.Path", BML.MA_Roll8Stand.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_BML}.{AppGlobal.JS_ROLL8STAND}.Path", BML.MA_Roll8Stand.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {

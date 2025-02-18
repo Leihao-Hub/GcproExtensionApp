@@ -887,7 +887,7 @@ namespace GcproExtensionApp
         {
             excelFileHandle.FilePath = TxtExcelPath.Text;
             BML.MA_MDDYZPhoenix.BMLPath = excelFileHandle.FilePath;
-            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_MDDYZPHOENIX}.{AppGlobal.JS_PATH}", BML.MA_MDDYZPhoenix.BMLPath);
+            LibGlobalSource.JsonHelper.WriteKeyValue(AppGlobal.JSON_FILE_PATH, $"{AppGlobal.JS_BML}.{AppGlobal.JS_MDDYZPHOENIX}", BML.MA_MDDYZPhoenix.BMLPath);
         }
         private void comboWorkSheetsBML_MouseDown(object sender, MouseEventArgs e)
         {
