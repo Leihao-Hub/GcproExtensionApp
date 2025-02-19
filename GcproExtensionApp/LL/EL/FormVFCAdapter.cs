@@ -402,10 +402,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParPZDConsistent.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
             myVFCAdapter.Value10 = value10;
             txtValue10.Text = myVFCAdapter.Value10.ToString();
@@ -415,10 +415,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParProfinet.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myVFCAdapter.Value10 = value10;
             txtValue10.Text = myVFCAdapter.Value10.ToString();
@@ -428,10 +428,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithActivePower.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myVFCAdapter.Value10 = value10;
             txtValue10.Text = myVFCAdapter.Value10.ToString();
@@ -441,10 +441,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkWithMultiMotorCfg.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)16); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)16); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)16); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)16); }
 
             myVFCAdapter.Value10 = value10;
             txtValue10.Text = myVFCAdapter.Value10.ToString();
@@ -1123,7 +1123,6 @@ namespace GcproExtensionApp
             myVFCAdapter.LenPKW = AppGlobal.ParseValue<int>(txtParLenPKW.Text, out tempInt) ? tempInt : 0;
             txtIOByteIncRule.Text = GetIOByteLen(txtParLenPKW.Text, txtParLenPZD.Text);
         }
-      
                                    
         private void txtParPNO_T1_TextChanged(object sender, EventArgs e)
         {
@@ -1873,20 +1872,5 @@ namespace GcproExtensionApp
             }
         }
         #endregion <---Common used--->
-
-        ///<ParSpeedLimitMax></ParSpeedLimitMax>
-
-        ///<ParSpeedMaxDigits></ParSpeedMaxDigits>
-
-        ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-
-        ///<ParSpeedUnitsByZeroDigits></ParSpeedUnitsByZeroDigits>
-
-        ///<ParUnitsPerDigits</ParUnitsPerDigits>
-
-        ///<ParLenPKW</ParLenPKW>
-
-
     }
-
 }

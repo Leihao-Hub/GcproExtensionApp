@@ -279,52 +279,41 @@ namespace GcproExtensionApp
         {
             outValue = default;
             bool isValid = false;
-            if (typeof(T) == typeof(int) && int.TryParse(sourceString, out var intValue))
+
+            try
             {
-                outValue = (T)(object)intValue;
-                isValid = true;
+                switch (Type.GetTypeCode(typeof(T)))
+                {
+                    case TypeCode.Int32:
+                        outValue = (T)(object)int.Parse(sourceString);
+                        isValid = true;
+                        break;
+
+                    case TypeCode.Int64:
+                        outValue = (T)(object)long.Parse(sourceString);
+                        isValid = true;
+                        break;
+
+                    case TypeCode.Double:
+                        outValue = (T)(object)double.Parse(sourceString);
+                        isValid = true;
+                        break;
+
+                    case TypeCode.Single:
+                        outValue = (T)(object)float.Parse(sourceString);
+                        isValid = true;
+                        break;
+                    default:
+                        isValid = false;
+                        break;
+                }
             }
-            else if (typeof(T) == typeof(long) && long.TryParse(sourceString, out var longValue))
+            catch
             {
-                outValue = (T)(object)longValue;
-                isValid = true;
+                isValid = false;
             }
-            else if (typeof(T) == typeof(double) && double.TryParse(sourceString, out var doubleValue))
-            {
-                outValue = (T)(object)doubleValue;
-                isValid = true;
-            }
-            else if (typeof(T) == typeof(float) && float.TryParse(sourceString, out var floatValue))
-            {
-                outValue = (T)(object)floatValue;
-                isValid = true;
-            }
+
             return isValid;
-        }
-        public static bool ParseInt(string sourceString, out int outValue)
-        {
-           ;
-            bool isInt = int.TryParse(sourceString, out int tempInt);
-            outValue = tempInt;
-            return isInt;
-        }
-        public static bool ParseLong(string sourceString, out long outValue)
-        {
-            bool isLong = long.TryParse(sourceString, out long tempLong);
-            outValue = tempLong;
-            return isLong;
-        }
-        public static bool ParseFloat(string sourceString, out float outValue)
-        {
-            bool isFloat = float.TryParse(sourceString, out float tempFloat);
-            outValue = tempFloat;
-            return isFloat;
-        }
-        public static bool ParseDouble(string sourceString, out double outValue)
-        {
-            bool isDouble = double.TryParse(sourceString, out double tempDouble);
-            outValue = tempDouble;
-            return isDouble;
         }
         /// <summary>
         /// 获取枚举类型成员个数
@@ -371,73 +360,118 @@ namespace GcproExtensionApp
 
         #region Operate bit 
         /// <summary>
-        /// 返回一个整形数上指定位的值
+        /// 返回一个数值上指定位的值
         /// </summary>
         /// <param name="number"></param>
         /// <param name="n"></param>
         /// <returns>如果指定位"n"是1，则返回"true"否则返回"false"</returns>
-        public static bool GetBitValue(int number, byte n)
-        {           
-            return ((number >> n) & 1) == 1;
+        public static bool GetBit<T>(T number, byte n) where T : struct
+        {
+            dynamic num = number;
+            return ((num >> n) & 1) == 1;
         }
         /// <summary>
-        /// 返回一个长整形数上指定位的值
+        /// 泛型方法对值类型数据中的位进行置位操作，支持byte,short，int，long。
         /// </summary>
-        /// <param name="number"></param>
-        /// <param name="n"></param>
-        /// <returns>如果指定位"n"是1，则返回"true"否则返回"false"</returns>
-        public static bool GetBitValue(long number, byte n)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="numericalValue"></param>
+        /// <param name="position"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void SetBit<T>(ref T numericalValue, byte position) where T : struct, IConvertible
         {
-            return ((number >> n) & 1) == 1;
-        }
-        public static void SetBit(ref long sourceValue, byte position)
-        {
-            long mask = 1L << position;
-            sourceValue |= mask;
+            switch (Type.GetTypeCode(typeof(T)))
+            {
+                case TypeCode.Byte:
+                    {
+                        byte byteSourceValue = Convert.ToByte(numericalValue);
+                        byte mask = (byte)(1 << position);
+                        byteSourceValue |= mask;
+                        numericalValue = (T)Convert.ChangeType(byteSourceValue, typeof(T));
+                        break;
+                    }
 
-        }
-        public static void SetBit(ref int sourceValue, byte position)
-        {
-            int mask = 1 << position;
-            sourceValue |= mask;
-        }
-        public static void SetBit(ref byte sourceValue, byte position)
-        {
-            byte mask = (byte)(1 << position);
-            sourceValue = (byte)(sourceValue | mask);
+                case TypeCode.Int16:
+                    {
+                        short shortSourceValue = Convert.ToInt16(numericalValue);
+                        short mask = (short)(1 << position);
+                        shortSourceValue |= mask;
+                        numericalValue = (T)Convert.ChangeType(shortSourceValue, typeof(T));
+                        break;
+                    }
 
-        }
+                case TypeCode.Int32:
+                    {
+                        int intSourceValue = Convert.ToInt32(numericalValue);
+                        int mask = 1 << position;
+                        intSourceValue |= mask;
+                        numericalValue = (T)Convert.ChangeType(intSourceValue, typeof(T));
+                        break;
+                    }
 
-        public static void SetBit(ref ushort sourceValue, byte position)
+                case TypeCode.Int64:
+                    {
+                        long longSourceValue = Convert.ToInt64(numericalValue);
+                        long mask = 1L << position;
+                        longSourceValue |= mask;
+                        numericalValue = (T)Convert.ChangeType(longSourceValue, typeof(T));
+                        break;
+                    }
+
+                default:
+                    throw new ArgumentException($"Unsupported type: {typeof(T)}");
+            }
+        }
+        /// <summary>
+        /// 泛型方法对值类型数据中的位进行复位操作，支持byte,short，int，long。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="numericalValue"></param>
+        /// <param name="position"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void ResetBit<T>(ref T numericalValue, byte position) where T : struct, IConvertible
         {
-            ushort mask = (ushort)(1 << position);
-            sourceValue = (ushort)(sourceValue | mask);
+            switch (Type.GetTypeCode(typeof(T)))
+            {
+                case TypeCode.Byte:
+                    {
+                        byte byteSourceValue = Convert.ToByte(numericalValue);
+                        byte mask = (byte)~(1 << position);
+                        byteSourceValue &= mask;
+                        numericalValue = (T)Convert.ChangeType(byteSourceValue, typeof(T));
+                        break;
+                    }
 
-        }
-        public static void ClearBit(ref long sourceValue, byte position)
-        {
-            long mask = ~(1L << position);
-            sourceValue &= mask;
+                case TypeCode.Int16:
+                    {
+                        short shortSourceValue = Convert.ToInt16(numericalValue);
+                        short mask = (short)~(1 << position);
+                        shortSourceValue &= mask;
+                        numericalValue = (T)Convert.ChangeType(shortSourceValue, typeof(T));
+                        break;
+                    }
 
-        }
-        public static void ClearBit(ref int sourceValue, byte position)
-        {
-            int mask = ~(1 << position);
-            sourceValue  &= mask;
+                case TypeCode.Int32:
+                    {
+                        int intSourceValue = Convert.ToInt32(numericalValue);
+                        int mask = ~(1 << position);
+                        intSourceValue &= mask;
+                        numericalValue = (T)Convert.ChangeType(intSourceValue, typeof(T));
+                        break;
+                    }
 
-        }
-        public static void ClearBit(ref byte sourceValue, byte position)
-        {
-            byte mask = (byte)~(1 << position);
-            sourceValue = (byte)(sourceValue & mask);
+                case TypeCode.Int64:
+                    {
+                        long longSourceValue = Convert.ToInt64(numericalValue);
+                        long mask = ~(1L << position);
+                        longSourceValue &= mask;
+                        numericalValue = (T)Convert.ChangeType(longSourceValue, typeof(T));
+                        break;
+                    }
 
-        }
-        public static void ClearBit(ref ushort sourceValue, byte position)
-        {
-            ushort mask = (ushort)~(1 << position);
-            sourceValue = (ushort)(sourceValue & mask);
-
-        }
+                default:
+                    throw new ArgumentException($"Unsupported type: {typeof(T)}");
+            }
+        } 
         #endregion Operate bit 
     }
     public class CreateMode

@@ -542,10 +542,10 @@ namespace GcproExtensionApp
             value24 = int.Parse(txtValue24.Text);
             if (chkLLisBelowBin.Checked)
 
-            { AppGlobal.SetBit(ref value24, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value24, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value24, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value24, (byte)0); }
 
             myBin.Value24 = value24;
             txtValue24.Text = myBin.Value24.ToString();
@@ -555,10 +555,10 @@ namespace GcproExtensionApp
             value24 = int.Parse(txtValue24.Text);
             if (chkRestdischarge.Checked)
 
-            { AppGlobal.SetBit(ref value24, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value24, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value24, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value24, (byte)1); }
 
             myBin.Value24 = value24;
             txtValue24.Text = myBin.Value24.ToString();
@@ -568,10 +568,10 @@ namespace GcproExtensionApp
             value24 = int.Parse(txtValue24.Text);
             if (chkWithLL.Checked)
 
-            { AppGlobal.SetBit(ref value24, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value24, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value24, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value24, (byte)2); }
 
             myBin.Value24 = value24;
             txtValue24.Text = myBin.Value24.ToString();
@@ -581,10 +581,10 @@ namespace GcproExtensionApp
             value24 = int.Parse(txtValue24.Text);
             if (chKWithSWLL.Checked)
 
-            { AppGlobal.SetBit(ref value24, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value24, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value24, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value24, (byte)4); }
 
             myBin.Value24 = value24;
             txtValue24.Text = myBin.Value24.ToString();
@@ -594,10 +594,10 @@ namespace GcproExtensionApp
             value24 = int.Parse(txtValue24.Text);
             if (chkNoOverrideLLIfEmpty.Checked)
 
-            { AppGlobal.SetBit(ref value24, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value24, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value24, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value24, (byte)3); }
 
             myBin.Value24 = value24;
             txtValue24.Text = myBin.Value24.ToString();
@@ -607,10 +607,10 @@ namespace GcproExtensionApp
             value31 = int.Parse(txtValue31.Text);
             if (chkReadHighLevel.Checked)
 
-            { AppGlobal.SetBit(ref value31, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)0); }
 
             myBin.Value31 = value31;
             txtValue31.Text = myBin.Value31.ToString();
@@ -620,10 +620,10 @@ namespace GcproExtensionApp
             value31 = int.Parse(txtValue31.Text);
             if (chkReadRefillLevel.Checked)
 
-            { AppGlobal.SetBit(ref value31, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)1); }
 
             myBin.Value31 = value31;
             txtValue31.Text = myBin.Value31.ToString();
@@ -633,10 +633,10 @@ namespace GcproExtensionApp
             value31 = int.Parse(txtValue31.Text);
             if (chkReadLowLevel.Checked)
 
-            { AppGlobal.SetBit(ref value31, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)2); }
 
             myBin.Value31 = value31;
             txtValue31.Text = myBin.Value31.ToString();
@@ -646,10 +646,10 @@ namespace GcproExtensionApp
             value31 = int.Parse(txtValue31.Text);
             if (chkReadInFillLevel.Checked)
 
-            { AppGlobal.SetBit(ref value31, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)3); }
 
             myBin.Value31 = value31;
             txtValue31.Text = myBin.Value31.ToString();
@@ -659,10 +659,10 @@ namespace GcproExtensionApp
             value31 = int.Parse(txtValue31.Text);
             if (chkReadInOutEmpty.Checked)
 
-            { AppGlobal.SetBit(ref value31, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)4); }
 
             myBin.Value31 = value31;
             txtValue31.Text = myBin.Value31.ToString();
@@ -672,10 +672,10 @@ namespace GcproExtensionApp
             value30 = int.Parse(txtValue30.Text);
             if (chkTestRefillLevel.Checked)
 
-            { AppGlobal.SetBit(ref value30, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)0); }
 
             myBin.Value30 = value30;
             txtValue30.Text = myBin.Value30.ToString();
@@ -685,10 +685,10 @@ namespace GcproExtensionApp
             value30 = int.Parse(txtValue30.Text);
             if (chkEmptyLevel.Checked)
 
-            { AppGlobal.SetBit(ref value30, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)1); }
 
             myBin.Value30 = value30;
             txtValue30.Text = myBin.Value30.ToString();
@@ -815,24 +815,24 @@ namespace GcproExtensionApp
         }
         void GetValue24BitValue(int value)
         {
-            chkLLisBelowBin.Checked = AppGlobal.GetBitValue(value, 0);
-            chkRestdischarge.Checked = AppGlobal.GetBitValue(value, 1);
-            chkWithLL.Checked = AppGlobal.GetBitValue(value, 2);
-            chKWithSWLL.Checked = AppGlobal.GetBitValue(value, 4);
-            chkNoOverrideLLIfEmpty.Checked = AppGlobal.GetBitValue(value, 3);
+            chkLLisBelowBin.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkRestdischarge.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkWithLL.Checked = AppGlobal. GetBit<int>(value, 2);
+            chKWithSWLL.Checked = AppGlobal. GetBit<int>(value, 4);
+            chkNoOverrideLLIfEmpty.Checked = AppGlobal. GetBit<int>(value, 3);
         }
         void GetValue30BitValue(int value)
         {
-            chkTestRefillLevel.Checked = AppGlobal.GetBitValue(value, 0);
-            chkEmptyLevel.Checked = AppGlobal.GetBitValue(value, 0);
+            chkTestRefillLevel.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkEmptyLevel.Checked = AppGlobal. GetBit<int>(value, 0);
         }
         void GetValue31BitValue(int value)
         {
-            chkReadHighLevel.Checked = AppGlobal.GetBitValue(value, 0);
-            chkReadInFillLevel.Checked = AppGlobal.GetBitValue(value, 1);
-            chkReadLowLevel.Checked = AppGlobal.GetBitValue(value, 2);
-            chkReadInFillLevel.Checked = AppGlobal.GetBitValue(value, 3);
-            chkReadInOutEmpty.Checked = AppGlobal.GetBitValue(value, 4);
+            chkReadHighLevel.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkReadInFillLevel.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkReadLowLevel.Checked = AppGlobal. GetBit<int>(value, 2);
+            chkReadInFillLevel.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkReadInOutEmpty.Checked = AppGlobal. GetBit<int>(value, 4);
         }
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {

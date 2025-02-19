@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 
@@ -23,7 +24,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             ///</summary> 
             string baseObject = base.CreateObjectStandardPart();
             objFields.Append(baseObject).Append(LibGlobalSource.TAB)
-              .Append(PType).Append(LibGlobalSource.TAB)
+              .Append(Math.Round(PType,1)).Append(LibGlobalSource.TAB)
               .Append(HornCode).Append(LibGlobalSource.TAB)
               .Append(DPNode1).Append(LibGlobalSource.TAB)
               .Append(Value10);

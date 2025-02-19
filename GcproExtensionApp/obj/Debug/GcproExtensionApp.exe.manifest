@@ -50,19 +50,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>h6RH0oX6BmewuwDajEZFG5sO7aW2Lpi6mcpcSzqS+L4=</dsig:DigestValue>
+        <dsig:DigestValue>bVP2IaV+cCMpcexi3pZaKhCK/UusHH/RAD0W39Forpg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GcproExtensionApp.exe" size="75589616">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GcproExtensionApp.exe" size="75527664">
       <assemblyIdentity name="GcproExtensionApp" version="1.2.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AJWiZTQft1/QlOSlZm6zRpgqEDl74RiS5Su+wHRs+CM=</dsig:DigestValue>
+        <dsig:DigestValue>3Ja5WrAqmFT27NT7BNmw0H8kZMrQ1Ji3VOQ5l8ks46A=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

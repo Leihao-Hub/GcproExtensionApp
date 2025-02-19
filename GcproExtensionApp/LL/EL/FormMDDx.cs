@@ -449,9 +449,9 @@ namespace GcproExtensionApp
             AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParLogOff.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
             myMDDx.Value10 = value10;
             txtValue10.Text = myMDDx.Value10.ToString();
         }
@@ -461,9 +461,9 @@ namespace GcproExtensionApp
             AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParSide1Divided.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
             myMDDx.Value10 = value10;
             txtValue10.Text = myMDDx.Value10.ToString();
         }
@@ -473,9 +473,9 @@ namespace GcproExtensionApp
             AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParSide2Divided.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
             myMDDx.Value10 = value10;
             txtValue10.Text = myMDDx.Value10.ToString();
         }
@@ -485,9 +485,9 @@ namespace GcproExtensionApp
             AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithBearTemp.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
             myMDDx.Value10 = value10;
             txtValue10.Text = myMDDx.Value10.ToString();
         }
@@ -497,9 +497,9 @@ namespace GcproExtensionApp
             AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithFeedRollRecipe.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
             myMDDx.Value10 = value10;
             txtValue10.Text = myMDDx.Value10.ToString();
         }
@@ -509,9 +509,9 @@ namespace GcproExtensionApp
             AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithRollerTemp.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
             myMDDx.Value10 = value10;
             txtValue10.Text = myMDDx.Value10.ToString();
         }
@@ -521,9 +521,9 @@ namespace GcproExtensionApp
             AppGlobal.ParseValue<int>(txtValue10.Text, out value10);
             if (chkParWithRollerGapRecipe.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
             myMDDx.Value10 = value10;
             txtValue10.Text = myMDDx.Value10.ToString();
         }
@@ -534,9 +534,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx07Range.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)7); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)7); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)7); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)7); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -546,9 +546,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA018Battery.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)5); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)5); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)5); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)5); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -558,9 +558,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA024Empty.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)18); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)18); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)18); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)18); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -570,9 +570,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx30Zero.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)6); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)6); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)6); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)6); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -582,9 +582,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx32Rod.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)8); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)8); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)8); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)8); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -594,9 +594,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx50FRoll1.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)9); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)9); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)9); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)9); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -606,9 +606,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningAx51FRoll2.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)10); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)10); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)10); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)10); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -618,9 +618,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA052RollUp.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)11); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)11); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)11); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)11); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -630,9 +630,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA053RollLow.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)12); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)12); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)12); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)12); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -642,9 +642,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA054MotUp.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)13); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)13); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)13); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)13); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -654,9 +654,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA055MotLow.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)14); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)14); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)14); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)14); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -666,9 +666,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA056STBYUP.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)15); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)15); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)15); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)15); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -678,9 +678,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue26.Text, out value26);
             if (chkWarningA057STBYDN.Checked)
 
-            { AppGlobal.SetBit(ref value26, (byte)16); }
+            { AppGlobal.SetBit<long>(ref value26, (byte)16); }
             else
-            { AppGlobal.ClearBit(ref value26, (byte)16); }
+            { AppGlobal.ResetBit<long>(ref value26, (byte)16); }
             myMDDx.Value26 = value26;
             txtValue26.Text = myMDDx.Value26.ToString();
         }
@@ -690,9 +690,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningAx60HLInlet.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)1); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)1); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)1); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)1); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -702,9 +702,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA061HLOut1.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)2); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)2); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)2); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)2); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -714,9 +714,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA062HLOut2.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)3); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)3); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)3); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)3); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -726,9 +726,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA063HLOut3.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)4); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)4); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)4); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)4); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -738,9 +738,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA064HLBackupLeft.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)5); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)5); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)5); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)5); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -750,9 +750,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningW065HLBackupLeft.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)6); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)6); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)6); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)6); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -762,9 +762,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA066HLBackupRight.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)7); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)7); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)7); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)7); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -774,9 +774,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningW067HLBackupRight.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)8); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)8); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)8); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)8); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -786,9 +786,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningAx68InletFull.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)9); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)9); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)9); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)9); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -798,9 +798,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningAx69DosMax.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)10); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)10); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)10); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)10); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -809,9 +809,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningW075WarnTemp.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)14); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)14); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)14); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)14); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -820,9 +820,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA110Gap.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)18); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)18); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)18); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)18); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -831,9 +831,9 @@ namespace GcproExtensionApp
            AppGlobal.ParseValue<long>(txtValue28.Text, out value28);
             if (chkWarningA111GapSet.Checked)
 
-            { AppGlobal.SetBit(ref value28, (byte)19); }
+            { AppGlobal.SetBit<long>(ref value28, (byte)19); }
             else
-            { AppGlobal.ClearBit(ref value28, (byte)19); }
+            { AppGlobal.ResetBit<long>(ref value28, (byte)19); }
             myMDDx.Value28 = value28;
             txtValue28.Text = myMDDx.Value28.ToString();
         }
@@ -881,13 +881,13 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParLogOff.Checked = AppGlobal.GetBitValue(value, 0);
-            chkParSide1Divided.Checked = AppGlobal.GetBitValue(value, 1);
-            chkParSide2Divided.Checked = AppGlobal.GetBitValue(value, 2);
-            chkParWithBearTemp.Checked = AppGlobal.GetBitValue(value, 3);
-            chkParWithFeedRollRecipe.Checked = AppGlobal.GetBitValue(value, 4);
-            chkParWithRollerTemp.Checked = AppGlobal.GetBitValue(value, 5);
-            chkParWithRollerGapRecipe.Checked = AppGlobal.GetBitValue(value, 6);
+            chkParLogOff.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkParSide1Divided.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkParSide2Divided.Checked = AppGlobal. GetBit<int>(value, 2);
+            chkParWithBearTemp.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkParWithFeedRollRecipe.Checked = AppGlobal. GetBit<int>(value, 4);
+            chkParWithRollerTemp.Checked = AppGlobal. GetBit<int>(value, 5);
+            chkParWithRollerGapRecipe.Checked = AppGlobal. GetBit<int>(value, 6);
         }
         //void GetValue25BitValue(long value)
         //{

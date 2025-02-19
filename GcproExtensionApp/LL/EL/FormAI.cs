@@ -495,10 +495,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkInterlocking.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)0); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -509,10 +509,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotLowLow.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)1); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -523,10 +523,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotLow.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)2); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -537,10 +537,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotMiddle.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)3); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -551,10 +551,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotHigh.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)4); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -565,10 +565,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonNotHighHigh.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)5); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -579,10 +579,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkInDisable.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)6); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -593,10 +593,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkWinCC.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)7); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -606,10 +606,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkOutValueUnits.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)16); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)16); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)16); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)16); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -620,10 +620,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkOutValueRel.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)17); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)17); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)17); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)17); }
 
             myAI.Value9 = value9;
             txtValue9.Text = myAI.Value9.ToString();
@@ -633,10 +633,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParLogOff.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value9.ToString();
@@ -647,10 +647,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParLimitsRel.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -661,10 +661,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParNoHornByWarning.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -674,10 +674,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningLowLow.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -688,10 +688,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningLow.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)7); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -702,10 +702,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningMiddle.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)8); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -716,10 +716,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningHigh.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)9); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)9); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)9); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)9); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -730,10 +730,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWarningHighHigh.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)10); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)10); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)10); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)10); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -744,10 +744,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmLowLow.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)11); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)11); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)11); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)11); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -758,10 +758,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmLow.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)12); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)12); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)12); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)12); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -772,10 +772,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmMiddle.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)13); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)13); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)13); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)13); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -786,10 +786,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmHigh.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)14); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)14); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)14); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)14); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -800,10 +800,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParPreAlarmHighHigh.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)15); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)15); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)15); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)15); }
 
             myAI.Value10 = value10;
             txtValue10.Text = myAI.Value10.ToString();
@@ -1107,32 +1107,32 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParLogOff.Checked = AppGlobal.GetBitValue(value, 0);
-            chkParLimitsRel.Checked = AppGlobal.GetBitValue(value, 3);
-            chkParNoHornByWarning.Checked = AppGlobal.GetBitValue(value, 5);
-            chkParWarningLowLow.Checked = AppGlobal.GetBitValue(value, 6);
-            chkParWarningLow.Checked = AppGlobal.GetBitValue(value, 7);
-            chkParWarningMiddle.Checked = AppGlobal.GetBitValue(value, 8);
-            chkParWarningHigh.Checked = AppGlobal.GetBitValue(value, 9);
-            chkParWarningHighHigh.Checked = AppGlobal.GetBitValue(value, 10);
-            chkParPreAlarmLowLow.Checked = AppGlobal.GetBitValue(value, 11);
-            chkParPreAlarmLow.Checked = AppGlobal.GetBitValue(value, 12);
-            chkParPreAlarmMiddle.Checked = AppGlobal.GetBitValue(value, 13);
-            chkParPreAlarmHigh.Checked = AppGlobal.GetBitValue(value, 14);
-            chkParPreAlarmHighHigh.Checked = AppGlobal.GetBitValue(value, 15);
+            chkParLogOff.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkParLimitsRel.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkParNoHornByWarning.Checked = AppGlobal. GetBit<int>(value, 5);
+            chkParWarningLowLow.Checked = AppGlobal. GetBit<int>(value, 6);
+            chkParWarningLow.Checked = AppGlobal. GetBit<int>(value, 7);
+            chkParWarningMiddle.Checked = AppGlobal. GetBit<int>(value, 8);
+            chkParWarningHigh.Checked = AppGlobal. GetBit<int>(value, 9);
+            chkParWarningHighHigh.Checked = AppGlobal. GetBit<int>(value, 10);
+            chkParPreAlarmLowLow.Checked = AppGlobal. GetBit<int>(value, 11);
+            chkParPreAlarmLow.Checked = AppGlobal. GetBit<int>(value, 12);
+            chkParPreAlarmMiddle.Checked = AppGlobal. GetBit<int>(value, 13);
+            chkParPreAlarmHigh.Checked = AppGlobal. GetBit<int>(value, 14);
+            chkParPreAlarmHighHigh.Checked = AppGlobal. GetBit<int>(value, 15);
         }
         void GetValue9BitValue(int value)
         {
-            chkInterlocking.Checked = AppGlobal.GetBitValue(value, 0);
-            chkMonNotLowLow.Checked = AppGlobal.GetBitValue(value, 1);
-            chkMonNotLow.Checked = AppGlobal.GetBitValue(value, 2);
-            chkMonNotMiddle.Checked = AppGlobal.GetBitValue(value, 3);
-            chkMonNotHigh.Checked = AppGlobal.GetBitValue(value, 4);
-            chkMonNotHighHigh.Checked = AppGlobal.GetBitValue(value, 5);
-            chkInDisable.Checked = AppGlobal.GetBitValue(value, 6);
-            chkWinCC.Checked = AppGlobal.GetBitValue(value, 7);
-            chkOutValueUnits.Checked = AppGlobal.GetBitValue(value, 16);
-            chkOutValueRel.Checked = AppGlobal.GetBitValue(value, 17);
+            chkInterlocking.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkMonNotLowLow.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkMonNotLow.Checked = AppGlobal. GetBit<int>(value, 2);
+            chkMonNotMiddle.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkMonNotHigh.Checked = AppGlobal. GetBit<int>(value, 4);
+            chkMonNotHighHigh.Checked = AppGlobal. GetBit<int>(value, 5);
+            chkInDisable.Checked = AppGlobal. GetBit<int>(value, 6);
+            chkWinCC.Checked = AppGlobal. GetBit<int>(value, 7);
+            chkOutValueUnits.Checked = AppGlobal. GetBit<int>(value, 16);
+            chkOutValueRel.Checked = AppGlobal. GetBit<int>(value, 17);
         }
         private void BtnCreateTempAndPre_Click(object sender, EventArgs e)
         {

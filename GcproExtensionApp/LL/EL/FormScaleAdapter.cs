@@ -449,10 +449,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParLogOff.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
             myScaleAdapter.Value10 = value10;
             txtValue10.Text = myScaleAdapter.Value10.ToString();
@@ -462,10 +462,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParManual.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myScaleAdapter.Value10 = value10;
             txtValue10.Text = myScaleAdapter.Value10.ToString();
@@ -475,10 +475,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParStartwarning.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myScaleAdapter.Value10 = value10;
             txtValue10.Text = myScaleAdapter.Value10.ToString();
@@ -488,10 +488,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParDump.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myScaleAdapter.Value10 = value10;
             txtValue10.Text = myScaleAdapter.Value10.ToString();
@@ -501,10 +501,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParBlend.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)7); }
 
             myScaleAdapter.Value10 = value10;
             txtValue10.Text = myScaleAdapter.Value10.ToString();
@@ -514,10 +514,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParFlowrateCauculateion.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)8); }
 
             myScaleAdapter.Value10 = value10;
             txtValue10.Text = myScaleAdapter.Value10.ToString();
@@ -527,10 +527,10 @@ namespace GcproExtensionApp
         {
             value60 = int.Parse(txtValue60.Text);
             if (chkParSendFlowrate.Checked)
-            { AppGlobal.SetBit(ref value60, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value60, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value60, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value60, (byte)0); }
 
             myScaleAdapter.Value60 = value60;
             txtValue60.Text = myScaleAdapter.Value60.ToString();
@@ -540,10 +540,10 @@ namespace GcproExtensionApp
         {
             value60 = int.Parse(txtValue60.Text);
             if (chkParSendJobWeight.Checked)
-            { AppGlobal.SetBit(ref value60, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value60, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value60, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value60, (byte)1); }
 
             myScaleAdapter.Value60 = value60;
             txtValue60.Text = myScaleAdapter.Value60.ToString();
@@ -553,10 +553,10 @@ namespace GcproExtensionApp
         {
             value60 = int.Parse(txtValue60.Text);
             if (chkParSendCutoffWeight.Checked)
-            { AppGlobal.SetBit(ref value60, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value60, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value60, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value60, (byte)2); }
 
             myScaleAdapter.Value60 = value60;
             txtValue60.Text = myScaleAdapter.Value60.ToString();
@@ -566,10 +566,10 @@ namespace GcproExtensionApp
         {
             value60 = int.Parse(txtValue60.Text);
             if (chkParVerifiable.Checked)
-            { AppGlobal.SetBit(ref value60, (byte)10); }
+            { AppGlobal.SetBit<int>(ref value60, (byte)10); }
 
             else
-            { AppGlobal.ClearBit(ref value60, (byte)10); }
+            { AppGlobal.ResetBit<int>(ref value60, (byte)10); }
 
             myScaleAdapter.Value60 = value60;
             txtValue60.Text = myScaleAdapter.Value60.ToString();
@@ -579,10 +579,10 @@ namespace GcproExtensionApp
         {
             value60 = int.Parse(txtValue60.Text);
             if (chkParVolumetricDosing.Checked)
-            { AppGlobal.SetBit(ref value60, (byte)11); }
+            { AppGlobal.SetBit<int>(ref value60, (byte)11); }
 
             else
-            { AppGlobal.ClearBit(ref value60, (byte)11); }
+            { AppGlobal.ResetBit<int>(ref value60, (byte)11); }
 
             myScaleAdapter.Value60 = value60;
             txtValue60.Text = myScaleAdapter.Value60.ToString();
@@ -592,10 +592,10 @@ namespace GcproExtensionApp
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkWithRestDischarge.Checked)
-            { AppGlobal.SetBit(ref value9, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)0); }
 
             myScaleAdapter.Value9 = value9;
             txtValue9.Text = myScaleAdapter.Value9.ToString();
@@ -605,10 +605,10 @@ namespace GcproExtensionApp
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkOutFlowrate.Checked)
-            { AppGlobal.SetBit(ref value9, (byte)16); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)16); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)16); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)16); }
 
             myScaleAdapter.Value9 = value9;
             txtValue9.Text = myScaleAdapter.Value9.ToString();
@@ -618,10 +618,10 @@ namespace GcproExtensionApp
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkOutJobweight.Checked)
-            { AppGlobal.SetBit(ref value9, (byte)17); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)17); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)17); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)17); }
 
             myScaleAdapter.Value9 = value9;
             txtValue9.Text = myScaleAdapter.Value9.ToString();

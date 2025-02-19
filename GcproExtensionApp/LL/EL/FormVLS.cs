@@ -576,9 +576,9 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParLogOff.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
             myVLS.Value10 = value10;
             txtValue10.Text = myVLS.Value10.ToString();
@@ -587,9 +587,9 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParManual.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myVLS.Value10 = value10;
             txtValue10.Text = myVLS.Value10.ToString();
@@ -598,9 +598,9 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkPulseValve.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myVLS.Value10 = value10;
             txtValue10.Text = myVLS.Value10.ToString();
@@ -609,9 +609,9 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkContValve.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             myVLS.Value10 = value10;
             txtValue10.Text = myVLS.Value10.ToString();
@@ -621,9 +621,9 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkManualFlap.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
 
             myVLS.Value10 = value10;
             txtValue10.Text = myVLS.Value10.ToString();
@@ -633,9 +633,9 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkStartwarningLN.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
 
             myVLS.Value10 = value10;
             txtValue10.Text = myVLS.Value10.ToString();
@@ -645,9 +645,9 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkStartwarningHN.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myVLS.Value10 = value10;
             txtValue10.Text = myVLS.Value10.ToString();

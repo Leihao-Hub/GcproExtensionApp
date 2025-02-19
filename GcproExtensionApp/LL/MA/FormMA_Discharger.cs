@@ -547,10 +547,10 @@ namespace GcproExtensionApp
         {
             if (chkParContinuous.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
 
             myDischarger.Value10 = value10;
             txtValue10.Text = myDischarger.Value10.ToString();
@@ -560,10 +560,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithVibro.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
             myDischarger.Value10 = value10;
             txtValue10.Text = myDischarger.Value10.ToString();
@@ -573,10 +573,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithLL.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myDischarger.Value10 = value10;
             txtValue10.Text = myDischarger.Value10.ToString();
@@ -586,10 +586,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithFlow.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myDischarger.Value10 = value10;
             txtValue10.Text = myDischarger.Value10.ToString();
@@ -599,10 +599,10 @@ namespace GcproExtensionApp
         {
             if (chkParDischargerIsMotor.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             myDischarger.Value10 = value10;
             txtValue10.Text = myDischarger.Value10.ToString();
@@ -759,7 +759,7 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-          //  chkParManual.Checked = AppGlobal.GetBitValue(value, 5);
+          //  chkParManual.Checked = AppGlobal. GetBit<int>(value, 5);
           
         }
         private void ComboElevation_SelectedIndexChanged(object sender, EventArgs e)

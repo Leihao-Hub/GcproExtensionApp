@@ -305,10 +305,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParManual.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -318,10 +318,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithHLInletS1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -332,10 +332,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithHLInletS2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -346,10 +346,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkPar4Rolls.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -359,10 +359,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithHLInletS1Div.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)8); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -372,10 +372,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithHLInletS2Div.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)9); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)9); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)9); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)9); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -385,10 +385,10 @@ namespace GcproExtensionApp
         {
             if (chkWithMotorLowS1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)10); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)10); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)10); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)10); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -398,10 +398,10 @@ namespace GcproExtensionApp
         {
             if (chkWithMotorLowS2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)11); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)11); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)11); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)11); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -411,10 +411,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet1S1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)12); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)12); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)12); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)12); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -424,10 +424,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet2S1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)13); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)13); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)13); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)13); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -437,10 +437,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet1S2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)14); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)14); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)14); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)14); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -450,10 +450,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet2S2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)15); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)15); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)15); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)15); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -463,10 +463,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet3S1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)16); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)16); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)16); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)16); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -476,10 +476,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet3S2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)17); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)17); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)17); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)17); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -489,10 +489,10 @@ namespace GcproExtensionApp
         {
             if (chkWithCurrentTransform.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)19); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)19); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)19); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)19); }
 
             myMDDYZPhoenix.Value10 = value10;
             txtValue10.Text = myMDDYZPhoenix.Value10.ToString();
@@ -816,21 +816,21 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParManual.Checked = AppGlobal.GetBitValue(value, 5);
-            chkParWithHLInletS1.Checked = AppGlobal.GetBitValue(value, 1);
-            chkParWithHLInletS2.Checked = AppGlobal.GetBitValue(value, 2);
-            chkPar4Rolls.Checked = AppGlobal.GetBitValue(value, 6);
-            chkParWithHLInletS1Div.Checked = AppGlobal.GetBitValue(value, 8);
-            chkParWithHLInletS2Div.Checked = AppGlobal.GetBitValue(value, 9);
-            chkWithMotorLowS1.Checked = AppGlobal.GetBitValue(value, 10);
-            chkWithMotorLowS2.Checked = AppGlobal.GetBitValue(value, 11);
-            chkWithHLOutlet1S1.Checked = AppGlobal.GetBitValue(value, 12);
-            chkWithHLOutlet2S1.Checked = AppGlobal.GetBitValue(value, 13);
-            chkWithHLOutlet1S2.Checked = AppGlobal.GetBitValue(value, 14);
-            chkWithHLOutlet2S2.Checked = AppGlobal.GetBitValue(value, 15);
-            chkWithHLOutlet3S1.Checked = AppGlobal.GetBitValue(value, 16);
-            chkWithHLOutlet3S2.Checked = AppGlobal.GetBitValue(value, 17);
-            chkWithCurrentTransform.Checked = AppGlobal.GetBitValue(value, 19);
+            chkParManual.Checked = AppGlobal. GetBit<int>(value, 5);
+            chkParWithHLInletS1.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkParWithHLInletS2.Checked = AppGlobal. GetBit<int>(value, 2);
+            chkPar4Rolls.Checked = AppGlobal. GetBit<int>(value, 6);
+            chkParWithHLInletS1Div.Checked = AppGlobal. GetBit<int>(value, 8);
+            chkParWithHLInletS2Div.Checked = AppGlobal. GetBit<int>(value, 9);
+            chkWithMotorLowS1.Checked = AppGlobal. GetBit<int>(value, 10);
+            chkWithMotorLowS2.Checked = AppGlobal. GetBit<int>(value, 11);
+            chkWithHLOutlet1S1.Checked = AppGlobal. GetBit<int>(value, 12);
+            chkWithHLOutlet2S1.Checked = AppGlobal. GetBit<int>(value, 13);
+            chkWithHLOutlet1S2.Checked = AppGlobal. GetBit<int>(value, 14);
+            chkWithHLOutlet2S2.Checked = AppGlobal. GetBit<int>(value, 15);
+            chkWithHLOutlet3S1.Checked = AppGlobal. GetBit<int>(value, 16);
+            chkWithHLOutlet3S2.Checked = AppGlobal. GetBit<int>(value, 17);
+            chkWithCurrentTransform.Checked = AppGlobal. GetBit<int>(value, 19);
         }
 
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1601,8 +1601,6 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
-
-    
+        #endregion  
     }
 }

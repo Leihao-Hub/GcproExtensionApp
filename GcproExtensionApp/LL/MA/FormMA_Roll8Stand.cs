@@ -304,10 +304,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParManual.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -317,10 +317,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithHLInletS1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -331,10 +331,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithHLInletS2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -345,10 +345,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithSMS1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -359,10 +359,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithSMS2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -373,10 +373,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkPar4Rolls.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -387,10 +387,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithMDDx.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)7); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -400,10 +400,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithHLInletS1Div.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)8); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -413,10 +413,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithHLInletS2Div.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)9); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)9); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)9); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)9); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -426,10 +426,10 @@ namespace GcproExtensionApp
         {
             if (chkWithMotorUpS1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)10); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)10); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)10); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)10); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -439,10 +439,10 @@ namespace GcproExtensionApp
         {
             if (chkWithMotorUpS2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)11); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)11); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)11); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)11); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -452,10 +452,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet1S1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)12); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)12); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)12); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)12); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -465,10 +465,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet2S1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)13); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)13); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)13); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)13); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -478,10 +478,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet1S2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)14); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)14); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)14); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)14); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -491,10 +491,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet2S2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)15); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)15); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)15); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)15); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -504,10 +504,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet3S1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)16); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)16); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)16); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)16); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -517,10 +517,10 @@ namespace GcproExtensionApp
         {
             if (chkWithHLOutlet3S2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)17); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)17); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)17); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)17); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -530,10 +530,10 @@ namespace GcproExtensionApp
         {
             if (chkWithATVForFeedRolls.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)18); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)18); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)18); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)18); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -543,10 +543,10 @@ namespace GcproExtensionApp
         {
             if (chkWithCurrentTransform.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)19); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)19); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)19); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)19); }
 
             myRoll8Stand.Value10 = value10;
             txtValue10.Text = myRoll8Stand.Value10.ToString();
@@ -954,25 +954,25 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParManual.Checked = AppGlobal.GetBitValue(value, 5);
-            chkParWithHLInletS1.Checked = AppGlobal.GetBitValue(value, 1);
-            chkParWithHLInletS2.Checked = AppGlobal.GetBitValue(value, 2);
-            chkParWithSMS1.Checked = AppGlobal.GetBitValue(value, 3);
-            chkParWithSMS2.Checked = AppGlobal.GetBitValue(value, 4);
-            chkPar4Rolls.Checked = AppGlobal.GetBitValue(value, 6);
-            chkParWithMDDx.Checked = AppGlobal.GetBitValue(value, 7);
-            chkParWithHLInletS1Div.Checked = AppGlobal.GetBitValue(value, 8);
-            chkParWithHLInletS2Div.Checked = AppGlobal.GetBitValue(value, 9);
-            chkWithMotorUpS1.Checked = AppGlobal.GetBitValue(value, 10);
-            chkWithMotorUpS2.Checked = AppGlobal.GetBitValue(value, 11);
-            chkWithHLOutlet1S1.Checked = AppGlobal.GetBitValue(value, 12);
-            chkWithHLOutlet2S1.Checked = AppGlobal.GetBitValue(value, 13);
-            chkWithHLOutlet1S2.Checked = AppGlobal.GetBitValue(value, 14);
-            chkWithHLOutlet2S2.Checked = AppGlobal.GetBitValue(value, 15);
-            chkWithHLOutlet3S1.Checked = AppGlobal.GetBitValue(value, 16);
-            chkWithHLOutlet3S2.Checked = AppGlobal.GetBitValue(value, 17);
-            chkWithATVForFeedRolls.Checked = AppGlobal.GetBitValue(value, 18);
-            chkWithCurrentTransform.Checked = AppGlobal.GetBitValue(value, 19);
+            chkParManual.Checked = AppGlobal. GetBit<int>(value, 5);
+            chkParWithHLInletS1.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkParWithHLInletS2.Checked = AppGlobal. GetBit<int>(value, 2);
+            chkParWithSMS1.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkParWithSMS2.Checked = AppGlobal. GetBit<int>(value, 4);
+            chkPar4Rolls.Checked = AppGlobal. GetBit<int>(value, 6);
+            chkParWithMDDx.Checked = AppGlobal. GetBit<int>(value, 7);
+            chkParWithHLInletS1Div.Checked = AppGlobal. GetBit<int>(value, 8);
+            chkParWithHLInletS2Div.Checked = AppGlobal. GetBit<int>(value, 9);
+            chkWithMotorUpS1.Checked = AppGlobal. GetBit<int>(value, 10);
+            chkWithMotorUpS2.Checked = AppGlobal. GetBit<int>(value, 11);
+            chkWithHLOutlet1S1.Checked = AppGlobal. GetBit<int>(value, 12);
+            chkWithHLOutlet2S1.Checked = AppGlobal. GetBit<int>(value, 13);
+            chkWithHLOutlet1S2.Checked = AppGlobal. GetBit<int>(value, 14);
+            chkWithHLOutlet2S2.Checked = AppGlobal. GetBit<int>(value, 15);
+            chkWithHLOutlet3S1.Checked = AppGlobal. GetBit<int>(value, 16);
+            chkWithHLOutlet3S2.Checked = AppGlobal. GetBit<int>(value, 17);
+            chkWithATVForFeedRolls.Checked = AppGlobal. GetBit<int>(value, 18);
+            chkWithCurrentTransform.Checked = AppGlobal. GetBit<int>(value, 19);
         }
 
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)

@@ -612,10 +612,10 @@ namespace GcproExtensionApp
         {
         //    value10 = int.Parse(txtValue10.Text);
         //    if (chkParManualAdd.Checked)
-        //    { AppGlobal.SetBit(ref value10, (byte)0); }
+        //    { AppGlobal.SetBit<int>(ref value10, (byte)0); }
 
         //    else
-        //    { AppGlobal.ClearBit(ref value10, (byte)0); }
+        //    { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
         //    myDischargerVertex.Value10 = value10;
         //    txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -625,10 +625,10 @@ namespace GcproExtensionApp
         {
             //value10 = int.Parse(txtValue10.Text);
             //if (chkPar1Speed.Checked)
-            //{ AppGlobal.SetBit(ref value10, (byte)1); }
+            //{ AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             //else
-            //{ AppGlobal.ClearBit(ref value10, (byte)1); }
+            //{ AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             //myDischargerVertex.Value10 = value10;
             //txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -638,10 +638,10 @@ namespace GcproExtensionApp
         {
             //value10 = int.Parse(txtValue10.Text);
             //if (chkPar2Speed.Checked)
-            //{ AppGlobal.SetBit(ref value10, (byte)2); }
+            //{ AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             //else
-            //{ AppGlobal.ClearBit(ref value10, (byte)2); }
+            //{ AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             //myDischargerVertex.Value10 = value10;
             //txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -651,10 +651,10 @@ namespace GcproExtensionApp
         {
             //value10 = int.Parse(txtValue10.Text);
             //if (chkParFrequency.Checked)
-            //{ AppGlobal.SetBit(ref value10, (byte)3); }
+            //{ AppGlobal.SetBit<int>(ref value10, (byte)3); }
 
             //else
-            //{ AppGlobal.ClearBit(ref value10, (byte)3); }
+            //{ AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             //myDischargerVertex.Value10 = value10;
             //txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -664,10 +664,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParFlowmeter.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
 
             myDischargerVertex.Value10 = value10;
             txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -677,10 +677,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParScrew.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myDischargerVertex.Value10 = value10;
             txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -690,10 +690,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithIngrInfo.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)7); }
 
             myDischargerVertex.Value10 = value10;
             txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -703,10 +703,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParModeFineDosingWeight.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
 
             myDischargerVertex.Value10 = value10;
             txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -716,10 +716,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithDynmicTipPluse.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)8); }
 
             myDischargerVertex.Value10 = value10;
             txtValue10.Text = myDischargerVertex.Value10.ToString();
@@ -926,15 +926,15 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParManualAdd.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 0);
-            chkPar1Speed.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 1);
-            chkPar2Speed.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 2);
-            chkParFrequency.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 3);
-            chkParFlowmeter.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 5);
-            chkParScrew.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 6);
-            chkParWithIngrInfo.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 7);
-            chkParModeFineDosingWeight.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 4);
-            chkParWithDynmicTipPluse.Checked = AppGlobal.GetBitValue(Convert.ToInt32(value), 8);
+            chkParManualAdd.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 0);
+            chkPar1Speed.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 1);
+            chkPar2Speed.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 2);
+            chkParFrequency.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 3);
+            chkParFlowmeter.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 5);
+            chkParScrew.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 6);
+            chkParWithIngrInfo.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 7);
+            chkParModeFineDosingWeight.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 4);
+            chkParWithDynmicTipPluse.Checked = AppGlobal. GetBit<int>(Convert.ToInt32(value), 8);
         }
       
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
@@ -953,7 +953,6 @@ namespace GcproExtensionApp
         }
 
         #endregion <---Rule and autosearch part--->
-
      
         #region <---Common used--->
 

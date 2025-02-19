@@ -135,8 +135,8 @@ namespace GcproExtensionApp
                 string keyBins = $"{AppGlobal.JS_BML}.{AppGlobal.JS_BIN}.";
                 var keys = new Dictionary<string, Action<string>>
                  {
-                    {$"{keyColumns}Name",value => columnName= value },
-                    {$"{keyColumns}Desc", value => columnDesc= value },
+                    {$"{keyColumns}Name",value => columnName = value },
+                    {$"{keyColumns}Desc", value => columnDesc = value },
                     {$"{keyColumns}Power", value => columnPower = value },
                     {$"{keyColumns}Floor", value => columnFloor = value },
                     {$"{keyColumns}Cabinet", value => columnCabinet = value },
@@ -154,22 +154,22 @@ namespace GcproExtensionApp
                     {$"{AppGlobal.JS_BML}.{AppGlobal.JS_PREFIX}.LocalPanel",value => prefixLocalPanel= value },
                     {$"{keySections}Common",value => sections.Common= value },
                     {$"{keySections}PreCleaning",value => sections.PreCleaning= value },
-                    {$"{keySections}Cleaning",value => sections.Cleaning= value },
-                    {$"{keySections}Screenings",value => sections.Screenings= value },
+                    {$"{keySections}Cleaning",value => sections.Cleaning  = value },
+                    {$"{keySections}Screenings",value => sections.Screenings = value },
                     {$"{keySections}Milling",value => sections.Milling =value },
-                    {$"{keySections}Flour",value => sections.Flour= value },
-                    {$"{keySections}Stacking",value => sections.Stacking= value },
-                    {$"{keySections}Outload",value => sections.Outload= value },
-                    {$"{keySections}Byproduct",value => sections.Byproduct= value },
+                    {$"{keySections}Flour",value => sections.Flour = value },
+                    {$"{keySections}Stacking",value => sections.Stacking = value },
+                    {$"{keySections}Outload",value => sections.Outload = value },
+                    {$"{keySections}Byproduct",value => sections.Byproduct = value },
                     {$"{keyBins}Silo",value => bins.Silo= value },
-                    {$"{keyBins}RawWheat",value => bins.RawWheat= value },
-                    {$"{keyBins}Screenings",value => bins.Screenings= value },
+                    {$"{keyBins}RawWheat",value => bins.RawWheat = value },
+                    {$"{keyBins}Screenings",value => bins.Screenings = value },
                     {$"{keyBins}Tempering",value => bins.Tempering= value },
                     {$"{keyBins}BaseFlour",value => bins.BaseFlour= value },
-                    {$"{keyBins}Mixing",value => bins.Mixing= value },
-                    {$"{keyBins}Bagging",value => bins.Bagging= value },
-                    {$"{keyBins}Outload",value => bins.Outload= value },
-                    {$"{keyBins}ByProduct",value => bins.ByProduct= value },
+                    {$"{keyBins}Mixing",value => bins.Mixing = value },
+                    {$"{keyBins}Bagging",value => bins.Bagging = value },
+                    {$"{keyBins}Outload",value => bins.Outload = value },
+                    {$"{keyBins}ByProduct",value => bins.ByProduct = value },
             };
                 Dictionary<string, string> keyValueRead;
                 keyValueRead = LibGlobalSource.JsonHelper.ReadKeyValues(AppGlobal.JSON_FILE_PATH, keys.Keys.ToArray());
@@ -177,6 +177,7 @@ namespace GcproExtensionApp
                 {
                     if (keyValueRead.TryGetValue(key.Key, out var value))
                     {
+                        // 字典keys中成员的值是一个Action<string>委托
                         key.Value(value);
                     }
                 }

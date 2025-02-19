@@ -496,10 +496,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkInterlockNextObject.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)0); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString();
@@ -509,10 +509,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkInvertInput.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)1); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString();
@@ -522,10 +522,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonTrue.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)2); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString();
@@ -535,10 +535,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonCovered.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)12); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)12); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)12); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)12); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString();
@@ -548,10 +548,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonFalse.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)3); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString();
@@ -561,10 +561,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkMonUnCovered.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)13); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)13); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)13); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)13); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString();
@@ -574,10 +574,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chkInPreAlarm.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)4); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString().ToString();
@@ -587,10 +587,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(txtValue9.Text);
             if (chKInpFaultDev.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)6); }
 
             myDI.Value9 = value9;
             txtValue9.Text = myDI.Value9.ToString();
@@ -600,10 +600,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParLogOff.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
             myDI.Value10 = value10;
             txtValue10.Text = myDI.Value10.ToString();
@@ -613,10 +613,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParPulsing.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myDI.Value10 = value10;
             txtValue10.Text = myDI.Value10.ToString();
@@ -626,10 +626,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParFaultRetry.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             myDI.Value10 = value10;
             txtValue10.Text = myDI.Value10.ToString();
@@ -639,10 +639,10 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParBinLevel.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
 
             myDI.Value10 = value10;
             txtValue10.Text = myDI.Value10.ToString();
@@ -905,21 +905,21 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParLogOff.Checked = AppGlobal.GetBitValue(value, 0);
-            chkParPulsing.Checked = AppGlobal.GetBitValue(value, 1);
-            chkParFaultRetry.Checked = AppGlobal.GetBitValue(value, 3);
-            chkParBinLevel.Checked = AppGlobal.GetBitValue(value, 4);
+            chkParLogOff.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkParPulsing.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkParFaultRetry.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkParBinLevel.Checked = AppGlobal. GetBit<int>(value, 4);
         }
         void GetValue9BitValue(int value)
         {
-            chkInterlockNextObject.Checked = AppGlobal.GetBitValue(value, 0);
-            chkInvertInput.Checked = AppGlobal.GetBitValue(value, 1);
-            chkMonTrue.Checked = AppGlobal.GetBitValue(value, 2);
-            chkMonCovered.Checked = AppGlobal.GetBitValue(value, 12);
-            chkMonFalse.Checked = AppGlobal.GetBitValue(value, 3);
-            chkMonUnCovered.Checked = AppGlobal.GetBitValue(value, 13);
-            chkInPreAlarm.Checked = AppGlobal.GetBitValue(value, 4);
-            chKInpFaultDev.Checked = AppGlobal.GetBitValue(value, 6);
+            chkInterlockNextObject.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkInvertInput.Checked = AppGlobal. GetBit<int>(value, 1);
+            chkMonTrue.Checked = AppGlobal. GetBit<int>(value, 2);
+            chkMonCovered.Checked = AppGlobal. GetBit<int>(value, 12);
+            chkMonFalse.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkMonUnCovered.Checked = AppGlobal. GetBit<int>(value, 13);
+            chkInPreAlarm.Checked = AppGlobal. GetBit<int>(value, 4);
+            chKInpFaultDev.Checked = AppGlobal. GetBit<int>(value, 6);
         }
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {

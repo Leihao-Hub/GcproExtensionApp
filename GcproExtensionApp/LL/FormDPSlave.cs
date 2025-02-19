@@ -382,9 +382,9 @@ namespace GcproExtensionApp
             value31 = int.Parse(txtValue31.Text);
             if (chkUpdateTimeManCalc.Checked)
 
-            { AppGlobal.SetBit(ref value31, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)0); }
             else
-            { AppGlobal.ClearBit(ref value31, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)0); }
             myDPSlave.Value31 = value31;
             txtValue31.Text = myDPSlave.Value31.ToString();
         }

@@ -403,10 +403,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParLogOff.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)0); }
 
             myFBAL.Value10 = value10;
             txtValue10.Text = myFBAL.Value10.ToString();
@@ -416,10 +416,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParManual.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myFBAL.Value10 = value10;
             txtValue10.Text = myFBAL.Value10.ToString();
@@ -429,10 +429,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithFlowrateRel.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myFBAL.Value10 = value10;
             txtValue10.Text = myFBAL.Value10.ToString();
@@ -442,10 +442,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParMZAH.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             myFBAL.Value10 = value10;
             txtValue10.Text = myFBAL.Value10.ToString();
@@ -455,10 +455,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParOpto22.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
 
             myFBAL.Value10 = value10;
             txtValue10.Text = myFBAL.Value10.ToString();
@@ -468,10 +468,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParMZDE.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
 
             myFBAL.Value10 = value10;
             txtValue10.Text = myFBAL.Value10.ToString();
@@ -481,10 +481,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(txtValue10.Text);
             if (chkParBlend.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myFBAL.Value10 = value10;
             txtValue10.Text = myFBAL.Value10.ToString();
@@ -493,10 +493,10 @@ namespace GcproExtensionApp
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkOutFlowrate.Checked)
-            { AppGlobal.SetBit(ref value9, (byte)16); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)16); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)16); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)16); }
 
             myFBAL.Value9 = value9;
             txtValue9.Text = myFBAL.Value9.ToString();
@@ -506,10 +506,10 @@ namespace GcproExtensionApp
         {
             value9 = int.Parse(txtValue9.Text);
             if (chkOutJobweight.Checked)
-            { AppGlobal.SetBit(ref value9, (byte)17); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)17); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)17); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)17); }
 
             myFBAL.Value9 = value9;
             txtValue9.Text = myFBAL.Value9.ToString();
@@ -518,10 +518,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterSumFault.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)0); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -531,10 +531,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA05_24VToLow.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)1); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -544,10 +544,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA07ADRange.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)2); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -557,10 +557,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA08Calibration.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)3); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -570,10 +570,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA09ADFunction.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)4); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -583,10 +583,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA10ADSupply.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)5); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -596,10 +596,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA11AnalogInput.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)6); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -609,10 +609,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterAxxComunication.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)7); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -622,10 +622,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA13RemoteControl.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)8); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -635,10 +635,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA16Printer.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)9); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)9); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)9); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)9); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -648,10 +648,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA24WeightHopper.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)10); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)10); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)10); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)10); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -661,10 +661,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA25FrequencyConverter.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)11); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)11); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)11); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)11); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -674,10 +674,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA26Tolerance.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)12); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)12); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)12); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)12); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -687,10 +687,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA27Measurement.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)13); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)13); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)13); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)13); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -700,10 +700,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA28FeedDrive.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)14); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)14); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)14); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)14); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -713,10 +713,10 @@ namespace GcproExtensionApp
         {
             value30 = int.Parse(txtValue30.Text);
             if (chkFilterA29FeedingTime.Checked)
-            { AppGlobal.SetBit(ref value30, (byte)15); }
+            { AppGlobal.SetBit<int>(ref value30, (byte)15); }
 
             else
-            { AppGlobal.ClearBit(ref value30, (byte)15); }
+            { AppGlobal.ResetBit<int>(ref value30, (byte)15); }
 
             myFBAL.Value30 = value30;
             txtValue30.Text = myFBAL.Value30.ToString();
@@ -726,10 +726,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA30ZeroTara.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)0); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();
@@ -739,10 +739,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA32InletSlideGate.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)1); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();
@@ -752,10 +752,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA33AirPressure.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)2); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();
@@ -765,10 +765,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA34NoProduct.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)3); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();
@@ -778,10 +778,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA37Empty.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)4); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();
@@ -791,10 +791,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA38Slide.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)5); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();
@@ -804,10 +804,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA39AirPressure.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)6); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();
@@ -817,10 +817,10 @@ namespace GcproExtensionApp
         {
             value31 = int.Parse(txtValue31.Text);
             if (chkFilterA54Relais.Checked)
-            { AppGlobal.SetBit(ref value31, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value31, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value31, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value31, (byte)7); }
 
             myFBAL.Value31 = value31;
             txtValue31.Text = myFBAL.Value31.ToString();

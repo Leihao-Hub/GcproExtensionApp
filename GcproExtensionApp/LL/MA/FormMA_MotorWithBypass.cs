@@ -592,10 +592,10 @@ namespace GcproExtensionApp
         {
             if (chkParMon1IsLS.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -605,10 +605,10 @@ namespace GcproExtensionApp
         {
             if (chkParMon1IsHL.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)3); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)3); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString().ToString();
@@ -618,10 +618,10 @@ namespace GcproExtensionApp
         {
             if (chkParMon1StopByFault.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)4); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)4); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -631,10 +631,10 @@ namespace GcproExtensionApp
         {
             if (chkParLocalPosition.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)5); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)5); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -644,10 +644,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithMon1.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)6); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)6); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -657,10 +657,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithMon2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)7); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -670,10 +670,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithVLS2.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)8); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -683,10 +683,10 @@ namespace GcproExtensionApp
         {
             if (chkParWithSeal.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)9); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)9); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)9); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)9); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -696,10 +696,10 @@ namespace GcproExtensionApp
         {
             if (chkParMon2IsLS.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)10); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)10); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)10); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)10); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -708,10 +708,10 @@ namespace GcproExtensionApp
         private void chkParMon2IsHL_CheckedChanged(object sender, EventArgs e)
         {
             if (chkParMon2IsHL.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)11); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)11); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)11); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)11); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -720,10 +720,10 @@ namespace GcproExtensionApp
         private void chkParMon2StopByFault_CheckedChanged(object sender, EventArgs e)
         {
             if (chkParMon2StopByFault.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)12); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)12); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)12); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)12); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -732,10 +732,10 @@ namespace GcproExtensionApp
         private void chkParWithAI_CheckedChanged(object sender, EventArgs e)
         {
             if (chkParWithAI.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)13); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)13); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)13); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)13); }
 
             myMotorWithBypass.Value10 = value10;
             txtValue10.Text = myMotorWithBypass.Value10.ToString();
@@ -744,10 +744,10 @@ namespace GcproExtensionApp
         private void chkRunInterlock_CheckedChanged(object sender, EventArgs e)
         {
             if (chkRunInterlock.Checked)
-            { AppGlobal.SetBit(ref value9, (byte)0); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)0); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)0); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)0); }
 
             myMotorWithBypass.Value9 = value9;
             txtValue9.Text = myMotorWithBypass.Value9.ToString();
@@ -756,10 +756,10 @@ namespace GcproExtensionApp
         private void chkStartingInterlock_CheckedChanged(object sender, EventArgs e)
         {
             if (chkStartingInterlock.Checked)
-            { AppGlobal.SetBit(ref value9, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)1); }
 
             myMotorWithBypass.Value9 = value9;
             txtValue9.Text = myMotorWithBypass.Value9.ToString();
@@ -981,7 +981,7 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-          //  chkParManual.Checked = AppGlobal.GetBitValue(value, 5);
+          //  chkParManual.Checked = AppGlobal. GetBit<int>(value, 5);
           
         }
         private void ComboElevation_SelectedIndexChanged(object sender, EventArgs e)

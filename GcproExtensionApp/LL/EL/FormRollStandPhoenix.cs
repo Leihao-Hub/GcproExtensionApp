@@ -446,9 +446,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParLogOff.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)0); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)0); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)0); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)0); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -457,9 +457,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithBearTemp.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)1); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)1); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -468,9 +468,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithFeedGapAdjust.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)2); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)2); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -480,9 +480,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithRollerTemp.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)3); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)3); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)3); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)3); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -492,9 +492,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkPar4Rolls.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)4); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)4); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)4); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)4); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -503,9 +503,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParB1Rollstand.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)5); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)5); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)5); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)5); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -515,9 +515,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParMotorPLC.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)6); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)6); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)6); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)6); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -527,9 +527,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParWithAutoGapAdjust.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)7); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)7); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)7); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)7); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -539,9 +539,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParSide1Divided.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)8); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)8); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -551,9 +551,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParSide2Divided.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)9); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)9); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)9); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)9); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -563,9 +563,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParManual.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)11); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)11); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)11); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)11); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -575,9 +575,9 @@ namespace GcproExtensionApp
             value10 = int.Parse(txtValue10.Text);
             if (chkParStartWarning.Checked)
 
-            { AppGlobal.SetBit(ref value10, (byte)12); }
+            { AppGlobal.SetBit<long>(ref value10, (byte)12); }
             else
-            { AppGlobal.ClearBit(ref value10, (byte)12); }
+            { AppGlobal.ResetBit<long>(ref value10, (byte)12); }
             myMDDYZ.Value10 = value10;
             txtValue10.Text = myMDDYZ.Value10.ToString();
         }
@@ -642,18 +642,18 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParLogOff.Checked = AppGlobal.GetBitValue(value, 0);
-            chkParWithBearTemp.Checked = AppGlobal.GetBitValue(value, 1);    
-            chkParWithFeedGapAdjust.Checked = AppGlobal.GetBitValue(value, 2);
-            chkParWithRollerTemp.Checked = AppGlobal.GetBitValue(value, 3);
-            chkPar4Rolls.Checked = AppGlobal.GetBitValue(value, 4);
-            chkParB1Rollstand.Checked = AppGlobal.GetBitValue(value, 5);
-            chkParMotorPLC.Checked = AppGlobal.GetBitValue(value, 6); 
-            chkParWithAutoGapAdjust.Checked = AppGlobal.GetBitValue(value, 7);
-            chkParSide1Divided.Checked = AppGlobal.GetBitValue(value, 8);
-            chkParSide2Divided.Checked = AppGlobal.GetBitValue(value, 9);
-            chkParManual.Checked = AppGlobal.GetBitValue(value, 11);
-            chkParStartWarning.Checked = AppGlobal.GetBitValue(value, 12);
+            chkParLogOff.Checked = AppGlobal. GetBit<int>(value, 0);
+            chkParWithBearTemp.Checked = AppGlobal. GetBit<int>(value, 1);    
+            chkParWithFeedGapAdjust.Checked = AppGlobal. GetBit<int>(value, 2);
+            chkParWithRollerTemp.Checked = AppGlobal. GetBit<int>(value, 3);
+            chkPar4Rolls.Checked = AppGlobal. GetBit<int>(value, 4);
+            chkParB1Rollstand.Checked = AppGlobal. GetBit<int>(value, 5);
+            chkParMotorPLC.Checked = AppGlobal. GetBit<int>(value, 6); 
+            chkParWithAutoGapAdjust.Checked = AppGlobal. GetBit<int>(value, 7);
+            chkParSide1Divided.Checked = AppGlobal. GetBit<int>(value, 8);
+            chkParSide2Divided.Checked = AppGlobal. GetBit<int>(value, 9);
+            chkParManual.Checked = AppGlobal. GetBit<int>(value, 11);
+            chkParStartWarning.Checked = AppGlobal. GetBit<int>(value, 12);
         }
    
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)

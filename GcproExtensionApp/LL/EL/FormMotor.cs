@@ -398,10 +398,10 @@ namespace GcproExtensionApp
             value9 = int.Parse(TxtValue9.Text);
             if (ChkRunInterlock.Checked)
 
-            { AppGlobal.SetBit(ref value9, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value9, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value9, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value9, (byte)1); }
 
             myMotor.Value9 = value9;
             TxtValue9.Text = myMotor.Value9.ToString();
@@ -412,10 +412,10 @@ namespace GcproExtensionApp
             {
                 value9 = int.Parse(TxtValue9.Text);
                 if (ChkStartingInterlock.Checked)
-                { AppGlobal.SetBit(ref value9, (byte)0); }
+                { AppGlobal.SetBit<int>(ref value9, (byte)0); }
 
                 else
-                { AppGlobal.ClearBit(ref value9, (byte)0); }
+                { AppGlobal.ResetBit<int>(ref value9, (byte)0); }
 
                 myMotor.Value9 = value9;
                 TxtValue9.Text = myMotor.Value9.ToString();
@@ -425,10 +425,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(TxtValue10.Text);
             if (ChkParManual.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)1); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)1); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)1); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)1); }
 
             myMotor.Value10 = value10;
             TxtValue10.Text = myMotor.Value10.ToString().ToString();
@@ -438,10 +438,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(TxtValue10.Text);
             if (ChkRestartDelay.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)2); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)2); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)2); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)2); }
 
             myMotor.Value10 = value10;
             TxtValue10.Text = myMotor.Value10.ToString();
@@ -451,10 +451,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(TxtValue10.Text);
             if (ChkRevNotAllowed.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)7); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)7); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)7); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)7); }
 
             myMotor.Value10 = value10;
             TxtValue10.Text = myMotor.Value10.ToString();
@@ -464,10 +464,10 @@ namespace GcproExtensionApp
         {
             value10 = int.Parse(TxtValue10.Text);
             if (ChKPower.Checked)
-            { AppGlobal.SetBit(ref value10, (byte)8); }
+            { AppGlobal.SetBit<int>(ref value10, (byte)8); }
 
             else
-            { AppGlobal.ClearBit(ref value10, (byte)8); }
+            { AppGlobal.ResetBit<int>(ref value10, (byte)8); }
 
             myMotor.Value10 = value10;
             TxtValue10.Text = myMotor.Value10.ToString();
@@ -1666,26 +1666,26 @@ namespace GcproExtensionApp
                 hm = desc.Contains(BML.MachineType.HammerMill);
                 if (planSifter || purifier || laab || hm)
                 {
-                    AppGlobal.SetBit(ref parValue10, (byte)2);
+                    AppGlobal.SetBit<long>(ref parValue10, (byte)2);
                     if (planSifter)
                     {
                         numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.PlanSifter, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? tmpInt  : 150.0;
+                        objMotor.ParStoppingTime = numeric ? tmpInt  : 150;
                     }
                     else if (purifier)
                     {
                         numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.Purifier, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? tmpInt : 120.0;
+                        objMotor.ParStoppingTime = numeric ? tmpInt : 120;
                     }
                     else if (laab)
                     {
                         numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.LAAB, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? tmpInt : 180.0;
+                        objMotor.ParStoppingTime = numeric ? tmpInt : 180;
                     }
                     else if (hm)
                     {
                         numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.Hammermill, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? tmpInt : 300.0;
+                        objMotor.ParStoppingTime = numeric ? tmpInt : 300;
                     }
                 }
                 else
