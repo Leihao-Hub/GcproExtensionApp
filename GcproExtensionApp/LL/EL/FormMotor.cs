@@ -29,8 +29,6 @@ namespace GcproExtensionApp
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
         readonly CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
-        //private string CONNECT_VFC = "关联VFC";
-        //private string CONNECT_AO = "关联AO";
         private readonly  string DEMO_NAME_MOTOR = "=A-2001-MXZ01";
         private readonly string DEMO_NAME_RULE_MOTOR = "2001";
         private readonly string DEMO_DESCRIPTION_MOTOR = "清理线A线1楼(2001)出仓刮板机";
@@ -42,7 +40,6 @@ namespace GcproExtensionApp
         private int tempInt = 0;
         private long tempLong = 0;
         private float tempFloat = (float)0.0;
-      //  private bool tempBool = false;
         private string namePrefix = string.Empty;
         private GcBaseRule objDefaultInfo;
         #endregion
@@ -1527,7 +1524,6 @@ namespace GcproExtensionApp
                     IsNewOLEDBDriver = isNewOledbDriver
                 };
                 Motor.ReGenerateDPNode(oledb);
-
             }
         }
         private void CreateObjectCommon(Motor objMotor)
@@ -1688,7 +1684,7 @@ namespace GcproExtensionApp
                     else if (laab)
                     {
                         numeric = AppGlobal.ParseValue<int>(machines.StoppingTime.LAAB, out tmpInt);
-                        objMotor.ParStoppingTime = numeric ? tmpInt : 180;
+                        objMotor.ParStoppingTime = numeric ? tmpInt : 180.0;
                     }
                     else if (hm)
                     {
