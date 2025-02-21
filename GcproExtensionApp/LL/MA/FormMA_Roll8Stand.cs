@@ -213,7 +213,6 @@ namespace GcproExtensionApp
         {
             isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
 
-            ///<ImplementIGcForm>   </ImplementIGcForm>
             GetLastObjRule();
             GetInfoFromDatabase();
             CreateTips();
