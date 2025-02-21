@@ -156,7 +156,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { filePath = value; }
         }
         #endregion
-
         #region Readonly property
         public static string Profibus { get; } = "Profibus";
         public static string Profinet { get; } = "Profinet";
@@ -190,37 +189,37 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dpSlaveFileName}.Txt" : $"{filePath}{dpSlaveFileName}.Txt");
         }
-        /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle
-                {
-                    FilePath = this.filePath
-                };
-                isNew = "false";
-                StringBuilder objFields = new StringBuilder();
+                textFileHandle.FilePath = this.filePath;
+                isNew = "False";
+                string tab = LibGlobalSource.TAB;
                 ///<summary>
-                ///生产Standard字符串部分-使用父类中方法实现
+                ///生产Standard字符串部分
                 ///</summary> 
-                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>   
-                objFields.Append(value31).Append(LibGlobalSource.TAB)
-                   .Append(ipAddr).Append(LibGlobalSource.TAB)
-                   .Append(slaveNo).Append(LibGlobalSource.TAB)
-                   .Append(updateTime).Append(LibGlobalSource.TAB)
-                   .Append(watchDogFactor).Append(LibGlobalSource.TAB)
+                sb.Append(value31).Append(tab)
+                   .Append(ipAddr).Append(tab)
+                   .Append(slaveNo).Append(tab)
+                   .Append(updateTime).Append(tab)
+                   .Append(watchDogFactor).Append(tab)
                    .Append(watchDogTime);
-                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-             
+                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                sb.Clear();          
             }
         }
         public void Clear()

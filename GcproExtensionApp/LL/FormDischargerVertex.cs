@@ -1142,6 +1142,8 @@ namespace GcproExtensionApp
         {
            
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
@@ -1201,7 +1203,7 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objDischargerVertex.CreateObject(Encoding.Unicode);            
+                objDischargerVertex.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
             }
             DischargerVertex.Rule.Common = objDefaultInfo;
             processValue.Value = processValue.Max;
@@ -1212,7 +1214,9 @@ namespace GcproExtensionApp
         {
             #region common used variables declaration 
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
-            StringBuilder descTotalBuilder = new StringBuilder();
+           // StringBuilder descTotalBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -1453,7 +1457,7 @@ namespace GcproExtensionApp
                  );
              
               
-                objDischargerVertex.CreateObject(Encoding.Unicode);
+                objDischargerVertex.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             DischargerVertex.Rule.Common = objDefaultInfo;

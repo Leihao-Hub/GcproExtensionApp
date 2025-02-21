@@ -1461,7 +1461,9 @@ namespace GcproExtensionApp
           ref (int Value, int Max) processValue)
         {
             #region common used variables declaration
-            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);    
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             int ioByteInc = AppGlobal.MEAG_EXT_LONG;
             bool needDPNodeChanged = false;
@@ -1699,7 +1701,6 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-          //  int symbolInc, symbolRule, descriptionInc,senderBinInc;
             AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
             AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
             AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
@@ -1763,7 +1764,7 @@ namespace GcproExtensionApp
                  );
                 // objFBAL.Description = description.Name;
                 objFBAL.IoByteNo = ioByte + i * ioByteInc;
-                objFBAL.CreateObject(Encoding.Unicode);
+                objFBAL.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;
@@ -1777,6 +1778,8 @@ namespace GcproExtensionApp
             DataTable dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}",
             null, $"{GcproTable.ObjData.Text0.Name} ASC",
             GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             int ioByteInc = AppGlobal.MEAG_EXT_LONG;
             int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
@@ -1789,10 +1792,9 @@ namespace GcproExtensionApp
             processValue.Value = 0; 
             objDefaultInfo = FBAL.Rule.Common;
             objFBAL.SubType = FBAL.DTWxDP;
+            DataGridViewCell cell;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
-
-                DataGridViewCell cell;
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
                 if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                     continue;
@@ -1863,7 +1865,7 @@ namespace GcproExtensionApp
                                                        
                 }                       
                 ///<CreateObject>   </CreateObject>
-                objFBAL.CreateObject(Encoding.Unicode);
+                objFBAL.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             FBAL.Rule.Common = objDefaultInfo;

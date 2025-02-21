@@ -255,7 +255,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
 
         #endregion
-
         public override string FilePath
         {
             get { return filePath; }
@@ -321,6 +320,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
 
         public Motor()
         {
+            string noChild = LibGlobalSource.NOCHILD;
             string commonDefaultFilePath;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             name = "-MXZ01";
@@ -340,15 +340,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             dpNode2 = 0;
             value9 = 2;
             value10 = 130;
-            inpFwd = LibGlobalSource.NOCHILD;
-            outpFwd = LibGlobalSource.NOCHILD;
-            inpRev = LibGlobalSource.NOCHILD;
-            outpRev = LibGlobalSource.NOCHILD;
-            inpContactor = LibGlobalSource.NOCHILD;
-            hwStop = LibGlobalSource.NOCHILD;
-            adapter = LibGlobalSource.NOCHILD;
-            powerApp = LibGlobalSource.NOCHILD;
-            ao = LibGlobalSource.NOCHILD;
+            inpFwd = noChild;
+            outpFwd = noChild;
+            inpRev = noChild;
+            outpRev = noChild;
+            inpContactor = noChild;
+            hwStop = noChild;
+            adapter = noChild;
+            powerApp = noChild;
+            ao = noChild;
             parMonTime = 5.0;
             parStartDelay = 0;
             parStartingTime = 1;
@@ -381,49 +381,52 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle
-                {
-                    FilePath = this.filePath
-                };
+                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
-                StringBuilder objFields = new StringBuilder();
+                string tab = LibGlobalSource.TAB;
+                string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
                 ///生产Standard字符串部分
                 ///</summary> 
-                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                    .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>         
-                objFields.Append(dpNode2).Append(LibGlobalSource.TAB)
-                    .Append(value9).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(parMonTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(parStartDelay * 10).Append(LibGlobalSource.TAB)
-                    .Append(parStartingTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(parStoppingTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(parIdlingTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(parFaultDelayTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(parPowerNominal).Append(LibGlobalSource.TAB)
-                    .Append(parSpeedService).Append(LibGlobalSource.TAB)
+                sb.Append(dpNode2).Append(tab)
+                    .Append(value9).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(parMonTime * 10).Append(tab)
+                    .Append(parStartDelay * 10).Append(tab)
+                    .Append(parStartingTime * 10).Append(tab)
+                    .Append(parStoppingTime * 10).Append(tab)
+                    .Append(parIdlingTime * 10).Append(tab)
+                    .Append(parFaultDelayTime * 10).Append(tab)
+                    .Append(parPowerNominal).Append(tab)
+                    .Append(parSpeedService).Append(tab)
                     .Append(unit);
-                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                sb.Clear();
             }
-                var relations = new List<Relation>();
+            var relations = new List<Relation>();
             if (subType == M11)
             {
                 relations.Add(new Relation(name, inpFwd, GcproTable.ObjData.Value11.Name));
@@ -444,7 +447,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
            { 
                 relations.Add(new Relation(name, adapter, GcproTable.ObjData.Value34.Name));
            }
-            CreateRelations(relations, this.fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle,sb, relations, encoding);
         }
 
         public void Clear()

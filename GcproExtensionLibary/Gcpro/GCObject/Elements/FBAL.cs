@@ -238,38 +238,41 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// </summary>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb,Encoding encoding, bool onlyRelation = false)
         {
-            TextFileHandle textFileHandle = new TextFileHandle
-            {
-                FilePath = this.filePath
-            };
+
+            textFileHandle.FilePath = this.filePath;
             isNew = "False";
-            StringBuilder objFields = new StringBuilder();
+            string tab = LibGlobalSource.TAB;
+            string noChild = LibGlobalSource.NOCHILD;
             ///<summary>
             ///生产Standard字符串部分-使用父类中方法实现
             ///</summary> 
-            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+            string objBase = base.CreateObjectStandardPart(sb);
+            sb.Clear();
+            sb.Append(OTypeValue).Append(tab)
+              .Append(objBase).Append(tab);
             ///<summary>
             ///生成Application字符串部分-子类中自身完成
             ///</summary>  
-            objFields.Append(ioByteNo).Append(LibGlobalSource.TAB)
-             .Append(ioByteNoExt).Append(LibGlobalSource.TAB)
-             .Append(parLoopNo).Append(LibGlobalSource.TAB)
-             .Append(parLCAddr).Append(LibGlobalSource.TAB)
-             .Append(value9).Append(LibGlobalSource.TAB)
-             .Append(value30).Append(LibGlobalSource.TAB)
-             .Append(value31).Append(LibGlobalSource.TAB)
-             .Append(parMonTime * 10 ).Append(LibGlobalSource.TAB)
-             .Append(LibGlobalSource.NOCHILD);
-            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+            sb.Append(ioByteNo).Append(tab)
+             .Append(ioByteNoExt).Append(tab)
+             .Append(parLoopNo).Append(tab)
+             .Append(parLCAddr).Append(tab)
+             .Append(value9).Append(tab)
+             .Append(value30).Append(tab)
+             .Append(value31).Append(tab)
+             .Append(parMonTime * 10 ).Append(tab)
+             .Append(noChild);
+            textFileHandle.WriteToTextFile(sb.ToString(), encoding);
             var relations = new List<Relation>();       
             if (refSenderBin != null)
             {
                 relations.Add(new Relation(name, refSenderBin, GcproTable.ObjData.Value42.Name));
             }
-            CreateRelations(relations, this.fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb,relations, encoding);
         }
         public void Clear()
         {

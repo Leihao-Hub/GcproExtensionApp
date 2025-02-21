@@ -1174,6 +1174,11 @@ namespace GcproExtensionApp
                         Len = 0,
                     }
                 };
+                StringBuilder objBuilder = new StringBuilder();
+                TextFileHandle objTextFileHandle = new TextFileHandle()
+                {
+                    FilePath = myBin.FileConnectorPath
+                };
                 bool connectLLWithDesc, connectHLWithDesc, connectMLWithDesc, connectALWithDesc;
                 connectLLWithDesc = string.IsNullOrEmpty(txtLowLevel.Text);
                 connectHLWithDesc = string.IsNullOrEmpty(txtHighLevel.Text);
@@ -1236,14 +1241,14 @@ namespace GcproExtensionApp
                             if (descOfThisBin.Count >= 1 && needCreateHLRel)
                             {
                                 highLevel.Name = descOfThisBin[0];
-                                Bin.CreateRelation(binName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, highLevel.Name, GcproTable.ObjData.Value2.Name, Encoding.Unicode);
                             }
                         }
                         else
                         {
                             if (needCreateHLRel)
                             {
-                                Bin.CreateRelation(binName, highLevel.Name, GcproTable.ObjData.Value2.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, highLevel.Name, GcproTable.ObjData.Value2.Name,Encoding.Unicode);
                             }
                         }                
                         if (connectLLWithDesc)
@@ -1256,14 +1261,14 @@ namespace GcproExtensionApp
                             if (descOfThisBin.Count >= 1 && needCreateLLRel)
                             {
                                 lowLevel.Name = descOfThisBin[0];
-                                Bin.CreateRelation(binName, lowLevel.Name, GcproTable.ObjData.Value3.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, lowLevel.Name, GcproTable.ObjData.Value3.Name, Encoding.Unicode);
                             }
                         }
                         else
                         {
                             if (needCreateLLRel)
                             {
-                                Bin.CreateRelation(binName ,lowLevel.Name, GcproTable.ObjData.Value3.Name, myBin.FileConnectorPath, Encoding.Unicode);
+                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, lowLevel.Name, GcproTable.ObjData.Value3.Name,Encoding.Unicode);
                             }
                         }                    
                         ProgressBar.Value = count;
@@ -1503,6 +1508,8 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
+                    StringBuilder objBuilder = new StringBuilder();
+                    TextFileHandle objTextFileHandle = new TextFileHandle();
                     #region Parse rules
                     ///<ParseRule> </ParseRule>
                     if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
@@ -1636,10 +1643,9 @@ namespace GcproExtensionApp
                     ProgressBar.Value = 0;
                     ///<CreateObj>
                     ///</CreateObj>
-                    int symbolInc, symbolRule, descriptionInc;
-                    AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out symbolInc);
-                    AppGlobal.ParseValue<int>(txtSymbolRule.Text, out symbolRule);
-                    AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out descriptionInc);
+                    AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
+                    AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
+                    AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
                     for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                     {
                         name.Inc = i * symbolInc;
@@ -1756,7 +1762,7 @@ namespace GcproExtensionApp
                         myBin.MiddleLevel = middleLevel.Name;
                         myBin.LowLevel = lowLevel.Name;
                         myBin.AnalogLevel = analogLevel.Name;
-                        myBin.CreateObject(Encoding.Unicode);
+                        myBin.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                         ProgressBar.Value = i;
                     }
                     ProgressBar.Value = ProgressBar.Maximum;

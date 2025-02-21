@@ -121,7 +121,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         }
         #endregion
         #region Application properties
-
         public double IoByteNo
         {
             get { return ioByteNo; }
@@ -206,35 +205,37 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
-            TextFileHandle textFileHandle = new TextFileHandle
-            {
-                FilePath = this.filePath
-            };
+
+            textFileHandle.FilePath = this.filePath;
             isNew = "False";
-            StringBuilder objFields = new StringBuilder();
+            string tab = LibGlobalSource.TAB;
             ///<summary>
             ///生产Standard字符串部分-使用父类中方法实现
             ///</summary> 
-            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+            string objBase = base.CreateObjectStandardPart(sb);
+            sb.Clear();
+            sb.Append(OTypeValue).Append(tab)
+              .Append(objBase).Append(tab);
             ///<summary>
             ///生成Application字符串部分-子类中自身完成
             ///</summary>  
-            objFields.Append(ioByteNo).Append(LibGlobalSource.TAB)
-              .Append(parTimeOutStart * 10).Append(LibGlobalSource.TAB)
-             .Append(string.Empty).Append(LibGlobalSource.TAB)
-             .Append(Convert.ToString(side1Top.PassageNo)).Append(LibGlobalSource.TAB)
-             .Append(string.Empty).Append(LibGlobalSource.TAB)
-             .Append(Convert.ToString(side1Bottom.PassageNo)).Append(LibGlobalSource.TAB)
-             .Append(string.Empty).Append(LibGlobalSource.TAB)
-             .Append(Convert.ToString(side2Top.PassageNo)).Append(LibGlobalSource.TAB)
-             .Append(string.Empty).Append(LibGlobalSource.TAB)
+            sb.Append(ioByteNo).Append(tab)
+              .Append(parTimeOutStart * 10).Append(tab)
+             .Append(string.Empty).Append(tab)
+             .Append(Convert.ToString(side1Top.PassageNo)).Append(tab)
+             .Append(string.Empty).Append(tab)
+             .Append(Convert.ToString(side1Bottom.PassageNo)).Append(tab)
+             .Append(string.Empty).Append(tab)
+             .Append(Convert.ToString(side2Top.PassageNo)).Append(tab)
+             .Append(string.Empty).Append(tab)
              .Append(Convert.ToString(side2Bottom.PassageNo));
-            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+            textFileHandle.WriteToTextFile(sb.ToString(), encoding);
 
             var relations = new List<Relation>
             {
@@ -243,7 +244,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Relation(name,side2Top.MYTA, GcproTable.ObjData.Value34.Name),
                 new Relation(name,side2Bottom.MYTA, GcproTable.ObjData.Value35.Name),
             };
-            CreateRelations(relations, this.fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb, relations, encoding);
         }
         public void Clear()
         {

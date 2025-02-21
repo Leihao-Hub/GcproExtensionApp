@@ -16,19 +16,20 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
 
         }
-        public new string CreateObjectStandardPart()
-        {
-            StringBuilder objFields = new StringBuilder();
+        public new string CreateObjectStandardPart(StringBuilder sb)
+        {       
+            string tab = LibGlobalSource.TAB;
             ///<summary>
             ///生产Standard字符串部分
             ///</summary> 
-            string baseObject = base.CreateObjectStandardPart();
-            objFields.Append(baseObject).Append(LibGlobalSource.TAB)
-              .Append(Math.Round(PType,1)).Append(LibGlobalSource.TAB)
-              .Append(HornCode).Append(LibGlobalSource.TAB)
-              .Append(DPNode1).Append(LibGlobalSource.TAB)
+            string baseObject = base.CreateObjectStandardPart(sb);
+            sb.Clear();
+            sb.Append(baseObject).Append(tab)
+              .Append(Math.Round(PType,1)).Append(tab)
+              .Append(HornCode).Append(tab)
+              .Append(DPNode1).Append(tab)
               .Append(Value10);
-            return objFields.ToString();
+            return sb.ToString();
         }
         //protected double ParseHornCode(string hornCodeAndDesc)
         //{

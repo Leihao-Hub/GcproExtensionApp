@@ -1,4 +1,5 @@
-﻿using GcproExtensionLibrary.Gcpro;
+﻿using GcproExtensionLibrary.FileHandle;
+using GcproExtensionLibrary.Gcpro;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -601,6 +602,6 @@ namespace GcproExtensionLibrary
     }
     public interface IGcpro
     {
-        void CreateObject(Encoding encoding, bool onlyRelation = false);
+        void CreateObject(TextFileHandle textFileHandle, StringBuilder sbObjFields, Encoding encoding, bool onlyRelation = false);
     }
 }

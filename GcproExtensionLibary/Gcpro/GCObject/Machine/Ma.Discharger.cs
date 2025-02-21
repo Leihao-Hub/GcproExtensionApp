@@ -219,39 +219,41 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = defaultPath ?
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
-        /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle
-                {
-                    FilePath = this.filePath
-                };
+                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
-                StringBuilder objFields = new StringBuilder();
+                string tab = LibGlobalSource.TAB;
+                string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
                 ///生产Standard字符串部分
                 ///</summary> 
-                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                    .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>         
-                objFields.Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(parVibrOnTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(parVibrOffTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(parRestDischargeTime * 10).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                    .Append(LibGlobalSource.NOCHILD);                
-                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+                sb.Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(parVibrOnTime * 10).Append(tab)
+                    .Append(parVibrOffTime * 10).Append(tab)
+                    .Append(parRestDischargeTime * 10).Append(tab)
+                    .Append(noChild).Append(tab)
+                    .Append(noChild);                
+                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                sb.Clear();
             }
 
             var relations = new List<Relation>
@@ -263,7 +265,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                new Relation(name , refReceiver , GcproTable.ObjData.Value41.Name),
                new Relation(name , refSenderBin , GcproTable.ObjData.Value42.Name),
             };
-            CreateRelations(relations, this.fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb, relations, encoding);
         }
         public void Clear()
         {

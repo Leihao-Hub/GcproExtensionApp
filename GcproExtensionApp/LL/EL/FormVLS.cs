@@ -1335,6 +1335,11 @@ namespace GcproExtensionApp
                         $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text0.Name, GcproTable.ObjData.SubType.Name,
                         GcproTable.ObjData.Value11.Name, GcproTable.ObjData.Value12.Name, GcproTable.ObjData.Value13.Name,
                         GcproTable.ObjData.Value14.Name, GcproTable.ObjData.Value15.Name, GcproTable.ObjData.Value16.Name);
+                    StringBuilder objBuilder = new StringBuilder();
+                    TextFileHandle objTextFileHandle = new TextFileHandle
+                    {
+                        FilePath = myVLS.FileConnectorPath
+                    };
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
                     VLS.Clear(myVLS.FileConnectorPath);
@@ -1351,15 +1356,15 @@ namespace GcproExtensionApp
                             outpHN = objNamePrefix + GcObjectInfo.VLS.SuffixOutpHN;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpLN, GcproTable.ObjData.Value11.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder,objName, inpLN, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpHN, GcproTable.ObjData.Value13.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, outpHN, GcproTable.ObjData.Value14.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpHN, GcproTable.ObjData.Value14.Name, Encoding.Unicode);
                             }
                         }
                         else if (objSubType == VLS.VPO || objSubType == VLS.VPOR)
@@ -1371,19 +1376,19 @@ namespace GcproExtensionApp
                             outpHN = objNamePrefix + GcObjectInfo.VLS.SuffixOutpHN;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpLN, GcproTable.ObjData.Value11.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, outpLN, GcproTable.ObjData.Value12.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpLN, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpHN, GcproTable.ObjData.Value13.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, outpHN, GcproTable.ObjData.Value14.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpHN, GcproTable.ObjData.Value14.Name,Encoding.Unicode);
                             }
                         }
                         else if (objSubType == VLS.VPOM)
@@ -1397,27 +1402,27 @@ namespace GcproExtensionApp
                             inpRunFwd = objNamePrefix + GcObjectInfo.VLS.SuffixInpRunFwd;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpLN, GcproTable.ObjData.Value11.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, outpRunRev, GcproTable.ObjData.Value12.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpRunRev, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpHN, GcproTable.ObjData.Value13.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name,  Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, outpRunFwd, GcproTable.ObjData.Value14.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpRunFwd, GcproTable.ObjData.Value14.Name,  Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value15.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpRunRev, GcproTable.ObjData.Value15.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpRunRev, GcproTable.ObjData.Value15.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value16.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpRunFwd, GcproTable.ObjData.Value16.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpRunFwd, GcproTable.ObjData.Value16.Name, Encoding.Unicode);
                             }
                         }
                         else if (objSubType == VLS.VMF)
@@ -1427,11 +1432,11 @@ namespace GcproExtensionApp
                             inpHN = objNamePrefix + GcObjectInfo.VLS.SuffixInpHN;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpLN, GcproTable.ObjData.Value11.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name,  Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objName, inpHN, GcproTable.ObjData.Value13.Name, myVLS.FileConnectorPath, Encoding.Unicode);
+                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name,  Encoding.Unicode);
                             }
                         }
                         ProgressBar.Value = count;
@@ -1554,6 +1559,8 @@ namespace GcproExtensionApp
                null, $"{GcproTable.ObjData.Text0.Name} ASC",
                GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);          
             StringBuilder descBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             string commName;
             int noOfSubIO;
 
@@ -1787,7 +1794,7 @@ namespace GcproExtensionApp
                 objVLS.RefRcvHN = vlsRcvHN;
                 objVLS.RefAsp = vlsAsp;
                 objVLS.RefSndBin = vlsSndBin;
-                objVLS.CreateObject(Encoding.Unicode);
+                objVLS.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             VLS.Rule.Common = objDefaultInfo;
@@ -1807,7 +1814,9 @@ namespace GcproExtensionApp
             string desc = string.Empty;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
-            StringBuilder descTotalBuilder = new StringBuilder();
+         //   StringBuilder descTotalBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             RuleSubDataSet description, name, dpNode1;
             description = new RuleSubDataSet
             {
@@ -2024,7 +2033,7 @@ namespace GcproExtensionApp
                 }
                 ///<RefAsp></RefAsp>
                 objVLS.RefAsp = txtAsp.Text;
-                objVLS.CreateObject(Encoding.Unicode);
+                objVLS.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             VLS.Rule.Common = objDefaultInfo;
@@ -2035,6 +2044,8 @@ namespace GcproExtensionApp
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath,isNewOledbDriver);
             DataTable dataTable;
             #region common used variables declaration
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -2167,7 +2178,7 @@ namespace GcproExtensionApp
                 }
                 for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                 {
-                    objVLS.CreateObject(Encoding.Unicode);
+                    objVLS.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                     processValue.Value = i;
                 }
                 processValue.Value = processValue.Max;

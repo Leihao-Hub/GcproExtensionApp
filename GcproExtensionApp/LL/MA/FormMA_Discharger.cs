@@ -1212,6 +1212,8 @@ namespace GcproExtensionApp
         private void CreatObjectRule((bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
             ref (int Value, int Max) processValue)
         {
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = processValue.Max;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             StringBuilder descTotalBuilder = new StringBuilder();
@@ -1532,8 +1534,6 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-           // int symbolInc, symbolRule, descriptionInc, dischargerInc, vibroInc, llBinInc, lsFlowInc, receiverInc, senderBinInc;
-           // int vibroOnTime, vibroOffTime,restDischargeTime;
             AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
             AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
             AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
@@ -1705,7 +1705,7 @@ namespace GcproExtensionApp
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         
                 myDischarger.Description = descTotalBuilder.ToString();
-                myDischarger.CreateObject(Encoding.Unicode);
+                myDischarger.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;

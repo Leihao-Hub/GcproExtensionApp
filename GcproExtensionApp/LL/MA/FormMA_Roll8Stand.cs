@@ -31,13 +31,14 @@ namespace GcproExtensionApp
         readonly Roll8Stand myRoll8Stand = new Roll8Stand(AppGlobal.GcproDBInfo.GcproTempPath);
         readonly ExcelFileHandle excelFileHandle = new ExcelFileHandle();
         readonly System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
-        readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
+        readonly CreateMode createMode = new CreateMode();
         private bool isNewOledbDriver;
+        private GcBaseRule objDefaultInfo;
         private readonly string DEMO_NAME_ROLL8STAND = "=A-4001";
         private readonly string DEMO_NAME_RULE_ROLL8STAND = "4001";
-        private readonly string DEMO_DESCRIPTION_ROLL8STAND = "XXX磨粉机/或者空白";
-        private readonly string DEMO_DESCRIPTION_RULE_ROLL8STAND = "xxx/或者空白";
+        private readonly string DEMO_DESCRIPTION_ROLL8STAND = "制粉A线2楼(4001)磨粉机";
+        private readonly string DEMO_DESCRIPTION_RULE_ROLL8STAND = "制粉A线2楼(4001)磨粉机/或者空白";
         #endregion
         private int value10 ;
         private int tempInt = 0;
@@ -132,11 +133,46 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
+            objDefaultInfo.NameRule = "4001";
+            objDefaultInfo.DescLine = "制粉A线";
+            objDefaultInfo.DescFloor = "2楼";
+            objDefaultInfo.Name = "=A-4001";
+            objDefaultInfo.DescObject = "磨粉机";
+            objDefaultInfo.DescriptionRuleInc = Roll8Stand.Rule.Common.DescriptionRuleInc;
+            objDefaultInfo.NameRuleInc = Roll8Stand.Rule.Common.NameRuleInc;
+            Roll8Stand.Rule.Common.Cabinet = Roll8Stand.Rule.Common.Power = string.Empty;
+
+            objDefaultInfo.Description = Roll8Stand.EncodingDesc(
+              baseRule: ref objDefaultInfo,
+              namePrefix: GcObjectInfo.General.PrefixName,
+              nameRule: Engineering.PatternMachineName,
+              withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+              withFloorInfo: chkAddFloorToDesc.Checked,
+              withNameInfo: chkAddNameToDesc.Checked,
+              withCabinet: false,
+              withPower: false,
+              nameOnlyWithNumber: chkNameOnlyNumber.Checked);
+            if (String.IsNullOrEmpty(Roll8Stand.Rule.Common.Description))
+            { Roll8Stand.Rule.Common.Description = objDefaultInfo.Description; }
+
+            if (String.IsNullOrEmpty(Roll8Stand.Rule.Common.Name))
+            { Roll8Stand.Rule.Common.Name = objDefaultInfo.Name; }
+
+            if (String.IsNullOrEmpty(Roll8Stand.Rule.Common.DescLine))
+            { Roll8Stand.Rule.Common.DescLine = objDefaultInfo.DescLine; }
+
+            if (String.IsNullOrEmpty(Roll8Stand.Rule.Common.DescFloor))
+            { Roll8Stand.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
+
+            if (String.IsNullOrEmpty(Roll8Stand.Rule.Common.DescObject))
+            { Roll8Stand.Rule.Common.DescObject = objDefaultInfo.DescObject; }
+
             txtSymbolRule.Text = Roll8Stand.Rule.Common.NameRule;
             txtSymbolIncRule.Text = Roll8Stand.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = Roll8Stand.Rule.Common.DescriptionRule;
             txtDescriptionIncRule.Text = Roll8Stand.Rule.Common.DescriptionRuleInc;
-
+            txtSymbol.Text = Roll8Stand.Rule.Common.Name;
+            txtDescription.Text = Roll8Stand.Rule.Common.Description;
         }
         public void CreateTips()
         {
@@ -212,9 +248,8 @@ namespace GcproExtensionApp
         private void FormMA_Roller8Stand_Load(object sender, EventArgs e)
         {
             isNewOledbDriver = AccessFileHandle.CheckAccessFileType(AppGlobal.GcproDBInfo.ProjectDBPath);
-
-            GetLastObjRule();
             GetInfoFromDatabase();
+            GetLastObjRule();
             CreateTips();
             Default();
         }
@@ -229,7 +264,25 @@ namespace GcproExtensionApp
         {
             txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text, false);
             myRoll8Stand.Name = txtSymbol.Text;
+            Roll8Stand.Rule.Common.Name = txtSymbol.Text;
             SubTypeChanged();
+            UpdateDesc();
+        }
+
+        private void UpdateDesc()
+        {
+            Roll8Stand.EncodingDesc(
+            baseRule: ref Roll8Stand.Rule.Common,
+            namePrefix: GcObjectInfo.General.PrefixName,
+            nameRule: Engineering.PatternMachineName,
+            withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+            withFloorInfo: chkAddFloorToDesc.Checked,
+            withNameInfo: chkAddNameToDesc.Checked,
+            withCabinet: false,
+            withPower: false,
+            nameOnlyWithNumber: chkNameOnlyNumber.Checked
+            );
+            txtDescription.Text = Roll8Stand.Rule.Common.Description;
         }
         private void SubElementsName_Changed(object sender, EventArgs e)
         {
@@ -238,7 +291,19 @@ namespace GcproExtensionApp
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
            
-            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, txtDescription.Text);
+            if (!Roll8Stand.Rule.Common.Description.Equals(txtDescription.Text))
+            {
+                Roll8Stand.Rule.Common.Description = txtDescription.Text;
+            }
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(Roll8Stand.Rule.Common.DescObject, false);
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            {
+                txtDescription.BackColor = Color.Red;
+            }
+            else
+            {
+                txtDescription.BackColor = Color.White;
+            }
         }
         private void txtSymbolRule_TextChanged(object sender, EventArgs e)
         {
@@ -279,6 +344,21 @@ namespace GcproExtensionApp
                 AppGlobal.MessageNotNumeric();
             }
 
+        }
+        private void txtDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    Roll8Stand.Rule.Common.Description = txtDescription.Text;
+                    Roll8Stand.DecodingDesc(ref Roll8Stand.Rule.Common, AppGlobal.DESC_SEPARATOR);
+                    UpdateDesc();
+                }
+                catch
+                {
+                }
+            }
         }
         private void txtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
         {
@@ -953,25 +1033,25 @@ namespace GcproExtensionApp
         }
         void GetValue10BitValue(int value)
         {
-            chkParManual.Checked = AppGlobal. GetBit<int>(value, 5);
-            chkParWithHLInletS1.Checked = AppGlobal. GetBit<int>(value, 1);
-            chkParWithHLInletS2.Checked = AppGlobal. GetBit<int>(value, 2);
-            chkParWithSMS1.Checked = AppGlobal. GetBit<int>(value, 3);
-            chkParWithSMS2.Checked = AppGlobal. GetBit<int>(value, 4);
+            chkParManual.Checked = AppGlobal.GetBit<int>(value, 5);
+            chkParWithHLInletS1.Checked = AppGlobal.GetBit<int>(value, 1);
+            chkParWithHLInletS2.Checked = AppGlobal.GetBit<int>(value, 2);
+            chkParWithSMS1.Checked = AppGlobal.GetBit<int>(value, 3);
+            chkParWithSMS2.Checked = AppGlobal.GetBit<int>(value, 4);
             chkPar4Rolls.Checked = AppGlobal. GetBit<int>(value, 6);
-            chkParWithMDDx.Checked = AppGlobal. GetBit<int>(value, 7);
+            chkParWithMDDx.Checked = AppGlobal.GetBit<int>(value, 7);
             chkParWithHLInletS1Div.Checked = AppGlobal. GetBit<int>(value, 8);
             chkParWithHLInletS2Div.Checked = AppGlobal. GetBit<int>(value, 9);
-            chkWithMotorUpS1.Checked = AppGlobal. GetBit<int>(value, 10);
-            chkWithMotorUpS2.Checked = AppGlobal. GetBit<int>(value, 11);
-            chkWithHLOutlet1S1.Checked = AppGlobal. GetBit<int>(value, 12);
-            chkWithHLOutlet2S1.Checked = AppGlobal. GetBit<int>(value, 13);
-            chkWithHLOutlet1S2.Checked = AppGlobal. GetBit<int>(value, 14);
-            chkWithHLOutlet2S2.Checked = AppGlobal. GetBit<int>(value, 15);
-            chkWithHLOutlet3S1.Checked = AppGlobal. GetBit<int>(value, 16);
-            chkWithHLOutlet3S2.Checked = AppGlobal. GetBit<int>(value, 17);
-            chkWithATVForFeedRolls.Checked = AppGlobal. GetBit<int>(value, 18);
-            chkWithCurrentTransform.Checked = AppGlobal. GetBit<int>(value, 19);
+            chkWithMotorUpS1.Checked = AppGlobal.GetBit<int>(value, 10);
+            chkWithMotorUpS2.Checked = AppGlobal.GetBit<int>(value, 11);
+            chkWithHLOutlet1S1.Checked = AppGlobal.GetBit<int>(value, 12);
+            chkWithHLOutlet2S1.Checked = AppGlobal.GetBit<int>(value, 13);
+            chkWithHLOutlet1S2.Checked = AppGlobal.GetBit<int>(value, 14);
+            chkWithHLOutlet2S2.Checked = AppGlobal.GetBit<int>(value, 15);
+            chkWithHLOutlet3S1.Checked = AppGlobal.GetBit<int>(value, 16);
+            chkWithHLOutlet3S2.Checked = AppGlobal.GetBit<int>(value, 17);
+            chkWithATVForFeedRolls.Checked = AppGlobal.GetBit<int>(value, 18);
+            chkWithCurrentTransform.Checked = AppGlobal.GetBit<int>(value, 19);
         }
 
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1162,6 +1242,43 @@ namespace GcproExtensionApp
         }
         #endregion
         #region Common used
+        private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddSectionToDesc.Checked)
+            {
+                chkAddUserSectionToDesc.Checked = false;
+            }
+            UpdateDesc();
+        }
+
+        private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddUserSectionToDesc.Checked)
+            {
+                chkAddSectionToDesc.Checked = false;
+            }
+            UpdateDesc();
+        }
+
+        private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+
+        private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDesc();
+        }
+        private void ComboElevation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Roll8Stand.Rule.Common.DescFloor = ComboElevation.Text;
+            UpdateDesc();
+        }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComboCreateMode.SelectedItem.ToString() == CreateMode.ObjectCreateMode.Rule)
@@ -1321,91 +1438,127 @@ namespace GcproExtensionApp
                 builder.Append(info);
             }
         }
-
-        private void CreatObjectBML()
-        {
-            StringBuilder descTotalBuilder = new StringBuilder();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="datafromBML"></param>
+        /// <param name="objRoll8Stand"></param>
+        /// <param name="parValue10"></param>
+        /// <param name="addtionToDesc"></param>
+        /// <param name="processValue"></param>
+        public void CreatObjectBML(DataGridView datafromBML, Roll8Stand objRoll8Stand, double parValue10,
+          (bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
+          out (int Value, int Max) processValue)
+         { 
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int noOfSubElements;
-            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;           
-            listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
-            ProgressBar.Maximum = quantityNeedToBeCreate;
-            ProgressBar.Value = 0;       
+            List<KeyValuePair<string, int>> listName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataGridBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
+            int quantityNeedToBeCreate = listName.Count;
+            processValue.Max = quantityNeedToBeCreate;
+            processValue.Value = 0;
             string _nameNumberString = string.Empty;
-           // string subTypePrev;
+            int line = 0, nextLine = 0;
+            // string subTypePrev;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
-                // DataGridViewCell cell;
-                myRoll8Stand.Name = Convert.ToString(listBMLName[i].Key.ToString());
-                if (String.IsNullOrEmpty(myRoll8Stand.Name))
+                myRoll8Stand.Name = Convert.ToString(listName[i].Key.ToString());
+                if (String.IsNullOrEmpty(objRoll8Stand.Name))
                 {
                     continue;
                 }
                 #region Subtype         
-                noOfSubElements = (int)listBMLName[i].Value;
+                noOfSubElements = (int)listName[i].Value;
                 switch (noOfSubElements)
                 {
                     case 1:
+                        line = nextLine;
+                        nextLine += 1;
+                        myRoll8Stand.SubType = Roll8Stand.ROLL4;
+                        break;
                     case 2:
+                        myRoll8Stand.SubType = Roll8Stand.ROLL4;
+                        line = nextLine;
+                        nextLine += 2;
+                        break;
                     case 3:
                         myRoll8Stand.SubType = Roll8Stand.ROLL4;
+                        line = nextLine;
+                        nextLine += 3;
                         break;
                     case 4:
                         myRoll8Stand.SubType = Roll8Stand.ROLL8;
-      
+                        line = nextLine;
+                        nextLine += 4;
                         break;
                     case 5:
                         myRoll8Stand.SubType = Roll8Stand.ROLL4M;
-                        break;
-                
+                        line = nextLine;
+                        nextLine += 5;
+                        break;                
                     case 7:
                         myRoll8Stand.SubType = Roll8Stand.ROLL8M;
+                        line = nextLine;
+                        nextLine += 7;
                         break;
-                    default:
-                        myRoll8Stand.SubType = Roll8Stand.ROLL4M;
-                        goto case 5;
-                      
+                    default:                    
+                        goto case 5;                   
                 }
                             
-                    SetElementsName(myRoll8Stand.SubType, myRoll8Stand.Name);
+                    SetElementsName(objRoll8Stand.SubType, objRoll8Stand.Name);
                     SetValue10AndElements();
-              
-                myRoll8Stand.Value10= value10;
-            
-                #endregion  
-                myRoll8Stand.Elevation= ComboElevation.Text;
-                descTotalBuilder.Clear();
-                bool additionInfToDesc = chkAddNameToDesc.Checked || chkAddFloorToDesc.Checked;          
-                if (chkAddSectionToDesc.Checked)
+                objRoll8Stand.Value10= value10;
+                #endregion
+                if (addtionToDesc.section)
                 {
-                 //   _nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameOnlyWithNumber, myRoll8Stand.Name);
-                    _nameNumberString = LibGlobalSource.StringHelper.ExtractNumericPart(myRoll8Stand.Name, false);
                     if (!string.IsNullOrEmpty(_nameNumberString))
                     {
-                        if (AppGlobal.ParseValue<int>(_nameNumberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(_nameNumberString, out tempInt))
                         {
-                            descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
+                            Roll8Stand.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
                     }
                 }
-                if (additionInfToDesc)
+                else if (addtionToDesc.userDefSection)
                 {
-                    AppendInfoToBuilder(chkAddFloorToDesc, $"{myRoll8Stand.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
-                    string descName = chkNameOnlyNumber.Checked ? _nameNumberString : myRoll8Stand.Name;
-                    descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
-                    AppendInfoToBuilder(chkAddNameToDesc, $"({descName})", descTotalBuilder);
+                    Roll8Stand.Rule.Common.DescLine = Convert.ToString(datafromBML.Rows[line].Cells[nameof(BML.ColumnLine)].Value);
                 }
-                descTotalBuilder.Append($"{BML.MachineType.RollerMiller}");
-             
-                myRoll8Stand.Description = descTotalBuilder.ToString();
-                myRoll8Stand.CreateObject(Encoding.Unicode);
-                ProgressBar.Value = i;
+
+                if (addtionToDesc.elevation)
+                {
+                    objRoll8Stand.Elevation = Convert.ToString(datafromBML.Rows[line].Cells[nameof(BML.ColumnFloor)].Value);
+                    Roll8Stand.Rule.Common.DescFloor = $"{objRoll8Stand.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                }
+                else
+                {
+                    Roll8Stand.Rule.Common.DescFloor = string.Empty;
+                }
+                 objRoll8Stand.Description = Roll8Stand.EncodingDesc(
+                 baseRule: ref Roll8Stand.Rule.Common,
+                 namePrefix: GcObjectInfo.General.PrefixName,
+                 nameRule: Engineering.PatternMachineName,
+                 withLineInfo: addtionToDesc.section || addtionToDesc.userDefSection,
+                 withFloorInfo: addtionToDesc.elevation,
+                 withNameInfo: addtionToDesc.identNumber,
+                 withCabinet: false,
+                 withPower: false,
+                 nameOnlyWithNumber: addtionToDesc.onlyNumber
+                );
+                objRoll8Stand.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                processValue.Value = i;
             }
-            ProgressBar.Value = quantityNeedToBeCreate;
+            processValue.Value = processValue.Max;
         }
-        private void CreatObjectRule()
-        {    
-            int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+        private void CreatObjectRule((bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
+            (int IOByteStart, int Len) IOAddr,
+            ref (int Value, int Max) processValue)
+        {           
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
+            int quantityNeedToBeCreate = processValue.Max;
             bool moreThanOne = quantityNeedToBeCreate > 1;
+            string desc;
+            objDefaultInfo = Roll8Stand.Rule.Common;
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {
@@ -1527,31 +1680,25 @@ namespace GcproExtensionApp
             {
                 name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
             }
-
-         //   string selectedDPNode1Item = string.Empty;
-
             ///<DescRule>生成描述规则</DescRule>
+            desc = Roll8Stand.Rule.Common.DescObject;
             if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
             {
-                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
+                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
                 {
                     if (moreThanOne)
                     {
                         AppGlobal.RuleNotSetCorrect($"{grpDescriptionRule.Text}.{lblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                        // return;
                     }
                 }
                 else
                 {
-                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
+                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(desc, txtDescriptionRule.Text);
                 }
             }
             #endregion
-
-            ProgressBar.Maximum = quantityNeedToBeCreate;
-            ProgressBar.Value = 0;
-            ///<CreateObj>
+             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
           //  int symbolInc, symbolRule, descriptionInc;
@@ -1563,7 +1710,7 @@ namespace GcproExtensionApp
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
 
-                if (!String.IsNullOrEmpty(txtDescription.Text))
+                if (!String.IsNullOrEmpty(desc))
                 {
                     if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
@@ -1574,33 +1721,43 @@ namespace GcproExtensionApp
                     }
                     else
                     {
-                        description.Name = txtDescription.Text;
+                        description.Name = desc;
                     }
 
                 }
                 else
                 {
-                    description.Name = "--";
+                    description.Name = BML.MachineType.RollerMiller;
                 }
-
-                myRoll8Stand.Name = name.Name;
                 SetElementsName(myRoll8Stand.SubType, name.Name);
                 myRoll8Stand.Value10 = value10;
-               // SetElementsEnbale(myRoll8Stand.SubType);
-              //  SetValue10AndElements();
-                myRoll8Stand.Description = description.Name;
-                myRoll8Stand.CreateObject(Encoding.Unicode);
-                ProgressBar.Value = i;
+                myRoll8Stand.Name = name.Name;
+                Roll8Stand.Rule.Common.Name = name.Name;
+                Roll8Stand.Rule.Common.DescObject = description.Name;
+                Roll8Stand.Rule.Common.DescFloor = $"{myRoll8Stand.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                myRoll8Stand.Description = Roll8Stand.EncodingDesc(
+                    baseRule: ref Roll8Stand.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.section || addtionToDesc.userDefSection,
+                    withFloorInfo: addtionToDesc.elevation,
+                    withNameInfo: addtionToDesc.identNumber,
+                    withCabinet: false,
+                    withPower: false,
+                    nameOnlyWithNumber: addtionToDesc.onlyNumber
+                 );
+                myRoll8Stand.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                processValue.Value = i;
             }
-            ProgressBar.Value = quantityNeedToBeCreate;
+            processValue.Value = processValue.Max;
         }
         private void CreatObjectAutoSearch()
         {
-            OleDb oledb = new OleDb();
-            DataTable dataTable ;
-            oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
-            oledb.IsNewOLEDBDriver = isNewOledbDriver;
-            #region common used variables declaration       
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+           DataTable dataTable ;
+            #region common used variables declaration  
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate;
            // AppGlobal.ParseValue<int>(TxtQuantity.Text, out int quantityNeedToBeCreate);
             RuleSubDataSet description, name;
@@ -1706,7 +1863,7 @@ namespace GcproExtensionApp
            
                 myRoll8Stand.Description = txtDescription.Text;
                 myRoll8Stand.Value10 = value10;
-                myRoll8Stand.CreateObject(Encoding.Unicode);
+                myRoll8Stand.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 ProgressBar.Value = i;
             }
             ProgressBar.Value = quantityNeedToBeCreate;
@@ -1714,11 +1871,16 @@ namespace GcproExtensionApp
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
             try
-            {                        
+            {
+                AppGlobal.AdditionDesc.Section = chkAddSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.UserDefSection = chkAddUserSectionToDesc.Checked;
+                AppGlobal.AdditionDesc.Elevation = chkAddFloorToDesc.Checked;
+                AppGlobal.AdditionDesc.IdentNumber = chkAddNameToDesc.Checked;
+                AppGlobal.AdditionDesc.Cabinet = false;
+                AppGlobal.AdditionDesc.Power = false;
                 if (createMode.BML)
                 {
-
-                    CreatObjectBML();
+                    CreatObjectBML(dataGridBML, myRoll8Stand, value10, AppGlobal.AdditionDesc, out AppGlobal.ProcessValue);
                 }
                 else if (createMode.AutoSearch)
                 {
@@ -1726,14 +1888,20 @@ namespace GcproExtensionApp
                 }
                 else if (createMode.Rule)
                 {
-                    CreatObjectRule();
+                    AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
+                    CreatObjectRule(AppGlobal.AdditionDesc, AppGlobal.IOAddr, ref AppGlobal.ProcessValue);
                 }
+                ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
+                ProgressBar.Value = AppGlobal.ProcessValue.Value;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion       
+
+        #endregion
+
+ 
     }
 }

@@ -829,7 +829,8 @@ namespace GcproExtensionApp
         }
         private void CreateObjectBML()
         {
-          
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             ProgressBar.Maximum = dataGridBML.Rows.Count-1;
             for (int i = 0; i < dataGridBML.Rows.Count; i++)
             {
@@ -844,20 +845,15 @@ namespace GcproExtensionApp
                 #region Subtype and PType                                          
                 myDPSlave.SubType = string.IsNullOrEmpty(myDPSlave.IPAddr) ? DPSlave.Profibus : DPSlave.Profinet;
                 #endregion                
-                myDPSlave.CreateObject(Encoding.Unicode);
+                myDPSlave.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 ProgressBar.Value = i;
             }
             ProgressBar.Value = ProgressBar.Maximum;
         }
         private void CreateObjectRule()
         {
-            //OleDb oledb = new OleDb
-            //{
-            //    DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-            //    IsNewOLEDBDriver = isNewOledbDriver
-            //};
-            //   bool needDPNodeChanged = false;
-            StringBuilder descTotalBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
@@ -1047,7 +1043,7 @@ namespace GcproExtensionApp
                 }
                 myDPSlave.Name = name.Name;
                 myDPSlave.Description = description.Name;                                                                    
-                myDPSlave.CreateObject(Encoding.Unicode);
+                myDPSlave.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 ProgressBar.Value = i;
             }
             ProgressBar.Value = ProgressBar.Maximum;

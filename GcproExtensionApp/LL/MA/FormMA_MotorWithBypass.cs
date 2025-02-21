@@ -1438,6 +1438,8 @@ namespace GcproExtensionApp
         private void CreatObjectRule((bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
             ref (int Value, int Max) processValue)
         {
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = processValue.Max;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             StringBuilder descTotalBuilder = new StringBuilder();
@@ -1780,7 +1782,6 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-           // int symbolInc, symbolRule, descriptionInc,mon1Inc,mon2Inc,vls1Inc,vls2Inc,sealInc,pressureInc,aiInc,cleaningTime;
             AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
             AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
             AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
@@ -1972,7 +1973,7 @@ namespace GcproExtensionApp
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         
                 myMotorWithBypass.Description = descTotalBuilder.ToString();
-                myMotorWithBypass.CreateObject(Encoding.Unicode);
+                myMotorWithBypass.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;

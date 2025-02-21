@@ -34,6 +34,7 @@ namespace GcproExtensionApp
         readonly CreateMode createMode = new CreateMode();
         List<KeyValuePair<string, int>> listBMLName = new List<KeyValuePair<string, int>>();
         private bool isNewOledbDriver ;
+        private GcBaseRule objDefaultInfo;
         private readonly string DEMO_NAME_MDDYZPhoenix = "=A-4001";
         private readonly string DEMO_NAME_RULE_MDDYZPhoenix = "4001";
         private readonly string DEMO_DESCRIPTION_MDDYZPhoenix = "制粉A线2楼(4001)磨粉机";
@@ -132,15 +133,47 @@ namespace GcproExtensionApp
         }
         public void GetLastObjRule()
         {
+            objDefaultInfo.NameRule = "4001";
+            objDefaultInfo.DescLine = "制粉A线";
+            objDefaultInfo.DescFloor = "2楼";
+            objDefaultInfo.Name = "=A-4001";
+            objDefaultInfo.DescObject = "磨粉机";
+            objDefaultInfo.DescriptionRuleInc = MDDYZPhoenix.Rule.Common.DescriptionRuleInc;
+            objDefaultInfo.NameRuleInc = MDDYZPhoenix.Rule.Common.NameRuleInc;
+            MDDYZPhoenix.Rule.Common.Cabinet = MDDYZPhoenix.Rule.Common.Power = string.Empty;
+
+            objDefaultInfo.Description = MDDYZPhoenix.EncodingDesc(
+              baseRule: ref objDefaultInfo,
+              namePrefix: GcObjectInfo.General.PrefixName,
+              nameRule: Engineering.PatternMachineName,
+              withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+              withFloorInfo: chkAddFloorToDesc.Checked,
+              withNameInfo: chkAddNameToDesc.Checked,
+              withCabinet: false,
+              withPower: false,
+              nameOnlyWithNumber: chkNameOnlyNumber.Checked);
+            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Description))
+            { MDDYZPhoenix.Rule.Common.Description = objDefaultInfo.Description; }
+
+            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Name))
+            { MDDYZPhoenix.Rule.Common.Name = objDefaultInfo.Name; }
+
+            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescLine))
+            { MDDYZPhoenix.Rule.Common.DescLine = objDefaultInfo.DescLine; }
+
+            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescFloor))
+            { MDDYZPhoenix.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
+
+            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescObject))
+            { MDDYZPhoenix.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = MDDYZPhoenix.Rule.Common.NameRule;
             txtSymbolIncRule.Text = MDDYZPhoenix.Rule.Common.NameRuleInc;
             txtDescriptionRule.Text = MDDYZPhoenix.Rule.Common.DescriptionRule;
             txtDescriptionIncRule.Text = MDDYZPhoenix.Rule.Common.DescriptionRuleInc;
-            txtSymbol.Text = String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Name) ? DEMO_NAME_RULE_MDDYZPhoenix : MotorWithBypass.Rule.Common.Name;
-           // DEMO_DESCRIPTION_MDDYZPhoenix = GenerateDesc(DEMO_NAME_RULE_MDDYZPhoenix);
-            txtDescription.Text = String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Description) ? DEMO_DESCRIPTION_RULE_MDDYZPhoenix : MotorWithBypass.Rule.Common.Description;
-           
+            txtSymbol.Text = MDDYZPhoenix.Rule.Common.Name;
+            txtDescription.Text = MDDYZPhoenix.Rule.Common.Description;
+
         }
         public void CreateTips()
         {
@@ -232,11 +265,23 @@ namespace GcproExtensionApp
             myMDDYZPhoenix.Name = txtSymbol.Text;
             MDDYZPhoenix.Rule.Common.Name = txtSymbol.Text;  
             SubTypeChanged();
+            UpdateDesc();
         }
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            MDDYZPhoenix.Rule.Common.Description = txtDescription.Text;
-            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, txtDescription.Text);
+            if (!MDDYZPhoenix.Rule.Common.Description.Equals(txtDescription.Text))
+            {
+                MDDYZPhoenix.Rule.Common.Description = txtDescription.Text;
+            }
+            txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(MDDYZPhoenix.Rule.Common.DescObject, false);
+            if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
+            { 
+                txtDescription.BackColor = Color.Red; 
+            }
+            else
+            { 
+                txtDescription.BackColor = Color.White; 
+            }
         }
         private void SubElementsName_Changed(object sender, EventArgs e)
         {
@@ -281,6 +326,21 @@ namespace GcproExtensionApp
                 AppGlobal.MessageNotNumeric();
             }
 
+        }
+        private void txtDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    MDDYZPhoenix.Rule.Common.Description = txtDescription.Text;
+                    MDDYZPhoenix.DecodingDesc(ref MDDYZPhoenix.Rule.Common, AppGlobal.DESC_SEPARATOR);
+                    UpdateDesc();
+                }
+                catch
+                {
+                }
+            }
         }
         private void txtDescriptionIncRule_KeyDown(object sender, KeyEventArgs e)
         {
@@ -683,7 +743,22 @@ namespace GcproExtensionApp
                 OType = Convert.ToString(MDDYZPhoenix.OTypeValue)
             };
             objectBrowser.Show();
-        }    
+        }
+        private void UpdateDesc()
+        {
+            MDDYZPhoenix.EncodingDesc(
+            baseRule: ref MDDYZPhoenix.Rule.Common,
+            namePrefix: GcObjectInfo.General.PrefixName,
+            nameRule: Engineering.PatternMachineName,
+            withLineInfo: (chkAddSectionToDesc.Checked || chkAddUserSectionToDesc.Checked),
+            withFloorInfo: chkAddFloorToDesc.Checked,
+            withNameInfo: chkAddNameToDesc.Checked,
+            withCabinet: false,
+            withPower: false,
+            nameOnlyWithNumber: chkNameOnlyNumber.Checked
+            );
+            txtDescription.Text = MDDYZPhoenix.Rule.Common.Description;
+        }
         void SetValue10AndElements()
         {
             CheckBox tempChk = new CheckBox();
@@ -852,7 +927,9 @@ namespace GcproExtensionApp
                     comboWorkSheetsBML.Items.Add(sheet);
                 }
                 if (comboWorkSheetsBML.Items.Count > 0)
-                { comboWorkSheetsBML.SelectedIndex = 0; }
+                { 
+                    comboWorkSheetsBML.SelectedIndex = 0; 
+                }
             }
             catch (FileNotFoundException)
             {
@@ -937,7 +1014,7 @@ namespace GcproExtensionApp
             }
             comboStartRow.SelectedItem = BML.StartRow;
             dataGridBML.AutoGenerateColumns = false;
-            TxtExcelPath.Text =BML.MA_MDDYZPhoenix.BMLPath;
+            TxtExcelPath.Text = BML.MA_MDDYZPhoenix.BMLPath;
             AddWorkSheets();
             dataGridBML.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -1019,27 +1096,38 @@ namespace GcproExtensionApp
         #region Common used
         private void chkAddNameToDesc_CheckedChanged(object sender, EventArgs e)
         {
-
+            UpdateDesc();
         }
 
         private void chkAddFloorToDesc_CheckedChanged(object sender, EventArgs e)
         {
-
+            UpdateDesc();
         }
 
         private void chkNameOnlyNumber_CheckedChanged(object sender, EventArgs e)
         {
-
+            UpdateDesc();
         }
         private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAddSectionToDesc.Checked)
-            { chkAddUserSectionToDesc.Checked = false; }
+            { 
+                chkAddUserSectionToDesc.Checked = false; 
+            }
+            UpdateDesc();
         }
         private void chkAddUserSectionToDesc_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAddUserSectionToDesc.Checked)
-            { chkAddSectionToDesc.Checked = false; }
+            { 
+                chkAddSectionToDesc.Checked = false; 
+            }
+            UpdateDesc();
+        }
+        private void ComboElevation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MDDYZPhoenix.Rule.Common.DescFloor = ComboElevation.Text;
+            UpdateDesc();
         }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1203,19 +1291,19 @@ namespace GcproExtensionApp
         public void CreatObjectBML(DataGridView datafromBML,MDDYZPhoenix objMDDYZPhoenix,double parValue10,
             (bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
             out (int Value, int Max) processValue)
-        {
-            StringBuilder descTotalBuilder = new StringBuilder();
+        {         
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int noOfSubElements;
             List<KeyValuePair<string, int>> listName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(datafromBML, nameof(BML.ColumnName), Engineering.PatternMachineName);
-            int quantityNeedToBeCreate = listName.Count;
-        //    int subElements = datafromBML.Rows.Count;     
+            int quantityNeedToBeCreate = listName.Count;  
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
-            string numberString;
-          //  string subTypePrev=string.Empty;
+            string _nameNumberString;
+            MDDYZPhoenix.Rule.Common.Description = BML.MachineType.RollerMiller; ;
+            int line = 0 ,nextLine = 0;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
-
                 objMDDYZPhoenix.Name = Convert.ToString(listName[i].Key.ToString());
                 if (String.IsNullOrEmpty(objMDDYZPhoenix.Name))
                 {
@@ -1226,15 +1314,29 @@ namespace GcproExtensionApp
                 switch (noOfSubElements)
                 {
                     case 4:
+                        objMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL4;   
+                        line = nextLine;
+                        nextLine += 4;
+                        break;
                     case 5:
                        objMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL4;
+                        line = nextLine;
+                        nextLine += 5;
                         break;                       
                     case 6:
+                        objMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL8;
+                        line = nextLine;
+                        nextLine += 6;
+                        break;
                     case 7:
-                       objMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL8;
+                        objMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL8;
+                        line = nextLine;
+                        nextLine += 7;
                         break;
                     default:
                        objMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL4;
+                        line = nextLine;
+                        nextLine += 4;
                         break;
                 }                           
                     SetElementsName(objMDDYZPhoenix.SubType,objMDDYZPhoenix.Name);
@@ -1242,34 +1344,46 @@ namespace GcproExtensionApp
               
                 objMDDYZPhoenix.Value10= parValue10;           
                 #endregion              
-                descTotalBuilder.Clear();
-                bool additionInfToDesc = addtionToDesc.identNumber || addtionToDesc.elevation;
-                numberString = LibGlobalSource.StringHelper.ExtractNumericPart(objMDDYZPhoenix.Name, false);
+
+                _nameNumberString = LibGlobalSource.StringHelper.ExtractNumericPart(objMDDYZPhoenix.Name, false);
                 if (addtionToDesc.section)
-                {                
-                    if (!string.IsNullOrEmpty(numberString))
+                {
+                  
+                    if (!string.IsNullOrEmpty(_nameNumberString))
                     {
-                        if (AppGlobal.ParseValue<int>(numberString.Substring(0, 4), out tempInt))
+                        if (AppGlobal.ParseValue<int>(_nameNumberString, out tempInt))
                         {
-                            descTotalBuilder.Append(GcObjectInfo.Section.ReturnSection(tempInt));
+                            MDDYZPhoenix.Rule.Common.DescLine = GcObjectInfo.Section.ReturnSection(tempInt);
                         }
                     }
                 }
-                if (addtionToDesc.userDefSection)
+                else if (addtionToDesc.userDefSection)
                 {
-                    descTotalBuilder.Append(Convert.ToString(datafromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value));
+                    MDDYZPhoenix.Rule.Common.DescLine = Convert.ToString(datafromBML.Rows[line].Cells[nameof(BML.ColumnLine)].Value); 
                 }
-                if (additionInfToDesc)
+
+                if (addtionToDesc.elevation)
                 {
-                   AppGlobal.AppendInfoToBuilder(addtionToDesc.elevation, $"{objMDDYZPhoenix.Elevation}{GcObjectInfo.General.AddInfoElevation}", descTotalBuilder);
-                    string descName = chkNameOnlyNumber.Checked ? numberString : objMDDYZPhoenix.Name;
-                    descName = descName.Contains(GcObjectInfo.General.PrefixName) ? descName.Replace(GcObjectInfo.General.PrefixName, string.Empty) : descName;
-                    AppGlobal.AppendInfoToBuilder(addtionToDesc.identNumber, $"({descName})", descTotalBuilder);
+                    objMDDYZPhoenix.Elevation = Convert.ToString(datafromBML.Rows[line].Cells[nameof(BML.ColumnFloor)].Value);
+                    MDDYZPhoenix.Rule.Common.DescFloor = $"{objMDDYZPhoenix.Elevation}{GcObjectInfo.General.AddInfoElevation}";
                 }
-                descTotalBuilder.Append($"{BML.MachineType.RollerMiller}");
-             
-                objMDDYZPhoenix.Description = descTotalBuilder.ToString();
-                objMDDYZPhoenix.CreateObject(Encoding.Unicode);
+                else
+                {
+                    MDDYZPhoenix.Rule.Common.DescFloor = string.Empty;
+                }
+
+                objMDDYZPhoenix.Description = MDDYZPhoenix.EncodingDesc(
+                baseRule: ref MDDYZPhoenix.Rule.Common,
+                namePrefix: GcObjectInfo.General.PrefixName,
+                nameRule: Engineering.PatternMachineName,
+                withLineInfo: addtionToDesc.section || addtionToDesc.userDefSection,
+                withFloorInfo: addtionToDesc.elevation,
+                withNameInfo: addtionToDesc.identNumber,
+                withCabinet: false,
+                withPower: false,
+                nameOnlyWithNumber: addtionToDesc.onlyNumber
+             );
+                objMDDYZPhoenix.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;
@@ -1278,9 +1392,12 @@ namespace GcproExtensionApp
             (int IOByteStart, int Len) IOAddr,
             ref (int Value, int Max) processValue)
         {
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = processValue.Max;
             bool moreThanOne = quantityNeedToBeCreate > 1;
-            StringBuilder descTotalBuilder = new StringBuilder();
+            string desc;
+            objDefaultInfo = MDDYZPhoenix.Rule.Common;
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
             {
@@ -1399,33 +1516,30 @@ namespace GcproExtensionApp
                 name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
             }
 
-         //   string selectedDPNode1Item = string.Empty;
-
             ///<DescRule>生成描述规则</DescRule>
+            desc = MDDYZPhoenix.Rule.Common.DescObject;
             if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
             {
-                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
+                description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
                 {
                     if (moreThanOne)
                     {
                         AppGlobal.RuleNotSetCorrect($"{grpDescriptionRule.Text}.{lblDescriptionRule.Text}" + "\n" + $"{AppGlobal.MSG_CREATE_WILL_TERMINATE}");
-                        // return;
                     }
                 }
                 else
                 {
-                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtDescription.Text, txtDescriptionRule.Text);
+                    description.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(desc, txtDescriptionRule.Text);
                 }
             }
             #endregion
 
-            ProgressBar.Maximum = quantityNeedToBeCreate;
-            ProgressBar.Value = 0;
+            //ProgressBar.Maximum = quantityNeedToBeCreate;
+            //ProgressBar.Value = 0;
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-          //  int symbolInc, symbolRule, descriptionInc;
             AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
             AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
             AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
@@ -1434,7 +1548,7 @@ namespace GcproExtensionApp
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
 
-                if (!String.IsNullOrEmpty(txtDescription.Text))
+                if (!String.IsNullOrEmpty(desc))
                 {
                     if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
@@ -1445,39 +1559,41 @@ namespace GcproExtensionApp
                     }
                     else
                     {
-                        description.Name = txtDescription.Text;
+                        description.Name = desc;
                     }
 
                 }
                 else
                 {
-                    description.Name = "--";
+                    description.Name = BML.MachineType.RollerMiller;
                 }
-
                 myMDDYZPhoenix.Name = name.Name;
-                descTotalBuilder.Clear();
-                descTotalBuilder.Append(description.Name);
-                if (addtionToDesc.cabinet)
-                {
-                    descTotalBuilder.Append("[");
-                    AppGlobal.AppendInfoToBuilder(addtionToDesc.cabinet, $"{GcObjectInfo.General.AddInfoCabinet}{myMDDYZPhoenix.Panel_ID}", descTotalBuilder);
-                    descTotalBuilder.Append("]");
-                }
-                myMDDYZPhoenix.Description = descTotalBuilder.ToString();
-                myMDDYZPhoenix.CreateObject(Encoding.Unicode);
-                ProgressBar.Value = i;
+                MDDYZPhoenix.Rule.Common.Name = name.Name;
+                MDDYZPhoenix.Rule.Common.DescObject = description.Name;
+                MDDYZPhoenix.Rule.Common.DescFloor = $"{myMDDYZPhoenix.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                myMDDYZPhoenix.Description = MDDYZPhoenix.EncodingDesc(
+                    baseRule: ref MDDYZPhoenix.Rule.Common,
+                    namePrefix: GcObjectInfo.General.PrefixName,
+                    nameRule: Engineering.PatternMachineName,
+                    withLineInfo: addtionToDesc.section || addtionToDesc.userDefSection,
+                    withFloorInfo: addtionToDesc.elevation,
+                    withNameInfo: addtionToDesc.identNumber,
+                    withCabinet: false,
+                    withPower: false,
+                    nameOnlyWithNumber: addtionToDesc.onlyNumber
+                 );
+                myMDDYZPhoenix.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                processValue.Value = i;
             }
-            ProgressBar.Value = processValue.Max;
+            processValue.Value = processValue.Max;
         }
         private void CreatObjectAutoSearch()
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);    
             DataTable dataTable ;
             #region common used variables declaration  
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate;         
             RuleSubDataSet description, name;
             description = new RuleSubDataSet
@@ -1564,7 +1680,7 @@ namespace GcproExtensionApp
            
                 myMDDYZPhoenix.Description = txtDescription.Text;
                 myMDDYZPhoenix.Value10 = value10;
-                myMDDYZPhoenix.CreateObject(Encoding.Unicode);
+                myMDDYZPhoenix.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 ProgressBar.Value = i;
             }
             ProgressBar.Value = quantityNeedToBeCreate;
@@ -1601,6 +1717,6 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion  
+        #endregion     
     }
 }

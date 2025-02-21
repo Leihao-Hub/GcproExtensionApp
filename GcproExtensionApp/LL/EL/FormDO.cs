@@ -1175,6 +1175,11 @@ namespace GcproExtensionApp
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={DO.OTypeValue}", null,
                         $"{GcproTable.ObjData.Text0.Name} ASC", GcproTable.ObjData.Text1.Name, GcproTable.ObjData.Value11.Name,
                         GcproTable.ObjData.Value12.Name, GcproTable.ObjData.Value15.Name);
+                    StringBuilder objBuilder = new StringBuilder();
+                    TextFileHandle objTextFileHandle = new TextFileHandle
+                    {
+                        FilePath = myDO.FileConnectorPath
+                    };
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
                     DO.Clear(myDO.FileConnectorPath);
@@ -1186,19 +1191,19 @@ namespace GcproExtensionApp
                         inpRun = objName + txtInpRunSuffix.Text;
                         outpRun = objName + txtOutpRunSuffix.Text;
                         if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
-                        {
-                            DO.CreateRelation(objName, inpRun, GcproTable.ObjData.Value11.Name, myDO.FileConnectorPath, Encoding.Unicode);
+                        {                     
+                            DO.CreateRelation(objTextFileHandle, objBuilder,objName, inpRun, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                         }
                         if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                         {
-                            DO.CreateRelation(objName, outpRun, GcproTable.ObjData.Value12.Name, myDO.FileConnectorPath, Encoding.Unicode);
+                            DO.CreateRelation(objTextFileHandle, objBuilder, objName, outpRun, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
                         }
                         if (!String.IsNullOrEmpty(txtInHWStop.Text))
                         {
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
                             {
                                 string InHWStop = objName + txtInHWStop.Text; ;
-                                DO.CreateRelation(objName, InHWStop, GcproTable.ObjData.Value47.Name, myDO.FileConnectorPath, Encoding.Unicode);
+                                DO.CreateRelation(objTextFileHandle, objBuilder, objName, InHWStop, GcproTable.ObjData.Value47.Name, Encoding.Unicode);
                             }
                         }
 
@@ -1392,6 +1397,8 @@ namespace GcproExtensionApp
          
             #region common used variables declaration       
             StringBuilder descToBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             #endregion
             #region Prepare export DO file     
@@ -1417,9 +1424,9 @@ namespace GcproExtensionApp
             bool descUserDef = false;
             bool descUserDefConfirm = false;
             objDefaultInfo = DO.Rule.Common;
+            DataGridViewCell cell;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
-                DataGridViewCell cell;
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
                 if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
@@ -1509,7 +1516,7 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power && !descUserDef,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objDO.CreateObject(Encoding.Unicode);
+                objDO.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             DO.Rule.Common = objDefaultInfo;
@@ -1519,10 +1526,11 @@ namespace GcproExtensionApp
          ref (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
-            // DataTable dataTable = new DataTable();
             #region common used variables declaration       
             bool needDPNodeChanged = false;
             StringBuilder descToBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             bool moreThanOne = quantityNeedToBeCreate > 1;
@@ -1682,7 +1690,6 @@ namespace GcproExtensionApp
                 }
             }
             #endregion
-
             processValue.Value = 0;
             ///<CreateObj>
             ///Search IO key,DPNode
@@ -1749,8 +1756,7 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-
-                objDO.CreateObject(Encoding.Unicode);
+                objDO.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;
@@ -1760,6 +1766,8 @@ namespace GcproExtensionApp
         {
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable ;
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             List<string> objList = new List<string>();
             // List<int> objOutpKeyList = new List<int>();
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.DOC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER}";
@@ -1773,15 +1781,13 @@ namespace GcproExtensionApp
             {             
                 objList.Add(GcObject.GetObjectSymbolFromIO(objOutpKeyList[i], GcObjectInfo.General.SuffixIO.Delimiter));
             }
-
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
-
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 objDO.Name = objList[i];
                 objDO.OutpRun = objOutpKeyList[i];
-                objDO.CreateObject(Encoding.Unicode);
+                objDO.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;

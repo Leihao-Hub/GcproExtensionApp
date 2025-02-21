@@ -305,7 +305,6 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             set { filePath = value; }
         }
         #endregion
-
         #region Readonly property
         public static string DSFU { get; } = _DSFU;
         public static string DSMAN { get; } = _DSMAN;
@@ -409,59 +408,60 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             } 
         }
         #endregion
-        /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle
-                {
-                    FilePath = this.filePath
-                };
-                isNew = "false";
-                StringBuilder objFields = new StringBuilder();
+                textFileHandle.FilePath = this.filePath;
+                isNew = "False";
+                string tab = LibGlobalSource.TAB;
+                string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
-                ///生产Standard字符串部分-使用父类中方法实现
+                ///生产Standard字符串部分
                 ///</summary> 
-                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>   
-                objFields.Append(parDischargerNo).Append(LibGlobalSource.TAB)
-                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                   .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                   .Append(parScaleNo).Append(LibGlobalSource.TAB)
-                   .Append(parBinNo).Append(LibGlobalSource.TAB)
-                   .Append(parHeightDropMax).Append(LibGlobalSource.TAB)
-                   .Append(parDownPipeWeight * 1000).Append(LibGlobalSource.TAB)
-                   .Append(parDosingSpeedFast).Append(LibGlobalSource.TAB)
-                   .Append(parDosingSpeedSlow).Append(LibGlobalSource.TAB)
-                   .Append(parSwitchOverTimeFToS * 10).Append(LibGlobalSource.TAB)
-                   .Append(parDosingTimeSlow * 10).Append(LibGlobalSource.TAB)
-                   .Append(parCutoffWeightCorrMax * 1000).Append(LibGlobalSource.TAB)
-                   .Append(parLevelCompensationMax).Append(LibGlobalSource.TAB)
-                   .Append(parDosingTimeMax).Append(LibGlobalSource.TAB)
-                   .Append(parFineDosingWeight * 1000).Append(LibGlobalSource.TAB)
-                   .Append(parCutoffWeight * 1000).Append(LibGlobalSource.TAB)
-                   .Append(parFlowrateFast).Append(LibGlobalSource.TAB)
-                   .Append(parFlowrateSlow).Append(LibGlobalSource.TAB)
-                   .Append(parTipPulseLen * 10).Append(LibGlobalSource.TAB)
-                   .Append(parTolPosWeight * 1000).Append(LibGlobalSource.TAB)
-                   .Append(parTolPosRel *10).Append(LibGlobalSource.TAB)
-                   .Append(parTolAutoPosWeight * 1000).Append(LibGlobalSource.TAB)
-                   .Append(parTolAutoPosRel * 10).Append(LibGlobalSource.TAB)
-                   .Append(parTolNegWeight * 1000).Append(LibGlobalSource.TAB)
-                   .Append(parTolNegRel *10).Append(LibGlobalSource.TAB)
+                sb.Append(parDischargerNo).Append(tab)
+                   .Append(noChild).Append(tab)
+                   .Append(noChild).Append(tab)
+                   .Append(noChild).Append(tab)
+                   .Append(noChild).Append(tab)
+                   .Append(parScaleNo).Append(tab)
+                   .Append(parBinNo).Append(tab)
+                   .Append(parHeightDropMax).Append(tab)
+                   .Append(parDownPipeWeight * 1000).Append(tab)
+                   .Append(parDosingSpeedFast).Append(tab)
+                   .Append(parDosingSpeedSlow).Append(tab)
+                   .Append(parSwitchOverTimeFToS * 10).Append(tab)
+                   .Append(parDosingTimeSlow * 10).Append(tab)
+                   .Append(parCutoffWeightCorrMax * 1000).Append(tab)
+                   .Append(parLevelCompensationMax).Append(tab)
+                   .Append(parDosingTimeMax).Append(tab)
+                   .Append(parFineDosingWeight * 1000).Append(tab)
+                   .Append(parCutoffWeight * 1000).Append(tab)
+                   .Append(parFlowrateFast).Append(tab)
+                   .Append(parFlowrateSlow).Append(tab)
+                   .Append(parTipPulseLen * 10).Append(tab)
+                   .Append(parTolPosWeight * 1000).Append(tab)
+                   .Append(parTolPosRel *10).Append(tab)
+                   .Append(parTolAutoPosWeight * 1000).Append(tab)
+                   .Append(parTolAutoPosRel * 10).Append(tab)
+                   .Append(parTolNegWeight * 1000).Append(tab)
+                   .Append(parTolNegRel *10).Append(tab)
                    .Append(Value10);
-                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
-             
+                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                sb.Clear();           
             }
             var relations = new List<Relation>
             {
@@ -470,7 +470,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Relation(name,conche, GcproTable.ObjData.Value43.Name),
                 new Relation(name,destination, GcproTable.ObjData.Value44.Name),                 
             };
-            CreateRelations(relations, fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb, relations, encoding);
         }
         public void Clear()
         {

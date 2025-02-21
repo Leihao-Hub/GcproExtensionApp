@@ -372,52 +372,53 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle,StringBuilder sb,Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
-
             {
-                TextFileHandle textFileHandle = new TextFileHandle
-                {
-                    FilePath = this.filePath
-                };
+                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
-                StringBuilder objFields = new StringBuilder();
+                string tab = LibGlobalSource.TAB;
                 ///<summary>
                 ///生产Standard字符串部分
                 ///</summary> 
-                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>
-                objFields.Append(value9).Append(LibGlobalSource.TAB)
-                  .Append(string.Empty).Append(LibGlobalSource.TAB)
-                  .Append(string.Empty).Append(LibGlobalSource.TAB)
-                  .Append(string.Empty).Append(LibGlobalSource.TAB)
-                  .Append(string.Empty).Append(LibGlobalSource.TAB)
-                  .Append(string.Empty).Append(LibGlobalSource.TAB)
-                  .Append(string.Empty).Append(LibGlobalSource.TAB)
-                  .Append(unitsBy100).Append(LibGlobalSource.TAB)
-                  .Append(offsetUnits).Append(LibGlobalSource.TAB)
-                  .Append(delayTimeDown * 10).Append(LibGlobalSource.TAB)
-                  .Append(delayTimeUp * 10).Append(LibGlobalSource.TAB)
-                  .Append(delayFaultTime * 10).Append(LibGlobalSource.TAB)
-                  .Append(unit).Append(LibGlobalSource.TAB)
-                  .Append(limitLowLow).Append(LibGlobalSource.TAB)
-                  .Append(limitLow).Append(LibGlobalSource.TAB)
-                  .Append(limitHigh).Append(LibGlobalSource.TAB)
-                  .Append(limitHighHigh).Append(LibGlobalSource.TAB)
-                  .Append(monTimeLowLow * 10).Append(LibGlobalSource.TAB)
-                  .Append(monTimeLow * 10).Append(LibGlobalSource.TAB)
-                  .Append(monTimeMiddle * 10).Append(LibGlobalSource.TAB)
-                  .Append(monTimeHigh * 10).Append(LibGlobalSource.TAB)
-                  .Append(monTimeHighHigh * 10).Append(LibGlobalSource.TAB)
-                  .Append(string.Empty).Append(LibGlobalSource.TAB)
+                sb.Append(value9).Append(tab)
+                  .Append(string.Empty).Append(tab)
+                  .Append(string.Empty).Append(tab)
+                  .Append(string.Empty).Append(tab)
+                  .Append(string.Empty).Append(tab)
+                  .Append(string.Empty).Append(tab)
+                  .Append(string.Empty).Append(tab)
+                  .Append(unitsBy100).Append(tab)
+                  .Append(offsetUnits).Append(tab)
+                  .Append(delayTimeDown * 10).Append(tab)
+                  .Append(delayTimeUp * 10).Append(tab)
+                  .Append(delayFaultTime * 10).Append(tab)
+                  .Append(unit).Append(tab)
+                  .Append(limitLowLow).Append(tab)
+                  .Append(limitLow).Append(tab)
+                  .Append(limitHigh).Append(tab)
+                  .Append(limitHighHigh).Append(tab)
+                  .Append(monTimeLowLow * 10).Append(tab)
+                  .Append(monTimeLow * 10).Append(tab)
+                  .Append(monTimeMiddle * 10).Append(tab)
+                  .Append(monTimeHigh * 10).Append(tab)
+                  .Append(monTimeHighHigh * 10).Append(tab)
+                  .Append(string.Empty).Append(tab)
                   .Append(string.Empty);
-                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                sb.Clear();
             }
                 var relations = new List<Relation>
                 {
@@ -430,7 +431,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                     new Relation(name,inHWStop, GcproTable.ObjData.Value47.Name),
                     new Relation(name,reference, GcproTable.ObjData.Value39.Name),
                 };
-                CreateRelations(relations, this.fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb,relations, encoding);
         }
         public void Clear()
         {
@@ -635,7 +638,5 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             impExpList.Clear();
             return result;
         }
-
-
     }
 }

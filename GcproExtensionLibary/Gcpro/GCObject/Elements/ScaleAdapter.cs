@@ -293,38 +293,40 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
-            TextFileHandle textFileHandle = new TextFileHandle
-            {
-                FilePath = this.filePath
-            };
+            textFileHandle.FilePath = this.filePath;
             isNew = "False";
-            StringBuilder objFields = new StringBuilder();
+            string tab = LibGlobalSource.TAB;
+            string noChild = LibGlobalSource.NOCHILD;
             ///<summary>
             ///生产Standard字符串部分-使用父类中方法实现
             ///</summary> 
-            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+            string objBase = base.CreateObjectStandardPart(sb);
+            sb.Clear();
+            sb.Append(OTypeValue).Append(tab)
+              .Append(objBase).Append(tab);
             ///<summary>
             ///生成Application字符串部分-子类中自身完成
             ///</summary>  
-            objFields.Append(dpNode2).Append(LibGlobalSource.TAB)
-             .Append(ioByteNo).Append(LibGlobalSource.TAB)
-             .Append(value9).Append(LibGlobalSource.TAB)
-             .Append(value60).Append(LibGlobalSource.TAB)
-             .Append(parTimeoutStart * 10).Append(LibGlobalSource.TAB)
-             .Append(parPulseWeight).Append(LibGlobalSource.TAB)
-             .Append(inFlowrate).Append(LibGlobalSource.TAB)
-             .Append(inPreCutoffWeight).Append(LibGlobalSource.TAB)
-             .Append(inFlowrateLowLimit).Append(LibGlobalSource.TAB)
-             .Append(inFlowrateHighLimit).Append(LibGlobalSource.TAB)
-             .Append(inDumpWeight).Append(LibGlobalSource.TAB)
-             .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-             .Append(LibGlobalSource.NOCHILD);
-            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+            sb.Append(dpNode2).Append(tab)
+             .Append(ioByteNo).Append(tab)
+             .Append(value9).Append(tab)
+             .Append(value60).Append(tab)
+             .Append(parTimeoutStart * 10).Append(tab)
+             .Append(parPulseWeight).Append(tab)
+             .Append(inFlowrate).Append(tab)
+             .Append(inPreCutoffWeight).Append(tab)
+             .Append(inFlowrateLowLimit).Append(tab)
+             .Append(inFlowrateHighLimit).Append(tab)
+             .Append(inDumpWeight).Append(tab)
+             .Append(noChild).Append(tab)
+             .Append(noChild);
+            textFileHandle.WriteToTextFile(sb.ToString(), encoding);
             var relations = new List<Relation>();       
             if (refSenderBin != null)
             {
@@ -334,7 +336,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             {
                 relations.Add(new Relation(name, refFluidliftAirlock, GcproTable.ObjData.Value43.Name));
             }
-            CreateRelations(relations, this.fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb, relations, encoding);
         }
         public void Clear()
         {

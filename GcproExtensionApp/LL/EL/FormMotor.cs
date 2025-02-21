@@ -662,9 +662,13 @@ namespace GcproExtensionApp
             }
             txtDescriptionRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(Motor.Rule.Common.DescObject, false);
             if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
-            { txtDescription.BackColor = Color.Red; }
+            { 
+                txtDescription.BackColor = Color.Red; 
+            }
             else
-            { txtDescription.BackColor = Color.White; }
+            { 
+                txtDescription.BackColor = Color.White;
+            }
         }
         private void txtDescription_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1313,6 +1317,11 @@ namespace GcproExtensionApp
                         GcproTable.ObjData.Value11.Name, GcproTable.ObjData.Value12.Name, GcproTable.ObjData.Value13.Name,
                         GcproTable.ObjData.Value14.Name, GcproTable.ObjData.Value38.Name, GcproTable.ObjData.Value47.Name,
                          GcproTable.ObjData.Value34.Name, GcproTable.ObjData.Value50.Name);
+                    StringBuilder objBuilder = new StringBuilder();
+                    TextFileHandle objTextFileHandle = new TextFileHandle 
+                    { 
+                        FilePath = myMotor.FileConnectorPath
+                    };
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
                     Motor.Clear(myMotor.FileConnectorPath);
@@ -1327,11 +1336,11 @@ namespace GcproExtensionApp
                             outpFwd = objName + txtOutpFwdSuffix.Text;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, inpFwd, GcproTable.ObjData.Value11.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpFwd, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, outpFwd, GcproTable.ObjData.Value12.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outpFwd, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
                             }
                         }
                         else if (objSubType == Motor.M12)
@@ -1343,19 +1352,19 @@ namespace GcproExtensionApp
                             outpRev = objName + txtOutpRevSuffix.Text;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, inpFwd, GcproTable.ObjData.Value11.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpFwd, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, outpFwd, GcproTable.ObjData.Value12.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outpFwd, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, inpRev, GcproTable.ObjData.Value13.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpRev, GcproTable.ObjData.Value13.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, outpRev, GcproTable.ObjData.Value14.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outpRev, GcproTable.ObjData.Value14.Name, Encoding.Unicode);
                             }
                         }
                         else if (objSubType == Motor.M1VFC || objSubType == Motor.M2VFC)
@@ -1363,7 +1372,7 @@ namespace GcproExtensionApp
                             if (all)
                             {
                                 string vfc = objName + txtVFCSuffix.Text;
-                                Motor.CreateRelation(objName, vfc, GcproTable.ObjData.Value34.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, vfc, GcproTable.ObjData.Value34.Name, Encoding.Unicode);
                             }
                             else
                             {
@@ -1380,7 +1389,7 @@ namespace GcproExtensionApp
                                         if (connector == LibGlobalSource.NO_PARENT)
                                         {
                                             string vfc = objName + txtVFCSuffix.Text;
-                                            Motor.CreateRelation(objName, vfc, GcproTable.ObjData.Value34.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                            Motor.CreateRelation(objTextFileHandle, objBuilder,objName, vfc, GcproTable.ObjData.Value34.Name, Encoding.Unicode);
                                         }
                                     }
                                     connectorTable.Rows.Clear();
@@ -1395,11 +1404,11 @@ namespace GcproExtensionApp
                             outPFwd = objName + txtOutpFwdSuffix.Text;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, inpFwd, GcproTable.ObjData.Value11.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpFwd, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objName, outPFwd, GcproTable.ObjData.Value12.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outPFwd, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
                             }
                         }
                         if (!String.IsNullOrEmpty(txtInpContactor.Text))
@@ -1407,7 +1416,7 @@ namespace GcproExtensionApp
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value38.Name) == 0 || all)
                             {
                                 string inpContactor = objName + txtInpContactor.Text;
-                                Motor.CreateRelation(objName, inpContactor, GcproTable.ObjData.Value38.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpContactor, GcproTable.ObjData.Value38.Name, Encoding.Unicode);
                             }
                         }
                         if (!String.IsNullOrEmpty(txtInHWStop.Text))
@@ -1415,7 +1424,7 @@ namespace GcproExtensionApp
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
                             {
                                 string InHWStop = objName + txtInHWStop.Text; ;
-                                Motor.CreateRelation(objName, InHWStop, GcproTable.ObjData.Value47.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, InHWStop, GcproTable.ObjData.Value47.Name, Encoding.Unicode);
                             }
                         }
                         if (!String.IsNullOrEmpty(txtPowerApp.Text))
@@ -1423,7 +1432,7 @@ namespace GcproExtensionApp
                             if (all)
                             {
                                 string powerApp = objName + txtPowerAppSuffix.Text; ;
-                                Motor.CreateRelation(objName, powerApp, GcproTable.ObjData.Value50.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, powerApp, GcproTable.ObjData.Value50.Name, Encoding.Unicode);
                             }
                             else
                             {
@@ -1439,7 +1448,7 @@ namespace GcproExtensionApp
                                         if (connector == LibGlobalSource.NO_PARENT)
                                         {
                                             string powerApp = objName + txtPowerAppSuffix.Text;
-                                            Motor.CreateRelation(objName, powerApp, GcproTable.ObjData.Value50.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                            Motor.CreateRelation(objTextFileHandle, objBuilder,objName, powerApp, GcproTable.ObjData.Value50.Name, Encoding.Unicode);
                                         }
                                     }
                                     connectorTable.Rows.Clear();
@@ -1451,7 +1460,7 @@ namespace GcproExtensionApp
                             if (all)
                             {
                                 string ao = objName + txtAOSuffix.Text;
-                                Motor.CreateRelation(objName, ao, GcproTable.ObjData.Value33.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, ao, GcproTable.ObjData.Value33.Name, Encoding.Unicode);
                             }
                             else
                             {
@@ -1467,7 +1476,7 @@ namespace GcproExtensionApp
                                         if (connector == LibGlobalSource.NO_PARENT)
                                         {
                                             string ao = objName + txtAOSuffix.Text;
-                                            Motor.CreateRelation(objName, ao, GcproTable.ObjData.Value33.Name, myMotor.FileConnectorPath, Encoding.Unicode);
+                                            Motor.CreateRelation(objTextFileHandle, objBuilder,objName, ao, GcproTable.ObjData.Value33.Name, Encoding.Unicode);
                                         }
                                     }
                                     connectorTable.Rows.Clear();
@@ -1535,7 +1544,8 @@ namespace GcproExtensionApp
             objMotor.ParIdlingTime = AppGlobal.ParseValue<float>(TxtIdlingTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
             ///<ParFaultDelayTime></ParFaultDelayTime>
             objMotor.ParFaultDelayTime = AppGlobal.ParseValue<float>(TxtFaultDelayTime.Text, out tempFloat) ? Math.Round(tempFloat, 1) : 1.0;
-
+            ///<ParPowerNominal></ParPowerNominal>
+            objMotor.ParPowerNominal= AppGlobal.ParseValue<float>(TxtKW.Text, out tempFloat) ? Math.Round(tempFloat, 2) : 0.0;
             string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
@@ -1624,7 +1634,8 @@ namespace GcproExtensionApp
             DataGridViewCell cell;
             objDefaultInfo = Motor.Rule.Common;
             MachineType machines = new MachineType();
-            //   StringBuilder descBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 parValue10 = 130;
@@ -1648,10 +1659,7 @@ namespace GcproExtensionApp
                 if (!String.IsNullOrEmpty(columnPower))
                 {
                     numeric = AppGlobal.ParseValue<float>(Convert.ToString(columnPower), out float power);
-                    //tmpInt = Motor.GetStartingTime(power);
-                    //objMotor.ParMonTime = numeric ? tmpInt : 10.0;
-                    //objMotor.ParStartingTime = numeric ? (tmpInt - 1.0) : 3.0;
-                    objMotor.ParPowerNominal = numeric? power : 0;
+                    objMotor.ParPowerNominal = numeric? Math.Round(power,2) : 0;
                 }
                 else
                 {
@@ -1749,7 +1757,7 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
 
-                objMotor.CreateObject(Encoding.Unicode);
+                objMotor.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
 
             }
@@ -1764,7 +1772,9 @@ namespace GcproExtensionApp
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
             string desc = string.Empty;
-            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);        
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             #region common used variables declaration
             bool motorWithVFC = false;
             bool needDPNodeChanged = false;
@@ -2032,10 +2042,7 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-
-                //  myMotor.Description = description.Name;
-
-                objMotor.CreateObject(Encoding.Unicode);
+                objMotor.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             Motor.Rule.Common = objDefaultInfo;
@@ -2053,6 +2060,8 @@ namespace GcproExtensionApp
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
             List<Dictionary<string, string>> objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
             GcObjectInfo.Motor.SimpleInfo updatedItem;
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             for (int listIndex = 0; listIndex < objSubList.Count; listIndex++)
             {
                 var dictionary = objSubList[listIndex];
@@ -2130,7 +2139,7 @@ namespace GcproExtensionApp
                     objMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}";
                 }
 
-                objMotor.CreateObject(Encoding.Unicode);
+                objMotor.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;

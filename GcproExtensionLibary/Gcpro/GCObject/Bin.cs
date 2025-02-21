@@ -207,6 +207,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         #endregion
         public Bin()
         {
+            string noChild = LibGlobalSource.NOCHILD;
             Rule.Common.DescriptionRuleInc = "1";
             Rule.Common.NameRuleInc = "1";
             subType = BINB;
@@ -218,10 +219,10 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             middleLevel = string.Empty;
             lowLevel = string.Empty;
             analogLevel = string.Empty;
-            highLevelRemote = LibGlobalSource.NOCHILD;
-            middleLevelRemote = LibGlobalSource.NOCHILD;
-            lowLevelRemote = LibGlobalSource.NOCHILD;
-            inFillLevelRemote = LibGlobalSource.NOCHILD;
+            highLevelRemote = noChild;
+            middleLevelRemote = noChild;
+            lowLevelRemote = noChild;
+            inFillLevelRemote = noChild;
             value24 = 4;
             value30 = 0;
             value31 = 4;
@@ -244,46 +245,48 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = defaultPath ?
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
-        /// <summary>
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle
-                {
-                    FilePath = this.filePath
-                };
-                isNew = "false";
-                StringBuilder objFields = new StringBuilder();
+                textFileHandle.FilePath = this.filePath;
+                isNew = "False";
+                string tab = LibGlobalSource.TAB;
+                string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
                 ///生产Standard字符串部分
                 ///</summary> 
-                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>
-                objFields.Append(parBinNo).Append(LibGlobalSource.TAB)
-                  .Append(parEmptyingTime).Append(LibGlobalSource.TAB)
-                  .Append(parOverfillingWeight).Append(LibGlobalSource.TAB)
-                  .Append(parDryFillingWeight).Append(LibGlobalSource.TAB)
-                  .Append(parRestdischargeWeight).Append(LibGlobalSource.TAB)
-                  .Append(highLevelRemote).Append(LibGlobalSource.TAB)
-                  .Append(middleLevelRemote).Append(LibGlobalSource.TAB)
-                  .Append(lowLevelRemote).Append(LibGlobalSource.TAB)
-                  .Append(inFillLevelRemote).Append(LibGlobalSource.TAB)
-                  .Append(value24).Append(LibGlobalSource.TAB)
-                  .Append(value30).Append(LibGlobalSource.TAB)
-                  .Append(value31).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD);
-                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+                sb.Append(parBinNo).Append(tab)
+                  .Append(parEmptyingTime).Append(tab)
+                  .Append(parOverfillingWeight).Append(tab)
+                  .Append(parDryFillingWeight).Append(tab)
+                  .Append(parRestdischargeWeight).Append(tab)
+                  .Append(highLevelRemote).Append(tab)
+                  .Append(middleLevelRemote).Append(tab)
+                  .Append(lowLevelRemote).Append(tab)
+                  .Append(inFillLevelRemote).Append(tab)
+                  .Append(value24).Append(tab)
+                  .Append(value30).Append(tab)
+                  .Append(value31).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild);
+                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                sb.Clear();
             }
 
             var relations = new List<Relation>
@@ -293,24 +296,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 new Relation(name,lowLevel, GcproTable.ObjData.Value3.Name),
                 new Relation(name,analogLevel, GcproTable.ObjData.Value14.Name),
             };
-            CreateRelations(relations, this.fileRelationPath, encoding);
-
-            //if (!string.IsNullOrEmpty(highLevel))
-            //{
-            //    CreateRelation(name, highLevel, GcproTable.ObjData.Value2.Name, this.fileRelationPath, encoding);
-            //}
-            //if (!string.IsNullOrEmpty(middleLevel))
-            //{
-            //    CreateRelation(name, middleLevel, GcproTable.ObjData.Value4.Name, this.fileRelationPath, encoding);
-            //}
-            //if (!string.IsNullOrEmpty(lowLevel))
-            //{
-            //    CreateRelation(name, lowLevel, GcproTable.ObjData.Value3.Name, this.fileRelationPath, encoding);
-            //}
-            //if (!string.IsNullOrEmpty(analogLevel))
-            //{
-            //    CreateRelation(name, analogLevel, GcproTable.ObjData.Value14.Name, this.fileRelationPath, encoding);
-            //}
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb, relations, encoding);  
         }
 
         public void Clear()

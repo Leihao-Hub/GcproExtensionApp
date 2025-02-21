@@ -1382,7 +1382,9 @@ namespace GcproExtensionApp
           ref (int Value, int Max) processValue)
         {
             #region common used variables declaration
-            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);    
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             int ioByteInc = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
             bool needDPNodeChanged = false;
@@ -1616,7 +1618,6 @@ namespace GcproExtensionApp
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-           // int symbolInc, symbolRule, descriptionInc;
             AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
             AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
             AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
@@ -1674,7 +1675,7 @@ namespace GcproExtensionApp
                  );
                 // objVFCAdapter.Description = description.Name;
                 objVFCAdapter.IoByteNo = ioByte + i * ioByteInc;
-                objVFCAdapter.CreateObject(Encoding.Unicode);
+                objVFCAdapter.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;
@@ -1684,7 +1685,9 @@ namespace GcproExtensionApp
              out (int Value, int Max) processValue)
         {
             #region common used variables declaration
-            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);       
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
             int slaveIndexInc = AppGlobal.ParseValue<int>(txtParSlaveIndexIncRule.Text, out tempInt) ? tempInt : 1;
             int ioByteInc = AppGlobal.ParseValue<int>(txtIOByteIncRule.Text, out tempInt) ? tempInt : 0;
@@ -1805,7 +1808,7 @@ namespace GcproExtensionApp
                 objVFCAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objVFCAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 ///<CreateObject>   </CreateObject>
-                objVFCAdapter.CreateObject(Encoding.Unicode);
+                objVFCAdapter.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             VFCAdapter.Rule.Common = objDefaultInfo;

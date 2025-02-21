@@ -508,7 +508,5 @@ namespace GcproExtensionApp
         void CreateTips();
         void CreateImpExp();
         void Default();
-
     }
-
 }

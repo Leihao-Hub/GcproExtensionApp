@@ -56,10 +56,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// 创建对象标准部分字符串
         /// </summary>
         /// <returns></returns>
-        public string CreateObjectStandardPart()
+        public string CreateObjectStandardPart(StringBuilder sb)
         {
-            StringBuilder objFields = new StringBuilder();
-            objFields.Append(IsNew).Append(LibGlobalSource.TAB)
+            sb.Append(IsNew).Append(LibGlobalSource.TAB)
               .Append(Name).Append(LibGlobalSource.TAB)
               .Append(Description).Append(LibGlobalSource.TAB)
               .Append(SubType).Append(LibGlobalSource.TAB)
@@ -70,7 +69,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
               .Append(Panel_ID).Append(LibGlobalSource.TAB)
               .Append(Diagram).Append(LibGlobalSource.TAB)
               .Append(Page);
-            return objFields.ToString();
+            return sb.ToString();
         }
         /// <summary>
         /// 创建对象之间的关联关系
@@ -80,14 +79,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="connectedFiled"></param>
         /// <param name="filePath"></param>
         /// <param name="encoding"></param>
-        public static void CreateRelation(string parent, string child, string connectedFiled, string filePath, Encoding encoding)
+        public static void CreateRelation(TextFileHandle textFileHandle, StringBuilder sbObjRelation, string parent, string child, string connectedFiled, Encoding encoding)
         {
-            TextFileHandle textFileHandle = new TextFileHandle
-            {
-                FilePath = filePath
-            };
-            string output = parent + LibGlobalSource.TAB + child + LibGlobalSource.TAB + connectedFiled;
-            textFileHandle.WriteToTextFile(output, encoding);
+            string tab = LibGlobalSource.TAB;
+            string realtionRecord = sbObjRelation.Append(parent).Append(tab)
+                .Append(child).Append(tab)
+                .Append(connectedFiled).ToString();
+            textFileHandle.WriteToTextFile(realtionRecord, encoding);
+            sbObjRelation.Clear();
         }
         /// <summary>
         /// 一次性根据relations中"Child"值是否为空,来创建relations中对象的关系
@@ -95,17 +94,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="relations"></param>
         /// <param name="filePath"></param>
         /// <param name="encoding"></param>
-        protected void CreateRelations(List<Relation> relations, string filePath, Encoding encoding)
+        protected void CreateRelations(TextFileHandle textFileHandle, StringBuilder sbObjRelation,List<Relation> relations, Encoding encoding)
         {
             foreach (var relation in relations)
             {
                 if (!String.IsNullOrEmpty(relation.Child))
                 {
                     CreateRelation(
+                    textFileHandle : textFileHandle,
+                    sbObjRelation: sbObjRelation,
                     parent: relation.Parent,
                     child: relation.Child,
                     connectedFiled: relation.ConnectedFiled,
-                    filePath: filePath,
                     encoding: encoding
                     );
                 }
@@ -494,21 +494,21 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="queryDataTable">OleDb类中的QueryDataTable方法的委托/param>
         /// <param name="nodeNo">DPNode</param>
         /// <returns></returns>
-        public static double FindFieldbusNodeKey(Func<string, string, IDictionary<string,object>, string, string[], DataTable> queryDataTable, double nodeNo)
-        {
-            double key ;
-            DataTable data;    
-            string tableName, whereClause;
-            tableName = GcproTable.ObjData.TableName;
-            string[] fieldList = { GcproTable.ObjData.Key.Name };
-            whereClause = $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}";  
-            data = queryDataTable(tableName, whereClause,null,null, fieldList);
-            if (data.Rows.Count != 0)
-            { key = data.Rows[0].Field<double>(GcproTable.ObjData.Key.Name); }
-            else
-            { key = 0; }
-            return key;
-        }
+        //public static double FindFieldbusNodeKey(Func<string, string, IDictionary<string,object>, string, string[], DataTable> queryDataTable, double nodeNo)
+        //{
+        //    double key ;
+        //    DataTable data;    
+        //    string tableName, whereClause;
+        //    tableName = GcproTable.ObjData.TableName;
+        //    string[] fieldList = { GcproTable.ObjData.Key.Name };
+        //    whereClause = $"({GcproTable.ObjData.SubType.Name}='Profinet' OR {GcproTable.ObjData.SubType.Name}='Profibus') AND {GcproTable.ObjData.DPNode1.Name}={nodeNo}";  
+        //    data = queryDataTable(tableName, whereClause,null,null, fieldList);
+        //    if (data.Rows.Count != 0)
+        //    { key = data.Rows[0].Field<double>(GcproTable.ObjData.Key.Name); }
+        //    else
+        //    { key = 0; }
+        //    return key;
+        //}
 
         /// <summary>
         /// Return the DPNodeNo in table [TranslationCbo]
@@ -516,21 +516,21 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="queryDataTable">OleDb类中的QueryDataTable方法的委托/param>
         /// <param name="nodeName">DPNode名称[FieldText]字段</param>
         /// <returns></returns>
-        public static double FindDPNodeNo(Func<string, string, IDictionary<string, object>, string, string[], DataTable> queryDataTable, string nodeName)
-        {
-            double key ;
-            DataTable data;          
-            string tableName, whereClause;
-            tableName = GcproTable.TranslationCbo.TableName;
-            string[] fieldList = { GcproTable.TranslationCbo.FieldValue.Name };
-            whereClause = $@"{GcproTable.TranslationCbo.FieldText.Name} LIKE '{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name} = '{GcproTable.TranslationCbo.Class_ASWInDPFault}'";
-            data = queryDataTable(tableName, whereClause, null, null, fieldList);
-            if (data.Rows.Count != 0)
-            { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name); }
-            else
-            { key = 0; }
-            return key;
-        }
+        //public static double FindDPNodeNo(Func<string, string, IDictionary<string, object>, string, string[], DataTable> queryDataTable, string nodeName)
+        //{
+        //    double key ;
+        //    DataTable data;          
+        //    string tableName, whereClause;
+        //    tableName = GcproTable.TranslationCbo.TableName;
+        //    string[] fieldList = { GcproTable.TranslationCbo.FieldValue.Name };
+        //    whereClause = $@"{GcproTable.TranslationCbo.FieldText.Name} LIKE '{nodeName}%' AND {GcproTable.TranslationCbo.FieldClass.Name} = '{GcproTable.TranslationCbo.Class_ASWInDPFault}'";
+        //    data = queryDataTable(tableName, whereClause, null, null, fieldList);
+        //    if (data.Rows.Count != 0)
+        //    { key = data.Rows[0].Field<double>(GcproTable.TranslationCbo.FieldValue.Name); }
+        //    else
+        //    { key = 0; }
+        //    return key;
+        //}
         /// <summary>
         /// 定义事件委托
         /// </summary>

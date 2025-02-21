@@ -1032,11 +1032,9 @@ namespace GcproExtensionApp
             (int IOByteStart, int Len) IOAddr,
             out (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = dataFromBML.RowCount;
           //  int tempNumberInt;
             processValue.Max = quantityNeedToBeCreate;
@@ -1105,8 +1103,8 @@ namespace GcproExtensionApp
 
                 objMDDYZ.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objMDDYZ.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
-                objMDDYZ.CreateObject(Encoding.Unicode);
-               processValue.Value = i;
+                objMDDYZ.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                processValue.Value = i;
             }
             MDDYZ.Rule.Common = objDefaultInfo;
             processValue.Value = processValue.Max;
@@ -1115,13 +1113,10 @@ namespace GcproExtensionApp
             (int IOByteStart, int Len) IOAddr, 
             ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb
-            {
-                DataSource = AppGlobal.GcproDBInfo.ProjectDBPath,
-                IsNewOLEDBDriver = isNewOledbDriver
-            };
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             #region common used variables declaration       
-            StringBuilder descTotalBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = processValue.Max;
             bool moreThanOne = quantityNeedToBeCreate > 1;         
             RuleSubDataSet description, name;
@@ -1319,7 +1314,7 @@ namespace GcproExtensionApp
 
                 objMDDYZ.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objMDDYZ.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
-                objMDDYZ.CreateObject(Encoding.Unicode);
+                objMDDYZ.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             MDDYZ.Rule.Common = objDefaultInfo;

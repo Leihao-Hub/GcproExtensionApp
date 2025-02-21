@@ -1389,6 +1389,11 @@ namespace GcproExtensionApp
                         GcproTable.ObjData.Value47.Name, GcproTable.ObjData.Value42.Name);
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
+                    StringBuilder objBuilder = new StringBuilder();
+                    TextFileHandle objTextFileHandle = new TextFileHandle
+                    {
+                        FilePath = myDI.FileConnectorPath
+                    };
                     DI.Clear(myDI.FileConnectorPath);
                     for (var count = 0; count <= dataTable.Rows.Count - 1; count++)
                     {
@@ -1398,7 +1403,7 @@ namespace GcproExtensionApp
                         inpTrue = objName + txtInpTrueSuffix.Text;
                         if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                         {
-                            DI.CreateRelation(objName, inpTrue, GcproTable.ObjData.Value11.Name, myDI.FileConnectorPath, Encoding.Unicode);
+                            DI.CreateRelation(objTextFileHandle, objBuilder,objName, inpTrue, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
                         }
 
                         if (!String.IsNullOrEmpty(txtInHWStop.Text))
@@ -1406,7 +1411,7 @@ namespace GcproExtensionApp
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
                             {
                                 string InHWStop = objName + txtInHWStop.Text; ;
-                                DI.CreateRelation(objName, InHWStop, GcproTable.ObjData.Value47.Name, myDI.FileConnectorPath, Encoding.Unicode);
+                                DI.CreateRelation(objTextFileHandle, objBuilder, objName, InHWStop, GcproTable.ObjData.Value47.Name, Encoding.Unicode);
                             }
                         }
 
@@ -1455,8 +1460,7 @@ namespace GcproExtensionApp
                 OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                 DI.ReGenerateDPNode(oledb);
             }
-        }
-    
+        } 
         public void CreateObjectCommon(DI objDI)
         {
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath,isNewOledbDriver);
@@ -1583,6 +1587,8 @@ namespace GcproExtensionApp
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Bin.OTypeValue}",
                null, $"{GcproTable.ObjData.Text0.Name} ASC",
                GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             #region common used variables declaration       
             StringBuilder descToBuilder = new StringBuilder();
             int quantityNeedToBeCreate = dataFromBML.Rows.Count;
@@ -1613,9 +1619,9 @@ namespace GcproExtensionApp
             bool descUserDefConfirm = false;
             objDefaultInfo = DI.Rule.Common;
             Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
+            DataGridViewCell cell;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
-                DataGridViewCell cell;
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
                 if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
@@ -1658,13 +1664,11 @@ namespace GcproExtensionApp
                 {
                     DI.Rule.Common.DescLine = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnLine)].Value); ;
                 }
-
                 objDI.InpTrue = $"{objDI.Name}{GcObjectInfo.DI.SuffixInpTrue}";    
                 cabinet = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
                 cabinetGroup = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
                 objDI.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
                 objDI.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
-
                 #region Subtype and PType           
                 if (objDI.Name.Contains(suffixObject.GetKey("BZA")))
                 {
@@ -1673,8 +1677,7 @@ namespace GcproExtensionApp
                     objDI.Value10 = 0;
                     if (!descUserDef)
                     {
-                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BZA"]}");
-                     
+                        descToBuilder.Append($"{suffixObject.SuffixObjectType["BZA"]}");           
                     };
                 }
                 else if (objDI.Name.Contains(suffixObject.GetKey("SHE")))
@@ -1721,7 +1724,8 @@ namespace GcproExtensionApp
                     remark = BML.DI.ParseIORemark(ioRemark, dataTable);
                     if (!string.IsNullOrEmpty(remark))
                     {
-                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value2.Name, _bin.FileRelationPath, Encoding.Unicode);
+                        objTextFileHandle.FilePath = _bin.FileRelationPath;
+                        Bin.CreateRelation(objTextFileHandle, objBuilder,remark, objDI.Name, GcproTable.ObjData.Value2.Name, Encoding.Unicode);
                     }
                     if (!descUserDef)
                     {
@@ -1748,7 +1752,8 @@ namespace GcproExtensionApp
                     remark = BML.DI.ParseIORemark(ioRemark, dataTable);
                     if (!string.IsNullOrEmpty(remark))
                     {
-                        Bin.CreateRelation(remark, objDI.Name, GcproTable.ObjData.Value3.Name, _bin.FileRelationPath, Encoding.Unicode);
+                        objTextFileHandle.FilePath = _bin.FileRelationPath;
+                        Bin.CreateRelation(objTextFileHandle, objBuilder,remark, objDI.Name, GcproTable.ObjData.Value3.Name, Encoding.Unicode);
                     }
                     if (!descUserDef)
                     {                     
@@ -1861,7 +1866,7 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power && !descUserDef,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objDI.CreateObject(Encoding.Unicode);
+                objDI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             DI.Rule.Common = objDefaultInfo;
@@ -1870,11 +1875,12 @@ namespace GcproExtensionApp
         private void CreateObjectRule(DI objDI, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
          ref (int Value, int Max) processValue)
         {
-            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
-            //  DataTable dataTable ;
+            OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);         
             #region common used variables declaration       
             bool needDPNodeChanged = false;
             StringBuilder descToBuilder = new StringBuilder();
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             bool moreThanOne = quantityNeedToBeCreate > 1;
@@ -1993,12 +1999,10 @@ namespace GcproExtensionApp
                 }
             }
             #endregion
-
             processValue.Value = 0;
             ///<CreateObj>
             ///Search IO key,DPNode
             ///</CreateObj>
-           // int symbolInc, symbolRule, descriptionInc;
             AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out int symbolInc);
             AppGlobal.ParseValue<int>(txtSymbolRule.Text, out int symbolRule);
             AppGlobal.ParseValue<int>(txtDescriptionIncRule.Text, out int descriptionInc);
@@ -2056,7 +2060,7 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
 
-                objDI.CreateObject(Encoding.Unicode);
+                objDI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;
@@ -2071,6 +2075,8 @@ namespace GcproExtensionApp
             filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name);
             List<string> objInpKeyList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = objInpKeyList.Count;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
@@ -2085,7 +2091,7 @@ namespace GcproExtensionApp
             {
                 objDI.Name = objList[i];
                 objDI.InpTrue = objInpKeyList[i];
-                objDI.CreateObject(Encoding.Unicode);
+                objDI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             processValue.Value = processValue.Max;
@@ -2139,7 +2145,5 @@ namespace GcproExtensionApp
             }
         }
         #endregion
-
-
     }
 }

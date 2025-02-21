@@ -1277,6 +1277,8 @@ namespace GcproExtensionApp
             out (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
@@ -1338,7 +1340,7 @@ namespace GcproExtensionApp
                  );
                 objMDDx.IoByteNo = (int.Parse(txtParIOByte.Text) + int.Parse(txtIOByteIncRule.Text) * i);
                 ///<DPNode1>   </DPNode1>                                      
-                AppGlobal.FieldbusNodeInfo = DI.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
+                AppGlobal.FieldbusNodeInfo = MDDx.ParseFieldbusNodeKey((tableName, whereClause, parameters, sortBy, fieldList) =>
                 {
                     return oledb.QueryDataTable(tableName, whereClause, parameters, sortBy, fieldList);
                 }, objMDDx.Name);
@@ -1346,8 +1348,8 @@ namespace GcproExtensionApp
                 objMDDx.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objMDDx.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
 
-                objMDDx.CreateObject(Encoding.Unicode);
-               
+                objMDDx.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+
             }
             MDDx.Rule.Common = objDefaultInfo;
             processValue.Value = processValue.Max;
@@ -1357,6 +1359,8 @@ namespace GcproExtensionApp
         {
             #region common used variables declaration 
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
+            StringBuilder objBuilder = new StringBuilder();
+            TextFileHandle objTextFileHandle = new TextFileHandle();
             bool needDPNodeChanged = false;
             StringBuilder descTotalBuilder = new StringBuilder();
             int quantityNeedToBeCreate = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
@@ -1507,6 +1511,7 @@ namespace GcproExtensionApp
             ///<IOByteNo></IOByteNo>
             objMDDx.IoByteNo = 0;
             #endregion
+
             #region Parse rules
             ///<ParseRule> </ParseRule>
             if (!AppGlobal.ParseValue<int>(txtSymbolIncRule.Text, out tempInt))
@@ -1633,8 +1638,7 @@ namespace GcproExtensionApp
                 }, objMDDx.Name);
                 objMDDx.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objMDDx.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
-
-                objMDDx.CreateObject(Encoding.Unicode);
+                objMDDx.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
                 processValue.Value = i;
             }
             MDDx.Rule.Common = objDefaultInfo;

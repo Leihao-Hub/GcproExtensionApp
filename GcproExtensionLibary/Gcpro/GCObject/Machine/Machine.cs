@@ -14,17 +14,17 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public Machine()
         {
         }
-        public new string CreateObjectStandardPart()
+        public new string CreateObjectStandardPart(StringBuilder sb)
         {
-            StringBuilder objFields = new StringBuilder();
             ///<summary>
             ///生产Standard字符串部分
             ///</summary> 
-            string baseObject = base.CreateObjectStandardPart();
-            objFields.Append(baseObject).Append(LibGlobalSource.TAB)
+            string baseObject = base.CreateObjectStandardPart(sb);
+            sb.Clear();
+            sb.Append(baseObject).Append(LibGlobalSource.TAB)
               .Append(Math.Round(PType,1)).Append(LibGlobalSource.TAB)
               .Append(Value10);
-            return objFields.ToString();
+            return sb.ToString();
         }
         protected new void CreateImpExpDef(List<List<Gcpro.DbParameter>> impExpList, string impExpRuleName)
         {

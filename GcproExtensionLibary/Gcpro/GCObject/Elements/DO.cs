@@ -324,50 +324,52 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// </summary>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                TextFileHandle textFileHandle = new TextFileHandle
-                {
-                    FilePath = this.filePath
-                };
+                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
-                StringBuilder objFields = new StringBuilder();
+                string tab = LibGlobalSource.TAB;
+                string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
                 ///生产Standard字符串部分-使用父类中方法实现
                 ///</summary> 
-                objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-                  .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);              
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>
-                objFields.Append(dpNode2).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(parStartDelay).Append(LibGlobalSource.TAB)
-                  .Append(parStartingTime).Append(LibGlobalSource.TAB)
-                  .Append(parOnTime).Append(LibGlobalSource.TAB)
-                  .Append(parOffTime).Append(LibGlobalSource.TAB)
-                  .Append(parIdlingTime).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD).Append(LibGlobalSource.TAB)
-                  .Append(LibGlobalSource.NOCHILD);        
-                textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+                sb.Append(dpNode2).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(parStartDelay).Append(tab)
+                  .Append(parStartingTime).Append(tab)
+                  .Append(parOnTime).Append(tab)
+                  .Append(parOffTime).Append(tab)
+                  .Append(parIdlingTime).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild);        
+                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                sb.Clear();
             }
-
 
             var relations = new List<Relation>
             {
                 new Relation(name,inpRun, GcproTable.ObjData.Value11.Name),
                 new Relation(name,outpRun, GcproTable.ObjData.Value12.Name),
             };
-            CreateRelations(relations, this.fileRelationPath, encoding);
+            textFileHandle.FilePath = this.fileRelationPath;
+            sb.Clear();
+            CreateRelations(textFileHandle, sb, relations, encoding);
         }
         public void Clear()
         {

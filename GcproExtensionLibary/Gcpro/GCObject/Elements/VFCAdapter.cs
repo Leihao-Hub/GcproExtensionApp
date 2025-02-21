@@ -336,50 +336,56 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             $"{ LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{vfcFileName }.Txt" : $"{ filePath }{ vfcFileName }.Txt");
         }
-        public void CreateObject(Encoding encoding, bool onlyRelation = false)
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
+        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
         {
-            TextFileHandle textFileHandle = new TextFileHandle
-            {
-                FilePath = this.filePath
-            };
+            textFileHandle.FilePath = this.filePath;
             isNew = "False";
-            StringBuilder objFields = new StringBuilder();
-
+            string tab = LibGlobalSource.TAB;
             ///<summary>
             ///生产Standard 字符串部分
             ///</summary> 
-            objFields.Append(OTypeValue).Append(LibGlobalSource.TAB)
-              .Append(base.CreateObjectStandardPart()).Append(LibGlobalSource.TAB);
+            string objBase = base.CreateObjectStandardPart(sb);
+            sb.Clear();
+            sb.Append(OTypeValue).Append(tab)
+              .Append(objBase).Append(tab);
             ///<summary>
             ///生成Application 字符串部分
             ///</summary>   
-            objFields.Append(speedLimitMin).Append(LibGlobalSource.TAB)
-              .Append(speedLimitMax).Append(LibGlobalSource.TAB)
-              .Append(speedMaxDigits).Append(LibGlobalSource.TAB)
-              .Append(speedUnitsByZeroDigits).Append(LibGlobalSource.TAB)
-              .Append(speedUnitsByMaxDigits).Append(LibGlobalSource.TAB)
-              .Append(unitsPerDigits).Append(LibGlobalSource.TAB)
-              .Append(ioByteNo).Append(LibGlobalSource.TAB)
-              .Append(lenPKW).Append(LibGlobalSource.TAB)
-              .Append(lenPZD).Append(LibGlobalSource.TAB)
-              .Append(lenPZDInp).Append(LibGlobalSource.TAB)
-              .Append(meagGateway).Append(LibGlobalSource.TAB)
-              .Append(slaveIndex).Append(LibGlobalSource.TAB)
-              .Append(outpHardwareStop).Append(LibGlobalSource.TAB)
-              .Append(telegram1.ParPNO).Append(LibGlobalSource.TAB)
-              .Append(telegram1.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
-              .Append(telegram2.ParPNO).Append(LibGlobalSource.TAB)
-              .Append(telegram2.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
-              .Append(telegram3.ParPNO).Append(LibGlobalSource.TAB)
-              .Append(telegram3.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
-              .Append(telegram4.ParPNO).Append(LibGlobalSource.TAB)
-              .Append(telegram4.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
-              .Append(telegram5.ParPNO).Append(LibGlobalSource.TAB)
-              .Append(telegram5.ParUnitsPerDigit).Append(LibGlobalSource.TAB)
-              .Append(refCurrent).Append(LibGlobalSource.TAB)
-              .Append(refTorque).Append(LibGlobalSource.TAB)
+            sb.Append(speedLimitMin).Append(tab)
+              .Append(speedLimitMax).Append(tab)
+              .Append(speedMaxDigits).Append(tab)
+              .Append(speedUnitsByZeroDigits).Append(tab)
+              .Append(speedUnitsByMaxDigits).Append(tab)
+              .Append(unitsPerDigits).Append(tab)
+              .Append(ioByteNo).Append(tab)
+              .Append(lenPKW).Append(tab)
+              .Append(lenPZD).Append(tab)
+              .Append(lenPZDInp).Append(tab)
+              .Append(meagGateway).Append(tab)
+              .Append(slaveIndex).Append(tab)
+              .Append(outpHardwareStop).Append(tab)
+              .Append(telegram1.ParPNO).Append(tab)
+              .Append(telegram1.ParUnitsPerDigit).Append(tab)
+              .Append(telegram2.ParPNO).Append(tab)
+              .Append(telegram2.ParUnitsPerDigit).Append(tab)
+              .Append(telegram3.ParPNO).Append(tab)
+              .Append(telegram3.ParUnitsPerDigit).Append(tab)
+              .Append(telegram4.ParPNO).Append(tab)
+              .Append(telegram4.ParUnitsPerDigit).Append(tab)
+              .Append(telegram5.ParPNO).Append(tab)
+              .Append(telegram5.ParUnitsPerDigit).Append(tab)
+              .Append(refCurrent).Append(tab)
+              .Append(refTorque).Append(tab)
               .Append(refPower);
-            textFileHandle.WriteToTextFile(objFields.ToString(), encoding);
+            textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+            sb.Clear();
         }
         public void Clear()
         {
