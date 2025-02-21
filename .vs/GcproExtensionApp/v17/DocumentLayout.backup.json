@@ -3,23 +3,39 @@
   "WorkspaceRootPath": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|z:\\d\\leihao\\data\\programming\\repos\\gcproextensionapp\\gcproextensionlibary\\gcpro\\gcobject\\elements\\ai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionlibary\\gcpro\\gcobject\\elements\\motor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|solutionrelative:gcproextensionlibary\\gcpro\\gcobject\\elements\\motor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|z:\\d\\leihao\\data\\programming\\repos\\gcproextensionapp\\gcproextensionapp\\ll\\el\\formmotor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|solutionrelative:gcproextensionapp\\ll\\el\\formmotor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionapp\\ll\\el\\formmddx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|solutionrelative:gcproextensionapp\\ll\\el\\formmddx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionlibary\\gcpro\\gcobject\\machine\\machine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|solutionrelative:gcproextensionlibary\\gcpro\\gcobject\\machine\\machine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionlibary\\gcpro\\gcobject\\elements\\ai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|solutionrelative:gcproextensionlibary\\gcpro\\gcobject\\elements\\ai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|z:\\d\\leihao\\data\\programming\\repos\\gcproextensionapp\\gcproextensionlibary\\gcpro\\gcobject\\elements\\di.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionlibary\\gcpro\\gcobject\\elements\\di.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|solutionrelative:gcproextensionlibary\\gcpro\\gcobject\\elements\\di.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|z:\\d\\leihao\\data\\programming\\repos\\gcproextensionapp\\gcproextensionlibary\\libglobalsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionlibary\\libglobalsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|solutionrelative:gcproextensionlibary\\libglobalsource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|z:\\d\\leihao\\data\\programming\\repos\\gcproextensionapp\\gcproextensionlibary\\gcpro\\gcobject\\gcobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionlibary\\gcpro\\gcobject\\gcobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{12705553-FD01-4E57-8194-1A82A5244448}|GcproExtensionLibary\\GcproExtensionLibrary.csproj|solutionrelative:gcproextensionlibary\\gcpro\\gcobject\\gcobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|z:\\d\\leihao\\data\\programming\\repos\\gcproextensionapp\\gcproextensionapp\\ll\\ma\\formma_roll8stand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\gcproextensionapp\\ll\\ma\\formma_roll8stand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8DB3B22C-2A75-491F-89B0-359B12B4968F}|GcproExtensionApp\\GcproExtensionApp.csproj|solutionrelative:gcproextensionapp\\ll\\ma\\formma_roll8stand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,34 +46,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 331,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LibGlobalSource.cs",
-              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\LibGlobalSource.cs",
-              "RelativeDocumentMoniker": "GcproExtensionLibary\\LibGlobalSource.cs",
-              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\LibGlobalSource.cs",
-              "RelativeToolTip": "GcproExtensionLibary\\LibGlobalSource.cs",
-              "ViewState": "AgIAAEUCAAAAAAAAAAAgwF8CAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T02:30:29.738Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DI.cs",
-              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
-              "RelativeDocumentMoniker": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
-              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
-              "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAmwAcAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T02:28:52.277Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
@@ -80,7 +70,81 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FormMotor.cs",
+              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\LL\\EL\\FormMotor.cs",
+              "RelativeDocumentMoniker": "GcproExtensionApp\\LL\\EL\\FormMotor.cs",
+              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\LL\\EL\\FormMotor.cs",
+              "RelativeToolTip": "GcproExtensionApp\\LL\\EL\\FormMotor.cs",
+              "ViewState": "AgIAAIMGAAAAAAAAAAAYwLQGAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T02:32:37.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FormMDDx.cs",
+              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\LL\\EL\\FormMDDx.cs",
+              "RelativeDocumentMoniker": "GcproExtensionApp\\LL\\EL\\FormMDDx.cs",
+              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\LL\\EL\\FormMDDx.cs",
+              "RelativeToolTip": "GcproExtensionApp\\LL\\EL\\FormMDDx.cs",
+              "ViewState": "AgIAACAFAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T02:32:22.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Motor.cs",
+              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\Motor.cs",
+              "RelativeDocumentMoniker": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\Motor.cs",
+              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\Motor.cs",
+              "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\Motor.cs",
+              "ViewState": "AgIAAKABAAAAAAAAAAAAAMMBAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T02:31:59.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Machine.cs",
+              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Machine\\Machine.cs",
+              "RelativeDocumentMoniker": "GcproExtensionLibary\\Gcpro\\GCObject\\Machine\\Machine.cs",
+              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Machine\\Machine.cs",
+              "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\Machine\\Machine.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T02:31:48.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LibGlobalSource.cs",
+              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\LibGlobalSource.cs",
+              "RelativeDocumentMoniker": "GcproExtensionLibary\\LibGlobalSource.cs",
+              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\LibGlobalSource.cs",
+              "RelativeToolTip": "GcproExtensionLibary\\LibGlobalSource.cs",
+              "ViewState": "AgIAAEUCAAAAAAAAAAAgwF8CAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T02:30:29.738Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DI.cs",
+              "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
+              "RelativeDocumentMoniker": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
+              "ToolTip": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
+              "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\DI.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAmwAcAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T02:28:52.277Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "GcObject.cs",
               "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\GcObject.cs",
               "RelativeDocumentMoniker": "GcproExtensionLibary\\Gcpro\\GCObject\\GcObject.cs",
@@ -88,12 +152,11 @@
               "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\GcObject.cs",
               "ViewState": "AgIAAMUBAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T02:29:17.795Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-21T02:29:17.795Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "AI.cs",
               "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\AI.cs",
               "RelativeDocumentMoniker": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\AI.cs",
@@ -101,12 +164,11 @@
               "RelativeToolTip": "GcproExtensionLibary\\Gcpro\\GCObject\\Elements\\AI.cs",
               "ViewState": "AgIAAJ4BAAAAAAAAAAAQwCAAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T02:28:52.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-21T02:28:52.574Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "FormMA_Roll8Stand.cs",
               "DocumentMoniker": "Z:\\D\\Leihao\\Data\\Programming\\Repos\\GcproExtensionApp\\GcproExtensionApp\\LL\\MA\\FormMA_Roll8Stand.cs",
               "RelativeDocumentMoniker": "GcproExtensionApp\\LL\\MA\\FormMA_Roll8Stand.cs",
@@ -114,8 +176,7 @@
               "RelativeToolTip": "GcproExtensionApp\\LL\\MA\\FormMA_Roll8Stand.cs",
               "ViewState": "AgIAAOcFAAAAAAAAAAAIwAoGAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-21T02:27:33.523Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-21T02:27:33.523Z"
             }
           ]
         }
