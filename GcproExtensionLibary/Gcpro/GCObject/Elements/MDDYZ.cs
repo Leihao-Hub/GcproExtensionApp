@@ -24,7 +24,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         private string elevation;
         private double fieldBusNode;
         private string panel_ID;
-        private double diagram;
+        private int diagram;
         private string page;
         private string isNew;
         private double pType;
@@ -93,7 +93,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             get { return panel_ID; }
             set { panel_ID = value; }
         }
-        public override double Diagram
+        public override int Diagram
         {
             get { return diagram; }
             set { diagram = value; }

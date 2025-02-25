@@ -40,7 +40,7 @@ namespace GcproExtensionLibrary
         public const int MEAG_NORMAL = 24;
         public const int NONE_UNIT = 0;
         public const double NO_DP_NODE = 0;
-        public const double NO_DIAGRAM = 0;
+        public const int NO_DIAGRAM = 0;
         public const double GROUP_HORNCODE = 0; 
         public const string FIELDS_SEPARATOR = "   |";
         public const string HORNCODE_FIELDS_SEPARATOR = " ¦";

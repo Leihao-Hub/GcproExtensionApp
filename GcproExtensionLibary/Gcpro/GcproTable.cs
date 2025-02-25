@@ -131,20 +131,20 @@ namespace GcproExtensionLibrary.Gcpro
             #endregion
             static ObjData()
             {
-                key = new DbParameter { Name = "Key", Value = (long)0 };
+                key = new DbParameter { Name = "Key", Value = (int)0 };
                 idold = new DbParameter { Name = "IDOld", Value = (double)0.0 };
                 idaepro = new DbParameter { Name = "IDAepro", Value = (double)0.0 };
                 otype = new DbParameter { Name = "OType", Value = (double)0.0 };
-                owner = new DbParameter { Name = "Owner", Value = (long)0 };
+                owner = new DbParameter { Name = "Owner", Value = (int)0 };
                 subtype = new DbParameter { Name = "SubType", Value = string.Empty };
                 oindex = new DbParameter { Name = "OIndex", Value = (double)0.0 };
-                valide = new DbParameter { Name = "Valide", Value = (int)0 };
+                valide = new DbParameter { Name = "Valide", Value = (short)0 };
                 multipleUsed = new DbParameter { Name = "MultipleUsed", Value = string.Empty };
                 building = new DbParameter { Name = "Building", Value = string.Empty };
                 elevation = new DbParameter { Name = "Elevation", Value = string.Empty };
-                alarm_area = new DbParameter { Name = "Alarm_Area", Value = (long)0 };
+                alarm_area = new DbParameter { Name = "Alarm_Area", Value = (int)0 };
                 panel_id = new DbParameter { Name = "Panel_ID", Value = string.Empty };
-                revision = new DbParameter { Name = "Revision", Value = (long)0 };
+                revision = new DbParameter { Name = "Revision", Value = (int)0 };
                 text0 = new DbParameter { Name = "Text0", Value = string.Empty };
                 text1 = new DbParameter { Name = "Text1", Value = string.Empty };
                 text2 = new DbParameter { Name = "Text2", Value = string.Empty };
@@ -205,18 +205,18 @@ namespace GcproExtensionLibrary.Gcpro
                 value48 = new DbParameter { Name = "Value48", Value = (double)0.0 };
                 value49 = new DbParameter { Name = "Value49", Value = (double)0.0 };
                 value50 = new DbParameter { Name = "Value50", Value = (double)0.0 };
-                objCnt = new DbParameter { Name = "ObjCnt", Value = (int)0 };
+                objCnt = new DbParameter { Name = "ObjCnt", Value = (short)0 };
                 nameS7 = new DbParameter { Name = "NameS7", Value = string.Empty };
                 isNew = new DbParameter { Name = "IsNew", Value = (bool)false };
                 dpnode1 = new DbParameter { Name = "DPNode1", Value = (double)0.0 };
                 dpnode2 = new DbParameter { Name = "DPNode2", Value = (double)0.0 };
                 processFct = new DbParameter { Name = "ProcessFct", Value = string.Empty };
-                s5Otype = new DbParameter { Name = "S5OType", Value = (long)0 };
+                s5Otype = new DbParameter { Name = "S5OType", Value = (int)0 };
                 text3 = new DbParameter { Name = "Text3", Value = string.Empty };
-                subProject = new DbParameter { Name = "SubProject", Value = (long)0 };
+                subProject = new DbParameter { Name = "SubProject", Value = (int)0 };
                 pageName = new DbParameter { Name = "PageName", Value = string.Empty };
-                diagramNo = new DbParameter { Name = "DiagramNo", Value = (double)0 };
-                aeproNo = new DbParameter { Name = "AEPRONo", Value = (long)0 };
+                diagramNo = new DbParameter { Name = "DiagramNo", Value = (int)0 };
+                aeproNo = new DbParameter { Name = "AEPRONo", Value = (int)0 };
                 masterCopy = new DbParameter { Name = "MasterCopy", Value = (bool)false };
                 masterCopyName = new DbParameter { Name = "MasterCopyName", Value = string.Empty };
                 value51 = new DbParameter { Name = "Value51", Value = (double)0.0 };
@@ -240,11 +240,11 @@ namespace GcproExtensionLibrary.Gcpro
                 value69 = new DbParameter { Name = "Value69", Value = (double)0.0 };
                 value70 = new DbParameter { Name = "Value70", Value = (double)0.0 };
                 singleInstanceDB = new DbParameter { Name = "SingleInstanceDB", Value = (bool)false };
-                status = new DbParameter { Name = "Status", Value = (int)0 };
+                status = new DbParameter { Name = "Status", Value = (short)0 };
                 memo1 = new DbParameter { Name = "Memo1", Value = string.Empty };
                 memo2 = new DbParameter { Name = "Memo2", Value = string.Empty };
                 isVirtual = new DbParameter { Name = "IsVirtual", Value = (bool) false};
-                communication = new DbParameter { Name = "Communication", Value = (long)0 };
+                communication = new DbParameter { Name = "Communication", Value = (int)0 };
                 notUsed = new DbParameter { Name = "NotUsed", Value = (bool) false };
                 fieldbusNode = new DbParameter { Name = "FieldbusNode", Value = (long)0 };
             }

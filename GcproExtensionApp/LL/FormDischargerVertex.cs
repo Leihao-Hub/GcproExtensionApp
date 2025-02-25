@@ -1350,7 +1350,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objDischargerVertex.Diagram = DischargerVertex.ParseInfoValue(selectedDiagram,AppGlobal.FIELDS_SEPARATOR,AppGlobal.NO_DIAGRAM);              
+                objDischargerVertex.Diagram = (int)DischargerVertex.ParseInfoValue(selectedDiagram,AppGlobal.FIELDS_SEPARATOR,AppGlobal.NO_DIAGRAM);              
             }
 
             ///<Page></Page>

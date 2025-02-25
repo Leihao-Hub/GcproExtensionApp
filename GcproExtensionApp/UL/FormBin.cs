@@ -1455,7 +1455,7 @@ namespace GcproExtensionApp
                 if (ComboDiagram.SelectedItem != null)
                 {
                     selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                    myBin.Diagram = Bin.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
+                    myBin.Diagram = (int)Bin.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
                 }
                 ///<Page></Page>
                 myBin.Page = txtPage.Text;

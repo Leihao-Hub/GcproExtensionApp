@@ -1462,7 +1462,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myMDDYZPhoenix.Diagram = MDDYZPhoenix.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
+                myMDDYZPhoenix.Diagram = (int)MDDYZPhoenix.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             myMDDYZPhoenix.Page = txtPage.Text;

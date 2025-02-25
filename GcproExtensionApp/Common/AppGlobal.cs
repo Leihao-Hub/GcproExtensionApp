@@ -5,7 +5,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Data;
 using System.Reflection;
-
 #region GcproExtensionLibrary
 using GcproExtensionLibrary.Gcpro.GCObject;
 using GcproExtensionLibrary.FileHandle;
@@ -31,7 +30,7 @@ namespace GcproExtensionApp
         public const int MEAG_NORMAL = LibGlobalSource.MEAG_NORMAL;
         public const int NONE_UNIT = LibGlobalSource.NONE_UNIT;
         public const double NO_DP_NODE = LibGlobalSource.NO_DP_NODE;
-        public const double NO_DIAGRAM = LibGlobalSource.NO_DIAGRAM;
+        public const int NO_DIAGRAM = LibGlobalSource.NO_DIAGRAM;
         public const double GROUP_HORNCODE = LibGlobalSource.GROUP_HORNCODE;
         public const string FIELDS_SEPARATOR = LibGlobalSource.FIELDS_SEPARATOR;
         public const string DESC_SEPARATOR = LibGlobalSource.DESC_SEPARATOR;
@@ -102,6 +101,7 @@ namespace GcproExtensionApp
         public const string JS_GENERAL= "General";
         public const string JS_NAME_NUMBER_RULE="NameNumberRule";
         public const string JS_ADDINFO_TO_DESC = "AddInfoToDesc";
+        #endregion<---Appsetting struct--->
         #region<-----Sub struct----->
         public const string JS_OBJECT_TYPE = "ObjectType";
         public const string JS_IDENT_DESC_SEPARATOR = "IdentDescSeparator";
@@ -118,14 +118,14 @@ namespace GcproExtensionApp
         public static (int Value, int Max) ProcessValue = (0, 100);
         public static (int IOByteStart, int Len) IOAddr = (1000, 1);
         public static (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) AdditionDesc = (true, false, true, true, false, false, true);
-        public static (double DPNodeNo, double FieldBusNodeKey) FieldbusNodeInfo = (AppGlobal.NO_DP_NODE, AppGlobal.NO_DP_NODE);
+        public static (double DPNodeNo, int FieldBusNodeKey) FieldbusNodeInfo = (AppGlobal.NO_DP_NODE, (int)AppGlobal.NO_DP_NODE);
         #region<-----Engineer----->
         public const string JS_ENGINEERING = "Engineering";
         public const string JS_MOTORPOWER = "MotorPower";
         public const string JS_PATTERN = "Pattern";
         #endregion<-----Engineer----->
 
-        #endregion<---Appsetting struct--->
+     
 
         #endregion Const
         public static class AppInfo

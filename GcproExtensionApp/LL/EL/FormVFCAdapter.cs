@@ -1485,7 +1485,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                objVFCAdapter.Diagram = VFCAdapter.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
+                objVFCAdapter.Diagram = (int)VFCAdapter.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
             objVFCAdapter.Page = txtPage.Text;
@@ -1787,7 +1787,9 @@ namespace GcproExtensionApp
                 ///<ParUnitsPerDigits</ParUnitsPerDigits>
                 ///Overwrite <ParSpeedMaxDigits></ParSpeedMaxDigits>
                 if (objVFCAdapter.Description.Contains(BML.MachineType.RollerMiller))
-                { objVFCAdapter.SpeedMaxDigits = 1000; }
+                { 
+                    objVFCAdapter.SpeedMaxDigits = 1000;
+                }
                 /// Overwrite <ParLenPKW> and <ParLenPZD>
                 ///<ParLenPKW></ParLenPKW></ParLenPKW>
                 objVFCAdapter.LenPKW = vfc.Par.LenPKW;

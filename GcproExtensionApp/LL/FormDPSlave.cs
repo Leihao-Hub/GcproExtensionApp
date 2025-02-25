@@ -925,7 +925,7 @@ namespace GcproExtensionApp
             if (ComboDiagram.SelectedItem != null)
             {
                 string selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myDPSlave.Diagram = DPSlave.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
+                myDPSlave.Diagram = (int)DPSlave.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
 
             ///<Page></Page>
