@@ -19,6 +19,7 @@ using System.Linq;
 using System.Xml.Linq;
 using OfficeOpenXml.Packaging.Ionic.Zlib;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 #endregion
 namespace GcproExtensionApp
 {
@@ -41,6 +42,7 @@ namespace GcproExtensionApp
         private readonly string DEMO_DESCRIPTION_DischargerVertex = "配粉A线4楼501配粉仓卸料器/或者空白";
         private readonly string DEMO_DESCRIPTION_RULE_DischargerVertex = "";
         private readonly string DischargerVertexPrefix = $"{AppGlobal.JS_GCOBJECT_INFO}.{AppGlobal.JS_DISCHARGER_VERTEX}.{AppGlobal.JS_PREFIX}.";
+        private readonly string Discharger = "卸料器";
         private int value10;
         private int tempInt;
         private double tempDouble;
@@ -134,6 +136,7 @@ namespace GcproExtensionApp
             objDefaultInfo.DescFloor = "4楼";
             objDefaultInfo.Name = "Vertex01Bin501D0";
             objDefaultInfo.DescObject = "501号配粉仓卸料器";
+   
             objDefaultInfo.DescriptionRuleInc = DischargerVertex.Rule.Common.DescriptionRuleInc;
             objDefaultInfo.NameRuleInc = DischargerVertex.Rule.Common.NameRuleInc;
             DischargerVertex.Rule.Common.Cabinet = DischargerVertex.Rule.Common.Power = string.Empty;
@@ -174,6 +177,10 @@ namespace GcproExtensionApp
             txtDescriptionIncRule.Text = DischargerVertex.Rule.Common.DescriptionRuleInc;
             txtSymbol.Text = DischargerVertex.Rule.Common.Name;
             txtDescription.Text = DischargerVertex.Rule.Common.Description;
+            txtBin.Text = "Bin501";
+            txtVertex.Text = "Vertex01";
+            txtParBinNo.Text = "501";
+            txtParScaleNo.Text ="1";
         }
         public void CreateTips()
         {
@@ -264,6 +271,7 @@ namespace GcproExtensionApp
         }
 
         #endregion
+
         private void UpdateDesc()
         {
             DischargerVertex.EncodingDesc(
@@ -320,15 +328,24 @@ namespace GcproExtensionApp
         {
             myDischargerVertex.Name = txtSymbol.Text;
             DischargerVertex.Rule.Common.Name = txtSymbol.Text;
+            txtBin.Text = GetInfoFromName($@"{GcObjectInfo.Bin.BinPrefix}\d+", txtSymbol.Text, true);
+            txtParDischargerNo.Text = GetInfoValueFromName($@"{GcObjectInfo.DischargerVertex.PrefixDischargerNo}\d+", txtSymbol.Text, true);
+            txtVertex.Text = GetScaleNameFromName(GcObjectInfo.DischargerVertex.PrefixCWA, GcObjectInfo.DischargerVertex.PrefixVertex, txtSymbol.Text, true);
             UpdateDesc();
             DischargerVertex.Rule.Common.NameRule = txtSymbolRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtSymbol.Text.Substring(
                txtSymbol.Text.IndexOf(GcObjectInfo.Bin.BinPrefix, StringComparison.OrdinalIgnoreCase)), false);
-
-            txtBin.Text = GetInfoFromName($@"{GcObjectInfo.Bin.BinPrefix}\d+",txtSymbol.Text,true);
-            txtParDischargerNo.Text = GetInfoValueFromName($@"{GcObjectInfo.DischargerVertex.PrefixDischargerNo}\d+",txtSymbol.Text,true);
-            txtVertex.Text = GetScaleNameFromName(GcObjectInfo.DischargerVertex.PrefixVertex,GcObjectInfo.DischargerVertex.PrefixVertex, txtSymbol.Text, true);
-
         }
+
+        private void DescObject()
+        {
+            string stringNumber = LibGlobalSource.StringHelper.ExtractNumericPart(txtBin.Text, false);
+            if (AppGlobal.ParseValue<int>(stringNumber, out tempInt))
+            {
+                txtDescriptionRule.Text = stringNumber;
+                DischargerVertex.Rule.Common.DescObject = objDefaultInfo.DescObject = $"{stringNumber}号{GcObjectInfo.Bin.ReturnBin(tempInt)}{Discharger}";
+            }
+        }
+
         private void TxtBin_TextChanged(object sender, EventArgs e)
         {
             DataTable dataTable;
@@ -343,15 +360,20 @@ namespace GcproExtensionApp
             {
                 txtParBinNo.Text = dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value1.Name).ToString();
             }
+  
            txtBinRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtBin.Text, false);
-            myDischargerVertex.Bin = txtBin.Text;
+           myDischargerVertex.Bin = txtBin.Text;
+           string discharger = txtSymbol.Text.Substring(txtSymbol.Text.IndexOf("D"));
+           txtSymbol.Text = $"{txtVertex.Text}{txtBin.Text}{discharger}";
+           DescObject();
+           UpdateDesc();
         }
 
         private void TxtVertex_TextChanged(object sender, EventArgs e)
         {
             DataTable dataTable;
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
-           dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = 3103 And {GcproTable.ObjData.Text0.Name}='{txtVertex.Text}'",
+           dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.Vertex} And {GcproTable.ObjData.Text0.Name}='{txtVertex.Text}'",
                           null, null, GcproTable.ObjData.Value1.Name);
             if (dataTable.Rows.Count ==0)
             {
@@ -362,6 +384,8 @@ namespace GcproExtensionApp
                 txtParScaleNo.Text = dataTable.Rows[0].Field<double>(GcproTable.ObjData.Value1.Name).ToString();
             }
             myDischargerVertex.Vertex = txtVertex.Text;
+            string discharger = txtSymbol.Text.Substring(txtSymbol.Text.IndexOf("D"));
+            txtSymbol.Text = $"{txtVertex.Text}{txtBin.Text}{discharger}";
         }
         private void txtSymbol_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -372,7 +396,36 @@ namespace GcproExtensionApp
             };
             objectBrowser.Show();
         }
+        private void TxtBin_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ObjectBrowser objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value1.Name,
+                OType = Convert.ToString(Bin.OTypeValue),
+                SubType = Bin.BINB
+            };
+        
+            objectBrowser.ShowDialog();
+            if (!string.IsNullOrEmpty(objectBrowser.ReturnedItem))
+            {
+                txtBin.Text = objectBrowser.ReturnedItem;
+            }
+        }
 
+        private void TxtVertex_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ObjectBrowser objectBrowser = new ObjectBrowser
+            {
+                OtherAdditionalFiled = GcproTable.ObjData.Value1.Name,
+                OType = Convert.ToString((int)OTypeCollection.Vertex),
+                SubType = string.Empty
+            };
+            objectBrowser.ShowDialog();
+            if (!string.IsNullOrEmpty(objectBrowser.ReturnedItem))
+            {
+                txtVertex.Text = objectBrowser.ReturnedItem;
+            }        
+        }
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
             if (!DischargerVertex.Rule.Common.Description.Equals(txtDescription.Text))
@@ -557,8 +610,9 @@ namespace GcproExtensionApp
         private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtDescriptionRule.Text))
-            { return; }
-
+            { 
+                return; 
+            }
             if (!txtDescription.Text.Contains(txtDescriptionRule.Text))
             { txtDescription.BackColor = Color.Red; }
             else
@@ -1505,5 +1559,7 @@ namespace GcproExtensionApp
             }
         }
         #endregion <---Common used--->   
+
+      
     }
 }

@@ -1,6 +1,7 @@
 ﻿using GcproExtensionLibrary;
 using GcproExtensionLibrary.FileHandle;
 using GcproExtensionLibrary.Gcpro;
+using OfficeOpenXml.Drawing.Slicer.Style;
 using OfficeOpenXml.Table.PivotTable;
 using System;
 using System.Collections;
@@ -379,15 +380,37 @@ namespace GcproExtensionApp
 
         public string ReturnSelectItem()
         {
-            return dataGridObjData.CurrentRow.Cells[0].Value.ToString();
+            try
+            {
+                if (dataGridObjData.RowCount > 1)
+                {
+                    return dataGridObjData.CurrentRow.Cells[0].Value.ToString();
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch 
+            {
+                return string.Empty;
+            }
         }
 
-        private void BtnConfirm_Click(object sender, EventArgs e)
+        private void Return()
         {
-            returnedItem= ReturnSelectItem();
+            string ret = ReturnSelectItem();
+            returnedItem = string.IsNullOrEmpty(ret) ? string.Empty : ret;
             this.Close();
         }
+        private void BtnConfirm_Click(object sender, EventArgs e)
+        {
+            Return();
+        }
 
-       
+        private void dataGridObjData_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Return();
+        }
     }
 }

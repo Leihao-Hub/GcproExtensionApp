@@ -576,7 +576,9 @@ namespace GcproExtensionApp
             this.txtBin.Name = "txtBin";
             this.txtBin.Size = new System.Drawing.Size(100, 13);
             this.txtBin.TabIndex = 211;
+            this.txtBin.Text = "Bin501";
             this.txtBin.TextChanged += new System.EventHandler(this.TxtBin_TextChanged);
+            this.txtBin.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TxtBin_MouseDoubleClick);
             this.txtBin.MouseEnter += new System.EventHandler(this.TxtBin_MouseEnter);
             // 
             // txtBinRule
@@ -598,7 +600,9 @@ namespace GcproExtensionApp
             this.txtVertex.Name = "txtVertex";
             this.txtVertex.Size = new System.Drawing.Size(100, 13);
             this.txtVertex.TabIndex = 212;
+            this.txtVertex.Text = "Vertex01";
             this.txtVertex.TextChanged += new System.EventHandler(this.TxtVertex_TextChanged);
+            this.txtVertex.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TxtVertex_MouseDoubleClick);
             this.txtVertex.MouseEnter += new System.EventHandler(this.TxtVertex_MouseEnter);
             // 
             // lblBinRule

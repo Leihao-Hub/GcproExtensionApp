@@ -104,6 +104,7 @@
             this.dataGridObjData.Name = "dataGridObjData";
             this.dataGridObjData.Size = new System.Drawing.Size(907, 454);
             this.dataGridObjData.TabIndex = 10;
+            this.dataGridObjData.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridObjData_CellContentDoubleClick);
             // 
             // lblOtherFilter
             // 

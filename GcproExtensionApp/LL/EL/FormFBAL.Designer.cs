@@ -2141,7 +2141,6 @@ namespace GcproExtensionApp
         private System.Windows.Forms.Label lblControlBML;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuDelete;
         internal System.Windows.Forms.Panel PalGcObject;
-        internal System.Windows.Forms.Label lblParUnitsPerDigit_T2;
         private System.Windows.Forms.GroupBox grpGeneral;
         private System.Windows.Forms.GroupBox grpAddInfoToDesc;
         internal System.Windows.Forms.CheckBox chkNameOnlyNumber;
