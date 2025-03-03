@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Xml.Linq;
 using static GcproExtensionLibrary.Gcpro.GcproTable;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
@@ -22,6 +23,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         public abstract string Page { get; set; }
         public abstract string IsNew { get; set; }
         public abstract string FilePath { get; set; }
+
+        protected List<string> objectRecord, objectRelation;
+        protected Relation relation;
         protected static void SetOTypeProperty(OTypeCollection value)
         {
             OType = value;
@@ -52,11 +56,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             };
             return textFileHandle.SaveFileAs(title);      
         }
+        protected static void ClearObjectList<T>(List<T> list)
+        {
+            if (list.Count >0)
+            {
+                list.Clear();
+                list.TrimExcess();
+            }
+        }
         /// <summary>
         /// 创建对象标准部分字符串
         /// </summary>
         /// <returns></returns>
-        public string CreateObjectStandardPart(StringBuilder sb)
+        protected string CreateObjectStandardPart(StringBuilder sb)
         {
             sb.Append(IsNew).Append(LibGlobalSource.TAB)
               .Append(Name).Append(LibGlobalSource.TAB)
@@ -71,6 +83,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
               .Append(Page);
             return sb.ToString();
         }
+
         /// <summary>
         /// 创建对象之间的关联关系
         /// </summary>
@@ -79,38 +92,46 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         /// <param name="connectedFiled"></param>
         /// <param name="filePath"></param>
         /// <param name="encoding"></param>
-        public static void CreateRelation(TextFileHandle textFileHandle, StringBuilder sbObjRelation, string parent, string child, string connectedFiled, Encoding encoding)
+        public void CreateRelation(StringBuilder sbObjRelation, string parent, string child, string connectedField)
         {
-            string tab = LibGlobalSource.TAB;
-            string realtionRecord = sbObjRelation.Append(parent).Append(tab)
-                .Append(child).Append(tab)
-                .Append(connectedFiled).ToString();
-            textFileHandle.WriteToTextFile(realtionRecord, encoding);
-            sbObjRelation.Clear();
-        }
-        /// <summary>
-        /// 一次性根据relations中"Child"值是否为空,来创建relations中对象的关系
-        /// </summary>
-        /// <param name="relations"></param>
-        /// <param name="filePath"></param>
-        /// <param name="encoding"></param>
-        protected void CreateRelations(TextFileHandle textFileHandle, StringBuilder sbObjRelation,List<Relation> relations, Encoding encoding)
-        {
-            foreach (var relation in relations)
+            if (relation != null & objectRelation != null )
             {
-                if (!String.IsNullOrEmpty(relation.Child))
+                if (!string.IsNullOrEmpty(child))
                 {
-                    CreateRelation(
-                    textFileHandle : textFileHandle,
-                    sbObjRelation: sbObjRelation,
-                    parent: relation.Parent,
-                    child: relation.Child,
-                    connectedFiled: relation.ConnectedFiled,
-                    encoding: encoding
-                    );
+                    relation.SetRelation(parent, child, connectedField);
+                    string tab = LibGlobalSource.TAB;
+                    string realtionRecord = sbObjRelation.Append(relation.Parent).Append(tab)
+                        .Append(relation.Child).Append(tab)
+                        .Append(relation.ConnectedFiled).ToString();
+                    objectRelation.Add(realtionRecord);
                 }
             }
+            else
+            {
+                throw new InvalidOperationException("ObjectRelation or relation is not initialized.");
+            }
+            sbObjRelation.Clear();
         }
+        public void CreateObject(TextFileHandle textFileHandle, Encoding encoding, string relationPath = "", bool onlyRelation = false)
+        {
+            if (!onlyRelation)
+            {
+                if (objectRecord != null)
+                {
+                    textFileHandle.FilePath = FilePath;
+                    textFileHandle.WriteLinesToTextFile(objectRecord, encoding);
+                    ClearObjectList(objectRecord);
+                }
+
+            }
+            if (objectRelation != null & !string.IsNullOrEmpty(relationPath))
+            {
+                textFileHandle.FilePath = relationPath;
+                textFileHandle.WriteLinesToTextFile(objectRelation, encoding);
+                ClearObjectList(objectRelation);
+            }
+        }
+        
         /// <summary>
         /// 从描述中提取信息,比如Diagram,InfoType以及HorCdoe等信息
         /// 00 ¦ Group horncode 提取 0;

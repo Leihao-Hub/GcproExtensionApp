@@ -193,19 +193,19 @@ namespace GcproExtensionApp
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
 
-            if (String.IsNullOrEmpty(AI.Rule.Common.Description))
+            if (string.IsNullOrEmpty(AI.Rule.Common.Description))
             { AI.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(AI.Rule.Common.Name))
+            if (string.IsNullOrEmpty(AI.Rule.Common.Name))
             { AI.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(AI.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(AI.Rule.Common.DescLine))
             { AI.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(AI.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(AI.Rule.Common.DescFloor))
             { AI.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(AI.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(AI.Rule.Common.DescObject))
             { AI.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = AI.Rule.Common.NameRule;
@@ -313,6 +313,7 @@ namespace GcproExtensionApp
         private void FormAI_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
         #region <------Check and store rule event------>
@@ -1174,9 +1175,9 @@ namespace GcproExtensionApp
                     }
                 }                                
                 ///<CreateTemperature>Create temperature </CreateTemperature>
-                CreateTempAndPreForFilter(objTextFileHandle,objBuilder,myAI, nameFilterController, desc, AppGlobal.AdditionDesc, true);
+                CreateTempAndPreForFilter(objBuilder,myAI, nameFilterController, desc, AppGlobal.AdditionDesc, true);
                 ///<CreatePressure >Create pressure </CreatePressure >
-                CreateTempAndPreForFilter(objTextFileHandle, objBuilder, myAI, nameFilterController, desc, AppGlobal.AdditionDesc, false);
+                CreateTempAndPreForFilter( objBuilder, myAI, nameFilterController, desc, AppGlobal.AdditionDesc, false);
                 ProgressBar.Value = count;
             }
        
@@ -1186,7 +1187,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myAI.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -1307,7 +1308,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1416,7 +1417,7 @@ namespace GcproExtensionApp
             dataGridBML.Columns[nameof(BML.ColumnCabinet)].DataPropertyName = dataTable.Columns[4].ColumnName;
             dataGridBML.Columns[nameof(BML.ColumnCabinetGroup)].DataPropertyName = dataTable.Columns[5].ColumnName;
             dataGridBML.Columns[nameof(BML.ColumnLine)].DataPropertyName = dataTable.Columns[6].ColumnName;
-            TxtQuantity.Text = dataTable.Rows.Count.ToString();
+            TxtQuantity.Text = dataGridBML.RowCount.ToString();
         }
         #endregion
 
@@ -1487,7 +1488,7 @@ namespace GcproExtensionApp
         /// <param name="nameFilterController">除尘器名称</param>
         /// <param name="addtionToDesc">附件信息到对象描述</param>
         /// <param name="createTempature">true=创建除尘器温度AI;false=创建除尘器压差对象</param>
-        private void CreateTempAndPreForFilter(TextFileHandle objTextFileHandle, StringBuilder objBuilder,AI objAI,string nameFilterController, string desc,
+        private void CreateTempAndPreForFilter(StringBuilder objBuilder,AI objAI,string nameFilterController, string desc,
             (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
             bool createTempature)
         {
@@ -1541,7 +1542,8 @@ namespace GcproExtensionApp
                 objAI.LimitHighHigh = 1000.0;
                 objAI.MonTimeHighHigh = 10.0;
             }
-            objAI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+            objAI.InpValue = string.Empty;
+            objAI.CreateObjectRecordAndRelation(objBuilder);
             objBuilder.Clear();
         }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -1641,8 +1643,8 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objSubType = string.Empty;
                     DataTable dataTable ;
                     OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);                    
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={AI.OTypeValue}", null,
@@ -1650,7 +1652,7 @@ namespace GcproExtensionApp
                     StringBuilder objBuilder = new StringBuilder();
                     TextFileHandle objTextFileHandle = new TextFileHandle
                     {
-                        FilePath = myAI.FileRelationPath
+                        FilePath = myAI.FileConnectorPath
                     };
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
@@ -1662,11 +1664,11 @@ namespace GcproExtensionApp
                         string inpValue = objName + txtInpValeSuffix.Text;
                         if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                         {
-                            AI.CreateRelation(objTextFileHandle, objBuilder,objName, inpValue, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                           myAI.CreateRelation(objBuilder, objName,inpValue, GcproTable.ObjData.Value11.Name);
                         }
-
                         ProgressBar.Value = count;
                     }
+                    myAI.CreateObject(objTextFileHandle, Encoding.Unicode, myAI.FileConnectorPath, true);
                     AI.SaveFileAs(myAI.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     dataTable.Clear();
                 }
@@ -1878,7 +1880,7 @@ namespace GcproExtensionApp
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();   
@@ -1953,7 +1955,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             desc = AI.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1997,9 +1999,9 @@ namespace GcproExtensionApp
                     objAI.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -2044,11 +2046,12 @@ namespace GcproExtensionApp
                     withCabinet: addtionToDesc.Cabinet,
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
-                 );            
-                objAI.CreateObject(objTextFileHandle,objBuilder, Encoding.Unicode);
+                 );
+                objAI.CreateObjectRecordAndRelation(objBuilder);             
                 processValue.Value = i;
             }
             AI.Rule.Common = objDefaultInfo;
+            objAI.CreateObject(objTextFileHandle, Encoding.Unicode, objAI.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void CreateObjectBML(DataGridView dataFromBML, AI objAI,
@@ -2059,12 +2062,12 @@ namespace GcproExtensionApp
             DataTable dataTable ;
             processValue.Max= dataFromBML.Rows.Count;
             processValue.Value = 0;
-            //SuffixObject suffixObject = new SuffixObject();
             string cabinet, cabinetGroup;
             string nameNumberString;
             string name,nameMotor=string.Empty,nameFilterController=string.Empty;
+            string desc;
             float motorPower = 0.0f;
-            string motorPowerStr= string.Empty;
+            string motorPowerStr= string.Empty;     
             bool isFilterController;
             (float rateCurrent, float ctRatio) motorCurrent = (0.0f, 0.0f);
             Dictionary<string, (float, float)> motorPowerInfo = new Dictionary<string, (float, float)>();
@@ -2076,11 +2079,13 @@ namespace GcproExtensionApp
             for (int i = 0; i < dataFromBML.Rows.Count; i++)
             {
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
-                { continue; }
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
+                { 
+                    continue;
+                }
                 name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
                 objAI.Name = name;
-                string desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
+                desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
                 if (desc.Contains(BML.MachineType.Filter))
                 {
                     isFilterController = true;
@@ -2141,9 +2146,9 @@ namespace GcproExtensionApp
                 if (isFilterController)
                 {
                     ///<CreateTemperature>Create temperature </CreateTemperature>
-                    CreateTempAndPreForFilter(objTextFileHandle,objBuilder,objAI, nameFilterController, desc, addtionToDesc, true);
+                    CreateTempAndPreForFilter(objBuilder,objAI, nameFilterController, desc, addtionToDesc, true);
                     ///<CreatePressure >Create pressure </CreatePressure >
-                    CreateTempAndPreForFilter(objTextFileHandle, objBuilder, objAI, nameFilterController, desc, addtionToDesc, false);
+                    CreateTempAndPreForFilter(objBuilder, objAI, nameFilterController, desc, addtionToDesc, false);
                 }
                 else
                 {
@@ -2170,8 +2175,9 @@ namespace GcproExtensionApp
                     objAI.LimitLow = Math.Round(motorCurrent.rateCurrent * 0.3f,0);
                     objAI.LimitHigh = Math.Round(motorCurrent.rateCurrent * 0.9f,0);
                     objAI.LimitHighHigh = Math.Round(motorCurrent.rateCurrent * 1.1f,0);
-                    objAI.MonTimeHighHigh = Motor.GetStartingTime(motorCurrent.rateCurrent);         
-                    objAI.CreateObject(objTextFileHandle, objBuilder,Encoding.Unicode);
+                    objAI.MonTimeHighHigh = Motor.GetStartingTime(motorCurrent.rateCurrent);
+                    objAI.CreateObjectRecordAndRelation(objBuilder);
+                  
                 }
                 ///<UpdateFiled>
                 ///Update Value22 for Analog input
@@ -2197,15 +2203,17 @@ namespace GcproExtensionApp
                 }
                 processValue.Value = i;
             }
-            processValue.Value = processValue.Max;
             AI.Rule.Common = objDefaultInfo;
+            objAI.CreateObject(objTextFileHandle, Encoding.Unicode,objAI.FileRelationPath);
+            processValue.Value = processValue.Max;
+         
         }
         private void CreatObjectAutoSearch(AI objAI,ref (int Value, int Max) processValue)
         {
             OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
             DataTable dataTable;
             string filter = $@"{GcproTable.ObjData.OType.Name} = {(int)OTypeCollection.AIC} AND {GcproTable.ObjData.Owner.Name} = {LibGlobalSource.NO_OWNER} ";
-            filter = String.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
+            filter = string.IsNullOrEmpty(txtSymbol.Text) ? filter : $@"{filter} AND {GcproTable.ObjData.Text0.Name} LIKE '%{txtSymbol.Text}%'";
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, null, GcproTable.ObjData.Key.Name, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.Text1.Name);
             List<string> objList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text0.Name);
             List<string> objDescList = OleDb.GetColumnData<string>(dataTable, GcproTable.ObjData.Text1.Name);
@@ -2222,9 +2230,10 @@ namespace GcproExtensionApp
                 objAI.Name = GcObject.GetObjectSymbolFromIO(objList[i], GcObjectInfo.General.SuffixIO.Delimiter);
                 objAI.InpValue = objList[i];
                 objAI.Description = objDescList[i];
-                objAI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objAI.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objAI.CreateObject(objTextFileHandle, Encoding.Unicode, objAI.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

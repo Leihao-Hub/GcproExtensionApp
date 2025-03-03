@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class VFCAdapter : Element, IGcpro
+    public class VFCAdapter : Element
     {
         public struct VFCAdapterRule
         {
@@ -329,6 +329,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             Rule.slaveIndexInc = 1;
             Rule.ioByteInc = 12;
             SetOTypeProperty(OTypeCollection.EL_VFCAdapter);
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             this.filePath =$"{ LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH }{ vfcFileName }.Txt";
         }
         public VFCAdapter(string filePath = null) : this()
@@ -336,20 +339,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             $"{ LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{vfcFileName }.Txt" : $"{ filePath }{ vfcFileName }.Txt");
         }
+
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
-        {
-            textFileHandle.FilePath = this.filePath;
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
+        {       
             isNew = "False";
             string tab = LibGlobalSource.TAB;
             ///<summary>
-            ///生产Standard 字符串部分
+            ///生产Standard字符串部分
             ///</summary> 
             string objBase = base.CreateObjectStandardPart(sb);
             sb.Clear();
@@ -357,13 +358,13 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
               .Append(objBase).Append(tab);
             ///<summary>
             ///生成Application 字符串部分
-            ///</summary>   
+            ///</summary>
             sb.Append(speedLimitMin).Append(tab)
               .Append(speedLimitMax).Append(tab)
               .Append(speedMaxDigits).Append(tab)
               .Append(speedUnitsByZeroDigits).Append(tab)
               .Append(speedUnitsByMaxDigits).Append(tab)
-              .Append(Math.Round(unitsPerDigits,6)).Append(tab)
+              .Append(Math.Round(unitsPerDigits, 6)).Append(tab)
               .Append(ioByteNo).Append(tab)
               .Append(lenPKW).Append(tab)
               .Append(lenPZD).Append(tab)
@@ -384,7 +385,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
               .Append(refCurrent).Append(tab)
               .Append(refTorque).Append(tab)
               .Append(refPower);
-            textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+            objectRecord.Add(sb.ToString());
             sb.Clear();
         }
         public void Clear()

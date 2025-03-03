@@ -159,19 +159,19 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(VFCAdapter.Rule.Common.Description))
+            if (string.IsNullOrEmpty(VFCAdapter.Rule.Common.Description))
             { VFCAdapter.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(VFCAdapter.Rule.Common.Name))
+            if (string.IsNullOrEmpty(VFCAdapter.Rule.Common.Name))
             { VFCAdapter.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(VFCAdapter.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(VFCAdapter.Rule.Common.DescLine))
             { VFCAdapter.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(VFCAdapter.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(VFCAdapter.Rule.Common.DescFloor))
             { VFCAdapter.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(VFCAdapter.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(VFCAdapter.Rule.Common.DescObject))
             { VFCAdapter.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = VFCAdapter.Rule.Common.NameRule;
@@ -696,7 +696,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -826,7 +826,7 @@ namespace GcproExtensionApp
         {
             BML.VFCAdapter.VFCAdapterParameters vfc = new BML.VFCAdapter.VFCAdapterParameters();
             string selectedItem = Convert.ToString(ComboEquipmentSubType.SelectedItem);
-            myVFCAdapter.SubType = String.IsNullOrEmpty(selectedItem) ? VFCAdapter.ATVDP :
+            myVFCAdapter.SubType = string.IsNullOrEmpty(selectedItem) ? VFCAdapter.ATVDP :
                 selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
          
             ///<ATV>  
@@ -1127,7 +1127,7 @@ namespace GcproExtensionApp
         private void txtParPNO_T1_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram1</Telegram1>
-            myVFCAdapter.Telegram1.ParPNO = String.IsNullOrEmpty(txtParPNO_T1.Text) ? 0 :
+            myVFCAdapter.Telegram1.ParPNO = string.IsNullOrEmpty(txtParPNO_T1.Text) ? 0 :
                                     (AppGlobal.ParseValue<float>(txtParPNO_T1.Text, out tempFloat) ? tempFloat : 0);
            
         }
@@ -1135,28 +1135,28 @@ namespace GcproExtensionApp
         private void txtParUnitsPerDigit_T1_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram1</Telegram1>
-            myVFCAdapter.Telegram1.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T1.Text) ? 0 :
+            myVFCAdapter.Telegram1.ParUnitsPerDigit = string.IsNullOrEmpty(txtParUnitsPerDigit_T1.Text) ? 0 :
                         (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T1.Text, out tempFloat) ? tempFloat : 0);
         }
 
         private void txtParPNO_T2_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram2</Telegram2>
-            myVFCAdapter.Telegram2.ParPNO = String.IsNullOrEmpty(txtParPNO_T2.Text) ? 0 :
+            myVFCAdapter.Telegram2.ParPNO = string.IsNullOrEmpty(txtParPNO_T2.Text) ? 0 :
                                 (AppGlobal.ParseValue<float>(txtParPNO_T2.Text, out tempFloat) ? tempFloat : 0);
         }
 
         private void txtParUnitsPerDigit_T2_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram2</Telegram2>
-             myVFCAdapter.Telegram2.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T2.Text)? 0 :
+             myVFCAdapter.Telegram2.ParUnitsPerDigit = string.IsNullOrEmpty(txtParUnitsPerDigit_T2.Text)? 0 :
             (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T2.Text, out tempFloat) ? tempFloat : 0);
         }
 
         private void txtParPNO_T3_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram3</Telegram3>
-            myVFCAdapter.Telegram3.ParPNO = String.IsNullOrEmpty(txtParPNO_T3.Text) ? 0 :
+            myVFCAdapter.Telegram3.ParPNO = string.IsNullOrEmpty(txtParPNO_T3.Text) ? 0 :
                                 (AppGlobal.ParseValue<float>(txtParPNO_T3.Text, out tempFloat) ? tempFloat : 0);
 
         }
@@ -1164,35 +1164,35 @@ namespace GcproExtensionApp
         private void txtParUnitsPerDigit_T3_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram3</Telegram3>
-            myVFCAdapter.Telegram3.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T3.Text) ? 0 :
+            myVFCAdapter.Telegram3.ParUnitsPerDigit = string.IsNullOrEmpty(txtParUnitsPerDigit_T3.Text) ? 0 :
                     (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T3.Text, out tempFloat) ? tempFloat : 0);
         }
               
         private void txtParPNO_T4_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram4</Telegram4>
-            myVFCAdapter.Telegram4.ParPNO = String.IsNullOrEmpty(txtParPNO_T4.Text) ? 0 :
+            myVFCAdapter.Telegram4.ParPNO = string.IsNullOrEmpty(txtParPNO_T4.Text) ? 0 :
                                     (AppGlobal.ParseValue<float>(txtParPNO_T4.Text, out tempFloat) ? tempFloat : 0);
         }
 
         private void txtParUnitsPerDigit_T4_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram4</Telegram4>
-            myVFCAdapter.Telegram4.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T4.Text) ? 0 :
+            myVFCAdapter.Telegram4.ParUnitsPerDigit = string.IsNullOrEmpty(txtParUnitsPerDigit_T4.Text) ? 0 :
                    (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T4.Text, out tempFloat) ? tempFloat : 0);
         }
 
         private void txtParPNO_T5_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram5</Telegram5>
-            myVFCAdapter.Telegram5.ParPNO = String.IsNullOrEmpty(txtParPNO_T5.Text) ? 0 :
+            myVFCAdapter.Telegram5.ParPNO = string.IsNullOrEmpty(txtParPNO_T5.Text) ? 0 :
                                 (AppGlobal.ParseValue<float>(txtParPNO_T5.Text, out tempFloat) ? tempFloat : 0);
         }
 
         private void txtParUnitsPerDigit_T5_TextChanged(object sender, EventArgs e)
         {
             ///<Telegram5</Telegram5>
-            myVFCAdapter.Telegram5.ParUnitsPerDigit = String.IsNullOrEmpty(txtParUnitsPerDigit_T5.Text) ? 0 :
+            myVFCAdapter.Telegram5.ParUnitsPerDigit = string.IsNullOrEmpty(txtParUnitsPerDigit_T5.Text) ? 0 :
                     (AppGlobal.ParseValue<float>(txtParUnitsPerDigit_T5.Text, out tempFloat) ? tempFloat : 0);
         }
         private void chkAddSectionToDesc_CheckedChanged(object sender, EventArgs e)
@@ -1268,6 +1268,7 @@ namespace GcproExtensionApp
         }
         private void FormVFCAdapter_FormClosed(object sender, FormClosedEventArgs e)
         {
+            GC.Collect();
             this.Dispose();
         }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
@@ -1490,7 +1491,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             objVFCAdapter.Page = txtPage.Text;
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();          
@@ -1595,7 +1596,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             string desc = VFCAdapter.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1639,9 +1640,9 @@ namespace GcproExtensionApp
                     objVFCAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1675,9 +1676,10 @@ namespace GcproExtensionApp
                  );
                 // objVFCAdapter.Description = description.Name;
                 objVFCAdapter.IoByteNo = ioByte + i * ioByteInc;
-                objVFCAdapter.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objVFCAdapter.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objVFCAdapter.CreateObject(objTextFileHandle, Encoding.Unicode);
             processValue.Value = processValue.Max;
         }
         public void CreateObjectBML(DataGridView dataFromBML, VFCAdapter objVFCAdapter,
@@ -1697,17 +1699,17 @@ namespace GcproExtensionApp
             string motor = string.Empty;
             bool onlyOne = quantityNeedToBeCreate == 1;
             int nextIOByte = ioByte;
+            string nameNumberString;
             #endregion common used variables declaration
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
             BML.VFCAdapter.VFCAdapterParameters vfc = new BML.VFCAdapter.VFCAdapterParameters();
             objDefaultInfo = VFCAdapter.Rule.Common;
+            DataGridViewCell cell;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
-            {
-
-                DataGridViewCell cell;
+            {      
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                     continue;
                 ///<Name>   </Name>
                 motor = Convert.ToString(cell.Value);
@@ -1716,7 +1718,7 @@ namespace GcproExtensionApp
                 desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
                 if (addtionToDesc.Section)
                 {
-                    string nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objVFCAdapter.Name);
+                    nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objVFCAdapter.Name);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
                         if (AppGlobal.ParseValue<int>(nameNumberString, out tempInt))
@@ -1810,10 +1812,11 @@ namespace GcproExtensionApp
                 objVFCAdapter.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objVFCAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 ///<CreateObject>   </CreateObject>
-                objVFCAdapter.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objVFCAdapter.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             VFCAdapter.Rule.Common = objDefaultInfo;
+            objVFCAdapter.CreateObject(objTextFileHandle, Encoding.Unicode);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

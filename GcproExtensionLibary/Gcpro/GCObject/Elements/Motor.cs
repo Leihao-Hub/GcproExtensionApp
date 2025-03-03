@@ -7,7 +7,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
     ///  <summary>
     ///  Motor
     ///  </summary>
-    public class Motor : Element, IGcpro
+    public class Motor : Element
     {
         public struct MotorRule
         {
@@ -359,6 +359,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             parSpeedService = 20;
             unit = 2;
             SetOTypeProperty(OTypeCollection.EL_Motor);
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{motorFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
             this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
@@ -379,17 +382,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
@@ -402,56 +402,54 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
-                ///</summary>         
+                ///</summary>
                 sb.Append(dpNode2).Append(tab)
-                    .Append(value9).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(parMonTime * 10).Append(tab)
-                    .Append(parStartDelay * 10).Append(tab)
-                    .Append(parStartingTime * 10).Append(tab)
-                    .Append(parStoppingTime * 10).Append(tab)
-                    .Append(parIdlingTime * 10).Append(tab)
-                    .Append(parFaultDelayTime * 10).Append(tab)
-                    .Append(parPowerNominal).Append(tab)
-                    .Append(parSpeedService).Append(tab)
-                    .Append(unit);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                     .Append(value9).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(noChild).Append(tab)
+                     .Append(parMonTime * 10).Append(tab)
+                     .Append(parStartDelay * 10).Append(tab)
+                     .Append(parStartingTime * 10).Append(tab)
+                     .Append(parStoppingTime * 10).Append(tab)
+                     .Append(parIdlingTime * 10).Append(tab)
+                     .Append(parFaultDelayTime * 10).Append(tab)
+                     .Append(parPowerNominal).Append(tab)
+                     .Append(parSpeedService).Append(tab)
+                     .Append(unit);
+                objectRecord.Add(sb.ToString());
                 sb.Clear();
             }
-            var relations = new List<Relation>();
             if (subType == M11)
             {
-                relations.Add(new Relation(name, inpFwd, GcproTable.ObjData.Value11.Name));
-                relations.Add(new Relation(name, outpFwd, GcproTable.ObjData.Value12.Name));
+                CreateRelation(sb,  name, inpFwd, GcproTable.ObjData.Value11.Name);
+                CreateRelation(sb,  name, outpFwd, GcproTable.ObjData.Value12.Name);
                 if (!string.IsNullOrEmpty(inpContactor))
                 {
-                    relations.Add(new Relation(name, inpContactor, GcproTable.ObjData.Value38.Name));
+                    CreateRelation(sb,  name, inpContactor, GcproTable.ObjData.Value38.Name);
                 }
             }
             else if (subType == M12)
             {
-                relations.Add(new Relation(name, inpFwd, GcproTable.ObjData.Value11.Name));
-                relations.Add(new Relation(name, outpFwd, GcproTable.ObjData.Value12.Name));
-                relations.Add(new Relation(name, inpRev, GcproTable.ObjData.Value13.Name));
-                relations.Add(new Relation(name, outpRev, GcproTable.ObjData.Value14.Name));
+  
+                CreateRelation(sb,  name, inpFwd, GcproTable.ObjData.Value11.Name);
+                CreateRelation(sb,  name, outpFwd, GcproTable.ObjData.Value12.Name);
+                CreateRelation(sb,  name, inpRev, GcproTable.ObjData.Value13.Name);
+                CreateRelation(sb,  name, outpRev, GcproTable.ObjData.Value14.Name);
             }
-           else if (subType == M1VFC || subType == M2VFC)
-           { 
-                relations.Add(new Relation(name, adapter, GcproTable.ObjData.Value34.Name));
-           }
-            textFileHandle.FilePath = this.fileRelationPath;
+            else if (subType == M1VFC || subType == M2VFC)
+            {
+                CreateRelation(sb,  name, adapter, GcproTable.ObjData.Value34.Name);
+            }           
             sb.Clear();
-            CreateRelations(textFileHandle,sb, relations, encoding);
         }
-
+ 
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle

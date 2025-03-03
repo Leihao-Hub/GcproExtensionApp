@@ -151,19 +151,19 @@ namespace GcproExtensionApp
                 withCabinet: false,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(MotorWithBypass.Rule.Common.Description))
+            if (string.IsNullOrEmpty(MotorWithBypass.Rule.Common.Description))
             { MotorWithBypass.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(MotorWithBypass.Rule.Common.Name))
+            if (string.IsNullOrEmpty(MotorWithBypass.Rule.Common.Name))
             { MotorWithBypass.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(MotorWithBypass.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(MotorWithBypass.Rule.Common.DescLine))
             { MotorWithBypass.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(MotorWithBypass.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(MotorWithBypass.Rule.Common.DescFloor))
             { MotorWithBypass.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(MotorWithBypass.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(MotorWithBypass.Rule.Common.DescObject))
             { MotorWithBypass.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             //  myMotorWithBypass.DecodingDesc(ref MotorWithBypass.Rule.Common, AppGlobal.DESC_SEPARATOR);
@@ -268,6 +268,7 @@ namespace GcproExtensionApp
         private void FormMA_MotorWithBypassClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
 
@@ -388,7 +389,7 @@ namespace GcproExtensionApp
         }
         private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (string.IsNullOrEmpty(txtDescriptionRule.Text))
             { return; }
             if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
             {
@@ -968,7 +969,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myMotorWithBypass.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -1054,7 +1055,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1299,8 +1300,8 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objSubType = string.Empty;
                     OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                     DataTable dataTable;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={MotorWithBypass.OTypeValue}", null,
@@ -1376,7 +1377,7 @@ namespace GcproExtensionApp
             {
 
                 objMotorWithBypass.Name = Convert.ToString(listName[i].Key.ToString());
-                if (String.IsNullOrEmpty(objMotorWithBypass.Name))
+                if (string.IsNullOrEmpty(objMotorWithBypass.Name))
                 {
                     continue;
                 }
@@ -1435,7 +1436,7 @@ namespace GcproExtensionApp
             
         }
         */
-        private void CreatObjectRule((bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
+        private void CreatObjectRule(MotorWithBypass objMotorWithBypass,(bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
             ref (int Value, int Max) processValue)
         {
             StringBuilder objBuilder = new StringBuilder();
@@ -1572,64 +1573,64 @@ namespace GcproExtensionApp
             if (ComboEquipmentSubType.SelectedItem != null)
             {
                 selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                myMotorWithBypass.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMotorWithBypass.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             else
             {
-                myMotorWithBypass.SubType = MotorWithBypass.ALL;
+                objMotorWithBypass.SubType = MotorWithBypass.ALL;
             }
             ///<PType></PType>
             string selectedPTypeItem;
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myMotorWithBypass.PType = MotorWithBypass.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, MotorWithBypass.P2052);
+                objMotorWithBypass.PType = MotorWithBypass.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, MotorWithBypass.P2052);
             }
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-            myMotorWithBypass.Value10= value10;
+            objMotorWithBypass.Value10= value10;
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
-            myMotorWithBypass.Description = txtDescription.Text;
+            objMotorWithBypass.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
             string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                myMotorWithBypass.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMotorWithBypass.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Diagram></Diagram>
             string selectedDiagram;
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myMotorWithBypass.Diagram = (int)MotorWithBypass.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
+                objMotorWithBypass.Diagram = (int)MotorWithBypass.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
-            myMotorWithBypass.Page = txtPage.Text;
+            objMotorWithBypass.Page = txtPage.Text;
             ///<Building></Building>
             string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
-                myMotorWithBypass.Building = selectedBudling;
+                objMotorWithBypass.Building = selectedBudling;
             }
             ///<Elevation></Elevation>
             string selectedElevation;
             if (ComboElevation.SelectedItem != null)
             {
                 selectedElevation = ComboElevation.SelectedItem.ToString();
-                myMotorWithBypass.Elevation = selectedElevation;
+                objMotorWithBypass.Elevation = selectedElevation;
             }
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
             {
                 selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                myMotorWithBypass.Panel_ID = selectedPanel_ID;
+                objMotorWithBypass.Panel_ID = selectedPanel_ID;
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myMotorWithBypass.FieldBusNode = AppGlobal.NO_DP_NODE;
+            objMotorWithBypass.FieldBusNode = AppGlobal.NO_DP_NODE;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
@@ -1760,7 +1761,7 @@ namespace GcproExtensionApp
                 pressure.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtPressure.Text, txtPressureRule.Text);
             }
             ///<DescRule>生成描述规则</DescRule>
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1797,9 +1798,9 @@ namespace GcproExtensionApp
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
 
-                if (!String.IsNullOrEmpty(txtDescription.Text))
+                if (!string.IsNullOrEmpty(txtDescription.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1817,9 +1818,9 @@ namespace GcproExtensionApp
                     description.Name = "--";
                 }
 
-                if (!String.IsNullOrEmpty(txtMon1.Text))
+                if (!string.IsNullOrEmpty(txtMon1.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtMon1IncRule.Text) && !String.IsNullOrEmpty(txtMon1Rule.Text)
+                    if (!string.IsNullOrEmpty(txtMon1IncRule.Text) && !string.IsNullOrEmpty(txtMon1Rule.Text)
                         && AppGlobal.CheckNumericString(txtMon1IncRule.Text) && AppGlobal.CheckNumericString(txtMon1IncRule.Text)
                         && (mon1.PosInfo.Len != -1))
                     {
@@ -1837,9 +1838,9 @@ namespace GcproExtensionApp
                     mon1.Name = string.Empty;
                 }
 
-                if (!String.IsNullOrEmpty(txtMon2.Text))
+                if (!string.IsNullOrEmpty(txtMon2.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtMon2IncRule.Text) && !String.IsNullOrEmpty(txtMon2Rule.Text)
+                    if (!string.IsNullOrEmpty(txtMon2IncRule.Text) && !string.IsNullOrEmpty(txtMon2Rule.Text)
                         && AppGlobal.CheckNumericString(txtMon2IncRule.Text) && AppGlobal.CheckNumericString(txtMon2IncRule.Text)
                         && (mon2.PosInfo.Len != -1))
                     {
@@ -1856,9 +1857,9 @@ namespace GcproExtensionApp
                 {
                     mon2.Name = string.Empty;
                 }
-                if (!String.IsNullOrEmpty(txtVLS1.Text))
+                if (!string.IsNullOrEmpty(txtVLS1.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtVLS1IncRule.Text) && !String.IsNullOrEmpty(txtVLS1Rule.Text)
+                    if (!string.IsNullOrEmpty(txtVLS1IncRule.Text) && !string.IsNullOrEmpty(txtVLS1Rule.Text)
                         && AppGlobal.CheckNumericString(txtVLS1IncRule.Text) && AppGlobal.CheckNumericString(txtVLS1IncRule.Text)
                         && (vls1.PosInfo.Len != -1))
                     {
@@ -1876,9 +1877,9 @@ namespace GcproExtensionApp
                     vls1.Name = string.Empty;
                 }
 
-                if (!String.IsNullOrEmpty(txtVLS2.Text))
+                if (!string.IsNullOrEmpty(txtVLS2.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtVLS2IncRule.Text) && !String.IsNullOrEmpty(txtVLS2Rule.Text)
+                    if (!string.IsNullOrEmpty(txtVLS2IncRule.Text) && !string.IsNullOrEmpty(txtVLS2Rule.Text)
                         && AppGlobal.CheckNumericString(txtVLS2IncRule.Text) && AppGlobal.CheckNumericString(txtVLS2IncRule.Text)
                         && (vls2.PosInfo.Len != -1))
                     {
@@ -1896,9 +1897,9 @@ namespace GcproExtensionApp
                     vls2.Name = string.Empty;
                 }
 
-                if (!String.IsNullOrEmpty(txtSeal.Text))
+                if (!string.IsNullOrEmpty(txtSeal.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtSealIncRule.Text) && !String.IsNullOrEmpty(txtSealRule.Text)
+                    if (!string.IsNullOrEmpty(txtSealIncRule.Text) && !string.IsNullOrEmpty(txtSealRule.Text)
                         && AppGlobal.CheckNumericString(txtSealIncRule.Text) && AppGlobal.CheckNumericString(txtSealIncRule.Text)
                         && (seal.PosInfo.Len != -1))
                     {
@@ -1917,9 +1918,9 @@ namespace GcproExtensionApp
                 }
 
 
-                if (!String.IsNullOrEmpty(txtPressure.Text))
+                if (!string.IsNullOrEmpty(txtPressure.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtPressureIncRule.Text) && !String.IsNullOrEmpty(txtPressureRule.Text)
+                    if (!string.IsNullOrEmpty(txtPressureIncRule.Text) && !string.IsNullOrEmpty(txtPressureRule.Text)
                         && AppGlobal.CheckNumericString(txtPressureIncRule.Text) && AppGlobal.CheckNumericString(txtPressureIncRule.Text)
                         && (pressure.PosInfo.Len != -1))
                     {
@@ -1937,9 +1938,9 @@ namespace GcproExtensionApp
                     pressure.Name = string.Empty;
                 }
 
-                if (!String.IsNullOrEmpty(txtAI.Text))
+                if (!string.IsNullOrEmpty(txtAI.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtAIIncRule.Text) && !String.IsNullOrEmpty(txtAIRule.Text)
+                    if (!string.IsNullOrEmpty(txtAIIncRule.Text) && !string.IsNullOrEmpty(txtAIRule.Text)
                         && AppGlobal.CheckNumericString(txtAIIncRule.Text) && AppGlobal.CheckNumericString(txtAIIncRule.Text)
                         && (ai.PosInfo.Len != -1))
                     {
@@ -1956,26 +1957,27 @@ namespace GcproExtensionApp
                 {
                     ai.Name = string.Empty;
                 }
-                myMotorWithBypass.Name = name.Name;
-                myMotorWithBypass.Motor = name.Name + GcObjectInfo.MA_MotorWithBypass.SuffixMotor;
-                myMotorWithBypass.Mon1= mon1.Name;
-                myMotorWithBypass.Mon2 = mon2.Name;
-                myMotorWithBypass.VLS1 = vls1.Name;
-                myMotorWithBypass.VLS2 = vls2.Name;
-                myMotorWithBypass.Seal = seal.Name;
-                myMotorWithBypass.AI = ai.Name;
-                myMotorWithBypass.Pressure = pressure.Name;
-                myMotorWithBypass.Value10 = value10;
-                myMotorWithBypass.Value9 = value9;
+                objMotorWithBypass.Name = name.Name;
+                objMotorWithBypass.Motor = name.Name + GcObjectInfo.MA_MotorWithBypass.SuffixMotor;
+                objMotorWithBypass.Mon1= mon1.Name;
+                objMotorWithBypass.Mon2 = mon2.Name;
+                objMotorWithBypass.VLS1 = vls1.Name;
+                objMotorWithBypass.VLS2 = vls2.Name;
+                objMotorWithBypass.Seal = seal.Name;
+                objMotorWithBypass.AI = ai.Name;
+                objMotorWithBypass.Pressure = pressure.Name;
+                objMotorWithBypass.Value10 = value10;
+                objMotorWithBypass.Value9 = value9;
 
                 bool tempBool = AppGlobal.ParseValue<int>(txtCleaningTime.Text, out int cleaningTime);
-                myMotorWithBypass.ParCleaningTime = tempBool ? Math.Round(Convert.ToDouble(cleaningTime),1): 60.0;
+                objMotorWithBypass.ParCleaningTime = tempBool ? Math.Round(Convert.ToDouble(cleaningTime),1): 60.0;
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         
-                myMotorWithBypass.Description = descTotalBuilder.ToString();
-                myMotorWithBypass.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objMotorWithBypass.Description = descTotalBuilder.ToString();
+                objMotorWithBypass.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objMotorWithBypass.CreateObject(objTextFileHandle, Encoding.Unicode, objMotorWithBypass.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         /*
@@ -2049,30 +2051,30 @@ namespace GcproExtensionApp
                      break;
                  }
              }
-             myMotorWithBypass.Name = objList[i];
+             objMotorWithBypass.Name = objList[i];
              switch (noOfSubElements)
              {                              
                  case 4:
                      if (isVfc)
                      {
-                         myMotorWithBypass.SubType = MotorWithBypass.ALL;
+                         objMotorWithBypass.SubType = MotorWithBypass.ALL;
                      }
                      break;          
                  case 6:
-                     myMotorWithBypass.SubType = MotorWithBypass.MJZG;              
+                     objMotorWithBypass.SubType = MotorWithBypass.MJZG;              
                      break;
                  default:
-                     myMotorWithBypass.SubType = MotorWithBypass.ALL;
+                     objMotorWithBypass.SubType = MotorWithBypass.ALL;
                      goto case 4;
 
              }
 
-             SetElementsName(myMotorWithBypass.SubType, myMotorWithBypass.Name);
+             SetElementsName(objMotorWithBypass.SubType, objMotorWithBypass.Name);
              SetValue10AndElements();
 
-             myMotorWithBypass.Description = txtDescription.Text;
-             myMotorWithBypass.Value10 = txtValue10.Text;
-             myMotorWithBypass.CreateObject(Encoding.Unicode);
+             objMotorWithBypass.Description = txtDescription.Text;
+             objMotorWithBypass.Value10 = txtValue10.Text;
+             objMotorWithBypass.CreateObject(Encoding.Unicode);
              ProgressBar.Value = i;
          }
          ProgressBar.Value = quantityNeedToBeCreate;
@@ -2102,7 +2104,7 @@ namespace GcproExtensionApp
                 else if (createMode.Rule)
                 {
                     AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-                    CreatObjectRule(AppGlobal.AdditionDesc, ref AppGlobal.ProcessValue);
+                    CreatObjectRule(myMotorWithBypass,AppGlobal.AdditionDesc, ref AppGlobal.ProcessValue);
                 }
                 ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
                 ProgressBar.Value = AppGlobal.ProcessValue.Value;
@@ -2112,8 +2114,6 @@ namespace GcproExtensionApp
                 MessageBox.Show("创建对象过程出错:" + ex, AppGlobal.AppInfo.Title + ":" + AppGlobal.MSG_CREATE_WILL_TERMINATE, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        #endregion
-
-       
+        #endregion      
     }
 }

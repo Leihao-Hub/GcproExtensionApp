@@ -20,6 +20,7 @@ using OfficeOpenXml.Export.HtmlExport.StyleCollectors.StyleContracts;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using System.Xml.Linq;
 using System.Net.NetworkInformation;
+
 #endregion
 namespace GcproExtensionApp
 {
@@ -222,6 +223,7 @@ namespace GcproExtensionApp
         private void FormBin_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+           GC.Collect();
         }
         #region <---Rule and autosearch part--->
         #region <------Check and store rule event------>
@@ -369,25 +371,25 @@ namespace GcproExtensionApp
         private void txtHighLevel_TextChanged(object sender, EventArgs e)
         {
             txtHighLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtHighLevel.Text, false);
-            chkReadHighLevel.Checked = !String.IsNullOrEmpty(txtHighLevelRule.Text) && !String.IsNullOrEmpty(txtHighLevel.Text);
+            chkReadHighLevel.Checked = !string.IsNullOrEmpty(txtHighLevelRule.Text) && !string.IsNullOrEmpty(txtHighLevel.Text);
         }
 
         private void txtMiddleLevel_TextChanged(object sender, EventArgs e)
         {
             txtMiddleLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtMiddleLevel.Text, false);
-            chkReadRefillLevel.Checked = !String.IsNullOrEmpty(txtMiddleLevelRule.Text) && !String.IsNullOrEmpty(txtMiddleLevel.Text);
+            chkReadRefillLevel.Checked = !string.IsNullOrEmpty(txtMiddleLevelRule.Text) && !string.IsNullOrEmpty(txtMiddleLevel.Text);
         }
 
         private void txtLowLevel_TextChanged(object sender, EventArgs e)
         {
             txtLowLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtLowLevel.Text, false);
-            chkWithLL.Checked = chkReadLowLevel.Checked = !String.IsNullOrEmpty(txtLowLevelRule.Text) && !String.IsNullOrEmpty(txtLowLevel.Text);
+            chkWithLL.Checked = chkReadLowLevel.Checked = !string.IsNullOrEmpty(txtLowLevelRule.Text) && !string.IsNullOrEmpty(txtLowLevel.Text);
         }
 
         private void txtAnalogLevel_TextChanged(object sender, EventArgs e)
         {
             txtAnalogLevelRule.Text = LibGlobalSource.StringHelper.ExtractNumericPart(txtAnalogLevel.Text, false);
-            chkReadInFillLevel.Checked = !String.IsNullOrEmpty(txtAnalogLevelRule.Text) && !String.IsNullOrEmpty(txtAnalogLevel.Text);
+            chkReadInFillLevel.Checked = !string.IsNullOrEmpty(txtAnalogLevelRule.Text) && !string.IsNullOrEmpty(txtAnalogLevel.Text);
         }
         private void txtBinNo_TextChanged(object sender, EventArgs e)
         {
@@ -839,7 +841,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myBin.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -911,7 +913,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1189,7 +1191,9 @@ namespace GcproExtensionApp
                     bool all = !chkOnlyFree.Checked;
                     List<(string name, string desc, double binNo,double value2, double value3, double value4, double value14) > binList = new List<(string, string,double, double, double, double, double)>();       
                     List<Dictionary<string, string>> binLLList = new List<Dictionary<string, string>>();
-                    List<Dictionary<string, string>> binHLList = new List<Dictionary<string, string>> ();
+                    List<Dictionary<string, string>> binHLList = new List<Dictionary<string, string>>();
+                    List<string> descOfThisBin;
+                    string binName, binDesc, binNo;
                     OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                     DataTable dataTable;               
                     if (connectLLWithDesc)
@@ -1218,10 +1222,10 @@ namespace GcproExtensionApp
                     Bin.Clear(myBin.FileConnectorPath);
                     for (var count = 0; count <= binList.Count - 1; count++)
                     {
-                        string binName = binList[count].name;
-                        string binDesc = binList[count].desc;
+                        binName = binList[count].name;
+                        binDesc = binList[count].desc;
                         binDesc = binDesc.Contains(GcObjectInfo.Bin.IdentDescSeparator) ? GetBinIdentPrefix(binDesc) : string.Empty;
-                        string binNo = binList[count].binNo.ToString();
+                        binNo = binList[count].binNo.ToString();
 
                         dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={binList[count].value2}", null,
                             null, GcproTable.ObjData.Value11.Name);
@@ -1233,7 +1237,7 @@ namespace GcproExtensionApp
 
                         if (connectHLWithDesc)
                         {                           
-                            var descOfThisBin = binHLList
+                             descOfThisBin = binHLList
                                  .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
                                  .Select(dict => dict["Text0"])
                                  .Where(value => value != null)
@@ -1241,19 +1245,19 @@ namespace GcproExtensionApp
                             if (descOfThisBin.Count >= 1 && needCreateHLRel)
                             {
                                 highLevel.Name = descOfThisBin[0];
-                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, highLevel.Name, GcproTable.ObjData.Value2.Name, Encoding.Unicode);
+                                myBin.CreateRelation(objBuilder, binName, highLevel.Name, GcproTable.ObjData.Value2.Name);
                             }
                         }
                         else
                         {
                             if (needCreateHLRel)
                             {
-                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, highLevel.Name, GcproTable.ObjData.Value2.Name,Encoding.Unicode);
+                                myBin.CreateRelation(objBuilder, binName, highLevel.Name, GcproTable.ObjData.Value2.Name);
                             }
                         }                
                         if (connectLLWithDesc)
                         {
-                            var descOfThisBin = binLLList
+                              descOfThisBin = binLLList
                                  .Where(dict => dict["Text1"].Contains(binNo) || (dict["Text1"].Contains(binDesc) && !string.IsNullOrEmpty(dict["Text1"])))
                                  .Select(dict => dict["Text0"])
                                  .Where(value => value != null)
@@ -1261,18 +1265,19 @@ namespace GcproExtensionApp
                             if (descOfThisBin.Count >= 1 && needCreateLLRel)
                             {
                                 lowLevel.Name = descOfThisBin[0];
-                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, lowLevel.Name, GcproTable.ObjData.Value3.Name, Encoding.Unicode);
+                                myBin.CreateRelation(objBuilder, binName, lowLevel.Name, GcproTable.ObjData.Value3.Name);
                             }
                         }
                         else
                         {
                             if (needCreateLLRel)
                             {
-                                Bin.CreateRelation(objTextFileHandle, objBuilder, binName, lowLevel.Name, GcproTable.ObjData.Value3.Name,Encoding.Unicode);
+                                myBin.CreateRelation(objBuilder, binName, lowLevel.Name, GcproTable.ObjData.Value3.Name);
                             }
                         }                    
                         ProgressBar.Value = count;
                     }
+                    myBin.CreateObject(objTextFileHandle, Encoding.Unicode, myBin.FileConnectorPath, true);
                     Bin.SaveFileAs(myBin.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     ProgressBar.Value = ProgressBar.Maximum;
                     dataTable.Clear();
@@ -1535,7 +1540,7 @@ namespace GcproExtensionApp
                         name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
                     }
                     ///<DescRule>生成描述规则</DescRule>
-                    if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+                    if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
                     {
                         description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(descPart, txtDescriptionRule.Text);
                         if (description.PosInfo.Len == -1)
@@ -1552,7 +1557,7 @@ namespace GcproExtensionApp
                         }
 
                         ///<DescPrefixRule>生成描述规则</DescPrefixRule>
-                        if (!String.IsNullOrEmpty(descPrefixPart))
+                        if (!string.IsNullOrEmpty(descPrefixPart))
                         {
                             descPrefix.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(descPrefixPart, descPrefixRule);
                             if (descPrefix.PosInfo.Len == -1)
@@ -1570,8 +1575,8 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<HighLevel>高料位</HighLevel>
-                    chkReadHighLevel.Checked = !String.IsNullOrEmpty(txtHighLevel.Text);
-                    if (!String.IsNullOrEmpty(txtHighLevel.Text))
+                    chkReadHighLevel.Checked = !string.IsNullOrEmpty(txtHighLevel.Text);
+                    if (!string.IsNullOrEmpty(txtHighLevel.Text))
                     {
                         highLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtHighLevel.Text, txtHighLevelRule.Text);
                         if (highLevel.PosInfo.Len == -1)
@@ -1587,8 +1592,8 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<MiddleLevel>中料位</MiddleLevel>
-                    chkReadRefillLevel.Checked = !String.IsNullOrEmpty(txtMiddleLevel.Text);
-                    if (!String.IsNullOrEmpty(txtMiddleLevel.Text))
+                    chkReadRefillLevel.Checked = !string.IsNullOrEmpty(txtMiddleLevel.Text);
+                    if (!string.IsNullOrEmpty(txtMiddleLevel.Text))
                     {
                         middleLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtMiddleLevel.Text, txtMiddleLevelRule.Text);
                         if (middleLevel.PosInfo.Len == -1)
@@ -1604,8 +1609,8 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<LowLevel>低料位</LowLevel>
-                    chkWithLL.Checked = chkReadLowLevel.Checked = !String.IsNullOrEmpty(txtLowLevel.Text);
-                    if (!String.IsNullOrEmpty(txtLowLevel.Text))
+                    chkWithLL.Checked = chkReadLowLevel.Checked = !string.IsNullOrEmpty(txtLowLevel.Text);
+                    if (!string.IsNullOrEmpty(txtLowLevel.Text))
                     {
                         lowLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtLowLevel.Text, txtLowLevelRule.Text);
                         if (lowLevel.PosInfo.Len == -1)
@@ -1621,8 +1626,8 @@ namespace GcproExtensionApp
                         }
                     }
                     ///<AnalogLevel>模拟量料位</AnalogLevel>
-                    chkReadInFillLevel.Checked = !String.IsNullOrEmpty(txtAnalogLevel.Text);
-                    if (!String.IsNullOrEmpty(txtAnalogLevel.Text))
+                    chkReadInFillLevel.Checked = !string.IsNullOrEmpty(txtAnalogLevel.Text);
+                    if (!string.IsNullOrEmpty(txtAnalogLevel.Text))
                     {
                         analogLevel.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtAnalogLevel.Text, txtAnalogLevelRule.Text);
                         if (analogLevel.PosInfo.Len == -1)
@@ -1651,7 +1656,7 @@ namespace GcproExtensionApp
                         name.Inc = i * symbolInc;
                         name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
 
-                        if (!String.IsNullOrEmpty(descPrefixPart))
+                        if (!string.IsNullOrEmpty(descPrefixPart))
                         {
                             if (descPrefix.PosInfo.Len != -1)
                             {
@@ -1668,9 +1673,9 @@ namespace GcproExtensionApp
                         {
                             descPrefix.Name = "";
                         }
-                        if (!String.IsNullOrEmpty(descPart))
+                        if (!string.IsNullOrEmpty(descPart))
                         {
-                            if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                            if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                                 && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                                 && (description.PosInfo.Len != -1))
                             {
@@ -1687,10 +1692,10 @@ namespace GcproExtensionApp
                         {
                             description.Name = "仓";
                         }
-                        if (!String.IsNullOrEmpty(txtHighLevel.Text))
+                        if (!string.IsNullOrEmpty(txtHighLevel.Text))
                         {
 
-                            if (!String.IsNullOrEmpty(txtHighLevelIncRule.Text) && !String.IsNullOrEmpty(txtHighLevelRule.Text)
+                            if (!string.IsNullOrEmpty(txtHighLevelIncRule.Text) && !string.IsNullOrEmpty(txtHighLevelRule.Text)
                                 && AppGlobal.CheckNumericString(txtHighLevelIncRule.Text) && AppGlobal.CheckNumericString(txtHighLevelIncRule.Text)
                                 && (highLevel.PosInfo.Len != -1))
                             {
@@ -1703,10 +1708,10 @@ namespace GcproExtensionApp
                                 highLevel.Name = txtHighLevel.Text;
                             }
                         }
-                        if (!String.IsNullOrEmpty(txtLowLevel.Text))
+                        if (!string.IsNullOrEmpty(txtLowLevel.Text))
                         {
 
-                            if (!String.IsNullOrEmpty(txtLowLevelIncRule.Text) && !String.IsNullOrEmpty(txtLowLevelRule.Text)
+                            if (!string.IsNullOrEmpty(txtLowLevelIncRule.Text) && !string.IsNullOrEmpty(txtLowLevelRule.Text)
                                 && AppGlobal.CheckNumericString(txtLowLevelIncRule.Text) && AppGlobal.CheckNumericString(txtLowLevelIncRule.Text)
                                 && (lowLevel.PosInfo.Len != -1))
                             {
@@ -1720,10 +1725,10 @@ namespace GcproExtensionApp
                             }
 
                         }
-                        if (!String.IsNullOrEmpty(txtMiddleLevel.Text))
+                        if (!string.IsNullOrEmpty(txtMiddleLevel.Text))
                         {
 
-                            if (!String.IsNullOrEmpty(txtMiddleLevelIncRule.Text) && !String.IsNullOrEmpty(txtMiddleLevelRule.Text)
+                            if (!string.IsNullOrEmpty(txtMiddleLevelIncRule.Text) && !string.IsNullOrEmpty(txtMiddleLevelRule.Text)
                                 && AppGlobal.CheckNumericString(txtMiddleLevelIncRule.Text) && AppGlobal.CheckNumericString(txtMiddleLevelIncRule.Text)
                                 && (middleLevel.PosInfo.Len != -1))
                             {
@@ -1737,10 +1742,10 @@ namespace GcproExtensionApp
                             }
 
                         }
-                        if (!String.IsNullOrEmpty(txtAnalogLevel.Text))
+                        if (!string.IsNullOrEmpty(txtAnalogLevel.Text))
                         {
 
-                            if (!String.IsNullOrEmpty(txtAnalogLevelIncRule.Text) && !String.IsNullOrEmpty(txtAnalogLevelRule.Text)
+                            if (!string.IsNullOrEmpty(txtAnalogLevelIncRule.Text) && !string.IsNullOrEmpty(txtAnalogLevelRule.Text)
                                 && AppGlobal.CheckNumericString(txtAnalogLevelIncRule.Text) && AppGlobal.CheckNumericString(txtAnalogLevelIncRule.Text)
                                 && (analogLevel.PosInfo.Len != -1))
                             {
@@ -1762,9 +1767,10 @@ namespace GcproExtensionApp
                         myBin.MiddleLevel = middleLevel.Name;
                         myBin.LowLevel = lowLevel.Name;
                         myBin.AnalogLevel = analogLevel.Name;
-                        myBin.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                        myBin.CreateObjectRecordAndRelation(objBuilder);
                         ProgressBar.Value = i;
                     }
+                    myBin.CreateObject(objTextFileHandle, Encoding.Unicode, myBin.FileRelationPath);
                     ProgressBar.Value = ProgressBar.Maximum;
                 }
             }

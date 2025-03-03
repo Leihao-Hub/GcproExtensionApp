@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 namespace GcproExtensionLibrary.FileHandle
 {
-    public static class BaseFileHandle
+    public  class BaseFileHandle
     {
         public static bool SaveFileAs(string sourceFileName, string filter, int filterIndex, string title)
         {

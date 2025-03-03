@@ -148,6 +148,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             pType = P2757;
             value10 = 96;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             SetOTypeProperty(OTypeCollection.MA_Roll8Stand);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{mddyzPhoenix}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
@@ -168,17 +171,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
@@ -191,73 +191,66 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
-                ///</summary>         
+                ///</summary>
                 sb.Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild);
+                objectRecord.Add(sb.ToString());
                 sb.Clear();
             }
+          
+            CreateRelation(sb, name, side1.MotorLow, GcproTable.ObjData.Value12.Name);
+            CreateRelation(sb, name, side1.MotorUp, GcproTable.ObjData.Value11.Name);
+            CreateRelation(sb, name, side1.HLBackupLeft, GcproTable.ObjData.Value13.Name);
+            CreateRelation(sb, name, side1.HLBackupRight, GcproTable.ObjData.Value42.Name);
+            CreateRelation(sb, name, side1.HLInlet, GcproTable.ObjData.Value14.Name);
+            CreateRelation(sb, name, side1.DivHLInlet, GcproTable.ObjData.Value24.Name);
+            CreateRelation(sb, name, side1.HLOutlet3, GcproTable.ObjData.Value43.Name);
+            CreateRelation(sb, name, side1.FeedRoll, GcproTable.ObjData.Value26.Name);
+            CreateRelation(sb, name, side1.DivFeedRoll, GcproTable.ObjData.Value27.Name);
+            CreateRelation(sb, name, side1.HLOutlet1, GcproTable.ObjData.Value35.Name);
+            CreateRelation(sb, name, side1.HLOutlet2, GcproTable.ObjData.Value36.Name);
+            CreateRelation(sb, name, side1.MotorLowCur, GcproTable.ObjData.Value31.Name);
+            CreateRelation(sb, name, side1.MotorUpCur, GcproTable.ObjData.Value30.Name);
+            CreateRelation(sb, name, side2.MotorLow, GcproTable.ObjData.Value18.Name);
+            CreateRelation(sb, name, side2.MotorUp, GcproTable.ObjData.Value17.Name);
+            CreateRelation(sb, name, side2.HLBackupLeft, GcproTable.ObjData.Value19.Name);
+            CreateRelation(sb, name, side2.HLBackupRight, GcproTable.ObjData.Value44.Name);
+            CreateRelation(sb, name, side2.HLInlet, GcproTable.ObjData.Value20.Name);
+            CreateRelation(sb, name, side2.DivHLInlet, GcproTable.ObjData.Value25.Name);
+            CreateRelation(sb, name, side2.FeedRoll, GcproTable.ObjData.Value28.Name);
+            CreateRelation(sb, name, side2.DivFeedRoll, GcproTable.ObjData.Value29.Name);
+            CreateRelation(sb, name, side2.HLOutlet1, GcproTable.ObjData.Value37.Name);
+            CreateRelation(sb, name, side2.HLOutlet2, GcproTable.ObjData.Value38.Name);
+            CreateRelation(sb, name, side2.MotorLowCur, GcproTable.ObjData.Value33.Name);
+            CreateRelation(sb, name, side2.MotorUpCur, GcproTable.ObjData.Value32.Name);
+            CreateRelation(sb, name, lc_COM, GcproTable.ObjData.Value41.Name);
 
-            var relations = new List<Relation>
-            {
-               new Relation(name , side1.MotorLow , GcproTable.ObjData.Value12.Name),
-               new Relation(name , side1.MotorUp , GcproTable.ObjData.Value11.Name),
-               new Relation(name , side1.HLBackupLeft , GcproTable.ObjData.Value13.Name),
-               new Relation(name , side1.HLBackupRight , GcproTable.ObjData.Value42.Name),
-               new Relation(name , side1.HLInlet , GcproTable.ObjData.Value14.Name),
-               new Relation(name , side1.DivHLInlet , GcproTable.ObjData.Value24.Name),
-               new Relation(name , side1.HLOutlet3 , GcproTable.ObjData.Value43.Name),
-               new Relation(name , side1.FeedRoll , GcproTable.ObjData.Value26.Name),
-               new Relation(name , side1.DivFeedRoll , GcproTable.ObjData.Value27.Name),
-               new Relation(name , side1.HLOutlet1 , GcproTable.ObjData.Value35.Name),
-               new Relation(name , side1.HLOutlet2 , GcproTable.ObjData.Value36.Name),
-               new Relation(name , side1.MotorLowCur , GcproTable.ObjData.Value31.Name),
-               new Relation(name , side1.MotorUpCur , GcproTable.ObjData.Value30.Name),
-
-               new Relation(name ,side2.MotorLow , GcproTable.ObjData.Value18.Name),
-               new Relation(name ,side2.MotorUp , GcproTable.ObjData.Value17.Name),
-               new Relation(name ,side2.HLBackupLeft , GcproTable.ObjData.Value19.Name),
-               new Relation(name ,side2.HLBackupRight , GcproTable.ObjData.Value44.Name),
-               new Relation(name ,side2.HLInlet , GcproTable.ObjData.Value20.Name),
-               new Relation(name ,side2.DivHLInlet , GcproTable.ObjData.Value25.Name),
-               new Relation(name ,side2.HLOutlet3 , GcproTable.ObjData.Value45.Name),
-               new Relation(name ,side2.FeedRoll , GcproTable.ObjData.Value28.Name),
-               new Relation(name ,side2.DivFeedRoll , GcproTable.ObjData.Value29.Name),
-               new Relation(name ,side2.HLOutlet1 , GcproTable.ObjData.Value37.Name),
-               new Relation(name ,side2.HLOutlet2 , GcproTable.ObjData.Value38.Name),
-               new Relation(name ,side2.MotorLowCur , GcproTable.ObjData.Value33.Name),
-               new Relation(name ,side2.MotorUpCur , GcproTable.ObjData.Value32.Name),
-
-               new Relation(name ,lc_COM, GcproTable.ObjData.Value41.Name),
-            };
-            textFileHandle.FilePath = this.fileRelationPath;
             sb.Clear();
-            CreateRelations(textFileHandle, sb, relations, encoding);
         }
         public void Clear()
         {

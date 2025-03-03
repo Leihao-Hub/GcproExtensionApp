@@ -239,7 +239,7 @@ namespace GcproExtensionApp
                     GcproTable.ObjData.Text1.Name
                 };
                 bool _hasAddidtionFiled = false;
-                if (!String.IsNullOrEmpty(comboAdditionalField.SelectedItem.ToString()))
+                if (!string.IsNullOrEmpty(comboAdditionalField.SelectedItem.ToString()))
                 {
                     fields.Add(comboAdditionalField.SelectedItem.ToString());
                     _hasAddidtionFiled = true;

@@ -181,19 +181,19 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(DO.Rule.Common.Description))
+            if (string.IsNullOrEmpty(DO.Rule.Common.Description))
             { DO.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(DO.Rule.Common.Name))
+            if (string.IsNullOrEmpty(DO.Rule.Common.Name))
             { DO.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(DO.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(DO.Rule.Common.DescLine))
             { DO.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(DO.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(DO.Rule.Common.DescFloor))
             { DO.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(DO.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(DO.Rule.Common.DescObject))
             { DO.Rule.Common.DescObject = objDefaultInfo.DescObject; }
             txtSymbolRule.Text = DO.Rule.Common.NameRule;
             txtSymbolIncRule.Text = DO.Rule.Common.NameRuleInc;
@@ -290,6 +290,7 @@ namespace GcproExtensionApp
         private void FormDO_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
 
@@ -802,7 +803,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myDO.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -882,7 +883,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1166,8 +1167,8 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objSubType = string.Empty;
                     OleDb oledb = new OleDb();
                     DataTable dataTable = new DataTable();
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
@@ -1180,6 +1181,7 @@ namespace GcproExtensionApp
                     {
                         FilePath = myDO.FileConnectorPath
                     };
+                    string InHWStop;
                     ProgressBar.Maximum = dataTable.Rows.Count - 1;
                     ProgressBar.Value = 0;
                     DO.Clear(myDO.FileConnectorPath);
@@ -1192,27 +1194,28 @@ namespace GcproExtensionApp
                         outpRun = objName + txtOutpRunSuffix.Text;
                         if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                         {                     
-                            DO.CreateRelation(objTextFileHandle, objBuilder,objName, inpRun, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                            myDO.CreateRelation(objBuilder, objName, inpRun, GcproTable.ObjData.Value11.Name);
                         }
                         if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                         {
-                            DO.CreateRelation(objTextFileHandle, objBuilder, objName, outpRun, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
+                            myDO.CreateRelation(objBuilder, objName, outpRun, GcproTable.ObjData.Value12.Name);
                         }
-                        if (!String.IsNullOrEmpty(txtInHWStop.Text))
+                        if (!string.IsNullOrEmpty(txtInHWStop.Text))
                         {
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
                             {
-                                string InHWStop = objName + txtInHWStop.Text; ;
-                                DO.CreateRelation(objTextFileHandle, objBuilder, objName, InHWStop, GcproTable.ObjData.Value47.Name, Encoding.Unicode);
+                                InHWStop = objName + txtInHWStop.Text; ;
+                                myDO.CreateRelation(objBuilder, objName, InHWStop, GcproTable.ObjData.Value47.Name);
                             }
                         }
 
-                        if (!String.IsNullOrEmpty(txtOutpLamp.Text))
+                        if (!string.IsNullOrEmpty(txtOutpLamp.Text))
                         {
 
                         }
                         ProgressBar.Value = count;
                     }
+                    myDO.CreateObject(objTextFileHandle, Encoding.Unicode, myDO.FileConnectorPath, true);
                     DO.SaveFileAs(myDO.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     dataTable.Clear();
                 }
@@ -1342,7 +1345,7 @@ namespace GcproExtensionApp
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (comboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = comboDPNode1.SelectedItem.ToString();
@@ -1354,7 +1357,7 @@ namespace GcproExtensionApp
                 objDO.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;          
             }
             ///<DPNode2></DPNode2>
-            string selectDPNode2 = String.Empty;
+            string selectDPNode2 = string.Empty;
             if (comboDPNode2.SelectedItem != null)
             {
                 selectDPNode2 = comboDPNode1.SelectedItem.ToString();
@@ -1421,6 +1424,7 @@ namespace GcproExtensionApp
             processValue.Value = 0;
             string cabinet, cabinetGroup;
             string stringNumber ;
+            string _subType, desc;
             bool descUserDef = false;
             bool descUserDefConfirm = false;
             objDefaultInfo = DO.Rule.Common;
@@ -1428,11 +1432,10 @@ namespace GcproExtensionApp
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
-                string _subType = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnType)].Value);
-                string desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
-
+                _subType = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnType)].Value);
+                desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
                 objDO.Name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
                 ///<AdditionInfoToDesc></AdditionInfoToDesc>   
                 descToBuilder.Clear();
@@ -1516,10 +1519,11 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power && !descUserDef,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objDO.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDO.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             DO.Rule.Common = objDefaultInfo;
+            objDO.CreateObject(objTextFileHandle, Encoding.Unicode, objDO.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void CreateObjectRule(DO objDO, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
@@ -1674,7 +1678,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             desc = DO.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1720,9 +1724,9 @@ namespace GcproExtensionApp
                  
                 }
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1756,11 +1760,12 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objDO.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDO.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
-            processValue.Value = processValue.Max;
             DO.Rule.Common = objDefaultInfo;
+            objDO.CreateObject(objTextFileHandle, Encoding.Unicode, objDO.FileRelationPath);
+            processValue.Value = processValue.Max;   
         }
         private void CreateObjectAutoSearch(DO objDO, ref (int Value, int Max) processValue)
         {
@@ -1787,9 +1792,10 @@ namespace GcproExtensionApp
             {
                 objDO.Name = objList[i];
                 objDO.OutpRun = objOutpKeyList[i];
-                objDO.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDO.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objDO.CreateObject(objTextFileHandle, Encoding.Unicode, objDO.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

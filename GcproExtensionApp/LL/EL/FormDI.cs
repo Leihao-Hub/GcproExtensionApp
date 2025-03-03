@@ -180,19 +180,19 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(DI.Rule.Common.Description))
+            if (string.IsNullOrEmpty(DI.Rule.Common.Description))
             { DI.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(DI.Rule.Common.Name))
+            if (string.IsNullOrEmpty(DI.Rule.Common.Name))
             { DI.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(DI.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(DI.Rule.Common.DescLine))
             { DI.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(DI.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(DI.Rule.Common.DescFloor))
             { DI.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(DI.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(DI.Rule.Common.DescObject))
             { DI.Rule.Common.DescObject = objDefaultInfo.DescObject; }
             txtSymbolRule.Text = DI.Rule.Common.NameRule;
             txtSymbolIncRule.Text = DI.Rule.Common.NameRuleInc;
@@ -290,6 +290,7 @@ namespace GcproExtensionApp
         private void FormDI_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
 
@@ -926,7 +927,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myDI.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -1100,7 +1101,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1379,8 +1380,8 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objSubType = string.Empty;
                     OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                     DataTable dataTable ;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={DI.OTypeValue}", null,
@@ -1403,24 +1404,25 @@ namespace GcproExtensionApp
                         inpTrue = objName + txtInpTrueSuffix.Text;
                         if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                         {
-                            DI.CreateRelation(objTextFileHandle, objBuilder,objName, inpTrue, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                            myDI.CreateRelation(objBuilder, objName, inpTrue, GcproTable.ObjData.Value11.Name);
                         }
 
-                        if (!String.IsNullOrEmpty(txtInHWStop.Text))
+                        if (!string.IsNullOrEmpty(txtInHWStop.Text))
                         {
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
                             {
                                 string InHWStop = objName + txtInHWStop.Text; ;
-                                DI.CreateRelation(objTextFileHandle, objBuilder, objName, InHWStop, GcproTable.ObjData.Value47.Name, Encoding.Unicode);
+                                myDI.CreateRelation(objBuilder, objName, InHWStop, GcproTable.ObjData.Value47.Name);
                             }
                         }
 
-                        if (!String.IsNullOrEmpty(txtOutpLamp.Text))
+                        if (!string.IsNullOrEmpty(txtOutpLamp.Text))
                         {
 
                         }
                         ProgressBar.Value = count;
                     }
+                    myDI.CreateObject(objTextFileHandle, Encoding.Unicode, myDI.FileConnectorPath, true);                  
                     DI.SaveFileAs(myDI.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     dataTable.Clear();
                 }
@@ -1447,7 +1449,6 @@ namespace GcproExtensionApp
             DI.SaveFileAs(myDI.FilePath, LibGlobalSource.CREATE_OBJECT);
             DI.SaveFileAs(myDI.FileRelationPath, LibGlobalSource.CREATE_RELATION);
         }
-
         private void BtnNewImpExpDef_Click(object sender, EventArgs e)
         {
             CreateImpExp();
@@ -1547,7 +1548,7 @@ namespace GcproExtensionApp
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
@@ -1615,25 +1616,29 @@ namespace GcproExtensionApp
             string cabinet, cabinetGroup;
             string stringNumber;
             string remark;
+            string _subType;
+            string desc;
+            string ioRemark;
             bool descUserDef = false;
             bool descUserDefConfirm = false;
+            bool binLevel = false;
             objDefaultInfo = DI.Rule.Common;
             Bin _bin = new Bin(AppGlobal.GcproDBInfo.GcproTempPath);
             DataGridViewCell cell;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
-                string _subType = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDIType)].Value);
-                string desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
+                _subType = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDIType)].Value);
+                desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
 
                 if (_subType == BML.DI.SpeedMonitor && desc == BML.MachineType.Elevator)
                 { continue; }
                 objDI.Name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
                 ///<AdditionInfoToDesc></AdditionInfoToDesc>   
                 descToBuilder.Clear();
-                string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
+                ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
                 if (!descUserDefConfirm)
                 {
                     descUserDef = MessageBox.Show(AppGlobal.USER_DEFINED_DESC, AppGlobal.INFO, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
@@ -1725,7 +1730,8 @@ namespace GcproExtensionApp
                     if (!string.IsNullOrEmpty(remark))
                     {
                         objTextFileHandle.FilePath = _bin.FileRelationPath;
-                        Bin.CreateRelation(objTextFileHandle, objBuilder,remark, objDI.Name, GcproTable.ObjData.Value2.Name, Encoding.Unicode);
+                        _bin.CreateRelation(objBuilder, remark, objDI.Name, GcproTable.ObjData.Value2.Name);
+                        binLevel = true;
                     }
                     if (!descUserDef)
                     {
@@ -1753,7 +1759,8 @@ namespace GcproExtensionApp
                     if (!string.IsNullOrEmpty(remark))
                     {
                         objTextFileHandle.FilePath = _bin.FileRelationPath;
-                        Bin.CreateRelation(objTextFileHandle, objBuilder,remark, objDI.Name, GcproTable.ObjData.Value3.Name, Encoding.Unicode);
+                        _bin.CreateRelation(objBuilder, remark, objDI.Name, GcproTable.ObjData.Value3.Name);
+                        binLevel = true;
                     }
                     if (!descUserDef)
                     {                     
@@ -1866,10 +1873,15 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power && !descUserDef,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objDI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDI.CreateObjectRecordAndRelation(objBuilder);       
                 processValue.Value = i;
             }
             DI.Rule.Common = objDefaultInfo;
+            objDI.CreateObject(objTextFileHandle, Encoding.Unicode, objDI.FileRelationPath);
+            if (binLevel)
+            {
+                _bin.CreateObject(objTextFileHandle, Encoding.Unicode, _bin.FileRelationPath, true);
+            }
             processValue.Value = processValue.Max;
         }
         private void CreateObjectRule(DI objDI, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
@@ -1983,7 +1995,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             desc = DI.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -2024,9 +2036,9 @@ namespace GcproExtensionApp
                     objDI.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -2060,11 +2072,13 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
 
-                objDI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDI.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
-            processValue.Value = processValue.Max;
             DI.Rule.Common = objDefaultInfo;
+            objDI.CreateObject(objTextFileHandle, Encoding.Unicode, objDI.FileRelationPath);
+            processValue.Value = processValue.Max;
+        
         }
         private void CreateObjectAutoSearch(DI objDI, ref (int Value, int Max) processValue)
         {
@@ -2091,9 +2105,10 @@ namespace GcproExtensionApp
             {
                 objDI.Name = objList[i];
                 objDI.InpTrue = objInpKeyList[i];
-                objDI.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDI.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objDI.CreateObject(objTextFileHandle, Encoding.Unicode, objDI.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

@@ -1,4 +1,6 @@
-﻿namespace GcproExtensionLibrary.Gcpro
+﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+
+namespace GcproExtensionLibrary.Gcpro
 {
     /// <summary>
     /// Types of Gcpro supported by the library
@@ -172,18 +174,6 @@
         public string ProjectType;
     }
 
-    public readonly struct Relation
-    {
-        public string Parent { get; }
-        public string Child { get; }
-        public string ConnectedFiled { get; }
 
-        public Relation(string parent, string child, string connectedField)
-        {
-            Parent = parent;
-            Child = child;
-            ConnectedFiled = connectedField;
-        }
-    }
 
 }

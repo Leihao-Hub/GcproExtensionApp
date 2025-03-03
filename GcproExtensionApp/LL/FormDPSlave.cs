@@ -240,6 +240,7 @@ namespace GcproExtensionApp
         private void FormDPSlave_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
 
@@ -458,7 +459,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myDPSlave.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -529,7 +530,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (! String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (! string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled= true;   
             }
@@ -832,11 +833,11 @@ namespace GcproExtensionApp
             StringBuilder objBuilder = new StringBuilder();
             TextFileHandle objTextFileHandle = new TextFileHandle();
             ProgressBar.Maximum = dataGridBML.Rows.Count-1;
+            DataGridViewCell cell;
             for (int i = 0; i < dataGridBML.Rows.Count; i++)
-            {
-                DataGridViewCell cell;
+            {     
                 cell = dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
                 myDPSlave.Name = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
                 myDPSlave.Description = Convert.ToString(dataGridBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
@@ -845,9 +846,10 @@ namespace GcproExtensionApp
                 #region Subtype and PType                                          
                 myDPSlave.SubType = string.IsNullOrEmpty(myDPSlave.IPAddr) ? DPSlave.Profibus : DPSlave.Profinet;
                 #endregion                
-                myDPSlave.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                myDPSlave.CreateObjectRecordAndRelation(objBuilder);
                 ProgressBar.Value = i;
             }
+            myDPSlave.CreateObject(objTextFileHandle, Encoding.Unicode);
             ProgressBar.Value = ProgressBar.Maximum;
         }
         private void CreateObjectRule()
@@ -983,7 +985,7 @@ namespace GcproExtensionApp
                 name.Sub = LibGlobalSource.StringHelper.SplitStringWithRule(txtSymbol.Text, txtSymbolRule.Text);
             }
             ///<DescRule>生成描述规则</DescRule>
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1022,9 +1024,9 @@ namespace GcproExtensionApp
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
                 myDPSlave.IPAddr = ip.ipAddrPrevSegment + (_ipRule + i*ipRuleInc).ToString();
                 myDPSlave.SlaveNo = slaveNoStart + i* slaveNoInc;
-                if (!String.IsNullOrEmpty(txtDescription.Text))
+                if (!string.IsNullOrEmpty(txtDescription.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1043,9 +1045,10 @@ namespace GcproExtensionApp
                 }
                 myDPSlave.Name = name.Name;
                 myDPSlave.Description = description.Name;                                                                    
-                myDPSlave.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                myDPSlave.CreateObjectRecordAndRelation(objBuilder);
                 ProgressBar.Value = i;
             }
+            myDPSlave.CreateObject(objTextFileHandle, Encoding.Unicode);
             ProgressBar.Value = ProgressBar.Maximum;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

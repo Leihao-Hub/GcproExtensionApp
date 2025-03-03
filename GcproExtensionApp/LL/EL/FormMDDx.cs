@@ -184,19 +184,19 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(MDDx.Rule.Common.Description))
+            if (string.IsNullOrEmpty(MDDx.Rule.Common.Description))
             { MDDx.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(MDDx.Rule.Common.Name))
+            if (string.IsNullOrEmpty(MDDx.Rule.Common.Name))
             { MDDx.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(MDDx.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(MDDx.Rule.Common.DescLine))
             { MDDx.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(MDDx.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(MDDx.Rule.Common.DescFloor))
             { MDDx.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(MDDx.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(MDDx.Rule.Common.DescObject))
             { MDDx.Rule.Common.DescObject = objDefaultInfo.DescObject; }
            
             txtSymbolRule.Text = MDDx.Rule.Common.NameRule;
@@ -303,6 +303,7 @@ namespace GcproExtensionApp
         private void FormMDDx_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
 
         #region <---Rule and autosearch part--->
@@ -910,7 +911,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myMDDx.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -981,7 +982,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1285,15 +1286,18 @@ namespace GcproExtensionApp
             SuffixObject suffixObject = new SuffixObject();
             string cabinet, cabinetGroup;
             string _nameNumberString = string.Empty;
+            string desc;
             objDefaultInfo = MDDx.Rule.Common;
+            DataGridViewCell cell;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 processValue.Value = i;
-                DataGridViewCell cell;
-                cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
-                { continue; }
 
+                cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
+                { 
+                    continue;
+                }
                 cabinet = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
                 cabinetGroup = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinetGroup)].Value);
                 objMDDx.Panel_ID = cabinet.StartsWith(BML.PrefixLocalPanel) ? cabinet : cabinetGroup + cabinet;
@@ -1304,8 +1308,7 @@ namespace GcproExtensionApp
                 #endregion
                 ///<AdditionInfoToDesc>
                 ///</AdditionInfoToDesc>
-                string desc = $"{Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value)}{suffixObject.SuffixObjectType["KCL"]}";
-
+                desc = $"{Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value)}{suffixObject.SuffixObjectType["KCL"]}";
                 objMDDx.Name = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)].Value);
                 if (addtionToDesc.Section)
                 {
@@ -1347,11 +1350,10 @@ namespace GcproExtensionApp
 
                 objMDDx.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objMDDx.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
-
-                objMDDx.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
-
+                objMDDx.CreateObjectRecordAndRelation(objBuilder);
             }
             MDDx.Rule.Common = objDefaultInfo;
+            objMDDx.CreateObject(objTextFileHandle, Encoding.Unicode, objMDDx.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void CreateObjectRule(MDDx objMDDx, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
@@ -1491,7 +1493,7 @@ namespace GcproExtensionApp
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
@@ -1566,7 +1568,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             string desc = MDDx.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1597,9 +1599,9 @@ namespace GcproExtensionApp
             {
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1638,10 +1640,11 @@ namespace GcproExtensionApp
                 }, objMDDx.Name);
                 objMDDx.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objMDDx.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
-                objMDDx.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objMDDx.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             MDDx.Rule.Common = objDefaultInfo;
+            objMDDx.CreateObject(objTextFileHandle, Encoding.Unicode, objMDDx.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

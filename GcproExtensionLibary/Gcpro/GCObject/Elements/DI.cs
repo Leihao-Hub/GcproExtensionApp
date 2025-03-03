@@ -1,11 +1,12 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.Xml;
 using System.Text;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class DI : Element, IGcpro
+    public class DI : Element
     {
         public struct DIRule
         {
@@ -316,6 +317,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             refSpecial = string.Empty;
             refMRMAMixer = string.Empty;
             SetOTypeProperty(OTypeCollection.EL_DI);
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{diFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
             this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
@@ -335,22 +339,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;             
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
-                ///生产Standard字符串部分-使用父类中方法实现
+                ///生产Standard字符串部分
                 ///</summary> 
                 string objBase = base.CreateObjectStandardPart(sb);
                 sb.Clear();
@@ -360,32 +361,43 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 ///生成Application 字符串部分
                 ///</summary>
                 sb.Append(value9).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(delayChange * 10).Append(tab)
-                  .Append(delayTrue * 10).Append(tab)
-                  .Append(delayFalse * 10).Append(tab)
-                  .Append(timeoutTrue * 10).Append(tab)
-                  .Append(timeoutFalse * 10).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+               .Append(noChild).Append(tab)
+               .Append(noChild).Append(tab)
+               .Append(noChild).Append(tab)
+               .Append(noChild).Append(tab)
+               .Append(noChild).Append(tab)
+               .Append(noChild).Append(tab)
+               .Append(delayChange * 10).Append(tab)
+               .Append(delayTrue * 10).Append(tab)
+               .Append(delayFalse * 10).Append(tab)
+               .Append(timeoutTrue * 10).Append(tab)
+               .Append(timeoutFalse * 10).Append(tab)
+               .Append(noChild).Append(tab)
+               .Append(noChild);
+                objectRecord.Add(sb.ToString());
                 sb.Clear();
             }
-            var relations = new List<Relation>
-            {
-                new Relation(name,inpTrue, GcproTable.ObjData.Value11.Name),
-                new Relation(name,refSpecial, GcproTable.ObjData.Value46.Name),
-                new Relation(name,refMRMAMixer, GcproTable.ObjData.Value31.Name),
-            };
-            textFileHandle.FilePath = this.fileRelationPath;
+            CreateRelation(sb,  name, inpTrue, GcproTable.ObjData.Value11.Name);
+            CreateRelation(sb,  name, refSpecial, GcproTable.ObjData.Value46.Name);
+            CreateRelation(sb,  name, refMRMAMixer, GcproTable.ObjData.Value31.Name);
+
             sb.Clear();
-            CreateRelations(textFileHandle, sb,relations, encoding);
         }
+        /// <summary>
+        /// 将内存中的文本与关系文件，写入到文本文件
+        /// </summary>
+        /// <param name="textFileHandle"></param>
+        /// <param name="encoding"></param>
+        /// <param name="onlyRelation"></param>
+  
+        /// <summary>
+        /// 创建GCPRO对象与与对象关系文件
+        /// </summary>
+        /// <param name="textFileHandle">TextFileHandle类实例</param>
+        /// <param name="sbObjFields">StringBuilder类实例</param>
+        /// <param name="encoding">文本文件的导入编码</param>
+        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
+   
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle

@@ -182,6 +182,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             dpNode1 = 0;
             value10 = 0;
             SetOTypeProperty(OTypeCollection.DP_Slave);
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             this.filePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dpSlaveFileName}.Txt";
         }
         public DPSlave(string filePath = null) : this()
@@ -189,39 +192,41 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.filePath = (string.IsNullOrWhiteSpace(filePath) ?
                             $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dpSlaveFileName}.Txt" : $"{filePath}{dpSlaveFileName}.Txt");
         }
+        /// <summary>
+        /// 创建对象文本与关系文件，暂存与内存中
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
+        {
+            isNew = "False";
+            string tab = LibGlobalSource.TAB;
+            ///<summary>
+            ///生产Standard字符串部分
+            ///</summary> 
+            string objBase = base.CreateObjectStandardPart(sb);
+            sb.Clear();
+            sb.Append(OTypeValue).Append(tab)
+              .Append(objBase).Append(tab);
+            ///<summary>
+            ///生成Application 字符串部分
+            ///</summary>
+            sb.Append(value31).Append(tab)
+               .Append(ipAddr).Append(tab)
+               .Append(slaveNo).Append(tab)
+               .Append(updateTime).Append(tab)
+               .Append(watchDogFactor).Append(tab)
+               .Append(watchDogTime);
+            objectRecord.Add(sb.ToString());
+            sb.Clear();
+
+        }
         /// 创建GCPRO对象与与对象关系文件
         /// </summary>
         /// <param name="textFileHandle">TextFileHandle类实例</param>
         /// <param name="sbObjFields">StringBuilder类实例</param>
         /// <param name="encoding">文本文件的导入编码</param>
         /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
-        {
-            if (!onlyRelation)
-            {
-                textFileHandle.FilePath = this.filePath;
-                isNew = "False";
-                string tab = LibGlobalSource.TAB;
-                ///<summary>
-                ///生产Standard字符串部分
-                ///</summary> 
-                string objBase = base.CreateObjectStandardPart(sb);
-                sb.Clear();
-                sb.Append(OTypeValue).Append(tab)
-                  .Append(objBase).Append(tab);
-                ///<summary>
-                ///生成Application 字符串部分
-                ///</summary>   
-                sb.Append(value31).Append(tab)
-                   .Append(ipAddr).Append(tab)
-                   .Append(slaveNo).Append(tab)
-                   .Append(updateTime).Append(tab)
-                   .Append(watchDogFactor).Append(tab)
-                   .Append(watchDogTime);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
-                sb.Clear();          
-            }
-        }
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle

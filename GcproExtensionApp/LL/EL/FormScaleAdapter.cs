@@ -175,19 +175,19 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(ScaleAdapter.Rule.Common.Description))
+            if (string.IsNullOrEmpty(ScaleAdapter.Rule.Common.Description))
             { ScaleAdapter.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(ScaleAdapter.Rule.Common.Name))
+            if (string.IsNullOrEmpty(ScaleAdapter.Rule.Common.Name))
             { ScaleAdapter.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(ScaleAdapter.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(ScaleAdapter.Rule.Common.DescLine))
             { ScaleAdapter.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(ScaleAdapter.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(ScaleAdapter.Rule.Common.DescFloor))
             { ScaleAdapter.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(ScaleAdapter.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(ScaleAdapter.Rule.Common.DescObject))
             { ScaleAdapter.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = ScaleAdapter.Rule.Common.NameRule;
@@ -200,7 +200,7 @@ namespace GcproExtensionApp
         public void CreateTips()
         {
             toolTip.SetToolTip(BtnNewImpExpDef, AppGlobal.CREATE_IMPORT_RULE + ScaleAdapter.OType);
-            toolTip.SetToolTip(BtnConnectIO, AppGlobal.CONNECT_CONNECTOR);
+          
             toolTip.SetToolTip(txtSymbol, AppGlobal.DEMO_NAME + DEMO_NAME_SCALE_ADAPTER);
             toolTip.SetToolTip(txtSymbolRule, AppGlobal.DEMO_NAME_RULE + DEMO_NAME_RULE_SCALE_ADAPTER);
             toolTip.SetToolTip(txtDescription, AppGlobal.DEMO_DESCRIPTION + DEMO_DESCRIPTION_SCALE_ADAPTER);
@@ -842,7 +842,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -935,7 +935,7 @@ namespace GcproExtensionApp
         {
           
             string selectedItem = Convert.ToString(ComboEquipmentSubType.SelectedItem);
-            myScaleAdapter.SubType = String.IsNullOrEmpty(selectedItem) ? ScaleAdapter.FB801DP :
+            myScaleAdapter.SubType = string.IsNullOrEmpty(selectedItem) ? ScaleAdapter.FB801DP :
                 selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             
         }
@@ -1014,6 +1014,7 @@ namespace GcproExtensionApp
         private void FormScaleAdapter_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1261,7 +1262,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             objScaleAdapter.Page = txtPage.Text;
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (comboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = comboDPNode1.SelectedItem.ToString();         
@@ -1356,7 +1357,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             string desc = ScaleAdapter.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1429,9 +1430,9 @@ namespace GcproExtensionApp
                     objScaleAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1476,12 +1477,12 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
                 objScaleAdapter.IoByteNo = ioByte + i * ioByteInc;
-                objScaleAdapter.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objScaleAdapter.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objScaleAdapter.CreateObject(objTextFileHandle, Encoding.Unicode, objScaleAdapter.FileRelationPath);
             processValue.Value = processValue.Max;
         }
-
 
 
         public void CreateObjectBML(DataGridView dataFromBML, ScaleAdapter objScaleAdapter,
@@ -1500,6 +1501,10 @@ namespace GcproExtensionApp
             int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             string desc = string.Empty;
+            string nameNumberString;
+            string senderBin;
+            string ioRemark;
+            string controlMethod;
             bool onlyOne = quantityNeedToBeCreate == 1;
             int nextIOByte = ioByte;
             #endregion common used variables declaration
@@ -1507,12 +1512,11 @@ namespace GcproExtensionApp
             processValue.Value = 0;
            
             objDefaultInfo = ScaleAdapter.Rule.Common;
+            DataGridViewCell cell;
             for (int i = 0; i < quantityNeedToBeCreate; i++)
-            {
-
-                DataGridViewCell cell;
+            {       
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                     continue;
                 ///<Name> get Name </Name>
                 objScaleAdapter.Name = Convert.ToString(cell.Value);
@@ -1520,7 +1524,7 @@ namespace GcproExtensionApp
                 desc = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnDesc)].Value);
                 if (addtionToDesc.Section)
                 {
-                    string nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objScaleAdapter.Name);
+                    nameNumberString = LibGlobalSource.StringHelper.ExtractStringPart(Engineering.PatternNameNumber, objScaleAdapter.Name);
                     if (!string.IsNullOrEmpty(nameNumberString))
                     {
                         if (AppGlobal.ParseValue<int>(nameNumberString, out tempInt))
@@ -1539,10 +1543,10 @@ namespace GcproExtensionApp
                 ///<Elevation>   </Elevation>  
                 objScaleAdapter.Elevation = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnFloor)].Value);
                 ///<SenderBin>Connect Sender bin </SenderBin>
-                string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
+                ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
                 if (!string.IsNullOrEmpty(ioRemark))
                 {
-                    string senderBin = BML.ScaleAdapter.ParseIORemark(ioRemark, dataTable);
+                    senderBin = BML.ScaleAdapter.ParseIORemark(ioRemark, dataTable);
                     objScaleAdapter.RefSenderBin = senderBin;
                     if (!string.IsNullOrEmpty(senderBin))
                     {
@@ -1555,7 +1559,7 @@ namespace GcproExtensionApp
                         chkParDump.Checked = false;
                     }
                 }
-                string controlMethod = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnControlMethod)].Value);
+               controlMethod = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnControlMethod)].Value);
                 if (controlMethod.Contains(BML.ScaleAdapter.Weigher)) 
                 {
                     chkParDump.Checked = true;
@@ -1604,12 +1608,13 @@ namespace GcproExtensionApp
                 objScaleAdapter.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
 
                 ///<HornCode>   </Horncode> 
-                
+
                 ///<CreateObject>   </CreateObject>
-                objScaleAdapter.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objScaleAdapter.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             ScaleAdapter.Rule.Common = objDefaultInfo;
+            objScaleAdapter.CreateObject(objTextFileHandle, Encoding.Unicode, objScaleAdapter.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

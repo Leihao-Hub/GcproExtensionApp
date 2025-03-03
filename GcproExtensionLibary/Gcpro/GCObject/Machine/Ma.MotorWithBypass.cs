@@ -204,6 +204,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             Rule.AIRuleInc = 1;
             Rule.SealRuleInc = 1;
             Rule.PressureRuleInc = 1;
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             SetOTypeProperty(OTypeCollection.MA_MotorWithBypass);
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{motorWithBypassFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
@@ -224,22 +227,14 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
-        /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
@@ -252,35 +247,31 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
-                ///</summary>         
+                ///</summary>
                 sb.Append(Value9).Append(tab)
-                    .Append(parCleaningTime * 10).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild).Append(tab)
-                    .Append(noChild);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                  .Append(parCleaningTime * 10).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild).Append(tab)
+                  .Append(noChild);
+                objectRecord.Add(sb.ToString());
                 sb.Clear();
             }
 
-            var relations = new List<Relation>
-            {
-               new Relation(name ,mon1 , GcproTable.ObjData.Value11.Name),
-               new Relation(name ,motor , GcproTable.ObjData.Value12.Name),
-               new Relation(name ,vls1 , GcproTable.ObjData.Value13.Name),
-               new Relation(name ,mon2 , GcproTable.ObjData.Value14.Name),
-               new Relation(name ,vls2 , GcproTable.ObjData.Value15.Name),
-               new Relation(name ,seal , GcproTable.ObjData.Value16.Name),
-               new Relation(name ,ai , GcproTable.ObjData.Value17.Name),
-               new Relation(name ,pressure , GcproTable.ObjData.Value30.Name),
-            };
-            textFileHandle.FilePath = this.fileRelationPath;
+            CreateRelation(sb, name, mon1, GcproTable.ObjData.Value11.Name);
+            CreateRelation(sb, name, motor, GcproTable.ObjData.Value12.Name);
+            CreateRelation(sb, name, vls1, GcproTable.ObjData.Value13.Name);
+            CreateRelation(sb, name, mon2, GcproTable.ObjData.Value14.Name);
+            CreateRelation(sb, name, vls2, GcproTable.ObjData.Value15.Name);
+            CreateRelation(sb, name, seal, GcproTable.ObjData.Value16.Name);
+            CreateRelation(sb, name, ai, GcproTable.ObjData.Value17.Name);
+            CreateRelation(sb, name, pressure, GcproTable.ObjData.Value30.Name);
+
             sb.Clear();
-            CreateRelations(textFileHandle, sb, relations, encoding);
         }
         public void Clear()
         {

@@ -539,7 +539,7 @@ namespace GcproExtensionApp
                        key.Value(value);
                     }
                 }
-                if (actValueMotorPower == "未找到配置项" || String.IsNullOrEmpty(actValueMotorPower))
+                if (actValueMotorPower == "未找到配置项" || string.IsNullOrEmpty(actValueMotorPower))
                 {
                     return false;
                 }

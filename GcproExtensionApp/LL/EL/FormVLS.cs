@@ -179,19 +179,19 @@ namespace GcproExtensionApp
                withCabinet: chkAddCabinetToDesc.Checked,
                withPower: false,
                nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(VLS.Rule.Common.Description))
+            if (string.IsNullOrEmpty(VLS.Rule.Common.Description))
             { VLS.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(VLS.Rule.Common.Name))
+            if (string.IsNullOrEmpty(VLS.Rule.Common.Name))
             { VLS.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(VLS.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(VLS.Rule.Common.DescLine))
             { VLS.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(VLS.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(VLS.Rule.Common.DescFloor))
             { VLS.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(VLS.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(VLS.Rule.Common.DescObject))
             { VLS.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = VLS.Rule.Common.NameRule;
@@ -288,6 +288,7 @@ namespace GcproExtensionApp
         private void FormVLS_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
         #region <------Check and store rule event------>
@@ -821,7 +822,7 @@ namespace GcproExtensionApp
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(selectedItem))
+            if (!string.IsNullOrEmpty(selectedItem))
             {
 
                 myVLS.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
@@ -965,7 +966,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1152,7 +1153,7 @@ namespace GcproExtensionApp
         private void NamePrefix()
         {
             string svlsSuffix = LibGlobalSource.StringHelper.ExtractStringPart($@"{GcObjectInfo.VLS.SuffixVLSPattern}", txtSymbol.Text);
-            if (!String.IsNullOrEmpty(svlsSuffix))
+            if (!string.IsNullOrEmpty(svlsSuffix))
             {
                 namePrefix = txtSymbol.Text.Replace(svlsSuffix, string.Empty);
                 nameLen = namePrefix.Length;
@@ -1324,9 +1325,10 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objNamePrefix = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objNamePrefix = string.Empty;
+                    string objSubType = string.Empty;
+                    string inpLN, inpHN,outpLN,outpHN,inpRunRev, inpRunFwd, outpRunRev, outpRunFwd;
                     OleDb oledb = new OleDb();
                     DataTable dataTable = new DataTable();
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
@@ -1350,50 +1352,47 @@ namespace GcproExtensionApp
                         objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
                         if (objSubType == VLS.VCO)
                         {
-                            string inpLN, inpHN, outpHN;
                             inpLN = objNamePrefix + GcObjectInfo.VLS.SuffixInpLN;
                             inpHN = objNamePrefix + GcObjectInfo.VLS.SuffixInpHN;
                             outpHN = objNamePrefix + GcObjectInfo.VLS.SuffixOutpHN;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder,objName, inpLN, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpHN, GcproTable.ObjData.Value14.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, outpHN, GcproTable.ObjData.Value14.Name);
                             }
                         }
                         else if (objSubType == VLS.VPO || objSubType == VLS.VPOR)
                         {
-                            string inpLN, inpHN, outpLN, outpHN;
                             inpLN = objNamePrefix + GcObjectInfo.VLS.SuffixInpLN;
                             outpLN = objNamePrefix + GcObjectInfo.VLS.SuffixOutpLN;
                             inpHN = objNamePrefix + GcObjectInfo.VLS.SuffixInpHN;
                             outpHN = objNamePrefix + GcObjectInfo.VLS.SuffixOutpHN;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpLN, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, outpLN, GcproTable.ObjData.Value12.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpHN, GcproTable.ObjData.Value14.Name,Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, outpHN, GcproTable.ObjData.Value14.Name);
                             }
                         }
                         else if (objSubType == VLS.VPOM)
                         {
-                            string inpRunRev, inpRunFwd, outpRunRev, outpRunFwd, inpLN, inpHN;
                             inpLN = objNamePrefix + GcObjectInfo.VLS.SuffixInpLN;
                             inpHN = objNamePrefix + GcObjectInfo.VLS.SuffixInpHN;
                             outpRunRev = objNamePrefix + GcObjectInfo.VLS.SuffixOutpRunRev;
@@ -1402,45 +1401,46 @@ namespace GcproExtensionApp
                             inpRunFwd = objNamePrefix + GcObjectInfo.VLS.SuffixInpRunFwd;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
-                            {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpRunRev, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
+                            {                           
+                                myVLS.CreateRelation(objBuilder, objName, outpRunRev, GcproTable.ObjData.Value12.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name,  Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, outpRunFwd, GcproTable.ObjData.Value14.Name,  Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, outpRunFwd, GcproTable.ObjData.Value14.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value15.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpRunRev, GcproTable.ObjData.Value15.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpRunRev, GcproTable.ObjData.Value15.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value16.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpRunFwd, GcproTable.ObjData.Value16.Name, Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpRunFwd, GcproTable.ObjData.Value16.Name);
                             }
                         }
                         else if (objSubType == VLS.VMF)
                         {
-                            string inpLN, inpHN;
+
                             inpLN = objNamePrefix + GcObjectInfo.VLS.SuffixInpLN;
                             inpHN = objNamePrefix + GcObjectInfo.VLS.SuffixInpHN;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name,  Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpLN, GcproTable.ObjData.Value11.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                VLS.CreateRelation(objTextFileHandle, objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name,  Encoding.Unicode);
+                                myVLS.CreateRelation(objBuilder, objName, inpHN, GcproTable.ObjData.Value13.Name);
                             }
                         }
                         ProgressBar.Value = count;
                     }
+                    myVLS.CreateObject(objTextFileHandle, Encoding.Unicode, myVLS.FileConnectorPath, true);
                     VLS.SaveFileAs(myVLS.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     dataTable.Clear();
                 }
@@ -1575,6 +1575,7 @@ namespace GcproExtensionApp
             string userDefinedSection = string.Empty;
             string vlsRcvLN, vlsRcvHN, vlsAsp, vlsSndBin;
             vlsRcvLN = vlsRcvHN = vlsAsp = vlsSndBin = string.Empty;
+            string bmlObjName, bmlObjNameSuffix;
             DataGridViewCell cell;
             List<KeyValuePair<string, int>> listBMLName = LibGlobalSource.BMLHelper.ExtractMachineNameWithCount(dataFromBML, nameof(BML.ColumnName), Engineering.PatternElementNamePrefix);
             int quantityNeedToBeCreate = listBMLName.Count;
@@ -1587,7 +1588,7 @@ namespace GcproExtensionApp
                 commName = Convert.ToString(listBMLName[i].Key.ToString());
                 noOfSubIO = (int)listBMLName[i].Value;
                 int noOfSubChecked = 0;
-                if (String.IsNullOrEmpty(commName))
+                if (string.IsNullOrEmpty(commName))
                 {
                     continue;
                 }
@@ -1595,11 +1596,15 @@ namespace GcproExtensionApp
                 for (int row = 0; row < dataFromBML.Rows.Count; row++)
                 {
                     if (objChecked[row])
-                    { continue; }
+                    { 
+                        continue;
+                    }
                     if (noOfSubChecked >= noOfSubIO)
-                    { break; }
+                    { 
+                        break; 
+                    }
                     cell = dataFromBML.Rows[row].Cells[nameof(BML.ColumnName)];
-                    string bmlObjName = Convert.ToString(cell.Value);
+                    bmlObjName = Convert.ToString(cell.Value);
                     if (bmlObjName.StartsWith(commName))
                     {
                         noOfSubChecked += 1;
@@ -1711,7 +1716,7 @@ namespace GcproExtensionApp
                             cell = dataFromBML.Rows[row].Cells[nameof(BML.ColumnFloor)];
                             vlsElevation = Convert.ToString(cell.Value);
                         }
-                        string bmlObjNameSuffix = bmlObjName.Replace(commName, "");
+                        bmlObjNameSuffix = bmlObjName.Replace(commName, "");
                         if (bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixOutpLN.Replace(":O", ""), StringComparison.InvariantCultureIgnoreCase)
                             || bmlObjNameSuffix.Equals(GcObjectInfo.VLS.SuffixInpLN.Replace(":I", ""), StringComparison.InvariantCultureIgnoreCase))
                         {
@@ -1748,12 +1753,12 @@ namespace GcproExtensionApp
                 objVLS.Name = commName + GcObjectInfo.VLS.SuffixVLS;
                 NameSubElements(commName);
                 SubtypeChanged();
-                objVLS.InpLN = String.IsNullOrEmpty(TxtInpLN.Text) ? LibGlobalSource.NOCHILD : TxtInpLN.Text;
-                objVLS.OutpLN = String.IsNullOrEmpty(TxtOutpLN.Text) ? LibGlobalSource.NOCHILD : TxtOutpLN.Text;
-                objVLS.InpHN = String.IsNullOrEmpty(TxtInpHN.Text) ? LibGlobalSource.NOCHILD : TxtInpHN.Text;
-                objVLS.OutpHN = String.IsNullOrEmpty(TxtOutpHN.Text) ? LibGlobalSource.NOCHILD : TxtOutpHN.Text;
-                objVLS.InpRunRev = String.IsNullOrEmpty(txtInpRunRev.Text) ? LibGlobalSource.NOCHILD : txtInpRunRev.Text;
-                objVLS.InpRunFwd = String.IsNullOrEmpty(txtInpRunFwd.Text) ? LibGlobalSource.NOCHILD : txtInpRunFwd.Text;
+                objVLS.InpLN = string.IsNullOrEmpty(TxtInpLN.Text) ? LibGlobalSource.NOCHILD : TxtInpLN.Text;
+                objVLS.OutpLN = string.IsNullOrEmpty(TxtOutpLN.Text) ? LibGlobalSource.NOCHILD : TxtOutpLN.Text;
+                objVLS.InpHN = string.IsNullOrEmpty(TxtInpHN.Text) ? LibGlobalSource.NOCHILD : TxtInpHN.Text;
+                objVLS.OutpHN = string.IsNullOrEmpty(TxtOutpHN.Text) ? LibGlobalSource.NOCHILD : TxtOutpHN.Text;
+                objVLS.InpRunRev = string.IsNullOrEmpty(txtInpRunRev.Text) ? LibGlobalSource.NOCHILD : txtInpRunRev.Text;
+                objVLS.InpRunFwd = string.IsNullOrEmpty(txtInpRunFwd.Text) ? LibGlobalSource.NOCHILD : txtInpRunFwd.Text;
                 ///<AdditionInfoToDesc>
                 ///</AdditionInfoToDesc>       
                 if (addtionToDesc.Section)
@@ -1794,10 +1799,11 @@ namespace GcproExtensionApp
                 objVLS.RefRcvHN = vlsRcvHN;
                 objVLS.RefAsp = vlsAsp;
                 objVLS.RefSndBin = vlsSndBin;
-                objVLS.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objVLS.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             VLS.Rule.Common = objDefaultInfo;
+            objVLS.CreateObject(objTextFileHandle, Encoding.Unicode, objVLS.FileRelationPath);
             processValue.Value = processValue.Max;
             listBMLName.Clear();
         }
@@ -1812,6 +1818,7 @@ namespace GcproExtensionApp
             processValue.Max = quantityNeedToBeCreate;
             processValue.Value = 0;
             string desc = string.Empty;
+            string _nameSuffix;
             bool moreThanOne = quantityNeedToBeCreate > 1;
             bool onlyOne = quantityNeedToBeCreate == 1;
          //   StringBuilder descTotalBuilder = new StringBuilder();
@@ -1938,7 +1945,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>准备生成描述规则</DescRule>
             desc = VLS.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1967,10 +1974,10 @@ namespace GcproExtensionApp
             {
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-                objVLS.HwStop = String.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
-                if (!String.IsNullOrEmpty(desc))
+                objVLS.HwStop = string.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                     && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -2002,8 +2009,7 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-
-                string _nameSuffix = LibGlobalSource.StringHelper.ExtractStringPart($@"{GcObjectInfo.VLS.SuffixVLSPattern}", name.Name);
+                 _nameSuffix = LibGlobalSource.StringHelper.ExtractStringPart($@"{GcObjectInfo.VLS.SuffixVLSPattern}", name.Name);
                 if (!string.IsNullOrEmpty(_nameSuffix))
                 {
                     string _name = name.Name.Replace(_nameSuffix, string.Empty);
@@ -2033,10 +2039,11 @@ namespace GcproExtensionApp
                 }
                 ///<RefAsp></RefAsp>
                 objVLS.RefAsp = txtAsp.Text;
-                objVLS.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objVLS.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             VLS.Rule.Common = objDefaultInfo;
+            objVLS.CreateObject(objTextFileHandle, Encoding.Unicode, objVLS.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void CreateObjectAutoSearch(VLS objVLS, ref (int Value, int Max) processValue)
@@ -2162,7 +2169,7 @@ namespace GcproExtensionApp
                 processValue.Max = quantityNeedToBeCreate - 1;
                 processValue.Value = 0;
                 ///<DescRule>生成描述规则</DescRule>
-                if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+                if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
                 {
                     description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
                     if (description.PosInfo.Len == -1)
@@ -2178,9 +2185,10 @@ namespace GcproExtensionApp
                 }
                 for (int i = 0; i <= quantityNeedToBeCreate - 1; i++)
                 {
-                    objVLS.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                    objVLS.CreateObjectRecordAndRelation(objBuilder);
                     processValue.Value = i;
                 }
+                objVLS.CreateObject(objTextFileHandle, Encoding.Unicode, objVLS.FileRelationPath);
                 processValue.Value = processValue.Max;
             }
         }

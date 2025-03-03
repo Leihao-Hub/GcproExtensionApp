@@ -349,7 +349,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
         {
             Default();
             SetOTypeProperty(OTypeCollection.DischargerVertex);
-
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{dischargerVertexFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
             this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
@@ -408,17 +410,16 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             } 
         }
         #endregion
-        /// 创建GCPRO对象与与对象关系文件
+
+        /// <summary>
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
@@ -431,7 +432,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
-                ///</summary>   
+                ///</summary>
                 sb.Append(parDischargerNo).Append(tab)
                    .Append(noChild).Append(tab)
                    .Append(noChild).Append(tab)
@@ -454,26 +455,24 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                    .Append(parFlowrateSlow).Append(tab)
                    .Append(parTipPulseLen * 10).Append(tab)
                    .Append(parTolPosWeight * 1000).Append(tab)
-                   .Append(parTolPosRel *10).Append(tab)
+                   .Append(parTolPosRel * 10).Append(tab)
                    .Append(parTolAutoPosWeight * 1000).Append(tab)
                    .Append(parTolAutoPosRel * 10).Append(tab)
                    .Append(parTolNegWeight * 1000).Append(tab)
-                   .Append(parTolNegRel *10).Append(tab)
+                   .Append(parTolNegRel * 10).Append(tab)
                    .Append(Value10);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
-                sb.Clear();           
-            }
-            var relations = new List<Relation>
-            {
-                new Relation(name,bin, GcproTable.ObjData.Value41.Name),
-                new Relation(name,vertex, GcproTable.ObjData.Value42.Name),
-                new Relation(name,conche, GcproTable.ObjData.Value43.Name),
-                new Relation(name,destination, GcproTable.ObjData.Value44.Name),                 
-            };
-            textFileHandle.FilePath = this.fileRelationPath;
+                objectRecord.Add(sb.ToString());
+                sb.Clear();
+            }  
+
+            CreateRelation(sb, name, bin, GcproTable.ObjData.Value41.Name);
+            CreateRelation(sb, name, vertex, GcproTable.ObjData.Value42.Name);
+            CreateRelation(sb, name, conche, GcproTable.ObjData.Value43.Name);
+            CreateRelation(sb, name, destination, GcproTable.ObjData.Value44.Name);
+
             sb.Clear();
-            CreateRelations(textFileHandle, sb, relations, encoding);
         }
+        
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle

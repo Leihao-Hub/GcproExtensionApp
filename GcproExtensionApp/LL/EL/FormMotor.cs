@@ -13,6 +13,8 @@ using GcproExtensionLibrary;
 using GcproExtensionLibrary.Gcpro;
 using System.Linq;
 using System.Xml.Linq;
+using System.Collections;
+using System.Collections.ObjectModel;
 #endregion
 namespace GcproExtensionApp
 {
@@ -185,19 +187,19 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: chkAddPowerToDesc.Checked,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(Motor.Rule.Common.Description))
+            if (string.IsNullOrEmpty(Motor.Rule.Common.Description))
             { Motor.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(Motor.Rule.Common.Name))
+            if (string.IsNullOrEmpty(Motor.Rule.Common.Name))
             { Motor.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(Motor.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(Motor.Rule.Common.DescLine))
             { Motor.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(Motor.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(Motor.Rule.Common.DescFloor))
             { Motor.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(Motor.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(Motor.Rule.Common.DescObject))
             { Motor.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = Motor.Rule.Common.NameRule;
@@ -255,7 +257,7 @@ namespace GcproExtensionApp
             txtVFCSuffix.Text = GcObjectInfo.Motor.SuffixVFC;
             txtPowerAppSuffix.Text = GcObjectInfo.Motor.SuffixPowerApp;
             txtAOSuffix.Text = GcObjectInfo.Motor.SuffixAO;
-            txtAO.Text = String.Empty;
+            txtAO.Text = string.Empty;
             txtInpRunFwd.Text = txtSymbol.Text + txtInpFwdSuffix.Text;
             txtOutpRunFwd.Text = txtSymbol.Text + txtOutpFwdSuffix.Text;
 
@@ -305,6 +307,7 @@ namespace GcproExtensionApp
         private void FormMotor_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
 
@@ -685,7 +688,7 @@ namespace GcproExtensionApp
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(selectedItem))
+            if (!string.IsNullOrEmpty(selectedItem))
             {
                 myMotor.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
@@ -938,7 +941,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1057,7 +1060,7 @@ namespace GcproExtensionApp
             TxtQuantity.Text = dataTable.Rows.Count.ToString();
             foreach (DataRow row in dataTable.Rows)
             {
-                bool vfc = row[2].ToString().StartsWith(!String.IsNullOrEmpty(txtVFCPrefixBML.Text) ? txtVFCPrefixBML.Text : BML.Motor.PrefixVFC);
+                bool vfc = row[2].ToString().StartsWith(!string.IsNullOrEmpty(txtVFCPrefixBML.Text) ? txtVFCPrefixBML.Text : BML.Motor.PrefixVFC);
                 bool fcFan = row[2].ToString().Contains(BML.Motor.FCFan);
                 int rowIndex = dataTable.Rows.IndexOf(row);
                 DataGridViewRow dataGridViewRow = dataGridBML.Rows[rowIndex];
@@ -1303,10 +1306,13 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objSubType = string.Empty;
+                    string inpFwd, outpFwd, vfc,ao;
+                    int connectorKey, connector;
                     OleDb oledb = new OleDb();
                     DataTable dataTable = new DataTable();
+                    DataTable connectorTable = new DataTable();
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
                     oledb.IsNewOLEDBDriver = isNewOledbDriver;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Motor.OTypeValue}", null,
@@ -1327,66 +1333,63 @@ namespace GcproExtensionApp
                         objName = dataTable.Rows[count].Field<string>(GcproTable.ObjData.Text0.Name);
                         objSubType = dataTable.Rows[count].Field<string>(GcproTable.ObjData.SubType.Name);
                         if (objSubType == Motor.M11)
-                        {
-                            string inpFwd, outpFwd;
+                        {                    
                             inpFwd = objName + txtInpFwdSuffix.Text;
                             outpFwd = objName + txtOutpFwdSuffix.Text;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpFwd, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, inpFwd, GcproTable.ObjData.Value11.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outpFwd, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, outpFwd, GcproTable.ObjData.Value12.Name);
                             }
                         }
                         else if (objSubType == Motor.M12)
                         {
-                            string inpFwd, outpFwd, inpRev, outpRev;
+                            string  inpRev, outpRev;
                             inpFwd = objName + txtInpFwdSuffix.Text;
                             outpFwd = objName + txtOutpFwdSuffix.Text;
                             inpRev = objName + txtInpRevSuffix.Text;
                             outpRev = objName + txtOutpRevSuffix.Text;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpFwd, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, inpFwd, GcproTable.ObjData.Value11.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outpFwd, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, outpFwd, GcproTable.ObjData.Value12.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value13.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpRev, GcproTable.ObjData.Value13.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, inpRev, GcproTable.ObjData.Value13.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value14.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outpRev, GcproTable.ObjData.Value14.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, outpFwd, GcproTable.ObjData.Value14.Name);                             
                             }
                         }
                         else if (objSubType == Motor.M1VFC || objSubType == Motor.M2VFC)
                         {
                             if (all)
                             {
-                                string vfc = objName + txtVFCSuffix.Text;
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, vfc, GcproTable.ObjData.Value34.Name, Encoding.Unicode);
+                                vfc = objName + txtVFCSuffix.Text;
+                                myMotor.CreateRelation(objBuilder, objName, vfc, GcproTable.ObjData.Value34.Name);                              
                             }
                             else
                             {
-                                double connectorKey = dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value34.Name);
+                                connectorKey = dataTable.Rows[count].Field<int>(GcproTable.ObjData.Value34.Name);
                                 if (connectorKey != 0)
                                 {
-
-                                    DataTable connectorTable = new DataTable();
                                     connectorTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={connectorKey}", null,
                                     null, GcproTable.ObjData.Value11.Name);
                                     if (connectorTable != null)
                                     {
-                                        double connector = connectorTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name);
+                                        connector = connectorTable.Rows[0].Field<int>(GcproTable.ObjData.Value11.Name);
                                         if (connector == LibGlobalSource.NO_PARENT)
                                         {
-                                            string vfc = objName + txtVFCSuffix.Text;
-                                            Motor.CreateRelation(objTextFileHandle, objBuilder,objName, vfc, GcproTable.ObjData.Value34.Name, Encoding.Unicode);
+                                            vfc = objName + txtVFCSuffix.Text;                                         
+                                            myMotor.CreateRelation(objBuilder, objName, vfc, GcproTable.ObjData.Value34.Name);
                                         }
                                     }
                                     connectorTable.Rows.Clear();
@@ -1396,84 +1399,81 @@ namespace GcproExtensionApp
                         }
                         else
                         {
-                            string inpFwd, outPFwd;
                             inpFwd = objName + txtInpFwdSuffix.Text;
-                            outPFwd = objName + txtOutpFwdSuffix.Text;
+                            outpFwd = objName + txtOutpFwdSuffix.Text;
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value11.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpFwd, GcproTable.ObjData.Value11.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, inpFwd, GcproTable.ObjData.Value11.Name);
                             }
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value12.Name) == 0 || all)
                             {
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, outPFwd, GcproTable.ObjData.Value12.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, outpFwd, GcproTable.ObjData.Value12.Name);
                             }
                         }
-                        if (!String.IsNullOrEmpty(txtInpContactor.Text))
+                        if (!string.IsNullOrEmpty(txtInpContactor.Text))
                         {
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value38.Name) == 0 || all)
                             {
                                 string inpContactor = objName + txtInpContactor.Text;
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, inpContactor, GcproTable.ObjData.Value38.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, inpContactor, GcproTable.ObjData.Value38.Name);
                             }
                         }
-                        if (!String.IsNullOrEmpty(txtInHWStop.Text))
+                        if (!string.IsNullOrEmpty(txtInHWStop.Text))
                         {
                             if (dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value47.Name) == 0 || all)
                             {
                                 string InHWStop = objName + txtInHWStop.Text; ;
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, InHWStop, GcproTable.ObjData.Value47.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, InHWStop, GcproTable.ObjData.Value47.Name);
                             }
                         }
-                        if (!String.IsNullOrEmpty(txtPowerApp.Text))
+                        if (!string.IsNullOrEmpty(txtPowerApp.Text))
                         {
                             if (all)
                             {
                                 string powerApp = objName + txtPowerAppSuffix.Text; ;
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, powerApp, GcproTable.ObjData.Value50.Name, Encoding.Unicode);
+                                myMotor.CreateRelation(objBuilder, objName, powerApp, GcproTable.ObjData.Value50.Name);
                             }
                             else
                             {
-                                double connectorKey = dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value50.Name);
+                                connectorKey = dataTable.Rows[count].Field<int>(GcproTable.ObjData.Value50.Name);
                                 if (connectorKey != 0)
                                 {
-                                    DataTable connectorTable = new DataTable();
                                     connectorTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={connectorKey}", null,
                                     null, GcproTable.ObjData.Value11.Name);
                                     if (connectorTable != null)
                                     {
-                                        double connector = connectorTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name);
+                                       connector = connectorTable.Rows[0].Field<int>(GcproTable.ObjData.Value11.Name);
                                         if (connector == LibGlobalSource.NO_PARENT)
                                         {
                                             string powerApp = objName + txtPowerAppSuffix.Text;
-                                            Motor.CreateRelation(objTextFileHandle, objBuilder,objName, powerApp, GcproTable.ObjData.Value50.Name, Encoding.Unicode);
+                                            myMotor.CreateRelation(objBuilder, objName, powerApp, GcproTable.ObjData.Value50.Name);
                                         }
                                     }
                                     connectorTable.Rows.Clear();
                                 }
                             }
                         }
-                        if (!String.IsNullOrEmpty(txtAO.Text))
+                        if (!string.IsNullOrEmpty(txtAO.Text))
                         {
                             if (all)
                             {
-                                string ao = objName + txtAOSuffix.Text;
-                                Motor.CreateRelation(objTextFileHandle, objBuilder,objName, ao, GcproTable.ObjData.Value33.Name, Encoding.Unicode);
+                                ao = objName + txtAOSuffix.Text;
+                                myMotor.CreateRelation(objBuilder, objName, ao, GcproTable.ObjData.Value33.Name);
                             }
                             else
                             {
-                                double connectorKey = dataTable.Rows[count].Field<double>(GcproTable.ObjData.Value33.Name);
+                                connectorKey = dataTable.Rows[count].Field<int>(GcproTable.ObjData.Value33.Name);
                                 if (connectorKey != 0)
                                 {
-                                    DataTable connectorTable = new DataTable();
                                     connectorTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.Key.Name}={connectorKey}", null,
                                     null, GcproTable.ObjData.Value11.Name);
                                     if (connectorTable != null)
                                     {
-                                        double connector = connectorTable.Rows[0].Field<double>(GcproTable.ObjData.Value11.Name);
+                                     connector = connectorTable.Rows[0].Field<int>(GcproTable.ObjData.Value11.Name);
                                         if (connector == LibGlobalSource.NO_PARENT)
                                         {
-                                            string ao = objName + txtAOSuffix.Text;
-                                            Motor.CreateRelation(objTextFileHandle, objBuilder,objName, ao, GcproTable.ObjData.Value33.Name, Encoding.Unicode);
+                                            ao = objName + txtAOSuffix.Text;
+                                            myMotor.CreateRelation(objBuilder, objName, ao, GcproTable.ObjData.Value33.Name);
                                         }
                                     }
                                     connectorTable.Rows.Clear();
@@ -1483,6 +1483,7 @@ namespace GcproExtensionApp
                         }
                         ProgressBar.Value = count;
                     }
+                    myMotor.CreateObject(objTextFileHandle, Encoding.Unicode, myMotor.FileConnectorPath, true);
                     Motor.SaveFileAs(myMotor.FileConnectorPath, LibGlobalSource.CREATE_RELATION);
                     dataTable.Clear();
                 }
@@ -1636,7 +1637,7 @@ namespace GcproExtensionApp
             {
                 parValue10 = 130;
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }             
                 fcFan = Convert.ToBoolean(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIsFCFan)].Value);
                 if (fcFan)
@@ -1652,7 +1653,7 @@ namespace GcproExtensionApp
                 objMotor.SubType = motorWithVFC ? Motor.M1VFC : Motor.M11;
                 objMotor.PType = motorWithVFC ? Motor.P7042: Motor.P7053;
                 columnPower = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnPower)].Value);
-                if (!String.IsNullOrEmpty(columnPower))
+                if (!string.IsNullOrEmpty(columnPower))
                 {
                     numeric = AppGlobal.ParseValue<float>(Convert.ToString(columnPower), out float power);
                     objMotor.ParPowerNominal = numeric? Math.Round(power,2) : 0;
@@ -1753,11 +1754,12 @@ namespace GcproExtensionApp
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
 
-                objMotor.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objMotor.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
 
             }
             Motor.Rule.Common = objDefaultInfo;
+            objMotor.CreateObject(objTextFileHandle, Encoding.Unicode, objMotor.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void CreateObjectRule(Motor objMotor, (bool Section, bool UserDefSection, bool Elevation, bool IdentNumber, bool Cabinet, bool Power, bool OnlyNumber) addtionToDesc,
@@ -1856,14 +1858,14 @@ namespace GcproExtensionApp
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();
               
             }
             ///<DPNode2></DPNode2>
-            string selectDPNode2 = String.Empty;
+            string selectDPNode2 = string.Empty;
             if (ComboDPNode2.SelectedItem != null)
             {
                 //    selectDPNode2 = ComboDPNode2.SelectedItem.ToString();
@@ -1935,7 +1937,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             desc = Motor.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1986,9 +1988,9 @@ namespace GcproExtensionApp
                 {
                     objMotor.Adapter = $"{name.Name}{txtVFCSuffix.Text}";
                 }
-                objMotor.PowerApp = String.IsNullOrEmpty(txtPowerApp.Text) ? string.Empty : $"{name.Name}{txtPowerAppSuffix.Text}";
-                objMotor.AO = String.IsNullOrEmpty(txtAO.Text) ? string.Empty : $"{name.Name}{txtAOSuffix.Text}";
-                objMotor.HWStop = String.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
+                objMotor.PowerApp = string.IsNullOrEmpty(txtPowerApp.Text) ? string.Empty : $"{name.Name}{txtPowerAppSuffix.Text}";
+                objMotor.AO = string.IsNullOrEmpty(txtAO.Text) ? string.Empty : $"{name.Name}{txtAOSuffix.Text}";
+                objMotor.HWStop = string.IsNullOrEmpty(txtInHWStop.Text) ? string.Empty : txtInHWStop.Text;
 
                 if (needDPNodeChanged && moreThanOne)
                 {
@@ -2003,9 +2005,9 @@ namespace GcproExtensionApp
                     objMotor.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -2038,10 +2040,11 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objMotor.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objMotor.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             Motor.Rule.Common = objDefaultInfo;
+            objMotor.CreateObject(objTextFileHandle, Encoding.Unicode, objMotor.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void CreateObjectAutoSearch(Motor objMotor, ref (int Value, int Max) processValue)
@@ -2055,37 +2058,40 @@ namespace GcproExtensionApp
 
             dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, filter, null, $"[{GcproTable.ObjData.Key.Name}] ASC", $"[{GcproTable.ObjData.Key.Name}]", $"[{GcproTable.ObjData.Text0.Name}]", $"[{GcproTable.ObjData.OType.Name}]");
             List<Dictionary<string, string>> objSubList = OleDb.GetColumnsData<string>(dataTable, GcproTable.ObjData.Text0.Name, GcproTable.ObjData.OType.Name);
+            Dictionary<string, string> dictionary, dictionaryPrev;
+            List<string> keys = new List<string>();
+            List<string> keysPrev = new List<string>();
+            bool isVFC;
+            string _nameIO, _nameVFC, _name;
+            string _nameIOPrev, _nameVFCPrev, _namePrev;
             GcObjectInfo.Motor.SimpleInfo updatedItem;
             StringBuilder objBuilder = new StringBuilder();
             TextFileHandle objTextFileHandle = new TextFileHandle();
             for (int listIndex = 0; listIndex < objSubList.Count; listIndex++)
             {
-                var dictionary = objSubList[listIndex];
-                var keys = new List<string>(dictionary.Keys);
-                bool isVFC = dictionary[keys[1]] == VFCAdapter.OTypeValue.ToString();
-                string _nameIO = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.General.SuffixIO.Delimiter);
-                string _nameVFC = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.Motor.SuffixVFC);
-                string _name = string.IsNullOrEmpty(_nameIO) ? _nameVFC : _nameIO;             
+                dictionary = objSubList[listIndex];
+                keys = dictionary.Keys.ToList();
+                isVFC = dictionary[keys[1]] == VFCAdapter.OTypeValue.ToString();
+                _nameIO = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.General.SuffixIO.Delimiter);
+                _nameVFC = GcObject.GetObjectSymbolFromIO(dictionary[keys[0]], GcObjectInfo.Motor.SuffixVFC);
+                _name = string.IsNullOrEmpty(_nameIO) ? _nameVFC : _nameIO;             
                 byte _count = 1;
                 if (listIndex == 0)
                 {
                     obj.Add(new GcObjectInfo.Motor.SimpleInfo(_name, isVFC, _count));
-
                 }
                 else if (listIndex > 0)
                 {
                     bool found = false;
                     for (int listIndexPrev = 0; listIndexPrev < listIndex; listIndexPrev++)
                     {
-                        var dictionaryPrev = objSubList[listIndexPrev];
-                        var keysPrev = new List<string>(dictionaryPrev.Keys);
-                        string _nameIOPrev = GcObject.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.General.SuffixIO.Delimiter);
-                        string _nameVFCPrev = GcObject.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.Motor.SuffixVFC);
-                        string _namePrev = string.IsNullOrEmpty(_nameIOPrev) ? _nameVFCPrev : _nameIOPrev;
-
+                        dictionaryPrev = objSubList[listIndexPrev];
+                        keysPrev = dictionaryPrev.Keys.ToList();
+                        _nameIOPrev = GcObject.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.General.SuffixIO.Delimiter);
+                        _nameVFCPrev = GcObject.GetObjectSymbolFromIO(dictionaryPrev[keysPrev[0]], GcObjectInfo.Motor.SuffixVFC);
+                        _namePrev = string.IsNullOrEmpty(_nameIOPrev) ? _nameVFCPrev : _nameIOPrev;
                         if (_name.Equals(_namePrev))
-                        {
-                          
+                        {                      
                             found = true;
                             for (int indexObj = 0; indexObj <= obj.Count - 1; indexObj++)
                             {
@@ -2135,9 +2141,10 @@ namespace GcproExtensionApp
                     objMotor.InpFwd = $"{obj[i].Name}{GcObjectInfo.Motor.SuffixInpRunFwd}";
                 }
 
-                objMotor.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objMotor.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objMotor.CreateObject(objTextFileHandle, Encoding.Unicode, objMotor.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

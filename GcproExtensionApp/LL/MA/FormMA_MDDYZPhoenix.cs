@@ -152,19 +152,19 @@ namespace GcproExtensionApp
               withCabinet: false,
               withPower: false,
               nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Description))
+            if (string.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Description))
             { MDDYZPhoenix.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Name))
+            if (string.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.Name))
             { MDDYZPhoenix.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescLine))
             { MDDYZPhoenix.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescFloor))
             { MDDYZPhoenix.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(MDDYZPhoenix.Rule.Common.DescObject))
             { MDDYZPhoenix.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = MDDYZPhoenix.Rule.Common.NameRule;
@@ -254,7 +254,9 @@ namespace GcproExtensionApp
         }
         private void FormMA_Roller8Stand_FormClosed(object sender, FormClosedEventArgs e)
         {
+          
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
 
@@ -878,7 +880,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myMDDYZPhoenix.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -974,7 +976,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1230,8 +1232,8 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objSubType = string.Empty;
                     OleDb oledb = new OleDb();
                     DataTable dataTable = new DataTable();
                     oledb.DataSource = AppGlobal.GcproDBInfo.ProjectDBPath;
@@ -1305,7 +1307,7 @@ namespace GcproExtensionApp
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 objMDDYZPhoenix.Name = Convert.ToString(listName[i].Key.ToString());
-                if (String.IsNullOrEmpty(objMDDYZPhoenix.Name))
+                if (string.IsNullOrEmpty(objMDDYZPhoenix.Name))
                 {
                     continue;
                 }
@@ -1383,12 +1385,13 @@ namespace GcproExtensionApp
                 withPower: false,
                 nameOnlyWithNumber: addtionToDesc.onlyNumber
              );
-                objMDDYZPhoenix.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objMDDYZPhoenix.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objMDDYZPhoenix.CreateObject(objTextFileHandle, Encoding.Unicode, objMDDYZPhoenix.FileRelationPath);
             processValue.Value = processValue.Max;
         }
-        private void CreatObjectRule((bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
+        private void CreatObjectRule(MDDYZPhoenix objMDDYZPhoenix,(bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
             (int IOByteStart, int Len) IOAddr,
             ref (int Value, int Max) processValue)
         {
@@ -1432,64 +1435,64 @@ namespace GcproExtensionApp
             if (ComboEquipmentSubType.SelectedItem != null)
             {
                 selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                myMDDYZPhoenix.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMDDYZPhoenix.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             else
             {
-                myMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL4;
+                objMDDYZPhoenix.SubType = MDDYZPhoenix.ROLL4;
             }
             ///<PType></PType>
             string selectedPTypeItem;
             if (ComboEquipmentInfoType.SelectedItem != null)
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
-                myMDDYZPhoenix.PType = MDDYZPhoenix.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, MDDYZPhoenix.P2757);
+                objMDDYZPhoenix.PType = MDDYZPhoenix.ParseInfoValue(selectedPTypeItem, AppGlobal.FIELDS_SEPARATOR, MDDYZPhoenix.P2757);
             }
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-            myMDDYZPhoenix.Value10= value10;
+            objMDDYZPhoenix.Value10= value10;
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
-            myMDDYZPhoenix.Description = txtDescription.Text;
+            objMDDYZPhoenix.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
             string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                myMDDYZPhoenix.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objMDDYZPhoenix.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Diagram></Diagram>
             string selectedDiagram;
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myMDDYZPhoenix.Diagram = (int)MDDYZPhoenix.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
+                objMDDYZPhoenix.Diagram = (int)MDDYZPhoenix.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
-            myMDDYZPhoenix.Page = txtPage.Text;
+            objMDDYZPhoenix.Page = txtPage.Text;
             ///<Building></Building>
             string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
-                myMDDYZPhoenix.Building = selectedBudling;
+                objMDDYZPhoenix.Building = selectedBudling;
             }
             ///<Elevation></Elevation>
             string selectedElevation;
             if (ComboElevation.SelectedItem != null)
             {
                 selectedElevation = ComboElevation.SelectedItem.ToString();
-                myMDDYZPhoenix.Elevation = selectedElevation;
+                objMDDYZPhoenix.Elevation = selectedElevation;
             }
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
             {
                 selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                myMDDYZPhoenix.Panel_ID = selectedPanel_ID;
+                objMDDYZPhoenix.Panel_ID = selectedPanel_ID;
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myMDDYZPhoenix.FieldBusNode = AppGlobal.NO_DP_NODE;
+            objMDDYZPhoenix.FieldBusNode = AppGlobal.NO_DP_NODE;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
@@ -1518,7 +1521,7 @@ namespace GcproExtensionApp
 
             ///<DescRule>生成描述规则</DescRule>
             desc = MDDYZPhoenix.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1548,9 +1551,9 @@ namespace GcproExtensionApp
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1567,11 +1570,11 @@ namespace GcproExtensionApp
                 {
                     description.Name = BML.MachineType.RollerMiller;
                 }
-                myMDDYZPhoenix.Name = name.Name;
+                objMDDYZPhoenix.Name = name.Name;
                 MDDYZPhoenix.Rule.Common.Name = name.Name;
                 MDDYZPhoenix.Rule.Common.DescObject = description.Name;
-                MDDYZPhoenix.Rule.Common.DescFloor = $"{myMDDYZPhoenix.Elevation}{GcObjectInfo.General.AddInfoElevation}";
-                myMDDYZPhoenix.Description = MDDYZPhoenix.EncodingDesc(
+                MDDYZPhoenix.Rule.Common.DescFloor = $"{objMDDYZPhoenix.Elevation}{GcObjectInfo.General.AddInfoElevation}";
+                objMDDYZPhoenix.Description = MDDYZPhoenix.EncodingDesc(
                     baseRule: ref MDDYZPhoenix.Rule.Common,
                     namePrefix: GcObjectInfo.General.PrefixName,
                     nameRule: Engineering.PatternMachineName,
@@ -1582,9 +1585,11 @@ namespace GcproExtensionApp
                     withPower: false,
                     nameOnlyWithNumber: addtionToDesc.onlyNumber
                  );
-                myMDDYZPhoenix.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+
+                objMDDYZPhoenix.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objMDDYZPhoenix.CreateObject(objTextFileHandle, Encoding.Unicode, objMDDYZPhoenix.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void CreatObjectAutoSearch()
@@ -1680,9 +1685,11 @@ namespace GcproExtensionApp
            
                 myMDDYZPhoenix.Description = txtDescription.Text;
                 myMDDYZPhoenix.Value10 = value10;
-                myMDDYZPhoenix.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                myMDDYZPhoenix.CreateObjectRecordAndRelation(objBuilder);
+
                 ProgressBar.Value = i;
             }
+            myMDDYZPhoenix.CreateObject(objTextFileHandle, Encoding.Unicode, myMDDYZPhoenix.FileRelationPath);
             ProgressBar.Value = quantityNeedToBeCreate;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -1707,7 +1714,7 @@ namespace GcproExtensionApp
                 else if (createMode.Rule)
                 {
                     AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-                    CreatObjectRule(AppGlobal.AdditionDesc, AppGlobal.IOAddr, ref AppGlobal.ProcessValue);
+                    CreatObjectRule(myMDDYZPhoenix,AppGlobal.AdditionDesc, AppGlobal.IOAddr, ref AppGlobal.ProcessValue);
                 }
                 ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
                 ProgressBar.Value = AppGlobal.ProcessValue.Value;

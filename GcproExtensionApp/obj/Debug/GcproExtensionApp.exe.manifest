@@ -43,26 +43,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GcproExtension.dll" size="7580672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GcproExtension.dll" size="7580160">
       <assemblyIdentity name="GcproExtension" version="7.1.3.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>BaPTZbUR04TmHn2b0B1aK2m7I/1eguB++Uwj6ta3HCw=</dsig:DigestValue>
+        <dsig:DigestValue>pPaaRBbrXWB1XPWw6RVbUo7q88RwGADzMTjEV9aJ94s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GcproExtensionApp.exe" size="75532784">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GcproExtensionApp.exe" size="75513328">
       <assemblyIdentity name="GcproExtensionApp" version="1.2.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XyF9OqAO/4pT81tSFsAsZOL/jQJMvq7zYfHmdjFME88=</dsig:DigestValue>
+        <dsig:DigestValue>OiF5xQtL4KKMbx6isTkYV+FHy7ZbJtOBqHomQY1qSGA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

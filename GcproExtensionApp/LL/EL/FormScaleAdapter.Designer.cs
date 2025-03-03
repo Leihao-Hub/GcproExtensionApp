@@ -49,6 +49,8 @@ namespace GcproExtensionApp
             this.tabRule = new System.Windows.Forms.TabPage();
             this.PalGcObject = new System.Windows.Forms.Panel();
             this.grpGeneral = new System.Windows.Forms.GroupBox();
+            this.lblHornCode = new System.Windows.Forms.Label();
+            this.comboHornCode = new System.Windows.Forms.ComboBox();
             this.grpWinCosTrending = new System.Windows.Forms.GroupBox();
             this.chkOutJobweight = new System.Windows.Forms.CheckBox();
             this.chkOutFlowrate = new System.Windows.Forms.CheckBox();
@@ -135,7 +137,6 @@ namespace GcproExtensionApp
             this.BtnRegenerateDPNode = new System.Windows.Forms.Button();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.BtnNewImpExpDef = new System.Windows.Forms.Button();
-            this.BtnConnectIO = new System.Windows.Forms.Button();
             this.txtSymbol = new System.Windows.Forms.TextBox();
             this.LblDescription = new System.Windows.Forms.Label();
             this.lblInFlowrate = new System.Windows.Forms.Label();
@@ -205,8 +206,6 @@ namespace GcproExtensionApp
             this.PalCommon = new System.Windows.Forms.Panel();
             this.txtPage = new System.Windows.Forms.TextBox();
             this.lblPage = new System.Windows.Forms.Label();
-            this.lblHornCode = new System.Windows.Forms.Label();
-            this.comboHornCode = new System.Windows.Forms.ComboBox();
             this.statusStrip.SuspendLayout();
             this.tabCreateMode.SuspendLayout();
             this.contextMenuStripBML.SuspendLayout();
@@ -416,7 +415,6 @@ namespace GcproExtensionApp
             this.grpGeneral.Controls.Add(this.BtnRegenerateDPNode);
             this.grpGeneral.Controls.Add(this.txtDescription);
             this.grpGeneral.Controls.Add(this.BtnNewImpExpDef);
-            this.grpGeneral.Controls.Add(this.BtnConnectIO);
             this.grpGeneral.Controls.Add(this.txtSymbol);
             this.grpGeneral.Controls.Add(this.LblDescription);
             this.grpGeneral.Controls.Add(this.lblInFlowrate);
@@ -442,6 +440,24 @@ namespace GcproExtensionApp
             this.grpGeneral.TabIndex = 118;
             this.grpGeneral.TabStop = false;
             this.grpGeneral.Text = "常规";
+            // 
+            // lblHornCode
+            // 
+            this.lblHornCode.AutoSize = true;
+            this.lblHornCode.Location = new System.Drawing.Point(8, 213);
+            this.lblHornCode.Name = "lblHornCode";
+            this.lblHornCode.Size = new System.Drawing.Size(71, 13);
+            this.lblHornCode.TabIndex = 185;
+            this.lblHornCode.Text = "ParHornCode";
+            // 
+            // comboHornCode
+            // 
+            this.comboHornCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboHornCode.FormattingEnabled = true;
+            this.comboHornCode.Location = new System.Drawing.Point(109, 211);
+            this.comboHornCode.Name = "comboHornCode";
+            this.comboHornCode.Size = new System.Drawing.Size(217, 21);
+            this.comboHornCode.TabIndex = 186;
             // 
             // grpWinCosTrending
             // 
@@ -1355,20 +1371,6 @@ namespace GcproExtensionApp
             this.BtnNewImpExpDef.UseVisualStyleBackColor = true;
             this.BtnNewImpExpDef.Click += new System.EventHandler(this.BtnNewImpExpDef_Click);
             // 
-            // BtnConnectIO
-            // 
-            this.BtnConnectIO.BackColor = System.Drawing.SystemColors.Control;
-            this.BtnConnectIO.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("BtnConnectIO.BackgroundImage")));
-            this.BtnConnectIO.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.BtnConnectIO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnConnectIO.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnConnectIO.Location = new System.Drawing.Point(94, 147);
-            this.BtnConnectIO.Name = "BtnConnectIO";
-            this.BtnConnectIO.Size = new System.Drawing.Size(36, 30);
-            this.BtnConnectIO.TabIndex = 98;
-            this.BtnConnectIO.UseVisualStyleBackColor = false;
-            this.BtnConnectIO.Visible = false;
-            // 
             // txtSymbol
             // 
             this.txtSymbol.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -2131,24 +2133,6 @@ namespace GcproExtensionApp
             this.lblPage.TabIndex = 58;
             this.lblPage.Text = "Page:";
             // 
-            // lblHornCode
-            // 
-            this.lblHornCode.AutoSize = true;
-            this.lblHornCode.Location = new System.Drawing.Point(8, 213);
-            this.lblHornCode.Name = "lblHornCode";
-            this.lblHornCode.Size = new System.Drawing.Size(71, 13);
-            this.lblHornCode.TabIndex = 185;
-            this.lblHornCode.Text = "ParHornCode";
-            // 
-            // comboHornCode
-            // 
-            this.comboHornCode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboHornCode.FormattingEnabled = true;
-            this.comboHornCode.Location = new System.Drawing.Point(109, 211);
-            this.comboHornCode.Name = "comboHornCode";
-            this.comboHornCode.Size = new System.Drawing.Size(217, 21);
-            this.comboHornCode.TabIndex = 186;
-            // 
             // FormScaleAdapter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2309,7 +2293,6 @@ namespace GcproExtensionApp
         internal System.Windows.Forms.Button BtnRegenerateDPNode;
         internal System.Windows.Forms.TextBox txtDescription;
         internal System.Windows.Forms.Button BtnNewImpExpDef;
-        internal System.Windows.Forms.Button BtnConnectIO;
         internal System.Windows.Forms.TextBox txtSymbol;
         internal System.Windows.Forms.Label LblDescription;
         internal System.Windows.Forms.Label lblInFlowrate;

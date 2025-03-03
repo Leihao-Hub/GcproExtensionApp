@@ -12,6 +12,29 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 namespace GcproExtensionLibrary
 {
+    public class Relation
+    {
+        public string Parent { get; set; }
+        public string Child { get; set; }
+        public string ConnectedFiled { get; set; }
+
+        public Relation()
+        {
+        }
+        public Relation(string parent, string child, string connectedField)
+        {
+            Parent = parent;
+            Child = child;
+            ConnectedFiled = connectedField;
+        }
+        public void SetRelation(string parent, string child, string connectedField)
+        {
+            Parent = parent;
+            Child = child;
+            ConnectedFiled = connectedField;
+        }
+    }
+
     public static class LibGlobalSource
     {
         #region Public const declaration
@@ -602,6 +625,6 @@ namespace GcproExtensionLibrary
     }
     public interface IGcpro
     {
-        void CreateObject(TextFileHandle textFileHandle, StringBuilder sbObjFields, Encoding encoding, bool onlyRelation = false);
+        void CreateObject(TextFileHandle textFileHandle,  Encoding encoding, bool onlyRelation = false);
     }
 }

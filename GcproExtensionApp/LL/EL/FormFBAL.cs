@@ -165,19 +165,19 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(FBAL.Rule.Common.Description))
+            if (string.IsNullOrEmpty(FBAL.Rule.Common.Description))
             { FBAL.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(FBAL.Rule.Common.Name))
+            if (string.IsNullOrEmpty(FBAL.Rule.Common.Name))
             { FBAL.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(FBAL.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(FBAL.Rule.Common.DescLine))
             { FBAL.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(FBAL.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(FBAL.Rule.Common.DescFloor))
             { FBAL.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(FBAL.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(FBAL.Rule.Common.DescObject))
             { FBAL.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             txtSymbolRule.Text = FBAL.Rule.Common.NameRule;
@@ -1102,7 +1102,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1215,7 +1215,7 @@ namespace GcproExtensionApp
         private void ComboEquipmentSubType_SelectedIndexChanged(object sender, EventArgs e)
         {        
             string selectedItem = Convert.ToString(ComboEquipmentSubType.SelectedItem);
-            myFBAL.SubType = String.IsNullOrEmpty(selectedItem) ? FBAL.MZAHDP :
+            myFBAL.SubType = string.IsNullOrEmpty(selectedItem) ? FBAL.MZAHDP :
                 selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
 
 
@@ -1349,6 +1349,7 @@ namespace GcproExtensionApp
         private void FormFBAL_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
         private void ComboCreateMode_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1582,7 +1583,7 @@ namespace GcproExtensionApp
             ///<Page></Page>
             objFBAL.Page = txtPage.Text;
             ///<DPNode1></DPNode1>
-            string selectDPNode1 = String.Empty;
+            string selectDPNode1 = string.Empty;
             if (ComboDPNode1.SelectedItem != null)
             {
                 selectDPNode1 = ComboDPNode1.SelectedItem.ToString();             
@@ -1664,7 +1665,7 @@ namespace GcproExtensionApp
             }
             ///<DescRule>生成描述规则</DescRule>
             string desc = FBAL.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1722,9 +1723,9 @@ namespace GcproExtensionApp
                     objFBAL.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 }
 
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1764,9 +1765,10 @@ namespace GcproExtensionApp
                  );
                 // objFBAL.Description = description.Name;
                 objFBAL.IoByteNo = ioByte + i * ioByteInc;
-                objFBAL.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objFBAL.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objFBAL.CreateObject(objTextFileHandle, Encoding.Unicode, objFBAL.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         public void CreateObjectBML(DataGridView dataFromBML, FBAL objFBAL,
@@ -1784,7 +1786,8 @@ namespace GcproExtensionApp
             int ioByteInc = AppGlobal.MEAG_EXT_LONG;
             int ioByte = AppGlobal.ParseValue<int>(txtParIOByte.Text, out tempInt) ? tempInt : 0;
             bool moreThanOne = quantityNeedToBeCreate > 1;
-            string desc = string.Empty;
+            string desc;
+            string ioRemark;
             bool onlyOne = quantityNeedToBeCreate == 1;
             int nextIOByte = ioByte;
             #endregion common used variables declaration
@@ -1796,7 +1799,7 @@ namespace GcproExtensionApp
             for (int i = 0; i < quantityNeedToBeCreate; i++)
             {
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                     continue;
                 ///<Name>   </Name>
                 objFBAL.Name = Convert.ToString(cell.Value);
@@ -1856,19 +1859,20 @@ namespace GcproExtensionApp
                 objFBAL.DPNode1 = AppGlobal.FieldbusNodeInfo.DPNodeNo;
                 objFBAL.FieldBusNode = AppGlobal.FieldbusNodeInfo.FieldBusNodeKey;
                 ///<SenderBin>Connect Sender bin </SenderBin>
-                string ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
+                ioRemark = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnIORemark)].Value);
                 if (!string.IsNullOrEmpty(ioRemark))
                 {
                     string senderBin = BML.ScaleAdapter.ParseIORemark(ioRemark, dataTable);
                     objFBAL.RefSenderBin = senderBin;                
                     chkParBlend.Checked = (!string.IsNullOrEmpty(senderBin));
                                                        
-                }                       
+                }
                 ///<CreateObject>   </CreateObject>
-                objFBAL.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objFBAL.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             FBAL.Rule.Common = objDefaultInfo;
+            objFBAL.CreateObject(objTextFileHandle, Encoding.Unicode, objFBAL.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

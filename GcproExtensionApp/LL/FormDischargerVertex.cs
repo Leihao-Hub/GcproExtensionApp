@@ -151,23 +151,23 @@ namespace GcproExtensionApp
                 withCabinet: chkAddCabinetToDesc.Checked,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.Description))
+            if (string.IsNullOrEmpty(DischargerVertex.Rule.Common.Description))
             { 
                 DischargerVertex.Rule.Common.Description = objDefaultInfo.Description; 
             }
-            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.Name))
+            if (string.IsNullOrEmpty(DischargerVertex.Rule.Common.Name))
             { 
                 DischargerVertex.Rule.Common.Name = objDefaultInfo.Name;
             }
-            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(DischargerVertex.Rule.Common.DescLine))
             { 
                 DischargerVertex.Rule.Common.DescLine = objDefaultInfo.DescLine; 
             }
-            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(DischargerVertex.Rule.Common.DescFloor))
             { 
                 DischargerVertex.Rule.Common.DescFloor = objDefaultInfo.DescFloor; 
             }
-            if (String.IsNullOrEmpty(DischargerVertex.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(DischargerVertex.Rule.Common.DescObject))
             {
                 DischargerVertex.Rule.Common.DescObject = objDefaultInfo.DescObject;
             }         
@@ -300,6 +300,7 @@ namespace GcproExtensionApp
         private void FormDischargerVertex_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Dispose();
+            GC.Collect();
         }
 
         #region <---Rule and autosearch part--->
@@ -996,7 +997,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myDischargerVertex.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -1210,7 +1211,7 @@ namespace GcproExtensionApp
                 processValue.Value = i;
                 DataGridViewCell cell;
                 cell = dataFromBML.Rows[i].Cells[nameof(BML.ColumnName)];
-                if (cell.Value == null || cell.Value == DBNull.Value || String.IsNullOrEmpty(cell.Value.ToString()))
+                if (cell.Value == null || cell.Value == DBNull.Value || string.IsNullOrEmpty(cell.Value.ToString()))
                 { continue; }
 
                 cabinet = Convert.ToString(dataFromBML.Rows[i].Cells[nameof(BML.ColumnCabinet)].Value);
@@ -1257,9 +1258,10 @@ namespace GcproExtensionApp
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
                  );
-                objDischargerVertex.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDischargerVertex.CreateObjectRecordAndRelation(objBuilder);
             }
             DischargerVertex.Rule.Common = objDefaultInfo;
+            objDischargerVertex.CreateObject(objTextFileHandle, Encoding.Unicode);
             processValue.Value = processValue.Max;
         }
     
@@ -1409,7 +1411,7 @@ namespace GcproExtensionApp
            
             ///<DescRule>生成描述规则</DescRule>
             string desc = DischargerVertex.Rule.Common.DescObject;
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(desc, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1456,9 +1458,9 @@ namespace GcproExtensionApp
             {
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
-                if (!String.IsNullOrEmpty(desc))
+                if (!string.IsNullOrEmpty(desc))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1475,9 +1477,9 @@ namespace GcproExtensionApp
                 {
                     description.Name = "--";
                 }
-                if (!String.IsNullOrEmpty(bin.Name))
+                if (!string.IsNullOrEmpty(bin.Name))
                 {
-                    if (!String.IsNullOrEmpty(txtBinIncRule.Text) && !String.IsNullOrEmpty(txtBinRule.Text)
+                    if (!string.IsNullOrEmpty(txtBinIncRule.Text) && !string.IsNullOrEmpty(txtBinRule.Text)
                         && AppGlobal.CheckNumericString(txtBinIncRule.Text) && AppGlobal.CheckNumericString(txtBinIncRule.Text)
                         && (bin.PosInfo.Len != -1))
                     {
@@ -1508,13 +1510,12 @@ namespace GcproExtensionApp
                     withCabinet: addtionToDesc.Cabinet,
                     withPower: addtionToDesc.Power,
                     nameOnlyWithNumber: addtionToDesc.OnlyNumber
-                 );
-             
-              
-                objDischargerVertex.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                 );           
+                objDischargerVertex.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
             DischargerVertex.Rule.Common = objDefaultInfo;
+            objDischargerVertex.CreateObject(objTextFileHandle, Encoding.Unicode);
             processValue.Value = processValue.Max;
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

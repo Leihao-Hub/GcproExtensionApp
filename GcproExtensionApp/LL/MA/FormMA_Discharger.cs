@@ -147,19 +147,19 @@ namespace GcproExtensionApp
                 withCabinet: false,
                 withPower: false,
                 nameOnlyWithNumber: chkNameOnlyNumber.Checked);
-            if (String.IsNullOrEmpty(Discharger.Rule.Common.Description))
+            if (string.IsNullOrEmpty(Discharger.Rule.Common.Description))
             { Discharger.Rule.Common.Description = objDefaultInfo.Description; }
 
-            if (String.IsNullOrEmpty(Discharger.Rule.Common.Name))
+            if (string.IsNullOrEmpty(Discharger.Rule.Common.Name))
             { Discharger.Rule.Common.Name = objDefaultInfo.Name; }
 
-            if (String.IsNullOrEmpty(Discharger.Rule.Common.DescLine))
+            if (string.IsNullOrEmpty(Discharger.Rule.Common.DescLine))
             { Discharger.Rule.Common.DescLine = objDefaultInfo.DescLine; }
 
-            if (String.IsNullOrEmpty(Discharger.Rule.Common.DescFloor))
+            if (string.IsNullOrEmpty(Discharger.Rule.Common.DescFloor))
             { Discharger.Rule.Common.DescFloor = objDefaultInfo.DescFloor; }
 
-            if (String.IsNullOrEmpty(Discharger.Rule.Common.DescObject))
+            if (string.IsNullOrEmpty(Discharger.Rule.Common.DescObject))
             { Discharger.Rule.Common.DescObject = objDefaultInfo.DescObject; }
 
             //  myDischarger.DecodingDesc(ref Discharger.Rule.Common, AppGlobal.DESC_SEPARATOR);
@@ -258,8 +258,9 @@ namespace GcproExtensionApp
             Default();
         }
         private void FormMA_Discharger_FormClosed(object sender, FormClosedEventArgs e)
-        {
+        {     
             this.Dispose();
+            GC.Collect();
         }
         #region <---Rule and autosearch part--->
 
@@ -369,7 +370,7 @@ namespace GcproExtensionApp
         }
         private void txtDescriptionRule_TextChanged(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (string.IsNullOrEmpty(txtDescriptionRule.Text))
             { return; }
             if (AppGlobal.CheckNumericString(txtDescriptionRule.Text))
             {
@@ -746,7 +747,7 @@ namespace GcproExtensionApp
             try
             {
                 string selectedItem = ComboEquipmentSubType.SelectedItem.ToString();
-                if (!String.IsNullOrEmpty(selectedItem))
+                if (!string.IsNullOrEmpty(selectedItem))
                 {
                     myDischarger.SubType = selectedItem.Substring(0, selectedItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
                 }
@@ -828,7 +829,7 @@ namespace GcproExtensionApp
         {
 
             excelFileHandle.WorkSheet = comboWorkSheetsBML.SelectedItem.ToString();
-            if (!String.IsNullOrEmpty(excelFileHandle.WorkSheet))
+            if (!string.IsNullOrEmpty(excelFileHandle.WorkSheet))
             {
                 btnReadBML.Enabled = true;
             }
@@ -1073,8 +1074,8 @@ namespace GcproExtensionApp
                 try
                 {
                     bool all = !chkOnlyFree.Checked;
-                    string objName = String.Empty;
-                    string objSubType = String.Empty;
+                    string objName = string.Empty;
+                    string objSubType = string.Empty;
                     OleDb oledb = new OleDb(AppGlobal.GcproDBInfo.ProjectDBPath, isNewOledbDriver);
                     DataTable dataTable ;
                     dataTable = oledb.QueryDataTable(GcproTable.ObjData.TableName, $"{GcproTable.ObjData.OType.Name}={Discharger.OTypeValue}", null,
@@ -1150,7 +1151,7 @@ namespace GcproExtensionApp
             {
 
                 objDischarger.Name = Convert.ToString(listName[i].Key.ToString());
-                if (String.IsNullOrEmpty(objDischarger.Name))
+                if (string.IsNullOrEmpty(objDischarger.Name))
                 {
                     continue;
                 }
@@ -1209,7 +1210,7 @@ namespace GcproExtensionApp
             
         }
         */
-        private void CreatObjectRule((bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
+        private void CreatObjectRule(Discharger objDischarger , (bool section, bool userDefSection, bool elevation, bool identNumber, bool cabinet, bool power, bool onlyNumber) addtionToDesc,
             ref (int Value, int Max) processValue)
         {
             StringBuilder objBuilder = new StringBuilder();
@@ -1332,11 +1333,11 @@ namespace GcproExtensionApp
             if (ComboEquipmentSubType.SelectedItem != null)
             {
                 selectedSubTypeItem = ComboEquipmentSubType.SelectedItem.ToString();
-                myDischarger.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objDischarger.SubType = selectedSubTypeItem.Substring(0, selectedSubTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             else
             {
-                myDischarger.SubType = Discharger.FB56;
+                objDischarger.SubType = Discharger.FB56;
             }
             ///<PType></PType>
             string selectedPTypeItem;
@@ -1344,58 +1345,58 @@ namespace GcproExtensionApp
             {
                 selectedPTypeItem = ComboEquipmentInfoType.SelectedItem.ToString();
                 AppGlobal.ParseValue<float>( selectedPTypeItem.Substring(0, selectedPTypeItem.IndexOf(AppGlobal.FIELDS_SEPARATOR)), out tempFloat);
-                myDischarger.PType = tempFloat;
+                objDischarger.PType = tempFloat;
             }
             else
             {
-                myDischarger.PType = Discharger.P2056;
+                objDischarger.PType = Discharger.P2056;
             }
 
             ///<Value10>Value is set when corresponding check box's check state changed</Value10>
-            myDischarger.Value10= value10;
+            objDischarger.Value10= value10;
             ///<Name>Value is set in TxtSymbol text changed event</Name>
             ///<Description></Description>
-            myDischarger.Description = txtDescription.Text;
+            objDischarger.Description = txtDescription.Text;
             ///<ProcessFct></ProcessFct>
             string selectedProcessFct;
             if (ComboProcessFct.SelectedItem != null)
             {
                 selectedProcessFct = Convert.ToString(ComboProcessFct.SelectedItem);
-                myDischarger.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
+                objDischarger.ProcessFct = selectedProcessFct.Substring(0, selectedProcessFct.IndexOf(AppGlobal.FIELDS_SEPARATOR));
             }
             ///<Diagram></Diagram>
             string selectedDiagram;
             if (ComboDiagram.SelectedItem != null)
             {
                 selectedDiagram = ComboDiagram.SelectedItem.ToString();
-                myDischarger.Diagram = (int)Discharger.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
+                objDischarger.Diagram = (int)Discharger.ParseInfoValue(selectedDiagram, AppGlobal.FIELDS_SEPARATOR, AppGlobal.NO_DIAGRAM);
             }
             ///<Page></Page>
-            myDischarger.Page = txtPage.Text;
+            objDischarger.Page = txtPage.Text;
             ///<Building></Building>
             string selectedBudling ;
             if (ComboBuilding.SelectedItem != null)
             {
                 selectedBudling = ComboBuilding.SelectedItem.ToString();
-                myDischarger.Building = selectedBudling;
+                objDischarger.Building = selectedBudling;
             }
             ///<Elevation></Elevation>
             string selectedElevation;
             if (ComboElevation.SelectedItem != null)
             {
                 selectedElevation = ComboElevation.SelectedItem.ToString();
-                myDischarger.Elevation = selectedElevation;
+                objDischarger.Elevation = selectedElevation;
             }
             ///<Panel_ID></Panel_ID>
             string selectedPanel_ID;
             if (ComboPanel.SelectedItem != null)
             {
                 selectedPanel_ID = ComboPanel.SelectedItem.ToString();
-                myDischarger.Panel_ID = selectedPanel_ID;
+                objDischarger.Panel_ID = selectedPanel_ID;
             }
             ///<IsNew>is set when object generated,Default value is "No"</IsNew>
             ///<FieldBusNode></FieldBusNode>
-            myDischarger.FieldBusNode = AppGlobal.NO_DP_NODE;
+            objDischarger.FieldBusNode = AppGlobal.NO_DP_NODE;
             #endregion
             #region Parse rules
             ///<ParseRule> </ParseRule>
@@ -1512,7 +1513,7 @@ namespace GcproExtensionApp
             }
 
             ///<DescRule>生成描述规则</DescRule>
-            if (!String.IsNullOrEmpty(txtDescriptionRule.Text))
+            if (!string.IsNullOrEmpty(txtDescriptionRule.Text))
             {
                 description.PosInfo = LibGlobalSource.StringHelper.RuleSubPos(txtDescription.Text, txtDescriptionRule.Text);
                 if (description.PosInfo.Len == -1)
@@ -1548,9 +1549,9 @@ namespace GcproExtensionApp
                 name.Inc = i * symbolInc;
                 name.Name = LibGlobalSource.StringHelper.GenerateObjectName(name.Sub, name.PosInfo, (symbolRule + name.Inc).ToString().PadLeft(name.PosInfo.Len, '0'));
 
-                if (!String.IsNullOrEmpty(txtDescription.Text))
+                if (!string.IsNullOrEmpty(txtDescription.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtDescriptionIncRule.Text) && !String.IsNullOrEmpty(txtDescriptionRule.Text)
+                    if (!string.IsNullOrEmpty(txtDescriptionIncRule.Text) && !string.IsNullOrEmpty(txtDescriptionRule.Text)
                         && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text) && AppGlobal.CheckNumericString(txtDescriptionIncRule.Text)
                         && (description.PosInfo.Len != -1))
                     {
@@ -1568,9 +1569,9 @@ namespace GcproExtensionApp
                     description.Name = "--";
                 }
 
-                if (!String.IsNullOrEmpty(txtDischarger.Text))
+                if (!string.IsNullOrEmpty(txtDischarger.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtDischargerIncRule.Text) && !String.IsNullOrEmpty(txtDischargerRule.Text)
+                    if (!string.IsNullOrEmpty(txtDischargerIncRule.Text) && !string.IsNullOrEmpty(txtDischargerRule.Text)
                         && AppGlobal.CheckNumericString(txtDischargerIncRule.Text) && AppGlobal.CheckNumericString(txtDischargerIncRule.Text)
                         && (discharger.PosInfo.Len != -1))
                     {
@@ -1588,9 +1589,9 @@ namespace GcproExtensionApp
                     discharger.Name = string.Empty;
                 }
 
-                if (!String.IsNullOrEmpty(txtVibro.Text))
+                if (!string.IsNullOrEmpty(txtVibro.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtVibroIncRule.Text) && !String.IsNullOrEmpty(txtVibroRule.Text)
+                    if (!string.IsNullOrEmpty(txtVibroIncRule.Text) && !string.IsNullOrEmpty(txtVibroRule.Text)
                         && AppGlobal.CheckNumericString(txtVibroIncRule.Text) && AppGlobal.CheckNumericString(txtVibroIncRule.Text)
                         && (vibro.PosInfo.Len != -1))
                     {
@@ -1607,9 +1608,9 @@ namespace GcproExtensionApp
                 {
                     vibro.Name = string.Empty;
                 }
-                if (!String.IsNullOrEmpty(txtLLBin.Text))
+                if (!string.IsNullOrEmpty(txtLLBin.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtLLBinIncRule.Text) && !String.IsNullOrEmpty(txtLLBinRule.Text)
+                    if (!string.IsNullOrEmpty(txtLLBinIncRule.Text) && !string.IsNullOrEmpty(txtLLBinRule.Text)
                         && AppGlobal.CheckNumericString(txtLLBinIncRule.Text) && AppGlobal.CheckNumericString(txtLLBinIncRule.Text)
                         && (llBin.PosInfo.Len != -1))
                     {
@@ -1626,9 +1627,9 @@ namespace GcproExtensionApp
                 {
                     llBin.Name = string.Empty;
                 }
-                if (!String.IsNullOrEmpty(txtLSFlow.Text))
+                if (!string.IsNullOrEmpty(txtLSFlow.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtLSFlowIncRule.Text) && !String.IsNullOrEmpty(txtLSFlowRule.Text)
+                    if (!string.IsNullOrEmpty(txtLSFlowIncRule.Text) && !string.IsNullOrEmpty(txtLSFlowRule.Text)
                         && AppGlobal.CheckNumericString(txtLSFlowIncRule.Text) && AppGlobal.CheckNumericString(txtLSFlowIncRule.Text)
                         && (lsFlow.PosInfo.Len != -1))
                     {
@@ -1647,9 +1648,9 @@ namespace GcproExtensionApp
                 }
 
               
-                if (!String.IsNullOrEmpty(txtReceiver.Text))
+                if (!string.IsNullOrEmpty(txtReceiver.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtReceiverIncRule.Text) && !String.IsNullOrEmpty(txtReceiverRule.Text)
+                    if (!string.IsNullOrEmpty(txtReceiverIncRule.Text) && !string.IsNullOrEmpty(txtReceiverRule.Text)
                         && AppGlobal.CheckNumericString(txtReceiverIncRule.Text) && AppGlobal.CheckNumericString(txtReceiverIncRule.Text)
                         && (receiver.PosInfo.Len != -1))
                     {
@@ -1667,9 +1668,9 @@ namespace GcproExtensionApp
                     receiver.Name = string.Empty;
                 }
 
-                if (!String.IsNullOrEmpty(txtSenderBin.Text))
+                if (!string.IsNullOrEmpty(txtSenderBin.Text))
                 {
-                    if (!String.IsNullOrEmpty(txtSenderBinIncRule.Text) && !String.IsNullOrEmpty(txtSenderBinRule.Text)
+                    if (!string.IsNullOrEmpty(txtSenderBinIncRule.Text) && !string.IsNullOrEmpty(txtSenderBinRule.Text)
                         && AppGlobal.CheckNumericString(txtSenderBinIncRule.Text) && AppGlobal.CheckNumericString(txtSenderBinIncRule.Text)
                         && (senderBin.PosInfo.Len != -1))
                     {
@@ -1687,27 +1688,28 @@ namespace GcproExtensionApp
                     senderBin.Name = string.Empty;
                 }
 
-                myDischarger.Name = name.Name;
-                myDischarger.DischargerChild = discharger.Name;
-                myDischarger.Vibro= vibro.Name;
-                myDischarger.LLBin = llBin.Name;
-                myDischarger.LSFlow = lsFlow.Name;
-                myDischarger.RefReceiver = receiver.Name;
-                myDischarger.RefSenderBin = senderBin.Name;
+                objDischarger.Name = name.Name;
+                objDischarger.DischargerChild = discharger.Name;
+                objDischarger.Vibro= vibro.Name;
+                objDischarger.LLBin = llBin.Name;
+                objDischarger.LSFlow = lsFlow.Name;
+                objDischarger.RefReceiver = receiver.Name;
+                objDischarger.RefSenderBin = senderBin.Name;
                 AppGlobal.ParseValue<float>(txtValue10.Text, out tempFloat);
-                myDischarger.Value10 = tempFloat;
+                objDischarger.Value10 = tempFloat;
                 tempBool = AppGlobal.ParseValue<int>(txtParVibroOnTime.Text, out int vibroOnTime);
-                myDischarger.ParVibroOnTime = tempBool ? Math.Round(Convert.ToDouble(vibroOnTime),1 ): 10.0;
+                objDischarger.ParVibroOnTime = tempBool ? Math.Round(Convert.ToDouble(vibroOnTime),1 ): 10.0;
                 tempBool = AppGlobal.ParseValue<int>(txtParVibroOffTime.Text, out int vibroOffTime);
-                myDischarger.ParVibroOffTime = tempBool ? Math.Round(Convert.ToDouble(vibroOffTime), 1) : 30.0;
+                objDischarger.ParVibroOffTime = tempBool ? Math.Round(Convert.ToDouble(vibroOffTime), 1) : 30.0;
                 tempBool = AppGlobal.ParseValue<int>(txtParRestDischargeTime.Text, out int restDischargeTime);
-                myDischarger.ParRestDischargeTime = tempBool ? Math.Round(Convert.ToDouble(restDischargeTime), 1) : 0.0;
+                objDischarger.ParRestDischargeTime = tempBool ? Math.Round(Convert.ToDouble(restDischargeTime), 1) : 0.0;
                 descTotalBuilder.Clear();
                 descTotalBuilder.Append(description.Name);         
-                myDischarger.Description = descTotalBuilder.ToString();
-                myDischarger.CreateObject(objTextFileHandle, objBuilder, Encoding.Unicode);
+                objDischarger.Description = descTotalBuilder.ToString();
+                objDischarger.CreateObjectRecordAndRelation(objBuilder);
                 processValue.Value = i;
             }
+            objDischarger.CreateObject(objTextFileHandle, Encoding.Unicode, objDischarger.FileRelationPath);
             processValue.Value = processValue.Max;
         }
         /*
@@ -1781,30 +1783,30 @@ namespace GcproExtensionApp
                      break;
                  }
              }
-             myDischarger.Name = objList[i];
+             objDischarger.Name = objList[i];
              switch (noOfSubElements)
              {                              
                  case 4:
                      if (isVfc)
                      {
-                         myDischarger.SubType = Discharger.ALL;
+                         objDischarger.SubType = Discharger.ALL;
                      }
                      break;          
                  case 6:
-                     myDischarger.SubType = Discharger.MJZG;              
+                     objDischarger.SubType = Discharger.MJZG;              
                      break;
                  default:
-                     myDischarger.SubType = Discharger.ALL;
+                     objDischarger.SubType = Discharger.ALL;
                      goto case 4;
 
              }
 
-             SetElementsName(myDischarger.SubType, myDischarger.Name);
+             SetElementsName(objDischarger.SubType, objDischarger.Name);
              SetValue10AndElements();
 
-             myDischarger.Description = txtDescription.Text;
-             myDischarger.Value10 = txtValue10.Text;
-             myDischarger.CreateObject(Encoding.Unicode);
+             objDischarger.Description = txtDescription.Text;
+             objDischarger.Value10 = txtValue10.Text;
+             objDischarger.CreateObject(Encoding.Unicode);
              ProgressBar.Value = i;
          }
          ProgressBar.Value = quantityNeedToBeCreate;
@@ -1834,7 +1836,7 @@ namespace GcproExtensionApp
                 else if (createMode.Rule)
                 {
                     AppGlobal.ProcessValue.Max = AppGlobal.ParseValue<int>(TxtQuantity.Text, out tempInt) ? tempInt : 0;
-                    CreatObjectRule(AppGlobal.AdditionDesc, ref AppGlobal.ProcessValue);
+                    CreatObjectRule(myDischarger,AppGlobal.AdditionDesc, ref AppGlobal.ProcessValue);
                 }
                 ProgressBar.Maximum = AppGlobal.ProcessValue.Max;
                 ProgressBar.Value = AppGlobal.ProcessValue.Value;
@@ -1846,8 +1848,6 @@ namespace GcproExtensionApp
         }
 
 
-        #endregion
-
-      
+        #endregion     
     }
 }

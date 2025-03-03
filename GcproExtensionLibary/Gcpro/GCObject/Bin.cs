@@ -226,6 +226,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             value24 = 4;
             value30 = 0;
             value31 = 4;
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             SetOTypeProperty(OTypeCollection.Bin);
             string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{binFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
@@ -245,17 +248,15 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             this.fileConnectorPath = defaultPath ?
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
-        /// 创建GCPRO对象与与对象关系文件
+        /// <summary>
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
@@ -285,22 +286,18 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(noChild).Append(tab)
                   .Append(noChild).Append(tab)
                   .Append(noChild);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                objectRecord.Add(sb.ToString());
                 sb.Clear();
             }
 
-            var relations = new List<Relation>
-            {
-                new Relation(name,highLevel, GcproTable.ObjData.Value2.Name),
-                new Relation(name,middleLevel, GcproTable.ObjData.Value4.Name),
-                new Relation(name,lowLevel, GcproTable.ObjData.Value3.Name),
-                new Relation(name,analogLevel, GcproTable.ObjData.Value14.Name),
-            };
-            textFileHandle.FilePath = this.fileRelationPath;
-            sb.Clear();
-            CreateRelations(textFileHandle, sb, relations, encoding);  
-        }
+            CreateRelation(sb, name, highLevel, GcproTable.ObjData.Value2.Name);
+            CreateRelation(sb, name, middleLevel, GcproTable.ObjData.Value4.Name);
+            CreateRelation(sb, name, lowLevel, GcproTable.ObjData.Value3.Name);
+            CreateRelation(sb, name, analogLevel, GcproTable.ObjData.Value14.Name);
 
+            sb.Clear();
+        }
+    
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle

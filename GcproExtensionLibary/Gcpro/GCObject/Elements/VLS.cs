@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class VLS : Element, IGcpro
+    public class VLS : Element
     {
         public struct VLSRule
         {
@@ -307,6 +307,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             refSndBin = LibGlobalSource.NOCHILD;
             refAsp = LibGlobalSource.NOCHILD;
             SetOTypeProperty(OTypeCollection.EL_VLS);
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{vlsFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
             this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
@@ -326,22 +329,19 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="textFileHandle">TextFileHandle类实例</param>
-        /// <param name="sbObjFields">StringBuilder类实例</param>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
-                ///Append(tab
+                ///生产Standard字符串部分
                 ///</summary> 
                 string objBase = base.CreateObjectStandardPart(sb);
                 sb.Clear();
@@ -349,7 +349,7 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
-                ///</summary>     
+                ///</summary>
                 sb.Append(dpNode2).Append(tab)
                   .Append(value9).Append(tab)
                   .Append(noChild).Append(tab)
@@ -369,60 +369,52 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                   .Append(tab).Append(tab)
                   .Append(tab).Append(tab)
                   .Append(tab);
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                objectRecord.Add(sb.ToString());
                 sb.Clear();
             }
-            var relations = new List<Relation>();
-            Relation inpLNRel = new Relation (name, inpLN, GcproTable.ObjData.Value11.Name);
-            Relation outpLNRel = new Relation(name, outpLN, GcproTable.ObjData.Value12.Name);
-            Relation inpHNRel = new Relation(name, inpHN, GcproTable.ObjData.Value13.Name);
-            Relation outpHNRel = new Relation(name, outpHN, GcproTable.ObjData.Value14.Name);
-          
+
             if (subType == VPO || subType == VPOM || subType == VPOR)
-            {            
-                relations.Add(inpLNRel);
-                relations.Add(outpLNRel);
-                relations.Add(inpHNRel);
-                relations.Add(outpHNRel);
+            {
+                CreateRelation(sb, name, inpLN, GcproTable.ObjData.Value11.Name);
+                CreateRelation(sb, name, outpLN, GcproTable.ObjData.Value12.Name);
+                CreateRelation(sb, name, inpHN, GcproTable.ObjData.Value13.Name);
+                CreateRelation(sb, name, outpHN, GcproTable.ObjData.Value14.Name);
                 if (subType == VPOM)
                 {
-                    relations.Add(new Relation(name, inpHN, GcproTable.ObjData.Value15.Name));
-                    relations.Add(new Relation(name, outpHN, GcproTable.ObjData.Value16.Name));
+                    CreateRelation(sb, name, inpHN, GcproTable.ObjData.Value15.Name);
+                    CreateRelation(sb, name, outpHN, GcproTable.ObjData.Value16.Name);
                 }
             }
             else if (subType == VCO)
             {
-
-                relations.Add(inpLNRel);
-                relations.Add(inpHNRel);
-                relations.Add(outpHNRel);
+                CreateRelation(sb, name, inpLN, GcproTable.ObjData.Value11.Name);
+                CreateRelation(sb, name, inpHN, GcproTable.ObjData.Value13.Name);
+                CreateRelation(sb, name, outpHN, GcproTable.ObjData.Value14.Name);   
             }
             else if (subType == VMF)
             {
-                relations.Add(inpLNRel);
-                relations.Add(inpHNRel);
+                CreateRelation(sb, name, inpLN, GcproTable.ObjData.Value11.Name);
+                CreateRelation(sb, name, inpHN, GcproTable.ObjData.Value13.Name);
             }
             if (!string.IsNullOrEmpty(refRcvLN))
             {
-                relations.Add( new Relation (name, refRcvLN, GcproTable.ObjData.Value30.Name));
+                CreateRelation(sb, name, refRcvLN, GcproTable.ObjData.Value30.Name);
             }
             if (!string.IsNullOrEmpty(refRcvHN))
             {
-                relations.Add(new Relation(name, refRcvHN, GcproTable.ObjData.Value31.Name));
+                CreateRelation(sb, name, refRcvHN, GcproTable.ObjData.Value31.Name);
             }
             if (!string.IsNullOrEmpty(refSndBin))
             {
-                relations.Add(new Relation(name, refSndBin, GcproTable.ObjData.Value32.Name));
+                CreateRelation(sb, name, refSndBin, GcproTable.ObjData.Value32.Name);
             }
             if (!string.IsNullOrEmpty(refAsp))
             {
-                relations.Add(new Relation(name, refAsp, GcproTable.ObjData.Value34.Name));
-        
+                CreateRelation(sb, name, refAsp, GcproTable.ObjData.Value34.Name);
             }
-            textFileHandle.FilePath = this.fileRelationPath;
+
             sb.Clear();
-            CreateRelations(textFileHandle, sb, relations, encoding);
-        }
+        }    
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle

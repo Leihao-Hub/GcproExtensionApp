@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class FBAL : Element, IGcpro
+    public class FBAL : Element
     {
         public struct FBALRule
         {
@@ -218,6 +218,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             hornCode = 0;
             Rule.Common.DescriptionRuleInc = Rule.Common.NameRuleInc = "1";
             SetOTypeProperty(OTypeCollection.EL_MDDx);
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{fbalFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
             this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
@@ -234,46 +237,45 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 $"{commonDefaultFilePath}_Relation.Txt" : $"{commonUserFilePath}_Relation.Txt";     
         }
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb,Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
-
-            textFileHandle.FilePath = this.filePath;
-            isNew = "False";
-            string tab = LibGlobalSource.TAB;
-            string noChild = LibGlobalSource.NOCHILD;
-            ///<summary>
-            ///生产Standard字符串部分-使用父类中方法实现
-            ///</summary> 
-            string objBase = base.CreateObjectStandardPart(sb);
-            sb.Clear();
-            sb.Append(OTypeValue).Append(tab)
-              .Append(objBase).Append(tab);
-            ///<summary>
-            ///生成Application字符串部分-子类中自身完成
-            ///</summary>  
-            sb.Append(ioByteNo).Append(tab)
-             .Append(ioByteNoExt).Append(tab)
-             .Append(parLoopNo).Append(tab)
-             .Append(parLCAddr).Append(tab)
-             .Append(value9).Append(tab)
-             .Append(value30).Append(tab)
-             .Append(value31).Append(tab)
-             .Append(parMonTime * 10 ).Append(tab)
-             .Append(noChild);
-            textFileHandle.WriteToTextFile(sb.ToString(), encoding);
-            var relations = new List<Relation>();       
-            if (refSenderBin != null)
+            if (!onlyRelation)
             {
-                relations.Add(new Relation(name, refSenderBin, GcproTable.ObjData.Value42.Name));
+                isNew = "False";
+                string tab = LibGlobalSource.TAB;
+                string noChild = LibGlobalSource.NOCHILD;
+                ///<summary>
+                ///生产Standard字符串部分
+                ///</summary> 
+                string objBase = base.CreateObjectStandardPart(sb);
+                sb.Clear();
+                sb.Append(OTypeValue).Append(tab)
+                  .Append(objBase).Append(tab);
+                ///<summary>
+                ///生成Application 字符串部分
+                ///</summary>
+                sb.Append(ioByteNo).Append(tab)
+                 .Append(ioByteNoExt).Append(tab)
+                 .Append(parLoopNo).Append(tab)
+                 .Append(parLCAddr).Append(tab)
+                 .Append(value9).Append(tab)
+                 .Append(value30).Append(tab)
+                 .Append(value31).Append(tab)
+                 .Append(parMonTime * 10).Append(tab)
+                 .Append(noChild);
+                objectRecord.Add(sb.ToString());
+                sb.Clear();
             }
-            textFileHandle.FilePath = this.fileRelationPath;
+
+            CreateRelation(sb,  name, refSenderBin, GcproTable.ObjData.Value42.Name);
+
             sb.Clear();
-            CreateRelations(textFileHandle, sb,relations, encoding);
         }
+      
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle

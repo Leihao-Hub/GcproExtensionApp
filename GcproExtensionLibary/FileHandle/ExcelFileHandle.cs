@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 namespace GcproExtensionLibrary.FileHandle
 {
-    public class ExcelFileHandle
+    public class ExcelFileHandle: BaseFileHandle
     {
 
         public static string FileFilter = @"Excel File   (*.xlsx)|*.xlsx|Excel File   (*.xls)|CSV File   (*.CSV)|*.CSV|*.xls|All Files (*.*)|*.*";
@@ -34,7 +34,7 @@ namespace GcproExtensionLibrary.FileHandle
         }
         public static string BrowseFile()
         {
-            return BaseFileHandle.Browse(FileFilter, 1, false, true, "请选择一个" + fileType);
+            return Browse(FileFilter, 1, false, true, "请选择一个" + fileType);
         }
 
         public List<string> GetWorkSheets(string filePath = null)
@@ -278,28 +278,6 @@ namespace GcproExtensionLibrary.FileHandle
         }
 
         #region SubFunctions for ReadAsDataTable
-        //private bool FilterExpression(object cellValue, string filter)
-        //{
-        //    string cellText = cellValue?.ToString() ?? string.Empty;
-
-        //    // Parse filter into tokens and evaluate recursively
-        //    var tokens = Tokenize(filter);
-        //    var result = Evaluate(tokens, cellText);
-
-        //    return result;
-        //}
-        // 将逻辑表达式拆分为标记（token）
-        //private List<string> Tokenize(string filter)
-        //{
-        //    var tokens = new List<string>();
-        //    var tokenPattern = @"(\()|(\))|(\|\|)|(&&)|(!=)|(==)|(<)|(<=)|(>)|(>=)|(\w+)|(""[^""]*"")";
-        //    MatchCollection matches = Regex.Matches(filter, tokenPattern);
-        //    foreach (Match match in matches)
-        //    {
-        //        tokens.Add(match.Value);
-        //    }
-        //    return tokens;
-        //}
 
         private bool FilterExpressions(object[] cellValues, string[] filters)
         {
@@ -484,7 +462,7 @@ namespace GcproExtensionLibrary.FileHandle
         }
         public bool SaveFileAs()
         {
-            return BaseFileHandle.SaveFileAs(filePath, FileFilter, 1, LibGlobalSource.FILE_SAVE_AS);
+            return SaveFileAs(filePath, FileFilter, 1, LibGlobalSource.FILE_SAVE_AS);
         }
 
     }

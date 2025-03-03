@@ -1,11 +1,12 @@
 ﻿using GcproExtensionLibrary.FileHandle;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.Xml;
 using System.Text;
 
 namespace GcproExtensionLibrary.Gcpro.GCObject
 {
-    public class DO : Element, IGcpro
+    public class DO : Element
     {
         public struct DORule
         {
@@ -301,6 +302,9 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
             refSenderBin = string.Empty;
             refSafetyStop = string.Empty;
             SetOTypeProperty(OTypeCollection.EL_DO);
+            objectRecord = new List<string>();
+            objectRelation = new List<string>();
+            relation = new Relation();
             string commonDefaultFilePath = $"{LibGlobalSource.DEFAULT_GCPRO_WORK_TEMP_PATH}{doFileName}";
             this.filePath = $"{commonDefaultFilePath}.Txt";
             this.fileRelationPath = $"{commonDefaultFilePath}_Relation.Txt";
@@ -320,57 +324,53 @@ namespace GcproExtensionLibrary.Gcpro.GCObject
                 $"{commonDefaultFilePath}_FindConnector.Txt" : $"{commonUserFilePath}_FindConnector.Txt";
         }
         /// <summary>
-        /// 创建GCPRO对象与与对象关系文件
+        /// 创建对象文本与关系文件，暂存与内存中
         /// </summary>
-        /// <param name="encoding">文本文件的导入编码</param>
-        /// <param name="onlyRelation">=true时,仅创建关系文件；=false时,同时创建对象与对象关系导入文件</param>
-        public void CreateObject(TextFileHandle textFileHandle, StringBuilder sb, Encoding encoding, bool onlyRelation = false)
+        /// <param name="sb"></param>
+        /// <param name="onlyRelation"></param>
+        public void CreateObjectRecordAndRelation(StringBuilder sb, bool onlyRelation = false)
         {
             if (!onlyRelation)
             {
-                textFileHandle.FilePath = this.filePath;
                 isNew = "False";
                 string tab = LibGlobalSource.TAB;
                 string noChild = LibGlobalSource.NOCHILD;
                 ///<summary>
-                ///生产Standard字符串部分-使用父类中方法实现
+                ///生产Standard字符串部分
                 ///</summary> 
                 string objBase = base.CreateObjectStandardPart(sb);
                 sb.Clear();
                 sb.Append(OTypeValue).Append(tab)
-                  .Append(objBase).Append(tab);              
+                  .Append(objBase).Append(tab);
                 ///<summary>
                 ///生成Application 字符串部分
                 ///</summary>
                 sb.Append(dpNode2).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(parStartDelay).Append(tab)
-                  .Append(parStartingTime).Append(tab)
-                  .Append(parOnTime).Append(tab)
-                  .Append(parOffTime).Append(tab)
-                  .Append(parIdlingTime).Append(tab)
-                  .Append(noChild).Append(tab)
-                  .Append(noChild);        
-                textFileHandle.WriteToTextFile(sb.ToString(), encoding);
+                 .Append(noChild).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(parStartDelay).Append(tab)
+                 .Append(parStartingTime).Append(tab)
+                 .Append(parOnTime).Append(tab)
+                 .Append(parOffTime).Append(tab)
+                 .Append(parIdlingTime).Append(tab)
+                 .Append(noChild).Append(tab)
+                 .Append(noChild);
+                objectRecord.Add(sb.ToString());
                 sb.Clear();
             }
 
-            var relations = new List<Relation>
-            {
-                new Relation(name,inpRun, GcproTable.ObjData.Value11.Name),
-                new Relation(name,outpRun, GcproTable.ObjData.Value12.Name),
-            };
-            textFileHandle.FilePath = this.fileRelationPath;
+            CreateRelation(sb, name, inpRun, GcproTable.ObjData.Value11.Name);
+            CreateRelation(sb, name, outpRun, GcproTable.ObjData.Value12.Name);
+
             sb.Clear();
-            CreateRelations(textFileHandle, sb, relations, encoding);
         }
+   
         public void Clear()
         {
             TextFileHandle textFileHandle = new TextFileHandle
